@@ -1,0 +1,167 @@
+% $Id: faq-the-end.tex,v 1.3 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{You're still stuck?}
+
+\Question[Q-noans]{You don't understand the answer}
+
+While the \acro{FAQ} maintainers don't offer a `help' service, they're
+very keen that you understand the answers they've already written.
+They're (almost) written ``in a vacuum'', to provide something to
+cover a set of questions that have arisen; it's always possible that
+they're written in a way that a novice won't understand them.
+
+Which is where you can help the community.  Mail the 
+\begin{wideversion}
+  \href{mailto:faq-devel@tex.ac.uk}{maintainers}
+\end{wideversion}
+\begin{narrowversion}
+  maintainers (at \Email{faq-devel@tex.ac.uk})
+\end{narrowversion}
+to report the answer that you find unclear, and (if you can) suggest
+what we need to clarify.  Time permitting (the team is small and all
+its members are busy), we'll try and clarify the answer.  This way,
+with a bit of luck, we can together improve the value of this resource
+to the whole community.
+
+Note that the \acro{FAQ} development email address is not for
+answering questions: it's for you to suggest which questions we should
+work on, or new questions we should answer in future editions.
+
+Those who simply ask questions at that address will be referred to
+\mailto{texhax@tug.org} or to \Newsgroup{comp.text.tex}.
+
+\Question[Q-newans]{Submitting new material for the \acro{FAQ}}
+
+The \acro{FAQ} will never be complete, and we always expect that
+there will be people out there who know better than we do about
+something or other.  We always need to be put right about whatever
+we've got wrong, and suggestions for improvements, particularly
+covering areas we've missed, are always needed: mail anything you have
+to the
+\begin{wideversion}
+  \href{mailto:faq-devel@tex.ac.uk}{maintainers}
+\end{wideversion}
+\begin{narrowversion}
+  maintainers (at \Email{faq-devel@tex.ac.uk})
+\end{narrowversion}
+
+If you have actual material to submit, your contribution is more than
+ever welcome.  Submission in plain text is entirely acceptable, but
+if you're really willing, you may feel free to mark up your submission
+in the form needed for the \acro{FAQ} itself.  The markup is a
+strongly-constrained version of \LaTeX{}~--- the constraints come from
+the need to translate the marked-up text to \acro{HTML} on the fly
+(and hence pretty efficiently).  There is a file \File{markup-syntax}
+in the \acro{FAQ} distribution that describes the structure of the
+markup, but there's no real substitute for reading at least some of
+the source (\File{faqbody.tex}) of the \acro{FAQ} itself.  If you
+understand \ProgName{Perl}, you may also care to look at the
+translation code in \File{texfaq2file} and \File{sanitize.pl} in the
+distribution: this isn't the code actually used on the Web site, but
+it's a close relation and is kept
+up to date for development purposes.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\acro{FAQ} distribution]\CTANref{faq}
+\end{ctanrefs}
+
+\Question[Q-bug]{What to do if you find a bug}
+
+For a start, make entirely sure you \emph{have} found a bug.
+Double-check with books about \TeX{}, \LaTeX{}, or whatever you're using;
+compare what you're seeing against the other answers above; ask every
+possible person you know who has any \TeX{}-related expertise.
+The reasons for all this caution are various.
+
+If you've found a bug in \TeX{} itself, you're a rare animal indeed.
+Don Knuth is so sure of the quality of his code that he offers real
+money prizes to finders of bugs; the cheques he writes are
+such rare items that they are seldom cashed. If \emph{you}
+think you have found a genuine fault in \TeX{} itself (or \MF{}, or the
+\acro{CM} fonts, or the \TeX{}book), don't immediately write to Knuth,
+however. He only looks at bugs infrequently, and even then
+only after they are agreed as bugs by a small vetting team. In the
+first instance, contact Barbara Beeton at the \acro{AMS}
+(\Email{bnb@ams.org}), or contact
+\Qref*{\acro{TUG}}{Q-TUG*}.
+
+If you've found a bug in \LaTeXe{}, \Qref*{report it}{Q-latexbug}
+using mechanisms supplied by the \LaTeX{} team.  (Please be
+careful to ensure you've got a \LaTeX{} bug, or a bug in one of the
+``required''  packages distributed by the \LaTeX{} team.)
+
+If you've found a bug in a contributed \LaTeX{} package, the best
+starting place is usually to ask in the ``usual places for % ! line break
+\Qref*{help on-line}{Q-gethelp}, or just possibly one of the % ! line break
+\Qref*{specialised mailing lists}{Q-maillists*}.
+The author of the package may well answer on-line, but if no-one
+offers any help, you may stand a chance if you mail the author
+(presuming that you can find an address\dots{}).
+
+If you've found a bug in \LaTeXo{}, or some other such unsupported
+software, your only real hope is \Qref*{help on-line}{Q-gethelp}.
+
+Failing all else, you may need to pay for
+help~--- \acro{TUG} maintains a % ! line break
+\href{http://www.tug.org/consultants.html}{register of \TeX{} consultants}.
+(This of course requires that you have the resources~--- and a
+pressing  enough need~--- to hire someone.)
+
+
+\htmlignore
+\par
+\endhtmlignore
+\Question[Q-latexbug]{Reporting a \LaTeX{} bug}
+\htmlignore
+\par
+\endhtmlignore
+%
+% This here isn't a reference to a question...
+\label{lastquestion}
+
+The \LaTeX{} team supports \LaTeX{}, and will deal with
+% beware line wrap
+\emph{bona fide} bug reports.  Note that the \LaTeX{} team does
+\emph{not} deal with contributed packages~--- just the software that
+is part of the \LaTeX{} distribution itself: \LaTeX{} and the
+``required'' packages.
+Furthermore, you need to be slightly
+careful to produce a bug report that is usable by the team.  The steps
+are:
+
+\nothtml{\noindent}\textbf{1.} Are you still using current \LaTeX{}?  Maintenance is only
+available for sufficiently up-to-date versions of \LaTeX{}~--- if your
+\LaTeX{} is more than two versions out of date, the bug reporting
+mechanisms may reject your report.
+
+\nothtml{\noindent}\textbf{2.} Has your bug already been reported?  Browse the
+% beware line break
+\href{http://www.latex-project.org/cgi-bin/ltxbugs2html?introduction=yes}{\LaTeX{} bugs database},
+to find any earlier instance of your bug.  In many cases, the database
+will list a work-around.
+
+\nothtml{\noindent}\textbf{3.} Prepare a % ! line break
+\Qref*{``minimum'' file}{Q-minxampl} that exhibits the problem.
+Ideally, such a file should contain no contributed packages~--- the
+\LaTeX{} team as a whole takes no responsibility for such packages (if
+they're supported at all, they're supported by their authors).  The
+``minimum'' file should be self-sufficient: if a member of the team
+runs it in a clean directory, on a system with no contributed
+packages, it should replicate your problem.
+
+\nothtml{\noindent}\textbf{4.} Run your file through \LaTeX{}: the bug
+system needs the \extension{log} file that this process creates.
+
+\nothtml{\noindent}\textbf{5.} Connect to the % ! line break
+\href{http://www.latex-project.org/bugs-upload.html}{latex bugs processing web page}
+and enter details of your bug~--- category, summary and full
+description, and the two important files (source and log file).
+
+The personal details are \emph{not} optional: the members of the
+\LaTeX{} team may need to contact to discuss the bug with you, or to
+advise you of a work-around.  Your details will not appear in the
+public view of the database.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

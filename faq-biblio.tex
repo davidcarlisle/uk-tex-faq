@@ -1,0 +1,1468 @@
+% $Id: faq-biblio.tex,v 1.15 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{Bibliographies and citations}
+
+\subsection{Creating bibliographies}
+
+\Question[Q-buildbib]{Creating a \BibTeX{} bibliography file}
+
+A \BibTeX{} bibliography file may reasonably be compared to a small
+database, the entries in which are references to literature that may
+be called up by citations in a document.
+
+Each entry in the bibliography has a \emph{type} and a unique
+\emph{key}.  The bibliography is read, by \BibTeX{}, using the details
+specified in a \emph{bibliography style}.  From the style, \BibTeX{}
+finds what entry types are permissible, what \emph{fields} each entry
+type has, and how to format the whole entry.
+
+The type specifies the type of document you're making reference to; it
+may run all the way from things like ``\environment{Book}'' and
+``\environment{Proceedings}'' (which may even contain other citations
+of type ``\environment{InBook}'' or  ``\environment{InProceedings}'')
+through dissertation styles like  ``\environment{PhdThesis}'' to
+otherwise-uncategorisable things such as ``\environment{Misc}''.  The
+unique key is something you choose yourself: it's what you use when
+you want to \Qref*{cite an entry in the file}{Q-usebibtex}.  People
+commonly create a key that combines the (primary) author's name and
+the year of publication, possibly with a marker to distinguish
+publications in the same year.  So, for example, the Dyson, Eddington,
+Davidson paper about deflection of starlight appears in my
+experimental \extension{bib} file as \texttt{Dyson20.1}.
+
+So, noting the rules of the style, you have `simply' to write a
+bibliography database.  Fortunately, there are several tools to help
+in this endeavour:
+\begin{itemize}
+\item Most of the better \Qref*{\AllTeX{}-oriented editors}{Q-editors}
+  have ``\BibTeX{} modes''.
+\item If you have an existing \environment{thebibliography}
+  environment, the \ProgName{Perl} script \ProgName{tex2bib} will
+  probably help.
+\item There are a number of \BibTeX{} bibliography management systems
+  available, some of which permit a graphical user interface to the
+  task.  Sadly, none seems to be available with the ordinary \TeX{}
+  distributions.
+  
+  Tools such as \ProgName{Xbibfile} (a graphical user interface),
+  \ProgName{ebib} (a database application written to run `inside'
+  \ProgName{emacs}) and 
+  \ProgName{btOOL} (a set of \ProgName{perl} tools for building 
+  \BibTeX{} database handlers) are available from \acro{CTAN}.
+
+  Other systems, such as
+  \href{http://refdb.sourceforge.net/}{\ProgName{RefDB}},
+  \href{http://www.nongnu.org/biborb}{BibORB},
+  \href{http://bibdesk.sourceforge.net/}{\ProgName{BibDesk}},
+  \href{http://pybliographer.org}{\ProgName{pybliographer}} and the
+  \ProgName{Java}-based
+  \href{http://freshmeat.net/projects/bibkeeper/}{\ProgName{Bibkeeper}}
+  and \href{http://jabref.sourceforge.net}{\ProgName{JabRef}} (which
+  claims to supersede \ProgName{Bibkeeper})
+  are only available from their development sites.
+% review of web database offerings in textex_368
+\item Some commercial citation-management systems will export in
+  \BibTeX{} format; an example is
+  \href{http://www.endnote.com/}{EndNote}.
+\item Data from on-line citation databases may often be translated to
+  \BibTeX{} format by utilities to be found on \acro{CTAN}.  For
+  example, the \ProgName{Perl} script \ProgName{isi2bibtex} will
+  translate citations from \acro{ISI} ``Web of knowledge'' (a
+  subscription service, available to \acro{UK} academics via
+  \acro{BIDS}).  UK academics may translate \acro{BIDS} downloads
+  using \ProgName{bids.to.bibtex}
+\item \href{http://scholar.google.com}{Google Scholar} provides an
+  ``Import into \BibTeX{}'' tab for each reference it finds for you:
+  that tab gives you a page containing a \BibTeX{} entry for the
+  reference.
+\end{itemize}
+\begin{ctanrefs}
+\item[bids.to.bibtex]\CTANref{bidstobibtex}
+\item[btOOL]\CTANref{btOOL}
+\item[ebib]\CTANref{ebib}
+\item[isi2bibtex]\CTANref{isi2bibtex}
+\item[tex2bib]\CTANref{tex2bib}
+\item[tex2bib.readme]\CTANref{tex2bib-doc}
+\item[xbibfile]\CTANref{xbibfile}
+\end{ctanrefs}
+
+\Question[Q-custbib]{Creating a bibliography style}
+
+It \emph{is} possible to write your own: the standard bibliography
+styles are distributed in a form with many comments, and there is a description
+of the language in the \bibtex{} distribution (see % ! line wrap
+\Qref[question]{BibTeX documentation}{Q-BibTeXing}).
+However, it must be admitted that the language in which \BibTeX{}
+styles are written is pretty obscure, and one would not recommend
+anyone who's not a confident programmer to write their own, though
+minor changes to an existing style may be within the grasp of many.
+
+If your style isn't too `far out', you can probably avoid programming
+it by using the facilities of the \Package{custom-bib} bundle.  The bundle
+contains a file \File{makebst.tex}, which runs you through a text menu
+to produce a file of instructions, which you can then use to generate your
+own \extension{bst} file.  This technique doesn't offer entirely new styles
+of document, but the \Package{custom-bib}'s ``master \BibTeX{}
+styles'' already offer significantly more than the \BibTeX{} standard set.
+
+An alternative, which is increasingly often recommended, to use
+\Qref*{\Package{biblatex}}{Q-biblatex}.  \Package{Biblatex} offers
+many hooks for adjusting the format of the output of your `basic'
+\bibtex{} style, and a collection of `contributed' styles have also
+started to appear.  Note.bowever There are not as many of
+\Package{biblatex}'s contributed styles as there are for \bibtex{},
+and there is no \Package{custom-biblatex}, both of which suggest that
+beginners' r\"ole models are hard to come by.  As a result, beginners
+should probably resist the temptation to write their own contributed
+\package{biblatex} style.
+\begin{ctanrefs}
+\item[biblatex.sty]\CTANref{biblatex}
+\item[biblatex \nothtml{\normalfont}contributed styles]\CTANref{biblatex-contrib}
+\item[\nothtml{\normalfont}\BibTeX{} documentation]\CTANref{bibtex}
+\item[makebst.tex]Distributed with \CTANref{custom-bib}
+\end{ctanrefs}
+
+\Question[Q-capbibtex]{Capitalisation in \BibTeX{}}
+
+The standard \BibTeX{} bibliography styles impose fixed ideas about
+the capitalisation of titles of things in the bibliography.  While
+this is not unreasonable by \BibTeX{}'s lights (the rules come from
+the \emph{Chicago Manual of Style}) it can be troublesome, since
+\BibTeX{} fails to recognise special uses (such as acronyms, chemical
+formulae, etc.).
+
+The solution is to enclose the letter or letters, whose capitalisation
+\BibTeX{} should not touch, in braces, as:
+\begin{quote}
+\begin{verbatim}
+title = {The {THE} operating system},
+\end{verbatim}
+\end{quote}
+Sometimes you find \BibTeX{} changing the case of a single letter
+inappropriately.  No matter: the technique can be applied to single
+letters, as in:
+\begin{quote}
+\begin{verbatim}
+title = {Te{X}niques and tips},
+\end{verbatim}
+\end{quote}
+If your document design specification requires a different style of
+capitalisation, you should acquire a bibliography style that doesn't
+enforce \BibTeX{}'s default rules.  It is definitely \emph{not} a good
+idea to enclose an entire title in braces, as in
+\begin{quote}
+\begin{verbatim}
+title = {{TeXniques and tips}},
+\end{verbatim}
+\end{quote}
+though that does ensure that the capitalisation is not changed.  Your
+\BibTeX{} database should be a general-purpose thing, not something
+tuned to the requirements of a particular document or bibliography
+style, or to the way you are thinking today~--- for example, on a
+future occasion, you might find yourself using a different \BibTeX{}
+style with different capitalisation rules.
+
+There's more on the subject in the
+% beware line wrap
+\Qref*{\BibTeX{} documentation}{Q-BibTeXing}.
+
+\Question[Q-bibaccent]{Accents in bibliographies}
+
+\BibTeX{} not only has a tendency (by default) to mess about with the
+% line wrap
+\Qref*{case of letters in your bibliography}{Q-capbibtex},
+also makes a hash of accent commands:
+``\texttt{ma}\csx{\textasciitilde}\texttt{nana}'' comes out as ``ma
+nana'' (!).  The solution is similar that of the letter case problem:
+enclose the troublesome sequence in braces, as
+``\texttt{\{}\csx{\textasciitilde}\texttt{n\}}'', in this example.
+
+\Question[Q-bibstrtl]{`String too long' in \BibTeX{}}
+
+The \BibTeX{} diagnostic ``Warning--you've exceeded 1000, the
+\texttt{global-string-size}, for entry \texttt{foo}'' usually arises
+from a very large abstract or annotation included in the database.
+The diagnostic usually arises because of an infelicity in the coding of
+\File{abstract.bst}, or styles derived from it.  (One doesn't
+ordinarily output annotations in other styles.)
+
+The solution is to make a copy of the style file (or get a clean copy
+from \acro{CTAN}~--- \CTANref{abstract-bst}), and rename it (e.g., on a
+long file-name system, to \File{abstract-long.bst}).  Now edit it: find
+function \texttt{output.nonnull} and
+\begin{itemize}
+\item change its first line (line 60 in the version on \acro{CTAN})
+  from
+\begin{quote}
+\begin{verbatim}
+{ 's :=
+\end{verbatim}
+\end{quote}
+to
+\begin{quote}
+\begin{verbatim}
+{ swap$
+\end{verbatim}
+\end{quote}
+Finally,
+\item delete the function's last line, which just says ``\texttt{s}
+  (line 84 in the version on \acro{CTAN}).
+\end{itemize}
+Finally, change your \csx{bibliographystyle} command to refer to the
+name of the new file.
+
+This technique applies equally to any bibliography style: the same
+change can be made to any similar \texttt{output.nonnull} function.
+
+If you're reluctant to make this sort of change, the only way forward
+is to take the entry out of the database, so that you don't encounter
+\BibTeX{}'s limit, but you may need to retain the entry because it
+will be included in the typeset document.  In such cases, put the body
+of the entry in a separate file:
+\begin{quote}
+\begin{verbatim}
+@article{long.boring,
+  author =    "Fred Verbose",
+  ...
+  abstract =  "{\input{abstracts/long.tex}}"
+}
+\end{verbatim}
+\end{quote}
+In this way, you arrange that all \BibTeX{} has to deal with is the
+file name, though it will tell \TeX{} (when appropriate) to include
+all the long text.
+
+\Question[Q-manyauthor]{\BibTeX{} doesn't understand lists of names}
+
+\BibTeX{} has a strict syntax for lists of authors' (or editors')
+names in the \BibTeX{} data file; if you write the list of names in a
+``natural''-seeming way, the chances are you will confuse \BibTeX{},
+and the output produced will be quite different from what you had
+hoped.
+
+Names should be expressed in one of the forms
+\begin{quote}
+\begin{verbatim}
+First Last
+Last, First
+Last, Suffix, First
+\end{verbatim}
+\end{quote}
+and lists of names should be separated with ``\texttt{and}''.
+For example:
+\begin{quote}
+\begin{verbatim}
+AUTHOR = {Fred Q. Bloggs, John P. Doe \&
+          Another Idiot}
+\end{verbatim}
+\end{quote}
+falls foul of two of the above rules: a syntactically significant
+comma appears in an incorrect place, and `\csx{\&}' is being used as a
+name separator.  The output of the above might be something like:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+John P. Doe \& Another Idiot Fred Q. Bloggs
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+John P. Doe \& Another Idiot
+                        Fred Q. Bloggs
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+because ``John P. Doe \& Another Idiot has become the `first name',
+while ``Fred Q. Bloggs'' has become the `last name' of a single
+person.  The example should have been written:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+AUTHOR = {Fred Q. Bloggs and
+          John P. Doe and
+          Another Idiot}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+AUTHOR = {Fred Q. Bloggs and John P. Doe and
+          Another Idiot}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+Some bibliography styles implement clever acrobatics with very long
+author lists.  You can force truncation by using the pseudo-name
+``\texttt{others}'', which will usually translate to something like
+``\emph{et al}'' in the typeset output.  So, if Mr.~Bloggs wanted to
+distract attention from his co-authors, he would write:
+\begin{quote}
+\begin{verbatim}
+AUTHOR = {Fred Q. Bloggs and others}
+\end{verbatim}
+\end{quote}
+
+\Question[Q-citeURL]{\acro{URL}s in \BibTeX{} bibliographies}
+
+There is no citation type for \acro{URL}s, \emph{per se}, in the
+standard \BibTeX{} styles, though Oren Patashnik (the author of
+\BibTeX{}) is believed to be considering developing one such for use
+with the long-awaited \BibTeX{} version~1.0.
+
+The actual information that need be available in a citation of an
+\acro{URL} is discussed at some length in the publicly available
+on-line 
+\begin{narrowversion}
+  extracts of \acro{ISO}~690--2, available via
+  \URL{http://www.nlc-bnc.ca/iso/tc46sc9/standard/690-2e.htm};
+  % checked 2004-01-15
+\end{narrowversion}
+\begin{wideversion}
+\href{http://www.nlc-bnc.ca/iso/tc46sc9/standard/690-2e.htm}{extracts of \acro{ISO}\nobreakspace690--2};
+\end{wideversion}
+the techniques below do \emph{not} satisfy all the requirements of
+\acro{ISO}~690--2, but they offer a solution that is at least
+available to users of today's tools.
+
+Until the new version of \BibTeX{} arrives, the simplest technique is
+to use the \texttt{howpublished} field of the standard styles' \texttt{@misc}
+function.  Of course, the strictures
+about \Qref*{typesetting \acro{URL}s}{Q-setURL} still apply, so the
+entry will look like:
+\begin{quote}
+\begin{verbatim}
+@misc{...,
+  ...,
+  howpublished = "\url{http://...}"
+}
+\end{verbatim}
+\end{quote}
+A possible alternative approach is to use \BibTeX{} styles other than
+the standard ones, that already have \acro{URL} entry types.
+Candidates are:
+\begin{itemize}
+\item The \Package{natbib} styles (\Package{plainnat},
+  \Package{unsrtnat} and \Package{abbrevnat}), which are extensions of
+  the standard styles, principally for use with \Package{natbib}
+  itself.  However, they've acquired \acro{URL}s and other ``modern''
+  entries along the way.  The same author's \Package{custom-bib} is
+  also capable of generating styles that honour \acro{URL} entries.
+\item The \Package{babelbib} bundle, which offers % ! line break
+  \Qref*{multilingual bibliographies}{Q-i18nbib}, similarly provides a
+  set of standard-style equivalents that have \acro{URL} entries.
+\item More modern styles such as the \Package{harvard} package (if the
+  citation styles are otherwise satisfactory for you).
+  \Package{Harvard} bibliography styles all include a ``\texttt{url}''
+  field in their specification; however, the typesetting offered is
+  somewhat feeble (though it does recognise and use
+  \ProgName{LaTeX2HTML} macros if they are available, to create
+  hyperlinks).
+\end{itemize}
+You can also acquire new \BibTeX{} styles by use of Norman Gray's
+\Package{urlbst} system, which is based on a \ProgName{Perl} script
+that edits an existing \BibTeX{} style file to produce a new
+style. The new style thus generated has a \texttt{webpage} entry type, and
+also offers support for \texttt{url} and \texttt{lastchecked} fields
+in the other entry types.  The \ProgName{Perl} script comes with a set
+of converted versions of the standard bibliography styles.
+
+Another possibility is that some conventionally-published paper,
+technical report (or even book) is also available on the Web.  In such
+cases, a useful technique is something like:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+@techreport{...,
+  ...,
+  note = "Also available as \url{http://...}"
+}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+@techreport{...,
+  ...,
+  note = "Also available as 
+                       \url{http://...}"
+}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+There is good reason to use the \Package{url} or \Package{hyperref}
+packages in this context: \BibTeX{} has a habit of splitting
+lines it considers excessively long, and if there are no space
+characters for it to use as `natural' breakpoints, \BibTeX{} will
+insert a comment (`\texttt{\textpercent{}}') character~\dots{}\@ which
+is an acceptable character in an \acro{URL}.  Any current version of
+either of the \Package{url} or \Package{hyperref} packages detects this
+``\texttt{\textpercent{}}--end-of-line'' structure in its argument, and
+removes it.
+\begin{ctanrefs}
+\item[babelbib \nothtml{\rmfamily}bundle]\CTANref{babelbib}
+\item[custom-bib \nothtml{\rmfamily}bundle]\CTANref{custom-bib}
+\item[harvard.sty]\CTANref{harvard}
+\item[hyperref.sty]\CTANref{hyperref}
+\item[natbib \nothtml{\rmfamily}styles]\CTANref{natbib}
+\item[url.sty]\CTANref{url}
+\item[urlbst]\CTANref{urlbst}
+\end{ctanrefs}
+
+\Question[Q-bibplain]{Using \BibTeX{} with \plaintex{}}
+
+The file \File{btxmac.tex} (which is part of the \Eplain{} system)
+contains macros and documentation for using \BibTeX{} with
+\plaintex{}, either directly or with \Qref*{\Eplain{}}{Q-eplain}.  See
+\Qref[question]{the use of \BibTeX{}}{Q-BibTeXing} for more
+information about \BibTeX{} itself.
+\begin{ctanrefs}
+\item[btxmac.tex]\CTANref{btxmactex}
+\item[eplain \nothtml{\rmfamily}system]\CTANref{eplain}
+\end{ctanrefs}
+
+\Question[Q-makebib]{Reconstructing \extension{bib} files}
+
+Perhaps you've lost the \extension{bib} file you generated your document from,
+or have been sent a document without one.  Or even, you've realised
+the error of building a substantial document without the benefit of
+\BibTeX{}\dots{}
+
+The \ProgName{Perl} script, \Package{tex2bib} makes a reasonable job
+of regenerating \extension{bib} files from \environment{thebibliography}
+environments, provided that the original (whether automatically or
+manually generated) doesn't deviate too far from the ``standard''
+styles.
+
+You are well-advised to check the output of the script.  While it will
+not usually destroy information, it can quite reasonably mislabel it.
+
+Documentation of the script is to be found in the file \File{tex2bib.readme}
+\begin{ctanrefs}
+\item[tex2bib]\CTANref{tex2bib}
+\item[tex2bib.readme]\CTANref{tex2bib-doc}
+\end{ctanrefs}
+
+\Question[Q-bibprefixsort]{\BibTeX{} sorting and name prefixes}
+
+\BibTeX{} recognises a bewildering array of name prefixes (mostly
+those deriving from European language names); it ignores the prefixes
+when sorting the bibliography~--- you want ``Ludwig van Beethoven''
+sorted under ``Beethoven'', not under ``van''.  (Lamport made a witty
+deliberate mistake with Beethoven's name, in the first edition of his
+\LaTeX{} manual.)
+
+However, a recurring issue is the desire to quote Lord Rayleigh's
+publications (``Lord'' isn't an acceptable prefix), or names from
+languages that weren't considered when \BibTeX{} was designed such as
+``al-Wakil'' (transcribed from the Arabic).  What's needed is a
+separate ``sort key'', but \BibTeX{} only allows such a thing in
+citations of items that have no author or editor.
+
+The solution is to embed the sort key in the author's name, but to
+prevent it from being typeset.  Patashnik recommends a command
+\csx{noopsort} (no-output-sortkey), which is defined and used as
+follows:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+@PREAMBLE{ {\providecommand{\noopsort}[1]{}} }
+...
+@ARTICLE{Rayleigh1,
+AUTHOR = "{\noopsort{Rayleigh}}{Lord Rayleigh}",
+...
+}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+@PREAMBLE{
+    {\providecommand{\noopsort}[1]{}}
+}
+...
+@ARTICLE{Rayleigh1,
+AUTHOR = 
+   "\noopsort{Rayleigh}{Lord Rayleigh}",
+...
+}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+Note that this \csx{noopsort} applies to the last name in this kind of
+construct, so an author with an Arabic name might be rendered:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+...
+AUTHOR = "Ali {\noopsort{Hadiidii}}{al-Hadiidii}",
+...
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+...
+AUTHOR = 
+   "Ali {\noopsort{Hadiidii}}{al-Hadiidii}",
+...
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+A further use might deal with word order games, as in the famous
+Vietnamese name:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+...
+AUTHOR = "\noopsort{Thanh Han The}{Han The Thanh}",
+...
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+...
+AUTHOR =
+   "\noopsort{Thanh Han The}{Han The Thanh}",
+...
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+though that author seems well-acquainted with Western confusion about
+the significance of the parts of his name (even to the extent of
+missing out the accentuation, as above\dots{}).
+
+\Question[Q-bibtranscinit]{`Multi-letter' initials in \BibTeX{}}
+\keywords{compound initials, transcribed initials}
+
+If your bibliographic style uses initials~+ surname, you may encounter
+a problem with some transcribed names (for example, Russian ones).
+Consider the following example from the real world:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+@article{epifanov1997,
+   author = {Epifanov, S. Yu. and
+             Vigasin, A. A.},
+   title  = ...
+}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+@article{epifanov1997,
+   author = {Epifanov, S. Yu. and Vigasin, A. A.},
+   title  = ...
+}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+Note that the ``Yu'' is the initial, not a complete name. However,
+\BibTeX{}'s algorithms will leave you with a citation~--- 
+slightly depending on the bibliographic style~--- that reads:
+``S. Y. Epifanov and A. A. Vigasin, \dots{}''. instead of the intended
+``S. Yu. Epifanov and A. A. Vigasin, \dots{}''.
+
+One solution is to replace each affected initial by a command that 
+prints the correct combination.  To keep your bibliography portable,
+you need to add that command to your bibliography with the
+\texttt{@preamble} directive:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+@preamble{ {\providecommand{\BIBYu}{Yu} } }
+
+@article{epifanov1997,
+   author   = {Epifanov, S. {\BIBYu}. and
+               Vigasin, A. A.},
+   title    = ...
+}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+@preamble{ {\providecommand{\BIBYu}{Yu} } }
+
+@article{epifanov1997,
+   author   = {Epifanov, S. {\BIBYu}. and Vigasin, A. A.},
+   title    = ...
+}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+If you have many such commands, you may want to put them in a separate
+file and \csx{input} that \LaTeX{} file in a \texttt{@preamble}
+directive.
+
+An alternative is to make the transcription look like an accent, from
+\BibTeX{}'s point of view.  For this we need a control sequence that
+does nothing:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+@article{epifanov1997,
+   author   = {Epifanov, S. {\relax Yu}. and Vigasin, A. A.},
+   title    = ...
+}
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+@article{epifanov1997,
+   author   = {Epifanov, S. {\relax Yu}. and
+               Vigasin, A. A.},
+   title    = ...
+}
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+Like the solution by generating extra commands, this involves tedious
+extra typing; which of the two techniques is preferable for a given
+bibliography will be determined by the names in it.  It should be
+noted that a preamble that introduces lots of odd commands is usually
+undesirable if the bibliography is a shared one.
+
+``Compound'' initials (for single names made up of two or more words)
+may be treated in the same way, so one can enter Forster's rather
+complicated name as:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+@article{forster2006,
+  author   = {Forster, P.M. {\relax de F.} and Collins, M.},
+  title    = ...
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+@article{forster2006,
+  author   = {Forster, P.M. {\relax de F.} and
+              Collins, M.},
+  title    = ...
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+The same trick can be played if you're entering whole names:
+\begin{quote}
+\begin{verbatim}
+...
+  author   = {Epifanov, Sasha {\relax Yu}ri and
+...
+\end{verbatim}
+\end{quote}
+(though no guarantee, that either of those names is right, is
+offered!)
+However, if you're typing the names in the ``natural'' (Western) way,
+with given names first, the trick:
+\begin{quote}
+\begin{verbatim}
+...
+  author   = {P.M. {\relax de F.} Forster and
+...
+\end{verbatim}
+\end{quote}
+doesn't work~--- ``de F. Forster'' is treated as a compound family
+names.
+
+
+\subsection{Creating citations}
+
+\Question[Q-usebibtex]{``Normal'' use of \BibTeX{} from \LaTeX{}}
+
+To create a bibliography for your document, you need to perform a
+sequence of steps, some of which seem a bit odd.  If you choose to use
+\BibTeX{}, the sequence is:
+
+First: you need a \BibTeX{} bibliography file (a \extension{bib}
+file)~--- see \Qref*[question]{``creating a \BibTeX{} file''}{Q-buildbib}.
+
+Second: you must write your \LaTeX{} document to include a declaration
+of the `style' of bibliography, citations, and a reference to the
+bibliography file mentioned above.  So we may have a \LaTeX{}
+file containing:
+\begin{quote}
+\begin{verbatim}
+\bibliographystyle{plain}
+...
+Pooh is heroic~\cite{Milne:1926}.
+...
+Alice struggles~\cite{Carroll:1865}.
+...
+\bibliography{mybooks}
+\end{verbatim}
+\end{quote}
+Note: we have bibliography style \Package{plain}, above, which is
+nearly the simplest of the lot: a sample text, showing the sorts of
+style choices available, can be found on Ken Turner's web site:
+\URL{http://www.cs.stir.ac.uk/~kjt/software/latex/showbst.html}
+
+Third: you must process the file.
+\begin{quote}
+\begin{verbatim}
+latex myfile
+\end{verbatim}
+\end{quote}
+As \LaTeX{} processes the file, the \csx{bibliographystyle} command
+writes a note of the style to the \extension{aux} file; each
+\csx{cite} command writes a note of the citation to the
+\extension{aux} file, and the \csx{bibliography} command writes a note
+of which \extension{bib} file is to be used, to the \extension{aux} file.
+
+Note that, at this stage, \LaTeX{} isn't ``resolving'' any of the
+citations: at every \csx{cite} command, \LaTeX{} will warn you of the
+undefined citation, and when the document finishes, there will be a
+further warning of undefined references.
+
+%Some bibliography styles are designed to work with particular
+%packages...
+
+Fourth: you must run \BibTeX{}:
+\begin{quote}
+\begin{verbatim}
+bibtex myfile
+\end{verbatim}
+\end{quote}
+Don't try to tell \BibTeX{} anything but the file name: say
+\texttt{bibtex myfile.aux} (because you know it's going to read the
+\extension{aux} file) and \BibTeX{} will blindly attempt to process
+\texttt{myfile.aux.aux}.
+
+\BibTeX{} will scan the \extension{aux} file; it will find which bibliography
+style it needs to use, and will ``compile'' that style; it will note
+the citations; it will find which bibliography files it needs, and
+will run through them matching citations to entries in the
+bibliography; and finally it will sort the entries that have been
+cited (if the bibliography style specifies that they should be
+sorted), and outputs the resulting details to a \extension{bbl} file.
+
+Fifth: you run \LaTeX{} again.  It warns, again, that each citation is
+(still) undefined, but when it gets to the \csx{bibliography} command,
+it finds a \extension{bbl} file, and reads it.  As it encounters each
+\csx{bibitem} command in the file, it notes a definition of the
+citation.
+
+Sixth: you run \LaTeX{} yet again.  This time, it finds values for all
+the citations, in its \extension{aux} file.  Other things being equal, you're
+done\dots{} until you change the file.
+
+If, while editing, you change any of the citations, or add new ones,
+you need to go through the process above from steps 3 (first run of
+\LaTeX{}) to 6, again, before the document is once again stable.
+These four mandatory runs of \LaTeX{} make processing a document with
+a bibliography even more tiresome than the normal two runs required to
+resolve labels.
+
+To summarise: processing to resolve citations requires: \LaTeX{};
+\BibTeX{}; \LaTeX{}; \LaTeX{}.
+
+\Question[Q-whatbst]{Choosing a bibliography style}
+
+A large proportion of people are satisfied with one of Patashnik's
+original ``standard'' styles, \Package{plain}, \Package{unsrt},
+\Package{abbrv} and \Package{alpha}.  However, no style in that set
+supports the ``author-date'' citation style that is popular in many
+fields; but there are a very large number of contributed styles
+available, that \emph{do} support the format.
+
+(Note that author-date styles arose because the simple and clear
+citation style that \Package{plain} produces is so awkward in a
+traditional manuscript preparation scenario.  However, \TeX{}-based
+document production does away with all those difficulties, leaving us
+free once again to use the simple option.)
+
+Fortunately, help is at hand, on the Web, with this problem:
+\begin{itemize}
+\item a sample text, showing the sorts of style choices available, can
+  be found on 
+\begin{narrowversion}
+  Ken Turner's web site:
+  \URL{http://www.cs.stir.ac.uk/~kjt/software/latex/showbst.html};
+\end{narrowversion}
+\begin{wideversion}
+  % ! line break
+  \href{http://www.cs.stir.ac.uk/~kjt/software/latex/showbst.html}{Ken Turner's web site};
+\end{wideversion}
+\item an excellent survey, that lists a huge variety of styles,
+  sorted into their nominal topics as well as providing a good range
+  of examples, is the Reed College % ! line break
+\begin{narrowversion}
+  ``Choosing a \BibTeX{} style''
+  (\URL{http://web.reed.edu/cis/help/LaTeX/bibtexstyles.html}).
+\end{narrowversion}
+\begin{wideversion}
+  % ! line break
+  ``\href{http://web.reed.edu/cis/help/LaTeX/bibtexstyles.html}{Choosing a \BibTeX{} style}''.
+\end{wideversion}
+\end{itemize}
+
+Of course, these pages don't cover everything; the problem the
+inquisitive user faces, in fact, is to find what the various available
+styles actually do.  This is best achieved (if the links above don't
+help) by using \Package{xampl.bib} from the \BibTeX{} documentation
+distribution: one can get a pretty good feel for any style one has to
+hand using this ``standard'' bibliography.  For style
+\Package{my-style.bst}, the simple \LaTeX{} document:
+\begin{quote}
+\begin{verbatim}
+\documentclass{article}
+\begin{document}
+\bibliographystyle{my-style}
+\nocite{*}
+\bibliography{xampl}
+\end{document}
+\end{verbatim}
+\end{quote}
+will produce a representative sample of the citations the style will
+produce.  (Because \Package{xampl.bib} is so extreme in some of its
+``examples'', the \BibTeX{} run will also give you an interesting
+selection of \BibTeX{}'s error messages\dots{})
+\begin{ctanrefs}
+\item[xampl.bib]\CTANref{xampl-bib}
+\end{ctanrefs}
+
+\Question[Q-chapbib]{Separate bibliographies per chapter?}
+
+A separate bibliography for each `chapter' of a document can be provided
+with the package \Package{chapterbib} (which comes with a bunch of
+other good bibliographic things).  The package allows you a
+different bibliography for each \csx{include}d file (i.e., despite the
+package's name, the availability of bibliographies is related to the
+component source files of the document rather than to the chapters that
+logically structure the document).
+
+The package \Package{bibunits} ties bibliographies to logical units
+within the document: the package will deal with chapters and sections
+(as defined by \LaTeX{} itself) and also defines a \environment{bibunit}
+environment so that users can select their own structuring.
+
+\Qref*{The \Package{biblatex} package}{Q-biblatex}, with
+\ProgName{biber}, provides a similar facility; enclose the text for
+which you want a local bibliography in a \environment{refsection}
+environment, and place a \csx{printbibliography} command as the last
+thing in that environment:
+\begin{quote}
+\begin{verbatim}
+\begin{refsection}
+\chapter{First chapter}
+\section{Foo}
+Some text \cite{this}
+with citations \cite{that}.
+\printbibliography
+\end{refsection}
+\end{verbatim}
+\end{quote}
+Then process with \latex{} (of whatever flavour) and use
+\ProgName{biber} to process the bibliography output.  Note that
+\csx{printbibliography} can take an optional argument
+\pkgoption{heading=bib title} to provide the bibliography with a
+(sub)section title.
+\begin{ctanrefs}
+\item[biber]\CTANref{biber}
+\item[biblatex]\CTANref{biblatex}
+\item[bibunits.sty]\CTANref{bibunits}
+\item[chapterbib.sty]distributed as part of \CTANref{cite}[chapterbib]
+\end{ctanrefs}
+\LastEdit{2013-01-04}
+
+\Question[Q-multbib]{Multiple bibliographies?}
+
+If you're thinking of multiple bibliographies tied to some part of
+your document (such as the chapters within the document), please see
+\Qref[question]{bibliographies per chapter}{Q-chapbib}.
+
+For more than one bibliography, there are three options.
+
+The \Package{multibbl} package offers a very simple interface: you use
+a command \csx{newbibliography} to define a bibliography ``tag''.  The package
+redefines the other bibliography commands so that each time you use any one
+of them, you give it the tag for the bibliography where you want the
+citations to appear.  The \csx{bibliography} command itself also takes
+a further extra argument that says what title to use for the resulting
+section or chapter (i.e., it patches
+\nothtml{\csx{refname} and \csx{bibname}~---}
+\Qref{\csx{refname} and \csx{bibname}}{Q-fixnam}\nothtml{~---} in a
+\Package{babel}-safe way).  So one might write:
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+\usepackage{multibbl}
+\newbibliography{bk}
+\bibliographystyle{bk}{alpha}
+\newbibliography{art}
+\bibliographystyle{art}{plain}
+...
+\cite[pp.~23--25]{bk}{milne:pooh-corner}
+...
+\cite{art}{einstein:1905}
+...
+\bibliography{bk}{book-bib}%
+             {References to books}
+\bibliography{art}{art-bib}%
+             {References to articles}
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+\usepackage{multibbl}
+\newbibliography{bk}
+\bibliographystyle{bk}{alpha}
+\newbibliography{art}
+\bibliographystyle{art}{plain}
+...
+\cite[pp.~23--25]{bk}{milne:pooh-corner}
+...
+\cite{art}{einstein:1905}
+...
+\bibliography{bk}{book-bib}{References to books}
+\bibliography{art}{art-bib}{References to articles}
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+(Note that the optional argument of \csx{cite} appears \emph{before} the
+new tag argument, and that the \csx{bibliography} commands may list
+more than one \extension{bib} file~--- indeed all \csx{bibliography} commands
+may list the same set of files.)
+
+The \csx{bibliography} data goes into files whose names are
+\meta{tag-name}\emph{.aux}, so you will need to run
+\begin{quote}
+\begin{verbatim}
+bibtex bk
+bibtex art
+\end{verbatim}
+\end{quote}
+after the first run of \LaTeX{}, to get the citations in the correct
+place.
+
+The \Package{multibib} package allows you to define a series of
+``additional topics'', each of which comes with its own series of
+bibliography commands.  So one might write:
+\begin{quote}
+\begin{verbatim}
+\usepackage{multibib}
+\newcites{bk,art}%
+         {References from books,%
+          References from articles}
+\bibliographystylebk{alpha}
+\bibliographystyleart{plain}
+...
+\citebk[pp.~23--25]{milne:pooh-corner}
+...
+\citeart{einstein:1905}
+...
+\bibliographybk{book-bib}
+\bibliographyart{art-bib}
+\end{verbatim}
+\end{quote}
+Again, as for \Package{multibbl}, any \csx{bibliography...} command may
+scan any list of \extension{bib} files.
+
+\BibTeX{} processing with \Package{multibib} is much like that with
+\Package{multibbl}; with the above example, one needs:
+\begin{quote}
+\begin{verbatim}
+bibtex bk
+bibtex art
+\end{verbatim}
+\end{quote}
+Note that, unlike \Package{multibbl}, \Package{multibib} allows a
+simple, unmodified bibliography (as well as the ``topic'' ones).  
+
+The \Package{bibtopic} package allows you separately to cite several
+different bibliographies.  At the appropriate place in your document,
+you put a sequence of \environment{btSect} environments (each of which
+specifies a bibliography database to scan) to typeset the separate
+bibliographies.  Thus, one might have a file \File{diss.tex} containing:
+\begin{quote}
+\begin{verbatim}
+\usepackage{bibtopic}
+\bibliographystyle{alpha}
+...
+\cite[pp.~23--25]{milne:pooh-corner}
+...
+\cite{einstein:1905}
+...
+\begin{btSect}{book-bib}
+\section{References from books}
+\btPrintCited
+\end{btSect}
+\begin{btSect}[plain]{art-bib}
+\section{References from articles}
+\btPrintCited
+\end{btSect}
+\end{verbatim}
+\end{quote}
+Note the different way of specifying a bibliographystyle: if you want
+a different style for a particular bibliography, you may give it as an
+optional argument to the \environment{btSect} environment.
+
+Processing with \BibTeX{}, in this case, uses \extension{aux} files whose names
+are derived from the name of the base document.  So in this example
+you need to say:
+\begin{quote}
+\begin{verbatim}
+bibtex diss1
+bibtex diss2
+\end{verbatim}
+\end{quote}
+
+There is also a command \csx{btPrintNotCited}, which gives the rest of
+the content of the database (if nothing has been cited from the
+database, this is equivalent to \LaTeX{} standard \cmdinvoke{nocite}{*}).
+
+However, the \emph{real} difference from \Package{multibbl} and
+\Package{multibib} is that selection of what appears in each
+bibliography section is determined in \Package{bibtopic} by what's in
+the \extension{bib} files.
+
+An entirely different approach is taken by the \Package{splitbib}
+package.  You provide a \environment{category} environment, in the
+preamble of your document, for each category you want a separate
+citation list for.  In each environment, you list the \csx{cite} keys
+that you want listed in each category.  The \csx{bibliography} command
+(or, more precisely, the \environment{thebibliography} environment it
+uses) will sort the keys as requested.  (Keys not mentioned in a
+\environment{category} appear in a ``misc'' category created in the
+sorting process.)  A code example appears in the package documentation
+(a \acro{PDF} file in the \acro{CTAN} directory,
+\begin{htmlversion}
+  which you can browse to, from the link, below).
+\end{htmlversion}
+\htmlignore
+  see the file list, below).
+\endhtmlignore
+\begin{ctanrefs}
+\item[bibtopic.sty]\CTANref{bibtopic}
+\item[multibbl.sty]\CTANref{multibbl}
+\item[multibib.sty]\CTANref{multibib}
+\item[splitbib.sty]\CTANref{splitbib}
+\end{ctanrefs}
+
+
+\Question[Q-bibinline]{Putting bibliography entries in text}
+
+This is a common requirement for journals and other publications in
+the humanities.  Sometimes the requirement is for the entry to appear
+in the running text of the document, while other styles require that
+the entry appear in a footnote.
+
+Options for entries in running text are
+\begin{itemize}
+\item The package \Package{bibentry}, which puts slight restrictions
+  on the format of entry that your \extension{bst} file generates, but is
+  otherwise undemanding of the bibliography style.
+\item The package \Package{inlinebib}, which requires that you use its
+  \File{inlinebib.bst}.  \Package{Inlinebib} was actually designed for
+  footnote citations: its \emph{expected} use is that you place a
+  citation inline as the argument of a \csx{footnote} command.
+\item The package \Package{jurabib}, which was originally designed for
+  German law documents, and has comprehensive facilities for the
+  manipulation of citations.  The package comes with four bibliography
+  styles that you may use: \File{jurabib.bst}, \File{jhuman.bst} and
+  two Chicago-like ones.
+\end{itemize}
+
+Options for entries in footnotes are
+\begin{itemize}
+\item The package \Package{footbib}, and
+\item Packages \Package{jurabib} and \Package{inlinebib}, again.
+\end{itemize}
+Note that \Package{jurabib} does the job using \LaTeX{}'s standard
+footnotes, whereas \Package{footbib} creates its own sequence of
+footnotes.  Therefore, in a document which has other footnotes, it may
+be advisable to use \Package{jurabib} (or of course
+\Package{inlinebib}), to avoid confusion of footnotes and
+foot-citations.
+
+The \Package{usebib} package offers a `toolbox', which allows the user
+to place exactly what is needed, in the text (that is, rather than a
+full citation).  The package's command, that does the actual
+typesetting, is \cmdinvoke{usebibdata}{\meta{key}}{\meta{field}}; it
+typesets the \emph{field} item from the entry \emph{key} in the
+bibliography; the user then formats the entry as desired~--- obviously
+one could construct one's own bibliography, altogether, from this
+command, but it would quickly become tedious.
+\begin{ctanrefs}
+\item[bibentry.sty]\emph{Distributed with} \CTANref{natbib}
+\item[footbib.sty]\CTANref{footbib}
+\item[inlinebib.sty]\CTANref{inlinebib}
+\item[jurabib.sty]\CTANref{jurabib}
+\item[usebib.sty]\CTANref{usebib}
+\end{ctanrefs}
+\LastEdit{2012-03-23}
+
+\Question[Q-citesort]{Sorting and compressing citations}
+
+If you give \LaTeX{}
+\cmdinvoke{cite}{fred,joe,harry,min}, its default commands could give
+something like ``[2,6,4,3]'';
+this looks awful.  One can of course get the things in order by
+rearranging the keys in the \csx{cite} command, but who wants to do
+that sort of thing for no more improvement than ``[2,3,4,6]''?
+
+The \Package{cite} package sorts the numbers and detects consecutive
+sequences, so creating ``[2--4,6]''.  The \Package{natbib} package,
+with the \pkgoption{numbers} and \pkgoption{sort\&compress} options, will
+do the same when working with its own numeric bibliography styles
+(\File{plainnat.bst} and \File{unsrtnat.bst}).
+
+The package \Package{biblatex} has a built-in style
+\Package{numeric-comp} for its bibliographies.
+\begin{ctanrefs}
+\item[biblatex.sty]\CTANref{biblatex}
+\item[cite.sty]\CTANref{cite}
+\item[hypernat.sty]\CTANref{hypernat}
+\item[hyperref.sty]\CTANref{hyperref}
+\item[plainnat.bst]Distributed with \CTANref{natbib}
+\item[unsrtnat.bst]Distributed with \CTANref{natbib}
+\end{ctanrefs}
+\LastEdit{2012-02-10}
+
+\Question[Q-mcite]{Multiple citations}
+
+A convention sometimes used in physics journals is to ``collapse'' a group of
+related citations into a single entry in the bibliography.  \BibTeX{},
+by default, can't cope with this arrangement, but the \Package{mcite}
+and \Package{mciteplus} packages deal with the problem.
+
+\Package{mcite} overloads the \csx{cite} command to recognise a
+``\texttt{*}'' at the start of a key, so that citations of the form
+\begin{quote}
+\begin{verbatim}
+\cite{paper1,*paper2}
+\end{verbatim}
+\end{quote}
+appear in the document as a single citation, and appear arranged
+appropriately in the bibliography itself.  You're not limited to
+collapsing just two references.  You can mix ``collapsed'' references
+with ``ordinary'' ones, as in
+\begin{quote}
+\begin{verbatim}
+\cite{paper0,paper1,*paper2,paper3}
+\end{verbatim}
+\end{quote}
+Which will appear in the document as 3~citations ``[4,7,11]''
+(say)~--- citation `4' will refer to paper~0, `7' will refer to a
+combined entry for paper~1 and paper~2, and `11' will refer to
+paper~3.
+
+You need to make a small change to the bibliography style
+(\extension{bst}) file you use; the \Package{mcite} package
+documentation tells you how to do that.
+
+Most recent versions of \Class{REVTeX} (version 4.1 and later), in
+conjunction with recent versions of \Package{natbib}, already contain
+support for combined citations and so no longer even need
+\Package{mciteplus} (but \Package{mciteplus} is more general and will
+work with many other class and package combinations).
+
+The \Package{mciteplus} package adresses many of the infelicites of
+\Package{mcite}.  Again, `ordinary' \extension{bst} files will not
+work with \Package{mciteplus}, but the package documentation explains
+how to patch an existing \BibTeX{} style.
+
+The \Package{collref} package takes a rather different approach to the
+problem, and will work with most (if not all) \BibTeX{} packages.
+\Package{Collref} spots common subsets of the references, so if it
+sees a sequence
+\begin{quote}
+\begin{verbatim}
+\cite{paper0,paper1,paper2,paper3}
+...
+\cite{some_other_paper,paper1,paper2,and_another}
+\end{verbatim}
+\end{quote}
+it will collect \texttt{paper1} and \texttt{paper2} as a multiple reference.
+\begin{ctanrefs}
+\item[collref.sty]\CTANref{collref}
+\item[mcite.sty]\CTANref{mcite}
+\item[mciteplus.sty]\CTANref{mciteplus}
+\item[natbib.sty]\CTANref{natbib}
+\item[revtex 4.1]\CTANref{revtex4-1}
+\end{ctanrefs}
+\LastEdit{2010-07-07}
+
+\Question[Q-backref]{References from the bibliography to the citation}
+
+A link (or at least a page reference), from the bibliography to the
+citing command, is often useful in large documents.
+
+Two packages support this requirement, \Package{backref} and
+\Package{citeref}.  \Package{Backref} is part of the
+\Package{hyperref} bundle, and supports hyperlinks back to the citing
+command.
+
+\Package{Citeref} is the older, and seems to rely on rather simpler
+(and therefore possibly more stable) code; it produces a list of page
+references, only.  It doesn't interact well with other citation
+packages (for example, \Package{cite}), which probably reflects its
+antiquity (it's derived from a \LaTeXo{} package).
+
+Neither collapses
+lists of pages (``\texttt{5, 6, 7}'' comes out as such, rather than as
+``\texttt{5--7}''), but neither package repeats the reference to a page that
+holds multiple citations.  (The failure to collapse lists is of course
+forgiveable in the case of the \Package{hyperref}-related
+\Package{backref}, since the concept of multiple hyperlinks from the
+same anchor is less than appealing.)
+\begin{ctanrefs}
+\item[backref.sty]Distributed with \CTANref{hyperref}
+\item[citeref.sty]\CTANref{citeref}
+\end{ctanrefs}
+
+\Question[Q-sortbib]{Sorting lists of citations}
+
+\BibTeX{} has a sorting function, and most \BibTeX{} styles sort the
+citation list they produce; most people find this desirable.
+
+However, it is perfectly possible to write a
+\environment{thebibliography} environment that \emph{looks} as if it
+came from \BibTeX{}, and many people do so (in order to save time in
+the short term).
+
+The problem arises when \environment{thebibliography}-writers decide
+their citations need to be sorted.  A common misapprehension is to
+insert \cmdinvoke{bibliographystyle}{alpha} (or similar) and expect
+the typeset output to be sorted in some magical way.  \BibTeX{}
+doesn't work that way!~--- if you write \environment{thebibliography},
+you get to sort its contents.  \BibTeX{} will only sort the contents
+of a \environment{thebibliography} environment when it creates it, to
+be inserted from a \extension{bbl} file by a \csx{bibliography} command.
+
+\Question[Q-compactbib]{Reducing spacing in the bibliography}
+
+Bibliographies are, in fact, implemented as lists, so all the
+confusion about \Qref*{reducing list item spacing}{Q-complist} also
+applies to bibliographies.
+
+If the \Package{natbib} package `works' for you (it may not if you are using
+some special-purpose bibliography style), the solution is relatively
+simple~--- add
+\begin{quote}
+\begin{verbatim}
+\usepackage{natbib}
+\setlength{\bibsep}{0.0pt}
+\end{verbatim}
+\end{quote}
+to the preamble of your document.
+
+The \Package{compactbib} package has a similar effect.  Its primary
+purpose is to produce two bibliographies, and it seems to preclude use
+of \BibTeX{} (though the package documentation, in the package file
+itself, isn't particularly clear).
+
+Otherwise, one is into unseemly hacking of something or other.  The
+\Package{mdwlist} package actually does the job, but it doesn't work
+here, because it makes a different-named list, while the name
+``\environment{thebibliography}'' is built into \LaTeX{} and
+\BibTeX{}.  Therefore, we need to % ! line break
+\Qref*{patch the underlying macro}{Q-patch}:
+\begin{quote}
+\begin{verbatim}
+\let\oldbibliography\thebibliography
+\renewcommand{\thebibliography}[1]{%
+  \oldbibliography{#1}%
+  \setlength{\itemsep}{0pt}%
+}
+\end{verbatim}
+\end{quote}
+The \Package{savetrees} package performs such a patch, among a
+plethora of space-saving measures: you can, in principle, suppress all
+its other actions, and have it provide you a compressed bibliography
+\emph{only}.
+\begin{ctanrefs}
+\item[compactbib.sty]\CTANref{compactbib}
+\item[mdwlist.sty]Distributed as part of \CTANref{mdwtools}[mdwlist]
+\item[natbib.sty]\CTANref{natbib}
+\item[savetrees.sty]\CTANref{savetrees}
+\end{ctanrefs}
+
+\Question[Q-bibtocorder]{Table of contents rearranges ``\Package{unsrt}'' ordering}
+
+If you're using the \Package{unsrt} bibliography style, you're
+expecting that your bibliography will \emph{not} be sorted, but that
+the entries will appear in the order that they first appeared in your
+document.
+
+However, if you're unfortunate enough to need a citation in a section
+title, and you also have a table of contents, the citations that now
+appear in the table of contents will upset the ``natural'' ordering
+produced by the \Package{unsrt} style.  Similarly, if you have
+citations in captions, and have a list of figures (or tables).
+
+There's a pretty simple ``manual'' method for dealing with the
+problem~--- when you have the document stable:
+\begin{enumerate}
+\item Delete the \extension{aux} file, and any of \extension{toc},
+  \extension{lof}, \extension{lot} files.
+\item Run \LaTeX{}.
+\item Run \BibTeX{} for the last time.
+\item Run \LaTeX{} often enough that things are stable again.
+\end{enumerate}
+Which is indeed simple, but it's going to get tedious when you've
+found errors in your ``stable'' version, often enough.
+
+The package \Package{notoccite} avoids the kerfuffle, and suppresses
+citations while in the table of contents, or lists of figures, tables
+(or other floating things: the code is quite general).
+\begin{ctanrefs}
+\item[notoccite.sty]\CTANref{notoccite}
+\end{ctanrefs}
+
+\Question[Q-i18nbib]{Non-english bibliographies}
+
+Like so much of early \AllTeX{} software, \BibTeX{}'s assumptions were
+firmly rooted in what its author knew well, viz., academic papers in
+English (particularly those with a mathematical bent).  \BibTeX{}'s
+standard styles all address exactly that problem, leaving the user who
+writes in another language (or who deal with citations in the style of
+other disciplines than maths) to strike out into contributed software.
+
+For the user whose language is not English, there are several
+alternatives.  Possibly most straightforward is to switch to using
+\Package{biblatex}, which can produce a bibliography appropriate to
+several languages.  However, \Package{biblatex} is large and has
+correspondingly large documentation (though it is well-written and
+pleasingly typeset), so its adoption takes time.
+
+Otherwise, the simplest procedure is to provide translations of
+\BibTeX{} styles into the
+required language: the solitary \Package{finplain.bst} does that for
+Finnish; others one can find are for Danish (\Package{dk-bib}), French
+(\Package{bib-fr}), German (\Package{bibgerm}), Norwegian
+(\Package{norbib}) and Swedish (\Package{swebib}) bundles (of which
+the \Package{bib-fr} set is the most extensive).  The \Package{spain}
+style implements a traditional Spanish citation style.
+
+These static approaches solve the problem, for the languages that have
+been covered by them.  Unfortunately, with such an approach, a lot of
+work is needed for every language involved.  Two routes to a solution
+of the ``general'' problem are available~--- that offered by
+\Package{babelbib}, and the % ! line break
+\Qref*{\Package{custom-bib} mechanism for generating styles}{Q-custbib}.
+
+\Package{Babelbib} (which is a development of the ideas of the
+\Package{bibgerm} package) co-operates with \Package{babel} to control
+the language of presentation of citations (potentially at the level of
+individual items).  The package has a built-in set of languages it
+`knows about', but the documentation includes instructions on defining
+commands for other languages.  \Package{Babelbib} comes with its own
+set of bibliography styles, which could be a restriction if there
+wasn't also a link from \Package{custom-bib}.
+
+The \Package{makebst} menu of \Package{custom-bib} allows you to
+choose a language for the \BibTeX{} style you're generating (there are
+14 languages to choose; it looks as if \Package{spain.bst}, mentioned
+above, was generated this way).  If, however, you opt not to specify a
+language, you are asked whether you want the style to interact with
+\Package{babelbib}; if you do so, you're getting the best of both
+worlds~--- formatting freedom from \Package{custom-bib} and linguistic
+freedom via the extensibility of \Package{babelbib}
+\begin{ctanrefs}
+\item[babelbib.sty]\CTANref{babelbib}
+\item[bib-fr \nothtml{\rmfamily\upshape}bundle]\CTANref{bib-fr}
+\item[bibgerm \nothtml{\rmfamily\upshape}bundle]\CTANref{bibgerm}
+\item[biblatex.sty]\CTANref{biblatex}
+\item[custom-bib \nothtml{\rmfamily\upshape}bundle]\CTANref{custom-bib}
+\item[finplain.bst]\CTANref{finplain}
+\item[norbib \nothtml{\rmfamily\upshape}bundle]\CTANref{norbib}
+\item[spain]\CTANref{spain}
+\item[swebib \nothtml{\rmfamily\upshape}bundle]\CTANref{swebib}
+\end{ctanrefs}
+\LastEdit{2012-03-23}
+
+\Question[Q-formbiblabel]{Format of numbers in the bibliography}
+
+By default, \LaTeX{} makes entries in the bibliography look like:
+\begin{quote}
+  [1] Doe, Joe et al.  Some journal.  2004.\\ {}
+  [2] Doe, Jane et al. Some journal. 2003.
+\end{quote}
+while many documents need something like:
+\begin{quote}
+  1. Doe, Joe et al.  Some journal.  2004.\\
+  2. Doe, Jane et al. Some journal. 2003.
+\end{quote}
+
+This sort of change may be achieved by many of the ``general''
+citation packages; for example, in \Package{natbib}, it's as simple as:
+\begin{quote}
+\begin{verbatim}
+\renewcommand{\bibnumfmt}[1]{#1.}
+\end{verbatim}
+\end{quote}
+but if you're not using such a package, the following internal
+\LaTeX{} commands, in the preamble of your document, will do the job:
+\begin{quote}
+\begin{verbatim}
+\makeatletter
+\renewcommand*{\@biblabel}[1]{\hfill#1.}
+\makeatother
+\end{verbatim}
+\end{quote}
+\begin{ctanrefs}
+\item[natbib.sty]\CTANref{natbib}
+\end{ctanrefs}
+
+\subsection{Manipulating whole bibliographies}
+
+\Question[Q-nocite*]{Listing all your \BibTeX{} entries}
+
+\LaTeX{} and \BibTeX{} co-operate to offer special treatment of this
+requirement.  The command \cmdinvoke{nocite}{*} is specially treated,
+and causes \BibTeX{} to generate bibliography entries for every entry
+in each \extension{bib} file listed in your \csx{bibliography} statement, so
+that after a \LaTeX{}--\BibTeX{}--\LaTeX{} sequence, you have a
+document with the whole thing listed.
+
+Note that \LaTeX{} \emph{doesn't} produce
+% beware line breaks
+``\texttt{Citation ... undefined}'' or
+``\texttt{There were undefined references}'' warnings in respect of
+\cmdinvoke{nocite}{*}.  This isn't a problem if you're running
+\LaTeX{} ``by hand'' (you \emph{know} exactly how many times you have
+to run things), but the lack might confuse automatic processors that
+scan the log file to determine whether another run is necessary.
+
+A couple of packages are available, that aim to reduce the impact of
+\cmdinvoke{nocite}{*} of a large citation database.  \Package{Biblist}
+was written for use under \LaTeXo{}, but seems to work well enough;
+\Package{listbib} is more modern.  Both provide their own
+\extension{bst} files.  (The impact of large databases was significant
+in the old days of \LaTeX{} systems with very little free memory; this
+problem is less significant now than it once was.)
+\begin{ctanrefs}
+\item[biblist.sty]\CTANref{biblist}
+\item[listbib.sty]\CTANref{listbib}
+\end{ctanrefs}
+
+\Question[Q-htmlbib]{Making \acro{HTML} of your Bibliography}
+
+A neat solution is offered by the \Package{noTeX} bibliography style.
+This style produces a \extension{bbl} file which is in fact a series of
+\acro{HTML} `\texttt{P}' elements of class \texttt{noTeX}, and which
+may therefore be included in an \acro{HTML} file.  Provision is made
+for customising your bibliography so that its content when processed by
+\Package{noTeX} is different from that presented when it is processed
+in the ordinary way by \AllTeX{}.
+
+A thorough solution is offered by \Package{bib2xhtml}; using it, you
+make use of one of its modified versions of many common \BibTeX{}
+styles, and post-process the output so produced using a
+\ProgName{perl} script.
+
+A more conventional translator is the \ProgName{awk} script
+\ProgName{bbl2html}, which translates the \extension{bbl} file you've generated:
+a sample of the script's output may be viewed on the web, at
+\URL{http://rikblok.cjb.net/lib/refs.html}
+\begin{ctanrefs}
+\item[bbl2html.awk]\CTANref{bbl2html}
+\item[bib2xhtml]\CTANref{bib2xhtml}
+\item[noTeX.bst]\CTANref{noTeX}
+\end{ctanrefs}
+

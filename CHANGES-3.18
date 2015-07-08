@@ -1,0 +1,46 @@
+Changes in version 3.18
+
+This file lists changes since its most recent release (with version 3.17
+of the FAQ). 
+
+New answers:
+ +Label acroantics:getting Adobe Reader to produce the right size output
+ +Label inst-scut: introduction to the old inst-miktex and to inst-tds-zip
+ +Label inst-tds-zip: installing a package using .tds.zip files
+ +Label onna-stick:making MikTeX run from a memory key
+ +Label papergeom: how to select the correct paper geometry
+ +Label prept1font:the generating metrics part of old instt1font
+ +Label tds-zip:   brief outline of TDS ZIP files
+
+Revised answers:
+ +Label biblatex:  now discusses crossTeX too
+ +Label bibtranscinit: discuss truly excessive sets of initials
+ +Label chngmargonfly: mention new changepage package
+ +Label findfiles: correct one of the search address links
+ +Label fmtconv:   add tex4ht as a route to word format, tidy up
+ +Label footintab: I _think_ the answer now says what I meant it to say!
+ +Label labelfig:  mention (auto-)pst-pdf
+ +Label letterspace: microtype now covers the functionality of old letterspace
+ +Label luatex:	   detail some recent developments
+ +Label oddpage:   mention new changepage package
+ +Label papersize: rewritten as intro to new acroantics and papergeom
+ +Label parallel:  mention the pdfcolparallel package
+ +Label patch:	   rewrite to downplay patch, add mention of ted and etoolbox
+ +Label pkfix:	   mention pkfix-helper
+ +Label poster:	   updated with further informative links, etc.
+ +Label protect:   rewritten (again)
+ +Label psfchoice: add kpfonts, link to the font catalogue at various points
+		   mention font catalogue (as a whole) and maths font survey
+Web interface:
+  A mechanism is now in place, whereby old question labels may be used to get
+  to the nearest current equivalent of the question.  It does not cover *all*
+  old questions: please mail faq-devel@tex.ac.uk if you have a problem with an
+  old question label that you have stored.
+
+Bugfixes:
+  Bits of silliness in the web interface continue to surface.  They get mended
+  as soon as I work out how; the most recent was a tendency not to translate
+  \textbackslash -- I know how to correct it, but not why it happened...
+
+Robin Fairbairns
+2008-06-20

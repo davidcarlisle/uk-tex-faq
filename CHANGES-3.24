@@ -1,0 +1,41 @@
+Changes since version 3.23
+
+New answers:
+ +Label labelcount:  use the "value" of a label in counter operations
+ +Label optclash:    LaTeX package options clash
+ +Label printvar:    print the contents of a "variable"
+ +Label unicode:     "Unicode for TeX users"
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label bug:	     reworded in the light of more on-line help available
+ +Label dvi:	     tidied, mention of XeTeX and its XDV format
+ +Label ECfonts:     brought up to date (a bit: more remains to be done)
+ +Label editors:     updated comments about TeXworks
+ +Label include:     clarification of page number constraint
+ +Label LaTeX3:	     add git repository link, mention state of formats
+ +Label latex-books: add "LaTeX Beginner's Guide" and Herbert Voss's UIT books
+ +Label mathml:	     outline the use of MathJax
+ +Label missbegdoc:  rewritten to take account of the BOM issue
+ +Label multind:     add amsmind and imakeidx packages
+ +Label music:	     reflect restructuring of fonts
+ +Label sysmac:	     mention root privilege requirement for MacTeX
+ +Label sysother:    discourage any hope of a current VMS version
+ +Label tds:	     toned-down and untangled the text, a bit
+ +Label texthings:   mention ProTeXt among distributions
+ +Label TUG*	     corrected contact details
+ +Label tutbitslatex: revise statement about Herbert Voss's mathmode book
+		      incorporate para about TUG India tutorials from doc-dirs
+ +Label underline:    remove obsolete statement about ulem docs
+ +Label virtualfonts: rewrite, improving clarity (I hope...)
+ +Label wordcount:    add health warnings for detex-like counts
+
+Deleted answers:
+ +Label doc-dirs:    subsumed in label tutbitslatex
+
+Web interface, etc.:
+ <no changes>
+
+Robin Fairbairns

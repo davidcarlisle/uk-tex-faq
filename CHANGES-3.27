@@ -1,0 +1,43 @@
+Changes since version 3.26
+
+New answers:
+ <none yet>
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label buffovl:     link to ghostscript and gsview homes, not CTAN
+ +Label catalogue:   editorial clarification
+ +Label cmdstar:     [tidying layout]
+ +Label commercial:  remove mention of the (defunct) Textures distribution :-(
+ +Label dolldoll:    editorial tidy (un-knotting tortuous text)
+ +Label dtx:	     suggest dtxgen
+ +Label dvipdfmgraphics: link to ghostscript home, not CTAN
+ +Label editors:     add texstudio (to texworks) in list
+ +Label fontsize:    recommend anyfontsize package, too
+ +Label footintab:   clarify "table in minipage" (should have been "tabular")
+ +Label latexbug:    removed "upload latex bug by email" (no longer available)
+ +Label luatex:	     revised for updates from the project, and clarified
+ +Label make:	     add arara and try; add vpp to ctan links list
+ +Label man-latex:   two more links to "Dickimaw" books
+ +Label notWYSIWYG:  rewritten after a bit of historical research
+ +Label osf:	     \oldstylenums does use bold face to match surrounding text
+ +Label otherprinters: link ghostscript home, not CTAN
+ +Label previewers:  link ghostscript home, not CTAN
+ +Label psfchoice:   mention newpx, give CTAN links for URW fonts in newpx,newtx
+ +Label pspreview:   link ghostscript, gsview home, not CTAN
+ +Label recovertex:  link ghostscript home, not CTAN
+ +Label repeatgrf:   link ghostscript home, not CTAN
+ +Label scriptfonts: removed mention of ghostscript, add tg-chorus
+
+Deleted answers:
+ -Label y2k:	     removed as no longer relevant
+
+Web interface, etc.:
+ A statement of the FAQ's (PD) licence is shown in the introduction.
+ Now use standard glyph for arrows, rather than "hyphen-greater"
+ Translate \beta and \pi to greek letters rather than the letters' "names"
+
+Robin Fairbairns
+Hapless FAQer of Cambridge

@@ -1,0 +1,34 @@
+Changes in version 3.19d
+
+This file lists changes since its most recent release (with version 3.19c
+of the FAQ).
+
+New answers:
+ +Label plaintex:  explains "writing in tex", was part of Label whattex
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label codelist:  mention the minted package
+ +Label docs:	   single reference to epslatex (via catalogue)
+ +Label etex:	   add ctan link
+ +Label filesused: rewrite to clarify the issue with \input
+ +Label luatex:	   now version 0.60.0
+ +Label fonts-pln: replace some complete gibberish (undoing mis-edits, I guess)
+ +Label parallel:  mention the pdfcolparcolumns package
+ +Label seccntfmt: remove superfluous \expandafter in programming, tidy text
+ +Label tabcellalign: editorial on \PBS macro discussion
+ +Label texfuture: rehashed, in light of today's situation
+ +Label whattex:   simplified by removal of material for Label plaintex
+
+Deleted answers:
+ <none>
+
+Web interface:
+ Extension of links to catalogue, to packages "distributed as part of..."
+ Abbreviate header text (omitting long list of "helpers" -- which will
+   ultimately be available in a separate file online)
+ Convert all alphabetic SGML entities to use numeric equivalents
+
+Robin Fairbairns

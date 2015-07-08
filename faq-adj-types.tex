@@ -1,0 +1,3671 @@
+% $Id: faq-adj-types.tex,v 1.50 2014/01/22 17:29:03 rf10 Exp $
+
+\section{Adjusting the typesetting}
+
+\subsection{Alternative document classes}
+
+\Question[Q-replstdcls]{Replacing the standard classes}
+
+People are forever concocting classes that replace the standard ones:
+the present author produced an \Class{ukart} class that used the
+\Package{sober} package, and a few British-specific things (such as
+appear in the \Package{babel} package's British-english
+specialisation) in the 1980s, which is still occasionally used.
+
+Similar public efforts were available well back in the days of
+\LaTeXo{}: a notable example, whose pleasing designs seem not to have
+changed much over all that time, is the \Class{ntgclass} bundle.
+Each of the standard classes is replaced by a selection of classes,
+named in Dutch, sometimes with a single numeric digit attached.  So we
+have classes \Class{artikel2}, \Class{rapport1}, \Class{boek3} and
+\Class{brief}.  These classes are moderately well documented in
+English.
+
+The \Class{KOMA-script} bundle (classes named \Class{scr...}) are a
+strong current contender.  They are actively supported and are subject
+to sensitive development; they are comprehensive in their coverage of
+significant typesetting issues; they produce good-looking output and
+they are well documented in both English (\Package{scrguien} in the
+distribution) and German (\Package{scrguide} in the distribution).
+
+The other comparable class is \Class{memoir}.  This aims to replace
+\Class{book} and \Class{report} classes directly, and (like
+\Class{KOMA-script}) is comprehensive in its coverage of small issues.
+\Class{Memoir}'s documentation (\Package{memman}) is very highly
+spoken of, and its lengthy introductory section is regularly
+recommended as a tutorial on typesetting.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}KOMA-script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[\nothtml{\rmfamily}NTGclass bundle]\CTANref{ntgclass}
+\item[sober.sty]\CTANref{sober}
+\end{ctanrefs}
+
+\Question[Q-slidecls]{Producing presentations (including slides)}
+
+Lamport's original \LaTeX{} had a separate program (Sli\TeX{}) for
+producing slides; it dates from the age when colour effects were
+produced by printing separate slides in different-coloured inks, and
+overlaying them, and was just about acceptable back then.  When
+\LaTeXe{} came along, the reason Sli\TeX{} had to be a separate
+program went away, and its functionality was supplied by the
+\Class{slides} class.  While this makes life a little easier for
+system administrators, it does nothing for the inferior functionality
+of the class: no-one who ``knows'' uses \Class{slides} nowadays.
+
+The `classic' alternatives have been \Class{seminar} and \Class{foils}
+(originally known as Foil\TeX{}).  Both were originally designed to
+produce output on acetate foils, though subsequent work has provided
+environments in which they can be used with screen projectors (see
+below).
+
+The advent of Microsoft \ProgName{PowerPoint} (feeble though early
+versions of it were) has created a demand for ``dynamic'' slides~---
+images that develop their content in a more elaborate fashion than by
+merely replacing one foil with the next in the way that was the norm
+when \Class{slides}, \Class{foils} and \Class{seminar} were designed.
+
+The \Class{prosper} class builds on \Class{seminar} to provide dynamic
+effects and the like; it retains the ability to provide \acro{PDF} for
+a projected presentation, or to print foils for a foil-based
+presentation.  The add-on package \Package{ppr-prv} adds ``preview''
+facilities (that which is commonly called ``hand-out printing'').  The
+\Package{HA-prosper} package, which you load with \Class{prosper},
+mends a few bugs, and adds several facilities and slide design styles.
+The (more recent) \Class{powerdot} class is designed as a
+replacement for \Class{prosper} and \Package{HA-prosper}, co-authored
+by the author of \Package{HA-prosper}.
+
+\Class{Beamer} is a relatively easy-to-learn, yet powerful, class that
+(as its name implies) was designed for use with projection displays.
+It needs the \Package{pgf} package (for graphics support), which in
+turn requires \Package{xcolor}; while this adds to the tedium of
+installing \Class{beamer} ``from scratch'', both are good additions to
+a modern \LaTeX{} installation.  \Class{Beamer} has reasonable
+facilities for producing printed copies of slides.
+
+\Class{Talk} is another highly functional, yet easy-to-learn class
+which claims to differ from the systems mentioned above, such as
+\Class{beamer}, in that it doesn't impose a slide style on you.  You
+get to specify a bunch of slide styles, and you can switch from one to
+the other between slides, as you need.  The class itself provides
+just the one style, in the package \Package{greybars}: the author's
+suggestion that users should contribute their own has been
+enthusiastically accepted~--- see (for example) the % !line break
+\href{http://deic.uab.es/~iblanes/beamer_gallery/}{Beamer Gallery}.
+
+\Package{Lecturer} is a \emph{generic} solution (it works with
+\plaintex{}, \latex{} and \context{}~mk~ii, but not~--- yet~--- with
+\context{}~mk iv).  By separating the functionality needed for a
+presentation (using \tex{} for typesetting, and \acro{PDF} functions
+for layering and dynamic effects) a clear structure emerges.  While it
+doesn't have the range of ``themes'' (presentation styles) of
+\Class{beamer} it seems a useful alternative candidate.
+
+\Package{Present} is designed for use with \plaintex{} only; its
+design is simple, to the extent that its author hopes that users will
+themselves be able to tune its macros.
+
+\ProgName{Ppower4} (commonly known as \ProgName{pp4}) is a
+\ProgName{Java}-based support program that will postprocess
+\acro{PDF}, to `animate' the file at places you've marked with
+commands from one of the \ProgName{pp4} packages.  The commands don't
+work on \acro{PDF} that has come from \ProgName{dvips} output; they
+work with \acro{PDF} generated by \PDFLaTeX{}, \LaTeX{}, or
+\ProgName{dvipdfm} running on \LaTeX{} output.
+
+\Package{Pdfscreen} and \Package{texpower} are add-on packages that
+permit dynamic effects in documents formatted in ``more modest''
+classes; \Package{pdfscreen} will even allow you to plug
+``presentation effects'' into an \Class{article}-class document.
+
+% ifmslide
+%\noindent ifmslide: a few slides extolling virtues in \File{doc/ifmman.pdf}
+
+A more detailed examination of the alternatives (including examples
+of code using many of them) may be found at Michael Wiedmann's fine
+\URL{http://www.miwie.org/presentations/presentations.html}
+
+\CONTeXT{} users will find that much (if not all) of what they need is
+already in \CONTeXT{} itself; there's a useful summary of what's
+available, with examples, in
+\URL{http://wiki.contextgarden.net/Presentation_Styles}
+% 
+\begin{ctanrefs}
+\item[beamer.cls]Download all of \CTANref{beamer}
+\item[foils.cls]\CTANref{foiltex}
+\item[greybars.sty]distributed with \CTANref{talk}
+\item[HA-prosper.sty]\CTANref{ha-prosper}
+%\item[ifmslide.sty]\CTANref{ifmslide}
+\item[lecturer.sty]\CTANref{lecturer}
+\item[seminar.cls]\CTANref{seminar}
+\item[pdfscreen.sty]\CTANref{pdfscreen}
+\item[pgf.sty]\CTANref{pgf}
+\item[powerdot.cls]\CTANref{powerdot}
+\item[pp4]\CTANref{ppower4}
+\item[ppr-prv.sty]\CTANref{ppr-prv}
+\item[present.tex]\CTANref{present}
+\item[prosper.cls]\CTANref{prosper}
+\item[talk.cls]\CTANref{talk}
+\item[texpower]\CTANref{texpower}
+\item[xcolor.sty]\CTANref{xcolor}
+\end{ctanrefs}
+
+\Question[Q-poster]{Creating posters with \LaTeX{}}
+
+There is no complete ``canned solution'' to creating a poster (as, for
+example, classes like \Class{seminar}, \Class{powerdot} and
+\Class{beamer} serve for creating presentations in a variety of
+styles).
+
+The nearest approach to the complete solution is the \Class{sciposter}
+class, which provides the means to produce really rather good posters
+according to the author's required style.  A complete worked example
+is provided with the distribution
+
+Otherwise, there is a range of tools, most of which are based on the
+\Class{a0poster} class, which sets up an appropriately-sized piece of
+paper, sets font sizes appropriately, and leaves you to your own
+devices.
+
+Having used \Class{a0poster}, you can of course slog it out, and write
+all your poster as an unadorned \LaTeX{} document (presumably in
+multiple columns, using the \Package{multicol} package), but it's not really
+necessary: the (straightforward) \Package{textpos} package provides a
+simple way of positioning chunks of text, or tables or figures, on the
+poster page.
+
+More sophisticated is the \Package{flowfram} package, whose basic aim
+in life is flowing text from one box on the page to the next.  One of
+the package's design aims seems to have been the production of
+posters, and a worked example is provided.  The author of
+\Package{flowfram} has an experimental tool called
+\href{http://www.dickimaw-books.com/software.html#jpgfdraw}{JpgfDraw}, which
+allows you to construct the outline of frames for use with
+\Package{flowfram}.
+
+The \Package{beamerposter} package is added to a % ! line break
+\Qref*{\Class{beamer} document}{Q-slidecls} to enable the user to work
+as if in a \Class{a0poster} class.  Thus \Class{beamer}'s neat
+provisions for layout may be used when creating the poster.
+Documentation of \Package{beamerposter} is sparse, but an example file
+allows the user to get a grip on what's available.
+
+Despite the relative shortage of tools, there are a fair few web pages
+that explain the process (mostly in terms of the \Class{a0poster}
+route):
+\begin{itemize}
+\item from Norman Gray, % ! line break; this item checked 2012-10-02
+  \href{http://nxg.me.uk/docs/posters/}{Producing posters using \LaTeX{}};
+\item from Nicola Talbot, % ! line break; this item checked 2012-10-02
+  \href{http://www.dickimaw-books.com/latex/posters/}{Creating technical posters with \LaTeX{}}
+\item From Rob Clark % ! line break; this item checked 2012-10-02
+  \href{http://homepages.inf.ed.ac.uk/robert/posters/advanced.html}{Advanced LaTeX Posters} % ! line break
+  (which has links to code samples);
+\item from Brian Wolven, % ! line break this item failed 2012-10-02
+  \href{http://fuse.pha.jhu.edu/~wolven/posters.html}{LaTeX Poster Macros, Examples, and Accessories} % ! line break
+  (this page also provides macros and other support suggestions); and
+\item from ``\emph{pjh}'' % ! line break; this item checked 2012-10-02
+  \href{http://www.phys.ufl.edu/~pjh/posters/poster_howto_UF.html}{Making and printing a poster with \LaTeX{}}, % ! line break
+  which covers the specific issue of dealing with University of
+  Florida styled poster (offering supporting material as necessary),
+  but has hints which are generally useful.
+\end{itemize}
+\begin{ctanrefs}
+\item[a0poster.cls]\CTANref{a0poster}
+\item[beamer.cls]\CTANref{beamer}
+\item[beamerposter.sty]\CTANref{beamerposter}
+\item[flowfram.sty]\CTANref{flowfram}
+\item[multicol.sty]Distributed as part of \CTANref{2etools}[multicol]
+\item[sciposter.cls]\CTANref{sciposter}
+\item[textpos.sty]\CTANref{textpos}
+\end{ctanrefs}
+
+\Question[Q-thesis]{Formatting a thesis in \LaTeX{}}
+
+Thesis styles are usually very specific to your University, so it's
+usually not profitable to ask around for a package outside your own
+University.  Since many Universities (in their eccentric way) still
+require double-spaced thesis text, you may also need separately to set
+up \Qref*{double spacing}{Q-linespace}.
+
+If you want to write a new thesis class of your own, a good place to
+start is the University of California style, but remember that it's
+often difficult to produce a thesis that both looks good and conforms
+with the style that your Univeristy demands.
+\begin{ctanrefs}
+\item[UC thesis style]\CTANref{ucthesis}
+\end{ctanrefs}
+
+\Question[Q-journalpaper]{Setting papers for journals}
+
+Publishers of journals have a wide range of requirements for the
+presentation of papers, and while many publishers do accept electronic
+submissions in \AllTeX{}, they don't often submit recommended macros to
+public archives.
+
+Nevertheless, there are considerable numbers of macros of one sort or
+another available on \acro{CTAN}; searching for your journal name in
+the CTAN catalogue~--- see % ! line break
+\Qref{searching \acro{CTAN}}{Q-findfiles})~---
+may well turn up what you're seeking.
+
+Failing that, you may be well advised to contact the prospective
+publisher of your paper; many publishers have macros on their own web
+sites, or otherwise available only upon application.
+
+Check that the publisher is offering you macros suitable to an
+environment you can use: a few still have no macros for current
+\LaTeX{}, for example, claiming that \LaTeXo{} is good enough\dots{}
+
+Some publishers rekey anything sent them anyway, so that it doesn't
+really matter what macros you use.  Others merely encourage you to use
+as few extensions of a standard package as possible, so that they will
+find it easy to transform your paper to their own internal form.
+
+\Question[Q-multidoc]{A `report' from lots of `article's}
+
+This is a requirement, for example, if one is preparing the
+proceedings of a conference whose papers were submitted in \LaTeX{}.
+
+The nearest things to canned solutions are Peter Wilson's
+\Class{combine} and Federico Garcia's \Class{subfiles} classes, but
+many approaches have been proposed.  Each of of the offerings has its
+own advantages; in particular, several distinctly light-weight
+solutions (for example, \Package{includex} and \Package{docmute}) are
+available, well-suited to less formal documents.
+
+\Class{Combine} defines the means to `\csx{import}' entire documents,
+and provides means of specifying significant features of the layout of
+the document, as well as a global table of contents, and so on.  The
+complete set of facilities is pretty complex.  An auxiliary package,
+\Package{combinet}, allows use of the \csx{title}s and \csx{author}s
+(etc.\@) of the \csx{import}ed documents to appear in the global table
+of contents.  The basic structure of a combined document would be:
+\begin{quote}
+\begin{verbatim}
+\documentclass[...]{combine}
+...
+\begin{document}
+...
+<introductory materiel>
+...
+\begin{papers}
+% title and author of first article,
+% to go the the main ToC
+\coltoctitle{...}
+\coltocauthor{...}
+\label{art1}
+\import{art1}
+...
+\end{papers}
+...
+<acknowledgements, etc.>
+...
+\end{document}
+\end{verbatim}
+\end{quote}
+
+The \Class{subfiles} class is used in the component files of a multi-file
+project, and the corresponding \Package{subfiles} package is used in the
+master file; so the structure of the master file looks like:
+\begin{quote}
+\begin{verbatim}
+\documentclass{<whatever>}
+...
+\usepackage{subfiles}
+...
+\begin{document}
+...
+\subfile{subfile_name}
+...
+\end{document}
+\end{verbatim}
+\end{quote}
+while a subfile has the structure:
+\begin{quote}
+\begin{verbatim}
+\documentclass[mainfile_name]{subfiles}
+\begin{document}
+...
+\end{document}
+\end{verbatim}
+\end{quote}
+Arrangements may be made so that the component files will
+be typeset using different page format, etc., parameters than those
+used when they are typeset as a part of the main file.
+
+A more `raw' toolkit is offered by Matt Swift's \Package{includex} and
+\Package{newclude} packages, both part of the \Package{frankenstein}
+bundle.  Note that Matt believes \Package{includex} is obsolete
+(though it continues to work for this author); furthermore, its
+replacement, \Package{newclude} remains ``in development'', as it has
+been since 1999.
+
+Both \Package{includex} and \Package{newclude} enable you to
+`\csx{includedoc}' complete articles (in the way that you
+`\csx{include}' chapter files in an ordinary report).  The preamble
+(everything up to \cmdinvoke{begin}{document}), and everything after
+\cmdinvoke{end}{document}, is ignored by both packages.  Thus the
+packages don't ``do the whole job'' for you, though: you need to
+analyse the package use of the individual papers, and ensure that a
+consistent set is loaded in the preamble of the main report.  (Both
+packages require \Package{moredefs}, which is also part of the
+bundle.)
+
+A neat (and simple) toolkit is offered by the
+\Package{docmute} package; once the package is loaded, anything
+between \cmdinvoke{documentclass}[...]{...} and
+\cmdinvoke{begin}{document} in an \csx{input}'ed or \csx{include}'d
+document is ignored, and then the input is processed up to
+\cmdinvoke{end}{document} in the input file.  The package does nothing
+about \csx{usepackage} (or anything else) in the preamble of the
+included document; it's up to the user to ensure that any packages
+needed are loaded, and any other necessary configuration is done, in
+the parent document.
+
+The \Package{standalone} package develops on the ideas of
+\Package{docmute}; it was designed to meet the needs of users who are
+developing images from one of the more extreme new graphics packages
+(notably \Package{pgf/tikz}) where the compile time of the graphics is
+such that separate compilation is very desirable.
+\Package{Standalone} provides a means of developing the graphics in a
+convenient way, detached from the development of the document as a
+whole; its value for use in multiple documents is clear.
+
+The user includes the \Package{standalone} package in the main
+document, and each subfile uses the \Class{standalone} class.
+(\Class{Standalone} uses \Class{article} for the ``real'' work in
+stand-alone mode, but it may be asked to use another).
+
+The real difference from the \Package{docmute} package is
+flexibility.  In particular, you can ask that the preambles of the
+included documents be gathered up, so that you can construct a good
+preamble for the master document.
+
+A final ``compile-together'' approach comes from the \Package{subdocs}
+package.  The driver file contains a \csx{subdocuments} command:
+\begin{quote}
+\cmdinvoke*{subdocuments}[options]{file1, file2, ...}
+\end{quote}
+(the optional arguments provide layout options, such as control over
+whether \csx{clearpage} or \csx{cleardoublepage} are used between the
+files).  Each of the sub-files will execute
+\begin{quote}
+  \cmdinvoke*{usepackage}[master]{subdocs}
+\end{quote}
+to declare the name, \texttt{\emph{master}}, of the calling file;
+each of the subfiles reads all the \extension{aux} files, so that
+tables of contents may be produced.
+
+A completely different approach is to use the \Package{pdfpages}
+package, and to include articles submitted in \acro{PDF} format into a
+a \acro{PDF} document produced by \PDFLaTeX{}.  The package
+defines an \csx{includepdf} command, which takes arguments similar to
+those of the \csx{includegraphics} command.  With keywords in the
+optional argument of the command, you can specify which pages you want
+to be included from the file named, and various details of the layout
+of the included pages.
+\begin{ctanrefs}
+\item[combine.cls]\CTANref{combine}
+\item[combinet.sty]\CTANref{combine}
+\item[docmute.sty]\CTANref{docmute}
+\item[includex.sty]Distributed in the ``unsupported'' part of
+  \CTANref{frankenstein}[includex]
+\item[moredefs.sty]Distributed as part of \CTANref{frankenstein}[moredefs]
+\item[newclude.sty]Distributed as part of \CTANref{frankenstein}[newclude]
+\item[pdfpages.sty]\CTANref{pdfpages}
+\item[standalone.cls, standalone.sty]\CTANref{standalone}
+\item[subdocs.sty]Distributed as part of \CTANref{bezos}[subdocs]
+\item[subfiles.cls, etc.]\CTANref{subfiles}
+\end{ctanrefs}
+
+\Question[Q-cv]{\emph{Curriculum Vitae} (R\'esum\'e)}
+
+Andrej Brodnik's class, \Class{vita}, offers a framework for producing
+a \emph{curriculum vitae}.  The class may be customised both for
+subject (example class option files support both computer scientists
+and singers), and for language (both the options provided are
+available for both English and Slovene).  Extensions may be written by
+creating new class option files, or by using macros defined in the
+class to define new entry types, etc.
+
+Didier Verna's class, \Class{curve}, is based on a model in which
+the \acro{CV} is made of a set of \emph{rubrics} (each one dealing
+with a major item that you want to discuss, such as `education', `work
+experience', etc).  The class's documentation is supported by a couple
+of example files, and an emacs mode is provided.
+
+Xavier Danaux offers a class \Class{moderncv} which supports
+typesetting modern \emph{curricula vitarum}, both in a classic and in a
+casual style. It is fairly customizable, allowing you to define your
+own style by changing the colours, the fonts, etc.
+
+The European Commission has recommended a format for % ! line break
+\emph{curricula vitarum} within Europe, and Nicola Vitacolonna has
+developed a class \Class{europecv} to produce it.  While (by his own
+admission) the class doesn't solve all problems, it seems well-thought
+out and supports all current official EU languages (together with a
+few non-official languages, such as Catalan, Galician and Serbian).
+
+The alternative to using a separate class is to impose a package on
+one of the standard classes.  An example,
+Axel Reichert's \Package{currvita} package, has been recommended to the
+\acro{FAQ} team.  Its output certainly looks good.
+
+There is also a \LaTeXo{} package \Package{resume}, which comes with
+little but advice \emph{against} trying to use it.
+\begin{ctanrefs}
+\item[currvita.sty]\CTANref{currvita}
+\item[curve.cls]\CTANref{curve}
+\item[europecv.cls]\CTANref{europecv}
+\item[moderncv.cls]\CTANref{moderncv}
+\item[resume.sty]\CTANref{resume}
+\item[vita.cls]\CTANref{vita}
+\end{ctanrefs}
+
+\Question[Q-letterclass]{Letters and the like}
+
+\LaTeX{} itself provides a \Class{letter} document class, which is
+widely disliked; the present author long since gave up trying with
+it.  If you nevertheless want to try it, but are irritated by its way
+of vertically-shifting a single-page letter, try the following hack:
+\begin{quote}
+\begin{verbatim}
+\makeatletter
+\let\@texttop\relax
+\makeatother
+\end{verbatim}
+\end{quote}
+in the preamble of your file.
+
+Doing-it-yourself is a common strategy; Knuth (for use with
+\plaintex{}, in the \TeX{}book), and Kopka and Daly (in their Guide to
+\LaTeX{}) offer worked examples.  (The latest version of Knuth's
+macros appear in his ``local library'' dump on the archive, which is
+updated in parallel with new versions of \TeX{}~--- so not very often\dots{})
+
+Nevertheless, there \emph{are} contributed alternatives~--- in fact
+there are an awfully large number of them: the following list, of
+necessity, makes but a small selection.
+
+The largest, most comprehensive, class is \Class{newlfm}; the \texttt{lfm}
+part of the name implies that the class can create letters, faxes and
+memoranda.  The documentation is voluminous, and the package seems
+very flexible.
+
+Other classes recommended for inclusion in this \acro{FAQ} are
+\Class{akletter} and \Class{isodoc}.
+
+The \Class{dinbrief} class, while recommended, is only documented in
+German.
+
+There are letter classes in each of the excellent
+\Class{KOMA-script} (\Class{scrlttr2}: documentation is available in
+English) and \Package{ntgclass} (\Class{brief}: documentation in Dutch
+only) bundles.  While these are probably good (since the bundles
+themselves inspire trust) they've not been specifically recommended by
+any users.
+\begin{ctanrefs}
+\item[akletter.cls]\CTANref{akletter}
+\item[brief.cls]Distributed as part of \CTANref{ntgclass}
+\item[dinbrief.cls]\CTANref{dinbrief}
+\item[isodoc.cls]\CTANref{isodoc}
+\item[\nothtml{\rmfamily}Knuth's letter.tex]\CTANref{knuth-letter}
+\item[newlfm.cls]\CTANref{newlfm}
+\item[scrlttr2.cls]Distributed as part of \CTANref{koma-script}
+\end{ctanrefs}
+
+\Question[Q-extsizes]{Other ``document font'' sizes?}
+
+The \LaTeX{} standard classes have a concept of a (base) ``document
+font'' size; this size is the basis on which other font sizes (those
+from \csx{tiny} to \csx{Huge}) are determined.  The classes are designed
+on the assumption that they won't be used with sizes other than the
+set that \LaTeX{} offers by default (10--12pt), but people regularly
+find they need other sizes.  The proper response to such a requirement
+is to produce a new design for the document, but many people don't
+fancy doing that.
+
+A simple solution is to use the \Package{extsizes} bundle.  This
+bundle offers ``extended'' versions of the article, report, book and
+letter classes, at sizes of 8, 9, 14, 17 and 20pt as well as the
+standard 10--12pt.  Since little has been done to these classes other
+than to adjust font sizes and things directly related to them, they
+may not be optimal~--- but they are at least practical.
+
+More satisfactory are the \emph{\acro{KOMA}-script} classes, which are
+designed to work properly with the class option files that come with
+\Package{extsizes}, and the \Class{memoir} class that has its own
+options for document font sizes 9pt--12pt, 14pt, 17pt, 20pt, 25pt,
+30pt, 36pt, 48pt and 60pt.  The classes also offer size setup for any
+old font size, and the \Package{scrextend} package can extend this
+facility for use with any class:
+\begin{quote}
+\begin{verbatim}
+\usepackage[fontsize=12.3]{scrextend}
+\end{verbatim}
+\end{quote}
+will indeed set up the main document font to have size \texttt{12.3pt}
+with an appropriate default baselineskip.  The package ``knows'' about
+\emph{\acro{KOMA}-script}'s default sizes, and for eccentric sizes
+such as the example, it will produce a warning:
+\begin{quote}
+\begin{verbatim}
+Using fallback calculation to setup font sizes
+\end{verbatim}
+\end{quote}
+(users should avoid becoming excited about that\dots{}).  The package
+suffers from the same problem as does \Package{extsizes}: the
+resulting font sizes are the \emph{only} feature of the document that
+is changed, and the appearance of the resulting document will probably
+not be as good as if the document class had been designed for use at
+the size chosen.
+
+Many classes, designed to produce typeset results other than on
+``ordinary'' paper, will have their own font size mechanisms and
+ranges of sizes.  This is true, for example, of % ! line break
+\Qref*{poster classes}{Q-poster} (such as \Class{a0poster}), and of
+\Qref*{presentation and lecturing classes}{Q-slidecls} (such as
+\Class{beamer}.
+\begin{ctanrefs}
+\item[a0poster.cls]\CTANref{a0poster}
+\item[beamer.cls]\CTANref{beamer}
+\item[extsizes bundle]\CTANref{extsizes}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[scrextend.sty]Distributed as part of \CTANref{koma-script}
+\end{ctanrefs}
+\LastEdit{2012-11-01}
+
+\subsection{Document structure}
+
+\Question[Q-titlsty]{The style of document titles}
+
+The \Package{titling} package provides a number of facilities that
+permit manipulation of the appearance of a \csx{maketitle} command, the
+\csx{thanks} commands within it, and so on.  The package also defines a
+\environment{titlingpage} environment, that offers something in between the
+standard classes' \pkgoption{titlepage} option and the \environment{titlepage}
+environment, and is itself somewhat configurable.
+
+The memoir class includes all the functionality of the
+\Package{titling} package, while the \Class{KOMA-script} classes have
+their own range of different titling styles.
+
+Finally, the indefatigable Vincent Zoonekynd supplies examples of how
+to program alternative % don't let this \href suffer a line-break
+\href{http://zoonek.free.fr/LaTeX/LaTeX_samples_title/0.html}{title styles}.
+The web page is not useful to users unless they are willing to do
+their own \LaTeX{} programming.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[titling.sty]\CTANref{titling}
+\end{ctanrefs}
+
+\Question[Q-secthead]{The style of section headings}
+
+Suppose that the editor of your favourite journal has specified that section
+headings must be centred, in small capitals, and subsection headings ragged 
+right in italic, but that you don't want to get involved in the sort of
+programming described in section 2.2 of \emph{The \LaTeX{} Companion}
+\begin{narrowversion} % really non-hyper
+  (\Qref{}{Q-latex-books}; the programming itself is discussed in
+  \Qref[question]{}{Q-atsigns}).
+\end{narrowversion}
+\begin{wideversion} % really hyper
+  (see \Qref{\latex{} books}{Q-latex-books}; the
+  \Qref{programming}{Q-atsigns} itself is discussed elsewhere in this
+  \acro{FAQ}).
+\end{wideversion}
+The following hack will 
+probably satisfy your editor. Define yourself new commands
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\newcommand{\ssection}[1]{%
+  \section[#1]{\centering\normalfont\scshape #1}}
+\newcommand{\ssubsection}[1]{%
+  \subsection[#1]{\raggedright\normalfont\itshape #1}}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion} % really non-hyper
+\begin{verbatim}
+\newcommand{\ssection}[1]{%
+  \section[#1]{\centering
+               \normalfont\scshape #1}}
+\newcommand{\ssubsection}[1]{%
+  \subsection[#1]{\raggedright
+                  \normalfont\itshape #1}}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+and then use \csx{ssection} and \csx{ssubsection} in place of
+\csx{section} and \csx{subsection}. This isn't perfect: section numbers
+remain in bold, and starred forms need a separate redefinition.
+
+The \Package{titlesec} package offers a structured approach to the
+problem, based on redefinition of the sectioning and chapter commands
+themselves.  This approach allows it to offer radical adjustment: its
+options provide (in effect) a toolbox for designing your own
+sectioning commands' output.
+
+The \Package{sectsty} package provides a more simply structured set of
+tools; while it is less powerful than is \Package{titlesec}, it is
+perhaps preferable for minor adjustments, since you can use it after
+having read a smaller proportion of the manual.
+
+The \Package{fncychap} package provides a nice collection of customised
+chapter heading designs.  The \Package{anonchap} package provides a
+simple means of typesetting chapter headings ``like section headings''
+(i.e., without the ``Chapter'' part of the heading); the
+\Package{tocbibind} package provides the same commands, in pursuit of
+another end.
+
+The \Class{memoir} class includes facilities that match
+\Package{sectsty} and \Package{titlesec}, as well as a bundle of
+chapter heading styles (including an \Package{anonchap}-equivalent).
+The \Class{KOMA-script} classes also have sets of tools that provide
+equivalent functionality, notably formatting specifications \csx{partformat},
+\csx{chapterformat}, \csx{sectionformat}, \dots{}, as well as several
+useful overall formatting specifications defined in class options.
+
+Finally, the indefatigable Vincent Zoonekynd supplies examples of how
+to program alternative % don't let these \href suffer line-breaks
+\href{http://zoonek.free.fr/LaTeX/LaTeX_samples_chapter/0.html}{chapter heading styles}
+and
+\href{http://zoonek.free.fr/LaTeX/LaTeX_samples_section/0.html}{section heading styles}.
+The web pages provide programming examples, and expect users to adapt
+them to their own \LaTeX{} use.
+\begin{ctanrefs}
+\item[anonchap.sty]\CTANref{anonchap}
+\item[fncychap.sty]\CTANref{fncychap}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[sectsty.sty]\CTANref{sectsty}
+\item[titlesec.sty]\CTANref{titlesec}
+\item[tocbibind.sty]\CTANref{tocbibind}
+\end{ctanrefs}
+\LastEdit{2011-06-01}
+
+\Question[Q-appendix]{Appendixes}
+
+\LaTeX{} provides an exceedingly simple mechanism for appendixes: the
+command \csx{appendix} switches the document from generating sections
+(in \Class{article} class) or chapters (in \Class{report} or
+\Class{book} classes) to producing appendixes.  Section or chapter
+numbering is restarted and the representation of the counter switches
+to alphabetic.  So:
+\begin{quote}
+\begin{verbatim}
+\section{My inspiration}
+...
+
+\section{Developing the inspiration}
+...
+
+\appendix
+\section{How I became inspired}
+...
+\end{verbatim}
+\end{quote}
+would be typeset (in an \Class{article} document) something like:
+\begin{quote}
+\textbf{1~~My inspiration}
+
+\dots{}
+
+\textbf{2~~Developing the inspiration}
+
+\dots{}
+
+\textbf{A~~How I became inspired}
+
+\dots{}
+\end{quote}
+which is quite enough for many ordinary purposes.  Note that, once
+you've switched to typesetting appendixes, \LaTeX{} provides you with
+no way back~--- once you've had an appendix, you can no longer have an
+``ordinary'' \csx{section} or \csx{chapter}.
+
+The \Package{appendix} provides several ways of elaborating on this
+simple setup.  Straightforward use of the package allows you to have a
+separate heading, both in the body of the document and the table of
+contents; this would be achieved by
+\begin{quote}
+\begin{verbatim}
+\usepackage{appendix}
+...
+\appendix
+\appendixpage
+\addappheadtotoc
+\end{verbatim}
+\end{quote}
+The \csx{appendixpage} command adds a separate title ``Appendices''
+above the first appendix, and \csx{addappheadtotoc} adds a similar
+title to the table of contents.  These simple modifications cover many
+people's needs about appendixes.
+
+The package also provides an \environment{appendices} environment,
+which provides for fancier use.  The environment is best controlled by
+package options; the above example would be achieved by
+\begin{quote}
+\begin{verbatim}
+\usepackage[toc,page]{appendix}
+...
+\begin{appendices}
+...
+\end{appendices}
+\end{verbatim}
+\end{quote}
+The great thing that the \environment{appendices} environment gives
+you, is that once the environment ends, you can carry on with sections
+or chapters as before~--- numbering isn't affected by the intervening
+appendixes.
+
+The package provides another alternative way of setting appendixes, as
+inferior divisions in the document.  The \environment{subappendices}
+environment allows you to put separate appendixes for a particular
+section, coded as \csx{subsection}s, or for a particular chapter, coded
+as \csx{section}s.  So one might write:
+\begin{quote}
+\begin{verbatim}
+\usepackage{appendix}
+...
+\section{My inspiration}
+...
+\begin{subappendices}
+\subsection{How I became inspired}
+...
+\end{subappendices}
+
+\section{Developing the inspiration}
+...
+\end{verbatim}
+\end{quote}
+Which will produce output something like:
+\begin{quote}
+\textbf{1~~My inspiration}
+
+\dots{}
+
+\textbf{1.A~~How I became inspired}
+
+\dots{}
+
+\textbf{2~~Developing the inspiration}
+
+\dots{}
+\end{quote}
+
+There are many other merry things one may do with the package; the
+user is referred to the package documentation for further details.
+
+The \Class{memoir} class includes the facilities of the
+\Package{appendix} package.  The \Class{KOMA-script} classes offer a
+\csx{appendixprefix} command for manipulating the appearance of appendixes.
+\begin{ctanrefs}
+\item[appendix.sty]\CTANref{appendix}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\end{ctanrefs}
+
+\Question[Q-secindent]{Indent after section headings}
+
+\LaTeX{} implements a style that doesn't indent the first paragraph
+after a section heading.  There are coherent reasons for this, but not
+everyone likes it.
+The \Package{indentfirst} package
+suppresses the mechanism, so that the first paragraph is
+indented.
+\begin{ctanrefs}
+\item[indentfirst.sty]Distributed as part of \CTANref{2etools}[indentfirst]
+\end{ctanrefs}
+
+\Question[Q-subsubsub]{How to create a \csx{subsubsubsection}}
+
+\LaTeX{}'s set of ``sections'' stops at the level of
+\csx{subsubsection}.  This reflects a design decision by Lamport~---
+for, after all, who can reasonably want a section with such huge
+strings of numbers in front of it?
+
+In fact, \LaTeX{} standard classes \emph{do} define ``sectioning''
+levels lower than \csx{subsubsection}, but they don't format them like
+sections (they're not numbered, and the text is run-in after the
+heading).  These deeply inferior section commands are \csx{paragraph}
+and \csx{subparagraph}; you can (if you \emph{must}) arrange that these
+two commands produce numbered headings, so that you can use them as
+\csx{subsubsubsection}s and lower.
+
+The \Package{titlesec} package provides a sensible set of macros for
+you to adjust the definitions of the sectioning macros, and it may be
+used to transform a \csx{paragraph}'s typesetting so that it looks
+like that of a \csx{section}.
+
+If you want to program the change yourself, you'll find that the
+commands (\csx{section} all the way down to \csx{subparagraph}) are
+defined in terms of the internal \csx{@startsection} command, which
+takes 6~arguments.  Before attempting this sort of work, you are well
+advised to read the \LaTeX{} sources (\File{ltsect.dtx} in the
+\LaTeX{} distribution) and the source of the standard packages
+(\File{classes.dtx}), or to make use of the % ! line break
+\Qref*{\LaTeX{} Companion}{Q-latex-books}, which
+discusses the use of \csx{@startsection} for this sort of thing.
+
+You will note that Lamport didn't go on adding ``\texttt{sub}'' to the
+names of sectioning commands, when creating commands for the lowest
+levels of a document.  This would seem sensible to any but the most
+rigorous stickler for symmetry~--- it would surely challenge pretty
+much anyone's reading of the source of a document, if there was a need
+to distinguish \csx{subsubsubsection} and \csx{subsubsubsubsection}
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\LaTeX{} source]\CTANref{latex}
+\item[titlesec.sty]\CTANref{titlesec}
+\end{ctanrefs}
+\LastEdit{2012-02-14}
+
+\Question[Q-captsty]{The style of captions}
+
+Changes to the style of captions may be made by redefining the commands
+that produce the caption.  So, for example, \csx{fnum@figure} (which
+produces the float number for figure floats) may be redefined, in a
+package of your own, or between
+\Qref*{\csx{makeatletter}--\csx{makeatother}}{Q-atsigns}:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\renewcommand{\fnum@figure}{\textbf{Fig.~\thefigure}}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\renewcommand{\fnum@figure}%
+  {\textbf{Fig.~\thefigure}}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+which will cause the number to be typeset in bold face.  (Note that
+the original definition used \nothtml{\csx{figurename}~--- }%
+\Qref{\csx{figurename}}{Q-fixnam}.)  More elaborate changes can be
+made by patching the \csx{caption} command, but since there are
+packages to do the job, such changes (which can get rather tricky)
+aren't recommended for ordinary users.
+
+The \Package{float} package provides some control of the appearance of
+captions, though it's principally designed for the creation of
+non-standard floats.  The \Package{caption} and \Package{ccaption}
+(note the double ``\emph{c}'') packages provide a range of different
+formatting options.
+
+\Package{ccaption} also provides `continuation' captions and captions
+that can be placed outside of float environments.  The (very simple)
+\Package{capt-of} package also allows captions outside a float
+environment.  Note that care is needed when doing things that assume
+the sequence of floats (as in continuation captions), or potentially
+mix non-floating captions with floating ones.
+
+The \Class{memoir} class includes the facilities of the
+\Package{ccaption} package; the \Class{KOMA-script} classes also
+provide a wide range of caption-formatting commands.
+
+The documentation of \Package{caption} is available by processing a
+file \File{manual.tex}, which is created when you unpack
+\File{caption.dtx}
+
+Note that the previously-recommended package \Package{caption2} has
+now been overtaken again by \Package{caption}; however,
+\Package{caption2} remains available for use in older documents.
+\begin{ctanrefs}
+\item[caption.sty]\CTANref{caption}
+\item[capt-of.sty]\CTANref{capt-of}
+\item[ccaption.sty]\CTANref{ccaption}
+\item[float.sty]\CTANref{float}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\end{ctanrefs}
+
+\Question[Q-fancyhdr]{Alternative head- and footlines in \LaTeX{}}
+\keywords{headings header footer headline footline}
+
+The standard \LaTeX{} document classes define a small set of `page
+styles' which specify head- and footlines for your document (though
+they can be used for other purposes, too).  The standard set is very
+limited, but \LaTeX{} is capable of much more.  The internal
+\LaTeX{} coding needed to change page styles is not particularly
+challenging, but there's no need~--- there are packages that provide
+useful abstractions that match the way we typically think about these
+things.
+
+The \Package{fancyhdr} package provides
+simple mechanisms for defining pretty much every head- or footline
+variation you could want; the directory also contains some
+documentation and one or two smaller packages.  \Package{Fancyhdr} 
+also deals with the tedious behaviour of the standard styles with
+\Qref*{initial pages}{Q-nopageno}, by enabling you to define
+different page styles for initial and for body pages.
+
+While \Package{fancyhdr} will work with \Class{KOMA-script} classes,
+an alternative package, \Package{scrpage2}, eases integration with the
+classes.  \Package{Scrpage2} may also be used as a \Package{fancyhdr}
+replacement, providing similar facilities.  The \Class{KOMA-script}
+classes themselves permit some modest redefinition of head- and
+footlines, without the use of the extra package.
+
+\Class{Memoir} also contains the functionality of \Package{fancyhdr},
+and has several predefined styles.
+
+Documentation of \Package{fancyhdr} is distributed with the package,
+in a separate file; documentation of \Package{scrpage2} is integrated
+with the \File{scrgui*} documentation files that are distributed with
+the \Class{KOMA-script} classes.
+\begin{ctanrefs}
+\item[fancyhdr.sty]\CTANref{fancyhdr}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\end{ctanrefs}
+
+\Question[Q-widefigs]{Wide figures in two-column documents}
+
+Floating figures and tables ordinarily come out the same width as the
+page, but in two-column documents they're restricted to the width of
+the column.  This is sometimes not good enough; so there are alternative
+versions of the float environments~--- in two-column documents,
+\texttt{figure*} provides a floating page-wide figure (and \texttt{table*} a
+page-wide table) which will do the necessary.
+
+The ``\texttt{*}''ed float environments can only appear at the top of a page,
+or on a whole page~--- \texttt{h} or \texttt{b} float placement directives are
+simply ignored.
+
+Unfortunately, page-wide equations can only be accommodated inside
+float environments.  You should include them in \texttt{figure} environments,
+or use the \Package{float} or \Package{ccaption}package to define a
+new float type. 
+\begin{ctanrefs}
+\item[ccaption.sty]\CTANref{ccaption}
+\item[float.sty]\CTANref{float}
+\end{ctanrefs}
+
+\Question[Q-onecolabs]{1-column abstract in 2-column document}
+
+One often requires that the abstract of a paper should appear across
+the entire page, even in a two-column paper.  The required trick is:
+\begin{quote}
+\begin{verbatim}
+\documentclass[twocolumn]{article}
+...
+\begin{document}
+... % \author, etc
+\twocolumn[
+  \begin{@twocolumnfalse}
+    \maketitle
+    \begin{abstract}
+      ...
+    \end{abstract}
+  \end{@twocolumnfalse}
+  ]
+\end{verbatim}
+\end{quote}
+Unfortunately, with the above \csx{thanks} won't work in the
+\csx{author} list.  If you need such specially-numbered footnotes, you
+can make them like this:
+\begin{quote}
+\begin{verbatim}
+\title{Demonstration}
+\author{Me, You\thanks{}}
+\twocolumn[
+  ... as above ...
+]
+{
+  \renewcommand{\thefootnote}%
+    {\fnsymbol{footnote}}
+  \footnotetext[1]{Thanks for nothing}
+}
+\end{verbatim}
+\end{quote}
+and so on.
+
+As an alternative, among other facilities the \Package{abstract} package 
+provides a
+\csx{saythanks} command and a \environment{onecolabstract} environment
+which remove the need to fiddle with the \csx{thanks} and
+footnoting. They can be used like this:
+\begin{quote}
+\begin{verbatim}
+\twocolumn[
+  \maketitle             % full width title
+  \begin{onecolabstract} % ditto abstract
+    ... text
+  \end{onecolabstract}
+]
+\saythanks            % typeset any \thanks
+\end{verbatim}
+\end{quote}
+The \Class{memoir} class offers all the facilities of \Package{abstract}.
+\begin{ctanrefs}
+\item[abstract.sty]\CTANref{abstract}
+\item[memoir.cls]\CTANref{memoir}
+\end{ctanrefs}
+
+\Question[Q-reallyblank]{Really blank pages between chapters}
+
+If you're using the standard classes, you need to take special action;
+the \Class{memoir} class and the \Class{Koma-Script} classes provide
+their own support for this~--- see below. 
+
+\Class{Book} (by default) and \Class{report} (with \pkgoption{openright} class
+option) ensure that each chapter starts on a right-hand (recto) page;
+they do this by inserting a \csx{cleardoublepage} command between
+chapters (rather than a mere \csx{clearpage}).  The empty page thus
+created gets to have a normal running header, which some people don't
+like.
+
+The (excellent) \Package{fancyhdr} manual covers this issue, basically
+advising the creation of a command \csx{clearemptydoublepage}:
+\begin{quote}
+\begin{verbatim}
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{%
+  \clearpage
+  {\pagestyle{empty}\origdoublepage}%
+}
+\end{verbatim}
+\end{quote}
+The ``obvious'' thing is then to use this command to replace
+\csx{cleardoublepage} in a patched version of the \csx{chapter} command.
+(Make a package of your own containing a copy 
+of the command out of the class.)  This isn't particularly difficult,
+but you can instead simply subvert \csx{cleardoublepage} (which isn't
+often used elsewhere):
+\begin{quote}
+\begin{verbatim}
+\let\cleardoublepage\clearemptydoublepage
+\end{verbatim}
+\end{quote}
+Note: this command works because \csx{clearemptydoublepage} uses a copy
+of \csx{cleardoublepage}: instructions on macro programming
+% beware line break
+\Qref*[question]{patching techniques}{Q-patch} explain the problem and
+why this is a solution.
+
+The \Package{emptypage} package does this sort of thing for you; all
+you need do is load the package, and it does the rest.
+
+The \emph{\acro{KOMA}-Script} replacements for the
+\Class{book} and \Class{report} classes (\Class{scrbook} and
+\Class{scrreprt} offers class options \pkgoption{cleardoubleempty},
+\pkgoption{cleardoubleplain} and \pkgoption{cleardoublestandard}
+(using the running page style, as normal) that control the appearance
+of these empty pages.  The classes also offer do-it-yourself commands
+\csx{cleardoubleempty} (etc.\@).
+
+The \Class{memoir} class (and the \Package{nextpage} package)
+provide commands \csx{cleartooddpage} and \csx{cleartoevenpage},
+which both take an optional argument (the first, with no argument,
+being an equivalent of \csx{cleardoublepage}).  One can achieve
+`special' effects by putting commands in the optional argument: the
+\csx{clearemptydoublepage} we're after would be achieved by
+\csx{cleartooddpage[}\cmdinvoke{thispagestyle}{empty}\texttt{]}.  The
+commands will also serve if you want the surreal effect of ``This page
+intentionally left blank'' in the centre of an otherwise empty page.
+\begin{ctanrefs}
+\item[emptypage.sty]\CTANref{emptypage}
+\item[fancyhdr.sty]\CTANref{fancyhdr}
+\item[memoir.cls]\CTANref{memoir}
+\item[nextpage.sty]\CTANref{nextpage}
+\item[scrbook.cls, scrrept.cls]Part of \CTANref{koma-script}
+\end{ctanrefs}
+
+\Question[Q-balance]{Balancing columns at the end of a document}
+
+The \Package{twocolumn} option of the standard classes causes
+\LaTeX{} to set the text of a document in two columns.  However, the last
+page of the document typically ends up with columns of different
+lengths~--- such columns are said to be ``unbalanced''.  Many (most?)
+people don't like unbalanced columns.
+
+The simplest solution to the problem is to use the \Package{multicol}
+package in place of the \Package{twocolumn} option, as
+\Package{multicol} balances the columns on the final page by default.
+However, the use of \Package{multicol} does come at a cost: its
+special output routine disallows the use of in-column floats, though
+it does still permit full-width (e.g., \environment{figure*}
+environment) floats. 
+
+As a result, there is a constant push for a means of balancing columns
+at the end of a \Package{twocolumn} document.  Of course, the job can
+be done manually: \csx{pagebreak} inserted at the appropriate place on
+the last page can often produce the right effect, but this seldom
+appeals, and if the last page is made up of automatically-generated
+text (for example, bibliography or index) inserting the command will
+be difficult.
+
+The \Package{flushend} package offers a solution to this problem.  It's a
+somewhat dangerous piece of macro code, which patches one of the most
+intricate parts of the \LaTeX{} kernel without deploying any of the
+safeguards discussed in \Qref[question]{patching commands}{Q-patch}.
+The package only changes the behaviour at end document (its
+\csx{flushend} command is enabled by default), and one other command
+permits adjustment of the final balance; other packages in the bundle
+provide means for insertion of full width material in two-column
+documents.
+
+The \Package{balance} package also patches the output routine
+(somewhat more carefully than \Package{flushend}).
+
+The user should be aware that any of these packages are liable to
+become confused in the presence of floats: if problems arise, manual
+adjustment of the floats in the document is likely to be necessary.
+It is this difficulty (what's required in any instance can't really be
+expressed in current \LaTeX{}) that led the author of
+\Package{multicol} to suppress single-column-wide floats.
+\begin{ctanrefs}
+\item[balance.sty]Distributed as part of \CTANref{preprint}[balance]
+\item[flushend.sty]Distributed as part of \CTANref{sttools}[flushend]
+\item[multicol.sty]Distributed as part of \CTANref{2etools}[multicol]
+
+\end{ctanrefs}
+
+\Question[Q-runheadtoobig]{My section title is too wide for the page header}
+
+By default, \LaTeX{} sectioning commands make the chapter or section
+title available for use by page headers and the like.  Page headers
+operate in a rather constrained area, and it's common for titles too
+be too big to fit: the \LaTeX{} sectioning commands therefore take an
+optional argument:
+\begin{quote}
+\begin{verbatim}
+\section[short title]{full title}
+\end{verbatim}
+\end{quote}
+If the \meta{short title} is present, it is used both for the table of
+contents and for the page heading.  The usual answer to people who
+complain that their title is too big for the running head is to
+suggest that they the optional argument.
+
+However, using the same text for the table of contents as for the
+running head may also be unsatisfactory: if your chapter titles are
+seriously long (like those of a Victorian novel), a valid and rational
+scheme is to have a shortened table of contents entry, and a really
+terse entry in the running head.
+
+One of the problems is the tendency of page headings to be set in
+capitals (which take up more space); so why not set headings as written
+for ``ordinary'' reading?  It's not possible to do so with unmodified
+\LaTeX{}, but the \Package{fancyhdr} package provides a command
+\csx{nouppercase} for use in its header (and footer) lines to suppress
+\LaTeX{}'s uppercasing tendencies.  Classes in the \Class{KOMA-script}
+bundle don't uppercase in the first place.
+
+In fact, the sectioning commands use `mark' commands to pass
+information to the page headers.  For example, \csx{chapter} uses
+\csx{chaptermark}, \csx{section} uses \csx{sectionmark}, and so on.  With
+this knowledge, one can achieve a three-layer structure for chapters:
+\begin{quote}
+\begin{verbatim}
+\chapter[middling version]{verbose version}
+\chaptermark{terse version}
+\end{verbatim}
+\end{quote}
+which should supply the needs of every taste.
+
+Chapters, however, have it easy: hardly any book design puts a page
+header on a chapter start page.  In the case of sections, one has
+typically to take account of the nature of the \csx{*mark} commands:
+the thing that goes in the heading is the first mark on the page (or,
+failing any mark, the last mark on any previous page).  As a result
+the recipe for sections is more tiresome:
+\begin{quote}
+\begin{verbatim}
+\section[middling version]{verbose version%
+              \sectionmark{terse version}}
+\sectionmark{terse version}
+\end{verbatim}
+\end{quote}
+(the first \csx{sectionmark} deals with the header of the page the
+\csx{section} command falls on, and the second deal with subsequent
+pages; note that here, you need the optional argument to \csx{section},
+even if ``\emph{middling version}'' is in fact the same text as
+``\emph{long version''}.)
+
+A similar arrangement is necessary even for chapters if the class
+you're using is odd enough that it puts a page header on a chapter's
+opening page.
+
+Note that the \Package{titlesec} package manages the running heads in
+a completely different fashion; for example, you can use the optional
+argument of sectioning commands for page headers, only, by loading the
+package as:
+\begin{quote}
+\begin{verbatim}
+\usepackage[toctitles]{titlesec}
+\end{verbatim}
+\end{quote}
+The package documentation offers other useful techniques in this area.
+\LeadFrom{Tobi}{sx}{2012-02-01}
+
+The \Class{memoir} class avoids all the silliness by providing an
+extra optional argument for chapter and sectioning commands, for
+example:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\section[middling version][terse version]%
+        {verbose version}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\section[middling version][terse version]{verbose version}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+As a result, it is always possible for users of \Class{memoir} to
+tailor the header text to fit, with very little trouble.
+\begin{ctanrefs}
+\item[fancyhdr.sty]\CTANref{fancyhdr}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[titlesec.sty]\CTANref{titlesec}
+\end{ctanrefs}
+\LastEdit{2012-02-01}
+
+\nothtml{\begingroup\boldmath}
+\Question[Q-nofm]{Page numbering ``\meta{n} of \meta{m}''}
+\nothtml{\afterquestion}
+
+Finding the page number of the last page of a document, from within
+the document, is somewhat tricky.  The \Package{lastpage} and
+\Package{zref-lastpage} packages define a label
+\texttt{LastPage} whose number is \emph{right} (after sufficiently many
+passes through \LaTeX{}, of course).  The \Class{memoir} class also
+defines a ``last page'' label.
+
+The documentation of the \Package{fancyhdr} package spells out exactly
+how one might actually use this information to produce page numbering
+as suggested in the question.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}fancyhdr documentation]\CTANref{fancyhdr}
+\item[lastpage.sty]\CTANref{lastpage}
+\item[zref-lastpage]Distributed as part of \CTANref{oberdiek}[zref]
+\end{ctanrefs}
+\LastEdit{2012-10-16}
+
+\Question[Q-pagebychap]{Page numbering by chapter}
+
+When I was a young man, a common arrangement for loose bound technical
+manuals is to number pages by chapter.  (It's quite a good scheme, in
+those situations: even if your corrections add a whole page to the
+chapter, the most you have to redistribute is that chapter.)
+
+The problem, at first sight, seems pretty much the same as that in
+another answer on
+% beware line break
+\Qref*{running numbers within a chapter}{Q-running-nos},
+and the basic technique is indeed pretty similar.
+
+However, tidying-up loose ends, making sure the page number gets reset
+to the correct value at the start of each chapter, and so on, is
+slightly more challenging.  This is why the \Package{chappg} package
+was written: it does the obvious things, and more.
+
+Users have been known to ask for running page numbers within a
+section, but this really doesn't make sense: you need to run page
+numbers within document objects that always start on a fresh page.
+\begin{ctanrefs}
+\item[chappg.sty]\CTANref{chappg}
+\end{ctanrefs}
+
+\subsection{Page layout}
+
+\Question[Q-papersize]{The size of printed output}
+
+The final product of a \AllTeX{} run is something for a person to
+read.  Often, nowadays, that product will be read ``on-screen'', but
+the printed page remains a principal output form.
+
+When we come to print our output, it is important that the output fits
+on the paper; in some cases, for the output to ``fit'' is good enough.
+However, there are circumstances where the actual size of the printed
+output, on the page, is crucial to the acceptance of the output.
+(This might happen when the output is a book to be published, or when
+it's a dissertation which must match the fancies of some bureaucrat
+even to be considered.)
+
+Sadly, we often find that the printed output doesn't conform to our
+expectations\dots{}
+
+The check-list for such problems has two entries:
+\begin{itemize}
+\item Your output is generated via Adobe \ProgName{Reader} (or
+  possibly ``\ProgName{Acrobat Reader}''~--- older versions of the
+  program had the qualified name).  In this case, it may be that
+  \ProgName{Reader} is willfully changing the size of your output:
+  read \Qref*{\ProgName{Reader} antics}{Q-acroantics}.
+\item Something in your \TeX{} system is producing the wrong size (or
+  shape) of output: read \Qref*{paper geometry}{Q-papergeom}.
+\end{itemize}
+
+An alternative approach is to use the (excellent) \Package{testflow}
+suite, that provides a detailed outline of the potential problems
+together with a sample document and prototype outputs.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}testflow bundle]\CTANref{testflow}
+\end{ctanrefs}
+
+\Question[Q-acroantics]{Adobe \ProgName{Reader} messing with print size}
+\AliasQuestion{Q-outszwrng}
+
+Printing from Adobe \ProgName{Reader} shrinks the page ``to fit''
+(\emph{by default}).  Unfortunately, its calculation doesn't consider
+the existing margins of the document, so that it shrinks what it
+believes is your whole page onto what it believes is its output page.
+The effect typically looks as if your margins have expanded.
+
+Solve this problem by adjusting the \ProgName{Reader}'s default in the
+print dialogue; unfortunately, this dialogue varies from one version
+to the next:
+\begin{itemize}
+\item \ProgName{Reader} version 7:\\
+   Page Scaling (default: ``Fit to printer margins'')~--- change to
+   ``None'', and\\
+   Scale (default 95\textpercent{} of Normal size)~--- change to
+   ``100\textpercent{}''.
+\item  Adobe Reader 6:\\
+  in the print dialogue, on the ``copies \& pages'' pane, you'll find a
+  popup menu/drop-down list titled ``Page Scaling''~--- change to ``None''.
+\item Windows, Linux Acrobat (Reader) 5.0:\\
+  In the print dialog, make sure the ``Shrink oversized pages to fit''
+  checkbox is unchecked.  It may also be useful to uncheck the
+  ``Expand small pages to fit paper size'' checkbox as well.
+\end{itemize}
+ 
+\Question[Q-papergeom]{Getting the right paper geometry from \AllTeX{}}
+
+If your output is the wrong size, and you've checked that it's not due
+to the \Qref*{ministrations of Adobe \ProgName{Reader}}{Q-acroantics},
+the problem is probably that your \AllTeX{} system is producing output
+that specifies the wrong paper size.  Paper sizes can be a pain:
+they're a forgotten backwater~--- Knuth seems not to have considered
+paper size as something the \TeX{} engine needs to know about.  As a
+result, there is no \acro{DVI} command to specify the paper on which
+the document should be printed, which has led a dichotomy where macros
+shape the text according to the needs of the author's chosen paper
+size, and device drivers' choice happens independently of the macros'
+ideas.
+
+In practice, one usually finds that macro packages (such as \plaintex{} and
+\LaTeX{}) assume American ``letter'' paper size, by default; and since
+most distributions nowadays originate in Europe, the drivers usually
+default to \acro{ISO} ``A4'' paper size.
+
+This is (of course) pretty unsatisfactory.  Users may select a
+different paper size for their document (current \LaTeX{} offers a
+range of sizes as options in the standard classes), pretty easily.
+Nevertheless, the user also has to be sure that each time
+\ProgName{xdvi}, \ProgName{dvips} (or whatever) runs, it uses the
+paper size the document was designed for.
+
+The default paper size for \acro{DVI} drivers may be changed by a
+distribution management command (\ProgName{texconfig} for \texlive{},
+the \ProgName{Options} application for \miktex{}), but this still
+doesn't provide for people using the ``wrong'' sort of paper for some
+reason.
+
+A different issue arises for users of \PDFTeX{}~--- the
+\acro{PDF} format \emph{does} have the means of expressing paper size
+and \PDFTeX{} has system variables \csx{pdfpagewidth} and
+\csx{pdfpageheight}, that are written into the output \acro{PDF} file.
+Unfortunately, most of the core software predates \PDFTeX{}, so not even
+\PDFLaTeX{} sets the correct values into those variables, to match the
+paper size specified in a \csx{documentclass} option.
+
+The \acro{DVI} drivers \ProgName{dvips}, \ProgName{dvipdfm} and its
+extensions (\ProgName{dvipdfmx} and \ProgName{xdvipdfmx}) define
+\csx{special} commands for the document to specify its own paper size;
+so in those cases, as when \PDFTeX{} is being used, the
+paper size can be programmed by the document.  Users who wish to, may
+of course consult the manuals of the various programs to write the
+necessary code.
+
+The \Package{geometry} and \Package{zwpagelayout} packages (whose main
+business includes defining
+typeset page areas), also takes notice the size of the paper that the
+document is going to be printed on, and can issue the commands
+necessary to ensure the correct size of paper is used.  If
+\Package{geometry} is used when a document is being processed by
+\PDFLaTeX{}, it can set the necessary dimensions ``in the output''.
+If the document is being processed by \LaTeX{} on a \TeX{} or \eTeX{}
+engine, there are package options which instruct \Package{geometry}
+which \csx{special} commands to use.  (Note that the options are
+ignored if you are using \PDFLaTeX{}.)
+
+So, one resolution of the problem, when you are using \latex{}, is to add
+\begin{quote}
+\begin{verbatim}
+\usepackage[processor-option,...]{geometry}
+\end{verbatim}
+\end{quote}
+Where \pkgoption{processor-option} tells the package what will produce
+your (\PS{} or \acro{PDF} output~--- \Package{geometry} knows about
+\pkgoption{dvips} and \pkgoption{dvipdfm} (\pkgoption{dvipdfm} also
+serves for the extension \ProgName{dvipdfmx} and
+\ProgName{xdvipdfmx}).
+
+If you're using \PDFLaTeX{} or \xetex{}, load with
+\begin{quote}
+\begin{verbatim}
+\usepackage[program-option,...]{geometry}
+\end{verbatim}
+\end{quote}
+where \pkgoption{program-option} is \pkgoption{pdftex},
+\pkgoption{xetex}.
+
+The alternative, \Package{zwpagelayout} requires a \pkgoption{driver}
+option:
+\begin{quote}
+\begin{verbatim}
+\usepackage[driver=value,...]{zwpagelayout}
+\end{verbatim}
+\end{quote}
+(permissible \meta{values} are \pkgoption{pdftex}, \pkgoption{xetex}
+and \pkgoption{dvips}; the default value is \pkgoption{unknown}).
+
+Needless to say, both the ``big'' classes (\Class{koma-script} and
+\Class{memoir}) provide their own ways to get the paper size
+``right''.
+
+The \Package{typearea} package is the \Class{Koma-script}
+distribution's way of providing page layout functionality.  Load it
+with the \pkgoption{pagesize} option and it will ensure the correct
+paper is selected, for \acro{PDF} output from \PDFLaTeX{}, and for
+\PS{} output from \LaTeX{} via \ProgName{dvips}.
+
+\Class{Memoir} has the standard classes' paper-size selections
+(\pkgoption{a4paper}, \pkgoption{letterpaper} and so on), but also
+permits the user to choose an arbitrary paper size, by setting the
+length registers \csx{stockheight} and \csx{stockwidth}.  The commands
+\csx{fixdvipslayout} (for \LaTeX{} processing), and \csx{fixpdflayout}
+(for \PDFLaTeX{} processing) then instruct the processor to produce
+output that specifies the necessary paper size.
+\begin{ctanrefs}
+\item[geometry.sty]\CTANref{geometry}
+\item[memoir.cls]\CTANref{memoir}
+\item[typearea.sty]Distributed as part of \CTANref{koma-script}[typearea]
+\item[zwpagelayout.sty]\CTANref{zwpagelayout}
+\end{ctanrefs}
+\LastEdit{2011-12-12}
+
+\Question[Q-changemargin]{Changing the margins in \LaTeX{}}
+
+Changing the layout of a document's text on the page involves several
+subtleties not often realised by the beginner.  There are interactions
+between fundamental \TeX{} constraints, constraints related to the
+design of \LaTeX{}, and good typesetting and design practice, that
+mean that any change must be very carefully considered, both to ensure
+that it ``works'' and to ensure that the result is pleasing to the
+eye.
+
+\LaTeX{}'s defaults sometimes seem excessively conservative,
+but there are sound reasons behind how Lamport designed the layouts
+themselves, whatever one may feel about his overall design.  For
+example, the common request for ``one-inch margins all round on A4
+paper'' is fine for 10- or 12-pitch typewriters, but not for 10pt (or
+even 11pt or 12pt) type because readers find such wide, dense, lines
+difficult to read.  There should ideally be no more than 75 characters
+per line (though the constraints change for two-column text).
+
+So Lamport's warning to beginners in his section on `Customizing the
+Style'~--- ``don't do it''~--- should not lightly be ignored.
+
+This set of \acro{FAQ}s recommends that you use a package to establish
+consistent settings of the parameters: the interrelationships are
+taken care of in the established packages, without you \emph{needing}
+to think about them, but remember~--- the packages only provide
+consistent, working, mechanisms: they don't analyse the quality of
+what you propose to do.
+
+The following answers deal with the ways one may choose to proceed:
+\begin{itemize}
+\item \Qref*{Choose which package to use}{Q-marginpkgs}.
+\item \Qref*{Find advice on setting up page layout by hand}{Q-marginmanual}.
+\end{itemize}
+There is a related question~--- how to change the layout
+temporarily~--- and there's an answer that covers that, too:
+\begin{itemize}
+\item \Qref*{Change the margins on the fly}{Q-chngmargonfly}.
+\end{itemize}
+
+\Question[Q-marginpkgs]{Packages to set up page designs}
+
+There are two trustworthy tools for adjusting the dimensions and position of the
+printed material on the page are \Package{geometry} and the
+\Package{zwpagelayout} packages; a very
+wide range of adjustments of the layout may be relatively
+straightforwardly programmed with either, and package documentation is good and
+comprehensive.
+
+As is usual, users of the \Class{memoir} class have built-in
+facilities for this task, and users of the \Class{KOMA-script} classes
+are recommended to use an alternative package, \Package{typearea}.  In
+either case it is difficult to argue that users should go for
+\Package{geometry}: both alternatives are good.
+
+The documentation both of \Package{geometry} and of
+\Package{zwpagelayout} is rather overwhelming, and
+learning all of of either package's capabilities is likely to be more
+than you ever need.
+The \Package{vmargin} package is somewhat simpler to use: it has a
+canned set of paper sizes (a superset of that provided in \LaTeXe{}),
+provision for custom paper, margin adjustments and provision for
+two-sided printing.
+\begin{ctanrefs}
+\item[geometry.sty]\CTANref{geometry}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[layout.sty]Distributed as part of \CTANref{2etools}[layout]
+\item[memoir.cls]\CTANref{memoir}
+\item[typearea.sty]Distributed as part of \CTANref{koma-script}[typearea]
+\item[vmargin.sty]\CTANref{vmargin}
+\item[zwpagelayout.sty]\CTANref{zwpagelayout}
+\end{ctanrefs}
+\LastEdit{2011-12-12}
+
+\Question[Q-marginmanual]{How to set up page layout ``by hand''}
+
+So you're eager to do it yourself, notwithstanding the cautions
+\begin{flatversion}
+  outlined above (\Qref{}{Q-changemargin}).
+\end{flatversion}
+\begin{hyperversion}
+  outlined in ``\Qref{changing margins}{Q-changemargin}''.
+\end{hyperversion}
+
+It's important that you first start by familiarising yourself
+with LaTeX's page layout parameters. For example, see section C.5.3 of the
+\LaTeX{} manual (pp.~181-182), or corresponding sections in many of the other
+good \LaTeX{} manuals (see \Qref[question]{\LaTeX{} books}{Q-latex-books}). 
+
+\LaTeX{} controls the page layout with a number of parameters, which
+allow you to change the distance from the edges of a page to the left
+and top edges of your typeset text, the width and height of the text,
+and the placement of other text on the page.  However, they are
+somewhat complex, and it is easy to get their interrelationships wrong
+when redefining the page layout. The layout package defines a
+\csx{layout} command which draws a diagram of your existing page
+layout, with the dimensions (but not their interrelationships) shown.
+
+Even changing the text height and width, \csx{textheight} and
+\csx{textwidth}, requires more care than you might expect: the height
+should be set to fit a whole number of text lines (in terms of
+multiples of \csx{baselinskip}), and the width should be constrained
+by the number of characters per line, as mentioned in % ! line break
+``\Qref*{changing margins}{Q-changemargin}''.
+
+Margins are controlled by two parameters: \csx{oddsidemargin} and
+\csx{evensidemargin}, whose names come from the convention that
+odd-numbered pages appear on the right-hand side (`recto') of a
+two-page spread and even-numbered pages on the left-hand side
+(`verso').  Both parameters actually refer to the left-hand margin of
+the relevant pages; in each case the right-hand margin is specified by
+implication, from the value of \csx{textwidth} and the width of the
+paper.  (In a one-sided document, which is the default in many
+classes, including the standard \Class{article} and \Class{report}
+classes, \csx{oddsidemargin} stands for both.)
+
+The
+``origin'' (the zero position) on the page is one inch from the top of
+the paper and one inch from the left side; positive horizontal
+measurements extend right across the page, and positive vertical
+measurements extend down the page. Thus, the parameters
+\csx{evensidemargin}, \csx{oddsidemargin} and \csx{topmargin}, should
+be set to be 1~inch less than the true margin; for margins closer to
+the left and top edges of the page than 1~inch, the margin parameters
+must be set to negative values.
+
+\Question[Q-chngmargonfly]{Changing margins ``on the fly''}
+
+One of the surprises characteristic of \TeX{} use is that you cannot
+change the width or height of the text within the document, simply by
+modifying the text size parameters; \TeX{} can't change the text width
+on the fly, and \LaTeX{} only ever looks at text height when starting
+a new page.
+
+So the simple rule is that the parameters should only be
+changed in the preamble of the document, i.e., before the
+\cmdinvoke{begin}{document} statement (so before any typesetting has
+happened.
+
+To adjust text width within a document we define an environment:
+\begin{quote}
+\begin{verbatim}
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+\end{verbatim}
+\end{quote}
+The environment takes two arguments, and will indent the left and
+right margins, respectively, by the parameters' values. Negative
+values will cause the margins to be narrowed, so
+\cmdinvoke{begin}{changemargin}{-1cm}{-1cm} narrows the left and right
+margins by 1 centimetre.
+
+Given that \TeX{} can't do this, how does it work?~--- well, the
+environment (which is a close relation of the \LaTeX{}
+\environment{quote} environment) \emph{doesn't} change the text width
+as far as \TeX{} is concerned: it merely moves text around inside the
+width that \TeX{} believes in.
+
+The \Package{changepage} package provides ready-built commands to do
+the above; it includes provision for changing the shifts applied to
+your text according to whether you're on an odd (\emph{recto}) or an
+even (\emph{verso}) page of a two-sided document.
+\Package{Changepage}'s structure matches that of the \Class{memoir}
+class.
+
+The (earlier) package \Package{chngpage} provides the same facilities,
+but it uses rather different syntax.  \Package{Changepage}'s structure
+matches that of the \Class{memoir} class, and it should be used for
+any new work.
+
+Changing the vertical dimensions of a page is more clumsy still: the
+\LaTeX{} command \csx{enlargethispage} adjusts the size of the current
+page by the size of its argument.  Common uses are
+\begin{quote}
+\begin{verbatim}
+\enlargethispage{\baselineskip}
+\end{verbatim}
+\end{quote}
+to make the page one line longer, or
+\begin{quote}
+\begin{verbatim}
+\enlargethispage{-\baselineskip}
+\end{verbatim}
+\end{quote}
+to make the page one line shorter.  The process is (to an extent)
+simplified by the \Package{addlines} package: its \csx{addlines}
+command takes as argument the \emph{number} of lines to add to the
+page (rather than a length): the package documentation also provides a
+useful analysis of when the command may (or may not) be expected to
+work.
+\begin{ctanrefs}
+\item[addlines.sty]\CTANref{addlines}
+\item[changepage.sty]\CTANref{changepage}
+\end{ctanrefs}
+\LastEdit{2011-06-01}
+
+\Question[Q-nopageno]{How to get rid of page numbers}
+\AliasQuestion{ps@empty}
+
+Very occasionally, one wants a document with no page numbers.  For
+such occasions, the package \Package{nopageno} will make
+\cmdinvoke{pagestyle}{plain} have the same effect as
+\cmdinvoke{pagestyle}{empty}; in simple documents, this will suppress
+all page numbering (it will not work, of course, if the document uses
+some other pagestyle than \environment{plain}).
+
+To suppress page numbers from a sequence of pages, you may use
+\cmdinvoke{pagestyle}{empty} at the start of the sequence, and restore
+the original page style at the end.  Unfortunately, you still have to
+deal with the page numbers on pages containing a \csx{maketitle},
+\csx{part} or \csx{chapter} command, since the standard classes; deal
+with those separately, as described below.
+
+To suppress page numbers on a single page, use
+\cmdinvoke{thispagestyle}{empty} somewhere within the text of the
+page.  Note that, in the standard classes, \csx{maketitle} and
+\csx{chapter} use \csx{thispagestyle} internally, so your call
+must be \emph{after} those commands.
+
+Unfortunately, \csx{thispagestyle} doesn't work for \Class{book} or
+\Class{report} \csx{part} commands: they set the page style (as do
+\csx{chapter} commands), but then they advance to the next page so
+that you have no opportunity to change the style using
+\csx{thispagestyle}.  The present author has proposed solving the
+problem with the following ``grubby little patch'', on
+\Newsgroup{comp.text.tex}:
+\begin{quote}
+\begin{verbatim}
+\makeatletter
+\let\sv@endpart\@endpart
+\def\@endpart{\thispagestyle{empty}\sv@endpart}
+\makeatother
+\end{verbatim}
+\end{quote}
+Fortunately, that patch has now been incorporated in a small package
+\Package{nonumonpart} (a difficult name\dots)
+
+Both the \Class{KOMA-script} classes and \Class{memoir} have separate
+page styles for the styles of various ``special'' pages, so, in a
+\Class{KOMA} class document one might say:
+\begin{quote}
+\begin{verbatim}
+\renewcommand*{\titlepagestyle}{empty}
+\end{verbatim}
+\end{quote}
+while \Class{memoir} will do the job with
+\begin{quote}
+  \cmdinvoke{aliaspagestyle}{title}{empty}
+\end{quote}
+
+An alternative (in all classes) is to use the rather delightful
+\cmdinvoke{pagenumbering}{gobble}; this has the simple effect that any
+attempt to print a page number produces nothing, so there's no issue
+about preventing any part of \LaTeX{} from printing the number.
+However, the \csx{pagenumbering} command does have the side effect that
+it resets the page number (to 1), so it is unlikely to be helpful
+other than at the beginning of a document.
+
+The \Package{scrpage2} package separates out the representation of the
+page number (it typesets the number using the \csx{pagemark} command) from
+the construction of the page header and footer; so one can say
+\begin{quote}
+\begin{verbatim}
+\renewcommand*{\pagemark}{}
+\end{verbatim}
+\end{quote}
+which will also suppress the printing of the page number.
+
+Neither of these ``suppress the page number'' techniques touches the
+page style in use; in practice this means they don't make sense unless
+you are using \cmdinvoke{pagestyle}{plain}
+\begin{ctanrefs}
+\item[fancyhdr.sty]\CTANref{fancyhdr}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[nonumonpart.sty]\CTANref{nonumonpart}
+\item[nopageno.sty]\CTANref{nopageno}
+\item[scrpage2.sty]Distributed as part of \CTANref{koma-script}
+\end{ctanrefs}
+\LastEdit{2011-04-16}
+
+\Question[Q-crop]{How to create crop marks}
+
+If you're printing something that's eventually to be reproduced in
+significant quantities, and bound, it's conventional to print on paper
+larger than your target product, and to place ``crop marks'' outside
+the printed area.  These crop marks are available to the production
+house, for lining up reproduction and trimming machines.
+
+You can save yourself the (considerable) trouble of programming these
+marks for yourself by using the package \Package{crop}, which has
+facilities to satisfy any conceivable production house.  Users of the
+\Class{memoir} class don't need the package, since \Class{memoir} has
+its own facilities for programming crop marks.
+\begin{ctanrefs}
+\item[crop.sty]\CTANref{crop}
+\item[memoir.cls]\CTANref{memoir}
+\end{ctanrefs}
+
+\Question[Q-watermark]{`Watermarks' on every page}
+
+It's often useful to place some text (such as `DRAFT') in the
+background of every page of a document.  For \LaTeX{} users, the
+simplest way to do this uses the \Package{draftcopy} package.  This
+can deal with
+many types of \acro{DVI} processors (in the same way that the graphics
+package does) and knows translations for the word `DRAFT' into a wide
+range of languages (though you can choose your own word, too).
+Unfortunately, however, the package relies on \PS{} specials, and will
+therefore fail if you are viewing your document with \ProgName{xdvi},
+and won't even compile if you're using \PDFLaTeX{}.  (\PDFLaTeX{}
+users need one of the other solutions below.)
+
+The \Package{wallpaper} package builds on \Package{eso-pic} (see
+below).  Apart from the single-image backdrops described above
+(``wallpapers'', of course, to this package), the package provides
+facilities for tiling images.  All its commands come in pairs: one for
+``general'' use, and one applying to the current page only.
+
+The \Package{draftwatermark} package uses the same author's
+\Package{everypage} package to provide a simple interface for adding
+textual (`DRAFT'-like) watermarks.
+
+The \Package{xwatermark} package provides very flexible watermarking,
+with a ``modern'' (key-value) interface.
+
+More elaborate watermarks may be achieved using the \Package{eso-pic}
+package, or by using \Package{everypage} (see below).
+\Package{Eso-pic} attaches a \environment{picture} environment to
+every page as it is shipped out; the user can put things into that
+environment: the package provides commands for placing things at
+certain useful points (like ``text upper left'' or ``text centre'') in
+the picture, but the user is at liberty to do what he or she likes.
+
+\Package{Eso-pic} is, in turn, built upon the package
+\Package{atbegshi}.  That package has the capability to produce
+watermarks \emph{on top of} the other material on the page; this
+doesn't sound very ``watermark-like'', but can be useful on pages
+where the watermark would otherwise be hidden by graphics or the
+like.  The \Package{atbegshi} command that \Package{eso-pic} uses is
+\csx{AtBeginShipoutUpperLeft}; \csx{AtBeginShipoutUpperLeftForeground}
+is what's needed instead to place the material on top of the rest of
+the content of the page.
+
+\Package{Everypage} allows you to add ``something'' to every page, or
+to a particular page; you therefore need to construct your own
+apparatus for anything complicated.
+
+Finally, one can use the \ProgName{pdftk} untility; with it, the
+command:
+\begin{quote}
+\begin{verbatim}
+pdftk a.pdf background b.pdf output c.pdf
+\end{verbatim}
+\end{quote}
+will recreate \File{a.pdf} as \File{c.pdf}, having used the first page
+of \File{b.pdf} as background on every page.  If you have a standard
+background (``DRAFT'' or ``SECRET'', or whatever) used in several
+files, \ProgName{pdftk} might well be attractive.
+
+\ProgName{Pdftk} is available as a command line tool; it is available
+in most linux distritbutions, but may be downloaded from its
+% ! line break
+\href{http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/}{home site}
+\begin{ctanrefs}
+\item[atbegshi.sty]Distributed as part of \CTANref{oberdiek}[atbegshi]
+\item[draftcopy.sty]\CTANref{draftcopy}
+\item[draftwatermark.sty]\CTANref{draftwatermark}
+\item[eso-pic.sty]\CTANref{eso-pic}
+\item[everypage.sty]\CTANref{everypage}
+\item[everyshi.sty]Distributed as part of \CTANref{ms}[everyshi]
+\item[wallpaper.sty]\CTANref{wallpaper}
+\end{ctanrefs}
+
+\Question[Q-landscape]{Typesetting things in landscape orientation}
+
+It's often necessary to typeset part of a document in landscape
+orientation; to achieve this, one needs not only to change the page
+dimensions, but also to instruct the output device to print the
+strange page differently.
+
+There are two ``ordinary'' mechanisms for doing two slight variations
+of landscape typesetting:
+\begin{itemize}
+\item If you have a single floating object that is wider than it is
+  deep, and will only fit on the page in landscape orientation, use
+  the \Package{rotating} package; this defines
+  \environment{sidewaysfigure} and \environment{sidewaystable}
+  environments which create floats that occupy a whole page.
+
+  Note that \Package{rotating} has problems in a document that also
+  loads the \Package{float} package, which recommended in other
+  answers in these \acro{FAQ}s, for example that on
+  \Qref*{float placement}{Q-floats}.  The \Package{rotfloat} package
+  loads \Package{rotating} for you, and smooths the interaction with
+  \Package{float}.
+\item If you have a long sequence of things that need to be typeset in
+  landscape (perhaps a code listing, a wide \environment{tabbing}
+  environment, or a huge table typeset using \Package{longtable} or
+  \Package{supertabular}), use the \Package{lscape} package (or
+  \Package{pdflscape} if you're generating \acro{PDF} output, whether
+  using \PDFLaTeX{} or \ProgName{dvips} and generating \acro{PDF} from
+  that).  Both packages define an environment \environment{landscape}, which
+  clears the current page and restarts typesetting in landscape
+  orientation (and clears the page at the end of the environment
+  before returning to portrait orientation).
+\end{itemize}
+No currently available package makes direct provision for typesetting
+in both portrait and landscape orientation on the same page (it's not
+the sort of thing that \TeX{} is well set-up to do).  If such
+behaviour was an absolute necessity, one might use the techniques
+described in
+% beware line-wrap
+\Qref[question]{"flowing text around figures"}{Q-textflow}, and would
+rotate the landscape portion using the rotation facilities of the
+\Package{graphics} package.  (Returning from landscape to portrait
+orientation would be somewhat easier: the portrait part of the page
+would be a bottom float at the end of the landscape section, with its
+content rotated.)
+
+To set an entire document in landscape orientation, one might use
+\Package{lscape} around the whole document.  A better option is the
+\pkgoption{landscape} option of the \Package{geometry} package; if you
+also give it \pkgoption{dvips} or \pkgoption{pdftex} option,
+\Package{geometry} also emits the rotation instructions to cause the
+output to be properly oriented.  The \Class{memoir} class has the same
+facilities, in this respect, as does \Package{geometry}.
+
+A word of warning: most current \TeX{} previewers do not honour
+rotation requests in \acro{DVI} files.
+%% (the exception is
+%% (the exceptions are the
+%% \begin{htmlversion}
+%%   (\Qref{commercial}{Q-commercial}) \YandY{} previewer
+%%   \ProgName{dviwindo},
+%% \end{htmlversion}
+%% \htmlignore
+%% (commercial) \YandY{} previewer \ProgName{dviwindo}
+%% (\Qref{}{Q-commercial}),
+%% \endhtmlignore
+%% and
+%% the fp\TeX{} previewer Win\acro{DVI}).  If your previewer is not
+%% capable of rotation, 
+Your best bet is to convert your output to \PS{} or to \acro{PDF}, and
+to view these `final' forms with an appropriate viewer.
+\begin{ctanrefs}
+\item[geometry.sty]\CTANref{geometry}
+\item[graphics.sty]Distributed as part of \CTANref{graphics}
+\item[longtable.sty]Distributed as part of \CTANref{2etools}[longtable]
+\item[lscape.sty]Distributed as part of \CTANref{graphics}[lscape]
+\item[memoir.cls]\CTANref{memoir}
+\item[pdflscape.sty]Distributed with Heiko Oberdiek's packages
+  \CTANref{oberdiek}[pdflscape]
+\item[rotating.sty]\CTANref{rotating}
+\item[rotfloat.sty]\CTANref{rotfloat}
+\item[supertabular.sty]\CTANref{supertabular}
+\end{ctanrefs}
+
+\Question[Q-abspos]{Putting things at fixed positions on the page}
+
+\TeX{}'s model of the world is (broadly speaking) that the author
+writes text, and \TeX{} and its macros decide how it all fits on the
+page.  This is not good news for the author who has, from whatever
+source, a requirement that certain things go in exactly the right
+place on the page.
+
+There \emph{are} places on the page, from which things may be hung,
+and two \LaTeX{} packages allow you position things relative to such
+points, thus providing a means of absolute positioning.
+
+The \Package{textpos} package aids the construction of pages from
+``blobs'', dotted around over the page (as in a poster); you give it
+the location, and it places your typeset box accordingly.
+
+The \Package{eso-pic} defines a ``shipout picture'' that covers the
+page.  The user may add \environment{picture}-mode commands to this
+picture, which of course can include box placements as well as the
+other rather stilted commands of \environment{picture}-mode.
+(\Package{Eso-pic} requires the services of \Package{everyshi}, which
+must therefore also be available.)
+%
+% Fortunately, in the \LaTeX{} world at least, there \emph{is} a fixed
+% point on every page, to whit the page header.  The package
+% \Package{textpos} latches bits of typesetting to locations you
+% specify, by fixing them to the page header, and thereby solves the
+% problem.
+\begin{ctanrefs}
+\item[eso-pic.sty]\CTANref{eso-pic}
+\item[everyshi.sty]Distributed as part of \CTANref{ms}[everyshi]
+\item[textpos.sty]\CTANref{textpos}
+\end{ctanrefs}
+
+\Question[Q-nopagebrk]{Preventing page breaks between lines}
+
+One commonly requires that a block of typeset material be kept on the
+same page; it turns out to be surprisingly tricky to arrange this.
+
+\LaTeX{} provides a \environment{samepage} environment which claims it
+does this sort of thing for you.  It proceeds by setting infinite
+penalties for all sorts of page-break situations; but in many
+situations where you want to prevent a page break,
+\environment{samepage} doesn't help.  If you're trying to keep running
+text together, you need to end the paragraph inside the environment
+(see \Qref[question]{preserving paragraph parameters}{Q-paraparam}).
+Also, if the things you are trying to keep together insert their own
+pagebreak hints, \environment{samepage} has no power over them (though
+list items' attempts~--- they suggest page breaks between items~---
+are subverted by \environment{samepage}).  Naturally, if
+\environment{samepage} \emph{does} work, it is capable of leaving
+stuff jutting out at the bottom of the page.
+
+Another convenient trick is to set all the relevant stuff in a
+\csx{parbox} (or a \environment{minipage} if it contains things like
+verbatim text that may not be used in the argument of a \csx{parbox}).
+The resulting box certainly \emph{won't} break between pages, but
+that's not to say that it will actually do what you want it to do:
+again, the box may be left jutting out at the bottom of the page.
+
+Why do neither of these obvious things work?~--- Because \TeX{} can't
+really distinguish between infinitely awful things.
+\environment{Samepage} will make any possible break point ``infinitely
+bad'' and boxes don't even offer the option of breaks, but if the
+alternative is the leave an infinitely bad few centimetres of blank
+paper at the bottom of the page, \TeX{} will take the line of least
+resistance and do nothing.
+
+This problem still arises even if you have \csx{raggedbottom} in
+effect: \TeX{} doesn't notice the value of \emph{that} until it starts
+actually shipping a page out.  One approach is to set:
+\begin{quote}
+\begin{verbatim}
+\raggedbottom
+\addtolength{\topskip}{0pt plus 10pt}
+\end{verbatim}
+\end{quote}
+The \texttt{10pt} offers a hint to the output routine that the column is
+stretchable; this will cause \TeX{} to be more tolerant of the need to
+stretch while building the page.  If you're doing this as a temporary
+measure, cancel the change to \csx{topskip} by:
+\begin{quote}
+\begin{verbatim}
+\addtolength{\topskip}{0pt plus-10pt}
+\end{verbatim}
+\end{quote}
+as well as resetting \csx{flushbottom}.  (Note that the \texttt{10pt} never
+actually shows up, because it is overwhelmed when the page is shipped
+out by the stretchability introduced by \csx{raggedbottom}; however, it
+could well have an effect if \csx{flushbottom} was in effect.)
+
+An alternative (which derives from a suggestion by Knuth in the
+\TeX{}book) is the package \Package{needspace} or the \Class{memoir} class,
+which both define a command \csx{needspace} whose argument tells it
+what space is needed.  If the space isn't available, the current page
+is cleared, and the matter that needs to be kept together will be
+inserted on the new page.  For example, if 4~lines of text need to be
+kept together, the sequence
+\begin{quote}
+\begin{verbatim}
+\par
+\needspace{4\baselineskip}
+% the stuff that must stay together
+<text generating lines 1-4>
+% now stuff we don't mind about
+\end{verbatim}
+\end{quote}
+Yet another trick by Knuth is useful if you have a sequence of small
+blocks of text that need, individually, to be kept on their own page.
+Insert the command \csx{filbreak} before each small block, and the
+effect is achieved.  The technique can be used in the case of
+sequences of \LaTeX{}-style sections, by incorporating \csx{filbreak}
+into the definition of a command (as in % beware line break
+\Qref[question]{patching commands}{Q-patch}).  A simple and effective
+patch would be:
+\begin{quote}
+\begin{verbatim}
+\let\oldsubsubsection=\subsubsection
+\renewcommand{\subsubsection}{%
+  \filbreak
+  \oldsubsubsection
+}
+\end{verbatim}
+\end{quote}
+While the trick works for consecutive sequences of blocks, it's
+slightly tricky to get out of such sequences unless the sequence is
+interrupted by a forced page break (such as \csx{clearpage}, which may
+be introduced by a \csx{chapter} command, or the end of the document).
+If the sequence is not interrupted, the last block is likely to be
+forced onto a new page, regardless of whether it actually needs it.
+
+If one is willing to accept that not everything can be accomplished
+totally automatically, the way to go is to typeset the document and to
+check for things that have the potential to give trouble.  In such a
+scenario (which has Knuth's authority behind it, if one is to believe
+the rather few words he says on the subject in the \TeX{}book) one can
+decide, case by case, how to deal with problems at the last
+proof-reading stage.  At this stage, you can manually alter page
+breaking, using either \csx{pagebreak} or \csx{clearpage}, or you can
+place a \csx{nopagebreak} command to suppress unfortunate breaks.
+Otherwise, you can make small adjustments to the page geometry, using
+\csx{enlargethispage}.  Supposing you have a line or two that stray:
+issue the command \cmdinvoke{enlargethispage}{2\csx{baselineskip}} and
+two lines are added to the page you're typesetting.  Whether this
+looks impossibly awful or entirely acceptable depends on the document
+context, but the command remains a useful item in the armoury.
+
+Note that both \csx{pagebreak} and \csx{nopagebreak} take an optional
+number argument to adjust how the command is to be interpreted.  Thus
+\cmdinvoke{pagebreak}[0], the command `suggests' that a page break
+might be worth doing, whereas \cmdinvoke{pagebreak}[4] `demands' a
+page break.  Similarly \cmdinvoke{nopagebreak}[0] makes a suggestion,
+while \cmdinvoke{nopagebreak}[4] is a demand.  In both commands, the
+default value of the optional argument is 4.
+\begin{ctanrefs}
+\item[memoir.cls]\CTANref{memoir}
+\item[needspace.sty]\CTANref{needspace}
+\end{ctanrefs}
+
+\Question[Q-parallel]{Parallel setting of text}
+
+It's commonly necessary to present text in two languages `together' on a
+page, or on a two-page spread.  For this to be satisfactory, one usually
+needs some sort of alignment between the two texts.
+
+The \Package{parallel} package satisfies the need, permitting
+typesetting in two columns (not necessarily of the same width) on one
+page, or on the two opposing pages of a two-page spread.  Use can be
+as simple as
+\begin{quote}
+\begin{verbatim}
+\usepackage{parallel}
+...
+\begin{Parallel}{<left-width>}{<right-width}
+  \ParallelLText{left-text}
+  \ParallelRText{right-text}
+  \ParallelPar
+  ...
+\end{Parallel}
+\end{verbatim}
+\end{quote}
+\Package{Parallel} can get terribly confused with colour changes, in
+\PDFTeX{}; the indefatigable Heiko Oberdiek has a patch for this
+issue~--- the \Package{pdfcolparallel} package, which maintains
+separate colour stacks for the columns.
+
+The \Package{parcolumns} package can (in principle) deal with any
+number of columns: the documentation shows its use with three
+columns.  Usage is rather similar to that of \Package{parallel},
+though there is of course a ``number of columns to specify'':
+\begin{quote}
+\begin{verbatim}
+\usepackage{parcolumns}
+...
+\begin{parcolumns}[<options>]{3}
+  \colchunk{<Column 1 text>}
+  \colchunk{<Column 2 text>}
+  \colchunk{<Column 3 text>}
+  \colplacechunks
+  ...
+\end{parcolumns}
+\end{verbatim}
+\end{quote}
+The \meta{options} can specify the widths of the columns, whether to
+place rules between the columns, whether to set the columns sloppy,
+etc.  Again, there are issues with colours, which are addressed by the
+\Package{pdfcolparcolumns} package.
+
+The \Package{ledpar} package is distributed with (and integrated with)
+the \Qref{\Package{ledmac} package}{Q-linenos}.  It provides parallel
+setting carefully integrated with the needs of a scholarly text,
+permitting translation, or notes, or both, to be set in parallel with
+the `base' text of the document.
+\begin{ctanrefs}
+\item[ledpar.sty]Distributed with \CTANref{ledmac}
+\item[parallel.sty]\CTANref{parallel}
+\item[parcolumns.sty]Distributed as part of \CTANref{sauerj}[parcolumns]
+\item[pdfcolparallel.sty]Distributed as part of \CTANref{oberdiek}[pdfcolparallel]
+\item[pdfcolparcolumns.sty]pdfcolparcolumns]
+\end{ctanrefs}
+
+\Question[Q-epigraph]{Typesetting epigraphs}
+
+Epigraphs are those neat quotations that authors put at the start of
+chapters (or even at the end of chapters: Knuth puts things at the
+ends of chapters of the \TeX{}book).
+
+Typesetting them is a bit of a fiddle, but not impossible to do for
+yourself.  Fortunately, there are two packages that do the job, to
+some extent; there are also facilities in the two ``big'' classes
+(\Class{memoir} and \Class{koma-script}.
+
+The \Package{epigraph} package defines an \csx{epigraph} command, for
+creating a single 
+epigraph (as at the top of a chapter):
+\begin{quote}
+\begin{verbatim}
+\chapter{The Social Life of Rabbits}
+\epigraph{Oh!  My ears and whiskers!}%
+         {Lewis Carroll}
+\end{verbatim}
+\end{quote}
+and an epigraphs environment, for entering more than one epigraph
+consecutively, in a sort of list introduced by \csx{qitem} commands:
+\begin{quote}
+\begin{verbatim}
+\begin{epigraphs}
+\qitem{What I tell you three times is true}%
+      {Lewis Carroll}
+\qitem{Oh listen do, I'm telling you!}%
+      {A.A. Milne}
+\end{epigraphs}
+\end{verbatim}
+\end{quote}
+The \csx{epigraphhead} command enables you to place your epigraph
+\emph{above} a chapter header:
+\begin{quote}
+\begin{verbatim}
+\setlength{\unitlength}{1pt}
+...
+\chapter{The Social Life of Rabbits}
+\epigraphhead[<distance>]{%
+  \epigraph{Oh!  My ears and whiskers!}%
+           {Lewis Carroll}%
+}
+\end{verbatim}
+\end{quote}
+The \meta{distance} says how far above the chapter heading the
+epigraph is to go; it's expressed in terms of the \csx{unitlength}
+that's used in the \environment{picture} environment; the package's
+author recommends \texttt{70pt}.
+
+The package also offers various tricks for adjusting the layout of
+chapter header (necessary if you've found a hugely long quotation for
+an \csx{epigraphhead}), for patching the bibliography, for patching
+\csx{part} pages, and so on.  (Some of these suggested patches lead you
+through writing your own package\dots{})
+
+The \Package{quotchap} package redefines chapter headings (in a
+moderately striking way), and provides an environment
+\environment{savequotes} in which you can provide one (or more)
+quotations to use as epigraphs.  The facilities seem not as flexible
+as those of \Package{epigraph}, but it's probably easier to use.
+
+The \Class{memoir} class offers all the facilities of the
+\Package{epigraph} package.  The \Class{Koma-script} classes have
+commands \csx{setchapterpreamble} and \csx{dictum} to provide these
+facilities.
+\begin{ctanrefs}
+\item[epigraph.sty]\CTANref{epigraph}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[quotchap.sty]\CTANref{quotchap}
+\end{ctanrefs}
+
+% \Question[Q-outszwrng]{\AllTeX{} \acro{PDF} output prints at wrong size}
+
+% Having got everything \emph{else} right, you should be aware that the
+% problem may have nothing to do with \AllTeX{} and everything to do
+% with the program you use for printing.  A regular cause for such
+% problems lies with Acrobat Reader, which by default enables its option
+% to scale pages to fit on the printable area of the paper.  Since a
+% printer can rarely print right to the edge, this means that pdf-files
+% will be shrunk by some (small) factor (even if the pdf-file is
+% formatted for A4, and your paper size is set to A4 as well).
+
+% Correcting this silliness is not very hard, but the exact details
+% depend on the version of Acrobat Reader (or "Adobe Reader" from
+% version 6.0 onwards) you have installed:
+% \begin{itemize}
+% \item  Mac OS X, Adobe Reader 6:\\
+%   in the print dialogue, on the ``copies \& pages'' pane, you'll find a
+%   popup menu titled ``Page Scaling''. Make sure that the menu reads
+%   ``None''.
+% \item Windows, Adobe Reader 6:\\
+%   in the print dialogue, select ``None'' from the drop-down list
+%   ``Page Scaling''.
+% \item Windows, Linux Acrobat (Reader) 5.0:\\
+%   In the print dialog, make sure the ``Shrink oversized pages to fit''
+%   checkbox is unchecked.  It may also be useful to uncheck the
+%   ``Expand small pages to fit paper size'' checkbox as well.
+%\end{itemize}
+
+\subsection{Spacing of characters and lines}
+
+\Question[Q-linespace]{Double-spaced documents in \LaTeX{}}
+
+A quick and easy way of getting inter-line space for copy-editing is
+to change \csx{baselinestretch}~--- \cmdinvoke{linespread}{1.2} (or,
+equivalently \cmdinvoke{renewcommand}{\csx{baselinestretch}}{1.2}) may
+be adequate.  Note that \csx{baselinestretch} changes don't take
+effect until you select a new font, so make the change in the preamble
+before any font is selected.  Don't try changing \csx{baselineskip}:
+its value is reset at any size-changing command so that results will
+be inconsistent.
+
+For preference (and certainly for a production document, such as a
+dissertation or an article submission), use a line-spacing package.
+The only one currently supported is \Package{setspace}.
+\Package{Setspace} switches off double-spacing at places where even
+the most die-hard official would doubt its utility (footnotes, figure
+captions, and so on); it's very difficult to do this consistently if
+you're manipulating \csx{baselinestretch} yourself.
+
+(Note: do \emph{not} be tempted by \Package{doublespace}~--- its
+performance under current \LaTeX{} is at best problematical.)
+
+Of course, the real solution (other than for private copy editing) is
+\emph{not} to use double-spacing at all.  Universities, in particular,
+have no excuse for specifying double-spacing in submitted
+dissertations: \LaTeX{} is a typesetting system, not a
+typewriter-substitute, and can (properly used) make single-spaced text
+even more easily readable than double-spaced typewritten text.  If you
+have any influence on your university's system (for example, through
+your dissertation supervisor), it may be worth attempting to get the
+rules changed (at least to permit a ``well-designed book'' format).
+
+Double-spaced submissions are also commonly required when submitting
+papers to conferences or journals.  Fortunately (judging by the
+questions from users in this author's department), this demand is
+becoming less common.
+
+Documentation of \Package{setspace} appears as \TeX{} comments in the
+package file itself.
+\begin{ctanrefs}
+\item[setspace.sty]\CTANref{setspace}
+\end{ctanrefs}
+\LastEdit{2013-10-28}
+
+\Question[Q-letterspace]{Changing the space between letters}
+
+A common technique in advertising copy (and other text whose actual
+content need not actually be \emph{read}) is to alter the space
+between the letters (otherwise known as the tracking).  As a general
+rule, this is a very bad idea: it detracts from legibility, which is
+contrary to the principles of typesetting (any respectable font you
+might be using should already have optimum tracking built into it).
+
+The great type designer, Eric Gill, is credited with saying ``he who
+would letterspace lower-case text, would steal sheep''.  (The
+attribution is probably apocryphal: others are also credited with the
+remark.  Stealing sheep was, in the 19th century, a capital offence in
+Britain.)  As the remark suggests, though, letterspacing of upper-case
+text is less awful a crime; the technique used also to be used for
+emphasis of text set in Fraktur (or similar) fonts.
+
+Straightforward macros (usable, in principle, with any \TeX{} macro
+package) may be found in \Package{letterspacing} (which is the name of
+the \extension{tex} file).
+
+%%% the package has a serious bug in it, so suppress mention pro tem
+%The \Package{tracking} package has similar facilities.
+
+A more comprehensive solution is to be found in the \Package{soul}
+package (which is optimised for use with \LaTeX{}, but also works with
+\plaintex{}).  Soul also permits hyphenation of letterspaced text;
+Gill's view of such an activity is not (even apocryphally) recorded.
+(Spacing-out forms part of the name of \Package{soul}; the other half
+is described in \Qref[question]{another question}{Q-underline}.)
+
+Possibly the `ultimate' in this field is the \Package{microtype},
+which uses the micro-typography capabilities of current \PDFTeX{} to
+provide a \csx{textls} command, which operates according to parameters
+declared in a \csx{SetTracking} command.  \Package{Microtype}'s
+`tracking' facility expands the natural spacing of the font itself,
+rather than inserting space between characters.  Ordinarily,
+letter-spacing will destroy ligatures; however, this is \emph{wrong}
+for some font styles (for example, \FontName{fraktur}), and the
+package provides a means of protecting the ligatures in a
+letter-spaced text.
+\begin{ctanrefs}
+\item[letterspacing.tex]\CTANref{letterspacing}
+\item[microtype.sty]\CTANref{microtype}
+\item[soul.sty]\CTANref{soul}
+%\item[tracking.sty]\CTANref{tracking}
+\end{ctanrefs}
+
+\Question[Q-ragright]{Setting text ragged right}
+
+The trick with typesetting ragged right is to be sure you've told the
+\TeX{} engine ``make this paragraph ragged, but never \emph{too}
+ragged''.  The \LaTeX{} \csx{raggedright} command (and the
+corresponding \environment{flushleft} environment) has a tendency to
+miss the ``never'' part, and will often create ridiculously short
+lines, for some minor benefit later in the paragraph.  The
+\plaintex{} version of the command doesn't suffer this failing, but
+is rather conservative: it is loath to create too large a gap at the
+end of the line, but in some circumstances~--- such as where
+\Qref*{hyphenation is suppressed}{Q-hyphoff}~--- painfully large gaps
+may sometimes be required.
+
+Martin Schr\"oder's \Package{ragged2e} package offers the best of both
+worlds: it provides raggedness which is built on the \plaintex{}
+model, but which is easily configurable.  It defines easily-remembered
+command (e.g., \csx{RaggedRight}) and environment (e.g.,
+\environment{FlushLeft}) names that are simply capitalised
+transformations of the \LaTeX{} kernel originals.  The documentation
+discusses the issues and explains the significance of the various
+parameters of \Package{ragged2e}'s operation.
+\begin{ctanrefs}
+\item[ragged2e.sty]Distributed as part of \CTANref{ms}[ragged2e]
+\end{ctanrefs}
+
+\Question[Q-flushboth]{Cancelling \csx{ragged} commands}
+
+\LaTeX{} provides commands \csx{raggedright} and \csx{raggedleft}, but
+none to cancel their effect.  The \csx{centering} command is
+implemented in the same way as the \csx{ragged*} commands, and suffers
+in the same way.
+
+The following code (to be inserted in a package of your own, or as
+\nothtml{internal \LaTeX{} code~---}% beware line break
+\Qref{internal \LaTeX{} code}{Q-atsigns}) defines a command that
+restores flush justification at both margins:
+\begin{verbatim}
+\def\flushboth{%
+  \let\\\@normalcr
+  \@rightskip\z@skip \rightskip\@rightskip
+  \leftskip\z@skip
+  \parindent 1.5em\relax}
+\end{verbatim}
+There's a problem with the setting of \csx{parindent} in the code: it's
+necessary because both the \csx{ragged} commands set \csx{parindent} to
+zero, but the setting isn't a constant of nature: documents using a
+standard \LaTeX{} class with \pkgoption{twocolumn} option will have
+\texttt{1.0em} by default, and there's no knowing what you (or some
+other class) will have done.
+
+Any but a really old copy of Martin Schr\"oder's \Package{ragged2e}
+package has a \csx{justifying} command to match its % ! line break
+\Qref*{versions of the \LaTeX{} `ragged' commands}{Q-ragright}.  The
+package also provides a \environment{justify} environment, which
+permits areas of justified text in a larger area which is ragged.
+\begin{ctanrefs}
+\item[ragged2e.sty]Distributed as part of \CTANref{ms}[ragged2e]
+\end{ctanrefs}
+% this package hasn't materialised, for some reason i don't now
+% remember...
+%% Donald Arseneau's \Package{flushboth} package provides this code, and
+%% preserves a sensible value for \csx{parindent} (at begin document).
+%% This still doesn't protect it against any change you might make to
+%% \csx{parindent} within the body of your document.
+%% \begin{ctanrefs}
+%% \item[flushboth.sty]\CTANref{flushboth}
+%% \end{ctanrefs}
+
+\subsection{Typesetting specialities}
+
+\Question[Q-verbfile]{Including a file verbatim in \LaTeX{}}
+
+A good way is to use Rainer Sch\"opf's \Package{verbatim} package,
+which provides a command \csx{verbatiminput} that takes a file name as
+argument:
+\begin{quote}
+\begin{verbatim}
+\usepackage{verbatim}
+...
+\verbatiminput{verb.txt}
+\end{verbatim}
+\end{quote}
+Another way is to use the \environment{alltt} environment, which
+requires the \Package{alltt} package.  The environment interprets its
+contents `mostly' verbatim, but executes any \AllTeX{} commands it
+finds:
+\begin{quote}
+\begin{verbatim}
+\usepackage{alltt}
+...
+\begin{alltt}
+\input{verb.txt}
+\end{alltt}
+\end{verbatim}
+\end{quote}
+of course, this is little use for inputting \AllTeX{} source
+code\dots{}
+
+The \Package{moreverb} package extends the \Package{verbatim} package,
+providing a \environment{listing} environment and a \csx{listinginput}
+command, which line-number the text of the file.  The package also has
+a \csx{verbatimtabinput} command, that honours \acro{TAB} characters in
+the input (the package's \environment{listing} environment and the
+\csx{listinginput} command also both honour \acro{TAB}).
+
+The \Package{sverb} package provides verbatim input (without recourse
+to the facilities of the \Package{verbatim} package):
+\begin{quote}
+\begin{verbatim}
+\usepackage{sverb}
+...
+\verbinput{verb.txt}
+\end{verbatim}
+\end{quote}
+
+The \Package{fancyvrb} package offers configurable implementations of
+everything \Package{verbatim}, \Package{sverb} and \Package{moreverb}
+have, and more besides.  It is nowadays the package of choice for the
+discerning typesetter of verbatim text, but its wealth of facilities
+makes it a complex beast and study of the documentation is strongly
+advised.
+
+The \Class{memoir} class includes the relevant functionality of the
+\Package{verbatim} and \Package{moreverb} packages.
+\begin{ctanrefs}
+\item[alltt.sty]Part of the \LaTeX{} distribution.
+\item[fancyvrb.sty]\CTANref{fancyvrb}
+\item[memoir.cls]\CTANref{memoir}
+\item[moreverb.sty]\CTANref{moreverb}
+\item[sverb.sty]Distributed as part of \CTANref{mdwtools}[sverb]
+\item[verbatim.sty]Distributed as part of \CTANref{2etools}[verbatim]
+\end{ctanrefs}
+
+\Question[Q-linenos]{Including line numbers in typeset output}
+
+For general numbering of lines, there are two packages for use with
+\LaTeX{}, \Package{lineno} (which permits labels attached to
+individual lines of typeset output) and \Package{numline}.
+(\Package{Numline} is considered obsolete, but remains available from
+the archive.)
+
+Both of these packages play fast and loose with the \LaTeX{} output
+routine, which can cause problems: the user should beware\dots{}
+
+If the requirement is for numbering verbatim text, \Package{moreverb},
+or \Package{fancyvrb} (see % ! line break
+\Qref[question]{including files verbatim}{Q-verbfile}) may be used.
+Class \Class{memoir} also provides the necessary facilities.
+
+One common use of line numbers is in critical editions of texts, and
+for this the \Package{edmac} package offers comprehensive support;
+\Package{ledmac} is a \LaTeX{} port of \Package{edmac}.
+
+The \Package{vruler} package sidesteps many of the problems associated
+with line-numbering, by offering (as its name suggests) a rule that
+numbers positions on the page.  The effect is good, applied to
+even-looking text, but is poor in texts that involve breaks such as
+interpolated mathematics or figures.  Documentation of the package, in
+the package itself, is pretty tough going, though there is an example
+(also inside the package file).
+\begin{ctanrefs}
+\item[edmac]\CTANref{edmac}
+\item[fancyvrb.sty]\CTANref{fancyvrb}
+\item[ledmac.sty]\CTANref{ledmac}
+\item[lineno.sty]\CTANref{lineno}
+\item[memoir.cls]\CTANref{memoir}
+\item[moreverb.sty]\CTANref{moreverb}
+\item[numline.sty]\CTANref{numline}
+\item[vruler.sty]\CTANref{vruler}
+\end{ctanrefs}
+
+\Question[Q-codelist]{Code listings in \LaTeX{}}
+
+`Pretty' code listings are sometimes considered worthwhile by the
+``ordinary'' programmer, but they have a serious place in
+the typesetting of dissertations by computer science and other
+students who are expected to write programs.  Simple verbatim listings
+of programs are commonly useful, as well.
+
+\begin{hyperversion}
+  \Qref{Verbatim listings}{Q-verbfile} are dealt with elsewhere,
+\end{hyperversion}
+\begin{flatversion}
+  Verbatim listings are dealt with elsewhere (\Qref{}{Q-verbfile}),
+\end{flatversion}
+as is the problem of % ! line break
+\Qref*{typesetting algorithm specifications}{Q-algorithms}.
+
+The \Package{listings} package is widely regarded as the best bet for
+formatted output (it is capable of parsing program source, within the
+package itself), but there are several well-established packages that
+rely on a pre-compiler of some sort.  You may use \Package{listings}
+to typeset snippets that you include within your source:
+\begin{quote}
+\begin{verbatim}
+\usepackage{listings}
+\lstset{language=C}
+...
+\begin{document}
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(int argc, char ** argv)
+{
+  printf("Hello world!\n");
+  return 0;
+}
+\end{lstlisting}
+\end{document}
+\end{verbatim}
+\end{quote}
+or you can have it typeset whole files:
+\begin{quote}
+\begin{verbatim}
+\usepackage{listings}
+\lstset{language=C}
+...
+\begin{document}
+\lstinputlisting{main.c}
+\end{document}
+\end{verbatim}
+\end{quote}
+These very simple examples may be decorated in a huge variety of ways,
+and of course there are other languages in the package's vocabulary
+than just \ProgName{C}\dots{}
+
+For a long time, advice on \AllTeX{} lists seemed to regard
+\Package{listings} as the be-all and end-all on this topic.  In the
+last few years, viable alternatives have appeared
+
+\ProgName{Highlight} is attractive if you need more than one output
+format for your program: as well as \AllTeX{} output,
+\ProgName{highlight} will produce (\acro{X})\acro{HTML}, \acro{RTF}
+and \acro{XSL}-\acro{FO} representations of your program listing.  The
+manual leads you through the details of defining a parameter file for
+a ``new'' language, as well as the presentation details of a language.
+
+The \Package{minted} package is another alternative that offers
+the means of creating new language definitions.  It
+requires that code be processed using an external (\ProgName{python})
+script, \href{http://pygments.org/}{\ProgName{Pygments}}.
+\ProgName{Pygments}, in turn, needs a ``lexer'' that knows the
+language you want to process; lots of these are available, for the
+more commonly-used languages, and there is advice on ``rolling your
+own'' on the % ! line break.
+<a href='http://pygments.org/docs/lexerdevelopment/'>\ProgName{Pygments} site</a>
+
+Usage of \Package{minted} can be as simple as
+\begin{quote}
+  \cmdinvoke{begin}{minted}{\meta{language}}\\
+  \dots{}\\
+  \cmdinvoke{end}{minted}
+\end{quote}
+which processes the program code dynamically, at typesetting time~---
+though such usage is likely to require that % ! line break
+\Qref*{separate processing be enabled}{Q-spawnprog}.
+
+On a rather different path, the package \Package{showexpl} supports
+typesetting \alltex{} code and its typeset output, in parallel
+`panes'.  (Thiscould provide support for \alltex{} instruction texts,
+or for papers in \tex{} user group publications.  The package uses
+\Package{listings} for its \alltex{} pane, and typesets the result
+into a simple box, for the other pane.
+
+Longer-established, and variously less ``powerful'' systems include:
+\begin{itemize}
+\item The \ProgName{lgrind} system is a well-established
+  pre-compiler, with all the facilities one might need and a wide
+  repertoire of languages; it is derived from the even
+  longer-established \ProgName{tgrind}, whose output is based on
+  \plaintex{}.
+\item The \ProgName{tiny_c2l} system is slightly more recent: users
+  are again encouraged to generate their own driver files for
+  languages it doesn't already deal with, but its ``tiny'' name
+  correctly hints that it's not a particularly elaborate system.
+\item The \ProgName{C++2LaTeX} system comes with strong
+  recommendations for use with \acro{C} and \acro{C}++.
+\item An extremely simple system is \ProgName{c2latex}, for which you
+  write \LaTeX{} source in your \acro{C} program comments.  The
+  program then converts your program into a \LaTeX{} document for
+  processing.  The program (implicitly) claims to be
+  ``self-documenting''.
+\end{itemize}
+\begin{ctanrefs}
+\item[c2latex]\CTANref{c2latex}
+\item[C++2LaTeX]\CTANref{c++2latex}
+\item[highlight]\CTANref{highlight}
+\item[lgrind]\CTANref{lgrind}
+\item[listings.sty]\CTANref{listings}
+\item[minted.sty]\CTANref{minted}
+\item[showexpl.sty]\CTANref{showexpl}
+\item[tgrind]\CTANref{tgrind}
+\item[tiny\_c2l]\CTANref{tiny_c2l}
+\end{ctanrefs}
+\LastEdit{2013-03-28}
+
+\Question[Q-algorithms]{Typesetting pseudocode in \LaTeX{}}
+
+There is no consensus on the `right' way to typeset pseudocode.
+Consequently, there are a variety of \LaTeX{} packages to choose from
+for producing \ae{}sthetically pleasing pseudocode listings.
+
+Pseudocode differs from actual program listings in that it lacks
+strict syntax and semantics.  Also, because pseudocode is supposed to
+be a clear expression of an algorithm it may need to incorporate
+mathematical notation, figures, tables, and other \LaTeX{} features
+that do not appear in conventional programming languages.
+\begin{wideversion} % hyper?
+  \Qref{Typesetting program listings}{Q-codelist} is described
+  elsewhere.
+\end{wideversion}
+\begin{narrowversion} % non-hyper
+  Typesetting program listings is described elsewhere
+  (\Qref{}{Q-codelist}).
+\end{narrowversion}
+
+You can certainly create your own environment for typesetting
+pseudocode using, for example, the \environment{tabbing} or
+\environment{list} environments~--- it's not difficult, but it may
+prove boring.  So it's worth trying the following packages, all
+designed specifically for typesetting pseudocode.
+
+The \Package{algorithms} bundle (which contains packages
+\Package{algorithm} and \Package{algorithmic}, both of which are
+needed for ordinary use) has a simple interface and produces fairly
+nice output.  It provides primitives for statements, which can contain
+arbitrary \LaTeX{} commands, comments, and a set of iterative and
+conditional constructs.  These primitives can easily be redefined to
+produce different text in the output.  However, there is no support
+for adding new primitives.  Typesetting the pseudocode itself is
+performed in \Package{algorithmic}; the \Package{algorithms} package
+uses the facilities of the \Package{float} package to number
+algorithms sequentially, enable algorithms to float like figures or
+tables, and support including a List of Algorithms in a document's
+front matter.
+
+Packages in the \Package{algorithmicx} bundle are similar both in
+concept and output form to \Package{algorithmic} but additionally
+provide support for adding new keywords and altering the formatting.
+It provides the \Package{algpseudocode} package which is (almost) a
+drop-in replacement for \Package{algorithmic}.  Another package in the
+bundle, \Package{algpascal}, uses Pascal-like keywords, indents
+differently from \Package{algpseudocode}, and puts command arguments
+in maths mode instead of text mode.  There is no floating environment
+but \Package{algorithmicx}, like \Package{algorithmic}, is compatible
+with the \Package{algorithm} package.  (There have been reports of
+difficulty defining new commands to fit with the package;
+unfortunately, the author is not available to comment.)
+
+The \Package{alg} package, like \Package{algorithms}, offers a
+floating algorithm environment with all of the ensuing niceties.
+\Package{alg}, however, can caption its floats in a variety of
+(natural) languages.  In addition, \Package{alg} unlike
+\Package{algorithms}, makes it easy to add new constructs.
+
+The \Package{newalg} package has a somewhat similar interface to
+\Package{algorithms}, but its output is designed to mimic the rather
+pleasant typesetting used in the book ``\emph{Introduction to Algorithms}''
+by Corman, Leiserson, Rivest and Stein. Unfortunately,
+\Package{newalg} does not support a floating environment or any
+customisation of the output.
+
+``\emph{Bona fide}'' use of the style of ``Introduction to
+Algorithms'' may be achieved with Cormen's own \Package{clrscode}:
+this is the package as used in the second edition of the book.
+
+Similarly, the style of % ! line break
+``\emph{Combinatorial Algorithms: Generation, Enumeration and Search}''
+is supported by the \Package{pseudocode} package, written by the
+authors of the book.  It has the common `Pascal-like' style, and has
+some interesting constructs for what one thinks of as Pascal blocks.
+
+The \Package{algorithm2e} is of very long standing, and is widely used
+and recommended.  It loads the \Package{float} package to provide the
+option of floating algorithm descriptions, but you can always use the
+``\texttt{H}'' option of \Package{float} to have the algorithm appear
+``where you write it''.
+
+The usage of the \Package{program} package is a little different from
+that of the other packages.  It typesets programs in maths mode
+instead of text mode; and linebreaks are significant.
+\Package{program} lacks a floating environment but does number
+algorithms like \Package{alg} and \Package{algorithms}.  Customisation
+and extension are not supported.  Documentation of the
+\Package{program} package (such as it is) appears in a file
+\File{program.msg} in the distribution.
+
+None of the above are perfect.  The factors that should influence your
+choice of package include the output style you prefer, how much you
+need to extend or modify the set of keywords, and whether you require
+algorithms to float like figures and tables.
+%%
+%% Documentation availability:
+%% \begin{description}
+%% \item[\Package{algorithms} bundle] is provided in \File{algorithms.ps}
+%%   (also available as LaTeX{} source).  The documentation speaks as if
+%%   the two packages of the bundle were indeed one, called
+%%   \Package{algorithms}.
+%% \item[\Package{program} package] (such as it is) appears in a file
+%%   \File{program.msg}.
+%% \item[\Package{clrscode} package] is to be found in
+%%   \File{clrscode.pdf} in the distribution.
+%% \item[\Package{algorithm2e} package] is to be found in
+%%   \File{algorithm2e.tex} in the distribution (it needs the package
+%%   itself when you process it).
+%% \end{description}
+\begin{ctanrefs}
+\item[algorithm2e.sty]\CTANref{algorithm2e}
+\item[algorithmicx\nothtml{\rmfamily} bundle]\CTANref{algorithmicx}
+\item[algorithms\nothtml{\rmfamily} bundle]\CTANref{algorithms}
+\item[alg.sty]\CTANref{alg}
+\item[clrscode.sty]\CTANref{clrscode}
+\item[float.sty]\CTANref{float}
+\item[newalg.sty]\CTANref{newalg}
+\item[program.sty]\CTANref{program}
+\item[pseudocode.sty]\CTANref{pseudocode}
+\end{ctanrefs}
+\LastEdit{2011-10-12}
+
+\Question[Q-makeindex]{Generating an index in \AllTeX{}}
+
+Making an index is not trivial; what to index, and how to index it, is
+difficult to decide, and uniform implementation is difficult to
+achieve.  You will need to mark all items to be indexed in your text
+(typically with \csx{index} commands).
+
+It is not practical to sort a large index within \TeX{}, so a
+post-processing program is used to sort the output of one \TeX{} run,
+to be included into the document at the next run.
+
+The following programs are available:
+\begin{description}
+\item[makeindex] Comes with most distributions~--- a good workhorse,
+  but is not well-arranged to deal with other sort orders than the
+  canonical \acro{ASCII} ordering.
+  
+  The \Package{makeindex} documentation is a good source of
+  information on how to create your own index. \Package{Makeindex} can
+  be used with some \TeX{}
+  macro packages other than \LaTeX{}, such as \nothtml{\Eplain\ (}%
+  \Qref{Eplain}{Q-eplain}\nothtml{)}, and \TeX{} (whose macros can
+  be used independently with \plaintex{}).
+\item[idxtex] for \LaTeX{} under \acro{VMS}; \ProgName{idxtex} comes
+  with a glossary-maker \ProgName{glotex}.
+\item[texindex(1)] A witty little shell-script using \ProgName{sed}
+  and \ProgName{awk}; designed for \LaTeX{} under Unix.
+\item[texindex(2)] The \Qref*{Texinfo}{Q-texinfo} system also offers a program
+  \ProgName{texindex}, whose source is to be found in the
+  \ProgName{texinfo} distribution.  The \Package{ltxindex} package
+  provides macros that enable \LaTeX{} users to use this
+  \ProgName{texindex}.
+\item[xindy] arose from frustration at the difficulty of making a
+  multi-language version of \ProgName{makeindex}.  It is designed to
+  be a successor to \ProgName{makeindex}, by a team that included the
+  then-current maintainer of \ProgName{makeindex}.  It successfully
+  addresses many of \ProgName{makeindex}'s shortcomings, including
+  difficulties with collation order in different languages, and it is
+  highly flexible.
+
+  \ProgName{Xindy} itself will work with Unicode (UTF-8) encoded
+  \latex{} input.  A separate application (\ProgName{texindy}) deals
+  with `standard' \latex{} source, processes it and passes
+  `sanitised' text to \ProgName{Xindy}.
+\end{description}
+\begin{ctanrefs}
+\item[idxtex]\CTANref{glo+idxtex}
+\item[ltxindex.sty]\CTANref{ltxindex}
+\item[makeindex]\CTANref{makeindex}
+\item[makeindex (Macintosh)]\CTANref{macmakeindex}
+\item[texindex \nothtml{\upshape\rmfamily}(the script)]\CTANref{texindex}
+\item[texindex \nothtml{\upshape\rmfamily}(the program)]Distributed
+  with \CTANref{texinfo}
+\item[texsis (system)]\CTANref{texsis}
+\item[texsis (makeindex support)]\CTANref{texsis-index}
+\item[xindy]\CTANref{xindy}
+\end{ctanrefs}
+
+\Question[Q-setURL]{Typesetting \acro{URL}s}
+
+\acro{URL}s tend to be very long, and contain characters that would
+naturally prevent them being hyphenated even if they weren't typically
+set in \csx{ttfamily}, verbatim.  Therefore, without special treatment,
+they often produce wildly overfull \csx{hbox}es, and their typeset
+representation is awful.
+
+There are three packages that help solve this problem:
+\begin{itemize}
+\item The \Package{path} package, which defines a \csx{path} command.
+  The command defines each potential break character as a
+  \csx{discretionary}, and offers the user the opportunity of
+  specifying a personal list of potential break characters.  Its chief
+  disadvantage is fragility in \LaTeX{} moving arguments.  The
+% beware line breaks
+  \Qref*{\Eplain{} macros}{Q-eplain}~--- define a similar \csx{path} command.
+  
+  \Package{Path}, though it works in simple situations, makes no
+  attempt to work with \LaTeX{} (it is irremediably fragile).  Despite
+  its long and honourable history, it is no longer recommended for
+  \LaTeX{} use.
+\item The \Package{url} package, which defines an \csx{url} command
+  (among others, including its own \csx{path} command).  The command
+  gives each potential break character a maths-mode `personality', and
+  then sets the \acro{URL} itself (in the user's choice of font) in
+  maths mode.  It can produce (\LaTeX{}-style) `robust' commands
+  % beware line break within paren 
+  (\htmlonly{see }\Qref{use of \csx{protect}}{Q-protect}) for use
+  within moving arguments.
+
+  The package ordinarily ignores spaces in the \acro{URL}, but
+  unfortunately \acro{URL}s that contain spaces do exist; to typeset
+  them, call the package with the \pkgoption{obeyspaces} option.  Two
+  other useful options allow line breaks in the \acro{URL} in places
+  where they are ordinarily suppressed to avoid confusion:
+  \pkgoption{spaces} to allow breaks at spaces (note, this requires
+  \pkgoption{obeyspaces} as well, and \pkgoption{hyphens} to allow
+  breaks after hyphens.  (Note that the package \emph{never} does
+  ``ordinary'' hyphenation of names inside an \acro{URL}.)
+  
+  It is possible to use the \Package{url} package in \plaintex{},
+  with the assistance of the \Package{miniltx} package (which was
+  originally developed for using the \LaTeX{} graphics package in
+  \plaintex{}).  A small patch is also necessary: the required
+  sequence is therefore:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\input miniltx
+\expandafter\def\expandafter\+%
+                \expandafter{\+}
+\input url.sty
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\input miniltx
+\expandafter\def\expandafter\+\expandafter{\+}
+\input url.sty
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+\item The \Package{hyperref} package, which uses the typesetting code
+  of \Package{url}, in a context where the typeset text forms the
+  anchor of a link.
+\end{itemize}
+
+The author of this answer prefers the (rather newer) \Package{url}
+package (directly or indirectly); both \Package{path} and
+\Package{url} work well with \plaintex{} (though of course, the fancy
+\LaTeX{} facilities of \Package{url} don't have much place there).
+(\Package{hyperref} isn't available in a version for use with \plaintex{}.)
+
+Note that neither \csx{path} (from package \Package{path}) nor \csx{url} (from
+package \Package{url}) is robust (in the \LaTeX{} sense).  If you need
+a \acro{URL} to go in a moving argument, you need the command
+\csx{urldef} from the \Package{url} package.  So one might write:
+\begin{quote}
+\begin{verbatim}
+\urldef\faqhome\url{http://www.tex.ac.uk/faq}
+\end{verbatim}
+\end{quote}
+after which, \csx{faqhome} is robust.
+
+Documentation of both package \Package{path} and package \Package{url}
+is in the package files.
+\begin{ctanrefs}
+\item[hyperref.sty]\CTANref{hyperref}
+\item[miniltx.tex]Distributed as part of \CTANref{graphics-plain}[miniltx]
+\item[path.sty]\CTANref{path}
+\item[url.sty]\CTANref{url}
+\end{ctanrefs}
+
+\Question[Q-music]{Typesetting music in \tex{}}
+
+The current best bet for music typesetting is to use
+\Package{musixtex}.  \Package{Musixtex} is a three-pass system that
+has a \tex{}-based pass, a processing pass and then a further \tex{}
+pass.  The middle pass, a program called \ProgName{musixflx},
+optimises the spacing and sorts out slurs and ties.
+\Package{Musixtex} is demanding of \tex{} resources, and any
+significant score requires that typesetting is done using \etex{},
+whose expanded variable- and box-register ranges allow for more of the
+``parallel'' activities that abound in a music score.
+Of course, \Package{musixtex} also requires music fonts; those are
+available in a separate package on the archive.
+
+\Package{Musixtex} requires pretty arcane input; most people using it
+actually prepare (less obscure) input for \ProgName{pmx}, whose output
+is \tex{} input suitable for \Package{musixtex}.
+
+A further preprocessor, \ProgName{M-Tx}, allows preparation of music
+with lyrics; \ProgName{M-Tx}'s output is fed into \ProgName{pmx}, and
+thence to \Package{musixtex}.
+
+An alternative path to music examples within a \alltex{} document is
+\href{http://www.lilypond.org}{\ProgName{Lilypond}}.
+\ProgName{Lilypond} is (at heart) a batch music typesetting system
+with plain text input that does most of its work without \tex{}.
+\ProgName{Lilypond}'s input syntax is less cryptic than is
+MusiX\TeX{}'s, though similar quality is achieved.  The
+\ProgName{lilypond}
+\href{http://lilypond.org/web/about/faq}{\acro{FAQ}} mentions programs
+with graphical user interfaces, that export lilypond output.
+
+For occasional music references (sharp and flat signs, notes, clefs
+and so on, there is a (\latex{}) package (with associated font) called
+\Package{lilyglyphs}.  This uses \progname{lilypond}'s fonts (which
+are included in the package), and also provides the means to add stuff
+from other sources.
+
+Another alternative in the production of music is the \acro{ABC}
+notation, which was developed to notate the traditional music of
+Western Europe (which can be written on a single stave), though it can
+be used much more widely.  A front end to \Package{musictex} (see
+below), \ProgName{abc2mtex}, makes \acro{ABC} typesetting possible.
+
+The program \ProgName{midi2tex} can also generate \Package{musictex}
+output, from \acro{MIDI} files.
+
+The history of music in \tex{} goes back some time; the earliest
+``working'' macros were Mu\tex{}, by Angelika Schofer and Andrea
+Steinbach.  Mu\tex{} was very limited, but it was some time before
+Daniel Taupin took up the baton, and developed Music\TeX{}, which
+allows the typesetting of polyphonic and other multiple-stave music;
+Music\TeX{} remains available, but is no longer recommended.
+
+The first version of Musix\tex{} was developed by Andreas Egler, but
+he withdrew from the project to work on another package, Opus\tex{}.
+That never reached the mainstream, and is no longer maintained.  The
+current recommended way of doing Opus\tex{}'s job is
+\href{http://home.gna.org/gregorio/}{\ProgName{gregorio}}, which can
+in principle feed into a \tex{}-based document.
+
+Once Andreas Egler had withdrawn (his last version of
+\Package{musixtex} is preserved on the archive), Daniel Taupin took up
+the development, leading to the \Package{musixtex} used today.
+\begin{ctanrefs}
+\item[abc2mtex]\CTANref{abc2mtex}
+\item[lilyglyphs]\CTANref{lilyglyphs}
+\item[M-Tx]\CTANref{m-tx}
+\item[midi2tex]\CTANref{midi2tex}
+\item[musictex]\CTANref{musictex}
+% ! line breaks
+\item[musixtex \nothtml{\rmfamily}(Taupin's version)]\CTANref{musixtex}
+\item[musixtex \nothtml{\rmfamily}(Egler's version)]\CTANref{musixtex-egler}
+\item[musixtex \nothtml{\rmfamily}fonts]\CTANref{musixtex-fonts}
+\item[mutex]\CTANref{mutex}
+\item[pmx]\CTANref{pmx}
+\end{ctanrefs}
+\LastEdit{2013-09-27}
+
+\Question[Q-parskip]{Zero paragraph indent}
+
+The conventional way of typesetting running text has no separation
+between paragraphs, and the first line of each paragraph in a block of
+text indented.
+
+In contrast, one common convention for typewritten text was to have no
+indentation of paragraphs; such a style is often required for
+``brutalist'' publications such as technical manuals, and in styles
+that hanker after typewritten manuscripts, such as
+officially-specified dissertation formats.
+
+Anyone can see, after no more than a moment's thought, that if the
+paragraph indent is zero, the paragraphs must be separated by blank
+space: otherwise it is sometimes going to be impossible to see the
+breaks between paragraphs.
+
+The simple-minded approach to zero paragraph indentation is thus:
+\begin{quote}
+\begin{verbatim}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+\end{verbatim}
+\end{quote}
+and in the very simplest text, it's a fine solution.
+
+However, the non-zero \csx{parskip} interferes with lists and the like,
+and the result looks pretty awful.  The \Package{parskip} package
+patches things up to look reasonable; it's not perfect, but it deals
+with most problems.
+
+The Netherlands Users' Group's set of classes includes an
+\Class{article} equivalent (\Class{artikel3}) and a \Class{report}
+equivalent (\Class{rapport3}) whose design incorporates zero paragraph
+indent and non-zero paragraph skip.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\acro{NTG} classes]\CTANref{ntgclass}
+\item[parskip.sty]\CTANref{parskip}
+\end{ctanrefs}
+\LastEdit{2011-04-01} % yes, really
+
+\Question[Q-dropping]{Big letters at the start of a paragraph}
+
+A common style of typesetting, now seldom seen except in newspapers,
+is to start a paragraph (in books, usually the first of a chapter)
+with its first letter set large enough to span several lines.
+
+This style is known as ``dropped capitals'', or (in French)
+\latexhtml{``lettrines''}{\htmlentity{laquo}lettrines\htmlentity{raquo}},
+and \TeX{}'s primitive facilities for hanging indentation make its
+(simple) implementation pretty straightforward.
+
+The \Package{dropping} package does the job simply, but has a curious
+attitude to the calculation of the size of the font to be used for the
+big letters.  Examples appear in the package documentation, so before
+you process the \extension{dtx}, the package itself must already be
+installed.  Unfortunately, \Package{dropping} has an intimate relation
+to the set of device drivers available in an early version of the
+\LaTeX{} graphics package, and it cannot be trusted to work with
+modern offerings such as \PDFTeX{} or \acro{DVI}pdfm, let
+alone such modernisms as \xetex{}.  As a result, the package is widely
+deprecated, nowadays.
+
+The more recent \Package{lettrine} package is generally more reliable.
+It has a well-constructed array of options, and an impressive set of
+examples adds to the package's document.
+\begin{ctanrefs}
+\item[dropping]\CTANref{dropping}
+\item[lettrine]\CTANref{lettrine}
+\end{ctanrefs}
+\LastEdit{2014-01-22}
+
+\Question[Q-dec_comma]{The comma as a decimal separator}
+
+\TeX{} embodies the British/American cultural convention of using a
+period as the separator between the whole number and the decimal
+fraction part of a decimal number.  Other cultures use a comma as
+separator, but if you use a comma in maths mode you get a small space
+after it; this space makes a comma that is used as a decimal separator
+look untidy.
+
+A simple solution to this problem, in maths mode, is to type
+\texttt{3}\marg{,}\texttt{14} in place of \texttt{3,14}.  While such a
+technique may produce the right results, it is plainly not a
+comfortable way to undertake any but the most trivial amounts of
+typing numbers.
+
+Therefore, if you need to use commas as decimal separator, you will
+probably welcome macro support.  There are two packages that
+can help relieve the tedium: \Package{icomma} and \Package{ziffer}.
+
+\Package{Icomma} ensures that there will be no extra space after a
+comma, unless you type a space after it (as in \texttt{f(x, y)}~--- in
+the absence of the package, you don't need that space), in which case
+the usual small space after the comma appears.  \Package{Ziffer} is
+specifically targeted at the needs of those typesetting German, but
+covers the present need, as well as providing the double-minus sign
+used in German (and other languages) for the empty `cents' part of an
+amount of currency.
+
+The \Package{numprint} package provides a command
+\cmdinvoke*{numprint}{number} that prints its argument according to
+settings you give it, or according to settings chosen to match the
+language you have selected in \Package{babel}.  The formatting works
+equally well in text or maths.  The command is very flexible (it can also
+group the digits of very `long' numbers), but is inevitably less
+convenient than \Package{icomma} or \Package{ziffer} if you are typing a
+lot of numbers.
+\begin{ctanrefs}
+\item[icomma.sty]Distributed as part of \CTANref{was}[icomma]
+\item[numprint.sty]\CTANref{numprint}
+\item[ziffer.sty]\CTANref{ziffer}
+\end{ctanrefs}
+
+\Question[Q-breakbox]{Breaking boxes of text}
+
+\AllTeX{} boxes may not be broken, in ordinary usage: once you've
+typeset something into a box, it will stay there, and the box will jut
+out beyond the side or the bottom of the page if it doesn't fit in the
+typeset area.
+
+If you want a substantial portion of your text to be framed (or
+coloured), the restriction imposes a serious restriction.
+Fortunately, there are ways around the problem.
+
+The \Package{framed} package provides \environment{framed} and
+\environment{shaded} environments; both put their content into
+something which looks like a framed (or coloured) box, but which
+breaks as necessary at page end.  The environments ``lose'' footnotes,
+marginpars and head-line entries, and will not work with
+\Package{multicol} or other column-balancing macros.  The
+\Class{memoir} class includes the functionality of the
+\Package{framed} package.
+
+The \Package{mdframed} package does the same job, using a different
+algorithm.  The package also provides means of defining
+`private' framed environments, whose parameters are set at definition
+time, thus saving considerable effort in documents with many framed
+boxes.  Its restrictions seem much the same as those of
+\Package{framed}; this is as one would expect, but the list is
+noticeably different in the two packages' documentation.
+
+The \Package{boites} package provides a \environment{breakbox}
+environment; examples of its use may be found in the distribution, and
+the package's \File{README} file contains terse documentation.  The
+environments may be nested, and may appear inside
+\environment{multicols} environments; however, floats, footnotes and
+marginpars will be lost.
+
+For \plaintex{} users, the facilities of the \Package{backgrnd}
+package may be useful; this package subverts the output routine to
+provide vertical bars to mark text, and the macros are clearly marked
+to show where coloured backgrounds may be introduced (this requires
+\Package{shade}, which is distributed as tex macros and
+device-independent \MF{} for the shading).  The author of
+\Package{backgrnd} claims that the package works with \LaTeXo{}, but
+there are reasons to suspect that it may be unstable working with
+current \LaTeX{}.
+\begin{ctanrefs}
+\item[backgrnd.tex]\CTANref{backgrnd}
+\item[boites.sty]\CTANref{boites}
+\item[framed.sty]\CTANref{framed}
+\item[mdframed.sty]\CTANref{mdframed}
+\item[memoir.cls]\CTANref{memoir}
+\item[shade.tex]\CTANref{shade}
+\end{ctanrefs}
+\LastEdit{2012-02-14}
+
+\Question[Q-overstrike]{Overstriking characters}
+
+This may be used, for example, to indicate text deleted in the course
+of editing.  Both the \Package{ulem} and the \Package{soul} packages
+provide the necessary facilities.
+
+Overstriking with an ``attached'' comment may be achieved using the
+\Package{pdfcomment} package, to which you can give optional arguments
+with all sorts of detail.  The comment text is encoded using an Adobe
+`annotation'; unfortunately, support for these annotations is not a
+common feature of \acro{PDF} viewers, but if you can safely assume
+that your audience will use \ProgName{Acrobat Reader}, the facility
+provides that extra ``shine'' that business users so love.
+
+Overstriking for % beware line break
+\Qref*{cancellation in maths expressions}{Q-cancellation} is achieved
+by a different mechanism.
+
+Documentation of \Package{ulem} is in the package file.
+\begin{ctanrefs}
+\item[pdfcomment.sty]\CTANref{pdfcomment}
+\item[soul.sty]\CTANref{soul}
+\item[ulem.sty]\CTANref{ulem}
+\end{ctanrefs}
+\LastEdit{2013-08-29}
+
+\Question[Q-upquot]{Realistic quotes for verbatim listings}
+
+The \texttt{cmtt} font has ``curly'' quotes\nothtml{ (\texttt{`thus'})},
+which are pleasing on the eye, but don't really tally with what one
+sees on a modern % beware line break
+\ProgName{xterm}\nothtml{ (which look like \texttt{\textasciigrave this\textquotesingle})}.
+
+The appearance of these quotes is critical in program listings,
+particularly in those of Unix-like shell scripts.  The
+\Package{upquote} package modifies the behaviour of the
+\environment{verbatim} environment so that the output is a clearer
+representation of what the user must type.
+\begin{ctanrefs}
+\item[upquote.sty]\CTANref{upquote}
+\end{ctanrefs}
+
+\Question[Q-time]{Printing the time}
+
+\TeX{} has a primitive register that contains ``the number of minutes
+since midnight''; with this knowledge it's a moderately simple
+programming job to print the time (one that no self-respecting
+\plaintex{} user would bother with anyone else's code for).
+
+However, \LaTeX{} provides no primitive for ``time'', so the
+non-programming \LaTeX{} user needs help.
+
+Two packages are available, both providing ranges of ways of printing
+the date, as well as of the time: this question will concentrate on
+the time-printing capabilities, and interested users can investigate
+the documentation for details about dates.
+
+The \Package{datetime} package defines two time-printing functions:
+\csx{xxivtime} (for 24-hour time), \csx{ampmtime} (for 12-hour time) and
+\csx{oclock} (for time-as-words, albeit a slightly eccentric set of
+words).
+
+The \Package{scrtime} package (part of the compendious
+\Class{KOMA-Script} bundle) takes a package option (\pkgoption{12h} or
+\pkgoption{24h}) to specify how times are to be printed.  The command
+\csx{thistime} then prints the time appropriately (though there's no
+\emph{am} or \emph{pm} in \pkgoption{12h} mode).  The \csx{thistime}
+command also takes an optional argument, the character to separate the
+hours and minutes: the default is of course \texttt{:}.
+\begin{ctanrefs}
+\item[datetime.sty]\CTANref{datetime}
+\item[scrtime.sty]Distributed as part of \CTANref{koma-script}
+\end{ctanrefs}
+
+\Question[Q-the-commands]{Redefining counters' \csx{the-}commands}
+
+Whenever you request a new \LaTeX{} counter, \LaTeX{} creates a bunch
+of behind-the-scenes commands, as well as defining the counter
+itself.
+
+Among other things, \cmdinvoke*{newcounter}{fred} creates a command
+\csx{the}\texttt{\emph{fred}}, which expands to ``the value of
+\texttt{\emph{fred}}'' when you're typesetting.
+
+The definition of \csx{the}\texttt{\emph{fred}} should express the
+value of the counter: it is almost always always a mistake to use the
+command to produce anything else.  The value may reasonably be
+expressed as an arabic, a roman or a greek number, as an alphabetic
+expression, or even as a sequence (or pattern of) symbols.  If you
+need a decision process on whether to re-define
+\csx{the}\texttt{\emph{fred}}, consider what might happen when you do
+so.
+
+So, for example, if you want your section numbers to be terminated by
+a period, you could make \csx{thesection} expand with a terminating
+period.  However, such a change to \csx{thesection} makes the
+definition of \csx{thesubsection} look distinctly odd: you are going to
+find yourself redefining things left, right and centre.  Rather, use
+the standard techniques for % beware line break
+\Qref*{adjusting the presentation of section numbers}{Q-seccntfmt}. 
+
+Or, suppose you want the page number to appear at the bottom of each
+page surrounded by dashes (as in
+``\texttt{-}{}\texttt{-\textasciitilde}\texttt{nnn\textasciitilde-}{}\texttt{-}'').
+If you try to achieve this by redefining \csx{thepage}, problems will
+arise from the use of the page number in the table of contents (each
+number will have the dashes attached), and \csx{pageref} references
+will be oddly modified.  In this case, the change of appearance is
+best done by redefining the page style itself, perhaps using
+\Qref*{package \Package{fancyhdr}}{Q-fancyhdr}.
+
+\subsection{Tables of contents and indexes}
+
+\Question[Q-tocloft]{The format of the Table of Contents, etc.}
+
+The formats of entries in the table of contents (\acro{TOC}) are
+controlled by a number of internal commands (discussed in section~2.3
+of \Qref*{\emph{The \LaTeX{} Companion}}{Q-latex-books}.  The commands
+\csx{@pnumwidth}, \csx{@tocrmarg} and \csx{@dotsep} control the space
+for page numbers, the indentation of the right-hand margin, and the
+separation of the dots in the dotted leaders, respectively.  The
+series of commands named \csx{l@\emph{xxx}}, where \texttt{\emph{xxx}}
+is the name of a sectional heading (such as \texttt{chapter} or
+\texttt{section}, \dots{}\@) control the layout of the corresponding
+heading, including the space for section numbers.  All these internal
+commands may be individually redefined to give the effect that you
+want.
+
+All that work may be avoided, using the package \Package{tocloft}
+which provides a set of user-level commands that may be used to change
+the \acro{TOC} formatting.  Since exactly the same mechanisms are used
+for the List of Figures and List of Tables, the layout of these
+sections may be controlled in the same way.
+
+The \Package{etoc} package offers similar flexibility, together with
+multicolumn tables of contents and boxes around tables (and the like).
+
+The \Class{KOMA-Script} classes provides an optional variant structure
+for the table of contents, and calculates the space needed for the
+numbers automatically.  The \Class{memoir} class includes the functionality
+of \Package{tocloft}.
+\begin{ctanrefs}
+\item[etoc.sty]\CTANref{etoc}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[tocloft.sty]\CTANref{tocloft}
+\end{ctanrefs}
+\LastEdit{2012-12-07}
+
+\Question[Q-secnumdep]{Unnumbered sections in the Table of Contents}
+
+The way the relevant parts of sectioning commands work is exemplified
+by the way the \csx{chapter} command uses the counter \texttt{secnumdepth}
+(described in Appendix~C of the \LaTeX{} manual):
+\begin{enumerate}
+\item put something in the \extension{aux} file, which will appear in
+  the \extension{toc};
+\htmlignore 
+\item if \ensuremath{\texttt{secnumdepth} \geq 0},
+\endhtmlignore
+\begin{htmlversion}
+\item if the \texttt{secnumdepth} counter is greater than or equal to
+  zero,
+\end{htmlversion}
+  increase the counter for the chapter and write it out.
+\item write the chapter title.
+\end{enumerate}
+Other sectioning commands are similar, but with other values used in
+the test.
+
+So a simple way to get headings of funny `sections' such as prefaces
+in the table of contents is to use the counter:
+\begin{quote}
+\begin{verbatim}
+\setcounter{secnumdepth}{-1}
+\chapter{Preface}
+\end{verbatim}
+\end{quote}
+Unfortunately, you have to set \texttt{secnumdepth} back to its usual
+value (which is~2 in the standard styles) before you do any `section'
+which you want to be numbered.
+
+Similar settings are made, automatically, in the \LaTeX{} book class by
+the \csx{frontmatter} and \csx{backmatter} commands.
+
+The value of the counter \texttt{tocdepth} controls which headings
+will be finally printed in the table of contents; it is normally set
+in the preamble and is a constant for the document.  The package
+\Package{tocvsec2} package takes the tedium out of changing the
+\texttt{secnumdepth} and/or the \texttt{tocdepth} counter values at
+any point in the body of the document; the commands (respectively)
+\csx{setsecnumdepth} and \csx{settocdepth} make the changes based on
+the \emph{name} of the sectional unit (\texttt{chapter},
+\texttt{section}, etc.\@).
+
+The package \Package{abstract} (see % line break!
+\Qref[question]{one-column abstracts}{Q-onecolabs}) includes an option
+to add the \texttt{abstract} to the table of contents, while the
+package \Package{tocbibind} has options to include the table of
+contents itself, the \texttt{bibliography}, \texttt{index}, etc., to
+the table of contents.
+
+The \Class{KOMA-Script} classes have commands \csx{addchap} and
+\csx{addled}, which work like \csx{chapter} and \csx{section} but
+aren't numbered.  The \Class{memoir} class incorporates the facilities
+of all three of the \Package{abstract}, \Package{tocbibind} and
+\Package{tocvsec2} packages.
+\begin{ctanrefs}
+\item[abstract.sty]\CTANref{abstract}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[tocbibind.sty]\CTANref{tocbibind}
+\item[tocvsec2.sty]\CTANref{tocvsec2}
+\end{ctanrefs}
+
+\Question[Q-tocbibind]{Bibliography, index, etc., in \acro{TOC}}
+
+The standard \LaTeX{} classes (and many others) use \csx{section*} or
+\csx{chapter*} for auto-generated parts of the document (the tables of
+contents, lists of figures and tables, the bibliography and the index).  As a
+result, these items aren't numbered (which most people don't mind),
+and (more importantly) they don't appear in the table of contents.
+
+The correct solution (as always) is to have a class of your own that
+formats your document according to your requirements.  The macro to do
+the job (\csx{addcontentsline}) is fairly simple, but there is always
+an issue of ensuring that the contents entry quotes the correct page.
+Supposing that our the document is chapter-based (class \Class{report}
+or \Class{book}, for example), the text:
+\begin{quote}
+\begin{verbatim}
+\bibliography{frooble}
+\addcontentsline{toc}{chapter}{Bibliography}
+\end{verbatim}
+\end{quote}
+will produce the \emph{wrong} answer if the bibliography is more than
+one page long.  Instead, one should say:
+\begin{quote}
+\begin{verbatim}
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{frooble}
+\end{verbatim}
+\end{quote}
+(Note that \csx{cleardoublepage} does the right thing, even if your
+document is single-sided~--- in that case, it's a synonym for
+\csx{clearpage}).  Ensuring that the entry refers to the right place is
+trickier still in a \csx{section}-based class.
+
+If you are using \Package{hyperref} (which will link entries in the
+table of contents to the relevant place in the file), a slight
+adjustment is necessary:
+\begin{quote}
+\begin{verbatim}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{frooble}
+\end{verbatim}
+\end{quote}
+The extra command (\csx{phantomsection}) gives \Package{hyperref}
+something to ``hold on to'' when making the link.
+
+The common solution, therefore, is to use the \Package{tocbibind}
+package, which provides many facilities to control the way these
+entries appear in the table of contents.
+
+Classes of the \Class{KOMA-script} bundle provide this functionality
+as a set of class options (e.g., \pkgoption{bibtotoc} to add the
+bibliography to the table of contents); the \Class{memoir} class includes
+\Package{tocbibind} itself.
+\begin{ctanrefs}
+\item[hyperref.sty]\CTANref{hyperref}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\item[tocbibind.sty]\CTANref{tocbibind}
+\end{ctanrefs}
+
+\Question[Q-minitoc]{Table of contents, etc., per chapter}
+
+The common style, of a ``small'' table of contents for each part,
+chapter, or even section, is supported by the \Package{minitoc}
+package.  The package also supports mini-lists of tables and figures;
+but, as the documentation observes, mini-bibliographies present a
+different problem~--- see
+\Qref[question]{bibliographies per chapter}{Q-chapbib}.
+
+The package's basic scheme is to generate a little \extension{aux} file for
+each chapter, and to process that within the chapter.  Simple usage
+would be:
+\begin{quote}
+\begin{verbatim}
+\usepackage{minitoc}
+...
+\begin{document}
+...
+\dominitoc \tableofcontents
+\dominilof \listoffigures
+...
+\chapter{blah blah}
+\minitoc \mtcskip \minilof
+...
+\end{verbatim}
+\end{quote}
+though a lot of elaborations are possible (for example, you don't need
+a \csx{minitoc} for every chapter).
+
+\Package{Babel} doesn't know about \Package{minitoc}, but
+\Package{minitoc} makes provision for other document languages than
+English~--- a wide variety is available.  Fortunately, the current
+version of the \Package{hyperref} package does know about
+\Package{minitoc} and treats \csx{minitoc} tables in the
+same way as ``real'' tables of contents.
+\begin{ctanrefs}
+\item[babel.sty]\CTANref{babel}
+\item[hyperref.sty]\CTANref{hyperref}
+\item[minitoc.sty]\CTANref{minitoc}
+\end{ctanrefs}
+\LastEdit{2013-03-05}
+
+\Question[Q-multind]{Multiple indexes}
+
+\LaTeX{}'s standard indexing capabilities (those provided by the
+\Package{makeidx} package) only provide for one index in your
+document; even quite modest documents can be improved by indexes for
+separate topics.
+
+The \Package{multind} package provides simple and straightforward
+multiple indexing.  You tag each \csx{makeindex}, \csx{index} and
+\csx{printindex} command with a file name, and indexing commands are
+written to (or read from) the name with the appropriate (\extension{idx} or
+\extension{ind}) extension appended.  The \csx{printindex} command is modified
+from an old version of the \LaTeXo{} standard so that it doesn't
+create its own chapter or section heading; you therefore decide what
+names (or sectioning level, even) to use for the indexes, and
+\Qref*{\csx{indexname}}{Q-fixnam} is completely ignored.
+
+To create a ``general'' and an ``authors'' index, one might write:
+\begin{quote}
+\begin{verbatim}
+\usepackage{multind}
+\makeindex{general}
+\makeindex{authors}
+...
+\index{authors}{Eccentric Professor}
+...
+\index{general}{FAQs}
+...
+\printindex{general}{General index}
+\printindex{authors}{Author index}
+\end{verbatim}
+\end{quote}
+To complete the job, run \LaTeX{} on your file enough times that
+labels, etc., are stable, and then execute the commands
+\begin{quote}
+\begin{verbatim}
+makeindex general
+makeindex authors
+\end{verbatim}
+\end{quote}
+before running \LaTeX{} again.  Note that the names of the index files
+to process are not necessarily related to the name of the \LaTeX{}
+file you're processing, at all.  (There's no documentation that comes
+with the package: what you see above is as good as you will
+get\dots{})
+
+The \Package{multind} package doesn't work with the % ! line break
+\Qref*{\amslatex{} classes}{Q-AMSpkg}, but the \acro{AMS} provide a
+substitute, the \Package{amsmidx} package.  You use the
+\Package{amsmidx} package pretty much the same as you would
+\Package{multind}, but if things aren't clear, there \emph{is}
+documentation (unlike \Package{multind}).
+
+The \Package{index} package provides a comprehensive set of indexing
+facilities, including a \csx{newindex} command that allows the
+definition of new styles of index.  \csx{newindex} takes a `tag' (for
+use in indexing commands), replacements for the \extension{idx} and
+\extension{ind} file extensions, and a title for the index when it's
+finally printed; it can also change the item that's being indexed
+against (for example, one might have an index of artists referenced by
+the figure number where their work is shown).
+
+Using \Package{index}, to create an author index together with a
+``normal'' index, one would start with preamble commands:
+\begin{quote}
+\begin{verbatim}
+\usepackage{index}
+\makeindex
+\newindex{aut}{adx}{and}{Name Index}
+\end{verbatim}
+\end{quote}
+which load the package, define a ``main'' (original-style) index, and
+then define an author index.  Then, in the body of the document, we
+might find commands like:
+\begin{quote}
+\begin{verbatim}
+\index[aut]{Another Idiot}
+...
+\index{FAQs}
+\end{verbatim}
+\end{quote}
+Which place an entry in the author index, and then one in the main
+index.  At the end of the document, we have two commands:
+\begin{quote}
+\begin{verbatim}
+\printindex
+\printindex[aut]
+\end{verbatim}
+\end{quote}
+Which will print the main index and then the author index.  Supposing
+this lot to be in \File{myfile.tex}, after enough runs through
+\LaTeX{} that labels are stable, execute the following commands
+(Unix-style shell commands shown here, but the principle is the same
+whatever system you're using):
+\begin{quote}
+\begin{verbatim}
+makeindex myfile
+makeindex myfile.adx -o myfile.and
+\end{verbatim}
+\end{quote}
+and rerun \LaTeX{}.  The \ProgName{makeindex} commands process
+\File{myfile.idx} to \File{myfile.ind} (the default action), and then
+\File{myfile.adx} to \File{myfile.and}, the two files needed as input
+by the two \csx{printindex} commands in \File{myfile.tex}.
+
+The \Package{splitidx} package can operate in the same way as the
+others: load the package with the \pkgoption{split} option, and
+declare each index with a \csx{newindex} command:
+\begin{quote}
+  \cmdinvoke{newindex}[\meta{index name}]{\meta{shortcut}}
+\end{quote}
+and \Package{splitidx} will generate a file
+\csx{jobname}\texttt{.\meta{shortcut}} to receive index entries
+generated by commands like \cmdinvoke{sindex}[\meta{shortcut}]{\meta{item}}.
+As with the other packages, this method is limited by \TeX{}'s total
+number of output files.  However, \Package{splitindex} also comes with
+a small executable \ProgName{splitindex} (available for a variety of
+operating systems); if you use this auxiliary program (and don't use
+\pkgoption{split}), there's no limit to the number of indexes.  Apart
+from this trick, \Package{splitidx} supports the same sorts of things
+as does \Package{index}.  An example of use appears in
+the documentation.
+
+The \Package{imakeidx} package can do a wide range of things (in particular,
+it can run an index-builder~--- via % ! line break
+\Qref*{\csx{write18} commands}{Q-spawnprog}~--- so as to simplify
+business of making the final copy of a document).  The package can
+also make multiple indexes; it can do the job in the conventional
+(\Package{multind}) way, or by using the external
+\ProgName{splitindex} script provided with the \Package{splitindex}
+package.  (This arrangement allows efficient operation with small
+numbers of indexes, while retaining the flexibility of permitting
+large numbers of indexes without hitting the restriction of numbers of
+active output streams.)
+
+The \Class{memoir} class has its own multiple-index functionality (as
+well as its own index layout options, which other packages delegate to
+the index style used by \ProgName{makeindex}).
+\begin{ctanrefs}
+\item[amsmidx.sty]Part of the \acro{AMS} class distribution
+  \CTANref{amscls}[amsmidx]
+\item[imakeidx.sty]\CTANref{imakeidx}
+\item[index.sty]\CTANref{index}
+\item[makeidx.sty]Part of the \LaTeX{} distribution
+\item[memoir.cls]\CTANref{memoir}
+\item[multind.sty]\CTANref{multind}
+\item[splitidx.sty \bgroup\nothtml{\normalfont}and \egroup splitindex]%
+  \CTANref{splitindex}
+\end{ctanrefs}
+

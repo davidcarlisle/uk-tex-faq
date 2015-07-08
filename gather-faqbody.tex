@@ -1,0 +1,57 @@
+\def\faqfileversion{3.28}    \def\faqfiledate{2014-06-10}
+%
+% The above line defines the file version and date, and must remain
+% the first line with any `assignment' in the file, or things will
+% blow up in a stupid fashion
+%
+% get lists of CTAN labels
+%
+% configuration for the lists, if we're going to need to generate urls
+% for the files
+\InputIfFileExists{archive.cfg}{}{}
+%
+% ... directories
+\input{dirctan}
+%
+% ... files
+\input{filectan}
+
+% facilitate auto-processing of this stuff; this line is clunkily
+% detected (and ignored) in the build-faqbody script
+%\let\faqinput\input
+\def\faqinput#1{%\message{*** inputting #1; group level \the\currentgrouplevel}
+  \input{#1}%
+  %\message{*** out of #1; group level \the\currentgrouplevel}
+}
+
+% the stuff to print
+\faqinput{faq-intro}               % introduction
+\faqinput{faq-backgrnd}            % background
+\faqinput{faq-docs}                % docs
+\faqinput{faq-bits+pieces}         % bits and pieces
+\faqinput{faq-getit}               % getting software
+\faqinput{faq-texsys}              % TeX systems
+\faqinput{faq-dvi}                 % DVI drivers and previewers
+\faqinput{faq-support}             % support stuff
+\faqinput{faq-litprog}             % programming for literates
+\faqinput{faq-fmt-conv}            % format conversions
+\faqinput{faq-install}             % installation and so on
+\faqinput{faq-fonts}               % fonts and what to do
+\faqinput{faq-hyp+pdf}             % hyper-foodle and pdf
+\faqinput{faq-graphics}            % graphics
+\faqinput{faq-biblio}              % bib stuff
+\faqinput{faq-adj-types}           % adjusting typesetting
+\faqinput{faq-lab-ref}             % labels and references
+\faqinput{faq-how-do-i}            % how to do things
+\faqinput{faq-symbols}             % symbols, their natural history and use
+\faqinput{faq-mac-prog}            % macro programming
+\faqinput{faq-t-g-wr}              % things going wrong
+\faqinput{faq-wdidt}               % why does it do that
+%*****************************************quote environments up to here
+\faqinput{faq-jot-err}             % joy (hem hem) of tex errors
+\faqinput{faq-projects}            % current projects
+%
+% This is the last section, and is to remain the last section...
+\faqinput{faq-the-end}             % wrapping it all up
+
+% \end{document} is in calling file (e.g., newfaq.tex)

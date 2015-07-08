@@ -1,0 +1,44 @@
+Changes in version 3.19c
+
+This file lists changes since its most recent release (with version 3.19a
+of the FAQ -- version 3.19b was a bug-fix patch). 
+
+New answers:
+ <none>
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label adobetypen: mention xetex and luatex where previously said OTF unusable
+ +Label amfonts:   mention DVI dis-/re-assembly to get rid of am fonts refs
+ +Label buildbib:  mention Google Scholar's bibtex output
+ +Label cd:	   update details of the TeX collection
+ +Label context:   attempt closer tally with reality (further input welcome!)
+ +Label doc-dirs:  Herbert Voss's "tips and tricks" has gone
+ +Label errmissitem: remove spurious command in example code
+ +Label findfiles: update address given for dante search page
+ +Label figurehere: mention the re-implemented here package
+ +Label footintab: mention threeparttablex package
+ +Label keyval:	   replace keys3 mention with l3keys[2e]
+ +Label latex3:	   tidy, update broken references
+ +Label luatex:	   better English(!), mention release of 0.50.0
+ +Label mathml:	   correct link to mathtex
+ +Label nonfree:   the non-free tree has disappeared...
+ +Label patch:	   sort out examples
+ +Label privinst:  change recommended use of kpsewhich
+		   default home texmf is different for MacTeX
+ +Label psfchoice: mention txfontsb
+ +Label what-tds:  change recommended use of kpsewhich (as privinst)
+
+ (throughout):	   use mirrors.ctan.org rather than www.tex.ac.uk
+		    where appropriate
+
+Deleted answers:
+ <none>
+
+Web interface:
+ One bug fix (code examples containing \let tended to be lost)
+
+Robin Fairbairns
+2010-01-19

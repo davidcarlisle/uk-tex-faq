@@ -1,0 +1,361 @@
+% $Id: faq-getit.tex,v 1.11 2014/01/22 17:29:03 rf10 Exp $
+
+\section{Acquiring the Software}
+
+\Question[Q-archives]{Repositories of \TeX{} material}
+
+To aid the archiving and retrieval of of \TeX{}-related files, a
+\acro{TUG} working group developed the Comprehensive \TeX{} Archive
+Network (\acro{CTAN}).  Each \acro{CTAN} site has identical material,
+and maintains authoritative versions of its material.  These
+collections are extensive; in particular, almost everything mentioned
+in this \acro{FAQ}
+is archived at the \acro{CTAN} sites (see the lists of software at the
+end of each answer).
+
+There are two main \acro{CTAN} sites (in Germany and the \acro{UK}),
+but users should ordinarily collect material via the % ! line break
+\href{http://mirror.ctan.org/}{\acro{CTAN} mirror redirector}
+(which connects you to a mirror that is in some sense ``near'' to
+you).
+
+To access a particular thing through the \texttt{mirror.ctan.org}
+mechanism, simply place the \acro{CTAN} path after the base
+\acro{URL}; so
+\URL{http://mirror.ctan.org/macros/latex/contrib/footmisc/} will
+connect you to the \Package{footmisc} directory at some \acro{CTAN}
+mirror.
+
+For details of how to find files at \acro{CTAN} sites, see
+``\Qref*{finding \AllTeX{} files}{Q-findfiles}''.
+
+The \TeX{} user who has no access to any sort of
+network may buy a copy of the archive as part of the
+\Qref*{\texlive{} distribution}{Q-CD}; the disc is, necessarily, out
+of date, but it is likely to be better than what (if anything) came
+with your operating system.
+\LastEdit{2012-12-14}
+
+\Question[Q-tds-zip]{Ready-built installation files on the archive}
+
+The \Qref*{\acro{TDS}}{Q-tds} is a simple structure, and almost all
+files can be installed simply by putting them in the ``right'' place,
+and updating a single index.  (Note, this simple idea typically
+doesn't work for fonts, unless they're distributed as \MF{} source.)
+
+The CTAN network is therefore acquiring ``\acro{TDS}-\acro{ZIP}'' files,
+which have a built-in directory structure that matches the \acro{TDS}.
+These files have to be built, and the \acro{CTAN} team has asked that
+package authors supply them (the team will advise, of course, if the
+author has trouble).  The \acro{CTAN} team hopes that the extra work
+involved will contribute to happier lives for package users, which in
+turn must surely help keep the TeX community lively and active.
+
+At the time of writing, there are rather few \extension{tds.zip}
+files (by comparison with the huge number of packages that are
+available).  As packages are updated, the number of files is
+steadily increasing, but it will be a long time before the whole set
+is covered.
+
+Use of the files is discussed in % ! line break
+``\Qref*{installing using ready-built \acro{ZIP} files}{Q-inst-tds-zip}''.
+
+\Question[Q-nonfree]{What was the \acro{CTAN} \texttt{nonfree} tree?}
+
+When \acro{CTAN} was founded, in the 1990s, it was unusual to publish
+the terms under which a \TeX{}-related package was distributed (or, at
+any rate, to publish those terms formally).
+
+With the advent of the \TeX{} \emph{distributions}, however, people
+started to realise the need for such information, to protect those who
+create, distribute or sell the discs that hold the packages, etc.
+With the licence information available, the distributors can decide
+which packages may be distributed.
+
+The \acro{CTAN} team decided that it would be useful for users (and
+distributors, not to say package authors) to separate packages that
+were candidates for distribution, and those that were in some sense
+``not free''.  Thus was the \texttt{nonfree} tree born.
+
+From the start, the \texttt{nonfree} tree was controversial: the terms
+under which a package would be placed on the tree were hotly
+contested, and the \acro{CTAN} team were only able slowly to populate
+the tree.  It became obvious to the team that the project would never
+have been completed.
+
+The \acro{CTAN} catalogue now records the nature of the licences of a
+good proportion of the packages it describes (though there remain
+several for which the licence is unknown, which is as good, for the
+distributors, as a licence forbidding distribution).  Since the
+catalogue's coverage of \acro{CTAN} is good (and slowly improving),
+the general rule for distributors has become
+\begin{quote}
+``if the package is listed in the catalogue, check there to see
+whether you should distribute; if the package is not listed in the
+catalogue, don't think of distributing it''.
+\end{quote}
+(The catalogue only has a modest % ! line break
+\CTANhref{cat-licences}{list of licences}, but it covers the set used
+by packages on \acro{CTAN}, with a wild-card ``\texttt{other-free}''
+which covers packages that the \acro{CTAN} administrators believe to
+be free even though the authors haven't used a standard licence.)
+
+There is a corollary to the `general rule': if you notice something
+that ought to be in the distributions, for which there is no catalogue
+entry, please let the \acro{CTAN} team (\mailto{ctan@dante.de}) know.
+It may well be that the package has simply been missed, but some aren't
+catalogued because there's no documentation and the team just doesn't
+understand the package.
+
+In the light of the above, the \texttt{nonfree} tree is being
+dismantled, and its contents moved (or moved \emph{back}) to the main
+\acro{CTAN} tree.  So the answer to the question is, now, ``the
+nonfree tree was a part of \acro{CTAN}, whose contents are now in
+the main tree''.
+
+\Question[Q-uploads]{Contributing a file to the archives}
+
+You have something to submit to the archive~--- good news!
+
+Before we even start, here's a check-list of things to sort out:
+\begin{enumerate}
+\item Licence: in the spirit of \TeX{}, we hope for free software; in
+  the spirit of today's lawyer-enthralled society, \acro{CTAN}
+  provides a % ! line break
+  \href{http://mirror.ctan.org/help/Catalogue/licenses.html}{list of ``standard'' licence statements}.
+  Make sure that there's a formal statement of the licence of your
+  package, somewhere in the files you upload; beyond the \acro{CTAN}
+  installation, your package is a candidate for inclusion in \AllTeX{}
+  distributions~\dots{} and thereafter, also in operating system
+  distributions~\dots{} and the people who bundle all these things up
+  need a clear statement of your intent. 
+\item Documentation: it's good for users to be able to browse
+  documentation before downloading a package.  You need at least a
+  plain text \File{README} file (exactly that name, upper case and no
+  \extension{txt} extension); in addition a
+  \acro{PDF} file of the package documentation, prepared for screen
+  reading, is highly desirable.
+\item Name: endless confusion is caused by name clashes.  If your
+  package has the same name as one already on \acro{CTAN}, or if your
+  package installation generates files of the same name as something
+  in a ``normal'' distribution, the \acro{CTAN} team will delay
+  installation while they check that you're doing the right thing:
+  they may nag you to change the name, or to negotiate a take-over
+  with the author of the original package. % beware line break
+  \Qref*{Browse the archive}{Q-findfiles} to ensure uniqueness.
+  
+  The name you choose should also (as far as possible) be somewhat
+  descriptive of what your submission actually \emph{does}; while
+  ``descriptiveness'' is to some extent in the eye of the beholder,
+  it's clear that names such as \File{mypackage} or \File{jiffy}
+  aren't suitable.
+\end{enumerate}
+You upload via the
+\begin{flatversion}
+  CTAN upload redirector: \URL{http://www.ctan.org/upload}
+\end{flatversion}
+\begin{hyperversion}
+  \href{http://www.ctan.org/upload}{CTAN upload redirector}
+\end{hyperversion}
+(the archive's main page has a link).  The upload page shows what it
+needs to know, and allows you to enter the information.  The mechanism
+can only accept one file per upload: if you had intended to upload
+lots of files, you need to bundle them into an `archive' file of some
+sort; acceptable formats are \extension{zip} and \extension{tar.gz}
+(most uploads are packed in \extension{zip} format).  Once you have
+completed your upload, the redirector assigns it to a member of the
+team for processing.
+
+If you can't use this method, or if you find something confusing, ask
+advice of the
+\begin{flatversion}
+  \acro{CTAN} management team (\mailto{ctan@dante.de}).
+\end{flatversion}
+\begin{hyperversion}
+  \href{mailto:ctan@dante.de}{\acro{CTAN} management team}
+\end{hyperversion}
+
+If your package is large, or regularly updated, it may be appropriate
+to `mirror' your contribution direct into \acro{CTAN}.
+Mirroring is only practical using \texttt{ftp} or \texttt{rsync}, so
+this facility is limited to packages offered by a server that uses one
+of those protocols.
+\begin{ctanrefs}
+\item[README.uploads]\CTANref{CTAN-uploads}
+\end{ctanrefs}
+\LastEdit{2013-01-31}
+
+\Question[Q-findfiles]{Finding \AllTeX{} files}
+
+Modern \TeX{} distributions contain a huge array of various sorts of
+files, but sooner or later most people need to find something that's
+not in their present system (if nothing else, because they've heard
+that something has been updated).
+
+But how to find the files?
+
+Modern distributions (\texlive{} and \miktex{}, at least) provide the
+means to update your system ``over the net''.  This is the minimum
+effort route to getting a new file: `simply' find which of the
+distribution's `packages' holds the file in question, and ask the
+distribution to update itself.  The mechanisms are different (the two
+distributions exhibit the signs of evolutionary divergence in their
+different niches), but neither is difficult~--- see % ! line break
+``\Qref*{using \miktex{} for installing}{Q-inst-miktex*}'' and % ! line break
+``\Qref*{using \texlive{} for installing}{Q-inst-texlive}''.
+
+There are packages, though, that aren't in the distribution you use
+(or for which the distribution hasn't yet been updated to offer the
+version you need).
+
+Some sources, such as these \acro{FAQ} answers, provide links to
+files: so if you've learnt about a package here, you should be able to
+retrieve it without too much fuss.
+
+Otherwise, \acro{CTAN} provides a full-text search, at its
+\href{http://www.ctan.org/}{`central database'} site, as well as
+topic- and author-based indexes and a link to browse the archive
+itself.
+
+% Two search mechanisms are offered: the simpler search, locating files
+% by name, simply scans a list of files (\File{FILES.byname}~--- see
+% below) and returns a list of matches, arranged neatly as a series of
+% links to directories and to individual files.
+
+% The more sophisticated search looks at the contents of each catalogue
+% entry, and returns a list of catalogue entries that mention the
+% keywords you ask for.
+
+An alternative way to scan the catalogue is to use the catalogue's
+% ! line break
+\href{http://mirrors.ctan.org/help/Catalogue/bytopic.html}{``by topic'' index};
+this is an older mechanism than the topic-based search (above), but is
+well presented (even though its data has not been updated for some time).  
+
+In fact, \ProgName{Google}, and other search engines, can be useful
+tools.  Enter your search keywords, and you may pick up a package that
+the author hasn't bothered to submit to \acro{CTAN}.
+
+A user of \ProgName{Google} can restrict the search to
+\acro{CTAN} by entering
+\begin{quote}
+  \texttt{site:ctan.org tex-archive \meta{search term(s)}}
+\end{quote}
+in \ProgName{Google}'s ``search box''.  You can also enforce the
+restriction using \ProgName{Google}'s ``advanced search'' mechanism;
+other search engines (presumably) have similar facilities.
+
+Many people avoid the need to go over the network at all, for their
+searches, by downloading the file list that the archives' web
+file searches use.  This file, \File{FILES.byname},
+presents a unified listing of the archive (omitting directory names and
+cross-links).  Its companion \File{FILES.last07days} is also useful, to
+keep an eye on the changes on the archive.  Since these files are
+updated only once a day, a nightly automatic download (using
+\ProgName{rsync}) makes good sense.
+\begin{ctanrefs}
+\item[FILES.byname]\CTANref{f-byname}
+\item[FILES.last07days]\CTANref{f-last7}
+\LastEdit{2014-03-19}
+\end{ctanrefs}
+
+\Question[Q-findfont]{Finding new fonts}
+
+Nowadays, new fonts are seldom developed by industrious people using
+\mf{}, but if such do appear, they will nowadays be distributed in
+the same way as any other part of \alltex{} collections.  (An
+historical review of Metafont fonts available is held on \acro{CTAN}
+as ``\mf{} font list''.)
+
+Nowadays, most new fonts that appear are only available in some
+scalable outline form, and a large proportion is distributed under
+commercial terms.  Such fonts will only make their way to the free
+distributions (at least \texlive{} and \miktex{}) if their licensing
+is such that the distributions can accept them.  Commercial fonts
+(those you have to pay for) do not get to distributions, though
+support for some of them is held by \acro{CTAN}.
+
+Arranging for a new font to be usable by \alltex{} is very different,
+depending on which type of font it is, and which \tex{}-alike engine
+you are using; roughly speaking:
+\begin{itemize}
+\item MetaFont fonts will work without much fuss (provided their
+  sources are in the correct place in the installation's tree);
+  \tex{}-with-\ProgName{dvips}, and \pdftex{} are ``happy'' with them.
+  While a new font will need `generating' (by running \mf{}, etc.),
+  distributions are set up to do that ``on the fly'' and to save the
+  results (for next time).
+\item Adobe Type 1 fonts can be made to work, after \extension{tfm}
+  and (usually) \extension{vf} files have been created from their
+  metric (\extension{afm}) files; \extension{map} files also need to
+  be created.  Such fonts will work with \pdftex{}, and with the
+  (`vanilla')\alltex{} and \ProgName{dvips} combination.
+\item TrueType fonts can be made to work with \pdftex{}~--- see
+% ! line break
+\href{http://www.radamir.com/tex/ttf-tex.htm}{Using TrueType fonts with \tex{}\dots{}}
+  (a rather dated document, dicsussing use with \miktex{}~1.11).
+\item TrueType and OpenType fonts are the usual sort used by \xetex{}
+  and \luatex{}; while straightforward use is pretty easy, one is
+  well-advised to use a package such as \Package{fontspec} to gain
+  access to the full range of a font's capabilities.
+\end{itemize}
+
+The answer ``\Qref*{choice of scalable fonts}{Q-psfchoice}'' discusses
+fonts that are configured for general (both textual and mathematical)
+use with \AllTeX{}.  The list of such fonts is sufficiently short that
+they \emph{can} all be discussed in one answer.
+\begin{ctanrefs}
+\item[fontspec.sty]\CTANref{fontspec}
+\item[\nothtml{\rmfamily}\MF{} font list]\CTANref{mf-list}
+\end{ctanrefs}
+\LastEdit{2014-01-21}
+
+\Question[Q-CD]{The \TeX{} collection}
+
+If you don't have access to the Internet, there are obvious
+attractions to \TeX{} collections on a disc.  Even those with net
+access will find large quantities of \TeX{}-related files to hand a
+great convenience.
+
+The \TeX{} collection provides this, together with
+ready-to-run \TeX{} systems for various architectures.  The collection
+is distributed on \acro{DVD}, and contains:
+\begin{itemize}
+\item The \texlive{} distribution, including the programs themselves
+  compiled for a variety of architectures; \texlive{} may be
+  run from the \acro{DVD} or installed on hard disc.
+\item Mac\TeX{}: an easy to install \TeX{} system for MacOS/X, based
+  on \texlive{}; this distribution includes a native Mac installer,
+  % ! line break
+  \href{http://www.uoregon.edu/~koch/texshop/}{the \TeX{}Shop front-end}
+  and other Mac-specific tools;
+\item Pro\TeX{}t: an easy to install \TeX{} system for Windows, based
+  on \miktex{}, based on an `active' document that guides
+  installation; and
+\item A snapshot of \acro{CTAN}.
+\end{itemize}
+A fair number of national \TeX{} User Groups, as well as \acro{TUG},
+distribute copies to their members at no extra charge.  Some user
+groups are also able to sell additional copies:
+contact your local user group or \Qref*{\acro{TUG}}{Q-TUG*}.
+
+You may also download disc images from \acro{CTAN}; the installation
+disc, Pro\TeX{}t and Mac\TeX{} are all separately available.  Beware:
+they are all pretty large downloads.  \texlive{}, once installed, may
+be updated online.
+
+More details of the collection are available from
+\begin{hyperversion}
+  \href{http://www.tug.org/texcollection/}{its own web page}
+  on the \acro{TUG} site.
+\end{hyperversion}
+\begin{flatversion}
+  its own web page on the
+  \acro{TUG} site \URL{http://www.tug.org/texcollection/}
+\end{flatversion}
+\begin{ctanrefs}
+\item[Mac\TeX{}]\CTANref{mactex}
+\item[Pro\TeX{}t]\CTANref{protext}
+\item[\texlive{} install image]\CTANref{texlive}
+\end{ctanrefs}
+

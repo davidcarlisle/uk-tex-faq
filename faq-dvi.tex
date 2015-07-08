@@ -1,0 +1,148 @@
+% $Id: faq-dvi.tex,v 1.2 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{\acro{DVI} Drivers and Previewers}
+
+\Question[Q-dvips]{\acro{DVI} to \PS{} conversion programs}
+
+The best public domain \acro{DVI} to \PS{} conversion program, which
+runs under many operating systems, is Tom Rokicki's \ProgName{dvips}.
+\ProgName{dvips} is written in \acro{C} and ports easily.  All current
+development is in the context of Karl Berry's \ProgName{kpathsea}
+library, and sources are available from the \texlive{} repository,
+and versions are available in all \TeX{} distributions that recognise
+the use of \PS{}.
+
+An \acro{VMS} versions is available as part of the \acro{CTAN}
+distribution of \TeX{} for \acro{VMS}.
+
+A precompiled version to work with em\TeX{} is available on \acro{CTAN}.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\MSDOS{} and \latexhtml{\acro{OS/}}{OS/}2]%
+  \CTANref{dvips-pc}
+\item[\nothtml{\rmfamily}VMS distribution]\CTANref{OpenVMSTeX}
+\end{ctanrefs}
+
+\Question[Q-HPdrivers]{\acro{DVI} drivers for \acro{HP} LaserJet}
+
+The em\TeX{} distribution (see \Qref[question]{\TeX{} systems}{Q-TeXsystems})
+contains a driver for the LaserJet, \ProgName{dvihplj}.
+
+Version 2.10 of the Beebe drivers supports the LaserJet. These drivers
+will compile under Unix, \acro{VMS}, and on the Atari ST and
+\acro{DEC}-20s.
+
+For Unix systems, Karl Berry's \ProgName{dviljk} uses the same
+path-searching library as \ProgName{web2c}.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Beebe drivers]\CTANref{beebe}
+\item[dviljk]\CTANref{dviljk}
+\end{ctanrefs}
+
+\Question[Q-otherprinters]{Output to ``other'' printers}
+
+In the early years of \TeX{}, there were masses of \acro{DVI} drivers
+for any (then) imaginable kind of printer, but the steam seems rather
+to have gone out of the market for production of drivers for
+printer-specific formats.  There are several reasons for this, but the
+primary one is that few formats offer the flexibility available
+through \PS{}, and with
+\href{http://www.ghostscript.com/}{\ProgName{ghostscript}} (and its
+huge range of printer drivers) there is now little demand for new
+printer driver development.
+
+Thus, it is reasonable to \Qref*{generate \PS{}}{Q-dvips}, and
+use \href{http://www.ghostscript.com/}{\ProgName{ghostscript}} to send
+the resulting \PS{} output to the printer you actually have.
+
+(If you are using a Unix system of some sort, it's generally quite
+easy to insert
+\href{http://www.ghostscript.com/}{\ProgName{ghostscript}} into the
+print spooling process, which makes printing \emph{really} simple.)
+\LastEdit{2013-05-29}
+
+\Question[Q-previewers]{\acro{DVI} previewers}
+
+Em\TeX{} for \acro{PC}s running \MSDOS{} or \acro{OS/}2, \miktex{} and
+XEm\TeX{} for \acro{PC}s running Windows and Oz\TeX{} for the Macintosh, all
+come with previewers that can be used on those platforms. Em\TeX{}'s
+previewer can also be run under Windows~3.1.
+
+Commercial \acro{PC} \TeX{} packages (see % ! line break
+\Qref[question]{commercial vendors}{Q-commercial})
+have good previewers for \acro{PC}s running Windows, or for Macintoshes.
+
+For Unix systems, there is one `canonical' viewer, \ProgName{xdvi}.
+\ProgName{Xdvik} is a version of \ProgName{xdvi} using the
+\ProgName{web2c} libraries; it is now built from the same distribution
+as \ProgName{xdvi}.  The \texlive{} distributions for Unix systems
+include a version of \ProgName{xdvik}.
+
+Alternatives to previewing include
+\begin{itemize}
+\item conversion to `similar' \acro{ASCII} text (see
+  \Qref[question]{converting to \acro{ASCII}}{Q-toascii}) and using a
+  conventional text viewer to look at that,
+\item generating a \PS{} version of your document and viewing it
+  with a
+  \href{http://www.ghostscript.com/}{\ProgName{ghostscript}}-based
+  previewer (see 
+  \Qref[question]{previewing \PS{} files}{Q-PSpreview}), and
+\item generating  \acro{PDF} output, and viewing that with
+  \ProgName{Acrobat} \ProgName{Reader} or one of the substitutes for that.
+\end{itemize}
+\begin{ctanrefs}
+\item[xdvi]\CTANref{xdvi}
+\end{ctanrefs}
+\LastEdit{2013-04-11}
+
+\Question[Q-dvi-bmp]{Generating bitmaps from \acro{DVI}}
+
+In the last analysis, any \acro{DVI} driver or previewer is generating
+bitmaps: bitmaps for placing tiny dots on paper via a laser- or
+inkjet-printer, or bitmaps for filling some portion of your screen.
+However, it's usually difficult to extract any of those bitmaps any
+way other than by screen capture, and the resolution of \emph{that} is
+commonly lamentable.
+
+Why would one want separate bitmaps?  Most often, the requirement is for
+something that can be included in \acro{HTML} generated from \AllTeX{}
+source~--- not everything that you can write in \AllTeX{} can be
+translated to \acro{HTML} (at least, portable \acro{HTML} that may be
+viewed in `most' browsers), so the commonest avoiding action is to
+generate a bitmap of the missing bit.  Examples are maths (a maths
+extension to the `|*|\acro{ML}' family is available but not
+universally supported by browsers), and `exotic' typescripts (ones
+that you cannot guarantee your readers will have available).  Other
+common examples are generation of 
+sample bitmaps, and generation for insertion into some other
+application's display~--- to insert equations into Microsoft
+PowerPoint, or to support the enhanced-\ProgName{emacs} setup called
+\Qref*{\ProgName{preview}-\ProgName{latex}}{Q-WYGexpts}.
+
+In the past, the commonest way of generating bitmaps was to generate a
+\PS{} file of the \acro{DVI} and then use
+\href{http://www.ghostscript.com/}{\ProgName{ghostscript}} to
+produce the required bitmap format (possibly by way of \acro{PNM}
+format or something similar).  This is an undesirable procedure (it is
+tedious, involving requires two or three steps that run slowly) but it
+served for a long time.
+
+\AllTeX{} users may now take advantage of two bitmap `drivers'.  The
+longer-established, \ProgName{dvi2bitmap}, will generate \acro{XBM} and
+\acro{XPM} formats, the long-deprecated \acro{GIF} format (which is
+now obsolescent, but has finally been relieved of the patent
+protection of the \acro{LZW} compression it uses), and also
+the modern (\acro{ISO}-standardised) \acro{PNG} format.
+
+\ProgName{Dvipng} started out as a PNG renderer; from version 1.2 it can also
+render to the GIF format. It is designed for speed, in environments that
+generate large numbers of \acro{PNG} files: the \File{README} mentions
+\ProgName{preview}-\ProgName{latex}, \ProgName{LyX}, and a few
+web-oriented environments. Note that \ProgName{dvipng} gives
+high-quality output even though its internal operations are optimised
+for speed.
+\begin{ctanrefs}
+\item[dvi2bitmap]\CTANref{dvi2bitmap}
+\item[dvipng]\CTANref{dvipng}
+\end{ctanrefs}
+\LastEdit{2013-04-19}

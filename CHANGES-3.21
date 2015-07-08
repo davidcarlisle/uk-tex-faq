@@ -1,0 +1,47 @@
+Changes since version 3.20
+
+New answers:
+ +Label spawnprog:   the \write18 mechanism for spawning programs
+ +Label whatengine:  am I running pdfTeX, XeTeX or luaTeX?
+ +Label write:	     the \write primitive for writing text files
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label biblatex:    mention bibtex8, even though biblatex+biber are winning
+ +Label codelist:    extend coverage of minted package (and Pygments)
+ +Label commercial:  remove Y&Y (not commercial any longer)
+ +Label dpfloat:     mention floatpage package
+ +Label drawing:     mention "embedded source" packages for asy, gplot, mp
+ +Label editors:     rationalise, removing "wildcard"
+ +Label filename:    add currfile, remove "DIY" code (which never worked right)
+ +Label floats:	     update discussion of morefloats package, mention etex.sty
+ +Label fmtconv:     mention openoffice route for MS-word
+ +Label gethelp:     link "latex community" and "latex stack exchange"
+ +Label graphicspath: rephrase discussion of \graphicspath
+ +Label instt1font:  attempt to clarify updmap vs. updmap-sys
+ +Label labelfig:    mention (new) lpic package
+ +Label latex2html:  link to info on tug.org (note tex4ht now sourced there)
+ +Label mathml:	     link to info on tug.org
+ +Label music:	     rewritten following rearrangements on ctan
+ +Label nopagebrk:   discuss \pagebreak, \nopagebreak (!)
+ +Label papergeom:   discuss dvipdfm and its extensions
+ +Label psfchoice:   report one (at least) known problem with [pt]xfonts
+ +Label pspreview:   simplify, given that it's far less of a problem now
+ +Label ref-doc	     remove link to NASA latex ref, add link to gna.org one
+ +Label textflow:    mention cutwin package
+ +Label tmupfl:	     mention morefloats package, with caveats
+ +Label verbwithin:  mention cprotect package
+ +Label WYGexpts:    drop "activetex" -- seems no longer available
+ +Label zerochap:    rewrite for clarification
+
+Deleted answers:
+ +Label ifpdf:	     subsumed in new "whatengine" answer (link rerouted there)
+ +Label lollipop:    no longer relevant (a pity)
+
+Web interface, etc.:
+ Some LaTeX command translations were broken, and have been mended
+ Work has started on a major reorganisation of the "fonts" section
+
+Robin Fairbairns

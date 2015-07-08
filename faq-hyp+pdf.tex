@@ -1,0 +1,636 @@
+% $Id: faq-hyp+pdf.tex,v 1.8 2014/02/16 21:23:58 rf10 Exp $
+
+\section{Hypertext and \acro{PDF}}
+
+\Question[Q-acrobat]{Making \acro{PDF} documents from \AllTeX{}}
+
+There are three general routes to \acro{PDF} output: Adobe's original
+`distillation' route (via \PS{} output), direct conversion of a
+\acro{DVI} file, and the use of a direct \tex{}-like \acro{PDF}
+generator such as \Qref*{\PDFTeX{}}{Q-whatpdftex}.
+
+For simple documents (with no hyper-references), you can either
+\begin{itemize}
+\item process the document in the normal way, produce \PS{}
+  output and distill it;
+\item (on a Windows or Macintosh machine with appropriate
+  tools installed) pass the output through a \acro{PDF}writer in place
+  of a printer driver.  This route is only appropriate for simple
+  documents: \acro{PDF} writers cannot create hyperlinks;
+\item process the document with ``vanilla'' \latex{} and generate \acro{PDF}
+  direct from the \acro{DVI} using \ProgName{dvipdfm}/\ProgName{dvipdfmx}; or 
+\item process the document direct to \acro{PDF} with \PDFTeX{},
+  \Qref{\luatex{}}{Q-luatex}, or \Qref{\xetex{}}{Q-xetex}.
+\end{itemize}
+
+To translate all the \LaTeX{} cross-referencing into Acrobat
+links, you need a \LaTeX{} package to redefine
+the internal commands.  There are two of these for \LaTeX{}, both
+capable of conforming to the
+\Qref{Hyper\TeX{} specification}{Q-hyper}:
+Heiko Oberdiek's \Package{hyperref}, and Michael Mehlich's
+\Package{hyper}.  (In practice, almost everyone uses
+\Package{hyperref}; \Package{hyper} hasn't been updated since 2000.)
+\Package{Hyperref} can often determine how it should generate
+hypertext from its environment, but there is a wide set of
+configuration options you can give via \csx{usepackage}.  The package
+can operate using \PDFTeX{} primitives, the hyper\TeX{}
+\csx{special}s, or \acro{DVI} driver-specific \csx{special} commands.
+Both \ProgName{dvips} and \YandY{}'s \acro{\ProgName{DVIPSONE}} can
+translate the \acro{DVI} with these \csx{special} commands into
+\PS{} acceptable to Distiller, and
+\ProgName{dvipdfm} and \ProgName{dvipdfmx} have \csx{special} commands of
+their own.
+
+If you use \plaintex{}, the \Qref*{\Eplain{} macros}{Q-eplain} can
+help you create \acro{PDF} documents with hyper-references.
+It can operate using \PDFTeX{} primitives, or \csx{special} commands
+for the \ProgName{dvipdfm}/\ProgName{dvipdfmx} \acro{DVI} drivers.
+
+While there is no free implementation of all of \ProgName{Adobe}
+\ProgName{Distiller}'s
+functionality, any but the implausibly old versions of
+\href{http://www.ghostscript.com/}{\ProgName{ghostscript}}
+provide pretty reliable distillation (but beware of the problems with
+\Qref*{\ProgName{dvips} output for distillation}{Q-dvips-pdf}).
+
+For viewing (and printing) the resulting files, Adobe's
+\ProgName{Acrobat} \ProgName{Reader} is available for a fair range of
+platforms; for those for which Adobe's reader is unavailable, remotely
+current versions of \href{http://www.ghostscript.com/}{\ProgName{ghostscript}}
+combined with \ProgName{gv} or
+\href{http://www.ghostgum.com.au/}{\ProgName{gsview}} can display and
+print \acro{PDF} files, as can \ProgName{xpdf}.
+
+In some circumstances, a
+\href{http://www.ghostscript.com/}{\ProgName{ghostscript}}-based viewer
+application is actually preferable to Acrobat Reader.  For example, on
+Windows Acrobat Reader locks the \extension{pdf} file it's displaying: this
+makes the traditional (and highly effective) \AllTeX{} development
+cycle of ``Edit\arrowhyph{}Process\arrowhyph{}Preview'' become
+rather clumsy~--- \href{http://www.ghostgum.com.au/}{\ProgName{gsview}}
+doesn't make the same <mistake.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Acrobat Reader]download from \URL{http://get.adobe.com/reader}
+\item[dvipdfm]\CTANref{dvipdfm}
+\item[dvipdfmx]\CTANref{dvipdfmx}
+\item[gv]Browse \CTANref{gv}
+\item[hyper.sty]\CTANref{hyper}
+\item[hyperref.sty]\CTANref{hyperref}
+\end{ctanrefs}
+\LastEdit{2014-01-22}
+
+\Question[Q-hyper]{Making hypertext documents from \TeX{}}
+
+If you want on-line hypertext with a \AllTeX{} source, probably on the
+World Wide Web, there are four technologies to consider:
+\begin{itemize}
+\item start from \alltex{}, and use one of a number of techniques to
+  translate (more or less) directly to
+  \Qref{\acro{HTML}}{Q-LaTeX2HTML};
+% beware line break
+\item Start from \Qref*{\Package{texinfo}}{Q-texinfo} source,
+  and use the \ProgName{info} viewer, or convert the \Package{texinfo}
+  source to \acro{HTML} using \ProgName{texi2html};
+\item Start from \alltex{}; use \pdftex{}, \xetex{} or \luatex{} to
+  produce \acro{PDF}, using \Package{hyperref} to construct
+  hyperlinks.
+\item Start from (unconventional) \alltex{} which use the % ! line break
+  \Qref*{hyper\TeX{} conventions}{Q-hypertex}.
+\end{itemize}
+\begin{ctanrefs}
+\item[texinfo]\CTANref{texinfo}
+\end{ctanrefs}
+\LastEdit{2013-05-30}
+
+\Question[Q-hypertex]{The \emph{hyper\tex{}} project}
+
+The \emph{hyper\tex{}} project extended the functionality of all the
+\LaTeX{} cross-referencing commands (including the table of contents)
+to produce \csx{special} commands which are parsed by \acro{DVI} processors
+conforming to the Hyper\TeX{} guidelines;
+it provides general hypertext links, including those
+to external documents.
+
+The Hyper\TeX{} specification says that conformant viewers/translators
+must recognize the following set of \csx{special} commands:
+\begin{description}
+\item[href:] |html:<a href = "href_string">|
+\item[name:] |html:<a name = "name_string">|
+\item[end:] |html:</a>|
+\item[image:] |html:<img src = "href_string">|
+\item[base\_name:] |html:<base href = "href_string">|
+\end{description}
+
+The \emph{href}, \emph{name} and \emph{end} commands are used to do
+the basic hypertext operations of establishing links between sections
+of documents. 
+
+Further details are available on \URL{http://arXiv.org/hypertex/}; there
+are two commonly-used implementations of the specification, a
+modified \ProgName{xdvi} and (recent releases of)
+\ProgName{dvips}. Output from the latter may be used in recent
+releases of \href{http://www.ghostscript.com/}{\ProgName{ghostscript}}
+or Acrobat Distiller.
+
+\Question[Q-dvips-pdf]{Quality of \acro{PDF} from \PS{}}
+\keywords{blurry fuzzy crippled}
+
+Any reasonable \PS{}, including any output of \ProgName{dvips}, may be
+converted to \acro{PDF}, using (for example) a sufficiently recent
+version of \href{http://www.ghostscript.com/}{\ProgName{ghostscript}},
+Frank Siegert's (shareware)
+\href{http://www.pstill.com/}{\ProgName{PStill}}, or Adobe's (commercial)
+\ProgName{Distiller}.
+
+But, although the job may (almost always) be done, the results are
+often not acceptable: the most frequent problem is bad presentation of
+the character glyphs that make up the document.  The following answers
+offer solutions to this (and other) problems of bad presentation.
+Issues covered are:
+\begin{itemize}
+\item \Qref*{Wrong type of fonts used}{Q-fuzzy-type3}, which is
+  the commonest cause of fuzzy text.
+\item \Qref*{\ProgName{Ghostscript} too old}{Q-fuzzy-gs},
+  which can also result in fuzzy text.
+% beware line breaks
+\item \Qref*{Switching to font encoding \acro{T}1 encoding}{Q-fuzzy-T1},
+  which is yet another possible cause of fuzzy text.
+\item Another problem~--- missing characters~--- arises from an
+  % beware line breaks
+  \Qref*{aged version of \ProgName{Adobe}~\ProgName{Distiller}}{Q-distill-prob}.
+\item Finally, there's the common confusion that arises from using the
+  \ProgName{dvips} configuration file \texttt{-Ppdf}, the % ! line br
+  \Qref*{weird characters}{Q-charshift}.
+\end{itemize}
+It should be noted that \ProgName{Adobe} % \ProgName{Acrobat} no longer
+                                         % part of the name
+\ProgName{Reader}~6 (released in mid-2003, and later versions) does
+not exhibit the ``fuzziness'' that so many of the answers below
+address.  This is of course good news: however, it will inevitably be
+a long time before every user in the world has this (or later)
+versions, so the remedies below are going to remain for some time to
+come.
+
+The problems are also discussed, with practical examples, in Mike
+Shell's \Package{testflow} package, which these FAQs recommend as a
+``\Qref*{specialised tutorial}{Q-tutbitslatex}.
+\begin{ctanrefs}
+\item[testflow]\CTANref{testflow}
+\end{ctanrefs}
+
+
+\Question[Q-fuzzy-type3]{The wrong type of fonts in \acro{PDF}}
+\keywords{crippled blurry}
+
+This is far the commonest problem: the symptom is that text in the
+document looks ``fuzzy''.
+
+Most people use \ProgName{Adobe} \ProgName{Acrobat} \ProgName{Reader}
+to view their \acro{PDF}: \ProgName{Reader} is distributed free of
+charge, and is widely available, for all its faults.  One of those
+faults is its failure to deal with bitmap fonts (at least, in all
+versions earlier than version~6, all of which copies are pretty old,
+now~\dots{} but some are occasionally found).
+
+So we don't want bitmap fonts in our \PS{}: with them, characters show
+up in \ProgName{Reader}'s display as blurred blobs which are often not
+even recognisable as the original letter, and are often not properly placed
+on the line.  Nevertheless, even now, most \TeX{} systems have
+\ProgName{dvips} configured to use
+\Qref*{\extension{pk} files}{Q-pk} in its output.  Even
+\PDFTeX{} will use \extension{pk} files if it can see no alternative for
+a font in the document it is processing.
+
+Our remedy is to use
+``\Qref*{Adobe Type~1}{Q-adobetypen}''
+versions of the fonts we need.  Since Adobe are in the
+business of selling Type~1 fonts, \ProgName{Reader} was of course made
+to deal with them really rather well, from the very beginning.
+
+Of course, if your document uses nothing but fonts that came from
+Adobe in the first place~--- fonts such as \FontName{Times} that
+appear in pretty much every \PS{} printer, or such as Adobe
+\FontName{Sabon} that you pay extra for~--- then there's no problem.
+
+But most people use \FontName{Computer} \FontName{Modern} to start
+with, and even those relative sophisticates who use something as
+exotic as \ProgName{Sabon} often find themselves using odd characters
+from \acro{CM} without really intending to do so.  Fortunately, rather
+good versions of the \acro{CM} fonts are available from the \acro{AMS}
+(who have them courtesy of % ! line break
+\Qref{Blue Sky Research}{Q-commercial} and \YandY{}).
+
+Most modern systems have the fonts installed ready to use; and any
+system installed less than 3~years ago has a \ProgName{dvips}
+configuration file `\texttt{pdf}' that signals the use of the
+\acro{CM} fonts, and also sets a few other parameters to improve
+\ProgName{dvips}' output.  Use this configuration as:
+\begin{quote}
+\begin{verbatim}
+dvips -Ppdf myfile -o myfile.ps
+\end{verbatim}
+\end{quote}
+This may produce a warning message about failing to find the
+configuration file:
+\begin{quote}
+\begin{verbatim}
+dvips: warning: no config file for `pdf'
+\end{verbatim}
+\end{quote}
+or something similar, or about failing to find a font file:
+\begin{quote}
+\begin{verbatim}
+dvips: ! Couldn't find header file cmr10.pfb
+\end{verbatim}
+\end{quote}
+Either of these failures signals that your
+system doesn't have the fonts in the first place.
+
+A way of using the fonts that doesn't involve the sophistication of
+the \texttt{-Ppdf} mechanism is simply to load maps:
+\begin{quote}
+\begin{verbatim}
+dvips -Pcmz -Pamz myfile -o myfile.ps
+\end{verbatim}
+\end{quote}
+You may encounter the same warning messages as listed above.
+
+If your system does not have the fonts, it won't have the
+configuration file either; however, it might have the configuration
+file without the fonts.  In either case, you need to
+\Qref*{install the fonts}{Q-inst1cm}.
+
+
+\Question[Q-fuzzy-gs]{Fuzzy fonts because \ProgName{Ghostscript} too old}
+\keywords{crippled blurry}
+
+So you've done everything the \acro{FAQ} has told you that you need,
+correct fonts properly installed and appearing in the \ProgName{dvips}
+output, but \emph{still} you get fuzzy character output after
+distilling with \href{http://www.ghostscript.com/}{\ProgName{ghostscript}}.
+
+The problem could arise from too old a version of
+\href{http://www.ghostscript.com/}{\ProgName{ghostscript}}, which you
+may be using directly, or via a
+script such as \ProgName{ps2pdf} (distributed with
+\ProgName{ghostscript} itself), \ProgName{dvipdf}, or similar.
+Though \ProgName{ghostscript} was capable of distillation from
+version~5.50, that version could only produce bitmap Type~3 output of
+any font other than the fundamental 35~fonts (\FontName{Times},
+\FontName{Helvetica}, etc.).  Later versions added `complete'
+distillation, but it wasn't until version~6.50 that one could rely on
+it for everyday work.
+
+So, if your \acro{PDF}  output still looks fuzzy in \ProgName{Acrobat}
+\ProgName{Reader}, upgrade \ProgName{ghostscript}.  The new version
+should be at least version~6.50, of course, but it's usually good
+policy to go to the most recent version (version~8.12 at the time of
+writing~--- 2003).
+
+\Question[Q-fuzzy-T1]{Fonts go fuzzy when you switch to \acro{T}1}
+\keywords{crippled blurry}
+
+You've been having problems with hyphenation, and someone has
+suggested that you should use ``\cmdinvoke{usepackage}[T1]{fontenc}''
+to help sort them out.  Suddenly you find that your final \acro{PDF}
+has become fuzzy.  The problem may arise whether you are using \PS{}
+output and then distilling it, or you are using \PDFTeX{} for the
+whole job.
+
+In fact, this is the same problem as most others about the
+\Qref*{quality of \acro{PDF}}{Q-dvips-pdf}: you've abandoned
+your previous setup using Type~1 versions of the \acro{CM} fonts, and
+\ProgName{dvips} has inserted Type~3 versions of the \acro{EC} fonts
+into your document output.  (See % beware line break
+``\Qref*{Adobe font types}{Q-adobetypen}
+for details of these font types; also, note that the font
+\emph{encoding}~\acro{T}1
+has nothing directly to do with the font \emph{format}~Type~1).
+
+However, as noted in % beware line break
+\htmlonly{``}\Qref[question]{8-bit Type~1 fonts}{Q-type1T1}\htmlonly{''},
+Type~1 versions of \acro{CM}-like fonts in \acro{T}1 (or equivalent) encoding
+are now available, both as ``real'' fonts, and as virtual font sets.
+One solution, therefore, is to use one of these alternatives.
+
+The alternative is to switch font family altogether, to something like
+\FontName{Times} (as a no-thought default) or one of the many more pleasing
+Adobe-encoded fonts.  The default action of \Package{fontinst}, when
+creating metrics for such a font, is to create settings for both \acro{OT}1
+and \acro{T}1 encodings, so there's little change in what goes on (at the
+user level) even if you have switched to \acro{T}1~encoding when using the
+fonts.
+
+\Question[Q-distill-prob]{Characters missing from \acro{PDF} output}
+
+If you're using \ProgName{Acrobat} \ProgName{Distiller} to create your
+\acro{PDF} output, you may find
+characters missing.  This may manifest
+itself as messed-up maths equations (missing
+``\latexhtml{\ensuremath{-}}{-}'' signs, for example), or bits missing
+from large symbols.  Early versions of \ProgName{Distiller} used to
+ignore character positions 0--31 and 128--159 of every font: Adobe's
+fonts never use such positions, so why should \ProgName{Distiller}?
+
+Well, the answer to this question is ``because Adobe don't produce all
+the world's fonts''~--- fonts like \FontName{Computer}
+\FontName{Modern} were around before Adobe came on the scene, and
+\emph{they} use positions 0--31.  Adobe don't react to complaints like
+that in the previous sentence, but they do release new versions of
+their programs; and \ProgName{Distiller}, since at least version~4.0,
+\emph{has} recognised the font positions it used to shun.
+
+Meanwhile, \TeX{} users with old versions of \ProgName{Distiller} need
+to deal with their fonts.  \ProgName{Dvips} comes to our aid: the
+switch \texttt{-G1} (``remap characters''), which moves the offending
+characters out of the way.  The \acro{PDF} configuration file
+(\texttt{-Ppdf}), recommended % beware line break
+\latexhtml{above}{in ``\Qref{the wrong type of fonts}{Q-fuzzy-type3}''},
+includes the switch.
+
+The switch is not without its problems; pre-2003 versions of
+\ProgName{dvips} will apply it to Adobe fonts as well, causing
+\Qref*{havoc}{Q-charshift}, but fortunately
+that problem is usually soluble.  However, a document using both
+\acro{CM} and Adobe-specified fonts is stuck.  The only real solution
+is either to upgrade \ProgName{dvips}, or to spend money to upgrade
+\ProgName{Distiller}.
+
+\Question[Q-type1T1]{Finding `8-bit' Type~1 fonts}
+\keywords{eight}
+
+Elsewhere, answers to these \acro{FAQ}s recommend that you use an
+`8-bit' font to permit % line break!!
+\Qref*{accentuation of inflected languages}{Q-hyphenaccents},
+and also recommend the use of Type~1 fonts to ensure that
+you get \Qref*{good quality \acro{PDF}}{Q-fuzzy-type3}.  These
+recommendations used to be contradictory: one could not just
+``switch'' from the free \acro{CM} fonts to free Cork- (or similarly)
+encoded Type~1 fonts.  The first approach that started to alleviate
+these problems, was the development of virtual fonts that make
+a good approach to the Cork encoding (see below).  Now, however, we
+have ``true'' Type~1 fonts available: as always, we have an
+embarrassment of riches with three free alternatives, and one
+commercial and one shareware version.
+
+\Package{CM-super} is an
+auto-traced set which encompasses all of the \acro{T}1 and \acro{TS}1
+encodings as well as the \acro{T}2* series (the family of encodings
+that cover languages based on Cyrillic alphabets).  These fonts are
+pretty easy to install (the installation instructions are clear), but
+they are huge: don't try to install them if you're short of disc
+space.
+
+\Package{CM-LGC} is a similar ``super-font'' set, but of much more
+modest size; it covers \acro{T}1, \acro{TS}1 and \acro{T}2{A}
+encodings (as does \Package{CM-super}, and also covers the \acro{LGR}
+encoding (for typesetting Greek, based on Claudio Beccari's \MF{}
+sources).  \Package{CM-LGC} manages to be small by going to the
+opposite extreme from \Package{CM-super}, which includes fonts at all
+the sizes supported by the original \acro{EC} (a huge range);
+\Package{CM-LGC} has one font per font shape, getting other sizes by
+scaling.  There is an inevitable loss of quality inherent in this
+approach, but for the disc-space-challenged machine, \Package{CM-LGC}
+is an obvious choice.
+
+\Package{Tt2001} is a simple scan of the \acro{EC} and \acro{TC}
+fonts, and has some virtues~--- it's noticeably smaller than
+\Package{CM-super} while being less stark than \Package{CM-LGC}.
+
+\Package{Latin} \Package{Modern} is produced using the
+program \Qref*{\ProgName{MetaType1}}{Q-textrace}.  The
+\Package{Latin} \Package{Modern} set comes with \acro{T}1, \acro{TS}1
+\acro{LY}1 encoded variants (as well as a variant using the Polish
+\acro{QX} encoding); for the glyph set it covers, its outlines seem
+rather cleaner than those of \Package{CM-super}.  \Package{Latin}
+\Package{Modern} is more modest in its disc space demands than is
+\Package{CM-super}, while not being nearly as stark in its range of
+design sizes as is \Package{CM-LGC}~---  \Package{Latin}
+\Package{Modern}'s fonts are offered in the same set of sizes as the
+original \Package{CM} fonts.  It's hard to argue with the choice:
+Knuth's range of sizes has stood the test of time, and is one of the
+bases on which the excellence of the \TeX{} system rests.
+
+\Qref*{Virtual fonts}{Q-virtualfonts} help us deal with the problem,
+since they allow us to map ``bits of \acro{DVI} file'' to single
+characters in the virtual font; so we can create an ``\'e'' character
+by recreating the \acro{DVI} commands that would result from the code
+``\csx{'}\texttt{e}''.  However, since this involves two characters being
+selected from a font, the arrangement is sufficient to fool
+\ProgName{Acrobat} \ProgName{Reader}: you can't use the program's
+facilities for searching for text that contains inflected characters,
+and if you \emph{cut} text from a window that contains such a
+character, you'll find something unexpected (typically the accent and
+the `base' characters separated by a space) when you \ProgName{paste}
+the result.  However, if you can live with this difficulty, virtual
+fonts are a useful and straightforward solution to the problem.
+
+There are two virtual-font offerings of \acro{CM}-based 8-bit
+fonts~--- the \Package{ae} (``almost \acro{EC}'') and
+\Package{zefonts} sets; the \Package{zefonts} set has wider coverage
+(though the \Package{ae} set may be extended to offer guillemets by
+use of the \Package{aeguill} package).  Neither offers characters such
+as \texttt{eth} and \texttt{thorn} (used in, for example, in
+Icelandic), but the \Package{aecompl} package works with the
+\Package{ae} fonts to provide the missing characters from the
+\acro{EC} fonts (i.e., as bitmaps).
+
+The sole remaining commercial \acro{CM}-like 8-bit font comes from
+Micropress, who offer the complete \acro{EC} set
+in Type~1 format, as part of their range of outline versions of fonts
+that were originally distributed in \MF{} format.  See
+\Qref[question]{``commercial distributions''}{Q-commercial}.
+
+The shareware % ! line break
+\Qref*{BaKoMa \TeX{} distribution}{Q-TeXsystems} offers a
+set of Type~1 \acro{EC} fonts, as an extra shareware option.  (As far
+as the present author can tell, these fonts are \emph{only} available
+to users of BaKoMa \TeX{}: they are stored in an archive format that
+seems not to be publicly available.)
+
+Finally, you can use one of the myriad text fonts available in Type~1
+format (with appropriate \acro{PSNFSS} metrics for \acro{T}1 encoding,
+or metrics for some other 8-bit encoding such as \acro{LY}1).  However,
+if you use someone else's text font (even something as simple as
+Adobe's Times family) you have to find a matching family of
+mathematical fonts, which is a non-trivial undertaking~---
+\htmlonly{see }\Qref{``choice of scalable fonts''}{Q-psfchoice}.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}ae fonts]\CTANref{ae}
+\item[aecompl.sty]Distributed with \CTANref{ae}
+\item[aeguill.sty]\CTANref{aeguill}
+\item[\nothtml{\rmfamily}BaKoMa fonts]Browse \CTANref{bakoma-texfonts}
+\item[\nothtml{\rmfamily}CM-LGC fonts]\CTANref{cm-lgc}
+\item[\nothtml{\rmfamily}CM-super fonts]\CTANref{cm-super} (beware:
+  very large download)
+\item[\nothtml{\rmfamily}Latin Modern fonts]\CTANref{lm}
+\item[\nothtml{\rmfamily}tt2001 fonts]\CTANref{tt2001}
+\item[\nothtml{\rmfamily}zefonts]\CTANref{zefonts}
+\end{ctanrefs}
+
+\Question[Q-pkfix]{Replacing Type 3 fonts in \PS{}}
+
+One often comes across a \PS{} file generated by
+\ProgName{dvips} which contains embedded \acro{PK} fonts; if you try
+to generate \acro{PDF} from such a file, the quality will be poor.
+
+Of course, the proper solution is to regenerate the \PS{} file,
+but if neither the sources nor the \acro{DVI} file are available, one
+must needs resort to some sort of patching to replace the bitmap fonts
+in the file by outline fonts.
+
+The program \ProgName{pkfix} (by Heiko Oberdiek) will do this
+patching, for files created by ``not too old versions'' of
+\ProgName{dvips}: it finds the fonts to be replaced by examining the
+\PS{} comments \ProgName{dvips} has put in the file.  For each
+font, \ProgName{pkfix} puts appropriate \TeX{} commands in a file,
+which it then processes and runs through \ProgName{dvips} (with switch
+\texttt{-Ppdf}) to acquire an appropriate copy of the font; these copies are
+then patched back into the original file.
+
+If your source file is older than \ProgName{pkfix} can deal with,
+there's still a modicum of hope: \ProgName{pkfix-helper} examines the
+bitmap fonts in a document, compares them with the metric
+(\extension{tfm}) fonts on your system and comes to a view of which
+font might be which.  The program reports on ``poor'' matches, and
+there are options for confirming, or replacing, its guesses.  The
+technique (which sounds implausible) is successful enough to be worth
+a try.
+
+A further option is Frank Siegert's (shareware)
+\href{http://www.pstill.com}{PStill}, which is capable of processing
+the \PS{} it is distilling, and one option is to replace bitmap fonts
+in the file with Type~1 versions.
+\begin{ctanrefs}
+\item[pkfix]\CTANref{pkfix}
+\item[pkfix-helper]\CTANref{pkfix-helper}
+\end{ctanrefs}
+
+\Question[Q-pdfpagelabels]{\Package{Hyperref} and repeated page numbers}
+
+The \Class{book} class (and its friends and relations) automatically
+changes the display of page numbers in the frontmatter of the document
+to lower-case roman.  This is fine for human readers, but if
+\Package{hyperref} has been misconfigured, the existence of pages have
+the same page number can cause problems.  Fortunately, the
+configuration options to make \Package{hyperref} ``do the right
+thing'' are (by default) set up to avoid problems.
+
+The two options in question are:
+\begin{description}
+\item[\pkgoption{plainpages=false}] Make page anchors using the
+  formatted form of the page number.  With this option,
+  \Package{hyperref} writes different anchors for pages `ii' and `2'.
+  (This is the default value for the option, which is a % ! line break
+  \emph{good thing}\dots{})
+  If the option is set `\texttt{true}' \Package{hyperref} writes page
+  anchors as the arabic form of the page number, rather than the
+  formatted form that gets printed; this is not usually appropriate.
+\item[\pkgoption{pdfpagelabels}] Set \acro{PDF} page labels; i.e.,
+  write the value of \csx{thepage} to the \acro{PDF} file so that
+  \Package{Acrobat Reader} can display the page number as (say) `ii (4
+  of 40)' rather than simply `4 of 40'.
+\end{description}
+The two should be used whenever page numbering is not just
+`1\texttt{..}\ensuremath{n}'; they may be used independently, but
+usually are not.
+
+The recipe isn't perfect: it relies on \csx{thepage} being different
+for every page in the document.  A common problem arises when there is
+an unnumbered title page, after which page numbers are reset: the
+\PDFTeX{} warning of ``\Qref*{duplicate destinations}{Q-hyperdupdest}''
+will happen in this case, regardless of the options.
+\begin{ctanrefs}
+\item[hyperref.sty]\CTANref{hyperref}
+\end{ctanrefs}
+
+\Question[Q-cpy-srchpdf]{Copy-paste-able/searchable \acro{PDF} files}
+
+\acro{PDF} files generated from \tex{} (and friends), will by default
+hold their text in the encoding of the original \tex{} font used by
+the document.
+
+When \acro{PDF} readers, etc., offer copy-paste or searching
+functions, the operations take place on the glyph codes used for the
+fonts selected by the document.  This is fine, for the simplest
+documents (in English, at least); the problem comes when you're using
+an inflected language (with accented letters, or composite glyphs
+such as `\ae{}')~--- \tex{} will typically use a non-standard
+encoding, and there are likely be problems, since \acro{PDF} readers
+assume the text is presented in Unicode.
+
+For \acro{PDF} generated from \latex{} (the \acro{DVI} being
+converted, by whatever means), or from \pdflatex{}, the character
+codes used in the \acro{PDF} file are in fact those of the document's
+\Qref*{font encoding}{Q-whatenc}; if you're using \acro{OT}1 or
+\acro{T}1, your document will be \acro{OK} for almost all \acro{ASCII}
+characters, but it's likely that anything ``out of the ordinary'' will
+not be represented properly.  (Of course, \acro{PDF} generated from
+\xetex{}- or \luatex{}-based formats is going to be \acro{OK}, since
+those engines work in Unicode througout.)
+
+The solution comes from the character-mapping facilities in the
+\acro{PDF} specification: the file may specify a table of translations
+of characters present in the coding used in the file, to a Unicode
+version of the characters.
+
+Packages \Package{cmap} and \Package{mmap} both offer means of
+generating such tables (\Package{mmap} has wider coverage, including
+the various maths encodings); both work with \pdftex{} and no other
+engine.  Thus your document becomes something like:
+\begin{quote}
+\begin{verbatim}
+\documentclass{article}
+\usepackage{mmap} % (or cmap)
+\usepackage[T1]{fontenc}
+... % your other packages
+\begin{document}
+... % your actual text
+\end{verbatim}
+\end{quote}
+
+Unfortunately, the packages only work with fonts that are directly
+encoded, such as the default (Computer Modern, i.e., \FontName{cm}
+fonts, and things such as \FontName{cm-super} or the \FontName{Latin}
+\FontName{Modern} sets.  Fonts like Adobe
+Times Roman (which are encoded for \AllTeX{} use via virtual fonts)
+are not amenable to this treatment.
+\begin{ctanrefs}
+\item[cmap.sty]\CTANref{cmap}
+\item[cm-super \nothtml{\rmfamily}fonts]\CTANref{cm-super}
+\item[\nothtml{\rmfamily}Latin Modern fonts]\CTANref{lm}
+\item[mmap.sty]\CTANref{mmap}
+\end{ctanrefs}
+\LastEdit{2013-08-21}
+
+% \Question[Q-hypertex]{The Hyper\tex{} project}
+%
+% The Hyper\TeX{} project extended the functionality of all the
+% \LaTeX{} cross-referencing commands (including the table of contents)
+% to produce \csx{special} commands which are parsed by \acro{DVI} processors
+% conforming to the Hyper\TeX{} guidelines;
+% it provides general hypertext links, including those
+% to external documents.
+%
+% The Hyper\TeX{} specification says that conformant viewers/translators
+% must recognize the following set of \csx{special} commands:
+% \begin{description}
+% \item[href:] |html:<a href = "href_string">|
+% \item[name:] |html:<a name = "name_string">|
+% \item[end:] |html:</a>|
+% \item[image:] |html:<img src = "href_string">|
+% \item[base\_name:] |html:<base href = "href_string">|
+% \end{description}
+%
+% The \emph{href}, \emph{name} and \emph{end} commands are used to do
+% the basic hypertext operations of establishing links between sections
+% of documents. 
+%
+% Further details are available on \URL{http://arXiv.org/hypertex/}; there
+% are two commonly-used implementations of the specification, a
+% modified \ProgName{xdvi} and (recent releases of)
+% \ProgName{dvips}. Output from the latter may be used in recent
+% releases of \ProgName{ghostscript} or Acrobat Distiller.
+
+

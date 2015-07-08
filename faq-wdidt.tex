@@ -1,0 +1,2142 @@
+% $Id: faq-wdidt.tex,v 1.24 2014/01/22 17:29:03 rf10 Exp $
+
+\section{Why does it \emph{do} that?}
+
+\subsection{Common errors}
+
+\Question[Q-crossref]{\LaTeX{} gets cross-references wrong}
+
+Sometimes, however many times you run \LaTeX{}, the cross-references
+are just wrong.  A likely reason is that you have placed the label
+before the data for the label was set; if the label is recording a
+\csx{caption} command, the \csx{label} command must appear
+\emph{after} the \csx{caption} command, or be part of it. For example:
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+  <the illustration itself>
+  \caption{My figure}
+  \label{myfig}
+\end{figure}
+\end{verbatim}
+\end{quote}
+is correct, as is
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+  <the illustration itself>
+  \caption{My figure%
+    \label{myfig}}
+\end{figure}
+\end{verbatim}
+\end{quote}
+whereas, in
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+  <the illustration itself>
+  \label{myfig}
+  \caption{My figure}
+\end{figure}
+\end{verbatim}
+\end{quote}
+the label will report the number of the section (or whatever) in which
+the surrounding text resides, or the like.
+
+You can, with the same malign effect, shield the \csx{caption} command
+from its associated \csx{label} command, by enclosing the caption in an
+environment of its own.  This effect will be seen with:
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+  <the illustration itself>
+  \caption{A Figure}
+\end{figure}
+\label{myfig}
+\end{verbatim}
+\end{quote}
+where the \csx{label} definitely \emph{is} after the \csx{caption},
+but because the \environment{figure} environment closed before the
+\csx{label} command, the \csx{caption} is no longer ``visible''.
+
+In summary, the \csx{label} must be \emph{after} the command that
+defines it (e.g., \csx{caption}), and if the \csx{caption} is inside
+an environment, the \csx{label} must be in there too.
+\LastEdit{2012-02-07}
+
+\Question[Q-newlineargs]{Start of line goes awry}
+\keywords{asterisk square bracket start line}
+
+This answer concerns two sorts of problems: errors of the form
+\begin{quote}
+\begin{verbatim}
+! Missing number, treated as zero.
+<to be read again> 
+                   p
+<*> [perhaps]
+\end{verbatim}
+\end{quote}
+and errors where a single asterisk at the start of a line mysteriously
+fails to appear in the typeset output.
+
+Both problems arise because \texttt{\bsbs } takes optional arguments.  The
+command \texttt{\bsbs *} means ``break the line here, and inhibit page break
+following the line break''; the command \texttt{\bsbs [}\meta{dimen}\texttt{]}
+means ``break the line here and add \meta{dimen} extra vertical space
+afterwards''.
+
+The problem arises because \texttt{\bsbs } looks for the next
+non-blank thing; the test it uses ignores the end of the line in
+your input text, so that \texttt{\bsbs } comes to imagine that you
+were giving it a `modifier'.
+
+An obvious solution is to enclose the stuff at the start of the new
+line in braces, typing:
+\begin{quote}
+\begin{verbatim}
+{\ttfamily
+  /* C-language comment\\
+  {[perhaps]} this could be done better\\
+  {*}/
+}
+\end{verbatim}
+\end{quote}
+This particular example could be coded (without any problems) in
+verbatim, but the behaviour does confuse people.
+
+The problem also appears in maths mode, in arrays and so on.  In this
+case, large-scale bracketing of things is \emph{not} a good idea; the
+\TeX{} primitive \csx{relax} (which does nothing except to block
+searches of this nature) may be used.  From another
+\Newsgroup{comp.text.tex} example:
+\begin{quote}
+\begin{verbatim}
+\begin{eqnarray}
+  [a] &=& b \\
+  \relax[a] &=& b
+\end{eqnarray}
+\end{verbatim}
+\end{quote}
+which is a usage this \acro{FAQ} would not recommend, anyway: refer
+to the \Qref*{reason not to use \environment{eqnarray}}{Q-eqnarray}.
+
+Note that the \Package{amsmath} package modifies the behaviour of
+\texttt{\bsbs } in maths.  With \Package{amsmath}, the
+\environment{eqnarray} example doesn't need any special action
+(\csx{relax} or braces).
+\LastEdit{2012-09-02}
+
+\Question[Q-verbwithin]{Why doesn't verbatim work within\,\dots{}?}
+
+The \LaTeX{} verbatim commands work by changing category codes.  Knuth
+says of this sort of thing ``Some care is needed to get the timing
+right\dots{}'', since once the category code has been assigned to a
+character, it doesn't change.  So \csx{verb} and
+\cmdinvoke{begin}{verbatim} have to assume that they are getting the
+first look at the parameter text; if they aren't, \TeX{} has already
+assigned category codes so that the verbatim command doesn't have a
+chance.  For example:
+\begin{quote}
+\begin{verbatim}
+\verb+\error+
+\end{verbatim}
+\end{quote}
+will work (typesetting `\csx{error}'), but if we define no more than a
+no-op macro,
+\begin{quote}
+\begin{verbatim}
+\newcommand{\unbrace}[1]{#1}
+\end{verbatim}
+\end{quote}
+which simply regurgitates its argument, and use it as:
+\begin{quote}
+\begin{verbatim}
+\unbrace{\verb+\error+}
+\end{verbatim}
+\end{quote}
+the combinartion will not (it will attempt to execute \csx{error}).
+Other errors one
+may encounter are `\csx{verb} ended by end of line', or even the
+rather more helpful `\csx{verb} illegal in command argument'.  The
+same sorts of thing happen with \cmdinvoke{begin}{verbatim} \dots{}
+\cmdinvoke{end}{verbatim}:
+\begin{quote}
+\begin{quoteverbatim}
+\ifthenelse{\boolean{foo}}{%
+\begin{verbatim}
+foobar
+\end{verbatim}
+}{%
+\begin{verbatim}
+barfoo
+\end{verbatim}
+}
+\end{quoteverbatim}
+\end{quote}
+provokes errors like `File ended while scanning use of
+\csx{@xverbatim}', as \cmdinvoke{begin}{verbatim} fails to see its
+matching \cmdinvoke{end}{verbatim}.
+
+This is why the \LaTeX{} book insists that verbatim
+commands must not appear in the argument of any other command; they
+aren't just fragile, they're quite unusable in any ``normal'' command
+parameter, 
+regardless of \Qref*{\csx{protect}ion}{Q-protect}.  (The \csx{verb}
+command tries hard to detect if you're misusing it; unfortunately, it
+can't always do so, and the error message is therefore not reliable as an
+indication of problems.)
+
+The first question to ask yourself is: ``is \csx{verb} actually
+necessary?''.
+\begin{itemize}
+\item If \cmdinvoke{texttt}{\emph{your text}} produces the same result
+  as \csx{verb}\texttt{+\emph{your text}+}, then there's no need of
+  \csx{verb} in the first place.
+\item If you're using \csx{verb} to typeset a \acro{URL} or email
+  address or the like, then the \csx{url} command from the
+  \Package{url} will help: it doesn't suffer from all the problems of
+  \csx{verb}, though it's still not robust; % ! line break
+  ``\Qref*{typesetting \acro{URL}s}{Q-setURL}'' offers advice here.
+\item If you're putting \csx{verb} into the argument of a boxing
+  command (such as \csx{fbox}), consider using the \environment{lrbox}
+  environment:
+\begin{quote}
+\begin{verbatim}
+\newsavebox{\mybox}
+...
+\begin{lrbox}{\mybox}
+  \verb!VerbatimStuff!
+\end{lrbox}
+\fbox{\usebox{\mybox}}
+\end{verbatim}
+\end{quote}
+\end{itemize}
+
+If you can't avoid verbatim, the \csx{cprotect} command (from the
+package \Package{cprotect}) might help.  The package manages to make a
+macro read a verbatim argument in a ``sanitised'' way by the simple
+medium of prefixing the macro with \csx{cprotect}:
+\begin{quote}
+\begin{verbatim}
+\cprotect\section{Using \verb|verbatim|}
+\end{verbatim}
+\end{quote}
+The package \emph{does} work in this simple case, and deserves
+consideration in many others cases; the package documentation gives
+more details.
+
+Another way out is to use one of ``argument types'' of the
+\csx{NewDocumentCommand} command in the experimental \latex{}3 package
+\Package{xparse}:
+\begin{quote}
+\begin{verbatim}
+\NewDocumentCommand\cmd{ m v m }{#1 `#2' #3}
+\cmd{Command }|\furble|{ isn't defined}
+\end{verbatim}
+\end{quote}
+Which gives us:
+\begin{quote}
+  Command \csx{furble} isn't defined
+\end{quote}
+The ``\texttt{m}'' tag argument specifies a normal mandatory argument,
+and the ``\texttt{v}'' specifies one of these verbatim arguments.
+As you see, it's implanting a \csx{verb}-style command argument in the
+argument sequence of an otherwise ``normal'' sort of command; that
+\begin{typesetversion}
+  `\texttt{\char`\|}'
+\end{typesetversion}
+\begin{htmlversion}
+  `\texttt{|}' % | balance for emacs text-colouring
+\end{htmlversion}
+may be any old character that doesn't
+conflict with the content of the argument.
+
+This is pretty neat (even if the verbatim is in an argument of its
+own) but the downside is that \Package{xparse} pulls in
+the experimental \latex{}3 programming environment
+(\Package{l3kernel}) which is pretty big.
+
+Other than the \Package{cprotect} package, there are four partial
+solutions to the problem:
+\begin{itemize}
+\item Some packages have macros which are designed to be responsive
+  to verbatim text in their arguments.  For example,
+  the \Package{fancyvrb} package defines a command
+  \csx{VerbatimFootnotes}, which redefines the \csx{footnotetext}
+  command, and hence also the behaviour of the \csx{footnote})
+  command, in such a way that you can include \csx{verb} commands in
+  its argument.  This approach could in principle be extended to the
+  arguments of other commands, but it can clash with other packages:
+  for example, \csx{VerbatimFootnotes} interacts poorly with the
+  \pkgoption{para} option of the \Package{footmisc} package.
+
+  The \Class{memoir} class defines its \csx{footnote} command so that
+  it will accept verbatim in its arguments, without any supporting package.
+\item The \Package{fancyvrb} package defines a command \csx{SaveVerb},
+  with a corresponding \csx{UseVerb} command, that allow you to save
+  and then to reuse the content of its argument; for details of this
+  extremely powerful facility, see the package documentation.
+
+  Rather simpler is the \Package{verbdef} package, whose \csx{verbdef}
+  command defines a (robust) command which expands to the verbatim
+  argument given; the \Package{newverbs} package provides a similar
+  function as well as several related ones.
+\item In a similar vein, the \Package{verbatimbox} package makes it
+  possible to put verbatim material in a box:
+  \begin{quote}
+\begin{verbatim}
+\begin{verbbox}
+some exotic _&$ stuff
+\end{verbbox}
+\theverbbox
+\end{verbatim}
+  \end{quote}
+  the operation typesets exotic stuff into an anonymous box, and its
+  contents may be retrieved using the command \csx{theverbbox}.  It is
+  clear that it's in the same mould as the \csx{verbdef} command
+  mentioned above; the package defines other similar commands.
+\item The \Package{tcolorbox} package provides a similar facility
+\item If you have a single character that is giving trouble (in
+  its absence you could simply use \csx{texttt}), consider using
+  \csx{string}.  \cmdinvoke{texttt}{my\csx{string}\_name}
+  typesets the same as 
+  \csx{verb+my\_name+}, and will work in the argument of a command.  It
+  won't, however, work in a moving argument, and no amount of
+  \Qref*{\csx{protect}ion}{Q-protect} will make it work in
+  such a case.
+
+  A robust alternative is:
+\begin{quote}
+\begin{verbatim}
+\chardef\us=`\_
+...
+\section{... \texttt{my\us name}}
+\end{verbatim}
+\end{quote}
+  Such a definition is `naturally' robust; the construction
+  ``\meta{back-tick}\csx{\meta{char}}'' may be used for any
+  troublesome character (though it's plainly not necessary for things
+  like percent signs for which \AllTeX{} already provides
+  robust macros).
+
+\item One may also consider putting verbatim material in an external
+  file; this is somewhat more tedious, but the file may be reused
+  several times within a single document.  The \Package{tcolorbox}
+  permits this:
+\begin{quote}
+\begin{verbatim}
+\begin{tcbverbatimwrite}{<file name>}
+...
+\end{tcbverbatimwrite}
+\end{verbatim}
+\end{quote}
+  which (as one might guess) writes to the named file; load the saved
+  contents using \cmdinvoke{input}{<file name>}
+
+  A second environment puts your verbatim material in an (apparently)
+  anonymous temporary file:
+\begin{quote}
+\begin{verbatim}
+\begin{tcbwritetemp}{<file name>}
+...
+\end{tcbverbatimwrite}
+\end{verbatim}
+\end{quote}
+  In this case, you use the anonymous file with the \csx{tcbusetemp}
+  macro.  (You can change the name used for the `anonymous' file, if
+  its default proves troublesome.)
+
+  The \Package{moreverb} package provides a \csx{verbatimwrite}
+  command, which doesn't provide an anonynous file.
+
+  Macros, to achieve the same effect, are outlined in the
+  documentation of the \Package{verbatim} package; the macros use the
+  facilities of the package, but the user has to write a mini-package
+  actually to use them.
+\end{itemize}
+\begin{ctanrefs}
+\item[cprotect.sty]\CTANref{cprotect}
+\item[fancyvrb.sty]\CTANref{fancyvrb}
+\item[l3kernel \nothtml{\rmfamily}bundle]\CTANref{l3kernel}
+\item[memoir.cls]\CTANref{memoir}
+\item[newverbs.sty]\CTANref{newverbs}
+\item[tcolorbox.sty]\CTANref{tcolorbox}
+\item[url.sty]\CTANref{url}
+\item[verbatim.sty]\CTANref{verbatim}
+\item[verbatimbox.sty]\CTANref{verbatimbox}
+\item[verbdef.sty]\CTANref{verbdef}
+\item[xparse.sty]Distributed as part of \CTANref{l3packages}[xparse]
+\end{ctanrefs}
+\LastEdit{2013-10-21}
+
+\Question[Q-noline]{``No line here to end''}
+
+The error
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion
+...                           for explanation.
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+appears when you give \LaTeX{} a \texttt{\bsbs } command at a time
+when it's not expecting it; it is a \emph{line-breaking} command, and
+is confused if \latex{} isn't building a paragraph when you give the
+command.  A common case is where you've decided you want the label of
+a list item to be on a line of its own, and written (for example):
+\begin{quote}
+\begin{verbatim}
+\begin{description}
+\item[Very long label] \\
+  Text...
+\end{description}
+\end{verbatim}
+\end{quote}
+% ridiculous coding for sanitize.pl -- careful!
+% \bsbs {} is actually a rather bad command to use in this case (even if
+% it worked), since it could force the `paragraph' that's made up of the
+% text of the item to terminate a line which has nothing on it but the
+% label.  This could lead to an ``\texttt{Underfull }\csx{hbox}'' warning message
+% (usually with `infinite' badness of 10000); while this message doesn't
+% do any actual harm other than slowing down your \LaTeX{} run, any
+% message that doesn't convey any information distracts for no useful
+% purpose.
+
+The proper solution to the problem is to write a new sort of
+\environment{description} environment, that does just what you're after.  (The
+\nothtml{\emph{\LaTeX{} Companion}~--- see }% ! line wrap, and next line
+\Qref[question]{\emph{\LaTeX{} Companion}}{Q-latex-books}\nothtml{~---}
+offers a rather wide selection of variants of these things.)
+
+A straightforward solution, which avoids the warning, is to write:
+\begin{quote}
+\begin{verbatim}
+\begin{description}
+\item[Very long label] \leavevmode \\
+  Text...
+\end{description}
+\end{verbatim}
+\end{quote}
+which starts a paragraph before forcing a break.  The
+\Package{expdlist} package provides the same functionality with its
+\csx{breaklabel} command, and \Package{mdwlist} provides it via its
+\csx{desclabelstyle} command.
+
+The other common occasion for the message is when you're using the
+\texttt{center} (or \environment{flushleft} or \environment{flushright})
+environment, and have decided you need extra separation between lines
+in the environment:
+\begin{quote}
+\begin{verbatim}
+\begin{center}
+  First (heading) line\\
+  \\
+  body of the centred text...
+\end{center}
+\end{verbatim}
+\end{quote}
+The solution here is plain: use the \texttt{\bsbs } command in the way it's
+supposed to be used, to provide more than just a single line break
+space.  \texttt{\bsbs } takes an optional argument, which specifies
+how much extra space to add; the required effect in the text above can
+be had by saying:
+\begin{quote}
+\begin{verbatim}
+\begin{center}
+  First (heading) line\\[\baselineskip]
+  body of the centred text...
+\end{center}
+\end{verbatim}
+\end{quote}
+
+You \emph{can} use \csx{leavevmode}, as above:
+\begin{quote}
+\begin{verbatim}
+\begin{center}
+  First (heading) line\\
+  \leavevmode\\
+  body of the centred text...
+\end{center}
+\end{verbatim}
+\end{quote}
+but that is just as tiresome to type as \texttt{\bsbs } with an optional
+argument, and can not be recommended.
+\begin{ctanrefs}
+\item[expdlist.sty]\CTANref{expdlist}
+\item[mdwlist.sty]Distributed as part of \CTANref{mdwtools}[mdwlist]
+\end{ctanrefs}
+\LastEdit{2014-01-13}
+
+% other instances: \[no]linebreak in vertical mode
+
+\Question[Q-vertspacefloat]{Extra vertical space in floats}
+
+A common complaint is that extra vertical space has crept into
+\environment{figure} or \environment{table} floating environments.
+More common still are users who post code that introduces this extra
+space, and \emph{haven't noticed the problem}!
+
+The trouble arises from the fact that the \environment{center}
+environment (and its siblings \environment{flushleft} and
+\environment{flushright}) are actually based on \LaTeX{}'s
+list-handling code; and lists always separate themselves from the
+material around them.  Meanwhile, there are parameters provided to
+adjust the spacing between floating environments and their
+surroundings; so if we have:
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+ \begin{center}
+   \includegraphics{...}
+   \caption{...}
+ \end{center}
+\end{figure}
+\end{verbatim}
+\end{quote}
+\nothtml{\noindent}or worse still:
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+ \begin{center}
+   \includegraphics{...}
+ \end{center}
+ \caption{...}
+\end{figure}
+\end{verbatim}
+\end{quote}
+unwarranted vertical space is going to appear.
+
+The solution is to let the float and the objects in it position
+themselves, and to use ``generic'' layout commands rather than their
+list-based encapsulations.
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+  \centering
+  \includegraphics{...}
+  \caption{...}
+\end{figure}
+\end{verbatim}
+\end{quote}
+(which even involves less typing).
+
+This alternative code will work with any \LaTeX{} package.  It will
+not work with obsolete (pre-\LaTeXe{}) packages such as
+\Package{psfig} or \Package{epsf}~--- see % beware line break
+\Qref[question]{graphics inclusion}{Q-impgraph} for discussion of the
+genesis of \csx{includegraphics}.
+\LastEdit{2012-11-16}
+
+\Question[Q-centre-flt]{Why is my table/figure/\dots{} not centred?}
+
+You want a float whose contents are centred, but \latex{} ignores your
+\environment{center} environment.  Most likely, you have written:
+\begin{quote}
+\begin{verbatim}
+\begin{center}
+  \begin{figure}
+    ...
+  \end{figure}
+\end{center}
+\end{verbatim}
+\end{quote}
+In this case, \latex{} has ``taken the \environment{figure} away'',
+and will typeset it at some location it fancies (it does the same with
+\environment{table}s) the only thing we can say (for sure) about the
+location is that it \emph{won't} be inside that \environment{center}
+environment.  As a result, the \environment{center} environment is
+left with nothing to do~\dots{} except to % !line break
+\Qref*{make a mess of your vertical spacing}{Q-vertspacefloat}.
+
+The solution is the same as that outlined in % !line break
+\Qref*{the same answer}{Q-vertspacefloat}, noting that all control of
+an \environment{figure} or \environment{table} needs to be
+inside the environment.  So the example's code should be converted to
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+  \centering
+  ...
+\end{figure}
+\end{verbatim}
+\end{quote}
+(or something similar for a \environment{table}).
+\LastEdit*{2013-11-19}
+
+\Question[Q-2colfltorder]{Two-column float numbers out of order}
+
+When \LaTeX{} can't place a float immediately, it places it on one of
+several ``defer'' lists.  If another float of the same type comes
+along, and the ``defer'' list for that type still has something in it,
+the later float has to wait for everything earlier in the list.
+
+Now, standard \LaTeX{} has different lists for single-column floats,
+and double-column floats; this means that single-column figures can
+overtake double-column figures (or vice-versa), and you observe later
+figures appear in the document before early ones.  The same is true,
+of course, for tables, or for any user-defined float.
+
+The \LaTeX{} team recognise the problem, and provides a package
+(\Package{fixltx2e}) to deal with it.  \Package{Fixltx2e} amalgamates
+the two defer lists, so that floats don't get out of order.
+
+For those who are still running an older \LaTeX{} distribution, the
+package \Package{fix2col} should serve.  This package (also by a
+member of the \LaTeX{} team) was the basis of the relevant part of
+\Package{fixltx2e}.  The functionality has also been included in
+\Package{dblfloatfix}, which also has code to place full-width floats
+at \Qref*{\texttt{[b]} placement}{Q-2colfloat}.
+
+Once you have loaded the package, no more remains to be done: the
+whole requirement is to patch the output routine; no extra commands
+are needed.
+\begin{ctanrefs}
+\item[dblfloatfix.sty]\CTANref{dblfloatfix}
+\item[fix2col.sty]\CTANref{fix2col}
+\item[fixltx2e.sty]Part of the \LaTeX{} distribution
+\end{ctanrefs}
+
+\Question[Q-tabacc]{Accents misbehave in \environment{tabbing}}
+
+So you are constructing a \environment{tabbing} environment, and you
+have the need of some diacriticised text~--- perhaps something as simple
+as \cmdinvoke{'}{e}~--- and the accent disappears because it has been
+interpreted as a \environment{tabbing} command, and everything goes
+wrong.
+
+This is really a rather ghastly feature of the \environment{tabbing}
+environment; in order to type accented characters you need to use the
+\csx{a} kludge: so \cmdinvoke{a'}{e} inside \environment{tabbing} for
+\cmdinvoke{'}{e} outside, and similarly \csx{a`} for \csx{`} and \csx{a=}
+for \csx{=}.  This whole procedure is of course hideous and
+error-prone.
+
+The simplest alternative is to type in an encoding that has the
+diacriticised characters in it, and to use an appropriate encoding
+definition file in the \Package{inputenc} package.  So for example,
+type:
+\begin{quote}
+  \cmdinvoke{usepackage}[latin1]{inputenc}\\
+  \texttt{...}\\
+  \cmdinvoke{begin}{tabbing}\\
+  \texttt{...}\\
+  \texttt{...} \csx{>} \texttt{voil\`a} \csx{>} \texttt{...}
+\end{quote}
+for:
+\begin{quote}
+  \dots{}\quad voil\`a\quad \dots{}
+\end{quote}
+and the internal mechanisms of the \Package{inputenc} package will put
+the right version of the accent command in there.
+
+A witty reversal of the r\^oles is introduced by the package
+\Package{Tabbing} (note the capital ``T''): it provides a
+\environment{Tabbing} environment which duplicates
+\environment{tabbing}, but all the single-character commands become
+complicated objects.  So \environment{tabbing}'s \csx{>} becomes
+\csx{TAB>}, \csx{=} becomes \csx{TAB=}, and so on.  The above trivial
+example would therefore become:
+\begin{quote}
+\begin{verbatim}
+\usepackage{Tabbing}
+...
+\begin{Tabbing}
+  ...  ... \TAB> voil\`a \TAB> ...
+\end{verbatim}
+\end{quote}
+\begin{ctanrefs}
+\item[Tabbing.sty]\CTANref{Tabbing}
+\end{ctanrefs}
+
+\Question[Q-alreadydef]{Package reports ``command already defined''}
+
+You load a pair of packages, and the second reports that one of the
+commands it defines is already present.  For example, both the
+\Package{txfonts} and \Package{amsmath} define a command \csx{iint}
+(and \csx{iiint} and so on); so
+\begin{quote}
+\begin{verbatim}
+...
+\usepackage{txfonts}
+\usepackage{amsmath}
+\end{verbatim}
+\end{quote}
+produces a string of error messages of the form:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+! LaTeX Error: Command \iint already defined.
+               Or name \end... illegal, see p.192 of the manual.
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+! LaTeX Error: Command \iint already
+   defined.  Or name \end... illegal,
+   see p.192 of the manual.
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+As a general rule, things that \Package{amsmath} defines, it defines
+well; however, there is a good case for using the \Package{txfonts}
+version of \csx{iint}~--- the associated \FontName{tx} fonts have a
+double integral symbol that doesn't need to be ``faked'' in the way
+\Package{amsmath} does.  In the case that you are loading several
+symbol packages, every one of which defines the same symbol, you are
+likely to experience the problem in a big way (\csx{euro} is a common
+victim).
+
+There are similar cases where one package redefines another's command,
+but no error occurs because the redefining package doesn't use
+\csx{newcommand}.  Often, in such a case, you only notice the change
+because you assume the definition given by the first package.  The
+\Package{amsmath}--\Package{txfonts} packages are just such a pair;
+\Package{txfonts} doesn't provoke errors.
+
+You may deal with the problem by saving and restoring the command.
+Macro programmers may care to do this for themselves; for the rest of
+us, there's the package \Package{savesym}.  The sequence:
+\begin{quote}
+\begin{verbatim}
+\usepackage{savesym}
+\usepackage{amsmath}
+\savesymbol{iint}
+\usepackage{txfonts}
+\restoresymbol{TXF}{iint}
+\end{verbatim}
+\end{quote}
+does the job; restoring the \Package{amsmath} version of the command,
+and making the \Package{txfonts} version of the command available as
+\csx{TXFiint}.
+
+Documentation of \Package{savesym} doesn't amount to much: the only
+commands are \csx{savesymbol} and \csx{restoresymbol}, as noted above.
+\begin{ctanrefs}
+\item[amsmath.sty]Part of \CTANref{amslatex}
+\item[savesym.sty]\CTANref{savesym}
+\item[txfonts.sty]Part of \CTANref{txfonts}
+\end{ctanrefs}
+
+\Question[Q-zerochap]{Why are my sections numbered 0.1\,\dots{}?}
+
+This happens when your document is using the standard \Class{book} or
+\Class{report} class (or one similar), and you've got a \csx{section}
+before your first \csx{chapter}.
+
+What happens is, that the class numbers sections as % ! line break
+``\meta{chapter no}.\meta{section no}'', and until the first
+\csx{chapter} has appeared, the chapter number is 0.  (If you
+use\csx{chapter*}, which doesn't number the chapter it produces, the
+problem still arises.)
+
+If you're doing this, it's possible that the \Class{article} class
+is for you; try it and see.  Otherwise, put a \csx{chapter} before
+your sections, or do away with section numbering by using
+\csx{section*} instead.  An alternative way of avoiding numbering is
+discussed in % ! line break
+``\Qref*{unnumbered sections in the table of contents}{Q-secnumdep}''.
+
+\Question[Q-breaklinks]{Link text doesn't break at end line}
+\keywords{hyperref overfull link}
+
+When using the \Package{hyperref} package, you make a block of text
+``active'' when you define a hyper-link (when the user clicks on
+that text, the reader program will divert to the \emph{target} of the
+link).
+
+The \Package{hyperref} package uses a \emph{driver} (in the same way
+as the \Package{graphics} package does), to determine how to implement
+all that hyper-stuff.
+
+If you use the driver for \ProgName{dvips} output (presumably you want
+to distill the resulting \PS{}), limitations in the way \ProgName{dvips}
+deals with the \csx{special} commands mean that \Package{hyperref}
+must prevent link anchors from breaking at the end of lines.  Other
+drivers (notably those for \PDFTeX{} and for \ProgName{dvipdfm}) don't
+suffer from this problem.
+
+The problem may occur in a number of different circumstances.  For a
+couple of them, there are work-arounds:
+
+First, if you have an \acro{URL} which is active (so that clicking on
+it will activate your web browser to ``go to'' the \acro{URL}).  In
+this case \Package{hyperref} employs the \Package{url} package to
+split up the \acro{URL} (as described in % ! line break
+\Qref[question]{typesetting \acro{URL}s}{Q-setURL}), but the
+\ProgName{dvips} driver then suppresses the breaks.  The way out is
+the \Package{breakurl} package, which modifies the \csx{url} command
+to produce several smaller pieces, between each of which a line break
+is permitted.  Each group of pieces, that ends up together in one
+line, is converted to a single clickable link.
+
+Second, if you have a table of contents, list of figure or tables, or
+the like, \Package{hyperref} will ordinarily make the titles in the
+table of contents, or captions in the lists, active.  If the title or
+caption is long, it will need to break within the table, but the
+\ProgName{dvips} driver will prevent that.  In this case, load
+\Package{hyperref} with the option \pkgoption{linktocpage}, and only
+the page number will be made active.
+
+Otherwise, if you have a lengthy piece of text that you want active,
+you have at present no simple solution: you have to rewrite your text,
+or to use a different \acro{PDF} generation mechanism.
+\begin{ctanrefs}
+\item[breakurl.sty]\CTANref{breakurl}
+\end{ctanrefs}
+
+\Question[Q-wrongpn]{Page number is wrong at start of page}
+
+This is a long story, whose sources are deep inside the workings of
+\TeX{} itself; it all derives from the \TeX{}'s striving to generate
+the best possible output.
+
+The page number is conventionally stored in \csx{count0}; \LaTeX{}
+users see this as the counter \texttt{page}, and may typeset its value
+using \csx{thepage}.
+
+The number (that is to say, \csx{count0}) is only updated when \TeX{}
+actually outputs a page.  \TeX{} only even tries to do this when it
+detects a hint that it may be a good thing to do.  From \TeX{}'s point
+of view, the end of a paragraph is a good time to consider outputting
+a page; it will output a page if it has \emph{more} than a page's
+worth of material to output.  (Ensuring it always has something in
+hand makes some optimisations possible.)  As a result, \csx{count0}
+(\csx{thepage}) is almost always wrong in the first paragraph of a
+page (the exception is where the page number has been ``forcibly''
+changed, either by changing its value directly, or by breaking the
+page where \TeX{} wouldn't necessarily have chosen to break).
+
+\LaTeX{} provides a safe way of referring to the page number, by using
+label references.  So, rather than writing:
+\begin{quote}
+\begin{verbatim}
+Here is page \thepage{}.
+\end{verbatim}
+\end{quote}
+you should write:
+\begin{quote}
+\begin{verbatim}
+Here is page \pageref{here}\label{here}.
+\end{verbatim}
+\end{quote}
+(note: no space between the \csx{pageref} and the \csx{label}, since
+that could potentially end up as a page-break space itself, which
+rather defeats the purpose of the exercise!).
+
+\Question[Q-matchbrak]{My brackets don't match}
+
+\AllTeX{} has a low-level mechanism for matching braces in document
+text.  This means you can type something like:
+\begin{quote}
+\begin{verbatim}
+\section{All \emph{OK} now.}
+\end{verbatim}
+\end{quote}
+and know that the first brace (for the argument of \csx{section}) will
+be matched with the last brace, and the internal pair of braces (for
+the argument of \csx{emph}) will be matched with each other.  It's all
+very simple.
+
+However, \LaTeX{} has a convention of enclosing optional arguments in
+brackets, as in:
+\begin{quote}
+\begin{verbatim}
+\section[OK]{All \emph{OK} now.}
+\end{verbatim}
+\end{quote}
+These brackets are not matched by \TeX{} mechanisms, despite the
+superficial similarity of their use.  As a result,
+straightforward-looking usages like:
+\begin{quote}
+\begin{verbatim}
+\section[All [OK] now]{All \emph{OK} now.}
+\end{verbatim}
+\end{quote}
+aren't \acro{OK} at all~--- the optional argument comes to consist of
+``All [OK'', and \csx{section} takes the single character ``n'' (of
+the first ``now'') as its argument.
+
+Fortunately, \TeX{}'s scanning mechanisms helps us by accepting the
+syntax ``\texttt{\{]\}}'' to `hide' the closing bracket from the
+scanning mechanism that \LaTeX{} uses.  In practice, the commonest way
+to use this facility is:
+\begin{quote}
+\begin{verbatim}
+\section[All {[OK]} now]{All \emph{OK} now.}
+\end{verbatim}
+\end{quote}
+since bracing the bracket on its own ``looks odd''.
+
+\LaTeX{} has another argument syntax, even less regular, where the
+argument is enclosed in parentheses, as in:
+\begin{quote}
+\begin{verbatim}
+\put(1,2){foo}
+\end{verbatim}
+\end{quote}
+(a picture environment command).
+
+This mechanism is also prone to problems with matching closing
+parentheses, but the issue seldom arises since such arguments rarely
+contain text.  If it were to arise, the same solution (enclosing the
+confused characters in braces) would solve the problem.
+
+\Question[Q-pdf-fig-chars]{Characters disappear from figures in \PDFTeX{}}
+
+You have a \acro{PDF} figure, which you want to use in your
+\PDFLaTeX{} document.  When you compile the document, \PDFTeX{}
+complains about ``missing glyphs'', and some (or all) of the labelling
+text or symbols in the original figure is no longer visible.
+
+What has happened is:
+\begin{enumerate}
+\item Your figure file (say \File{fig.pdf}) has a font \File{font.pfb}
+  embedded in it.
+\item \PDFTeX{} notes that it has \File{font.pfb} on disc, and loads
+  that in place of the copy in \File{fig.pdf}.
+\item It turns out that the copy in \File{fig.pdf} has glyphs that
+  aren't in \File{font.pfb} on disc, so that you get errors while
+  compiling and you see that characters are missing when you view the
+  output.  (\PDFTeX{} can't know that the fonts are different, since
+  they have the same name.)
+\end{enumerate}
+Which is all very undesirable.
+
+\PDFTeX{} does this to keep file sizes down: suppose you have a
+document that loads figures \File{fig1.pdf} and \File{fig2.pdf}; both
+of those use font \File{font.pfb}.  If \PDFTeX{} takes no action,
+there will be \emph{two} copies of \File{font.pfb} in the output.
+(If your document also uses the font, there could be three copies.)
+
+A real case is the \acro{URW} font \File{NimbusRomNo9L-Regu} (a clone
+of Times Roman), which is available in a version with Cyrillic
+letters, while the version in \TeX{} distributions doesn't have those
+letters.  Both versions, as distributed, have the same name.
+
+The simple (``quick and dirty'') solution is to add the command
+\begin{quote}
+  \csx{pdfinclusioncopyfonts}\texttt{=1}
+\end{quote}
+to the preamble of your document.
+
+The ``real'' solution is that one or other font should be renamed.  In
+either case, this would require that you reconfigure some program's
+(\TeX{}'s or your drawing package's) font tables~--- inevitably a
+tiresome job.
+
+\Question[Q-emptynum]{I asked for ``empty'', but the page is numbered}
+
+If you use \cmdinvoke{pagestyle}{empty} and you find some pages are
+numbered anyway, you are probably encountering one of the style
+decisions built into the standard \LaTeX{} classes: that certain
+special pages should always appear with \cmdinvoke{pagestyle}{plain},
+with a page number at the centre of the page foot.  The special pages
+in question are those (in \Class{article} class) containing a
+\csx{maketitle}, or (in \Class{book} and \Class{report} classes)
+\csx{chapter} or \csx{part} commands.
+
+The simple solution is to reissue the page style \emph{after} the
+command, with effect for a single page, as, for example (in
+\Class{article}):
+\begin{quote}
+\begin{verbatim}
+\maketitle
+\thispagestyle{empty}
+\end{verbatim}
+\end{quote}
+or (in \Class{book} or \Class{report})
+\begin{quote}
+\begin{verbatim}
+\chapter{foo bar}
+\thispagestyle{empty}
+\end{verbatim}
+\end{quote}
+A similar technique doesn't work for a \Class{book} or \Class{report}
+\csx{part} command pages.  For that, and for other detail, take look
+at ``\Qref*{getting rid of page numbers}{Q-nopageno}''.
+
+\subsection{Common misunderstandings}
+
+\Question[Q-include]{What's going on in my \csx{include} commands?}
+
+The original \LaTeX{} provided the \csx{include} command to address the
+problem of long documents: with the relatively slow computers of the
+time, the companion \csx{includeonly} facility was a boon.  With the
+vast increase in computer speed, \csx{includeonly} is less valuable
+(though it still has its place in some very large projects).
+Nevertheless, the facility is retained in current \LaTeX{}, and causes
+some confusion to those who misunderstand it.
+
+In order for \csx{includeonly} to work, \csx{include} makes a separate
+\extension{aux} file for each included file, and makes a `checkpoint' of
+important parameters (such as page, figure, table and footnote
+numbers).  As a direct result, it \emph{must} clear the current page
+both before and after the \csx{include} command.  (The requirement
+derives from the difficulties of % ! line break
+\begin{hyperversion}
+  \Qref*{observing page numbers}{Q-wrongpn}.)
+\end{hyperversion}
+\begin{flatversion}
+  observing page numbers~--- see \Qref{}{Q-wrongpn}.)
+\end{flatversion}
+What's more, this mechanism doesn't work if a \csx{include} command
+appears in a file that was \csx{include}d itself: \LaTeX{} diagnoses
+this as an error.
+
+So, we can now answer the two commonest questions about \csx{include}:
+\begin{itemize}
+\item Why does \LaTeX{} throw a page before and after \csx{include}
+  commands?
+
+  Answer: because it has to.  If you don't like it, replace the
+  \csx{include} command with \csx{input}~--- you won't be able to use
+  \csx{includeonly} any more, but you probably don't need it anyway, so
+  don't worry.
+\begin{htmlversion}
+
+\end{htmlversion}
+\item Why can't I nest \csx{include}d files?~--- I always used to be
+  able to under \LaTeXo{}.
+
+  Answer: in fact, you couldn't, even under \LaTeXo{}, but the failure
+  wasn't diagnosed.  However, since you were happy with the behaviour
+  under \LaTeXo{}, replace the \csx{include} commands with \csx{input}
+  commands (with \csx{clearpage} as appropriate).
+\end{itemize}
+
+
+\Question[Q-paraparam]{Why does it ignore paragraph parameters?}
+
+When \TeX{} is laying out text, it doesn't work from word to word, or
+from line to line; the smallest complete unit it formats is the
+paragraph.  The paragraph is laid down in a buffer, as it appears, and
+isn't touched further until the end-paragraph marker is processed.
+It's at this point that the paragraph parameters have effect; and it's
+because of this sequence that one often makes mistakes that lead to
+the paragraph parameters not doing what one would have hoped (or
+expected).
+
+Consider the following sequence of \LaTeX{}:
+\begin{quote}
+\begin{verbatim}
+{\raggedright % declaration for ragged text
+Here's text to be ranged left in our output,
+but it's the only such paragraph, so we now
+end the group.}
+
+Here's more that needn't be ragged...
+\end{verbatim}
+\end{quote}
+\TeX{} will open a group, and impose the ragged-setting parameters within
+that group; it will then save a couple of sentences of text and
+close the group (thus restoring the previous value of the
+parameters that \csx{raggedright} set).  Then \TeX{} encounters a blank
+line, which it knows to treat as a \csx{par} token, so it typesets the
+two sentences; but because the enclosing group has now been closed,
+the parameter settings have been lost, and the paragraph will be
+typeset normally.
+
+The solution is simple: close the paragraph inside the group, so that
+the setting parameters remain in place.  An appropriate way of doing
+that is to replace the last three lines above with:
+\begin{quote}
+\begin{verbatim}
+end the group.\par}
+Here's more that needn't be ragged...
+\end{verbatim}
+\end{quote}
+In this way, the paragraph is completed while \csx{raggedright}'s
+parameters are still in force within the enclosing group.
+
+Another alternative is to define an environment that does the
+appropriate job for you.  For the above example, \LaTeX{} already
+defines an appropriate one:
+\begin{quote}
+\begin{verbatim}
+\begin{flushleft}
+Here's text to be ranged left...
+\end{flushleft}
+\end{verbatim}
+\end{quote}
+
+In fact, there are a number of parameters for which \TeX{} only
+maintains one value per paragraph.  A tiresome one is the set of upper
+case/lower case translations, which (oddly enough) constrains
+hyphenation of mutilingual texts.  Another that regularly creates
+confusion is \Qref*{\csx{baselineskip}}{Q-baselinepar}.
+
+\Question[Q-casechange]{Case-changing oddities}
+
+\TeX{} provides two primitive commands \csx{uppercase} and
+\csx{lowercase} to change the case of text; they're not much used, but
+are capable creating confusion.
+
+The two commands do not expand the text that is their parameter~---
+the result of \cmdinvoke{uppercase}{abc} is `\texttt{ABC}', but
+\cmdinvoke{uppercase}{\csx{abc}} is always `\csx{abc}', whatever the
+meaning of \csx{abc}.  The commands are simply interpreting a table of
+equivalences between upper- and lowercase characters.
+They have (for example) no mathematical sense, and
+\begin{quote}
+\begin{verbatim}
+\uppercase{About $y=f(x)$}
+\end{verbatim}
+\end{quote}
+will produce
+\begin{quote}
+\begin{verbatim}
+ABOUT $Y=F(X)$
+\end{verbatim}
+\end{quote}
+which is probably not what is wanted.
+
+In addition, \csx{uppercase} and \csx{lowercase} do not deal very well
+with non-American characters, for example
+\cmdinvoke{uppercase}{\csx{ae}} is the same as \csx{ae}.
+
+\LaTeX{} provides commands \csx{MakeUppercase} and \csx{MakeLowercase}
+which fixes the latter problem.  These commands are used in the
+standard classes to produce upper case running heads for chapters
+and sections.
+
+Unfortunately \csx{MakeUppercase} and \csx{MakeLowercase} do not solve
+the other problems with \csx{uppercase}, so for example a section
+title containing \cmdinvoke{begin}{tabular} \dots{}
+\cmdinvoke{end}{tabular} will produce a running head containing
+\cmdinvoke{begin}{TABULAR}.  The simplest solution to this problem is
+using a user-defined command, for example: 
+\begin{quote}
+\begin{verbatim}
+\newcommand{\mytable}{\begin{tabular}...
+  \end{tabular}}
+\section{A section title \protect\mytable{}
+  with a table}
+\end{verbatim}
+\end{quote}
+Note that \csx{mytable} has to be protected, otherwise it will be
+expanded and made upper case; you can achieve the same result by
+declaring it with \csx{DeclareRobustCommand}, in which case the
+\csx{protect} won't be necessary.
+
+David Carlisle's \Package{textcase} package
+addresses many of these problems in a transparent way.  It defines
+commands \csx{MakeTextUppercase} and \csx{MakeTextLowercase} which do
+upper- or lowercase, with the fancier features of the \LaTeX{}
+standard \csx{Make*}-commands but without the problems
+mentioned above.  Load the package with
+\cmdinvoke{usepackage}[overload]{textcase}, and it will redefine the \LaTeX{}
+commands (\emph{not} the \TeX{} primitive commands \csx{uppercase} and
+\csx{lowercase}), so that section headings and the like don't produce
+broken page headings.
+\begin{ctanrefs}
+\item[textcase.sty]\CTANref{textcase}
+\end{ctanrefs}
+
+\Question[Q-splitfoot]{Why does \LaTeX{} split footnotes across pages?}
+
+\LaTeX{} splits footnotes when it can think of nothing better to do.
+Typically, when this happens, the footnote mark is at the bottom of
+the page, and the complete footnote would overfill the page.  \LaTeX{}
+could try to salvage this problem by making the page short of both the
+footnote and the line with the footnote mark, but its priorities told
+it that splitting the footnote would be preferable.
+
+As always, the best solution is to change your text so that the
+problem doesn't occur in the first place.  Consider whether the text
+that bears the footnote could move earlier in the current page, or on
+to the next page.
+
+If this isn't possible, you might want to change \LaTeX{}'s perception
+of its priorities: they're controlled by
+\csx{interfootnotelinepenalty}~--- the larger it is, the less willing
+\LaTeX{} is to split footnotes.
+
+Setting
+\begin{quote}
+\begin{verbatim}
+\interfootnotelinepenalty=10000
+\end{verbatim}
+\end{quote}
+inhibits split footnotes altogether, which will cause `\texttt{Underfull}
+\csx{vbox}' messages unless you also specify \csx{raggedbottom}.  The
+default value of the penalty is \texttt{100}, which is rather mild.
+
+An alternative technique is to juggle with the actual size of the
+pages.  \csx{enlargethispage} changes the size of the current page by
+its argument (for example, you might say
+\cmdinvoke{enlargethispage}{\csx{baselineskip}} to add a single line
+to the page, but you can use any ordinary \TeX{} length such as
+\texttt{15mm} or \texttt{-20pt} as argument).  Reducing the size of
+the current page could force the offending text to the next page;
+increasing the size of the page may allow the footnote to be included
+in its entirety.  It may be necessary to change the size of more than
+one page.
+
+The \Package{fnbreak} package detects (and generates warnings about)
+split footnotes.
+\begin{ctanrefs}
+\item[fnbreak.sty]\CTANref{fnbreak}
+\end{ctanrefs}
+
+\Question[Q-marginparside]{Getting \csx{marginpar} on the right side}
+
+In an ideal world, marginal notes would be in ``analogous'' places on
+every page: notes on an even-side page would be in the left margin,
+while those on an odd-side page would be in the right margin.  A
+moment's thought shows that a marginal note on the left needs to be
+typeset differently from a marginal note on the right.  The \LaTeX{}
+\csx{marginpar} command therefore takes two arguments in a
+\texttt{twoside} documents: % beware line break
+\cmdinvoke*{marginpar}[left text]{right text}.  \LaTeX{} uses the
+``obvious'' test to
+get the \csx{marginpar}s in the correct margin, but a booby-trap arises
+because \TeX{} runs its page maker asynchronously.  If a
+\csx{marginpar} is processed while page \ensuremath{n} is being built, but
+doesn't get used until page \ensuremath{n}+1, then the \csx{marginpar} will turn
+up on the wrong side of the page.  This is an instance of a general
+problem: see
+% beware line break
+``\Qref*{finding if you're on an odd or an even page}{Q-oddpage}''.
+
+The solution to the problem is for \LaTeX{} to `remember' which side
+of the page each \csx{marginpar} \emph{should} be on.  The
+\Package{mparhack} package does this, using label-like marks stored in
+the \extension{aux} file; the \Class{memoir} class does likewise.
+\begin{ctanrefs}
+\item[memoir.cls]\CTANref{memoir}
+\item[mparhack.sty]\CTANref{mparhack}
+\end{ctanrefs}
+
+\Question[Q-misschar]{Where have my characters gone?}
+
+You've typed some apparently reasonable text and processed it, but the
+result contains no sign of some of the characters you typed.  A likely
+reason is that the font you selected just doesn't have a
+representation for the character in question.
+
+For example, if I type ``that will be \pounds{}44.00'' into an ordinary
+\AllTeX{} document, or if I select the font \texttt{rsfs10} (which contains
+uppercase letters only) and type pretty much anything, the \pounds{}
+sign, or any lowercase letters or digits will not appear in the
+output.  There's no actual error message, either: you have to read the
+log file, where you'll find cryptic little messages like
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+Missing character: There is no ^^a3 in font cmr10!
+Missing character: There is no 3 in font rsfs10!
+\end{verbatim} 
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+Missing character:
+           There is no ^^a3 in font cmr10!
+Missing character:
+             There is no 3 in font rsfs10!
+\end{verbatim} 
+\end{narrowversion}
+\end{quote}
+(the former demonstrating my \TeX{}'s unwillingness to deal in characters
+which have the eighth bit set, while the \texttt{rsfs10} example shows that
+\TeX{} will log the actual character in error, if it thinks it's
+possible).
+
+Somewhat more understandable are the diagnostics you may get from
+\Package{dvips} when using the \acro{OT}1 and \acro{T}1 versions of
+fonts that were supplied in Adobe standard encoding:
+\begin{quote}
+\begin{verbatim}
+dvips: Warning: missing glyph `Delta'
+\end{verbatim}
+\end{quote}
+The process that generates the metrics for using the fonts generates
+an instruction to \Package{dvips} to produce these diagnostics, so
+that their non-appearance in the printed output is less surprising
+than it might be.  Quite a few glyphs provided in Knuth's text
+encodings and in the Cork encoding are not available in the Adobe
+fonts.  In these cases, there \emph{is} a typeset sign of the
+character: \ProgName{dvips} produces a black rectangle of whatever
+size the concocted font file has specified.
+
+\Question[Q-rerun]{``Rerun'' messages won't go away}
+
+The \LaTeX{} message ``Rerun to get crossreferences right'' is
+supposed to warn the user that the job needs to be processed again,
+since labels seem to have changed since the previous run.  (\LaTeX{}
+compares the labels it has created this time round with what it found
+from the previous run when it started; it does this comparison at
+\cmdinvoke{end}{document}.)
+
+Sometimes, the message won't go away: however often you reprocess your
+document, \LaTeX{} still tells you that ``Label(s) may have
+changed''.  This can sometimes be caused by a broken package: both
+\Package{footmisc} (with the \pkgoption{perpage} option) and \Package{hyperref}
+have been known to give trouble, in the past: if you are using either,
+check you have the latest version, and upgrade if possible.
+
+However, there \emph{is} a rare occasion when this error can happen
+as a result of pathological structure of the document itself.  Suppose
+you have pages numbered in roman, and you add a reference to a label
+on page ``ix'' (9).  The presence of the reference pushes the thing
+referred to onto page ``x'' (10), but since that's a shorter reference
+the label moves back to page ``ix'' at the next run.  Such a sequence
+can obviously not terminate.
+
+The only solution to this problem is to make a small change to your
+document (something as small as adding or deleting a comma will often
+be enough).
+\begin{ctanrefs}
+\item[footmisc.sty]\CTANref{footmisc}
+\item[hyperref.sty]\CTANref{hyperref}
+\end{ctanrefs}
+
+\Question[Q-xspace]{Commands gobble following space}
+
+People are forever surprised that simple commands gobble the space
+after them: this is just the way it is.  The effect arises from the
+way \TeX{} works, and Lamport describes a solution (place a pair of braces
+after a command's invocation) in the description of \LaTeX{} syntax.
+Thus the requirement is in effect part of the definition of \LaTeX{}.
+
+These \acro{FAQ}s,
+for example, is written in \latex{} for production of a web site.  The
+HTML code is generated by a script that \emph{requires} a pair of
+braces, to make a null argument, as in:
+\begin{quote}
+  \cmdinvoke{fred}{\relax} % the \relax prevents {} being gobbled
+                           % in html production (sigh)
+                           % (we needn't tell them about _that_ ;-)
+\end{quote}
+for almost all macro invocations, regardless
+of whether the following space is required: however, these \acro{FAQ}s
+should not itself be regarded as a model of \latex{} style.
+
+Many users find all those braces become very tedious very
+quickly, and would really rather not type them all.
+
+An alternative structure, that doesn't violate the design of \LaTeX{},
+is to say \csx{fred}\csx{ }~--- the \csx{ } command is ``self
+terminating'' (like \texttt{\bsbs }) and you don't need braces after
+\emph{it}.  Thus one can reduce to one the number of extra characters
+one needs to type.
+
+If even that one character is too many, the package \Package{xspace}
+defines a command \csx{xspace} that guesses whether there should have
+been a space after it, and if so introduces that space.  So
+% beware line wrap
+``\texttt{fred\csx{xspace} jim}'' produces ``fred jim'', while
+``\texttt{fred\csx{xspace}.\@ jim}'' produces ``fred. jim''.  Which
+usage would of course be completely pointless; but you can incorporate
+\csx{xspace} in your own macros:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\usepackage{xspace}
+...
+\newcommand{\restenergy}{\ensuremath{mc^2}\xspace}
+...
+and we find \restenergy available to us...
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\usepackage{xspace}
+...
+\newcommand{\restenergy}%
+           {\ensuremath{mc^2}\xspace}
+...
+and we find \restenergy available to us...
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+The \csx{xspace} command must be the last thing in your macro
+definition (as in the example); it's not completely foolproof, but it
+copes with most obvious situations in running text.
+
+The \Package{xspace} package doesn't save you anything if you use it in
+a macro that appears only once or twice within your document, and it
+is not totally foolproof.  (The original author of the package wrote
+it because he had been bitten by lost spaces.  He no longer recommends
+its use, simply because of the possibility of error.)
+
+In any case, be
+careful with usage of \csx{xspace}~--- it changes your input syntax,
+which can be confusing, notably to a collaborating author
+(particularly if you create some commands which use it and some which
+don't).  No command built into \LaTeX{} or into any
+``standard'' class or package will use \csx{xspace}.
+\begin{ctanrefs}
+\item[xspace.sty]Distributed as part of \CTANref{2etools}[xspace]
+\end{ctanrefs}
+\LastEdit{2013-11-26}
+
+\Question[Q-overfull]{\AllTeX{} makes overfull lines}
+
+When \TeX{} is building a paragraph, it can make several attempts to
+get the line-breaking right; on each attempt it runs the same
+algorithm, but gives it different parameters.  You can affect the way
+\TeX{}'s line breaking works by adjusting the parameters: this answer
+deals with the ``tolerance'' and stretchability parameters.  The other
+vital `parameter' is the set of hyphenations to be applied: see
+``\Qref*[question]{my words aren't being hyphenated}{Q-nohyph}''
+(and the questions it references) for advice.
+
+If you're getting an undesired ``overfull box'', what has happened is
+that \TeX{} has given up: the parameters you gave it don't allow it to
+produce a result that \emph{doesn't} overfill.  In this circumstance,
+Knuth decided the best thing to do was to produce a warning, and to
+allow the user to solve the problem.  (The alternative, silently to go
+beyond the envelope of ``good taste'' defined for this run of \TeX{},
+would be distasteful to any discerning typographer.)  The user can
+almost always address the problem by rewriting the text that's
+provoking the problem~--- but that's not always possible, and in some
+cases it's impossible to solve the problem without adjusting the
+parameters.  This answer discusses the approaches one might take to
+resolution of the problem, on the assumption that you've got the
+hyphenation correct.
+
+The simplest case is where a `small' word fails to break at the end of
+a line; pushing the entire word to a new line isn't going to make much
+difference, but it might make things just bad enough that \TeX{} won't
+do it by default.  In such a case on can \emph{try} the \LaTeX{}
+\csx{linebreak} command: it may solve the problem, and if it does, it
+will save an awful lot of fiddling.  Otherwise, one needs to adjust
+parameters: to do that we need to recap the details of \TeX{}'s line
+breaking mechanisms.
+
+\TeX{}'s first attempt at breaking lines is performed without even
+trying hyphenation: \TeX{} sets its ``tolerance'' of line breaking
+oddities to the internal value \csx{pretolerance}, and sees what
+happens.  If it can't get an acceptable break, \TeX{} adds the
+hyphenation points allowed by the current patterns, and tries again
+using the internal \csx{tolerance} value.  If this pass also fails, and
+the internal \csx{emergencystretch} value is positive, \TeX{} will try
+a pass that allows \csx{emergencystretch} worth of extra stretchability
+to the spaces in each line.
+
+In principle, therefore, there are three parameters (other than
+hyphenation) that you can change: \csx{pretolerance}, \csx{tolerance}
+and \csx{emergencystretch}.  Both the \texttt{tolerance} values are
+simple numbers, and should be set by \TeX{} primitive count
+assignment~--- for example
+\begin{quote}
+\begin{verbatim}
+\pretolerance=150
+\end{verbatim}
+\end{quote}
+For both, an ``infinite'' tolerance is represented by the value
+\texttt{10}\nothtml{\,}\texttt{000}, but infinite tolerance is rarely
+appropriate, since it can lead to very bad line breaks indeed.
+
+\csx{emergencystretch} is a \TeX{}-internal `dimen' register, and can
+be set as normal for dimens in \plaintex{}; in \LaTeX{}, use
+\csx{setlength}~--- for example:
+\begin{quote}
+\begin{verbatim}
+\setlength{\emergencystretch}{3em}
+\end{verbatim}
+\end{quote}
+
+The choice of method has time implications~--- each of the
+passes takes time, so adding a pass (by changing
+\csx{emergencystretch}) is less desirable than suppressing one (by
+changing \csx{pretolerance}).  However, it's unusual nowadays to find a
+computer that's slow enough that the extra passes are really
+troublesome.
+
+In practice, \csx{pretolerance} is rarely used other than to manipulate
+the use of hyphenation; \plaintex{} and \LaTeX{} both set its value
+to \texttt{100}.  To suppress the first scan of paragraphs, set
+\csx{pretolerance} to \texttt{-1}.
+
+\csx{tolerance} is often a good method for adjusting spacing;
+\plaintex{} and \LaTeX{} both set its value to \texttt{200}.  \LaTeX{}'s
+\csx{sloppy} command sets it to \texttt{9999}, as does the
+\environment{sloppypar} environment.  This value is the largest
+available, this side of infinity, and can allow pretty poor-looking
+breaks (this author rarely uses \csx{sloppy} ``bare'', though he does
+occasionally use \environment{sloppypar}~--- that way, the change of
+\csx{tolerance} is confined to the environment).  More satisfactory is
+to make small changes to \csx{tolerance}, incrementally, and then to look to
+see how the change affects the result; very small increases can often
+do what's necessary.  Remember that \csx{tolerance} is a paragraph
+parameter, so you need to ensure it's actually applied~--- see
+``\Qref*[question]{ignoring paragraph parameters}{Q-paraparam}''.
+\LaTeX{} users could use an environment like:
+\begin{quote}
+\begin{verbatim}
+\newenvironment{tolerant}[1]{%
+  \par\tolerance=#1\relax
+}{%
+  \par
+}
+\end{verbatim}
+\end{quote}
+enclosing entire paragraphs (or set of paragraphs) in it.
+
+The value of \csx{emergencystretch} is added to the assumed
+stretchability of each line of a paragraph, in a further run of the
+paragraph formatter in case that the paragraph can't be made to look
+right any other way.  (The extra scan happens if
+\csx{emergencystretch\textgreater0pt}~--- if it's zero or negative, no gain
+could be had from rerunning the paragraph setter.)  The example above
+set it to \texttt{3em}; the Computer Modern fonts ordinarily fit three
+space skips to the \texttt{em}, so the change would allow anything up
+to the equivalent of nine extra spaces in each line.  In a line with
+lots of spaces, this could be reasonable, but with (say) only three
+spaces on the line, each could stretch to four times its natural
+width.  It is therefore clear that \csx{emergencystretch} needs to be
+treated with a degree of caution.
+
+More subtle (but more tricky to manage) are the microtypographic
+extensions provided by \PDFTeX{}.  Since \PDFTeX{} is the default
+`engine' for \LaTeX{} and \CONTeXT{} work in all distributions,
+nowadays, the extensions are available to all.  There are two
+extensions, margin kerning and font expansion; margin kerning only
+affects the visual effect of the typeset page, and has little effect
+on the ability of the paragraph setter to ``get things right''.
+Font expansion works like a subtler version of the trick that
+\csx{emergencystretch} plays: \PDFTeX{} `knows' that your current font
+may be stretched (or shrunk) to a certain extent, and will do that
+``on the fly'' to optimise the setting of a paragraph.  This is a
+powerful tool in the armoury of the typesetter.
+
+As mentioned above, the microtypographic extensions are tricky beasts
+to control; however, the \Package{microtype} package relieves the user
+of the tedious work of specifying how to perform margin adjustments
+and how much to scale each font~\dots{}\@ for the fonts the package
+knows about; it's a good tool, and users who can take on the
+specification of adjustments for yet more fonts are always welcome.
+\begin{ctanrefs}
+\item[microtype.sty]\CTANref{microtype}
+\end{ctanrefs}
+
+\Question[Q-exscale]{Maths symbols don't scale up}
+
+By default, the ``large'' maths symbols stay at the same size
+regardless of the font size of the text of the document.  There's good
+reason for this: the \FontName{cmex} fonts aren't really designed to
+scale, so that \TeX{}'s maths placement algorithms don't perform as
+well as they might when the fonts are scaled.
+
+However, this behaviour confounds user expectations, and can lead to
+slightly odd-looking documents.  If you want the fonts to scale,
+despite the warning above, use the \Package{exscale} package~--- just
+loading it is enough.
+%%
+%% (Note: if you are using bitmap versions of the \FontName{cmex} fonts,
+%% you will find extra bitmaps are generated.  The extended sizes are not
+%% ordinarily generated for any other purpose.)
+\begin{ctanrefs}
+\item[exscale.sty]Part of the \LaTeX{} distribution.
+\end{ctanrefs}
+
+\Question[Q-linespread]{Why doesn't \csx{linespread} work?}
+
+The command \cmdinvoke*{linespread}{factor} is supposed to multiply
+the current \csx{baselineskip} by \meta{factor}; but, to all
+appearances, it doesn't.
+
+In fact, the command is equivalent to
+\cmdinvoke{renewcommand}{\csx{baselinestretch}}{factor}: written that
+way, it somehow feels less surprising that the effect isn't immediate.
+The \csx{baselinestretch} factor is only used when a font is selected;
+a mere change of \csx{baselinestretch} doesn't change the font, any
+more than does the command
+\cmdinvoke*{fontsize}{size}{baselineskip}~--- you have to follow
+either command with \csx{selectfont}.  So:
+\begin{quote}
+\begin{verbatim}
+\fontsize{10}{12}%
+\selectfont
+\end{verbatim}
+\end{quote}
+or:
+\begin{quote}
+\begin{verbatim}
+\linespread{1.2}%
+\selectfont
+\end{verbatim}
+\end{quote}
+Of course, a package such as \Package{setspace}, whose job is to
+manage the baseline, will deal with all this stuff~--- see
+``\Qref*[question]{managing double-spaced documents}{Q-linespace}''.  If
+you want to avoid \Package{setspace}, beware the behaviour of
+linespread changes within a paragraph: read % ! line break
+``\Qref*[question]{\csx{baselineskip} is a paragraph parameter}{Q-baselinepar}''.
+\begin{ctanrefs}
+\item[setspace.sty]\CTANref{setspace}
+\end{ctanrefs}
+
+\Question[Q-baselinepar]{Only one \csx{baselineskip} per paragraph}
+
+The \csx{baselineskip}, which determines the space between lines, is
+not (as one might hope) a property of a line, but of a paragraph.  As
+a result, in a \texttt{10pt} (nominal) document (with a default
+\csx{baselineskip} of \texttt{12pt}), a single character with a larger
+size, as:
+\begin{quote}
+\begin{verbatim}
+{\Huge A}
+\end{verbatim}
+\end{quote}
+will be squashed into the paragraph: \TeX{} will make sure it doesn't
+scrape up against the line above, but won't give it ``room to
+breathe'', as it does the text at standard size; that is, its size
+(\texttt{24.88pt}) is taken account of, but its \csx{baselineskip}
+(\texttt{30pt}) isn't.  This problem may be solved by a \emph{strut}:
+the name comes from movable metal typography, and refers to a spacer
+that held the boxes (that contained the metal character shapes) apart.
+Every time you change font size, \LaTeX{} redefines the command
+\csx{strut} to provide the equivalent of a metal-type strut for the
+size chosen.  So for the example above, we would type
+\begin{quote}
+\begin{verbatim}
+Paragraph text ...
+   {\Huge A\strut}
+   ... paragraph continues ...
+\end{verbatim}
+\end{quote}
+This technique \emph{only} works for such very short intrusions; if
+you need several lines, you should convert your intrusion into a
+\environment{quote} environment, since it's not possible to provide a
+\csx{strut} command for every line of the intrusion, in a sensible
+way, so proceed by:
+\begin{quote}
+\begin{verbatim}
+\begin{quote}
+  \Huge A LENGTHY TEXT ...
+  SHOUTING AT THE READER!
+\end{quote}
+\end{verbatim}
+\end{quote}
+
+The contrary case:
+\begin{quote}
+\begin{verbatim}
+Paragraph text ...
+{\footnotesize Extended interjection ...
+   ... into the paragraph.}
+      ... paragraph continues ...
+\end{verbatim}
+\end{quote}
+will look wrong, since the \texttt{8pt} interjection will
+end up set on the \texttt{12pt} \csx{baselineskip} of the paragraph,
+rather than its preferred \texttt{8.5pt}.  A \csx{strut} here is no
+help: there is no such thing as a ``negative strut'', that draws lines
+together, so once more, one falls back on the \environment{quote} to
+separate the interjection:
+\begin{quote}
+\begin{verbatim}
+Paragraph text ...
+\begin{quote}
+  \footnotesize Extended interjection ...
+  ... into the paragraph.
+\end{quote}
+... paragraph continues ...
+\end{verbatim}
+\end{quote}
+
+The same effect is at work when we have something like:
+\begin{quote}
+\begin{verbatim}
+Paragraph text ...
+  ... paragraph body ends.
+{\footnotesize Comment on the paragraph.}
+
+Next paragraph starts...
+\end{verbatim}
+\end{quote}
+which will set the body of the first paragraph on the constricted
+\csx{baselineskip} of the \csx{footnotesize} comment.  Solve this
+problem by ending the initial paragraph before starting the comment:
+\begin{quote}
+\begin{verbatim}
+Paragraph text ...
+  ... paragraph body ends.
+\par\nothtml{\noindent}
+{\footnotesize Comment on the paragraph.}
+
+Next paragraph starts...
+\end{verbatim}
+\end{quote}
+(We suggest \csx{noindent} to make the comment look as if it is part
+of the paragraph it discusses; omit \csx{noindent} if that is inappropriate.)
+
+A variation of the previous issue arises from a paragraph whose size
+is different from those around it:
+\begin{quote}
+\begin{verbatim}
+{\Large (Extended) IMPORTANT DETAILS ...}
+
+Main body of text...
+\end{verbatim}
+\end{quote}
+Again, the problem is solved by ending the paragraph in the same group
+as the text with a different size:
+\begin{quote}
+\begin{verbatim}
+{\Large (Extended) IMPORTANT DETAILS ...\par}
+
+Main body of text...
+\end{verbatim}
+\end{quote}
+
+\Question[Q-tocloftwrong]{Numbers too large in table of contents, etc.}
+
+\keywords{memoir table-of-contents spacing}
+\LaTeX{} constructs the table of contents, list of figures, tables,
+and similar tables, on the basis of a layout specified in the class.
+As a result, they do \emph{not} react to the sizes of things in them,
+as they would if a \environment{tabular} environment (or something
+similar) was used.
+
+This arrangement can provoke problems, most commonly with deep section
+nesting or very large page numbers: the numbers in question just don't
+fit in the space allowed for them in the class.
+
+A separate answer discusses % ! line break
+\nothtml{re-designing the tables ---} % ! line break
+\Qref{re-designing the tables}{Q-tocloft}\nothtml{ ---}
+and techniques from that answer may be employed to make the numbers
+fit:
+\begin{quote}
+\begin{verbatim}
+\setlength\cftsectionnumwidth{4em}
+\end{verbatim}
+\end{quote}
+
+The same command may be employed in documents typeset with the
+\Class{memoir} package (by the same author as \Package{tocloft}).
+
+\Class{Memoir} has another mechanism for the job:
+\cmdinvoke{cftsetindents}{\meta{kind}}{indent}{numwidth}.  Here
+\emph{kind} is \texttt{chapter}, \texttt{section}, or whatever; the
+\emph{indent} specifies the `margin' before the entry starts; and the
+\emph{width} is of the box into which the number is typeset (so needs
+to be wide enough for the largest number, with the necessary spacing
+to separate it from what comes after it in the line.
+\begin{ctanrefs}
+\item[memoir.cls]\CTANref{memoir}
+\item[tocloft.sty]\CTANref{tocloft}
+\end{ctanrefs}
+\LastEdit{2013-08-20}
+
+\Question[Q-gutter]{Why is the inside margin so narrow?}
+
+If you give the standard classes the \pkgoption{twoside} option, the
+class sets the margins narrow on the left of odd-numbered pages, and
+on the right of even-numbered pages.  This is often thought to look
+odd, but it is quite right.
+
+The idea is that the typographic urge for symmetry should also apply
+to margins: if you lay an even numbered page to the left of an
+odd-numbered one, you will see that you've three equal chunks of
+un-printed paper: the left margin of the even page, the right margin
+of the odd page, and the two abutting margins together.
+
+This is all very fine in the abstract, but in practical book(let)
+production it only works ``sometimes''.
+
+If your booklet is produced on double-width paper and stapled, the
+effect will be good; if your book(let) is produced using a so-called
+``perfect'' binding, the effect will again be good.
+
+However, almost any ``quality'' book-binder will need some of your
+paper to grab hold of, and a book bound in such a way won't exhibit
+the treasured symmetry unless you've done something about the margin
+settings.
+
+The packages recommended in % ! line break
+``\Qref*{setting up margins}{Q-marginpkgs}'' mostly have provision for
+a ``binding offset'' or a ``binding correction''~--- search for
+``binding'' in the manuals (\Package{vmargin} doesn't help, here).
+
+If you're doing the job by hand (see % ! line break
+\Qref[question]{manual margin setup}{Q-marginmanual}), the trick is to
+calculate your page and margin dimensions as normal, and then:
+\begin{itemize}
+\item subtract the binding offset from \csx{evensidemargin}, and
+\item add the binding offset to \csx{oddsidemargin}.
+\end{itemize}
+which can be achieved by:
+\begin{quote}
+\begin{verbatim}
+\addtolength{\evensidemargin}{-offset}
+\addtolength{\oddsidemargin}{offset}
+\end{verbatim}
+\end{quote}
+(substituting something sensible like ``\texttt{5mm}'' for
+``\texttt{offset}'', above).
+
+The above may not be the best you can do: you may well choose to
+change the \csx{textwidth} in the presence of the binding offset; but
+the changes do work for constant \csx{textwidth}.
+
+\subsection{Why shouldn't I?}
+
+\Question[Q-t1enc]{Why use \Package{fontenc} rather than \Package{t1enc}?}
+
+In the very earliest days of \LaTeXe{}, the only way to use the
+\acro{T}1 encoding was \Package{t1enc}; with the summer 1994
+``production'' release, the \Package{fontenc} package appeared, and
+provided comprehensive support for use of the encoding.
+
+Nevertheless, the \Package{t1enc} package remains (as part of the
+\LaTeXo{} compatibility code), but it does very little: it merely
+selects font encoding \acro{T}1, and leaves to the user the business
+of generating the character codes required.
+
+Generating such character codes could be a simple matter, \emph{if}
+the \acro{T}1 encoding matched any widely-supported encoding standard,
+since in that case, one might expect one's keyboard to generate the
+character codes.  However, the \acro{T}1 encoding is a mix of several
+standard encodings, and includes code points in areas of the table
+which standard encodings specifically exclude, so no \acro{T}1
+keyboards have been (or ever will be) manufactured.
+
+By contrast, the \Package{fontenc} package generates the \acro{T}1
+code points from ordinary \LaTeX{} commands (e.g., it generates the
+\texttt{\'e} character codepoint from the command \csx{'}\texttt{e}).
+So, unless you have program-generated \acro{T}1 input (which is almost
+inconceivable), use \cmdinvoke{usepackage}[T1]{fontenc} rather than
+\cmdinvoke{usepackage}{t1enc}.
+
+\Question[Q-why-inp-font]{Why bother with \Package{inputenc} and \Package{fontenc}?}
+
+The standard input encoding for Western Europe (pending the arrival of
+Unicode) is \acro{ISO}~8859--1 (commonly known by the standard's
+subtitle `Latin-1').  Latin-1 is remarkably close, in the codepoints
+it covers, to the \AllTeX{} \acro{T}1 encoding.
+
+In this circumstance, why should one bother with \Package{inputenc}
+and \Package{fontenc}?  Since they're pretty exactly mirroring each
+other, one could do away with both, and use just \Package{t1enc},
+despite its \Qref*{shortcomings}{Q-t1enc}.
+
+One doesn't do this for a variety of small reasons:
+\begin{description}
+\item[Confusion] You've been happily working in this mode, and for
+  some reason find you're to switch to writing in German: the effect
+  of using ``\texttt{\ss }'' is somewhat startling, since \acro{T}1
+  and Latin-1 treat the codepoint differently.
+\item[Compatibility] You find yourself needing to work with a
+  colleague in Eastern Europe: their keyboard is likely to be set to
+  produce Latin-2, so that the simple mapping doesn't work.
+\item[Traditional \LaTeX{}] You lapse and write something like
+  \cmdinvoke{'}{e} rather than typing \texttt{\'e}; only \Package{fontenc}
+  has the means to convert this \LaTeX{} sequence into the \acro{T}1
+  character, so an \csx{accent} primitive slips through into the
+  output, and hyphenation is in danger.
+\end{description}
+The \Package{inputenc}--\Package{fontenc} combination seems slow and
+cumbersome, but it's safe.
+
+\Question[Q-eqnarray]{Why not use \environment{eqnarray}?}
+
+The environment \environment{eqnarray} is attractive for the
+occasional user of mathematics in \LaTeX{} documents: it seems to
+allow aligned systems of equations.  Indeed it \emph{does} supply such
+things, but it makes a serious mess of spacing.  In the system:
+\begin{quote}
+\begin{verbatim}
+\begin{eqnarray}
+  a & = & b + c \\
+  x & = & y - z
+\end{eqnarray}
+\end{verbatim}
+\end{quote}
+the spacing around the ``='' signs is \emph{not} that defined in the
+metrics for the font from which the glyph comes~--- it's
+\csx{arraycolsep}, which may be set to some very odd value for reasons
+associated with real arrays elsewhere in the document.
+
+The user is far better served by the \AMSLaTeX{} bundle, which
+provides an \environment{align} environment, which is designed with
+the needs of mathematicians in mind (as opposed to the convenience of
+\LaTeX{} programmers).  For this simple case (\environment{align} and
+other \AMSLaTeX{} alignment environments are capable of far greater
+things), code as:
+\begin{quote}
+\begin{verbatim}
+\begin{align}
+  a & = b + c \\
+  x & = y - z
+\end{align}
+\end{verbatim}
+\end{quote}
+The matter is discussed in more detail in a % ! line break
+\href{http://tug.org/pracjourn/2006-4/madsen/madsen.pdf}{Prac\TeX{} journal paper}
+by Lars Madsen; Stefan Kottwitz offers a % ! line break
+\href{http://texblog.net/latex-archive/maths/eqnarray-align-environment/}{\tex{} blog entry}
+which includes screen shots of the output, convincingly demonstrating
+the problem.
+\begin{ctanrefs}
+\item[AMSLaTeX]\CTANref{amslatex}
+\end{ctanrefs}
+
+\Question[Q-dolldoll]{Why use \csx{[}\,\dots{}\csx{]} in place of \texttt{\$\$}\,\dots{}\,\texttt{\$\$}?}
+
+\LaTeX{} defines inline- and display-maths commands, apparently
+duplicating the \TeX{} primitive maths sequences which surround maths
+commands with single (or pairs of) dollar signs.
+
+In fact, \LaTeX{}'s inline maths grouping, % !line break
+\csx{(}\texttt{ ... }\csx{)}, has (almost) exactly the same effect as the
+\TeX{} primitive version \texttt{\$ ... \$}.  (The exception:
+the \LaTeX{} version checks to ensure you don't put \csx{(} and
+\csx{)} the wrong way round; this does occasionally detect errors\dots{}.)
+
+Since this is the case, one often finds \LaTeX{} users, who have some
+experience of using \plaintex{}, merely assuming that \LaTeX{}'s
+display maths grouping \csx{[}\texttt{ ... }\csx{]} may be replaced by
+the \TeX{} primitive display maths \texttt{\$\$ ... \$\$}.
+
+Unfortunately, the assumption is wrong: some \LaTeX{} code needs to
+patch display maths, it can only do so by patching \csx{[} and \csx{]}
+(or their equivalents).  Most obviously, the class option \pkgoption{fleqn}
+simply does not work for equations coded using % ! line break
+\texttt{\$\$ ... \$\$}, whether you're using the standard classes
+alone, or using package \Package{amsmath}.  Also, the \csx{[} and
+\csx{]} construct has code for rationalising vertical spacing in some
+extreme cases; that code is not provided \texttt{\$\$ ... \$\$}, so if
+you use the \plaintex{} version, you may occasionally observe
+inconsistent vertical spacing.  Similar behaviour can bite if you are
+writing a \emph{proof}; placing the ``\acro{QED} symbol'' doesn't work
+if it is in \texttt{\$\$}-displayed maths.
+
+There are more subtle effects (especially with package
+\Package{amsmath}), and the simple rule is ``use % ! line break
+\csx{[}\texttt{ ... }\csx{]} (at least) whenever displayed maths is
+needed in \LaTeX{}''.
+
+(Note that the sequence \csx{[}\texttt{ ... }\csx{]} is duplicated by
+the \environment{displaymath} environment, which can be said to ``look
+nicer'', and actually \emph{describes} what's being done.)
+\LastEdit{2013-06-05}
+
+\Question[Q-2letterfontcmd]{What's wrong with \csx{bf}, \csx{it}, etc.?}
+
+The font-selection commands of \LaTeXo{} were \csx{rm}, \csx{sf},
+\csx{tt}, \csx{it}, \csx{sl}, \csx{em} and \csx{bf}; they were modal
+commands, so you used them as:
+\begin{quote}
+\begin{verbatim}
+{\bf Fred} was {\it here\/}.
+\end{verbatim}
+\end{quote}
+with the font change enclosed in a group, so as to limit its effect;
+note the italic correction command \csx{/} that was necessary at the
+end of a section in italics.
+
+At the release of \LaTeXe{} in summer 1994, these simple commands were
+deprecated, but recognising that their use is deeply embedded in the
+brains of \LaTeX{} users, the commands themselves remain in \LaTeX{},
+\emph{with their \LaTeXo{} semantics}.  Those semantics were part of
+the reason they were deprecated: each \csx{\emph{xx}} overrides
+any other font settings, keeping only the size.  So, for example,
+\begin{quote}
+\begin{verbatim}
+{\bf\it Here we are again\/}
+\end{verbatim}
+\end{quote}
+ignores \csx{bf} and produces text in italic, medium weight (and the
+italic correction has a real effect), whereas
+\begin{quote}
+\begin{verbatim}
+{\it\bf happy as can be\/}
+\end{verbatim}
+\end{quote}
+ignores \csx{it} and produces upright text at bold weight (and the
+italic correction has nothing to do).  The same holds if you mix
+\LaTeXe{} font selections with the old style commands:
+\begin{quote}
+\begin{verbatim}
+\textbf{\tt all good friends}
+\end{verbatim}
+\end{quote}
+ignores the \csx{textbf} that encloses the text, and produces
+typewriter text at medium weight.
+
+So why are these commands deprecated?~--- it is because of confusions
+such as that in the last example.  The alternative (\LaTeXe{})
+commands are discussed in the rest of this answer.
+
+\LaTeXe{}'s font commands come in two forms: modal commands and
+text-block commands.  The default set of modal commands offers weights
+\csx{mdseries} and \csx{bfseries}, shapes \csx{upshape},
+\csx{itshape}, \csx{scshape} and \csx{slshape}, and families
+\csx{rmfamily}, \csx{sffamily} and \csx{ttfamily}.  A font selection
+requires a family, a shape and a series (as well as a size, of
+course).  A few examples
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+{\bfseries\ttfamily
+    and jolly good company!}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+{\bfseries\ttfamily and jolly good company!}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+produces bold typewriter text (but note the lack of a % ! line break, big time 
+\begin{narrowversion} % non hyper version
+  bold typewriter font~--- \Qref{}{Q-bold-extras}~---
+\end{narrowversion}
+\begin{wideversion}
+  \Qref{bold typewriter font}{Q-bold-extras}
+\end{wideversion}
+in the default Computer Modern fonts), or
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+{\slshape\sffamily
+    Never mind the weather\/}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+{\slshape\sffamily Never mind the weather\/}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+(note the italic correction needed on slanted fonts, too).
+
+\LaTeXe{}'s text block commands take the first two letters of the
+modal commands, and form a \csx{text}\emph{\texttt{xx}} command from
+them.  Thus \csx{bfseries} becomes \cmdinvoke*{textbf}{text},
+\csx{itshape} becomes \cmdinvoke*{textit}{text}, and \csx{ttfamily}
+becomes \cmdinvoke*{texttt}{text}.  Block commands may be nested, as:
+\begin{quote}
+\begin{verbatim}
+\textit{\textbf{Never mind the rain}}
+\end{verbatim}
+\end{quote}
+to produce bold italic text (note that the block commands supply
+italic corrections where necessary), and they be nested with the
+\LaTeXe{} modal commands, too:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\texttt{\bfseries
+    So long as we're together}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\texttt{\bfseries So long as we're together}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+for bold typewriter, or
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+{\slshape\textbf{%
+    Whoops!  she goes again}\/}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+{\slshape \textbf{Whoops!  she goes again}\/}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+for a bold slanted instance of the current family (note the italic
+correction applied at the end of the modal command group, again).
+
+The new commands (as noted above) override commands of the same type.
+In almost all cases, this merely excludes ludicrous ideas such as
+``upright slanted'' fonts, or ``teletype roman'' fonts.  There are a
+couple of immediate oddities, though.  The first is the conflict
+between \csx{itshape} (or \csx{slshape}) and \csx{scshape}: while many
+claim that an italic small-caps font is typographically unsound, such
+fonts do exist.  Daniel Taupin's \Package{smallcap} package enables
+use of the instances in the \Qref*{\acro{EC} fonts}{Q-ECfonts}, and
+similar techniques could be brought to bear on many other font sets.
+The second is the conflict between \csx{upshape} and \csx{itshape}:
+Knuth actually offers an upright-italic font which \LaTeX{} uses for
+the ``\pounds{}'' symbol in the default font set.  The combination is
+sufficiently weird that, while there's a defined font shape, no
+default \LaTeX{} commands exist; to use the shape, the (eccentric) user
+needs \LaTeX{}'s simplest font selection commands:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+{\fontshape{ui}\selectfont
+    Tra la la, di dee}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+{\fontshape{ui}\selectfont Tra la la, di dee}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+\begin{ctanrefs}
+\item[smallcap.sty]\CTANref{smallcap}
+\end{ctanrefs}
+
+\Question[Q-newfont*]{What's wrong with \csx{newfont}?}
+
+If all else fails, you \emph{can} specify a font using the \LaTeX{}
+\csx{newfont} command.  The font so specified doesn't fit into the
+\LaTeX{} font selection mechanism, but the technique can be tempting
+under several circumstances.  The command is merely the thinnest of
+wrappers around the \csx{font} primitive, and doesn't really fit with
+\LaTeX{} at all.  A simple, but really rather funny, example of the
+problems it poses, may be seen in:
+\begin{quote}
+\begin{verbatim}
+\documentclass[10pt]{article}
+\begin{document}
+\newfont{\myfont}{cmr17 scaled 2000}
+\myfont
+\LaTeX
+\end{document}
+\end{verbatim}
+\end{quote}
+(the reader is encouraged to try this).  The ``A'' of \csx{LaTeX} pretty
+much disappears: \LaTeX{} chooses the size on the ``A'' according to
+\emph{its} idea of the font size (10pt), but positions it according to
+the dimensions of ``\csx{myfont}'', which is more than three times
+that size.
+
+Another ``\csx{myfont}'' example arises from an entirely different
+source.  The mini-document:
+\begin{quote}
+\begin{verbatim}
+\documentclass{article}
+\begin{document}
+\newfont{\myfont}{ecrm1000}
+{\myfont voil\`a}
+\end{document}
+\end{verbatim}
+\end{quote}
+gives you ``German low double quotes'' (under the ``a'') in place of
+the grave accent.  This happens because \FontName{ecrm1000} is in a
+different \Qref*{font encoding}{Q-whatenc} than \LaTeX{} is
+expecting~--- if you use the \LaTeX{} \Package{fontenc} package to
+select the \acro{EC} fonts, all these tiresome encoding issues are
+solved for you, behind the scenes.
+
+There does however remain a circumstance when you will be tempted to
+use \csx{newfont}~--- viz., to get a font size that doesn't fall into
+the Knuth standard set of sizes: \LaTeX{} (by default) won't allow you
+to use such a size.  Don't despair: see the answer % ! line break
+``\Qref*{arbitrary font sizes}{Q-fontsize}''.
+
+

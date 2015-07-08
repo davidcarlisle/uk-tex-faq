@@ -1,0 +1,45 @@
+Changes since version 3.21
+
+New answers:
+ +Label inlgrphapp:   inline code to standalone graphics (new: gmp, mpgraphics)
+ +Label inst-texlive: install a package from TeX live
+ +Label startup:      getting started with (La)TeX
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label archives:    redo and update for 2 CTAN archives, cover mirror.ctan.org
+ +Label codelist:    updated and reformatted
+ +Label drawing:     removed inline code stuff to +inlgrphapp
+		     mention XeTeX driver for pstricks
+ +Label dtx:	     mention sty2dtx
+ +Label findfiles:   a more uniform description of what happens
+ +Label fontsize:    deal with omissions from fix-cm
+ +Label hash:	     describe command-defs-within-commands in LaTeX syntax, too
+ +Label logos:	     mention hologos, metalogo
+ +Label ltxcmds:     show use of (la)texdef package
+ +Label luatex:	     correct pdfTeX version number, add links to distributions
+ +Label man-latex:   add CTAN reference for "Getting something out of LaTeX"
+ +Label mathml:	     expand font details to all known current free maths fonts
+ +Label mpprologues: mpsproof.tex has now moved on the archive
+ +Label oddpage:     clarify use of \ifoddpage for LaTeX users
+ +Label pdftexgraphics: describe use of auto-pst-pdf
+ +Label psfchoice:   discuss MathTime Pro 2 Lite fonts
+ +Label scriptfonts: mention rsfso, mnsymbol, mathabx and urwchancal
+ +Label struttab:    describe use of makecell
+ +Label textrace:    offer mf2pt1 (about time, too!)
+ +Label uploads:     general update, including mirroring technologies
+ +Label xetex:	     add link to documentation
+ +Label xfigetc:     replace link for jfig
+
+Deleted answers:
+ <none>
+
+Web interface, etc.:
+ Work on a slightly more sane layout is under way, but not yet in a
+  shape to be released
+ Since the start of March 2011, "last edited" tags have been added to/updated
+  in answers that have changed
+
+Robin Fairbairns

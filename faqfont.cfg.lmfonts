@@ -1,0 +1,19 @@
+% version to use latin modern, and not luximono or trying to do dinglines
+        \RequirePackage[T1]{fontenc}%
+        \RequirePackage{lmodern}% for sans fonts
+        \RequirePackage{textcomp}%
+        \AtBeginDocument{%
+          \let\save@textcurrency\textcurrency
+          \def\textcurrency{%
+            {%
+              \fontfamily{lmr}\selectfont
+              \save@textcurrency
+            }%
+          }%
+        }
+        \boldmathavailfalse
+        \DeclareRobustCommand{\$}{\char`\$}% otherwise tries to load tctt....
+	\let\Dings\relax
+        \DeclareRobustCommand\acro[1]{#1\@{}}
+
+

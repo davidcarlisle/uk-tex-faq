@@ -1,0 +1,58 @@
+Changes in version 3.16d
+
+This file incorporates the changes from version 3.16 that previously
+appeared in file CHANGES-3.16a, -3.16b and -3.16c; new changes for
+this release (3.16d) are marked with a plus ("+") sign.
+ 
+
+New answers:
+ +Label biblatex: discusses BibTeX replacements (amsrefs, biblatex)
+ +Label checksum: "checksum error in font" message
+ +Label figurehere: how to avoid floating figures/tables altogether
+ +Label entercompmode: "entering compatibility mode" message
+ +Label fontsize: how to program arbitrary font sizes in LaTeX
+ +Label latexqual: assessing the quality of your LaTeX
+ +Label mathonlyref: only referenced equations are numbered
+ +Label run-fn-nos: running footnote numbers when class numbers per chapter
+
+Revised answers:
+ +Label altabcr: extended examples and tidied a bit
+ +Label BibTeXing: add reference to Shell & Hoadley's btxFAQ
+ +Label books	   mention LaTeX Graphics Companion 2nd edition; use ISBN-13
+ +Label CD:        now couched in terms of the TeX collection
+ +Label changebar: mention changes.sty
+ +Label commercial:update details of Textures
+ +Label dec_comma: mention numprint as possible way to get things right
+ +Label docpictex: mention PiCTeX summary now on CTAN
+ +Label fonts-pln: mention pdcmac bundle
+ +Label ftnsect:   rewrite to make recommendations clearer
+ +Label getbitmap: reworded to suggest that bitmaps aren't standard any more
+ +Label LaTeXtoPlain: suggest ways forward for aspiring translators
+ +Label make:	   mention autolatex
+ +Label man-latex: mention Grätzer's "short course"
+ +Label minxampl:  editorial work, including (perhaps) clarifying web version
+ +Label newfont*:  was newfont; content rearranged between this, plninltx* and
+                   the new label fontsize
+ +Label newfunction: expand description
+ +Label ol-books:  TeX by Topic now available from CTAN
+ +Label papersize: mention Acrobat Reader's default scaling
+ +Label plninltx*: was plninltx; content rearranged between this, newfont* and
+                   the new fontsize
+ +Label protect:   clarify lists of commands known to be fragile, etc
+ +Label psfchoice: add links to papers about maths fonts in tex; add fouriernc,
+		   mathdesign/FS Garamond, kpfonts, minionpro and mnsymbol
+ +Label running-nos: rearrange to emphasise package chngctr
+ +Label tabcellalign: rationalised, reduced range of recommendations
+ +Label tocbibind:    mention \phantomsection for when doing the job "by hand"
+ +Label twooptarg:    mention the xargs package
+ +Label unkgrfextn:   mention grffile package
+ +Label wdnohyph:     mention \uchyph (not that it's much use)
+
+Bugfixes:
+
+Future releases:
+  There are no current plans for a major release, though work on the
+  new web-based version continues.
+
+Robin Fairbairns
+2007-10-??

@@ -1,0 +1,59 @@
+Changes since version 3.25
+
+New answers:
+ +Label expl3-old:   package needs a newer LaTeX 3 harness
+ +Label latex3-prog: learning LaTeX 3 programming
+ +Label repeat-num:  repeat an operation a given number of times
+ +Label repeat-set:  repeat an operation for each element of a set
+ +Label whatenv:     brief outline of what environments are
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label acrobat:     [tidying layout]
+ +Label archives:    largely rewritten for "new" archive arrangements
+ +Label chapbib:     show biblatex-based approach
+ +Label codelist:    more on use of minted package
+ +Label complist:    clarified description of "what's going on"
+ +Label cmdstar:     clarified use of LaTeX 3, here
+ +Label conditional: suggest stampinclude for rapid (partial) compilation
+ +Label ctan:	     revised following recent changes to archive access
+ +Label dolldoll:    elaborated "reasons" from a tex.stackexchange answer
+ +Label dpfloat:     describe use of caption package for the job
+ +Label drawing:     reword text about PGF/TikZ
+ +Label extsizes:    describe use of scrextend package for document font sizes
+ +Label ftncapt:     clarify example
+ +Label hyphenaccents: the "future" (unicode hyphenation tables) is here!
+ +Label ltxcmds:     more detail of the latexdef application
+ +Label latexqual:   add a proviso about l2tabu/nag
+ +Label make:	     add recommendation for arara
+ +Label man-latex:   Nicola Talbot's stuff has moved to a new web site
+ +Label minxampl:    discuss support packages
+ +Label nofm:	     suggest zref-lastpage
+ +Label oddpage:     suggest the ifoddpage package
+ +Label patch:	     describe the regexpatch package
+ +Label pkgdoc:	     mention the site texdoc.net, miktex mthelp
+ +Label pdftexgraphics: mention pdftricks2
+ +Label psfchoice:   update mathdesign outline, add newtx and garamondx
+ +Label readML:	     Context can do the job (rather well, one understands ;-)
+ +Label readtex:     suggest asking for a PDF instead ;-)
+ +Label spell:	     update, add recommendation for (exptl) spelling package
+ +Label struttab:    removed internal macros in example of cellspace
+ +Label symbols:     rearrange, and mention unicode maths symbol table
+ +Label tocloft:     mention new (straightforward) etoc package
+ +Label uploads:     rewritten for the (new) archive arrangements
+ +Label vertspacefloat: moved to a new location in question list
+ +Label virtualfonts: change question "title" to be a question
+ +Label xetex:	     change question "title" to match other projects' titles,
+		     redo answer, based on a tex/sx post 
+
+Deleted answers:
+ <none removed>
+
+Web interface, etc.:
+ The "default archive" (used in links from answers) is now mirror.ctan.org
+   (i.e., it's not an archive, but a selector of a mirror of the archive)
+
+Robin Fairbairns
+Hapless FAQer of Cambridge

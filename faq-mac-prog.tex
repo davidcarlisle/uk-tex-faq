@@ -1,0 +1,3724 @@
+% $Id: faq-mac-prog.tex,v 1.35 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{Macro programming}
+
+\subsection{``Generic'' macros and techniques}
+
+\Question[Q-linmacnames]{Non-letters in macro names}
+
+New \LaTeX{} users are often suprised that macro definitions
+containing non-letters, such as
+\begin{quote}
+\begin{verbatim}
+\newcommand{\cul8r}{Goodbye!}
+\end{verbatim}
+\end{quote}
+fail to compile.  The reason is that the \TeX{} macro language, unlike
+most programming languages, allows % ! loin break (twatbili)
+\Qref*{nothing but letters in macro names}{Q-whatmacros}.
+
+There are a number of techniques for defining a macro with a name like
+\csx{cul8r}.  Unfortunately, none of the techniques is particularly
+good:
+\begin{enumerate}
+\item Use \csx{csname}\dots\csx{endcsname} to define and invoke the
+  macro:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\expandafter\newcommand
+       \csname cul8r\endcsname{Goodbye!}
+I said, ``\csname cul8r\endcsname''.
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\expandafter\newcommand\csname cul8r\endcsname{Goodbye!}
+I said, ``\csname cul8r\endcsname''.
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+  \begin{description}
+  \item[Pro:] No unexpected side effects
+  \item[Con:] So verbose as to be unusable
+  \end{description}
+\item Define a ``special-command generator'', and  use the resulting
+  commands:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\newcommand{\DefineRemark}[2]{%
+  \expandafter\newcommand
+     \csname rmk-#1\endcsname{#2}%
+}
+\newcommand{\Remark}[1]{%
+  \csname rmk-#1\endcsname%
+}
+...
+\DefineRemark{cul8r}{Goodbye!}
+...
+I said, ``\Remark{cul8r}''.
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\newcommand{\DefineRemark}[2]{%
+  \expandafter\newcommand\csname rmk-#1\endcsname{#2}%
+}
+\newcommand{\Remark}[1]{\csname rmk-#1\endcsname}
+...
+\DefineRemark{cul8r}{Goodbye!}
+...
+\Remark{cul8r}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+  \begin{description}
+  \item[Pro:] Straightforward to use, not too untidy
+  \item[Con:] It's hardly doing what we set out to do (experts will
+    see that you are defining a macro, but others likely won't)
+  \end{description}
+\item Convince \TeX{} that ``\texttt{8}'' is a letter:
+\begin{quote}
+\begin{verbatim}
+\catcode`8 = 11 
+\newcommand{\cul8r}{Goodbye!}
+I said, ``\cul8r''.
+\end{verbatim}
+\end{quote}
+  \begin{description}
+  \item[Pro:] \csx{cul8r} can be used directly
+  \item[Con:] Likely to break other uses of ``\texttt{8}'' (such as
+    numbers or dimensions; so
+    \cmdinvoke{setlength}{\csx{paperwidth}}{8in} tells us:
+\begin{quote}
+\begin{verbatim}
+! Missing number, treated as zero.
+<to be read again> 
+                   8
+\end{verbatim}
+\end{quote}
+  \end{description}
+  As a general rule, changing category codes is something to use
+  \emph{in extremis}, after detailed examination of options.  It is
+  conceivable that such drastic action could be useful for you, but
+  most ordinary users are well advised not even to try such a
+  technique.
+\item Define a macro \csx{cul} which must always be followed by
+  ``\texttt{8r}'':
+\begin{quote}
+\begin{verbatim}
+\def\cul8r{Goodbye!}
+I said, ``\cul8r''.
+\end{verbatim}
+\end{quote}
+  \begin{description}
+  \item[Pro:] \csx{cul8r} can be used directly
+  \item[Con~\#1:] Breaks if \csx{cul} is followed by anything other
+    than ``\texttt{8r}'', with a confusing diagnostic~---
+    \csx{cul99} produces:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+! Use of \cul doesn't match its definition.
+<*> \cul9
+         9
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+! Use of \cul doesn't match its 
+                           definition.
+<*> \cul9
+         9
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+    (which would confuse someone who hadn't even realised there
+    \emph{was} a definition of \csx{cul} in the document).
+  \item[Con~\#2:] Silently redefines existing \csx{cul}, if any;
+    as a result, the technique cannot be used to define both a
+    \csx{cul8r} and, say, a \csx{cul123} macro in the same
+    document.
+  \end{description}
+\end{enumerate}
+Technique~3 is in fact commonly used~--- in a limited form~--- within
+most \LaTeX{} packages and within \LaTeX{} itself.  The convention is to
+use ``\texttt{@}'' within the names of internal macros to hide them
+from the user and thereby prevent naming conflicts.  To this end,
+\LaTeX{} automatically treats ``\texttt{@}'' as a letter while
+processing classes and packages and as a non-letter while processing
+the user's document.  The key to this technique is the separation:
+internally a non-letter is used for macro names, and the user doesn't
+see anything of it, while the status remains ``frozen'' in all the
+definitions created within the class or package.  See % ! line break
+\Qref[question]{\csx{@} and \texttt{@} in macro names}{Q-atsigns} for
+more information.
+
+Note that analogous use of technique~3 in this example would give us
+\begin{quote}
+\begin{verbatim}
+\begingroup
+  \catcode`8 = 11 
+  \gdef\cul8r{Goodbye!}
+  \gdef\later{\cul8r}
+\endgroup
+I said, ``\later''.
+\end{verbatim}
+\end{quote}
+which works, but rather defeats the object of the exercise.
+(\csx{later} has the ``frozen'' catcode for `8', even though the value
+has reverted to normal by the time it's used; note, also, the use of
+the primitive command \csx{gdef}, since \csx{newcommand} can't make a
+macro that's available outside the group.)
+
+\emph{Recommendation}: Either choose another mechanism (such as
+\csx{DefineRemark} above), or choose another name for your macro, one
+that contains only ordinary letters.  A common approach is to use
+roman numerals in place of arabic ones:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\culVIIIr}{Goodbye!}
+\end{verbatim}
+\end{quote}
+which rather spoils the intent of the joke implicit in the example
+\csx{cul8r}!
+\LastEdit*{2009-06-03}
+
+\Question[Q-repeat-num]{Repeating a command \emph{n} times}
+
+\tex{} was \emph{not} designed as a programming language, but there
+are occasions when you want to repeat some part of your document, just
+as parts of programs need to run several times.  An obvious
+example is \tex{}-based drawing: \latex{}'s \environment{picture}
+environment and \Package{pgf} (at least) provide repeat facilities~---
+they are useful for drawing repeating patterns.  As a result,
+``common'' programming techniques often have to be emulated using
+obscure macro \tex{}niques.
+
+This answer deals with repeating an operation a given number of times;
+repeating operations once for each of a set of objects is dealt with
+in the answer \Qref*{repeating ``over a set''}{Q-repeat-set}.
+
+Plain \tex{} itself provides a \csx{loop} \dots{} \csx{repeat}
+contruct, which enables you to repeat a command (or set of commands).
+The syntax is simple enough, but it use of \tex{} conditionals is
+different enough that many people find it confusing.
+\begin{quote}
+\begin{verbatim}
+\newcount\foo
+\foo=10
+\loop
+  \message{\the\foo}
+  \advance \foo -1
+\ifnum \foo>0
+\repeat
+\end{verbatim}
+\end{quote}
+In this slightly tricky code, \csx{loop} starts the construct ended by
+\csx{repeat}, but \csx{repeat} also ``serves as'' the \csx{fi} to the
+\csx{ifnum}.  The loop above prints the numbers from 10 down to 1 via
+\tex{} \csx{message} (i.e., on the console output).
+
+The \Package{multido} package is also `generic' (usable both in
+\plaintex{} and latex{}); it defines a command \csx{multido} with
+three arguments:
+\begin{quote}
+  % ! line break
+  \cmdinvoke{multido}{\meta{variables}}{\meta{repetitions}}{\meta{stuff to repeat}}
+\end{quote}
+When the macro is executing, the \meta{stuff to repeat} gets executed
+\meta{repetitions} times; the \meta{variables} gives a list of
+variables that can be used in \meta{stuff}.  Each variable is a
+composite of a command sequence and how it varies; so a variable
+``\csx{iz}\texttt{=2+4}'' sets \csx{iz} to \texttt{2} first time
+around, then \texttt{6} and \texttt{10} in the next two iterations,
+and so on.  (The variable \csx{iz} is an integer; variables with other
+initial letters represent different data types.)
+
+% [do these things matter?]
+% The \latexe{} kernel has commands \csx{@for} and \csx{@tfor}.
+%
+% The \latex{}3 kernel includes the command |\prg_replicate:nn|; this
+% information isn't much use unless you're a \latex{}3 user.
+Both current \latex{} and (experimental) \latex{}3 have iteration
+commands for internal use and for package writers; their use is
+probably not recommendable.
+
+The \latex{} distribution package \Package{ifthen} offers the macro
+\csx{whiledo}:
+\begin{quote}
+\begin{verbatim}
+\newcounter{ct}
+...
+\setcounter{ct}{1}
+\whiledo {\value{ct} < 5}%
+{%
+  \thect\
+  \stepcounter {ct}%
+}
+\end{verbatim}
+\end{quote}
+
+The \Package{forloop} package provides nothing but \csx{forloop}:
+\begin{quote}
+\begin{verbatim}
+\newcounter{ct}
+...
+\forloop{ct}{1}{\value{ct} < 5}%
+{%
+  \thect\
+}
+\end{verbatim}
+\end{quote}
+as you can see, the arguments are counter, starting value and
+termination condition; an optional argument supplies a step value
+(default step is 1).
+
+The \latex{} \environment{picture} environment has a simple command
+for repeated drawing:
+\begin{quote}
+\begin{verbatim}
+\multiput(x,y)(xstep,ystep){n}{obj}
+\end{verbatim}
+\end{quote}
+which places \meta{obj} (intended to be a bit of picture)
+\meta{n} times at positions (\meta{x}, \meta{y}),
+(\meta{x}+\meta{xstep}, \meta{y}+\meta{ystep}),
+(\meta{x}+2\meta{xstep}, \meta{y}+2\meta{ystep}) and so on, adding the
+displacement again each time.  The command was designed for use in
+\environment{picture}, but it makes no check, and may even be used to
+provide eccentric typesetting in a ``regular'' sentence, such as:
+\begin{quote}
+\begin{verbatim}
+Here \multiput(0,0)(1,1){3}{we} are again.
+\end{verbatim}
+\end{quote}
+with predictable (if not actually desirable) effect.  It may be used
+with nothing but an iterative calculation in the braced argument, in
+which case its graphical capabilities have no effect.
+
+The \Package{pgffor} package, which is part of the % ! line break
+\Qref*{\Package{pgf} distribution}{Q-drawing}, also
+provides iterations to support the needs of graphics.  Its syntax is
+in the style of common programming languages:
+\begin{quote}
+\begin{verbatim}
+\usepackage{pgffor}
+\newcommand{\cmd}{-x-}
+...
+\foreach \n in {1,...,4}{\cmd{}}
+\end{verbatim}
+\end{quote}
+typesets ``\texttt{-x-\relax-x-\relax-x-\relax-x-}''
+
+The \csx{foreach} command has the potential drawback that its repeated
+unit is executed in a group, so that any calculations done within the
+loop are lost (unless their result is made \csx{global}); however, it
+does not `build in' its graphical origins (as \csx{multiput} does) so
+its potential outside its own graphics environment ``home'' is more
+clear.
+%
+%% can't convince myself that \naturalloop helps with anything
+% The \Package{etextools} package provides \csx{naturalloop}, which
+% repeats material according to a count argument that you give it.
+%
+%% this stuff removed, following the observation that the package's use
+%% of \repeat is inconsistent with both plain tex and latex; pity --
+%% it's a nice package apart from being totally unusable :-(
+%
+% The \Package{repeat} package provides a \csx{for} command that
+% encompasses a lot of the above; for example:
+% \begin{quote}
+% \begin{verbatim}
+% \input repeat
+% \newcount\foo
+% \repeat
+%   \for{foo} \from{1} \to{10} \do{x*}
+% \end{verbatim}
+% \end{quote}
+% which will typeset \texttt{x*} ten times (the count \csx{foo} will
+% end up with value 11).
+%
+% Note the \plaintex{} usage: \Package{repeat} is ``generic'' and
+% defines commands that are comfortable to \plaintex{} users, while
+% remaining usable by \latex{} users.
+%
+% The complete syntax is given in the meta-expression:
+% \begin{quote}
+% \begin{verbatim}
+% \repeat
+%   \for{var}
+%     \from{<start>} \by{<step>} \to{<end>}
+%     \downto{<end>} \until{<cond>} \while{<cond>}
+% \do{<operate on something>}
+% \end{verbatim}
+% \end{quote}
+% You must choose a consistent set of \csx{from}, \csx{by}, \csx{to},
+% \csx{downto}, \csx{until} and \csx{while} (none is actually required,
+% but of course any loop has to have \emph{some}).
+
+% In summary, while it is certainly possible to write this sort of code as
+% a private project (for example, using the \etex{} \csx{numexpr}
+% primitive), one cannot deny that plenty of choice for the task is
+% readily available.
+%
+% (the above ignore Pic\tex{}, which almost certainly has similar
+% functions, but in the absence of a manual\dots{})
+\begin{ctanrefs}
+%\item[etextools.sty]\CTANref{etextools}
+\item[forarray.sty]\CTANref{forarray}
+\item[forloop.sty]\CTANref{forloop}
+\item[ifthen.sty]Distributed as part of \CTANref{latex}
+\item[multido.sty]\CTANref{multido}
+\item[pgffor.sty]Distributed as part of \CTANref{pgf}
+%\item[repeat.tex]\CTANref{repeat}
+\end{ctanrefs}
+\LastEdit{2013-03-01}
+
+\Question[Q-repeat-set]{Repeating something for each `thing' in a set}
+
+As another question % line break!
+(\Qref*{repeating something a given number of times}{Q-repeat-num})
+explains, \tex{} is not explicitly designed for `regular' programming
+operations. As a result, we must resort to arcane tricks to do the
+seemingly simple task of repeating an operation.  This answer deals
+with repeating an operation for each of a given set of objects.
+
+The \Package{etoolbox} package provides iteration over a
+comma-separated list of items, in its \csx{docsvlist} and
+\csx{forcsvlist} commands; they are well-described in the package
+documentation.  The \Package{datatool} package manages ``databases''
+(of its own definition) and you may iterate over entries in such a
+database using the command \csx{DTLforeach}.
+
+The \Package{forarray} package defines its own ``list'' and ``array''
+structures, together with commands \csx{ForEach} and \csx{ForArray}
+which enable a command to be executed for each element in a list or
+array, respectively.
+
+The \Package{dowith} defines a pair of macros \csx{DoWith} and
+\csx{StopDoing} that process each ``thing'' between them; a trivial
+example of use is:
+\begin{quote}
+\begin{verbatim}
+\usepackage{dowith}
+...
+\begin{document}
+\newcommand{\foo}[1]{\message{#1+}
+\DoWith\foo a{BBB}c\StopDoing
+\end{verbatim}
+\end{quote}
+which produces terminal output:
+\begin{quote}
+\begin{verbatim}
+a+ BBB+ c+
+\end{verbatim}
+\end{quote}
+so, the macros have found 3 ``things'', including one with braces
+around it.  (The interpolated spaces come from the primitive
+\csx{message} command.)
+
+The only constraint is that all commands in the enclosed stuff are
+``expandable'' (which means, for example, that you may not use
+commands with optional arguments).
+
+From the same stable (as \Package{dowith}) comes the package
+\Package{commado}, that provides commands \csx{DoWithCSL} (apply a
+command to each element of a comma-separated-variable list) and
+\csx{DoWithBasesExts} (apply a command to each of a set of files,
+defined by base name and ``extension'').  Use of these \csx{DoWith*}
+macros is also expandable (if the command applied to the list elements
+is itself expandable).
+\begin{ctanrefs}
+\item[commado.sty]\CTANref{commado}
+\item[datatool.sty]\CTANref{datatool}
+\item[dowith.sty]\CTANref{dowith}
+\item[etoolbox.sty]\CTANref{etoolbox}
+\item[filesdo.sty]Distributed with \CTANref{commado}
+\end{ctanrefs}
+\LastEdit{2013-02-20}
+
+%See \url{http://tex.stackexchange.com/questions/16189/repeat-command-n-times}
+%for details (do i need this any more?)
+
+\Question[Q-findwidth]{Finding the width of a letter, word, or phrase}
+
+Put the word in a box, and measure the width of the box. For example,
+\begin{quote}
+\begin{verbatim}
+\newdimen\stringwidth
+\setbox0=\hbox{hi}
+\stringwidth=\wd0
+\end{verbatim}
+\end{quote}
+Note that if the quantity in the \csx{hbox} is a phrase, the actual
+measurement only approximates the width that the phrase will occupy in
+running text, since the inter-word glue can be adjusted in paragraph
+mode.
+
+The same sort of thing is expressed in \LaTeX{} by:
+\begin{quote}
+\begin{verbatim}
+\newlength{\gnat}
+\settowidth{\gnat}{\textbf{small}}
+\end{verbatim}
+\end{quote}
+This sets the value of the length command |\gnat| to the width of ``small''
+in bold-face text.
+
+\Question[Q-patch]{Patching existing commands}
+
+In the general case (possibly sticking something in the middle of an
+existing command) this is difficult.  However, the common requirement,
+to add some code at the beginning or the end of an existing command,
+is conceptually quite easy.  Suppose we want to define a version of a
+command that does some small extension of its original definition: we
+would naturally write:
+\begin{quote}
+\begin{verbatim}
+\renewcommand{\splat}{\mumble\splat}
+\end{verbatim}
+\end{quote}
+However, this would not work: a call to \csx{splat} would execute
+\csx{mumble}, and then call the redefined \csx{splat} again; this is an
+`unterminated recursion', that will quickly exhaust \TeX{}'s memory.
+
+Fortunately, the \TeX{} primitive \csx{let} command comes to our
+rescue; it allows us to take a ``snapshot'' of the current state of a
+command, which we can then use in the redefinition of the command.
+So:
+\begin{quote}
+\begin{verbatim}
+\let\OldSmooth\smooth
+\renewcommand{\smooth}{\mumble\OldSmooth}
+\end{verbatim}
+\end{quote}
+effects the required patch, safely.  Adding things at the end of a
+command works similarly.
+
+If \csx{smooth} takes arguments, one must pass them on:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\let\OldSmooth\smooth
+\renewcommand{\smooth}[2]{\mumble\OldSmooth{#1}{#2}}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\let\OldSmooth\smooth
+\renewcommand{\smooth}[2]%
+             {\mumble\OldSmooth{#1}{#2}}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+
+The situation is more difficult still if \csx{smooth} takes an
+optional argument; the structure of the command is so complex that the
+simple \csx{let} command does not retain the necessary detail.  In
+this case, we need the \Package{letltxmacro} package which knows about all
+sorts of \latex{} commands and how to replicate them.  Suppose we have
+a command defined as:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\rough}[1][\default]{...}
+\end{verbatim}
+\end{quote}
+with an optional argument (substituted with \csx{default} if it's not
+present) as well as an ordinary one.  In this case we copy it using
+\begin{quote}
+\begin{verbatim}
+\LetLtxMacro{\NewRough}{\rough}
+\end{verbatim}
+\end{quote}
+and then repeat the technique we had above, with one extension:
+\begin{quote}
+\begin{verbatim}
+\renewcommand{\rough}[1][\newdef]%
+             {\mumble\OldRough[{#1}]{#2}}
+\end{verbatim}
+\end{quote}
+We see here that (for tedious argument-matching reasons) it is
+necessary to provide braces arround the optional argument that is
+being passed on.
+
+The general case may be achieved in two ways.  First, one can use the
+\LaTeX{} command \csx{CheckCommand}; this compares an existing command
+with the definition you give it, and issues a warning if two don't
+match.  Use is therefore:
+\begin{quote}
+  |\CheckCommand{\complex}{|\meta{original definition}|}|\\
+  |\renewcommand{\complex}{|\meta{new definition}|}|
+\end{quote}
+This technique is obviously somewhat laborious, but if the original
+command comes from a source that's liable to change under the control
+of someone else, it does at least warn you that your patch is in
+danger of going wrong.
+
+Otherwise, \LaTeX{} users may use one of the \Package{patchcmd},
+\Package{ted} or \Package{etoolbox} packages.
+
+The \Package{patchcmd} package addresses a slightly simpler task, by
+restricting the set of commands that you may patch; you mayn't patch
+any command that has an optional argument, though it does deal with
+the case of commands defined with \csx{DeclareRobustCommand}.  The
+package defines a \csx{patchcommand} command, that takes three
+arguments: the command to patch, stuff to stick at the front of its
+definition, and stuff to stick on the end of its definition.  So,
+after
+\begin{quote}
+\begin{verbatim}
+\def\b{b}
+\patchcmd\b{a}{c}
+\end{verbatim}
+\end{quote}
+we will have a new version of \csx{b} defined as ``\texttt{abc}''.
+
+The \Package{ted} package is a `token list editor', and provides a
+command \csx{substitute} which will patch the
+contents of a macro, putting the result in a token-list, or
+(in the form \csx{Substitute*}) using the result to (re)define a
+macro.  The following example defines a simple macro, and then changes
+its definition:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\myfont}%
+    {\Large\sffamily\selectfont}
+\Substitute*[\renewcommand{\myfont}]{\myfont}%
+    {\Large\sffamily}{\huge\itshape}
+\end{verbatim}
+\end{quote}
+The macro's definition is now:
+\begin{quote}
+\begin{verbatim}
+\huge\itshape\selectfont
+\end{verbatim}
+\end{quote}
+
+The package also offers a command \csx{ShowTokens}, which shows the
+content of its argument, one token to a line, with details of the
+token's category code, etc.  This is recommended as a debugging tool.
+
+The \Package{etoolbox} package (which provides user access to \eTeX{}'s
+programming facilities) provides a command \csx{patchcmd} which is
+very similar to \csx{Substitute}, except that it only replaces a
+single instance of the token(s) in its search pattern.  Since not all
+commands may be patched in this way, \csx{patchcmd} takes extra
+arguments for \emph{success} and \emph{failure} cases.  The
+package also provides commands that prepend (\csx{pretocmd}) or append
+(\csx{apptocmd}) to the definition of a command.  Not all commands may
+be patched in this way; the package provides a command
+\csx{ifpatchable} which checks the prerequisites, and checks that the
+target command's body does indeed include the patch string you propose
+to use.  (The command \csx{ifpatchable*} omits the test on the patch
+string.)
+
+The \Package{regexpatch} package deals with cases that are
+inaccessible with \Package{etoolbox}; it uses the regular expression
+(pattern-matching) package \Package{l3regex} from the \latex{}3
+distribution to find the code you need to patch.  The package also
+``knows about'' robust commands and about
+\Qref*{\Package{biblatex}}{Q-biblatex}.
+
+Finally, we'll briefly consider a package that is (just about)
+usable, but not really recommendable.  \Package{Patch} gives you an
+ingenious (and difficult to understand) mechanism, and comes as an
+old-style \LaTeX{} documented macro file, which can no longer be
+processed to \Qref*{produce formatted documentation, etc.\@}{Q-install-doc}.
+Fortunately, the file (\File{patch.doc}) may be input directly, and
+``documentation'' may found by reading the source of the package.
+Roughly speaking, one gives the command a set of instructions
+analogous to \ProgName{sed} substitutions, and it regenerates the
+command thus amended.  Unless you can't do your job any other way,
+\Package{patch} is best avoided.
+\begin{ctanrefs}
+\item[etoolbox.sty]\CTANref{etoolbox}
+\item[l3regex.sty]Distributed as part of \CTANref{l3experimental}[l3regex]
+\item[letltxmacro.sty]Distributed as part of \CTANref{oberdiek}[letltxmacro]
+\item[patch.doc]\CTANref{patch}
+\item[patchcommand.sty]\CTANref{patchcmd}
+\item[regexpatch.sty]\CTANref{regexpatch}
+\item[ted.sty]\CTANref{ted}
+\end{ctanrefs}
+\LastEdit{2012-12-21}
+
+\Question[Q-compjobnam]{Comparing the ``job name''}
+
+The token \csx{jobname} amusingly produces a sequence of characters
+whose category code is 12 (`other'), regardless of what the characters
+actually are.  Since one inevitably has to compare a macro with the
+contents of another macro (using \csx{ifx}, somewhere) one needs to
+create a macro whose expansion looks the same as the expansion of
+\csx{jobname}.  We find we can do this with \csx{meaning}, if we strip
+the ``\csx{show} command'' prefix.
+
+The full command looks like:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\def\StripPrefix#1>{}
+\def\jobis#1{FF\fi
+  \def\predicate{#1}%
+  \edef\predicate{\expandafter\StripPrefix\meaning\predicate}%
+  \edef\job{\jobname}%
+  \ifx\job\predicate
+}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\def\StripPrefix#1>{}
+\def\jobis#1{FF\fi
+  \def\predicate{#1}%
+  \edef\predicate{\expandafter\StripPrefix
+                    \meaning\predicate}%
+  \edef\job{\jobname}%
+  \ifx\job\predicate
+}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+And it's used as:
+\begin{quote}
+\begin{verbatim}
+\if\jobis{mainfile}%
+  \message{YES}%
+\else
+  \message{NO}%
+\fi
+\end{verbatim}
+\end{quote}
+Note that the command \csx{StripPrefix} need not be defined if you're
+using \LaTeX{}~--- there's already an % line break!
+\Qref*{internal command}{Q-atsigns} \csx{strip@prefix} that you can
+use.
+
+\Question[Q-isitanum]{Is the argument a number?}
+
+\TeX{}'s own lexical analysis doesn't offer the macro programmer
+terribly much support: while category codes will distinguish letters
+(or what \TeX{} currently thinks of as letters) from everything else,
+there's no support for analysing numbers.
+
+The simple-minded solution is to compare numeric characters with the
+characters of the argument, one by one, by a sequence of direct tests,
+and to declare the argument ``not a number'' if any character fails
+all comparisons:
+\begin{quote}
+\begin{verbatim}
+\ifx1#1
+\else\ifx2#1
+...
+\else\ifx9#1
+\else\isanumfalse
+\fi\fi...\fi
+\end{verbatim}
+\end{quote}
+which one would then use in a tail-recursing macro to gobble an
+argument.  One could do slightly better by assuming (pretty safely)
+that the digits' character codes are consecutive:
+\begin{quote}
+\begin{verbatim}
+\ifnum`#1<`0 \isanumfalse
+\else\ifnum`#1>`9 \isanumfalse
+     \fi
+\fi
+\end{verbatim}
+\end{quote}
+again used in tail-recursion.  However, these forms aren't very
+satisfactory: getting the recursion ``right'' is troublesome (it has a
+tendency to gobble spaces in the argument), and in any case \TeX{}
+itself has mechanisms for reading numbers, and it would be nice to use
+them.
+
+Donald Arseneau's \Package{cite} package offers the following test
+for an argument being a strictly positive integer:
+\begin{quote}
+\begin{verbatim}
+\def\IsPositive#1{%
+  TT\fi
+  \ifcat_\ifnum0<0#1 _\else A\fi
+}
+\end{verbatim}
+\end{quote}
+which can be adapted to a test for a non-negative integer thus:
+\begin{quote}
+\begin{verbatim}
+\def\IsNonNegative{%
+  \ifcat_\ifnum9<1#1 _\else A\fi
+}
+\end{verbatim}
+\end{quote}
+or a test for any integer:
+\begin{quote}
+\begin{verbatim}
+\def\gobbleminus#1{\ifx-#1\else#1\fi}
+\def\IsInteger#1{%
+  TT\fi
+  \ifcat_\ifnum9<1\gobbleminus#1 _\else A\fi
+}
+\end{verbatim}
+\end{quote}
+but this surely stretches the technique further than is reasonable.
+
+If we don't care about the sign, we can use \TeX{} to remove the
+entire number (sign and all) from the input stream, and then look at
+what's left:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\def\testnum#1{\afterassignment\testresult
+               \count255=0#1 \end}
+\def\testresult#1\end{\ifx\end#1\end}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\def\testnum#1{\afterassignment\testresult\count255=0#1 \end}
+\def\testresult#1\end{\ifx\end#1\end\isanumtrue\else\isanumfalse\fi}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+(which technique is due to David Kastrup; the trick for avoiding the
+errors, noted in an earlier version of this answer, was suggested by
+Andreas Matthias).
+In a later thread on the same topic, Michael Downes offered:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\def\IsInteger#1{%
+  TT\fi
+  \begingroup \lccode`\-=`\0 \lccode`+=`\0
+    \lccode`\1=`\0 \lccode`\2=`\0 \lccode`\3=`\0
+    \lccode`\4=`\0 \lccode`\5=`\0 \lccode`\6=`\0
+    \lccode`\7=`\0 \lccode`\8=`\0 \lccode`\9=`\0
+  \lowercase{\endgroup
+    \expandafter\ifx\expandafter\delimiter
+    \romannumeral0\string#1}\delimiter
+}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\def\IsInteger#1{%
+  TT\fi
+  \begingroup \lccode`\-=`\0 \lccode`+=`\0
+    \lccode`\1=`\0 \lccode`\2=`\0
+    \lccode`\3=`\0 \lccode`\4=`\0
+    \lccode`\5=`\0 \lccode`\6=`\0
+    \lccode`\7=`\0 \lccode`\8=`\0
+    \lccode`\9=`\0
+  \lowercase{\endgroup
+    \expandafter\ifx\expandafter\delimiter
+    \romannumeral0\string#1}\delimiter
+}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+which relies on \csx{romannumeral} producing an empty result if its
+argument is zero.  Sadly, this technique has the unfortunate property
+that it accepts simple expressions such as `\texttt{1+2-3}'; this
+could be solved by an initial \csx{gobbleminus}-like construction.
+
+All the complete functions above are designed to be used in \TeX{}
+conditionals written ``naturally''~--- for example:
+\begin{quote}
+\begin{verbatim}
+\if\IsInteger{<subject of test>}%
+  <deal with integer>%
+\else
+  <deal with non-integer>%
+\fi
+\end{verbatim}
+\end{quote}
+The \LaTeX{} \Class{memoir} class has an internal command of its own,
+\cmdinvoke*{checkifinteger}{num}, that sets the conditional command
+\csx{ifinteger} according to whether the argument was an integer.
+
+Of course, all this kerfuffle would be (essentially) void if there was
+a simple means of ``catching'' \TeX{} errors.  Imagining an
+error-catching primitive \csx{ifnoerror}, one might write:
+\begin{quote}
+\begin{verbatim}
+\def\IsInteger#1{%
+  TT%
+  \ifnoerror
+    \tempcount=#1\relax
+% carries on if no error
+    \expandafter\iftrue
+  \else
+% here if there was an error
+    \expandafter\iffalse
+  \fi
+}
+\end{verbatim}
+\end{quote}
+thus using \TeX{}'s own integer-parsing code to do the check.  It's a
+pity that such a mechanism was never defined (it could be that it's
+impossible to program within \TeX{}!).
+\begin{ctanrefs}
+\item[memoir.cls]\CTANref{memoir}
+\end{ctanrefs}
+
+\Question[Q-hash]{Defining macros within macros}
+
+The way to think of this is that |##| gets replaced by |#| in just the
+same way that |#1| gets replaced by `whatever is the first argument'.
+
+So if you define a macro:
+\begin{quote}
+\begin{verbatim}
+\newcommand\a[1]{+#1+#1+#1+}
+\end{verbatim}
+\end{quote}
+or (using the \tex{} primitive \csx{def}):
+\begin{quote}
+\begin{verbatim}
+\def\a#1{+#1+#1+#1+}
+\end{verbatim}
+\end{quote}
+and use it as \cmdinvoke{a}{b},
+the macro expansion produces `+b+b+b+',
+as most people would expect.
+
+However, if we now replace part of the macro:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\newcommand\a[1]{+#1+%
+                 \newcommand\x[1]{xxx#1}}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\newcommand\a[1]{+#1+\newcommand\x[1]{xxx#1}}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+then \cmdinvoke{a}{b} will give us the rather odd
+\begin{quote}
+  +b+\cmdinvoke{newcommand}{x}[1]{xxxb}
+\end{quote}
+so that the new \csx{x} ignores its argument.
+
+If we use the \tex{} primitive: 
+\begin{quote}
+\begin{verbatim}
+\def\a#1{+#1+\def\x #1{xxx#1}}
+\end{verbatim}
+\end{quote}
+\cmdinvoke{a}{b} will expand to `+b+|\def\x b{xxxb}|'.  This
+defines \csx{x} to be a macro \emph{delimited} by |b|, and taking no
+arguments, which is surely not what was intended!
+
+Actually, to define \csx{x} to take an argument, we need
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\newcommand\a[1]{+#1+%
+                 \newcommand\x[1]{xxx##1}}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\newcommand\a[1]{+#1+\newcommand\x[1]{xxx##1}}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+or, using the \tex{} primitive definition:
+\begin{quote}
+\begin{verbatim}
+\def\a#1{+#1+\def\x ##1{xxx##1}}
+\end{verbatim}
+\end{quote}
+and \cmdinvoke{a}{b} will expand to 
+\begin{quote}
+  +b+|\def\x #1{xxx#1}|
+\end{quote}
+because |#1| gets replaced by `b'
+and |##| gets replaced by |#|.
+
+To nest a definition inside a definition inside a definition then you
+need |####1|, doubling the number of |#| signs; and at the next level
+you need 8~|#|s each time, and so on.
+
+\Question[Q-spinmacro]{Spaces in macros}
+
+It's very easy to write macros that produce space in the typeset
+output where it's neither desired nor expected.  Spaces introduced by
+macros are particularly insidious because they don't amalgamate with
+spaces around the macro (unlike consecutive spaces that you
+type), so your output can have a single bloated space that proves
+to be made up of two or even more spaces that haven't amalgamated.
+And of course, your output can also have a space where none was wanted
+at all.
+
+Spaces are produced, inside a macro as elsewhere, by space or tab
+characters, or by end-of-line characters.  There are two basic rules
+to remember when writing a macro: first, the rules for ignoring spaces
+when you're typing macros are just the same as the rules that apply
+when you're typing ordinary text, and second, rules for ignoring
+spaces do \emph{not} apply to spaces produced while a macro is being
+obeyed (``expanded'').
+
+Spaces are ignored in vertical mode (between paragraphs), at the
+beginning of a line, and after a command name.  Since sequences of
+spaces are collapsed into one, it `feels as if' spaces are ignored if
+they follow another space.  Space can have syntactic meaning after
+certain sorts of non-braced arguments (e.g., \emph{count} and
+\emph{dimen} variable assignments in \plaintex{}) and after certain
+control words (e.g., in \csx{hbox} |to|, so again we have instances
+where it `feels as if' spaces are being ignored when they're merely
+working quietly for their living.
+
+Consider the following macro, fairly faithfully adapted from one that
+appeared on \Newsgroup{comp.text.tex}:
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+\newcommand{\stline}[1]
+  { \bigskip \makebox[2cm]{ \textbf{#1} } }
+\end{verbatim}
+\end{quote}
+(the original appeared on a single line: it's wrapped here to fit in
+the printed \acro{FAQ}'s narrow columns).
+
+\nothtml{\noindent}
+\end{narrowversion}
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+\newcommand{\stline}[1]{ \bigskip \makebox[2cm]{ \textbf{#1} } }
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+The macro definition contains five spaces:
+\begin{itemize}
+\item after the opening |{| of the macro body; this space will be
+  ignored, not because ``because the macro appears at the start of a
+  line'', but rather because the macro was designed to operate between
+  paragraphs
+\item after \csx{bigskip}; this space will be ignored (while the macro
+  is being defined) because it follows a command name
+\item after the |{| of the mandatory argument of \csx{makebox}; even
+  though this space will inevitably appear at the start of an output
+  line, it will \emph{not} be ignored
+\item after the |}| closing the argument of \csx{textbf}; this space
+  will not be ignored, but may be overlooked if the argument is well
+  within the |2cm| allowed for it
+\item after the |}| closing the mandatory argument of \csx{makebox};
+  this space will not be ignored
+\end{itemize}
+The original author of the macro had been concerned that the starts of
+his lines with this macro in them were not at the left margin, and
+that the text appearing after the macro wasn't always properly
+aligned.  These problems arose from the space at the start of the
+mandatory argument of \csx{makebox} and the space immediately after the
+same argument.  He had written his macro in that way to emphasise the
+meaning of its various parts; unfortunately the meaning was rather
+lost in the problems the macro caused.
+
+The principal technique for suppressing spaces is the use of
+\texttt{\textpercent{}} characters: everything after a
+\texttt{\textpercent{}} is ignored, even the end of line itself (so
+that not even the end of line can contribute an unwanted space).  The
+secondary technique is to ensure that the end of line is preceded by a
+command name (since the end of line behaves like a space, it will be
+ignored following a command name).  Thus the above command would be
+written (by an experienced programmer with a similar eye to
+emphasising the structure):
+\begin{quote}
+\begin{verbatim}
+\newcommand{\stline}[1]{%
+  \bigskip
+  \makebox[2cm]{%
+    \textbf{#1}\relax
+  }%
+}
+\end{verbatim}
+\end{quote}
+Care has been taken to ensure that every space in the revised
+definition is ignored, so none appears in the output.  The revised
+definition takes the ``belt and braces'' approach, explicitly dealing
+with every line ending (although, as noted above, a space introduced
+at the end of the first line of the macro would have been ignored in
+actual use of the macro.  This is the best technique, in fact~--- it's
+easier to blindly suppress spaces than to analyse at every point
+whether you actually need to.  Three techniques were used to suppress
+spaces:
+\begin{itemize}
+\item placing a \texttt{\textpercent{}} character at the end of a line
+  (as in the 1st, 3rd and 5th lines),
+\item ending a line `naturally' with a control sequence, as in line 2,
+  and
+\item ending a line with an `artificial' control sequence, as in line
+  4; the control sequence in this case (\csx{relax}) is a no-op in many
+  circumstances (as here), but this usage is deprecated~--- a
+  \texttt{\textpercent{}} character would have been better.
+\end{itemize}
+Beware of the (common) temptation to place a space \emph{before} a
+\texttt{\textpercent{}} character: if you do this you might as well omit
+the \texttt{\textpercent{}} altogether.
+
+In ``real life'', of course, the spaces that appear in macros are far
+more cryptic than those in the example above.  The most common spaces
+arise from unprotected line ends, and this is an error that
+occasionally appears even in macros written by the most accomplished
+programmers.
+
+\Question[Q-moren9]{How to break the 9-argument limit}
+
+If you think about it, you will realise that Knuth's command
+definition syntax:
+\begin{quote}
+\begin{verbatim}
+\def\blah#1#2 ... #9{<macro body>}
+\end{verbatim}
+\end{quote}
+is intrinsically limited to just 9 arguments.  There's no direct way
+round this: how would you express a 10th argument?~--- and ensure that
+the syntax didn't gobble some other valid usage?
+
+If you really must have more than 9 arguments, the way to go is:
+\begin{quote}
+\begin{verbatim}
+\def\blah#1#2 ... #9{%
+  \def\ArgI{{#1}}%
+  \def\ArgII{{#2}}%
+  ...
+  \def\ArgIX{{#9}}%
+  \BlahRelay
+}
+\def\BlahRelay#1#2#3{%
+  % arguments 1-9 are now in
+  %   \ArgI-\ArgIX
+  % arguments 10-12 are in
+  %   #1-#3
+  <macro body>%
+}
+\end{verbatim}
+\end{quote}
+This technique is easily extendible by concert pianists of the \TeX{}
+keyboard, but is really hard to recommend.
+
+\LaTeX{} users have the small convenience of merely giving a number of
+arguments in the \csx{newcommand} that defines each part of the
+relaying mechanism: Knuth's restriction applies to \csx{newcommand}
+just as it does to \csx{def}.  However, \LaTeX{} users also have the
+way out of such barbarous command syntax: the \Package{keyval}
+package.  With \Package{keyval}, and a bit of programming, one can
+write really quite sophisticated commands, whose invocation might look
+like:
+\begin{quote}
+\begin{verbatim}
+\flowerinstance{species=Primula veris,
+  family=Primulaceae,
+  location=Coldham's Common,
+  locationtype=Common grazing land,
+  date=1995/04/24,
+  numplants=50,
+  soiltype=alkaline
+}
+\end{verbatim}
+\end{quote}
+The merit of such verbosity is that it is self-explanatory: the typist
+doesn't have to remember that argument twelve is |soiltype|, and so
+on: the commands may be copied from field notes quickly and
+accurately.
+\begin{ctanrefs}
+\item[keyval.sty]Distributed as part of \CTANref{graphics}[keyval]
+\end{ctanrefs}
+
+        * faq-mac-prog.tex (q-keyval): tweak words about getoptk
+
+\Question[Q-keyval]{Key-value input for macros and package options}
+
+When we discussed % !line break
+\Qref*{extending the number of arguments to a macro}{Q-moren9}, we
+suggested that large numbers of arguments, distinguished only by their
+position, aren't very kind to the user, and that a package such as
+\Package{keyval} offers a more attractive user interface.  We now
+consider the packages that the macro programmer might use, to create
+such a user interface.
+
+The simplest key-value processor (for \latex{}, at least) remains
+\Package{keyval}; it has a command \csx{define@key} to declare a key
+and a \emph{handler} to process it, and a macro \csx{setkeys} to offer
+values to the handler of one or more keys.  Thus:
+\begin{quote}
+\begin{verbatim}
+\define@key{my}{foo}{Foo is #1\par}
+\define@key{my}{bar}[99]{Bar is #1\par}
+...
+\setkeys{my}{foo=3,bar}
+\end{verbatim}
+\end{quote}
+will produce output saying:
+\begin{quote}
+  Foo is 3\par{}
+  Bar is 99
+\end{quote}
+This has defined two keys `\texttt{foo}' and `\texttt{bar}' in family
+`\texttt{my}', and then executed them, the first with argument
+`\texttt{3}' and the second with no argument, so that the default
+value of `\texttt{99}' is picked up.  In effect, the two calls to
+\csx{define@key} are simply defining commands, as (for example):
+\begin{quote}
+\begin{verbatim}
+\newcommand{\KV@my@foo}[1]{Foo is #1}
+\end{verbatim}
+\end{quote}
+(the definition of \csx{KV@my@bar} is similar, but trickier).  The
+command \csx{setkeys} knows how to find those commands when it needs to
+process each key~--- it is easy to regurgitate the structure of the
+command name, with family name (`\texttt{my}', here) after the first
+`\texttt{@}', and the key name after the second `\texttt{@}'.  (The
+`\texttt{KV}' part is fixed, in \Package{keyval}.)
+
+These simple commands are enough, in fact, to process the botanical
+example offered as replacement for multi-argument commands in % ! line break
+\Qref[question]{the question mentioned above}{Q-moren9}, or the
+optional arguments of the \csx{includegraphics} command of the
+\Package{graphicx} package.  (The last is, in fact, what
+\Package{keyval} was designed to do.)
+
+However, we need more if we're to to have package options in
+`key-value' form.  Packages like \Package{hyperref} have enormously
+complicated package options which need key-value processing at
+\csx{ProcessOptions} time: \Package{keyval} can't do that on its own.
+
+Heiko Oberdiek's \Package{kvoptions} package comes to our help: it
+enables the programmer to declare class or package options that
+operate as key and value pairs.  The package defines commands
+\csx{DeclareBoolOption} for options whose value should be either
+\emph{true} or \emph{false}, and \csx{DeclareStringOption} for all
+other options that have a value.  Keys are declared using
+\Package{keyval} and may remain available for use within the document,
+or may be `cancelled' to avoid confusion.  If you have loaded
+\Package{kvoptions}, the \LaTeX{} kernel's \csx{DeclareOption} becomes
+\csx{DeclareVoidOption} (it's an option with no value), and
+\csx{DeclareOption*} becomes \csx{DeclareDefaultOption}.
+
+Heiko also provides \Package{kvsetkeys} which is a more robust version
+of \Package{setkeys}, with some of the rough edges made smoother.
+
+Hendri Adriaens' \Package{xkeyval} offers more flexibility than
+the original \Package{keyval} and is more robust than the original,
+too.  Like \Package{kvoptions}, the package also has mechanisms to
+allow class and package options in key-value form (macros
+\csx{DeclareOptionX}, \csx{ExecuteOptionsX} and \csx{ProcessOptionsX}.
+\Package{Pstricks} bundle packages use a \Package{xkeyval} derivative
+called \Package{pst-xkey} for their own key-value manipulation.
+% xkvview? (i think we can ignore xkvltxp for these purposes)
+
+The (widely-respected) \Package{pgf} graphics package has its own
+key-value package called \Package{pgfkeys}.  The documentation of the
+package (part of the huge \Package{pgf} manual, in part 5,
+``utilities'') contains a useful comparison with other key-value
+systems; some notable differences are:
+\begin{itemize}
+\item key organisation: \Package{pgfkeys} uses a tree structure, while
+  \Package{keyval} and \Package{xkeyval} both associate keys with a family;
+\item \Package{pgfkeys} supports multi-argument key code; and
+\item \Package{pgfkeys} can support call-backs when an unknown key
+  appears (these things are called \emph{handlers}.
+\end{itemize}
+Keys are organized in a tree that is reminiscent of the Unix fille
+tree.  A typical key might be, \File{/tikz/coordinate system/x} or
+just \File{/x}.  When you specify keys you can provide the complete
+path of the key, but you usually just provide the name of the key
+(corresponding to the file name without any path) and the path is
+added automatically.  So a \csx{pgfkeys} command might be:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+\pgfkeys{/my key=hello,/your keys/main key=something\strange,
+  key name without path=something else}
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+\pgfkeys{/my key=hello,
+  /your keys/main key=something\strange,
+  key name without path=something else}
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+and for each key mentioned, the associated code will be executed.
+\dots{} and that code is also set up using \csx{pgfkeys}:
+\begin{quote}
+\begin{verbatim}
+\pgfkeys{/my key/.code=The value is '#1'.}
+\end{verbatim}
+\end{quote}
+after which
+\begin{quote}
+\begin{verbatim}
+\pgfkeys{/my key=hi!}
+\end{verbatim}
+\end{quote}
+will produce just
+\begin{quote}
+  The value is 'hi!'.
+\end{quote}
+The manual goes on, showing how to define a key with two arguments,
+how to provide default value for a key, and how to define aliases for
+particular key sequences (which are called ``styles'').  All in all,
+it seems a well thought-out system, offering a lot of flexibility that
+isn't available with the other keys packages.  However, there seems to
+be no mechanism for using \Package{pgfkeys} keys as part of the
+options of another package, in the way that \Package{kvoptions} does.
+
+The \Package{l3kernel} programming layer for \Qref*{\LaTeX{}3}{Q-LaTeX3}
+includes the \Package{l3keys} module.  Inspired by \Package{pgfkeys},
+it provides a keyval-based method for the programmer to create keys.
+As with keyval and derivatives, \Package{l3keys} uses separate macros
+for defining and setting keys.  The package \Package{l3keys2e} makes
+it possible for \latexe{} class and package
+options to be processed using \Package{l3keys}. \Package{L3kernel}
+code can be used within existing LaTeX2e documents, so
+\Package{l3keys} is also available to the \latexe{} programmer `direct'.
+
+Another key-value system that's part of larger set of macros is
+\Package{scrbase}, which uses the facilities of \Package{keyval} to
+build a larger set of facilities, originally for use within the
+\Class{KOMA-script} bundle.  For English-speaking authors, there are
+difficulties from the German-only documentation; however, from a
+partial translation available to the author of this answer, a summary
+is possible.  The package may build on the facilities either of
+\Package{kyeval} or of \Package{xkeyval}, and builds its functionality
+on the structure of the `key family'.  The user may define family
+`members' and keys are defined relative to the members.  (For example,
+the package \Package{scrbase} is part of the \Class{KOMA-script}
+bundle; so its keys are all members of the \Package{scrbase.sty}
+family within the \Package{KOMA} family.  The function
+\csx{FamilyProcessOptions} allows the programmer to decode the options
+of the package in terms of the package's key family.  Note that there
+is no special provision made for ``traditional'' package options, as
+in the \Package{kvoptions} package.
+
+This brief summary was guided by input from two sources: a draft article
+for \textsl{TUGboat} by Joseph Wright, and the partial translation of the
+documentation of package \Package{scrbase} prepared by Philipp
+Stephani.
+
+All the above are (at least) aimed at \latex{} programming; there is
+one package, \Package{getoptk}, aimed at the \plaintex{} programmer.
+\Package{Getoptk} uses syntax inspired by that offered by \tex{}
+primitives such as \csx{hrule} and \csx{hbox}, so we are offered
+syntax such as:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+\begindisplay file {chapter1} literal offset 20pt
+\end{verbatim}
+\end{quote}
+(taken from the package manual).
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+\begindisplay file {chapter1} %
+                literal offset 20pt
+\end{verbatim}
+\end{quote}
+(taken from the package manual, but wrapped to fit into narrow
+columns).
+\end{narrowversion}
+
+There are (we know) people who would swear that such syntax is
+wonderful (the present author wouldn't), but the package earns its
+place as the only stand-alone key-value macros that will work in \plaintex{}.
+\begin{ctanrefs}
+\item[getoptk.tex]\CTANref{getoptk}
+\item[keyval.sty]Distributed as part of \CTANref{graphics}[keyval]
+\item[kvoptions.sty]Distributed as part of \CTANref{oberdiek}[kvoptions]
+\item[kvsetkeys.sty]Distributed as part of \CTANref{oberdiek}[kvsetkeys]
+\item[l3keys.sty]Distributed as part of \CTANref{l3kernel}
+\item[l3keys2e.sty]Distributed as part of \CTANref{l3packages}
+\item[pgfkeys.sty]Distributed as part of \CTANref{pgf}
+\item[scrbase.sty]Distributed as part of \CTANref{koma-script}
+\item[xkeyval.sty]\CTANref{xkeyval}
+\end{ctanrefs}
+\LastEdit{2011-09-06}
+
+\Question[Q-activechars]{Defining characters as macros}
+
+Single characters can act as macros (defined commands), and both
+\plaintex{} and \LaTeX{} define the character
+``\texttt{\textasciitilde}'' as a ``non-breakable space''.  A
+character is made definable, or ``active'', by setting its
+\emph{category code} (catcode) to be \csx{active} (13):
+\begin{quote}
+\begin{verbatim}
+\catcode`\_=\active
+\end{verbatim}
+\end{quote}
+Any character could, in principle, be activated this way and defined
+as a macro:
+\begin{quote}
+\begin{verbatim}
+\def_{\_}
+\end{verbatim}
+\end{quote}
+which could be characterised as an over-simple answer to % ! line break
+\Qref[question]{using underscores}{Q-underscore}.  However, you must be
+wary: whereas people expect an active tilde, other active characters
+may be unexpected and interact badly with other macros.  Furthermore,
+by defining an active character, you preclude the character's use for
+other purposes, and there are few characters ``free'' to be subverted
+in this way.
+
+To define the character ``\texttt{z}'' as a command, one would say something
+like:
+\begin{quote}
+\begin{verbatim}
+\catcode`\z=\active
+\def z{Yawn, I'm tired}%
+\end{verbatim}
+\end{quote}
+and each subsequent ``\texttt{z}'' in the text would become a
+yawn. This would be an astoundingly bad idea for most documents, but
+might have special applications.  (Note that, in ``\csx{def}\texttt{
+  z}'', ``\texttt{z}'' is no longer interpreted as a letter; the space
+is therefore not necessary~--- ``\csx{defz}'' would do; we choose to
+retain the space, for what little clarity we can manage.)
+Some \LaTeX{} packages facilitate such definitions. For example, the
+\Package{shortvrb} package with its \csx{MakeShortVerb} command.
+
+\TeX{} uses category codes to interpret characters as they are read 
+from the input.
+% beware line break
+\emph{Changing a catcode value will not affect characters that have already been read}.
+Therefore, it is best if characters have fixed category codes for the
+duration of a document.  If catcodes are changed for particular
+purposes (the \csx{verb} command does this), then the altered
+characters will not be interpreted properly when they  appear in the
+argument to another command (as, for example, in
+% beware line-break
+\htmlonly{``}\Qref[question]{\csx{verb} in command arguments}{Q-verbwithin}\htmlonly{''}).
+An exemplary case is the \Package{doc} package, which processes .dtx
+files using the \Package{shortvrb} package to define
+\texttt{\textbar\dots{}\textbar} as a shorthand for
+\csx{verb}\texttt{\textbar\dots{}\textbar}. But \texttt{\textbar} is
+also used in the preambles of tabular environments, so that tables in
+\extension{dtx} files can only have vertical line separation between
+columns by employing special measures of some sort.
+
+Another consequence is that catcode assignments made
+in macros often don't work as expected % beware linebreak
+(\htmlonly{see ``}\Qref{Active characters in command arguments}{Q-actinarg}\htmlonly{''}).
+For example, the definition
+\begin{quote}
+\begin{verbatim}
+\def\mistake{%
+\catcode`_=\active
+\def_{\textunderscore\-}%
+}
+\end{verbatim}
+\end{quote}
+does not work because it attempts to define an ordinary \texttt{\_} character:
+When the macro is used, the category change does not apply to the 
+underscore character already in the macro definition.  Instead, one may
+use:
+\begin{quote}
+\begin{verbatim}
+\begingroup
+\catcode`_=\active
+\gdef\works{%    note the global \gdef
+  \catcode`_=\active
+  \def_{\textunderscore\-}%
+}
+\endgroup
+\end{verbatim}
+\end{quote}
+The alternative (``tricksy'') way of creating such an isolated
+definition depends on the curious properties of \csx{lowercase}, which
+changes characters without altering their catcodes.  Since there is
+always \emph{one} active character (``\texttt{\textasciitilde}''), we
+can fool \csx{lowercase} into patching up a definition without ever
+explicitly changing a catcode:
+\begin{quote}
+\begin{verbatim}
+\begingroup
+  \lccode`\~=`\_
+  \lowercase{\endgroup
+    \def~{\textunderscore\-}%
+  }%
+\end{verbatim}
+\end{quote}
+The two definitions have the same overall effect (the character is
+defined as a command, but the character does not remain active),
+except that the first defines a \csx{global} command.
+
+For active characters to be used only in maths mode, it is much better
+to leave the character having its ordinary catcode, but assign it a
+special active \emph{maths code}, as with
+\begin{quote}
+\begin{verbatim}
+\begingroup
+  \lccode`~=`x
+  \lowercase{\endgroup
+    \def~{\times}%
+  }%
+\mathcode`x="8000
+\end{verbatim}
+\end{quote}
+The special character does not need to be redefined whenever it is
+made active~--- the definition of the command persists even if the
+character's catcode reverts to its original value; the definition
+becomes accessible again if the character once again becomes active.
+\begin{ctanrefs}
+\item[doc.sty]Part of the \LaTeX{} distribution \CTANref{latex}[doc]
+\item[shortvrb.sty]Part of the \LaTeX{} distribution \CTANref{latex}[shortvrb]
+\end{ctanrefs}
+
+
+\Question[Q-actinarg]{Active characters in command arguments}
+
+Occasionally, it's nice to make one or two characters active in the
+argument of a command, to make it easier for authors to code the
+arguments.
+
+Active characters \emph{can} be used safely in such situations; but
+care is needed.
+
+An example arose while this answer was being considered: an aspirant
+macro writer posted to \Newsgroup{comp.text.tex} asking for help to
+make |#| and |b| produce musical sharp and flat signs, respectively,
+in a macro for specifying chords.
+
+The first problem is that both |#| and |b| have rather important uses
+elsewhere in \TeX{} (to say the least!), so that the characters can
+only be made active while the command is executing.
+
+Using the techniques discussed in % beware line break, next line
+\htmlonly{``}\Qref[question]{characters as commands}{Q-activechars}\htmlonly{''},
+we can define:
+\begin{quote}
+\begin{verbatim}
+\begingroup
+  \catcode`\#=\active
+  \gdef#{$\sharp$}
+\endgroup
+\end{verbatim}
+\end{quote}
+and:
+\begin{quote}
+\begin{verbatim}
+\begingroup
+  \lccode`\~=`\b
+  \lowercase{\endgroup
+    \def~{$\flat$}%
+  }
+\end{verbatim}
+\end{quote}
+The second problem is one of timing: the command has to make each
+character active \emph{before} its arguments are read: this means that
+the command can't actually ``have'' arguments itself, but must be
+split in two.  So we write:
+\begin{quote}
+\begin{verbatim}
+\def\chord{%
+  \begingroup
+    \catcode`\#=\active
+    \catcode`\b=\active
+    \Xchord
+}
+\def\Xchord#1{%
+    \chordfont#1%
+  \endgroup
+}
+\end{verbatim}
+\end{quote}
+and we can use the command as \cmdinvoke{chord}{F\#} or
+\cmdinvoke{chord}{Bb minor}.
+
+Two features of the coding are important:
+\begin{itemize}
+\item \csx{begingroup} in \csx{chord} opens a group that is closed by
+  \csx{endgroup} in \csx{Xchord}; this group limits the change of
+  category codes, which is the \emph{raison d'\^etre} of the whole
+  exercise.
+\item Although |#| is active while \csx{Xchord} is executed, it's
+  \emph{not} active when it's being defined, so that the use of |#1|
+  doesn't require any special attention.
+\end{itemize}
+
+Note that the technique used in such macros as \csx{chord}, here, is
+analogous to that used in such commands as \csx{verb}; and, in just the
+same way as \csx{verb} (see
+% beware breaking long line
+\htmlonly{``}\Qref[question]{\csx{verb} doesn't work in arguments}{Q-verbwithin}\htmlonly{''}),
+\csx{chord} won't work inside the argument of another command (the
+error messages, if they appear at all, will probably be rather odd).
+
+
+\Question[Q-csname]{Defining a macro from an argument}
+
+It's common to want a command to create another command: often one
+wants the new command's name to derive from an argument.  \LaTeX{}
+does this all the time: for example, \csx{newenvironment} creates
+start- and end-environment commands whose names are derived from the
+name of the environment command.
+
+The (seemingly) obvious approach:
+\begin{quote}
+\begin{verbatim}
+\def\relay#1#2{\def\#1{#2}}
+\end{verbatim}
+\end{quote}
+doesn't work (the \TeX{} engine interprets it
+as a rather strange redefinition of |\#|).  The trick is to use
+\csx{csname}, which is a \TeX{} primitive for generating command names
+from random text, together with \csx{expandafter}.  The definition
+above should read:
+\begin{quote}
+\begin{verbatim}
+\def\relay#1#2{%
+  \expandafter\def\csname #1\endcsname{#2}%
+}
+\end{verbatim}
+\end{quote}
+With this definition, \cmdinvoke{relay}{blah}{bleah} is equivalent to
+\csx{def}\cmdinvoke{blah}{bleah}.
+
+Note that the definition of \csx{relay} omits the braces round the
+`command name' in the \csx{newcommand} it executes.  This is
+because they're not necessary (in fact they seldom are), and in this
+circumstance they make the macro code slightly more tedious.
+
+The name created need not (of course) be \emph{just} the argument:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\def\newrace#1#2#3{\expandafter\def
+    \csname start#1\endcsname{%
+      #2%
+  }%
+  \expandafter\def
+    \csname finish#1\endcsname{%
+      #3%
+  }%
+}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\def\newrace#1#2#3{%
+  \expandafter\def\csname start#1\endcsname{%
+    #2%
+  }%
+  \expandafter\def\csname finish#1\endcsname{%
+    #3%
+  }%
+}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+With commands
+\begin{quote}
+\begin{verbatim}
+\def\start#1{\csname start#1\endcsname}
+\def\finish#1{\csname finish#1\endcsname}
+\end{verbatim}
+\end{quote}
+these `races' could behave a bit like \LaTeX{} environments.
+
+\Question[Q-cvtlatex]{Transcribing \LaTeX{} command definitions}
+
+At several places in this \acro{FAQ}, questions are answered in terms
+of how to program a \LaTeX{} macro.  Sometimes, these macros might
+also help users of \plaintex{} or other packages; this answer
+attempts to provide a rough-and-ready guide to transcribing such macro
+definitions for use in other packages.
+
+The reason \LaTeX{} has commands that replace \csx{def}, is that
+there's a general philosophy within \LaTeX{} that the user should be
+protected from himself: the user has different commands according to
+whether the command to be defined exists (\csx{renewcommand}) or not
+(\csx{newcommand}), and if its status proves not as the user expected,
+an error is reported.  A third definition command,
+\csx{providecommand}, only defines if the target is not already
+defined; \LaTeX{} has no direct equivalent of \csx{def}, which ignores
+the present state of the command.  The final command of this sort is
+\csx{DeclareRobustCommand}, which creates a command which is ``robust''
+(i.e., will not expand if subjected to \LaTeX{} ``protected
+expansion''); from the \plaintex{} user's point of view,
+\csx{DeclareRobustCommand} should be treated as a non-checking version
+of \csx{newcommand}.
+
+\LaTeX{} commands are, by default, defined \csx{long}; an optional \texttt{*}
+between the \csx{newcommand} and its (other) arguments specifies that
+the command is \emph{not} to be defined \csx{long}.  The \texttt{*} is
+detected by a command \csx{@ifstar} which uses \csx{futurelet} to switch
+between two branches, and gobbles the \texttt{*}: \LaTeX{} users are
+encouraged to think of the \texttt{*} as part of the command name.
+
+\LaTeX{}'s checks for unknown command are done by \csx{ifx} comparison
+of a \csx{csname} construction with \csx{relax}; since the command name
+argument is the desired control sequence name, this proves a little
+long-winded.  Since \texttt{\#1} is the requisite argument, we have:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\expandafter\ifx
+  \csname
+    \expandafter\@gobble\string#1%
+  \endcsname
+  \relax
+    ...
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\expandafter\ifx
+  \csname\expandafter\@gobble\string#1\endcsname
+  \relax
+    ...
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+(\csx{@gobble} simply throws away its argument).
+
+The arguments of a \LaTeX{} command are specified by two optional
+arguments to the defining command: a count of arguments (0--9: if the
+count is 0, the optional count argument may be omitted), and a default
+value for the first argument, if the defined command's first argument
+is to be optional.  So:
+\begin{quote}
+\begin{verbatim}
+\newcommand\foo{...}
+\newcommand\foo[0]{...}
+\newcommand\foo[1]{...#1...}
+\newcommand\foo[2][boo]{...#1...#2...}
+\end{verbatim}
+\end{quote}
+In the last case, \csx{foo} may be called as \cmdinvoke{foo}{goodbye},
+which is equivalent to \cmdinvoke{foo}[boo]{goodbye} (employing the
+default value given for the first argument), or as
+\cmdinvoke{foo}[hello]{goodbye} (with an explicit first argument).
+
+Coding of commands with optional arguments is exemplified by the
+coding of the last \csx{foo} above:
+\begin{quote}
+\begin{verbatim}
+\def\foo{\futurelet\next\@r@foo}
+\def\@r@foo{\ifx\next[%
+    \let\next\@x@foo
+  \else
+    \def\next{\@x@foo[boo]}%
+  \fi
+  \next
+}
+\def\@x@foo[#1]#2{...#1...#2...}
+\end{verbatim}
+\end{quote}
+
+\Question[Q-empty]{Detecting that something is empty}
+
+Suppose you need to know that the argument of your command is empty:
+that is, to distinguish between \cmdinvoke{cmd}{\relax} % \relax doesn't print
+and \cmdinvoke{cmd}{blah}.  This is pretty simple:
+\begin{quote}
+\begin{verbatim}
+\def\cmd#1{%
+  \def\tempa{}%
+  \def\tempb{#1}%
+  \ifx\tempa\tempb
+    <empty case>
+  \else
+    <non-empty case>
+  \fi
+}
+\end{verbatim}
+\end{quote}
+The case where you want to ignore an argument that consists of nothing
+but spaces, rather than something completely empty, is more tricky.
+It's solved in the code fragment \Package{ifmtarg}, which defines
+commands \csx{@ifmtarg} and \csx{@ifnotmtarg}, which examine their
+first argument, and select (in opposite directions) their second or
+third argument.  The package's code also appears in the \LaTeX{}
+\Class{memoir} class.
+
+\Package{Ifmtarg} makes challenging reading; there's also a discussion of the
+issue in number two of the ``around the bend'' articles by the late
+lamented Mike Downes.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Around the bend series]\CTANref{aro-bend}
+\item[ifmtarg.sty]\CTANref{ifmtarg}
+\item[memoir.cls]\CTANref{memoir}
+\end{ctanrefs}
+
+\Question[Q-whatengine]{Am I using \pdftex{}, \xetex{} or \luatex{}?}
+\AliasQuestion{Q-ifpdf}
+
+You often need to know what ``engine'' your macros are running on (the
+engine is the \tex{}-derivative or \tex{}-alike processor that
+typesets your document).  The reason that you need to know is that the
+set of functions available in each engine is different.  Thus, for
+\tex{} macros to run on any engine, they need to ``know'' what they
+can and cannot do, which depends on the engine in use.  Getting the
+right answer is surprisingly tricky (see below for an elaboration of
+one apparently simple test).
+
+There is now a comprehensive set of packages that answer the question
+for you.  They all create a \tex{} conditional command:
+\begin{itemize}
+\item \Package{ifpdf} creates a command \csx{ifpdf},
+\item \Package{ifxetex} creates a command \csx{ifxetex} and
+\item \Package{ifluatex} creates a command \csx{ifluatex}.
+\end{itemize}
+These \tex{} commands may be used within the \latex{} conditional
+framework, as (for example):
+\begin{quote}
+  \csx{ifthenelse}\texttt{\obracesymbol{}}\cmdinvoke{boolean}{pdf}\texttt{\cbracesymbol{}}\texttt{\obracesymbol{}}\meta{if pdf}\texttt{\cbracesymbol{}}\texttt{\obracesymbol{}}\meta{if not pdf}\texttt{\cbracesymbol{}}
+\end{quote}
+
+The \Package{ifxetex} package also provides a command
+\csx{RequireXeTeX} which creates an error if the code is not running
+under \xetex{}; while the other packages don't provide such a command,
+it's not really difficult to write one for yourself.
+
+% khalighi's iftex package, too -- \require's for all engines, but i'm
+% not entirely sure of the conditionals, so "for later" if at all
+
+Now for those who want to do the job for themselves: here's a
+discussion of doing the job for \pdftex{} and \csx{ifpdf}~--- the
+eager programmer can regenerate \csx{ifxetex} or \csx{ifluatex} in the
+same fashion.  It's not recommended\dots
+
+Suppose you need to test whether your output will be \acro{PDF} or
+\acro{DVI}.  The natural thing is to check whether you have access to
+some \PDFTeX{}-only primitive; a good one to try (not least because it
+was present in the very first releases of \PDFTeX{}) is
+\csx{pdfoutput}.  So you try
+\begin{quote}
+\begin{verbatim}
+\ifx\pdfoutput\undefined
+  ... % not running PDFTeX
+\else
+  ... % running PDFTeX
+\fi
+\end{verbatim}
+\end{quote}
+Except that neither branch of this conditional is rock-solid.  The
+first branch can be misleading, since the ``awkward'' user could have
+written:
+\begin{quote}
+\begin{verbatim}
+\let\pdfoutput\undefined
+\end{verbatim}
+\end{quote}
+so that your test will falsely choose the first alternative.  While
+this is a theoretical problem, it is unlikely to be a major one.
+
+More important is the user who loads a package that uses
+\LaTeX{}-style testing for the command name's existence (for example,
+the \LaTeX{} \Package{graphics} package, which is useful even to the
+\plaintex{} user).  Such a package may have gone ahead of you, so the
+test may need to be elaborated:
+\begin{quote}
+\begin{verbatim}
+\ifx\pdfoutput\undefined
+  ... % not running PDFTeX
+\else
+  \ifx\pdfoutput\relax
+    ... % not running PDFTeX
+  \else
+    ... % running PDFTeX
+  \fi
+\fi
+\end{verbatim}
+\end{quote}
+If you only want to know whether some \PDFTeX{} extension (such as
+marginal kerning) is present, you can stop at this point: you know as
+much as you need.
+
+However, if you need to know whether you're creating \acro{PDF}
+output, you also need to know about the value of \csx{pdfoutput}:
+\begin{quote}
+\begin{verbatim}
+\ifx\pdfoutput\undefined
+  ... % not running PDFTeX
+\else
+  \ifx\pdfoutput\relax
+    ... % not running PDFTeX
+  \else
+    % running PDFTeX, with...
+    \ifnum\pdfoutput>0
+      ... % PDF output
+    \else
+      ... % DVI output
+    \fi
+  \fi
+\fi
+\end{verbatim}
+\end{quote}
+\begin{ctanrefs}
+\item[ifpdf.sty]Distributed as part Heiko Oberdiek's bundle
+  \CTANref{oberdiek}[ifpdf]
+\item[ifluatex.sty]Distributed as part of Heiko Oberdiek's bundle
+  \CTANref{oberdiek}[ifluatex]
+\item[ifxetex.sty]\CTANref{ifxetex}
+\end{ctanrefs}
+\LastEdit{2012-02-13}
+
+\Question[Q-subverttoks]{Subverting a token register}
+
+A common requirement is to ``subvert'' a token register that other
+macros may use.  The requirement arises when you want to add something
+to a system token register (\csx{output} or \csx{every*}), but know
+that other macros use the token register, too.  (A common requirement
+is to work on \csx{everypar}, but \LaTeX{} changes \csx{everypar} at
+every touch and turn.)
+
+The following technique, due to David Kastrup, does what you need, and
+allows an independent package to play the exact same game:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\let\mypkg@@everypar\everypar
+\newtoks\mypkg@everypar
+\mypkg@everypar\expandafter{\the\everypar}
+\mypkg@@everypar{\mypkgs@ownstuff\the\mypkg@everypar}
+\def\mypkgs@ownstuff{%
+  <stuff to do at the start of the token register>%
+}
+\let\everypar\mypkg@everypar
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\let\mypkg@@everypar\everypar
+\newtoks\mypkg@everypar
+\mypkg@everypar\expandafter{\the\everypar}
+\mypkg@@everypar{\mypkgs@ownstuff
+                      \the\mypkg@everypar}
+\def\mypkgs@ownstuff{%
+  <stuff to do at the start of
+                      the token register>%
+}
+\let\everypar\mypkg@everypar
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+As you can see, the package (\Package{mypkg})
+\begin{itemize}
+\item creates an alias for the existing ``system'' \csx{everypar}
+  (which is frozen into any surrounding environment, which will carry
+  on using the original);
+\item creates a token register to subvert \csx{everypar} and
+  initialises it with the current contents of \csx{everypar};
+\item sets the ``old'' \csx{everypar} to execute its own extra code,
+  as well as the contents of its own token register;
+\item defines the macro for the extra code; and
+\item points the token \csx{everypar} at the new token register.
+\end{itemize}
+and away we go.
+
+The form \csx{mypkg@...} is (sort of) blessed for \LaTeX{} package
+internal names, which is why this example uses macros of that form.
+
+\Question[Q-isdef]{Is this command defined?}
+
+Macro sets from the earliest days of \TeX{} programming may be
+observed to test whether commands exist by using
+\begin{quote}
+\csx{ifx} \csx{}\texttt{\emph{command}} \csx{undefined} \meta{stuff} \dots{}
+\end{quote}
+(which of course actually tests that the command \emph{doesn't}
+exist).  \LaTeX{} programmers can make use of the internal command
+\begin{quote}
+  \cmdinvoke*{@ifundefined}{cmd name}{action1}{action2}
+\end{quote}
+which executes \texttt{action1} if the command is undefined, and
+\texttt{action2} if it is defined
+(\emph{cmd name} is the command name only, omitting the `|\|' character).
+
+The \csx{@ifundefined} command is based on the sequence
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\expandafter
+    \ifx\csname cmd name\endcsname\relax
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\expandafter \ifx \csname cmd name\endcsname \relax
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+which relies on the way \csx{csname} works: if the command doesn't
+exist, it simply creates it as an alias for \csx{relax}.
+
+So: what is wrong with these techniques?
+
+Using \csx{undefined} blithely assumes that the command is indeed not
+defined.  This isn't entirely safe; one could make the name more
+improbable, but that may simply make it more difficult to spot a
+problem when things go wrong.  \LaTeX{} programmers who use the
+technique will typically employ \csx{@undefined}, adding a single
+level of obscurity.
+
+The \csx{@ifundefined} mechanism has the unfortunate property of
+polluting the name space: each test that turns out undefined adds a
+name to the set \TeX{} is holding, and often all those ``\csx{relax}''
+names serve no purpose whatever.  Even so (sadly) there are places in
+the code of \LaTeX{} where the existence of the \csx{relax} is relied
+upon, after the test, so we can't get away from \csx{@ifundefined}
+altogether.
+
+David Kastrup offers the (rather tricky)
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+{\expandafter}\expandafter\ifx \csname cmd name\endcsname\relax ...
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+{\expandafter}\expandafter
+    \ifx \csname cmd name\endcsname \relax ...
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+which ``creates'' the \csx{relax}-command inside the group of the first
+\csx{expandafter}, therefore forgets it again once the test is done.
+The test is about as good as you can do with macros.
+
+The \Qref*{\eTeX{} system}{Q-etex} system comes to our help here: it
+defines two new primitives:
+\begin{itemize}
+\item \csx{ifdefined}, which tests whether a thing is defined (the
+  negative of comparing with \csx{undefined}, as it were), and
+\item \csx{ifcsname} \texttt{cmd name}\csx{endcsname}, which does the
+  negative of \csx{@ifundefined} without the \csx{relax}-command
+  side-effect.
+\end{itemize}
+So, in an \eTeX{}-based system, the following two conditional clauses do
+the same thing:
+\begin{quote}
+\begin{verbatim}
+\ifdefined\foo
+  \message{\string\foo\space is defined}%
+\else
+  \message{no command \string\foo}%
+\fi
+%
+\ifcsname foo\endcsname
+  \message{\string\foo\space is defined}%
+\else
+  \message{no command \string\foo}%
+\fi
+\end{verbatim}
+\end{quote}
+However, after using the \LaTeX{}
+\cmdinvoke{@ifundefined}{foo}\dots{}, the conditionals will detect the
+command as ``existing'' (since it has been \csx{let} to \csx{relax});
+so it is important not to mix mechanisms for detecting the state of a
+command.
+
+Since most distributions nowadays use \eTeX{} as their base executable
+for most packages, these two primitives may be expected appear widely
+in new macro packages.
+
+\subsection{\LaTeX{} macro tools and techniques}
+
+\Question[Q-plninltx*]{Using Plain or primitive commands in \LaTeX{}}
+
+It's well-known that \LaTeX{} commands tend to be more complex, and to
+run more slowly than, any \plaintex{} (or primitive) command that they
+replace.  There is therefore great temptation not to use \LaTeX{}
+commands when macro programming.  Nevertheless, the general rule is
+that you should use \LaTeX{} commands, if there are seeming
+equivalents.  The exception is when you are sure you know the
+differences between the two commands and you know that you need the
+\plaintex{} version.  So, for example, use \csx{mbox} in place of \csx{hbox}
+unless you know that the extras that \LaTeX{} provides in \csx{mbox}
+would cause trouble in your application.  Similarly, use
+\csx{newcommand} (or one of its relatives) unless you need one of the
+constructs that cannot be achieved without the use of \csx{def} (or friends).
+
+As a general rule, any \LaTeX{} text command will start a new
+paragraph if necessary; this isn't the case with \plaintex{}
+commands, a fact which has a potential to confuse.
+
+The commands \csx{smallskip}, \csx{medskip} and \csx{bigskip} exist both
+in \plaintex{} and \LaTeX{}, but behave slightly differently: in
+\plaintex{} they terminate the current paragraph, but in \LaTeX{} they 
+don't.  The command \csx{line} is part of picture mode in \LaTeX{},
+whereas it's defined as ``\csx{hbox}\texttt{ to }\csx{hsize}'' in
+\plaintex{}. (There's no equivalent for users of the \plaintex{} command in
+\LaTeX{}: an equivalent appears as the internal command \csx{@@line}).
+
+Maths setting shows a case where the \LaTeX{} version \emph{is}
+essentially equivalent to the \TeX{} primitive commands: the \LaTeX{}
+\csx{(}\texttt{\ ...\ }\csx{)} does essentially no different to the
+primitive \texttt{\$\ ...\ \$}; except for checking that you're not
+attempting to open a maths environment when you're already in one, or 
+attempting to close one when you're not.
+However, \csx{[}\texttt{\ ...\ }\csx{]} has a more significant
+difference from \texttt{\$\$\ ...\ \$\$}: the primitive version, used
+in \LaTeX{}, can miss the effect of the class option \pkgoption{fleqn}.
+
+Font handling is, of course, wildly different in \plaintex{} and
+\LaTeX{}.  \plaintex{}'s font loading command
+(\csx{font}\csx{foo=}\meta{fontname}) and its \LaTeX{} equivalent
+(\csx{newfont}) should be avoided wherever possible.  They are only
+safe in the most trivial contexts, and are potential sources of great
+confusion in many circumstances.   Further discussion of this issue
+may be found in ``\Qref*{What's wrong with \csx{newfont}?}{Q-newfont*}''.
+\LastEdit{2013-09-27}
+
+\Question[Q-atsigns]{\csx{@} and \texttt{@} in macro names}
+
+Macro names containing \texttt{@} are \emph{internal} to \LaTeX{}, and
+without special treatment just don't work in ordinary use.  A nice
+example of the problems caused is discussed in % ! beware line break
+\Qref*{\csx{@} in vertical mode}{Q-atvert}''.
+
+The problems users see are caused by copying bits of a class
+(\extension{cls} file) or 
+package (\extension{sty} file) into a document, or by including a class or
+package file into a \LaTeX{} document by some means other than
+\csx{documentclass} or \csx{usepackage}.  \LaTeX{} defines internal
+commands whose names contain the character \texttt{@} to
+avoid clashes between its internal names and names that we would
+normally use in our documents.  In order that these commands may work
+at all, \csx{documentclass} and \csx{usepackage} play around with the
+meaning of \texttt{@}.
+
+If you've included a file some other way (for example, using
+\csx{input}), you can probably solve the problem by using the correct
+command.
+
+If you're using a fragment of a package or class, you may well feel
+confused: books such as the first edition of the % ! line break
+\Qref*{The \LaTeX{} Companion}{Q-latex-books} 
+are full of fragments of packages as examples for you to employ.
+The second edition of the \emph{Companion} makes clearer how you
+should use these fragments, and in addition, the code of
+all the examples is now available on \acro{CTAN}.
+To see the technique in practice, look at the example below, from file
+\File{2-2-7.ltx} in the \emph{Companion} examples directory:
+\begin{quote}
+\begin{verbatim}
+\makeatletter
+\renewcommand\subsection{\@startsection
+  {subsection}{2}{0mm}%name, level, indent
+  {-\baselineskip}%             beforeskip
+  {0.5\baselineskip}%            afterskip
+  {\normalfont\normalsize\itshape}}% style
+\makeatother
+\end{verbatim}
+\end{quote}
+(That example appears on page 29 of \emph{The \LaTeX{} Companion},
+second edition.)
+
+The alternative is to treat all these fragments as a package proper,
+bundling them up into a \extension{sty} file and including them with
+\csx{usepackage}; this way you hide your \LaTeX{} internal code somewhere
+that \LaTeX{} internal code is expected, which often looks `tidier'.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Examples from the Companion]\CTANref{tlc2}
+\end{ctanrefs}
+\LastEdit{2011-06-01}
+
+\Question[Q-protect]{What's the reason for `protection'?}
+
+Sometimes \LaTeX{} saves data it will reread later. These data are
+often the argument of some command; they are the so-called moving
+arguments.  (`Moving' because data are moved around.)  Candidates
+are all arguments that may go into table of contents, list of figures,
+\emph{etc}.; namely, data that are written to an auxiliary file and
+read in later.  Other places are those data that might appear in head-
+or footlines.  Section headings and figure captions are the most
+prominent examples; there's a complete list in Lamport's book
+(see \Qref[question]{\TeX{}-related books}{Q-latex-books}).
+
+What's going on really, behind the scenes? The commands in moving
+arguments are normally expanded to their internal structure during the
+process of saving. Sometimes this expansion results in invalid \TeX{}
+code, which shows either during expansion or when the code is
+processed again. Protecting a command, using
+``\csx{protect}\csx{cmd}'' tells \LaTeX{} to save \csx{cmd} as
+\csx{cmd}, without expanding it at all.
+
+So, what is a `fragile command'?~--- it's a command that expands into
+illegal \TeX{} code during the save process.
+
+What is a `robust command'?~--- it's a command that expands into legal
+\TeX{} code during the save process.
+
+Lamport's book says in its description of every LaTeX command whether
+it is `robust' or `fragile'; it also says that every command with an
+optional argument is fragile.  The list isn't reliable, and neither
+is the assertion about optional arguments; the statements may have
+been true in early versions of \LaTeXe{} but are not any longer
+necessarily so:
+\begin{itemize}
+\item Some fragile commands, such as \csx{cite}, have been made robust
+  in later revisions of \LaTeX{}.
+\item Some commands, such as \csx{end} and \csx{nocite}, are fragile
+  even though they have no optional arguments.
+\item The ``user's way'' of creating a command with an optional
+  argument (using \csx{newcommand} or \csx{newcommand*}) now always
+  creates a robust command (though macros without optional arguments
+  may still be fragile if they do things that are themselves fragile).
+\item There is no reason that a package author should not also make
+  robust commands with optional arguments as part of the package.
+\item Some robust commands are redefined by certain packages to be
+  fragile (the \csx{cite} command commonly suffers this treatment).
+\end{itemize}
+Further, simply ``hiding'' a fragile command in another command, has
+no effect on fragility.  So, if \csx{fred} is fragile, and you write:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\jim}{\fred}
+\end{verbatim}
+\end{quote}
+then \csx{jim} is fragile too.  There is, however, the
+\csx{newcommand}-replacement \csx{DeclareRobustCommand}, which
+\emph{always} creates a robust command (whether or not it has optional
+arguments).  The syntax of \csx{DeclareRobustCommand} is substantially
+identical to that of \csx{newcommand}, and if you do the wrapping
+trick above as:
+\begin{quote}
+\begin{verbatim}
+\DeclareRobustCommand{\jim}{\fred}
+\end{verbatim}
+\end{quote}
+then \csx{jim} is robust.
+
+Finally, we have the \Package{makerobust} package, which  defines
+\csx{MakeRobustCommand} to convert a command to be robust.  With the
+package, the ``wrapping'' above can simply be replaced by:
+\begin{quote}
+\begin{verbatim}
+\MakeRobustCommand\fred
+\end{verbatim}
+\end{quote}
+Whereafter, \csx{fred} is robust.  Using the package may be reasonable
+if you have lots of fragile commands that you need to use in moving
+arguments.
+
+In short, the situation is confusing.  No-one believes this is
+satisfactory; the \LaTeX{} team have removed the need for
+protection of some things, but the techniques available in 
+current \LaTeX{} mean that this is an expensive exercise.  It remains
+a long-term aim of the team to remove all need for \csx{protect}ion.
+\begin{ctanrefs}
+\item[makerobust.sty]Distributed as part of Heiko Oberdiek's bundle
+  \CTANref{oberdiek}[makerobust]
+\end{ctanrefs}
+\LastEdit{2011-06-01}
+
+\Question[Q-edef]{\csx{edef} does not work with \csx{protect}}
+
+Robust \LaTeX{} commands are either ``naturally robust''~--- meaning that
+they never need \csx{protect}, or ``self-protected''~--- meaning that
+they have \csx{protect} built in to their definition in some
+way.  Self-protected commands, and fragile commands with
+\csx{protect}ion are only robust in a context where the \csx{protect}
+mechanism is properly handled.  The body of an \csx{edef} definition
+doesn't handle \csx{protect} properly, since \csx{edef} is a \TeX{}
+primitive rather than a \LaTeX{} command.
+
+This problem is resolved by a \LaTeX{} internal command
+\csx{protected@edef}, which does the job of \csx{edef} while keeping the
+\csx{protect} mechanism working.  There's a corresponding
+\csx{protected@xdef} which does the job of \csx{xdef}.
+
+Of course, these commands need to be tended carefully, since they're
+% beware line break on next line
+internal: see \Qref[question]{'@' in control sequence names}{Q-atsigns}.
+
+\Question[Q-ltxcmds]{The definitions of \LaTeX{} commands}
+
+There are several reasons to want to know the definitions of \LaTeX{}
+commands: from the simplest ``idle curiosity'', to the pressing need
+to patch something to make it ``work the way you want it''.  None of
+these are \emph{pure} motives, but knowledge and expertise seldom
+arrive through the purest of motives.
+
+Using a \tex{} executable of some sort, the simple answer is to try
+\csx{show}, in a run that is taking commands from the terminal:
+\begin{quote}
+\begin{verbatim}
+*\makeatletter
+*\show\protected@edef
+> \protected@edef=macro:
+->\let \@@protect \protect
+  \let \protect \@unexpandable@protect
+  \afterassignment \restore@protect \edef .
+\end{verbatim}
+\end{quote}
+(I've rearranged the output there, from the rather confused version
+\TeX{} itself produces.)
+
+So, what about \csx{@unexpandable@protect}?:
+\begin{quote}
+\begin{verbatim}
+*\show\@unexpandable@protect
+> \@unexpandable@protect=macro:
+->\noexpand \protect \noexpand .
+\end{verbatim}
+\end{quote}
+and we're starting to see how one part of the \csx{protect}ion
+mechanism works (one can probably fairly safely guess what
+\csx{restore@protect} does).
+
+Many kernel commands are declared robust:
+\begin{quote}
+\begin{verbatim}
+*\show\texttt
+> \texttt=macro:
+->\protect \texttt  .
+\end{verbatim}
+\end{quote}
+so that \csx{show} isn't much help.  Define a command \csx{pshow} as
+shown below, and simply execute the command to find its definition:
+\begin{quote}
+\begin{verbatim}
+*\def\pshow#1{{\let\protect\show #1}}
+*\pshow\texttt
+> \texttt =\long macro:
+#1->\ifmmode \nfss@text {\ttfamily #1}%
+    \else \hmode@bgroup \text@command {#1}%
+          \ttfamily \check@icl #1\check@icr
+    \expandafter \egroup \fi .
+\end{verbatim}
+\end{quote}
+Note that the command name that is protected is the `base' command,
+with a space appended.  This is cryptically visible, in a couple of
+places above.  (Again, the output has been sanitised.)
+% Similar provisions are made in the package \Package{show2e} but i
+% don't understand them yet...
+
+The command \ProgName{texdef} (or \ProgName{latexdef}~--- the same
+command with a different name) will do all that for you and return the
+results slightly more tidily than \latex{} itself manages.  For
+example:
+\begin{quote}
+\begin{verbatim}
+$ latexdef texttt
+\end{verbatim}
+\end{quote}
+gives:
+\begin{quote}
+\begin{verbatim}
+macro:->\protect \texttt  
+
+\texttt :
+#1->\ifmmode \nfss@text {\ttfamily #1}%
+    \else \hmode@bgroup \text@command {#1}%
+          \ttfamily \check@icl #1\check@icr
+    \expandafter \egroup \fi .
+\end{verbatim}
+\end{quote}
+(again, the output has been sanitised~--- but we see that
+\ProgName{latexdef} has useful `intelligence' in it, as it has spotted
+and dealt with the \csx{protect}.)
+
+With the \texttt{-s} switch, \ProgName{latexdef} will give you a
+source location:
+\begin{quote}
+\begin{verbatim}
+$ latexdef -s texttt
+% latex.ltx, line 3736:
+\DeclareTextFontCommand{\texttt}{\ttfamily}
+\end{verbatim}
+\end{quote}
+though one should note that it doesn't give you the detail of the
+actual coding, merely the definition's location.
+
+Environments also surrender their details to \ProgName{latexdef}:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+$ latexdef -E itemize
+
+\itemize:
+macro:->\ifnum \@itemdepth >\thr@@ \@toodeep 
+  \else \advance \@itemdepth \@ne
+    \edef \@itemitem {labelitem\romannumeral \the \@itemdepth}%
+    \expandafter \list \csname \@itemitem \endcsname
+      {\def \makelabel ##1{\hss \llap {##1}}}%
+  \fi 
+
+\enditemize:
+macro:->\global \advance \@listdepth \m@ne \endtrivlist 
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+$ latexdef -E itemize
+
+\itemize:
+macro:->\ifnum \@itemdepth >\thr@@ \@toodeep 
+  \else \advance \@itemdepth \@ne
+    \edef \@itemitem {labelitem\romannumeral
+                          \the \@itemdepth}%
+    \expandafter \list
+               \csname \@itemitem \endcsname
+    {\def \makelabel ##1{\hss \llap {##1}}}%
+  \fi 
+
+\enditemize:
+macro:->\global \advance \@listdepth \m@ne
+                                \endtrivlist 
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+(Yet again, this is a sanitised version of the macro definition
+output, which appears as a single very wide line for each definition.)
+
+If one has a malleable text editor, the same investigation may be
+conducted by examining the file \File{latex.ltx} (which is usually to
+be found, in a \acro{TDS} system, in directory \path{tex/latex/base}).
+
+In fact, \File{latex.ltx} is the product of a \ProgName{docstrip}
+process on a large number of \Qref*{\extension{dtx} files}{Q-dtx}, and
+you can refer to those instead.  The \LaTeX{} distribution includes a file
+\File{source2e.tex}, and most systems retain it, again in
+\path{tex/latex/base}.  \File{Source2e.tex} may be processed to
+provide a complete source listing of the \LaTeX{} kernel (in fact the
+process isn't entirely straightforward, but the file produces messages
+advising you what to do).  The result is a huge document, with a
+line-number index of control sequences the entire kernel and a
+separate index of changes recorded in each of the files since the
+\LaTeX{} team took over.
+
+The printed kernel is a nice thing to have, but it's unwieldy and sits
+on my shelves, seldom used.  One problem is that the comments are
+patchy: the different modules range from well and lucidly documented,
+through modules documented only through an automatic process that
+converted the documentation of the source of \LaTeXo{}, to modules
+that hardly had any useful documentation even in the \LaTeXo{} original.
+
+In fact, each kernel module \extension{dtx} file will process separately
+through \LaTeX{}, so you don't have to work with the whole of
+\File{source2e}.  You can easily determine which module defines the
+macro you're interested in: use your ``malleable text editor'' to find
+the definition in \File{latex.ltx}; then search backwards from that
+point for a line that starts % ! line break
+\texttt{\textpercent{}\textpercent{}\textpercent{}\ From File:}~--- that line
+tells you which \extension{dtx} file contains the definition you are interested
+in.  Doing this for \csx{protected@edef}, we find:
+\begin{quote}
+\begin{verbatim}
+%%% From File: ltdefns.dtx
+\end{verbatim}
+\end{quote}
+When we come to look at it, \File{ltdefns.dtx} proves to contain
+quite a dissertation on the methods of handling \csx{protect}ion; it
+also contains some automatically-converted \LaTeXo{} documentation.
+
+And of course, the kernel isn't all of \LaTeX{}: your command may be
+defined in one of \LaTeX{}'s class or package files.  For example, we
+find a definition of \csx{thebibliography} in \Class{article}, but
+there's no \File{article.dtx}.  Some such files are generated from
+parts of the kernel, some from other files in the distribution.  You
+find which by looking at the start of the file: in \File{article.cls},
+we find:
+\begin{quote}
+\begin{verbatim}
+%% This is file `article.cls',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% classes.dtx  (with options: `article')
+\end{verbatim}
+\end{quote}
+so we need to format \File{classes.dtx} to see the definition in
+context.
+
+All these .dtx files are on \acro{CTAN} as part of the main \LaTeX{}
+distribution.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\LaTeX{} distribution]\CTANref{latex}
+\item[texdef,\nothtml{\rmfamily aka} latexdef]\CTANref{texdef}
+\end{ctanrefs}
+\LastEdit{2013-09-27}
+
+\Question[Q-oarglikesect]{Optional arguments like \csx{section}}
+
+Optional arguments, in macros defined using \csx{newcommand}, don't
+quite work like the optional argument to \csx{section}.  The default
+value of \csx{section}'s optional argument is the value of the
+mandatory argument, but \csx{newcommand} requires that you `know' the
+value of the default beforehand.
+
+The requisite trick is to use a macro in the optional argument:
+\begin{quote}
+\begin{verbatim}
+\documentclass{article}
+\newcommand\thing[2][\DefaultOpt]{%
+  \def\DefaultOpt{#2}%
+  optional arg: #1,  mandatory arg: #2%
+}
+\begin{document}
+\thing{manda}% #1=#2
+
+\thing[opti]{manda}% #1="opti"
+\end{document}
+\end{verbatim}
+\end{quote}
+\LaTeX{} itself has a trickier (but less readily understandable)
+method, using a macro \csx{@dblarg}; inside \LaTeX{}, the example
+above would have been programmed:
+\begin{quote}
+\begin{verbatim}
+\newcommand\thing{\@dblarg\@thing}
+\newcommand\@thing[2][\@error]{%
+  optional arg: #1,  mandatory arg: #2%
+}
+\end{verbatim}
+\end{quote}
+In that code, \csx{@thing} is only ever called with an optional and a
+mandatory argument; if the default from the \csx{newcommand} is
+invoked, a bug in user code has bitten\dots{}
+
+\Question[Q-twooptarg]{More than one optional argument}
+
+If you've already read % ! line break
+``\Qref*[question]{breaking the 9-argument limit}{Q-moren9}''.
+you can probably guess the ``simple'' solution to this problem:
+command relaying.
+
+\LaTeX{} allows commands with a single optional argument thus:
+\begin{quote}
+\begin{verbatim}
+  \newcommand{\blah}[1][Default]{...}
+\end{verbatim}
+\end{quote}
+
+You may legally call such a command either with its optional argument
+present, as
+\cmdinvoke{blah}[nonDefault] or without, as \csx{blah}; in the latter
+case, the code of \csx{blah} will have an argument of |Default|.
+
+To define a command with two optional arguments, we use the relaying
+technique, as follows:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\blah}[1][Default1]{%
+  \def\ArgI{{#1}}%
+  \BlahRelay
+}
+\newcommand\BlahRelay[1][Default2]{%
+  % the first optional argument is now in
+  % \ArgI
+  % the second is in #1
+  ...%
+}
+\end{verbatim}
+\end{quote}
+Of course, \csx{BlahRelay} may have as many mandatory arguments as are
+allowed, after allowance for the one taken up with its own
+optional argument~--- that is, 8.
+
+Variants of \csx{newcommand} (and friends), with names like
+\csx{newcommandtwoopt}, are available in the \Package{twoopt} package.
+However, if you can, it's probably better to learn to write the commands
+yourself, just to see why they're not even a good idea from the
+programming point of view.
+
+A command with two optional arguments strains the limit of what's
+sensible: obviously you can extend the technique to provide as many
+optional arguments as your fevered imagination can summon.  However,
+see the comments on the use of the \Package{keyval} package, in 
+``\Qref*[question]{breaking the 9-argument limit}{Q-moren9}'',
+which offers an alternative way forward.
+
+If you must, however, consider the \Package{optparams} or
+\Package{xargs} packages.  \Package{Optparams}
+provides a \csx{optparams} command that you use as an intermediate in
+defining commands with up to nine optional arguments.  The
+documentation shows examples of commands with four optional arguments
+(and this from an author who has his own key-value package!).
+
+The \Package{xargs} package uses a key-value package
+(\Package{xkeyval}) to \emph{define} the layout of the optional
+arguments.  Thus
+\begin{quote}
+\begin{verbatim}
+\usepackage{xargs}
+...
+\newcommandx{\foo}[3][1=1, 3=n]{...}
+\end{verbatim}
+\end{quote}
+defines a command \csx{foo} that has an optional first argument
+(default 1), a mandatory second argument, and an optional third
+argument (default n).
+
+An alternative approach is offered by Scott Pakin's
+\ProgName{newcommand} program, which takes a command name and a
+definition of a set of command arguments (in a fairly
+readily-understood language), and emits \AllTeX{} macros which enable
+the command to be defined.  The command requires that a
+\ProgName{Python} interpreter (etc.\@) be installed on your computer.
+\begin{ctanrefs}
+\item[newcommand.py]\CTANref{newcommand}
+\item[optparams.sty]Distributed as part of \CTANref{sauerj}[optparams]
+\item[twoopt.sty]Distributed as part of \CTANref{oberdiek}[twoopt]
+\item[xargs.sty]\CTANref{xargs}
+\item[xkeyval.sty]\CTANref{xkeyval}
+\end{ctanrefs}
+
+\Question[Q-cmdstar]{Commands defined with * options}
+
+\LaTeX{} commands commonly have ``versions'' defined with an asterisk
+tagged onto their name: for example \csx{newcommand} and
+\csx{newcommand*} (the former defines a \csx{long} version of the
+command).
+
+The simple-minded way for a user to write such a command involves use
+of the \Package{ifthen} package:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+\newcommand{\mycommand}[1]{\ifthenelse{\equal{#1}{*}}%
+  {\mycommandStar}%
+  {\mycommandNoStar{#1}}%
+}
+\newcommand{\mycommandStar}{starred version}
+\newcommand{\mycommandNoStar}[1]{normal version}
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+\newcommand{\mycommand}[1]{%
+  \ifthenelse{\equal{#1}{*}}%
+    {\mycommandStar}%
+    {\mycommandNoStar{#1}}%
+}
+\newcommand{\mycommandStar}%
+                {starred version}
+\newcommand{\mycommandNoStar}[1]%
+                 {normal version}
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+This does the trick, for sufficiently simple commands, but it has
+various tiresome failure modes, and it requires \csx{mycommandnostar}
+to take an argument.
+
+The \LaTeX{} kernel does a lot of this, and has its own command,
+\csx{@ifstar} (which needs `internal command protection', cf.
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\makeatletter
+\newcommand{\mycommand}{%
+             \@ifstar
+                  \mycommandStar%
+                  \mycommandNoStar%
+\makeatother
+}
+\newcommand{\mycommandStar}{starred version}
+\newcommand{\mycommandNoStar}{normal version}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\makeatletter
+\newcommand{\mycommand}{\@ifstar
+                     \mycommandStar%
+                     \mycommandNoStar%
+}
+\makeatother
+\newcommand{\mycommandStar}{starred version}
+\newcommand{\mycommandNoStar}{normal version}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+(Note that arguments to \csx{mycommandStar} and \csx{mycommandNoStar}
+are independent~--- either can have their own arguments, unconstrained
+by the technique we're using, unlike the trick described above.)
+The \csx{@ifstar} trick is all very well, is fast and efficient, but
+it requires that the definition be % ! line break
+\Qref*{\csx{makeatletter} protected}{Q-atsigns}.
+
+A pleasing alternative is the \Package{suffix} package.  This elegant
+piece of code allows you to define variants of your commands:
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+\newcommand\mycommand{normal version}
+\WithSuffix\newcommand\mycommand*%
+                     {starred version}
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+\newcommand\mycommand{normal version}
+\WithSuffix\newcommand\mycommand*{starred version}
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+The package needs \Qref*{\elatex{}}{Q-etex}, but any new enough
+distribution defines \LaTeX{} as \elatex{} by default.  Command
+arguments may be specified in the normal way, in both command
+definitions (after the ``\texttt{*}'' in the \csx{WithSuffix}
+version).  You can also use the \TeX{} primitive commands, creating a
+definition like:
+\begin{quote}
+\begin{verbatim}
+\WithSuffix\gdef\mycommand*{starred version}
+\end{verbatim}
+\end{quote}
+
+For those of an adventurous disposition, a further option is to use
+the \Package{xparse} package from the \Package{l3packages}
+distribution.  The package defines a bunch of commands (such as
+\csx{NewDocumentCommand}) which are somewhat analagous to
+\csx{newcommand} and the like, in \latexe{}.  The big difference is
+the specification of command arguments; for each argument, you have a
+set of choices in the command specification.  So, to create a
+*-command (in \latexe{} style), one might write:
+\begin{quote}
+\begin{verbatim}
+\NewDocumentCommand \foo { s m } {%
+  % #1 is the star indicator
+  % #2 is a mandatory argument
+  ...
+}
+\end{verbatim}
+\end{quote}
+The ``star indicator'' (\texttt{s}) argument appears as \texttt{\#1}
+and will take values \csx{BooleanTrue} (if there was a star) or
+\csx{BooleanFalse} (otherwise); the other (\texttt{m}) argument  is a
+normal \tex{}-style mandatory argument, and appears as \texttt{\#2}.
+
+While \Package{xparse} provides pleasing command argument
+specifications, it \emph{is} part of the % ! line break
+\Qref*{\latex{}~3 experimental harness}{Q-LaTeX3}.
+Simply loading the package to provide \csx{DeclareDocumentCommand}
+``pulls in'' all of the \latex{}3 kernel (a large bunch of packages)
+via the \Package{expl3} package.
+\begin{ctanrefs}
+\item[ifthen.sty]Part of the \LaTeX{} distribution
+\item[suffix.sty]Distributed as part of \CTANref{bigfoot}[suffix]
+\item[xparse.sty]Distributed as part of \CTANref{l3packages}[xparse]
+\item[expl3.sty]Distributed as part of \CTANref{l3kernel}[expl3]
+\end{ctanrefs}
+\LastEdit{2014-04-04}
+
+\nothtml{\hrule height 0pt \nobreak\vskip0pt plus2.5in\vskip 0pt\relax}
+\Question[Q-ltxabbrv]{\LaTeX{} internal ``abbreviations'', etc.}
+
+In the deeps of time, when \TeX{} first happened, computers had
+extremely limited memory, and were (by today's standards) painfully
+slow.  When \LaTeX{} came along, things weren't much better, and even
+when \LaTeXe{} appeared, there was a strong imperative to save memory
+space (and to a lesser extent) \acro{CPU} time.
+
+From the very earliest days, Knuth used shortcut macros to speed
+things up.  \LaTeX{}, over the years, has extended Knuth's list by a
+substantial amount.  An interesting feature  of the ``abbreviations'' is
+that on paper, they may look longer than the thing they stand for;
+however, to \AllTeX{} they \emph{feel} smaller\dots{}
+
+The table at the end of this answer lists the commonest of these
+``abbreviations''.  It is not complete; as always, if the table
+doesn't help, try the \LaTeX{} source.  The table lists each
+abbreviation's \emph{name} and its \emph{value}, which provide most of
+what a user needs to know.  The table also lists the abbreviation's
+\emph{type}, which is a trickier concept: if you need to know, the
+only real confusion is that the abbreviations labelled `defn' are
+defined using an \csx{\emph{xxxx}def} command.
+
+\begin{tabular}{lll}
+Name \tbamp Type \tbamp Value \tbeol
+\tbhline
+\csx{m@ne} \tbamp count \tbamp \ensuremath{-1} \tbeol
+\csx{p@}  \tbamp dimen \tbamp 1pt \tbeol
+\csx{z@}  \tbamp dimen \tbamp 0pt \tbeol
+\csx{z@skip} \tbamp skip \tbamp 0pt plus 0pt minus 0pt \tbeol
+\tbhline
+\csx{@ne} \tbamp defn \tbamp 1 \tbeol
+\csx{tw@} \tbamp defn \tbamp 2\tbeol
+\csx{thr@@} \tbamp defn \tbamp 3 \tbeol
+\csx{sixt@@n} \tbamp defn \tbamp 16 \tbeol
+\csx{@cclv} \tbamp defn \tbamp 255 \tbeol
+\csx{@cclvi} \tbamp defn \tbamp 256 \tbeol
+\csx{@m} \tbamp defn \tbamp 1000 \tbeol
+\csx{@M} \tbamp defn \tbamp 10000 \tbeol
+\csx{@MM} \tbamp defn \tbamp 20000 \tbeol
+\tbhline
+\csx{@vpt} \tbamp macro \tbamp 5 \tbeol
+\csx{@vipt} \tbamp macro \tbamp 6 \tbeol
+\csx{@viipt} \tbamp macro \tbamp 7 \tbeol
+\csx{@viiipt} \tbamp macro \tbamp 8 \tbeol
+\csx{@ixpt} \tbamp macro \tbamp 9 \tbeol
+\csx{@xpt} \tbamp macro \tbamp 10 \tbeol
+\csx{@xipt} \tbamp macro \tbamp 10.95 \tbeol
+\csx{@xiipt} \tbamp macro \tbamp 12 \tbeol
+\csx{@xivpt} \tbamp macro \tbamp 14.4 \tbeol
+\csx{@xviipt} \tbamp macro \tbamp 17.28 \tbeol
+\csx{@xxpt} \tbamp macro \tbamp 20.74 \tbeol
+\csx{@xxvpt} \tbamp macro \tbamp 24.88 \tbeol
+\tbhline
+\csx{@plus} \tbamp macro \tbamp ``\texttt{plus}'' \tbeol
+\csx{@minus} \tbamp macro \tbamp ``\texttt{minus}'' \tbeol
+%\csx{hb@xt@} \tbamp macro \tbamp ``\csx{hbox} \texttt{to}''
+\end{tabular}
+
+\Question[Q-ltxhash]{Defining \LaTeX{} commands within other commands}
+
+\LaTeX{} command definition is significantly different from the \TeX{}
+primitive form discussed in an % ! line break
+\Qref*[\htmlonly]{earlier question}{Q-hash} about definitions within
+macros.
+
+In most ways, the \LaTeX{} situation is simpler (at least in part
+because it imposes more restrictions on the user); however, defining a
+command within a command still requires some care.
+
+The earlier question said you have to double the |#| signs in command
+definitions: in fact, the same rule holds, except that \LaTeX{}
+already takes care of some of the issues, by generating argument lists
+for you.
+
+The basic problem is that:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\abc}[1]{joy, oh #1!%
+  \newcommand{\ghi}[1]{gloom, oh #1!}%
+}
+\end{verbatim}
+\end{quote}
+followed by a call:
+\begin{quote}
+\begin{verbatim}
+\cmdinvoke{abc}{joy}
+\end{verbatim}
+\end{quote}
+typesets ``joy, oh joy!'', but defines a command \csx{ghi} that takes
+one parameter, which it ignores; \cmdinvoke{ghi}{gloom} will expand to
+``gloom, oh joy!'', which is presumably not what was expected.
+
+And (as you will probably guess, if you've read the earlier question)
+the definition:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\abc}[1]{joy, oh #1!%
+  \newcommand{\ghi}[1]{gloom, oh ##1!}%
+}
+\end{verbatim}
+\end{quote}
+does what is required, and \cmdinvoke{ghi}{gloom} will expand to
+``gloom, oh gloom!'', whatever the argument to \csx{abc}.
+
+The doubling is needed whether or not the enclosing command has an
+argument, so:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\abc}{joy, oh joy!%
+  \newcommand{\ghi}[1]{gloom, oh ##1!}%
+}
+\end{verbatim}
+\end{quote}
+is needed to produce a replica of the \csx{ghi} we defined earlier.
+
+\Question[Q-printvar]{How to print contents of variables?}
+\keywords{typeout, print variables, showthe}
+
+It is often useful to print out the values of variables in the log
+file or on the terminal.  Three possible ways to print out the
+contents of \csx{textheight} variable are:
+\begin{enumerate}
+\item \csx{showthe}\csx{textheight}
+\item \cmdinvoke{message}{The text height is \csx{the}\csx{textheight}}
+\item \cmdinvoke{typeout}{The text height is \csx{the}\csx{textheight}}
+\end{enumerate}
+These techniques use the \TeX{} primitives \csx{the} (which provides
+the value of a variable), \csx{showthe} (print a variable to the
+terminal and the log, on a line of its own), and \csx{message}, which
+interpolates something into the log.  The command \csx{typeout} is
+\LaTeX{}'s general message output mechanism.
+
+In each case, the variable's value is printed as a number of points.
+
+To typeset the value of \csx{textheight}, just
+\csx{the}\csx{textheight} is enough, but a more flexible alternative is
+to use the \Package{printlen} package.  \Package{Printlen} allows you
+to choose the units in which you print a variable; this is useful,
+given that the most ordinary people don't think in points
+(particularly Knuth's points, of which there are 72.27 to the inch).
+
+So, using \Package{printlen}, we could say:
+\begin{quote}
+\begin{verbatim}
+\newlength{\foo}
+\setlength{\foo}{12pt}
+\verb|\foo| is \printlength{\foo}
+\end{verbatim}
+\end{quote}
+and get:
+\begin{quote}
+\csx{foo} is 12pt
+\end{quote}
+while, if we say:
+\begin{quote}
+\begin{verbatim}
+\newlength{\foo}
+\setlength{\foo}{12pt}
+\uselengthunit{mm}
+\verb|foo| is \printlength{\foo}
+\end{verbatim}
+\end{quote}
+we get:
+\begin{quote}
+\csx{foo} is 4.21747mm
+\end{quote}
+\begin{ctanrefs}
+\item[printlen.sty]\CTANref{printlen}
+\end{ctanrefs}
+\LastEdit{2012-03-16}
+
+\Question[Q-labelcount]{Using labels as counter values}
+
+Labels are tempting sources of `numbers'~--- their most common use,
+after all, is simply to typeset a number.  However, their seeming
+simplicity is deceptive; the packages \Package{babel} and
+\Package{hyperref}, at least, fiddle with the definition of
+\csx{ref} and \csx{pageref} in ways that make
+\begin{quote}
+\begin{verbatim}
+\setcounter{foo}{\ref{bar}}
+\end{verbatim}
+\end{quote}
+(etc.\@) not work; thus the technique may not be relied upon.
+
+The solution is to use the \Package{refcount} package (incidentally,
+by the author of \Package{hyperref}).  The package provides four
+commands, all similar to:
+\begin{quote}
+\begin{verbatim}
+\usepackage{refcount}
+...
+\label{bar}
+...
+\setcounterref{foo}{bar}
+\end{verbatim}
+\end{quote}
+(the other three are \csx{addtocounterref}, \csx{setcounterpageref}
+and \csx{addtocounterpageref}).
+
+The package also provides a command
+\cmdinvoke*{getrefnumber}{label-name} that may be used where a
+`number' value is needed.  For example:
+\begin{quote}
+\begin{verbatim}
+... \footnote{foo bar ...\label{foofoot}}
+...
+\footnotemark[\getrefnumber{foofoot}]
+\end{verbatim}
+\end{quote}
+which gives you a second footnote mark reference the the footnote.
+(There is also a command \csx{getpagerefnumber}, of course).
+
+The commands could be used by one determined not to use
+\Package{changepage} to determine whether % ! line break
+\Qref*{the current page is odd}{Q-oddpage}, but it's probably no more
+trouble to use the fully-developed tool in this case.
+\begin{ctanrefs}
+\item[refount.sty]Distributed as part of \CTANref{oberdiek}
+\end{ctanrefs}
+\LastEdit*{2011-09-08}
+
+\subsection{\LaTeX{} macro programming}
+
+\Question[Q-fixnam]{How to change \LaTeX{}'s ``fixed names''}
+
+\LaTeX{} document classes define several typographic operations that
+need `canned text' (text not supplied by the user).  In the earliest
+days of \LaTeXo{} these bits of text were built in to the body of
+\LaTeX{}'s macros and were rather difficult to change, but ``fixed
+name'' macros were introduced for the benefit of those wishing to use
+\LaTeX{} in languages other than English.
+For example, the special section produced by the \csx{tableofcontents}
+command is always called \csx{contentsname} (or rather, what
+\csx{contentsname} is defined to mean).
+Changing the canned text is now one of the easiest customisations a
+user can do to \LaTeX{}.
+
+The canned text macros are all of the form
+\csx{\meta{thing}name}, and changing them is simplicity
+itself.  Put:
+\begin{quote}
+\cmdinvoke{renewcommand}{\csx{\meta{thing}name}}{Res minor}
+\end{quote}
+in the preamble of your document, and the job is done.
+(However, beware of the \Package{babel} package, which requires you to
+use a different mechanism: be sure to check
+% beware line wrap
+\Qref[question]{changing \Package{babel} names}{Q-latexwords} if
+you're using it.)
+
+The names that are defined in the standard \LaTeX{} classes (and the
+\Package{makeidx} package) are listed
+below.  Some of the names are only defined in a subset of the classes
+(and the \Class{letter} class has a set of names all of its own);
+the list shows the specialisation of each name, where appropriate.
+
+\nothtml{\noindent}\begin{tabular}{@{}ll}
+\csx{abstractname} \tbamp Abstract\tbeol
+\csx{alsoname} \tbamp see also (\Package{makeidx} package)\tbeol
+\csx{appendixname} \tbamp Appendix\tbeol
+\csx{bibname} \tbamp Bibliography (\Class{report},\Class{book})\tbeol
+\csx{ccname} \tbamp cc (\Class{letter})\tbeol
+\csx{chaptername} \tbamp Chapter (\Class{report},\Class{book})\tbeol
+\csx{contentsname} \tbamp Contents\tbeol
+\csx{enclname} \tbamp encl (\Class{letter})\tbeol
+\csx{figurename} \tbamp Figure (for captions)\tbeol
+\csx{headtoname} \tbamp To (\Class{letter})\tbeol
+\csx{indexname} \tbamp Index\tbeol
+\csx{listfigurename} \tbamp List of Figures\tbeol
+\csx{listtablename} \tbamp List of Tables\tbeol
+\csx{pagename} \tbamp Page (\Class{letter})\tbeol
+\csx{partname} \tbamp Part\tbeol
+\csx{refname} \tbamp References (\Class{article})\tbeol
+\csx{seename} \tbamp see (\Package{makeidx} package)\tbeol
+\csx{tablename} \tbamp Table (for caption)
+\end{tabular}
+
+\Question[Q-latexwords]{Changing the words \Package{babel} uses}
+
+\LaTeX{} uses symbolic names for many of the automatically-generated
+text it produces (special-purpose section headings, captions, etc.).
+As noted in \Qref[question]{``\LaTeX{} fixed names''}{Q-fixnam} (which
+includes a list of the names themselves),
+this enables the user to change the
+names used by the standard classes, which is particularly useful if
+the document is being prepared in some language other than \LaTeX{}'s
+default English.  So, for example, a Danish author may wish that her
+table of contents was called ``Indholdsfortegnelse'', and so 
+would expect to place a command
+\begin{verbatim}
+\renewcommand{\contentsname}%
+    {Indholdsfortegnelse}
+\end{verbatim}
+in the preamble of her document.
+
+However, it's natural for a user of a non-English language to use
+\Package{babel}, because it offers many conveniences and typesetting
+niceties for those preparing documents in those languages.  In
+particular, when \Package{babel} is selecting a new language, it
+ensures that \LaTeX{}'s symbolic names are translated appropriately
+for the language in question.  Unfortunately, \Package{babel}'s choice
+of names isn't always to everyone's choice, and there is still a need
+for a mechanism to replace the `standard' names.
+
+Whenever a new language is selected, \Package{babel} resets all the
+names to the settings for that language.  In particular,
+\Package{babel} selects the document's main language when
+\cmdinvoke{begin}{document} is executed, which immediately destroys
+any changes to these symbolic names made in the prologue of a document
+that uses \Package{babel}. 
+
+Therefore, babel defines a command to enable users to change the
+definitions of the symbolic names, on a per-language basis:
+\csx{addto}\csx{captions}\texttt{\meta{language}} is the thing
+(\texttt{\meta{language}} being the language option you gave to
+\Package{babel} in the first place).  For example:
+\begin{verbatim}
+\addto\captionsdanish{%
+  \renewcommand{\contentsname}%
+    {Indholdsfortegnelse}%
+}
+\end{verbatim}
+
+\Question[Q-running-nos]{Running equation, figure and table numbering}
+
+Many \LaTeX{} classes (including the standard \Class{book} class)
+number things per chapter; so figures in chapter 1 are numbered 1.1,
+1.2, and so on.  Sometimes this is not appropriate for the user's
+needs.
+
+Short of rewriting the whole class, one may use the \Package{chngcntr}
+package, which provides commands \csx{counterwithin} (which
+establishes this nested numbering relationship) and
+\csx{counterwithout} (which undoes it).
+
+So if you have figures numbered by chapter as 1.1, 1.2, 2.1, \dots{},
+the command 
+\begin{quote}
+\begin{verbatim}
+\counterwithout{figure}{chapter}
+\end{verbatim}
+\end{quote}
+will convert them to figures 1, 2, 3, \dots{}.  (Note that the command
+has also removed the chapter number from the counter's definition.)
+
+More elaborate use could change things numbered per section to things
+numbered per chapter:
+\begin{quote}
+\begin{verbatim}
+\counterwithout{equation}{section}
+\counterwithin{equation}{chapter}
+\end{verbatim}
+\end{quote}
+(assuming there was a class that did such a thing in the first place...)
+
+The \Package{chngcntr} approach doesn't involve much programming, and
+the enthusiastic \LaTeX{} programmer might choose to try the technique
+that we had to use before the advent of \Package{chngcntr}.  Each of
+the packages \Package{removefr} and \Package{remreset} defines a
+\csx{@removefromreset} command, and having included the package one
+writes something like:
+\begin{quote}
+\begin{verbatim}
+\makeatletter
+\@removefromreset{figure}{chapter}
+\makeatother
+\end{verbatim}
+\end{quote}
+and the automatic renumbering stops.  You may then need to redefine the
+way in which the figure number (in this case) is printed:
+\begin{quote}
+\begin{verbatim}
+\makeatletter
+\renewcommand{\thefigure}{\@arabic\c@figure}
+\makeatother
+\end{verbatim}
+\end{quote}
+(remember to do the whole job, for every counter you want to
+manipulate, within \csx{makeatletter} \dots{}\@ \csx{makeatother}).
+
+This technique, too, may be used to change where in a multilevel
+structure a counter is reset.  Suppose your class numbers figures as
+\meta{chapter}.\meta{section}.\meta{figure}, and you want figures
+numbered per chapter, try:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\makeatletter
+\@removefromreset{figure}{section}
+\@addtoreset{figure}{chapter}
+\renewcommand{\thefigure}{\thechapter.\@arabic\c@figure}
+\makeatother
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\makeatletter
+\@removefromreset{figure}{section}
+\@addtoreset{figure}{chapter}
+\renewcommand{\thefigure}%
+             {\thechapter.\@arabic\c@figure}
+\makeatother
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+(the command \csx{@addtoreset} is a part of \LaTeX{} itself).
+\begin{ctanrefs}
+\item[chngcntr.sty]\CTANref{chngcntr}
+\item[memoir.cls]\CTANref{memoir}
+\item[removefr.tex]\CTANref{removefr} (note, this is constructed as a
+  ``fragment'' for use within other packages: load by
+  \cmdinvoke{input}{removefr})
+\item[remreset.sty]Distributed as part of \CTANref{carlisle}[remreset]
+\end{ctanrefs}
+
+\Question[Q-labelctr]{Making labels from a counter}
+
+Suppose we have a \LaTeX{} counter, which we've defined with
+\cmdinvoke{newcounter}{foo}.  We can increment the value of the counter
+by \cmdinvoke{addtocounter}{foo}{1}, but that's pretty clunky for an
+operation that happens so often \dots{}~so there's a command
+\cmdinvoke{stepcounter}{foo} that does this special case of
+increasing-by-one.
+
+There's an internal \LaTeX{} variable, the ``current label'', that
+remembers the last `labellable' thing that \LaTeX{} has processed.
+You could (if you were to insist) set that value by the relevant
+\TeX{} command (having taken the necessary precautions to ensure that
+the internal command worked)~--- but it's not necessary.  If, instead
+of either of the stepping methods above, you say
+\cmdinvoke{refstepcounter}{foo}, the internal variable is set to the
+new value, and (until something else comes along), \csx{label} will
+refer to the counter.
+
+\Question[Q-oddpage]{Finding if you're on an odd or an even page}
+
+\Qref[Question]{Another question}{Q-marginparside} discusses the issue
+of getting \csx{marginpar} commands to put their output in the correct
+margin of two-sided documents.  This is an example of the general
+problem of knowing where a particular bit of text lies: the output
+routine is asynchronous, and \AllTeX{} will usually process quite a
+bit of the ``next'' page before deciding to output any page.  As a
+result, the |page| counter (known internally in \LaTeX{} as
+\csx{c@page}) is normally only reliable when you're actually \emph{in}
+the output routine.
+
+The solution is to use some version of the \csx{label} mechanism to
+determine which side of the page you're on; the value of the page
+counter that appears in a \csx{pageref} command has been inserted in
+the course of the output routine, and is therefore safe.
+
+However, \csx{pageref} itself isn't reliable: one might hope that
+\begin{quote}
+\begin{verbatim}
+\ifthenelse{\isodd{\pageref{foo}}}{odd}{even}
+\end{verbatim}
+\end{quote}
+would do the necessary, but both the \Package{babel} and
+\Package{hyperref} packages have been known to interfere with the
+output of \csx{pageref}; be careful!
+
+The \Package{changepage} package needs to provide this functionality
+for its own use, and therefore provides a command \csx{checkoddpage};
+this sets a private-use `label', and the page reference part of that
+label is then examined (in a \Package{hyperref}-safe way) to set a
+conditional \csx{ifoddpage} true if the command was issued on an odd
+page.  (The \Class{memoir} class has the same command.)  \latex{}
+users who are unfamiliar with \tex{}'s \csx{if...} commands may use
+the \Package{ifthen} package:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+\usepackage{ifthen,changepage}
+...
+\checkoddpage
+\ifthenelse{\boolean{oddpage}}{<odd page stuff>}{<even page stuff>}
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+\usepackage{ifthen,changepage}
+...
+\checkoddpage
+\ifthenelse{\boolean{oddpage}}%
+    {<odd page stuff>}%
+    {<even page stuff>}
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+
+Of course, the `label' contributes to \LaTeX{}'s ``Rerun to get
+cross-references right'' error messages\dots{}
+
+The Koma-Script classes have an \environment{addmargin*} environment
+that also provides the sorts of facilities that the \Package{changepage}
+offers.  Koma-Script's supporting command:
+\begin{quote}
+\cmdinvoke{ifthispageodd}{<true>}{<false>}
+\end{quote}
+executes different things depending on the page number.
+
+The package \Package{ifoddpage} is designed to provide the same
+facility; crucially, it can behave ``sensibly'' even if you are
+typesetting for one-side printing only; like the \Package{changepage}
+it uses a `check' command \csx{checkoddpage}.  The conditional `side'
+flags are set using (Plain) \TeX{} conditionals; they are defined
+locally, so that you can minimise their use of \tex{} workspace~---
+see the package documentation for the somewhat tricky sequence
+involved.  In addition the package provides a command
+\csx{ifoddpageoroneside}, which is true on odd pages of a two-side
+document, or on all pages of a one-side document.  Usage is:
+\begin{quote}
+\begin{verbatim}
+\checkoddpage
+\ifoddpage
+  odd-side text
+\else
+  even-side text
+\fi
+\end{verbatim}
+\end{quote}
+The author's recommended usage (trickily) includes the whole operation
+in a box; this has the advantage that your test will always work, but
+the usual disadvantage that boxes may not split.  In common uses, the
+whole work will be done inside a box (as, for example, in the case of
+a float), so the elaborate work proposed by the author is not
+necessary.
+\begin{ctanrefs}
+\item[changepage.sty]\CTANref{changepage}
+\item[ifoddpage.sty]\CTANref{ifoddpage}
+\item[ifthen.sty]Part of the \latex{} distribution: \CTANref{latex}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\item[memoir.cls]\CTANref{memoir}
+\end{ctanrefs}
+
+\Question[Q-labelformat]{How to change the format of labels}
+
+By default, when a label is created, it takes on the appearance of the
+counter labelled, so the label appears as
+\csx{the}\texttt{\meta{counter}}~--- what would be used if you
+asked to typeset the counter in your text.  This isn't always what you
+need: for example, if you have nested enumerated lists with the outer
+numbered and the inner labelled with letters, one might expect to want
+to refer to items in the inner list as ``2(c)''.   (Remember, you can
+\nothtml{change the structure of list items~--- }%
+\Qref{change the structure of list items}{Q-enumerate}.)
+The change is of course
+possible by explicit labelling of the parent and using that label to
+construct the typeset result~--- something like
+\begin{quote}
+\begin{verbatim}
+\ref{parent-item}(\ref{child-item})
+\end{verbatim}
+\end{quote}
+which would be both tedious and error-prone.  What's more, it would be
+undesirable, since you would be constructing a visual representation
+which is inflexible (you couldn't change all the references to elements
+of a list at one fell swoop).
+
+\LaTeX{} in fact has a label-formatting command built into every label
+definition; by default it's null, but it's available for the user to
+program.  For any label \meta{counter} there's a \LaTeX{} internal
+command \csx{p@}\meta{\texttt{counter}}; for example, a label definition
+on an inner list item is supposedly done using the command
+\cmdinvoke{p@enumii}{\csx{theenumii}}.  Unfortunately, the internal
+workings of this aren't quite right, and you need to patch the
+\csx{refstepcounter} command:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\renewcommand*\refstepcounter[1]{%
+  \stepcounter{#1}%
+  \protected@edef\@currentlabel{%
+    \csname p@#1\expandafter\endcsname
+      \csname the#1\endcsname
+  }%
+}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\renewcommand*\refstepcounter[1]{\stepcounter{#1}%
+  \protected@edef\@currentlabel{%
+    \csname p@#1\expandafter\endcsname
+      \csname the#1\endcsname
+  }%
+}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+With the patch in place you can now, for example, change the labels on
+all inner lists by adding the following code in your preamble:
+\begin{quote}
+\begin{verbatim}
+\makeatletter
+\renewcommand{\p@enumii}[1]{\theenumi(#1)}
+\makeatother
+\end{verbatim}
+\end{quote}
+This would make the labels for second-level enumerated lists appear as
+``1(a)'' (and so on).  The analogous change works for any counter that
+gets used in a \csx{label} command.
+
+In fact, the \Package{fncylab} package does all the above (including
+the patch to \LaTeX{} itself).  With the package, the code above is
+(actually quite efficiently) rendered by the command:
+\begin{quote}
+\begin{verbatim}
+\labelformat{enumii}{\theenumi(#1)}
+\end{verbatim}
+\end{quote}
+In fact, the above example, which we can do in several different ways,
+has been rendered obsolete by the appearance of the \Package{enumitem}
+package, which is discussed in the answer about % ! line break
+\Qref*{decorating enumeration lists}{Q-enumerate}.
+\begin{ctanrefs}
+\item[enumitem.sty]\CTANref{enumitem}
+\item[fncylab.sty]\CTANref{fncylab}
+\end{ctanrefs}
+
+\Question[Q-seccntfmt]{Adjusting the presentation of section numbers}
+
+The general issues of adjusting the appearance of section headings are
+pretty complex, and are covered in % beware line breaks (2 lines)
+\latexhtml{question}{the question on}
+\Qref[\htmlonly]{the style of section headings}{Q-secthead}.
+
+However, people regularly want merely to change the way the section
+number appears in the heading, and some such people don't mind writing
+out a few macros.  This answer is for \emph{them}.
+
+The section number is typeset using the
+\begin{dviversion}
+  \LaTeX{} internal
+\end{dviversion}
+\begin{hyperversion}
+  \Qref{\LaTeX{} internal}{Q-atsigns}
+\end{hyperversion}
+\csx{@seccntformat} command, which is given the ``name'' (section,
+subsection, \dots{}) of the heading, as argument.  Ordinarily,
+\csx{@seccntformat} 
+merely outputs the section number, and then a \csx{quad} of space:
+\begin{quote}
+\begin{verbatim}
+\renewcommand*{\@seccntformat}[1]{%
+  \csname the#1\endcsname\quad
+}
+\end{verbatim}
+\end{quote}
+Suppose you want to put a stop after every section (subsection,
+subsubsection, \dots{}) number, a trivial change may be implemented by
+simple modification of the command:
+\begin{quote}
+\begin{verbatim}
+\renewcommand*{\@seccntformat}[1]{%
+  \csname the#1\endcsname.\quad
+}
+\end{verbatim}
+\end{quote}
+However, many people want to modify section numbers, but not
+subsection numbers, or any of the others.  To do this, one must make
+\csx{@seccntformat} switch according to its argument.  The following
+technique for doing the job is slightly wasteful, but is efficient
+enough for a relatively rare operation:
+\begin{quote}
+\begin{verbatim}
+\renewcommand*{\@seccntformat}[1]{%
+  \csname the#1\endcsname
+  \csname adddot@#1\endcsname\quad
+}
+\end{verbatim}
+\end{quote}
+which uses a second-level command to provide the dot, if it has been
+defined; otherwise it merely appends \csx{relax} (which does nothing
+in this context).  The definition of the second-level command (the
+version for the \texttt{section}, here) specifies what to put after a
+section number, but it could be used to put anything after it:
+\begin{quote}
+\begin{verbatim}
+\newcommand*{\adddot@section}{.}
+\end{verbatim}
+\end{quote}
+Note that all the command definitions above are dealing in
+\Qref*{\LaTeX{} internal commands}{Q-atsigns}, so the above
+code should be in a package file, for preference.
+
+The \Class{Koma-script} classes have different commands for specifying
+changes to section number presentation: \csx{partformat},
+\csx{chapterformat} and \csx{othersectionlevelsformat}, but otherwise
+their facilities are similar to those of ``raw'' \LaTeX{}.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
+\end{ctanrefs}
+
+\Question[Q-spaftend]{There's a space added after my environment}
+
+You've written your own environment \environment{env}, and it works
+except that a space appears at the start of the first line of typeset
+text after \cmdinvoke{end}{env}.  This doesn't happen with similar
+\LaTeX{}-supplied environments.
+
+You could impose the restriction that your users always put a
+``\texttt{\textpercent{}}'' sign after the environment~\dots{}\nothtml{\@} but
+\LaTeX{} environments don't require that, either.
+
+The \LaTeX{} environments' ``secret'' is an internal flag which causes
+the unwanted spaces to be ignored.  Fortunately, you don't have to use
+the internal form: since 1996, \LaTeX{} has had a user command
+\csx{ignorespacesafterend}, which sets the internal flag.
+
+\Question[Q-labundef]{Finding if a label is undefined}
+
+People seem to want to know (at run time) if a label is undefined (I
+don't actually understand \emph{why}, particularly: it's a transient
+state, and \LaTeX{} deals with it quite well).
+
+A resolved label is simply a command:
+\csx{r@}\texttt{\meta{label-name}}; determining if the label is set is
+then simply a matter of detecting if the command exists.  The usual
+\LaTeX{} internal way of doing this is to use the command
+\csx{@ifundefined}:
+\begin{quote}
+  \cmdinvoke*{@ifundefined}{\textup{r@}label-name}{undef-cmds}{def-cmds}
+\end{quote}
+In which, \meta{label-name} is exactly what you would use in
+a \csx{label} command, and the remaining two arguments are command
+sequences to be used if the label is undefined
+(\meta{undef-cmds}) or if it is defined
+(\meta{def-cmds}).
+
+Note that any command that incorporates \csx{@ifundefined} is naturally
+fragile, so remember to create it with \csx{DeclareRobustCommand} or to
+use it with \csx{protect} in a moving argument.
+
+If you're into this game, you may well not care about \LaTeX{}'s
+warning about undefined labels at the end of the document; however,
+if you are, include the command \csx{G@refundefinedtrue} in
+\meta{\texttt{undef-cmds}}.
+
+And of course, remember you're dealing in internal commands, and pay
+attention to the \Qref*{at-signs}{Q-atsigns}.
+
+All the above can be avoided by using the \Package{labelcas} package:
+it provides commands that enable you to switch according to the state
+of a single label, or the states of a list of labels.  The package's
+definition is a bit complicated, but the package itself is pretty
+powerful.
+\begin{ctanrefs}
+\item[labelcas.sty]\CTANref{labelcas}
+\end{ctanrefs}
+
+\Question[Q-addtoreset]{Master and slave counters}
+
+It's common to have things numbered ``per chapter'' (for example, in
+the standard \Class{book} and \Class{report} classes, figures, tables
+and footnotes are all numbered thus).  The process of resetting is
+done automatically, when the ``master'' counter is stepped (when the
+\csx{chapter} command that starts chapter \meta{n} happens, the
+\texttt{chapter} counter is stepped, and all the dependent counters are set
+to zero).
+
+How would you do that for yourself?  You might want to number
+algorithms per section, or corollaries per theorem, for example.  If
+you're defining these things by hand, you declare the relationship
+when you define the counter in the first place:
+\begin{quote}
+\cmdinvoke*{newcounter}{new-name}[master]
+\end{quote}
+says that every time counter \meta{master} is stepped, counter
+\meta{new-name} will be reset.
+
+But what if you have an uncooperative package, that defines the
+objects for you, but doesn't provide a programmer interface to make
+the counters behave as you want?
+
+The \csx{newcounter} command uses a \LaTeX{} internal command, and you
+can also use it:
+\begin{quote}
+\cmdinvoke*{@addtoreset}{new-name}{master}
+\end{quote}
+(but remember that it needs to be between \csx{makeatletter} and
+\csx{makeatother}, or in a package of your own).
+
+The \Package{chngcntr} package encapsulates the \csx{@addtoreset}
+command into a command \csx{counterwithin}.  So:
+\begin{quote}
+\begin{verbatim}
+\counterwithin*{corrollary}{theorem}
+\end{verbatim}
+\end{quote}
+will make the corollary counter slave to theorem counters.  The
+command without its asterisk:
+\begin{quote}
+\begin{verbatim}
+\counterwithin{corrollary}{theorem}
+\end{verbatim}
+\end{quote}
+will do the same, and also redefine \csx{thecorollary} as % line brk!
+\meta{theorem number}.\meta{corollary number}, which is a good scheme
+if you ever want to refer to the corollaries~--- there are potentially
+many ``corollary~1'' in any document, so it's as well to tie its number
+to the counter of the theorem it belongs to.  This is true of pretty
+much any such counter-within-another; if you're not using the
+\Package{chngcntr}, refer to the answer to % line break!
+\Qref*{redefining counters' \csx{the-}commands}{Q-the-commands} for
+the necessary techniques.
+
+Note that the technique doesn't work if the master counter is |page|,
+the number of the current page.  The |page| counter is stepped deep
+inside the output routine, which usually gets called some time after
+the text for the new page has started to appear: so special
+techniques are required to deal with that.  One special case is dealt
+with elsewhere: \Qref*{footnotes numbered per page}{Q-footnpp}.  One
+of the techniques described there, using package \Package{perpage},
+may be applied to any counter.  The command:
+\begin{quote}
+\cmdinvoke*{MakePerPage}{counter}
+\end{quote}
+will cause \meta{counter} to be reset for each page.  The package uses
+a label-like mechanism, and may require more than one run of \LaTeX{}
+to stabilise counter values~--- \LaTeX{} will generate the usual
+warnings about labels changing.
+\begin{ctanrefs}
+\item[chngcntr.sty]\CTANref{chngcntr}
+\item[perpage.sty]Distributed as part \CTANref{bigfoot}[perpage]
+\end{ctanrefs}
+
+\Question[Q-fontsize]{Fonts at arbitrary sizes}
+
+Almost all fonts, nowadays, are provided with \LaTeX{} control
+(\extension{fd}) files, so the temptation to risk the
+\Qref*{problems of \csx{newfont}}{Q-newfont*} is usually easy to
+resist.
+
+However, one temptation remains, arising from the way that \LaTeX{}
+restricts the sizes of fonts.  In fact, the restriction only
+significantly applies to the default (Computer Modern) and the
+Cork-encoded (\acro{T}1) EC fonts, but it is widely considered to be
+anomalous, nowadays.  In recognition of this problem, there is a
+package \Package{fix-cm} which will allow you to use the fonts, within
+\LaTeX{}, at any size you choose.  If you're not using scaleable
+versions of the fonts, most modern distributions will just generate an
+appropriate bitmap for you.
+
+So, suppose you want to produce a heading in Computer Modern Roman at
+30 points, you might be tempted to write:
+\begin{quote}
+\begin{verbatim}
+\newfont{\bigfont}{cmr10 at 30pt}
+\begin{center}
+  \bigfont Huge text
+\end{center}
+\end{verbatim}
+\end{quote}
+which will indeed work, but will actually produce a worse result than
+\begin{quote}
+\begin{verbatim}
+\usepackage{fix-cm}
+...
+\begin{center}
+  \fontsize{30}{36}\selectfont
+  Huge text
+\end{center}
+\end{verbatim}
+\end{quote}
+Note that the \Package{fix-cm} package was not distributed until the
+December 2003 edition of \LaTeX{}; if you have an older distribution,
+the packages \Package{type1cm} (for \acro{CM} fonts) and
+\Package{type1ec} (for \acro{EC} fonts) are available.
+
+\Package{Fix-cm} doesn't has one or two omissions~--- fonts the \latex{}
+team did not consider useful, or something; the CM dunhill fonts (as
+CM, but with stretched ascenders) and the CM fibonacci font (which is only
+available in 8-point design size) are certainly missing.  If
+\Package{fix-cm} doesn't do the job, try the \Package{type1xx}
+packages, or the \Package{anyfontsize} package.
+
+A further alternative might be to switch to the
+\Qref*{\FontName{Latin} \FontName{Modern} fonts}{Q-uselmfonts} (which
+provide a close simulacrum of the \FontName{Computer}
+\FontName{Modern} set); these fonts were scaleable from their first
+distribution, and don't therefore need any such trick as the above.
+\begin{ctanrefs}
+\item[anyfontsize.sty]\CTANref{anyfontsize}
+\item[fix-cm.sty]Distributed as part of \CTANref{latex}[fix-cm] (an unpacked
+  version is available at \CTANref{fix-cm})
+\item[\nothtml{\rmfamily}\FontName{Latin} \FontName{Modern} fonts]\CTANref{lm}
+\item[type1cm.sty]\CTANref{type1cm}
+\item[type1ec.sty]\CTANref{type1ec} (the package is actually part of
+  the \CTANref{cm-super} distribution, but it works happily in
+  the absence of the scaled fonts)
+\end{ctanrefs}
+\LastEdit{2013-06-04}
+
+\Question[Q-latexqual]{The quality of your \LaTeX{}}
+
+The \Package{l2tabu} tutorial (mentioned in % ! line break
+\Qref[question]{online introductions}{Q-man-latex}) is undoubtedly a
+good read.
+
+However, it's always difficult to remember the things you should
+\emph{not} do, when there are so many things to remember that you
+really must do: some automation is useful\dots{}.
+
+The nicely-named \Package{nag} allows you to apply a configurable set
+of checks to your document, as you run it through \LaTeX{}; you get
+messages like:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+Package nag Warning: Command \bf is an old LaTeX 2.09 command. 
+(nag)                Use \bfseries or \textbf instead on input line 30.
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+Package nag Warning: Command \bf is an old
+                          LaTeX 2.09 command. 
+(nag)                Use \bfseries or \textbf
+                    instead on input line 30.
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+\begin{wideversion}
+  (the package provides a demo file which contains most of the sorts
+  of errors you might make~--- the example is one of them).
+\end{wideversion}
+\begin{narrowversion}
+  (the error lines above represent two lines which have been wrapped;
+  the package provides a demo file which contains most of the sorts of
+  errors you might make~--- the example is one of them).
+\end{narrowversion}
+While \Package{l2tabu} and \Package{nag} alert you to \emph{possible}
+programming errors, you should not forget that they are merely
+commenting on \emph{style}; don't assume that a \Package{nag} error is
+going to damn your code~--- rather, note the issue and try to train
+your fingers not to do the same ``next time''.
+
+The \ProgName{lacheck} program analyses your source and comments on
+it; its view of what is ``bad'' is \emph{very} subjective (the
+documentation says), but it can be useful.
+
+There's also a web site
+\href{http://www.kohm.name/markus/texidate.html}{TeXidate}
+which will do a static analysis of your document (unfortunately, you
+have to paste your document source into a text window).  The site
+doesn't seem as comprehensive as \Package{nag}, but it allows you to
+download its script, which you can then juggle with to make it more
+draconian.
+\begin{ctanrefs}
+\item[l2tabu]Browse \CTANref{l2tabu} for a copy of the document in a
+  language that is convenient for you
+\item[lacheck]\CTANref{lacheck}
+\item[nag.sty]\CTANref{nag}
+\end{ctanrefs}
+\LastEdit{2012-10-09}
+
+\Question[Q-ltx-csv]{Process a \acro{CSV} file in \latex{}}
+
+Comma-separated-variable (\acro{CSV}) files are a common means of
+interchanging simple data between applications; for example, most
+spreadsheet applications can provide files containing tables of
+numbers with commas between them.  One can envisage these tables as
+``\latex{} tables'', and the packages to process them all provide
+table generation, one way or another.
+
+For rather a long time, the canonical tools for dealing with such
+files have been those provided in the \Package{datatool} bundle;
+packages in the bundle allow the user to write procedures to process
+numbers, currency amounts, names, etc., and to display them in tables
+(including pie charts).
+
+The \Package{csvsimple} does similar tasks.  Its processing is
+controlled by keys established via the \Package{pgfkeys} package,
+which define how each row of the \acro{CSV} file is to be processed.
+
+For usage ``nearer to the bone'', one might consider the commands
+\csx{docsvlist} and \csx{forcsvlist} (from the \Package{etoolbox}
+package).  The first uses the time-honoured \latex{} technique of
+changing the definition of a \csx{do} command; it runs through the
+list, and processes every item of the list as the argument of the
+\csx{do} command; so:
+\begin{quote}
+\begin{verbatim}
+\begin{itemize}
+\renewcommand*{\do}[1]{\item #1}
+\docsvlist{item1, item2, {item3a, item3b}, item4}
+\end{itemize}
+\end{verbatim}
+\end{quote}
+will convert the elements of a \acro{CSV} list into an itemised list.
+
+The macro \csx{forcsvlist} applies a function to each element of a
+\acro{CSV} list; this can of course be used to implement
+\csx{docsvlist}, at the cost of a little clarity.
+\begin{ctanrefs}
+\item[csvsimple.sty]\CTANref{csvsimple}
+\item[datatool \nothtml{\rmfamily}bundle]\CTANref{datatool}
+\item[etoolbox.sty]\CTANref{etoolbox}
+\item[pgfkeys.sty]Distributed as part of \CTANref{pgf}
+\end{ctanrefs}
+\LastEdit*{2013-09-10}

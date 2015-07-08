@@ -1,0 +1,188 @@
+% $Id: faq-support.tex,v 1.9 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{Support Packages for \TeX{}}
+
+\Question[Q-xfigetc]{\AllTeX{}-friendly drawing packages}
+\AliasQuestion{Q-xfig}
+\AliasQuestion{Q-figetc}
+
+\ProgName{(X)Fig} is a menu driven tool that allows you to
+draw objects on the screen of an \acro{X} workstation; \ProgName{transfig}
+is a set of tools which translate the code \ProgName{fig}.  The list
+of export formats is very long, and includes \MF{} and \MP{},
+Encapsulated \PS{} and \acro{PDF}, as well as combinations that wrap
+a graphics format in a \LaTeX{} import file, which may include
+\LaTeX{} commands to place text (compiled by \LaTeX{} itself) as
+labels, etc., in the figures.
+
+There's no explicit port of \ProgName{xfig} to windows (although it is
+believed to work under \ProgName{cygwin} with its X-windows system).
+However, the program % ! line break
+\href{http://tams-www.informatik.uni-hamburg.de/applets/jfig/}{\ProgName{jfig}}
+is thought by many to be an acceptable substitute, written in Java.
+
+\ProgName{Asymptote} is a widely-praised development of the \MP{}
+language, which can draw 2D or 3D diagrams, and can also label
+diagrams with \LaTeX{} text; copious documentation is available via
+\href{http://asymptote.sourceforge.net}{\ProgName{asymptote}'s web site}.
+\begin{ctanrefs}
+\item[asymptote]\CTANref{asymptote}
+\item[xfig]\CTANref{xfig}
+\item[transfig]\CTANref{transfig}
+\end{ctanrefs}
+\LastEdit{2011-05-02}
+
+\Question[Q-texcad]{\TeX{}\acro{CAD}, a drawing package for \LaTeX{}}
+
+\TeX{}\acro{CAD} is a program for the \acro{PC} which enables the user to draw diagrams
+on screen using a mouse or arrow keys, with an on-screen menu of available 
+picture-elements. Its output is code for the \LaTeX{}
+\environment{picture} environment. 
+Optionally, it can be set to include lines at all angles using 
+the em\TeX{} driver-family
+\htmlignore
+(\Qref*{\csx{special}s}{Q-specials}).
+\endhtmlignore
+\begin{htmlversion}
+\Qref{\csx{special}s}{Q-specials}.
+\end{htmlversion}
+\TeX{}\acro{CAD} is part of the em\TeX{} distribution.
+
+A Unix port of the program (\ProgName{xtexcad}) has been made.
+\begin{ctanrefs}
+\item[emtex]\CTANref{emtex}
+\item[xtexcad]\CTANref{xtexcad}
+\end{ctanrefs}
+
+\Question[Q-spell]{Spelling checkers for work with \TeX{}}
+
+`Traditional' approaches to the problem (of checking your spelling) were
+designed to work with a plain text file; in our case, we have an \alltex{}
+source.  For the user, this is a simple-to-understand way to do the
+job; but for the spell-checker programmer, it requires heuristic (and
+hence fallible) analysis of \alltex{} macros and so on.  The
+alternative, of viewing the text \emph{after} \alltex{} has processed
+the results, is covered below.
+
+The user of an \Qref*{shell/editor}{Q-editors} will usually find it
+embeds a spelling checker.  For command-line use, there are several
+choices, depending on the system you're using.
+
+For Unix, \ProgName{ispell} was long the program of choice; it is well
+integrated with \ProgName{emacs}, and deals with some \TeX{} syntax.
+However, it has more-or-less been replaced everywhere, by
+\ProgName{aspell}, which was designed as a successor, and certainly
+performs better on most metrics; there remains some question as to its
+performance with \AllTeX{} sources.  The most recent offering (which
+is widely used in other open-source software projects) is
+\begin{hyperversion}
+  \href{http://hunspell.sourceforge.net/}{\ProgName{Hunspell}}.
+\end{hyperversion}
+\begin{flatversion}
+  Hunspell~(see \URL{http://hunspell.sourceforge.net/}).
+\end{flatversion}
+\ProgName{Hunspell} is available for other architectures, too; a web
+search shows versions available for Windows, at least.
+
+For the Macintosh, \ProgName{Excalibur} has long been used; its
+distribution comes with dictionaries for several languages.
+\ProgName{Hunspell} (see above) is actually part of OS X from version 10.6.
+
+The \acro{VMS} Pascal program \ProgName{spell} makes special cases of
+some important features of \LaTeX{} syntax.
+
+For \MSDOS{}, there are several programs.  \ProgName{Amspell} can be
+called from within an editor, and \ProgName{jspell} is an extended
+version of \ProgName{ispell}.
+
+An alternative approach takes \alltex{} output, and checks that.  A
+straightforward approach is to produce \acro{PDF} output, and process
+it with \ProgName{pdftotext}, using any plain text checker on the
+result (the checkers listed above all work in this r\^ole).  For this
+to work reasonably well, the user should disable hyphenation before
+making the \acro{PDF} output.
+
+The (experimental) \luatex{}/\latex{} package \Package{spelling} goes
+one step further: it uses \ProgName{lua} code to extract words
+\emph{while typesetting is going on}, but before hyphenation is
+applied.  Each word is looked up in a list of known bad spellings, and
+the word highlighted if it appears there.  In parallel, a text file is
+created, which can be processed by a `normal' spelling checker to
+produce a revised ``bad spelling'' list.  (The package documentation
+shows the end result; it includes words such as `spellling', which are
+duly highlighted.)
+\begin{ctanrefs}
+\item[4spell]\CTANref{4spell}
+\item[amspell]\CTANref{amspell}
+\item[aspell]Browse \CTANref{aspell}~--- choose just those language
+  dictionaries (under subdirectory \File{dict/}) that you need.
+\item[excalibur]\CTANref{Excalibur}
+\item[ispell]\CTANref{ispell}
+\item[jspell]\CTANref{jspell}
+\item[spelling.sty]\CTANref{spelling}
+\item[\nothtml{\bgroup\rmfamily}\acro{VMS}\nothtml{\egroup} spell]%
+  \CTANref{vmspell}
+\item[winedt]\CTANref{winedt}
+\end{ctanrefs}
+\LastEdit{2013-10-02}
+
+\Question[Q-wordcount]{How many words have you written?}
+
+One often has to submit a document (e.g., a paper or a dissertation)
+under some sort of constraint about its size.  Sensible people set a
+constraint in terms of numbers of pages, but there are some that
+persist in limiting the numbers of words you type.
+
+A simple solution to the requirement can be achieved following a
+simple observation: the powers that be are unlikely to count all the
+words of a document submitted to them.  Therefore, a statistical
+method can be employed: find how many words there are on a full page;
+find how many full pages there are in the document (allowing for
+displays of various sorts, this number will probably not be an
+integer); multiply the two.  However, if the document to be submitted
+is to determine the success of the rest of one's life, it takes a
+brave person to thumb their nose at authority quite so
+comprehensively\dots{}
+
+The simplest method is to strip out the \AllTeX{} markup, and to count
+what's left.  On a  Unix-like system, this may be done using
+\ProgName{detex} and the built-in \ProgName{wc}:
+\begin{quote}
+\begin{verbatim}
+detex <filename> | wc -w
+\end{verbatim}
+\end{quote}
+The technique is beguilingly simple, but it's not terribly accurate
+
+The \ProgName{latexcount} script does the same sort of job, in one
+``step''; being a \ProgName{perl} script, it is in principle rather
+easily configured (see documentation inside the script).
+Several \Qref*{editors and shells}{Q-editors} offer something similar.
+
+\ProgName{TeXcount} goes a long way with heuristics for counting,
+starting from a \LaTeX{} file; the documentation is comprehensive, and
+you may try the script on-line via the % ! line break
+\begin{hyperversion}
+  \href{http://folk.uio.no/einarro/Comp/texwordcount.html}{package home page}.
+\end{hyperversion}
+\begin{flatversion}
+  package home page~(see
+  \URL{http://folk.uio.no/einarro/Comp/texwordcount.html}).
+\end{flatversion}
+
+However, even quite sophisticated stripping of \AllTeX{} markup can
+never be entirely reliable: markup itself may contribute typeset
+words, or even consume words that appear in the text.
+
+The \Package{wordcount} package
+contains a Bourne shell (i.e., typically Unix) script for running a
+\LaTeX{} file with a special piece of supporting \TeX{} code, and then
+counting word indications in the log file.  This is probably as
+accurate automatic counting as you can get, if it works for you.
+\begin{ctanrefs}
+\item[detex]\CTANref{detex}
+\item[latexcount.pl]\CTANref{latexcount}
+\item[TeXcount]\CTANref{texcount}
+\item[wordcount]\CTANref{wordcount}
+\end{ctanrefs}
+

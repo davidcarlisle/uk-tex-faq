@@ -1,0 +1,66 @@
+Changes since version 3.27
+
+New answers:
+ +Label centre-flt:  deals with center environment around a float
+ +Label cpy-srchpdf: replaces label srchpdf, and covers copying text, too
+ +Label getnff:	     support for fonts "not allowed" in distributions
+ +Label lollipop:    restored entry, given new maintainer
+ +Label ltx-csv:     how to deal with CSV files in LaTeX
+ +Label otf-maths:   typeset maths using OpenType fonts
+ +Label parmoderr:   about the error "not in outer par mode"
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label bibtexing:   link to www.bibtex.org
+ +Label boldgreek:   clarify some really old text
+ +Label catalogue:   update in light of new www.ctan.org
+ +Label clsvpkg:     clarify some distinctions
+ +Label cmdstar:     \makeatletter was incorrectly placed in example
+ +Label commercial:  remove entry for Micropress, Inc (once vTeX suppliers)
+ +Label conditional: discuss use of the tagging package
+ +Label context:     editorial (for better relation to reality, one hopes ;-)
+ +Label custbib:     discourage "beginners" from attempting biblatex styles
+ +Label dtx:	     add discussion of generating output from the files
+ +Label filesused:   change reference from teTeX to TeX-live(!)
+ +Label findfont:    tidy, add more reference details
+ +Label gethelp:     add reference to TeX/StackExchange "starter" summary
+ +Label hyphexcept:  deal, perfunctorily, with Unicode hyphenation
+ +Label hyphoff:     editorial change only
+ +Label nohyph:	     {ditto}
+ +Label labelfig:    discuss pdfrack
+ +Label latexandplain: re-write -- previous version seemed not to help, much
+ +Label latextoplain: re-dump my mental image of what goes on ... looks better
+ +Label ltxcmds:     clarification (editorial changes only)
+ +Label makeindex:   further work on xindy description
+ +Label mfptutorials: remove one dead link, refer to Voipio's TUGboat papers
+ +Label mp:	     MetaPost can also create SVG output
+ +Label music:	     update discussion of lilypond, and mention lilyglyphs pkg
+ +Label normalszmiss: rewritten (a simple answer is difficult to write "well"!)
+ +Label numbersets:  add boondox, newpx and newtx fonts as a potential source
+ +Label oldfontnames: tidied up
+ +Label papergeom:   remove special case for vTeX
+ +Label plninltx*:   clarification (editorial changes only)
+ +Label psfchoice:   provide link to +otf-maths
+ +Label readtex:     add a bit about using on-line LaTeX servers
+ +Label slidecls:    mention a beamer gallery linked from post in TeX/sx
+ +Label spell:	     suggest hunspell (which is even part of recent MacOS X)
+ +Label sysother:    remove references to vTeX
+ +Label sysunix:     remove mention of MikTeX/Unix, and references to vTeX
+ +Label tocloftwrong: add actual answer (as well as reference to answer...)
+ +Label usepictex:   remove reference to vTeX
+ +Label verbwithin:  suggest newverbs, verbatim box-writing (tcolorbox,verbatim)
+ +Label whereFAQ:    remove link to texnik.de
+ +Label xspace:	     clarify, play down the value of the command
+
+Deleted answers:
+ +Label srchpdf:     replaced by answer labelled cpy-srchpdf
+
+Web interface, etc.:
+ Links in the section at the end of each answer now go via the mirror
+ selector mirror.ctan.org (previously all links went via the Cambridge
+ CTAN node).
+
+Robin Fairbairns
+Hapless FAQer of Cambridge

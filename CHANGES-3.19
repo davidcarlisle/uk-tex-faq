@@ -1,0 +1,67 @@
+Changes in version 3.19
+
+This file lists changes since its most recent release (with version 3.18
+of the FAQ). 
+
+New answers:
+ +Label grffilenames: "modern" file names in graphics
+ +Label keyval:    using key-value input in macros and package
+ +Label linmacnames: why non-letters in macro names are a bad idea
+ +Label osf:	   using fonts with "old-style" numbers
+ +Label pdf-fig-chars: disappearing glyphs in pdfTeX figures (from Thanh)
+ +Label texorpdf:  error "not allowed in PDFDocEncoded string"
+ +Label texthings: what all these <thing>TeX names are
+ +Label usesymb:   using symbols
+ +Label whatmacros:brief outline of macros for "bits and pieces" section
+ +Label wideflt:   centre a float wider than text area
+
+Relabelled answers:
+ +Label xfigetc:   discusses xfig and asymptote (so far) (was label xfig)
+
+Revised answers:
+ +Label askquestion: what to do if your minimal example needs a figure
+ +Label acroantics:content of old label outszwrng merged in
+ +Label biblatex:  updated, now also mentions biber
+ +Label books:	   mention Lulu version of TeX by Topic
+ +Label chngmargonfly: mention addlines package
+ +Label compactbib:mention the compactbib package (surprise!)
+ +Label drawing:   describe pictex, epic and eepic (all previously skated over)
+ +Label editors:   mention texworks
+ +Label figurehere:mention \MakeSorted from perpage package
+ +Label fonts-pln: mention varisize
+ +Label footnpp:   mention zref package perpage module
+ +Label ftncapt:   clarification (I hope)
+ +Label latex2html:mention plastex
+ +Label latexe:	   reworked for clarity
+ +Label latexpronounce: following on from latexe
+ +Label linenos:   numline package now obsolete
+ +Label luatex:	   tidied up, now I'm clearer about LuaTeX, myself
+ +Label logos:	   clarified, in light of changes to printing layout we now use
+ +Label man-latex: added pointer to first-latex-doc
+ +Label marginpkgs:changepage package supplants chngpage
+ +Label mcite:	   mention mciteplus and collref packages
+ +Label nonfree:   explain what went wrong and what is happening
+ +Label ifpdf:	   mention ifxetex and ifluatex
+ +Label noroom:	   tidied up e-TeX related part of answer
+ +Label ref-doc:   mention latexcheat
+ +Label setURL:	   mention spaces and hyphens options of url.sty
+ +Label texsystems:mention MikTeX-for-Linux
+ +Label wordcount: mention TeXcount
+ +Label writecls:  mention Oberdiek's splendid source2e pdf file
+ +Label wygexpts:  preview-latex now part of auctex
+
+Deleted answers:
+ +Label outszwrng
+(remember, as of the previous release, links to "old" labels remain
+valid, pointing to an answer that is as near relevant as possible)
+
+Web interface:
+  The initial list of questions no longer gives a URL containing all
+  the answers -- Google was returning that for every match, which
+  didn't help!
+  All links to CTAN files, directory .zips and directories for
+  browsing are now http, and there's no longer any mention of .tar.gz
+  archives of CTAN directories (since they're no longer available)
+
+Robin Fairbairns
+2009-06-10

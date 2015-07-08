@@ -1,0 +1,1174 @@
+% $Id: faq-bits+pieces.tex,v 1.32 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{Bits and pieces of \AllTeX{}}
+
+\Question[Q-dvi]{What is a \acro{DVI} file?}
+
+`\acro{DVI}' is supposed to be an acronym for
+\acro{D}e\acro{V}ice-\acro{I}ndependent, meaning that the file may be
+processed for printing or viewing on most kinds of typographic output
+device or display.
+
+A \acro{DVI} file (that is, a file with the type or extension
+\extension{dvi}) is the main output file of ``original'' \tex{} (later
+\tex{}-like systems, such as \Qref*{\pdftex{}}{Q-whatpdftex} may use
+other formats).
+
+A \acro{DVI} file contains all the information that is needed for
+printing or previewing, except for the actual bitmaps or outlines of
+fonts, and any material to be introduced by means of % !line break
+\Qref*{\csx{special} commands}{Q-specials}.  Characters in the
+\acro{DVI} file (representing glyphs for printing or display) appear
+in an encoding determined in the document.
+
+Any \TeX{} input file should produce the same \acro{DVI} file
+regardless of which implementation of \TeX{} is used to produce it.
+
+An \acro{DVI} file may be processed by a \Qref*{DVI driver}{Q-driver}
+to produce further output designed specifically for a particular
+printer, or for output in another format (for distribution), or it may
+be used by a previewer for display on a computer screen.
+
+Note that \Qref*{\xetex{}}{Q-xetex} (released some time after
+\pdftex{}) uses an ``extended \acro{DVI} format'' (\acro{XDV}) to send
+its output to a close-coupled \Qref*{\acro{DVI} driver}{Q-driver},
+\ProgName{xdvipdfmx}.
+
+The canonical reference for the structure of a \acro{DVI} file is the
+source of Knuth's program \ProgName{dvitype} (whose original purpose,
+as its name implies, was to view the content of a \acro{DVI} file).
+A partially complete ``standard'' for the way they should be
+processed may offer further enlightenment.
+\begin{ctanrefs}
+\item[\nothtml{rmfamily}DVI processing standard]\CTANref{dvistd}
+\item[dvitype]\CTANref{dvitype}
+\end{ctanrefs}
+\LastEdit{2013-03-15}
+
+\Question[Q-driver]{What is a \acro{DVI} driver?}
+
+A \acro{DVI} driver is a program that takes as input a
+\Qref*{\acro{DVI} file}{Q-dvi}
+and (usually) produces a file in a format that something \emph{other}
+than a \TeX{}-related program can process.
+
+A driver may be designed for producing output for printing (e.g.,
+\PS{}), for later processing (e.g., \PS{} for inclusion in a later
+document), or for document exchange (e.g., \acro{PDF}).
+
+As well as the \acro{DVI} file, the driver typically also needs font
+information.  Font information may be held as bitmaps or as outlines,
+or simply as a set of pointers into the fonts that a printer itself
+provides.  Each driver will expect the font information in a particular
+form.
+
+For more information on the forms of font information, see
+\Qref[questions]{\acro{PK} files}{Q-pk},
+% ! line break
+\Qref[]{\acro{TFM} files}{Q-tfm},
+\Qref[]{virtual fonts}{Q-virtualfonts}
+and \Qref[]{Using \PS{} fonts with \TeX{}}{Q-usepsfont}.
+\LastEdit{2011-10-10}
+
+\Question[Q-pk]{What are \acro{PK} files?}
+
+\acro{PK} files (packed raster) are the canonical form of \tex{} font
+bitmaps.  The output from \Qref*{\MF{}}{Q-useMF} includes a generic
+font (\acro{GF}) file and the utility \ProgName{gftopk} produces a
+\acro{PK} file from that.
+
+There are potentially a lot of \acro{PK} files, as one
+is needed for each font: that is for each magnification of each
+design (point) size for each weight for each font in each family.
+
+Further, since the \acro{PK} files for one printer do not necessarily
+work well for another, the whole set needs to be duplicated for each
+printer type at a site.
+
+While this menagerie of bitmaps can (in principle) provide fonts that
+are closely matched to the capabilities of each printer, the size of
+the collection (and the resulting difficulty of maintaining it) has
+been a potent driver to the move towards outline fonts such as
+\Qref*{Adobe Type 1 fonts}{Q-adobetypen}.
+\LastEdit{2012-10-20}
+
+\Question[Q-tfm]{What are \acro{TFM} files?}
+
+\acro{TFM} is an acronym for `\TeX{} Font Metrics'; \acro{TFM} files hold
+information about the sizes of the characters of the font in question,
+and about ligatures and kerns within that font.  One \acro{TFM} file is
+needed for each font used by \TeX{}, that is for each design (point)
+size for each weight for each family; each \acro{TFM} file serves for all
+magnifications of `its' font, so that there are (typically) fewer
+\acro{TFM} files than there are \Qref*{\acro{PK}}{Q-pk} files.  \TeX{},
+\LaTeX{}, etc.,\@
+themselves need only know about the sizes of characters and their
+interactions with each other, but not what characters look like.  By
+contrast, \acro{TFM} files are not, in principle, needed by the
+\acro{DVI} driver, which only needs to know about the glyphs that each
+character selects, so as to print or display them.
+
+Note that TrueType and OpenType fonts contain the necessary metrics,
+so that \Qref{\xetex{}}{Q-xetex} and \Qref{\luatex{}}{Q-luatex}, using
+such fonts, have no need of \acro{TFM} files.  A corollary of this is
+that setting up fonts for use by these engines is far \emph{easier}.
+\LastEdit{2012-10-20}
+
+\Question[Q-virtualfonts]{What are virtual fonts?}
+
+Virtual fonts provide a means of collecting bits and pieces together
+to make the glyphs of a font: the bits and pieces may be glyphs from
+``other'' fonts, rules and other ``basic'' typesetting commands, and
+the positioning information that specifies how everything comes
+together.
+
+An early instance of something like virtual fonts for \TeX{} was
+implemented by David Fuchs to use an unusual printer.  However, for
+practical purposes for the rest of us, virtual fonts date from when Knuth
+specified a format and wrote some support software, in 1989 (he
+published an % ! line break
+\href{http://tug.org/TUGboat/tb11-1/tb27knut.pdf}{article in \textsl{TUGboat}}
+at the time; a plain text copy is available on \acro{CTAN}).
+
+Virtual fonts provide a way of telling \TeX{} about something more
+complicated than just a one-to-one character mapping.  \TeX{} reads a
+\acro{TFM} file of the font, just as before, but the \acro{DVI}
+processor will read the \acro{VF} and use its content to specify how
+each glyph is to be processed.
+
+The virtual font may contain commands:
+\begin{itemize}
+\item to `open' one or more (real) fonts for subsequent use,
+\item to remap a glyph from one of the (real) fonts for use in the
+  virtual font,
+\item to build up a more complicated effect (using \acro{DVI} commands).
+\end{itemize}
+
+% !this has to be generated as a new paragraph by the translator, so
+% leave the blank line in place
+In practice, the most common use of virtual fonts is to remap
+Adobe Type 1 fonts (see \Qref[question]{font metrics}{Q-metrics}),
+though there has also been useful useful work building `fake' maths
+fonts (by bundling glyphs from several fonts into a single virtual
+font).  Virtual Computer Modern fonts, making a % ! line break
+\Qref*{Cork encoded}{Q-ECfonts} font from Knuth's originals by using
+remapping and fragments of \acro{DVI} for single-glyph `accented
+characters', were the first ``Type~1 format'' Cork-encoded Computer
+Modern fonts available.
+
+Virtual fonts are normally created in a single \acro{ASCII} \acro{VPL}
+(Virtual Property List) file, which includes two sets of information.
+The \ProgName{vptovf} utility will use the \acro{VPL} file to create
+the binary \acro{TFM} and \acro{VF} files.
+
+A ``how-to'' document, explaining how to generate a \acro{VPL},
+describes the endless hours of fun that may be had, doing the job by
+hand.  Despite the pleasures to be had, the commonest way (nowadays)
+of generating an \acro{VPL} file is to use the 
+\ProgName{fontinst} package, which is described in more detail
+\htmlonly{together with the discussion of}
+\Qref[in answer]{\PS{} font metrics}{Q-metrics}.
+\Package{Qdtexvpl} is another utility for creating ad-hoc virtual
+fonts (it uses \TeX{} to parse a description of the virtual font, and
+\ProgName{qdtexvpl} itself processes the resulting \acro{DVI} file).
+\begin{ctanrefs}
+\item[fontinst]\CTANref{fontinst}
+\item[\nothtml{\rmfamily}Knuth on virtual fonts]\CTANref{vf-knuth}
+\item[\nothtml{\rmfamily}Virtual fonts ``how to'']\CTANref{vf-howto}
+\item[qdtexvpl]\CTANref{qdtexvpl}
+\end{ctanrefs}
+\LastEdit{2012-10-20}
+
+\Question[Q-whatmacros]{What are (\TeX{}) macros}
+
+\TeX{} is a \emph{macro processor}: this is a computer-science-y term
+meaning ``text expander'' (more or less); \TeX{} typesets text as it
+goes along, but \emph{expands} each macro it finds.  \TeX{}'s macros
+may include instructions to \TeX{} itself, on top of the simple text
+generation one might expect.
+
+Macros are a \emph{good thing}, since they allow the user to
+manipulate documents according to context.  For example, the macro
+\csx{TeX} is usually defined to produce ``TEX'' with the `E' lowered
+(the original idea was Knuth's),
+but in these \acro{FAQ}s the default definition of the macro is
+overridden, and it simply expands to the letters ``TeX''.  (\emph{You}
+may not think this a good thing, but the author of the macros has his
+reasons~-- see \Qref[question]{\TeX{}-related logos}{Q-logos}.)
+
+Macro names are conventionally built from a \texttt{\textbackslash }
+followed by a sequence of letters, which may be upper or lower case
+(as in \csx{TeX}, mentioned above).  They may also be % ! line break
+\texttt{\textbackslash \meta{any single character}}, which allows all
+sorts of oddities (many built in to most \TeX{} macro sets, all the
+way up from the apparently simple `\csx{ }' meaning ``insert a space
+here'').
+
+Macro programming can be a complicated business, but at their very
+simplest they need little introduction~--- you'll hardly need to be
+told that:
+\begin{quote}
+\begin{verbatim}
+\def\foo{bar}
+\end{verbatim}
+\end{quote}
+replaces each instance of \csx{foo} with the text ``bar''.  The
+command \csx{def} is \plaintex{} syntax for defining commands;
+\LaTeX{} offers a macro \csx{newcommand} that goes some way towards
+protecting users from themselves, but basically does the same thing:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\foo}{bar}
+\end{verbatim}
+\end{quote}
+Macros may have ``arguments'' , which are used to substitute for marked
+bits of the macro expansion:
+\begin{quote}
+\begin{verbatim}
+\def\foo#1{This is a #1 bar}
+...
+\foo{2/4}.
+\end{verbatim}
+\end{quote}
+which produces:
+\begin{quote}
+  This is a 2/4 bar.
+\end{quote}
+or, in \LaTeX{} speak:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\foo}[1]{This is a #1 bar}
+...
+\foo{3/4}.
+\end{verbatim}
+\end{quote}
+which produces:
+\begin{quote}
+  This is 3/4 bar.
+\end{quote}
+(\latex{} users waltz through life, perhaps?)
+
+You will have noticed that the arguments, above, were enclosed in
+braces (\texttt{\obracesymbol{}\dots{}\cbracesymbol{}}); this is the
+normal way of typing arguments, though \TeX{} is enormously flexible,
+and you may find all sorts of other ways of passing arguments (if you
+stick with it).
+
+Macro writing can get very complicated, very quickly.  If you are a
+beginner \AllTeX{} programmer, you are well advised to read something
+along the lines of the \Qref*{\TeX{}book}{Q-tex-books}; once you're under
+way, \Qref*{\TeX{} by Topic}{Q-ol-books} is possibly a more satisfactory
+choice.  Rather a lot of the answers in these \acro{FAQ}s tell you
+about various issues of how to write macros.
+\LastEdit{2011-10-12}
+
+\Question[Q-specials]{\csx{special} commands}
+
+\TeX{} provides the means to express things that device drivers can
+do, but about which \TeX{} itself knows nothing.  For example, \TeX{}
+itself knows nothing about how to include \PS{} figures into
+documents, or how to set the colour of printed text; but some device
+drivers do.
+
+Instructions for such things are introduced to your document by means
+of \csx{special} commands; all that \TeX{} does with these commands is
+to expand their 
+arguments and then pass the command to the \acro{DVI} file.  In most
+cases, there are macro packages provided (often with the driver) that
+provide a human-friendly interface to the \csx{special}; for example,
+there's little point including a figure if you leave no gap for it in
+your text, and changing colour proves to be a particularly fraught
+operation that requires real wizardry.  \LaTeXe{}
+has standard graphics and colour packages that make figure inclusion,
+rotation and scaling, and colour typesetting relatively
+straightforward, despite the rather daunting \csx{special} commands
+involved.  (\CONTeXT{} provides similar support, though not by way of
+packages.)
+
+The allowable arguments of \csx{special} depend on the device driver
+you're using.  Apart from the examples above, there are \csx{special}
+commands in the em\TeX{} drivers (e.g., \ProgName{dvihplj}, \ProgName{dviscr},
+\emph{etc}.)~that will draw lines at arbitrary orientations, and
+commands in \ProgName{dvitoln03} that permit the page to be set in
+landscape orientation.
+
+Note that \csx{special} behaves rather differently in \PDFTeX{}, since
+there is no device driver around.  There \emph{is} a concept of
+\acro{PDF} specials, but in most cases \csx{special} will provoke a
+warning when used in \PDFTeX{}.
+\LastEdit{2011-10-15}
+
+\Question[Q-write]{Writing (text) files from \tex{}}
+
+\TeX{} allows you to write to output files from within your document.
+The facility is handy in many circumstances, but it is vital for
+several of the things \latex{} (and indeed almost any higher-level
+\tex{}-based macro package) does for you.
+
+The basic uses of writing to an external file are ``obvious''~---
+remembering titles of sections for a table of contents, remembering
+label names and corresponding section or figure numbers, all for a
+later run of your document.  However, the ``non-obvious'' thing is
+easy to forget: that page numbers, in \tex{}, are slippery beasts, and
+have to be captured with some care.  The trick is that \csx{write}
+operations are only executed as the page is sent to the \acro{DVI}
+or \acro{PDF} file.  Thus, if you arrange that your page-number macro
+(\csx{thepage}, in \latex{}) is not expanded until the page is
+written, then the number written is correct, since that time is where
+\tex{} guarantees the page number tallies with the page being sent
+out.
+
+Now, there are times when you want to write something straight away:
+for example, to interact with the user.  \TeX{} captures that
+requirement, too, with the primitive command \csx{immediate}:
+\begin{quote}
+\begin{verbatim}
+\immediate\write\terminal{I'm waiting...}
+\end{verbatim}
+\end{quote}
+writes a ``computer-irritates-user'' message, to the terminal.
+
+Which brings us to the reason for that \csx{terminal}.  \TeX{} can
+``\csx{write}'' up to 16 streams simultaneously, and that argument to
+\csx{write} says which is to be used.  Macro packages provide the
+means of allocating streams for your use: \plaintex{} provides a macro
+\csx{newwrite} (used as ``\csx{newwrite}\csx{streamname}'', which sets
+\csx{streamname} as the stream number).  In fact, \csx{terminal} (or
+its equivalent) is the first output stream ever set up (in most macro
+packages): it is never attached to a file, and if \tex{} is asked to
+write to \emph{any} stream that isn't attached to a file it will send
+the output to the terminal (and the log).
+\LastEdit{2011-10-15}
+
+\Question[Q-spawnprog]{Spawning programs from \AllTeX{}: \csx{write18}}
+
+The \tex{} \Qref*{\csx{write} primitive instruction}{Q-write} is used
+to write to different file `streams'; TeX refers to each open file by
+a number, not by a file name (although most of the time we hide this).
+Originally, \tex{} would write to a file connected to a stream
+numbered 0--15.  More recently, a special ``stream 18'' has been
+implemented: it is not writing to a file, but rather tells TeX to ask
+the operating system to do something.  To run a command, we put it as
+the argument to \csx{write18}.  So to run the \progname{epstopdf}
+utility on a file with name stored as \csx{epsfilename}, we would
+write:
+\begin{quote}
+\begin{verbatim}
+\write18{epstopdf \epsfilename}
+\end{verbatim}
+\end{quote}
+When using something like the \Package{epstopdf} package, the `stream'
+write operation is hidden away and you don't need to worry about the
+exact way it's done.
+
+However, there is a security issue. If you download some \alltex{} code from
+the Internet, can you be sure that there is not some command in it
+(perhaps in a hidden way) to do stuff that might be harmful to your
+computer (let's say: delete everything on the hard disk!)?  In the
+face of this problem, both \miktex{} and \tex{}~Live have, for some
+time, disabled \csx{write18} by default.  To turn the facility on,
+both distributions support an additional argument when starting \tex{}
+from the command shell:
+\begin{quote}
+\begin{verbatim}
+(pdf)(la)tex --shell-escape <file>
+\end{verbatim}
+\end{quote}
+The problem with this is that many people use \alltex{} via a graphical
+editor, so to use \csx{write18} for a file the editor's settings must
+be changed.  Of course, the settings need restoring after the file is
+processed: you defeat the point of the original protection, that way.
+
+The latest \miktex{} (version 2.9), and recent \tex{}~Live (from the
+2010 release) get
+around this by having a special ``limited'' version of \csx{write18}
+enabled `out of the box'.  The idea is to allow only a pre-set list of
+commands (for example, \BibTeX{}, \progname{epstopdf}, \tex{} itself,
+and so on).  Those on the list are regarded as safe enough to allow,
+whereas anything else (for example deleting files) still needs to be
+authorised by the user. This seems to be a good balance: most people
+most of the time will not need to worry about \csx{write18} at all,
+but it will be available for things like \Package{epstopdf}.
+
+Note that the \tex{} system may tell you that the mechanism is in use:
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010)
+ restricted \write18 enabled.
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+\begin{quote}
+\begin{verbatim}
+This is pdfTeX, Version 3.1415926-1.40.11
+                              (TeX Live 2010)
+ restricted \write18 enabled.
+\end{verbatim}
+\end{quote}
+\end{narrowversion}
+when it starts.
+\begin{ctanrefs}
+\item[epstopdf.sty]Distributed with Heiko Oberdiek's packages
+  \CTANref{oberdiek}[epstopdf-pkg]
+\end{ctanrefs}
+\LastEdit{2012-12-03}
+
+\Question[Q-hyphen]{How does hyphenation work in \TeX{}?}
+
+Everyone knows what hyphenation is: we see it in most books we read,
+and (if we're alert) will spot occasional ridiculous mis-hyphenation
+(at one time, British newspapers were a fertile source).
+
+Hyphenation styles are culturally-determined, and the same language
+may be hyphenated differently in different countries~--- for example,
+British and American styles of hyphenation of English are very
+different.  As a result, a typesetting system that is not restricted
+to a single language at a single locale needs to be able to change its
+hyphenation rules from time to time.
+
+\TeX{} uses a pretty good system for hyphenation (originally designed
+by Frank Liang~--- you may view his % ! line break
+\href{http://tug.org/docs/liang/}{Ph.D.\ thesis} online) and while
+it's capable of missing ``sensible'' hyphenation points, it seldom
+selects grossly wrong ones.  The
+algorithm matches candidates for hyphenation against a set of
+``hyphenation patterns''.  The candidates for hyphenation must be
+sequences of letters (or other single characters that \TeX{} may be
+persuaded to think of as letters).  Non-letters interrupt hyphenation;
+this applies to \TeX{}'s \csx{accent} primitive (as in `syst\`eme')
+just as much as the exclamation in`syst!eme'.
+
+(Hyphenation takes place on the characters ``sent to the printer''.
+The problem with \csx{accent} is avoided~---in \latex{}~--- by the use
+of the \Package{fontenc} package, as discussed in % ! line break
+``\Qref*{Accented words aren t hyphenated}{Q-hyphenaccents}''.)
+
+Sets of hyphenation patterns are usually derived from analysis of
+a list of valid hyphenations (the process of derivation, using a tool
+called \Package{patgen}, is not ordinarily a sport to be played by
+ordinary mortals).
+
+The patterns for the languages a \TeX{} system is going to deal with
+may only be loaded when the system is installed.  To change the set of
+hyphenation patterns recognised by a \tex{}-based or \xetex{} system,
+a \Qref*{partial reinstallation}{Q-newlang} is necessary (note that 
+\Qref*{\luatex{}}{Q-luatex} relaxes this constraint).
+
+\TeX{} provides two ``user-level'' commands for control of
+hyphenation: \csx{language} (which selects a hyphenation style), and
+\csx{hyphenation} (which gives explicit instructions to the hyphenation
+engine, overriding the effect of the patterns).
+
+The ordinary \LaTeX{} user need not worry about \csx{language}, since
+it is very thoroughly managed by the \Package{babel} package; use of
+\csx{hyphenation} is discussed in
+\begin{wideversion}
+  the context of
+\end{wideversion}
+% beware line wrap
+\Qref[question]{hyphenation failure}{Q-nohyph}.
+\LastEdit{2012-12-03}
+
+\Question[Q-clsvpkg]{What are \LaTeX{} classes and packages?}
+
+\latex{} aims to be a general-purpose document processor.  Such an aim
+could be achieved by a selection of instructions which would enable
+users to use \tex{} primitives, but such a procedure is considered too
+inflexible (and probably too daunting for ordinary users).  Thus the
+designers of \latex{} created a model which offered an
+\emph{abstraction} of the design of documents.  Obviously, not all
+documents can look the same (even with the defocussed eye of
+abstraction), so the model uses \emph{classes} of document.  Base
+\latex{} offers five classes of document: \Class{book},
+\Class{report}, \Class{article} and \Class{letter}.
+For each class, \latex{} provides a \emph{class file}; the user
+arranges to use it via a \csx{documentclass} command at the top of the
+document.  So a document starting
+\begin{quote}
+  \cmdinvoke{documentclass}{article}
+\end{quote}
+may be called ``an \emph{article} document''.
+
+This is a good scheme, but it has a glaring flaw: the actual
+typographical designs provided by the \latex{} class files aren't
+widely liked.  The way around this is to \emph{refine} the class.  To
+refine a class, a programmer may write a new class file that loads an
+existing class, and then does its own thing with the document design.
+
+If the user finds such a refined class, all is well, but if not, the
+common way is to load a \emph{package} (or several).
+
+The \latex{} distribution, itself, provides rather few package files,
+but there are lots of them, by a wide variety of authors, to be found
+on the archives.  Several packages are designed just to adjust the
+design of a document~--- using such packages achieves what the
+programmer might have achieved by refining the class.
+
+Other packages provide new facilities: for example, the
+\Package{graphics} package (actually provided as part of any \latex{}
+distribution) allows the user to load externally-provided graphics
+into a document, and the \Package{hyperref} package enables the user
+to construct hyper-references within a document.
+
+On disc, class and package files only appear different by virtue of
+their name ``extension''~--- class files are called \File{*.cls} while
+package files are called \File{*.sty}.  Thus we find that the \LaTeX{}
+standard \Class{article} class is represented on disc by a file called
+\File{article.cls}, while the \Package{hyperref} package is
+represented on disc by a file called \File{hyperref.sty}.
+
+The class vs.~package distinction was not clear in \LaTeXo{}~---
+everything was called a style (``document style'' or ``document style
+option'').  It doesn't really matter that the nomenclature has
+changed: the important requirement is to understand what other people
+are talking about.
+\LastEdit{2013-10-21}
+
+\Question[Q-whatenv]{What are \latex{} ``environments''}
+
+While \tex{} makes direct provision for commands, \latex{} adds a
+concept of ``environment''; environments perform an action on a block
+(of something or other) rather than than just doing something at one
+place in your document.
+
+A totally trivial environment could change the font in use for a chunk
+of text, as
+\begin{quote}
+\begin{verbatim}
+\newenvironment{monoblock}%
+  {\ttfamily}%
+  {}
+\end{verbatim}
+\end{quote}
+which defines a \environment{monoblock} which may be used as
+\begin{quote}
+\begin{verbatim}
+\begin{monoblock}
+  some text set in monospace
+\end{monoblock}
+\end{verbatim}
+\end{quote}
+which will look like:
+\begin{quote}
+  \texttt{some text set in monospace}
+\end{quote}
+so it is a particularly simple example.  A rather complicated
+environment is introduced by \cmdinvoke{begin}{document}; it looks
+simple, but needs all sorts of special \tex{} code to make it work
+`transparently'; most environments are more elaborate than
+\environment{monoblock} and \emph{much} simpler than
+\environment{document}.
+
+An environment puts its content inside a \tex{} \emph{group}, so that
+commands used inside the environment don't `leak out'~--- the
+\environment{monoblock} environment, above, restricts its effect to
+its own contents (the stuff between the \cmdinvoke{begin}{monoblock}
+and \cmdinvoke{end}{monoblock}), which is just what you need for this
+sort of thing.
+
+So that's ``simple'' environments; the \environment{monoblock}, above
+doesn't actually gain us much over
+\begin{quote}
+\begin{verbatim}
+{\ttfamily some text set in monospace}
+\end{verbatim}
+\end{quote}
+though in fact many useful environments are just as simple (to look
+at).  Some, such as \environment{verbatim}, look simple but are
+actually very tricky inside.
+
+\latex{} also allows arguments to an environment:
+\begin{quote}
+\begin{verbatim}
+\newenvironment{fontblock}[1]%
+  {#1\selectfont}%
+  {}
+\end{verbatim}
+\end{quote}
+and use of \environment{fontblock} as:
+\begin{quote}
+\begin{verbatim}
+\begin{fontblock}{\ttfamily}
+\end{verbatim}
+\end{quote}
+would produce the same effect as the \environment{monoblock}
+environment.
+
+Environments may also have optional arguments, in much the same way as
+commands:
+\begin{quote}
+\begin{verbatim}
+\newenvironment{normaltext}[1][\itshape]%
+  {#1}%
+  {}
+\end{verbatim}
+\end{quote}
+which will ordinarily set its body in italic, but
+\begin{quote}
+\begin{verbatim}
+\begin{normaltext}[\ttfamily]
+  ...
+\end{normaltext}
+\end{verbatim}
+\end{quote}
+will observe its optional argument, and behave the same as the
+\environment{monoblock} we started with.
+
+Note that an environments argument(s) (mandatory or optional) are
+\emph{not} passed to the `\csx{end}' text of the environment~--- that
+is specified as a macro with no arguments, so that
+\begin{quote}
+\begin{verbatim}
+\newenvironment{normaltext}[1][\itshape]%
+  {#1}%
+  {\typeout{what was #1, again?}
+\end{verbatim}
+\end{quote}
+produces an error message
+\begin{quote}
+\begin{verbatim}
+! Illegal parameter number in definition of \endnormaltext.
+\end{verbatim}
+\end{quote}
+So, if you need to pass an environment argument to the end-code, you
+have to wrap it in a macro of its own:
+\begin{quote}
+\begin{verbatim}
+\newenvironment{normaltext}[1][Intro]%
+  {#1%
+   \newcommand{\foo}{#1}}%
+  {\typeout{what was \foo{}, again?}
+\end{verbatim}
+\end{quote}
+\LastEdit*{2013-02-20}
+
+\Question[Q-dtx]{Documented \LaTeX{} sources (\extension{dtx} files)}
+
+\LaTeXe{}, and many contributed \latex{} macro packages, are written
+in a \Qref*{literate programming style}{Q-lit}, with source and
+documentation in the
+same file.  This format in fact originated before the
+days of the \LaTeX{} project as one of the ``Mainz'' series of
+packages.  A documented source file conventionally has the suffix
+\extension{dtx}, and will normally be `stripped' before use with
+\LaTeX{}; an installation (\extension{ins}) file is normally provided,
+to automate this process of removing comments for speed of loading.
+If the \extension{ins} file is available, you may process \emph{it}
+with \latex{} to produce the package (and, often, auxiliary files).
+
+Output should look something like:
+\begin{quote}
+\begin{verbatim}
+Generating file(s) ./foo.sty 
+
+Processing file foo.dtx (package) -> foo.sty
+File foo.dtx ended by \endinput.
+Lines  processed: 2336
+Comments removed: 1336
+Comments  passed: 2
+Codelines passed: 972
+\end{verbatim}
+\end{quote}
+The lines ``\texttt{Processing \dots{}\ ended by \csx{endinput}}'' may
+be repeated if the \extension{dtx} file provides more than one
+`unpacked' file.
+
+To read the comments ``as a document'', you can run \LaTeX{} on the
+\extension{dtx} file to produce a nicely formatted version of the
+documented code.  (Most \latex{} packages on \ctan{}, nowadays, already
+have \acro{PDF} of the result of processing the \extension{dtx} file,
+as ``documentation''.)
+
+Several packages may be included in one \extension{dtx} file, with
+conditional sections, and there are facilities for indexes of macros,
+etc.  All of this m\'elange is sorted out by directives in the
+\extension{ins} file; conventional indexing utilities may be necessary
+for ``full'' output.
+
+Anyone may write \extension{dtx} files; the format is explained in
+\Qref*{The \LaTeX{} Companion}{Q-latex-books}, and a tutorial is available
+from \acro{CTAN} (which comes with skeleton \extension{dtx} and
+\extension{ins} files).
+
+Composition of \extension{dtx} files is supported in \ProgName{emacs} by
+\Qref*{\acro{AUC}-\TeX{}}{Q-editors}.
+
+The (unix-based) script \ProgName{dtxgen} generates a proforma basic
+\extension{dtx} file, which could be useful when starting a new
+project.
+
+Another route to an \extension{dtx} file is to write the
+documentation and the code separately, and then to combine them using
+the \ProgName{makedtx} system.  This technique has particular value in
+that the documentation file can be used separately to generate
+\acro{HTML} output; it is often quite difficult to make % ! line break
+\Qref*{\LaTeX{} to \acro{HTML} conversion}{Q-LaTeX2HTML} tools deal
+with \extension{dtx} files, since they use an unusual class file.
+
+The \ProgName{sty2dtx} system goes one step further: it attempts to
+create a \extension{dtx} file from a `normal' \extension{sty} file
+with comments.  It works well, in some circumstances, but can become
+confused by comments that aspire to ``structure'' (e.g., tabular
+material, as in many older packages' file headers).
+
+The \extension{dtx} files are not used by \LaTeX{} after they have been
+processed to produce \extension{sty} or \extension{cls} (or whatever)
+files.  They need not be kept with the working system; however, for
+many packages the \extension{dtx} file is the primary source of
+documentation, so you may want to keep \extension{dtx} files elsewhere.
+
+An interesting sideline to the story of \extension{dtx} files is the
+\Package{docmfp} package, which extends the model of the \Package{doc}
+package to
+\begin{flatversion}
+  \MF{} and \MP{} (\Qref[see questions]{}{Q-MF} and \Qref[\nothtml]{}{Q-MP})
+\end{flatversion}
+\begin{hyperversion}
+  \Qref{\MF{}}{Q-MF} and \Qref{\MP{}}{Q-MP},
+\end{hyperversion}
+thus permitting documented distribution of bundles containing code for
+\MF{} and \MP{} together with related \LaTeX{} code.
+\begin{ctanrefs}
+\item[AUC-TeX]\CTANref{auctex}
+\item[clsguide.pdf]\CTANref{clsguide}
+\item[docmfp.sty]\CTANref{docmfp}
+\item[docstrip.tex]Part of the \LaTeX{} distribution
+\item[DTX tutorial]\CTANref{dtxtut}
+\item[dtxgen]\CTANref{dtxgen}
+\item[makedtx]\CTANref{makedtx}
+\item[sty2dtx]\CTANref{sty2dtx}
+\end{ctanrefs}
+\LastEdit{2014-06-03}
+
+\Question[Q-whatenc]{What are encodings?}
+
+Let's start by defining two concepts, the \emph{character} and the
+\emph{glyph}.
+The character is the abstract idea of the `atom' of a
+language or other dialogue: so it might be a letter in an alphabetic
+language, a syllable in a syllabic language, or an ideogram in an
+ideographic language.  The glyph is the mark created on screen or
+paper which represents a character.  Of
+course, if reading is to be possible, there must be some agreed
+relationship between the glyph and the character, so while the precise
+shape of the glyph can be affected by many other factors, such as the
+capabilities of the writing medium and the designer's style, the
+essence of the underlying character must be retained.
+
+Whenever a computer has to represent characters, someone has to define
+the relationship between a set of numbers and the characters they
+represent.  This is the essence of an encoding: it is a mapping
+between a set of numbers and a set of things to be represented.
+
+\TeX{} of course deals in encoded characters all the time: the
+characters presented to it in its input are encoded, and it emits
+encoded characters in its \acro{DVI} or \acro{PDF} output.  These
+encodings have rather different properties.
+
+The \TeX{} input stream was pretty unruly back in the days when Knuth
+first implemented the language.  Knuth himself prepared documents on
+terminals that produced all sorts of odd characters, and as a result
+\TeX{} contains some provision for translating its input (however
+encoded) to something regular.  Nowadays, 
+the operating system translates keystrokes into a code appropriate for
+the user's language: the encoding used is usually a national or
+international standard, though some operating systems use ``code
+pages'' (as defined by Microsoft).  These standards and code pages often
+contain characters that may not appear in the \TeX{} system's input
+stream.  Somehow, these characters have to be dealt with~--- so
+an input character like ``\'e'' needs to be interpreted by \TeX{} in
+a way that that at least mimics the way it interprets ``\csx{'}\texttt{e}''.  
+
+The \TeX{} output stream is in a somewhat different situation:
+characters in it are to be used to select glyphs from the fonts to be
+used.  Thus the encoding of the output stream is notionally a font
+encoding (though the font in question may be a
+% beware line break (twice)
+\nothtml{virtual one~--- see }%
+\Qref[question]{virtual font}{Q-virtualfonts}).  In principle, a
+fair bit of what appears in the output stream could be direct
+transcription of what arrived in the input, but the output stream
+also contains the product of commands in the input, and translations
+of the input such as ligatures like %
+\texttt{fi}\nothtml{\ensuremath\Rightarrow``fi''}.
+
+Font encodings became a hot topic when the
+\Qref*{Cork encoding}{Q-ECfonts}
+appeared, because of the possibility of suppressing
+\csx{accent} commands in the output stream (and hence improving the
+quality of the hyphenation of text in inflected languages, which is
+interrupted by the \csx{accent} commands~--- see
+% beware line break
+\Qref[question]{``how does hyphenation work''}{Q-hyphen}).
+To take advantage of the diacriticised characters represented in the
+fonts, it is necessary to arrange that whenever the
+command sequence ``\csx{'}\texttt{e}'' has been input
+(explicitly, or implicitly via the sort of mapping of input mentioned
+above), the character that codes the position of the ``\'e'' glyph is
+used.
+
+Thus we could have the odd arrangement that the diacriticised character in
+the \TeX{} input stream is translated into \TeX{} commands that would
+generate something looking like the input character; this sequence of
+\TeX{} commands is then translated back again into a single
+diacriticised glyph as the output is created.  This is in fact
+precisely what the \LaTeX{} packages \Package{inputenc} and
+\Package{fontenc} do, if operated in tandem on (most) characters in
+the \acro{ISO}~Latin-1 input encoding and the \acro{T}1 font encoding.
+At first sight, it seems eccentric to have the first package do a thing, and
+the second precisely undo it, but it doesn't always happen that way:
+most font encodings can't match the corresponding input encoding
+nearly so well, and the two packages provide the sort of symmetry the
+\LaTeX{} system needs.
+
+\Question[Q-ECfonts]{What are the \acro{EC} fonts?}
+
+A font provides a number of \emph{glyphs}. In order that the glyphs
+may be printed, they are \Qref*{\emph{encoded}}{Q-whatenc}, and the
+encoding is used as an index into tables within the font.  For various
+reasons, Knuth chose deeply eccentric encodings for his Computer
+Modern family of fonts; in particular, he chose different encodings
+for different fonts, so that the application using the fonts has to
+remember which font of the family it's using before selecting a
+particular glyph.
+
+When \TeX{} version 3 arrived, most of the drivers for the
+eccentricity of Knuth's encodings went away, and at \acro{TUG}'s Cork
+meeting, an encoding for a set of 256 glyphs, for use in \TeX{} text,
+was defined.  The intention was that these glyphs should cover `most'
+European languages that use Latin alphabets, in the sense of including
+all accented letters needed.  (Knuth's \acro{CMR} fonts missed things
+necessary for Icelandic and Polish, for example, which the Cork fonts
+do have, though even Cork encoding's coverage isn't complete.)
+\latex{} refers to the Cork encoding as \acro{T}1, and provides the
+means to use fonts thus encoded to avoid problems with the interaction
+of accents and hyphenation % ! line break
+(see \Qref[question]{hyphenation of accented words}{Q-hyphenaccents}).
+
+The first \MF{}-fonts to conform to the Cork encoding were the \acro{EC}
+fonts. They look \acro{CM}-like, though their metrics differ from \acro{CM}-font
+metrics in several areas.  They have long been regarded as `stable' (in
+the same sense that the \acro{CM} fonts are stable: their metrics are
+unlikely ever to change).  Each \acro{EC} font is, of course, roughly twice the
+size of the corresponding \acro{CM} font, and there are far more of them than
+there are CM fonts.  The simple number of fonts proved problematic in
+the production of Type~1 versions of the fonts, but \acro{EC} or
+\acro{EC}-equivalent fonts in Type~1 or TrueType form (the latter only from
+\begin{wideversion}
+  \Qref{commercial suppliers}{Q-commercial}).
+\end{wideversion}
+\begin{narrowversion}
+  % ( <- paren matching
+  commercial suppliers~--- \Qref{question}{Q-commercial}).
+\end{narrowversion}
+Free \Qref*{auto-traced versions}{Q-textrace}~--- the \acro{CM}-super and
+the \acro{LGC} fonts, and the Latin Modern series (rather directly generated
+from Metafont sources), are available.
+
+Note that the Cork encoding doesn't cover mathematics (so that no
+``T1-encoded'' font families can not support it).  If you're using
+Computer-Modern-alike fonts, this doesn't actually matter: your system
+will have the original Computer Modern mathematical fonts (or the
+those distributed with the Latin Modern set), which cover `basic' \TeX{}
+mathematics; more advanced mathematics are likely to need separate
+fonts anyway.  Suitable mathematics fonts for use with other font
+families are discussed in % ! line break 
+``\Qref*{choice of scalable fonts}{Q-psfchoice}''.
+
+The \acro{EC} fonts are distributed with a set of `Text Companion' (\acro{TC}) fonts
+that provide glyphs for symbols commonly used in text. The \acro{TC} fonts
+are encoded according to the \latex{} \acro{TS}1 encoding, and are not
+necessarily as `stable' are the \acro{EC} fonts are.  Note that modern
+distributions tend not to distribute the \acro{EC} fonts in outline format, but
+rather to provide Latin Modern for \acro{T}1-encoded Computer Modern-style
+fonts.  This can sometimes cause confusion when users are recompiling
+old documents.
+
+The Cork encoding is also implemented by virtual fonts provided in the
+\acro{PSNFSS} system, for Adobe Type 1 fonts, and also by most other such
+fonts that have been developed (or otherwise made available) for use
+with \alltex{}. 
+
+Note that \acro{T}1 (and other eight-bit font encodings) are superseded in
+the developing \TeX{}-family members \Qref*{\xetex{}}{Q-xetex} and
+\Qref*{\luatex{}}{Q-luatex}, which use Unicode as their base encoding,
+and use Unicode-encoded fonts (typically in \FontFormat{ttf} or
+\FontFormat{otf} formats).  The \Package{cm-unicode} fonts carry the
+flag in this arena, along with the Latin Modern set.
+\begin{ctanrefs}
+\item[CM-super fonts]\CTANref{cm-super}
+\item[CM-LGC fonts]\CTANref{cm-lgc}
+\item[CM unicode fonts]\CTANref{cm-unicode}
+\item[EC and TC fonts]\CTANref{ec}
+\item[Latin Modern fonts]\CTANref{lm}
+\end{ctanrefs}
+
+\Question[Q-unicode]{Unicode and \tex{}}
+
+Unicode is a character code scheme that has the capacity to express
+the text of the languages of the world, as well as important symbols
+(including mathematics).  Any coding scheme that is directly
+applicable to \tex{} may be expressed in single bytes (expressing up
+to 256 characters); Unicode characters may require several bytes, and
+the scheme may express a very large number of characters.
+
+For ``old-style'' applications (\tex{} or \pdftex{}) to deal with
+Unicode input, the sequence of bytes to make up Unicode character are
+processed by a set of macros that deliver a glyph number in an
+appropriate font.  The macros that read these bytes is complicated,
+and manifests as \pkgoption{utf8} option for the \latex{} distribution
+\Package{inputenc} package; the coverage of that option is limited to
+Unicode characters that can be represented using ``\latex{} standard
+encodings''.  The separate package \Package{ucs} provides wider, but
+less robust, coverage via an \Package{inputenc} option
+\pkgoption{utf8x}.  As a general rule, you should never use
+\pkgoption{utf8x} until you have convinced yourself that
+\pkgoption{utf8} can not do the job for you.
+
+`Modern' \tex{}-alike applications, \Qref*{\xetex{}}{Q-xetex} and
+\Qref*{\luatex{}}{Q-luatex} read their input using \acro{UTF}-8
+representations of Unicode as standard.  They also use TrueType or
+OpenType fonts for output; each such font has tables that tell the
+application which part(s) of the Unicode space it covers; the tables
+enable the engines to decide which font to use for which character
+(assuming there is any choice at all).
+\begin{ctanrefs}
+\item[inputenc.sty]Part of the \CTANref{latex} distribution
+\item[ucs.sty]\CTANref{ucs}
+\end{ctanrefs}
+\LastEdit{2012-04-20}
+
+\Question[Q-tds]{What is the \acro{TDS}?}
+
+\acro{TDS} is an acronym for ``\TeX{} Directory Structure''; it
+specifies a standard way of organising all the \TeX{}-related files on
+a computer system.
+
+Most modern distributions arrange their \tex{} files in conformance
+with the \acro{TDS}, using both a `distribution' directory tree and a
+(set of) `local' directory trees, each containing \TeX{}-related
+files.  The \acro{TDS} recommends the name \texttt{texmf} for the name
+of the root directory (folder) of an hierarchy; in practice there are
+typically several such trees, each of which has a name that compounds
+that (e.g., \texttt{texmf-dist}, \texttt{texmf-var}).
+
+Files supplied as part of the distribution are put into the
+distribution's tree, but the location of the distribution's hierarchy is
+system dependent.  (On a Unix system it might be at
+\path{/usr/share/texmf} or \path{/opt/texmf}, or a similar location.)
+
+There may be more than one `local' hierarchy in which additional files
+can be stored.  An installation will also typically offer a local
+hierarchy, while each user may have an individual local hierarchy.
+
+The \acro{TDS} itself is published as the output of a \acro{TUG} % ! line break
+\Qref*{Technical Working Group}{Q-TUG*}.  You may browse an
+\href{http://tug.org/tds/}{on-line version} of the standard, and
+copies in several other formats (including source) are available on
+\acro{CTAN}.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\acro{TDS} specification]\CTANref{tds}
+\end{ctanrefs}
+
+\Question[Q-eps]{What is ``Encapsulated \PS{}'' (``\acro{EPS}'')?}
+
+\PS{} has been for many years a \emph{lingua franca} of powerful
+printers (though modern high-quality printers now tend to require some
+constrained form of Adobe Acrobat, instead); since \PS{} is also a
+powerful graphical programming language, it is commonly used as an
+output medium for drawing (and other) packages.
+
+However, since \PS{} \emph{is} such a powerful language, some
+rules need to be imposed, so that the output drawing may be included
+in a document as a figure without ``leaking'' (and thereby destroying
+the surrounding document, or failing to draw at all).
+
+Appendix \acro{H} of the \PS{} Language Reference Manual (second
+and subsequent editions), specifies a set of rules for \PS{} to
+be used as figures in this way.  The important features are:
+\begin{itemize}
+\item certain ``structured comments'' are required; important ones are
+  the identification of the file type, and information about the
+  ``bounding box'' of the figure (i.e., the minimum rectangle
+  enclosing it);
+\item some commands are forbidden~--- for example, a \texttt{showpage}
+  command will cause the image to disappear, in most \TeX{}-output
+  environments; and
+\item ``preview information'' is permitted, for the benefit of things
+  such as word processors that don't have the ability to draw
+  \PS{} in their own right~--- this preview information may be in
+  any one of a number of system-specific formats, and any viewing
+  program may choose to ignore it.
+\end{itemize}
+A \PS{} figure that conforms to these rules is said to be in
+``Encapsulated \PS{}'' (\acro{EPS}) format.  Most \AllTeX{} packages for
+including \PS{} are structured to use Encapsulated \PS{};
+which of course leads to much hilarity as exasperated \AllTeX{} users
+struggle to cope with the output of drawing software whose authors
+don't know the rules.
+
+\Question[Q-adobetypen]{Adobe font formats}
+\keywords{type1 type3}
+
+Adobe has specified a number of formats for files to represent fonts
+in \PS{} files; this question doesn't attempt to be encyclopaedic, so
+we only discuss the two formats most commonly encountered in the
+\AllTeX{} context, types~1 and 3.  In particular, we don't discuss the
+OpenType format, whose many advantages now becoming accessible to most
+\AllTeX{} users (by means of
+\begin{hyperversion}
+  the widely-used \Qref{\xetex{}}{Q-xetex} and the more experimental
+  \Qref{\LuaTeX{}}{Q-luatex}).
+\end{hyperversion}
+\begin{flatversion}
+  the widely-used \xetex{}~--- see \Qref[question]{}{Q-xetex}~--- and
+  the more experimental \LuaTeX{}~--- see \Qref[question]{}{Q-luatex}).
+\end{flatversion}
+
+Adobe Type~1 format specifies a means to represent outlines of the glyphs
+in a font.  The `language' used is closely restricted, to ensure that
+the font is rendered as quickly as possible.  (Or rather, as quickly
+as possible with Adobe's technology at the time the specification was
+written: the structure could well be different if it were specified
+now.)  The format has long been the basis of the digital type-foundry
+business, though nowadays most new fonts are released in OpenType format.
+
+%% Type~1 fonts are directly supported by some operating system software,
+%% and at least one \TeX{} system, the commercial % line break!
+%% \Qref*{\YandY{} system}{Q-commercial}, bases its entire
+%% operation on the use of Type~1 fonts.
+
+In the \AllTeX{} context, Type~1 fonts are extremely important.  Apart
+from their simple 
+availability (there are thousands of commercial Type~1 text fonts around), the
+commonest reader for \acro{PDF} files has long (in effect) \emph{insisted} on
+their use (see below).
+
+Type~3 fonts have a more forgiving specification.  A wide range of
+\PS{} operators is permissible, including bitmap specifiers.  Type~3
+is therefore the natural format to be used for programs such as
+\ProgName{dvips} when they auto-generate something to represent
+\MF{}-generated fonts in a \PS{} file.  It's Adobe Acrobat Viewer's
+treatment of bitmap Type~3 fonts that has made direct \MF{} output
+increasingly unattractive, in recent years.  If you have a \acro{PDF}
+document in which the text looks fuzzy and uneven in Acrobat Reader,
+ask Reader for the \texttt{File}\arrowhyph{}%
+\texttt{Document Properties}\arrowhyph{}%
+\texttt{Fonts ...}, and it will likely show some font or other as
+``Type~3'' (usually with encoding ``Custom'').  The problem has
+disappeared with version 6 of Acrobat Reader.  See % line break
+\Qref[question]{\acro{PDF} quality}{Q-dvips-pdf} for a discussion of
+the issue, and for ways of addressing it.
+
+Type~3 fonts should not entirely be dismissed, however.  Acrobat
+Reader's failure with them is entirely derived from its failure to use
+the anti-aliasing techniques common in \TeX{}-ware.  Choose a
+different set of \PS{} graphical operators, and you can make pleasing
+Type~3 fonts that don't ``annoy'' Reader.  For example, you may not
+change colour within a Type~1 font glyph, but there's no such
+restriction on a Type~3 font, which opens opportunities for some
+startling effects.
+
+\Question[Q-resolns]{What are ``resolutions''?}
+
+``Resolution'' is a word that is used with little concern for its
+multiple meanings, in computer equipment marketing.  The word suggests
+a measure of what an observer (perhaps the human eye) can resolve; yet
+we regularly see advertisements for printers whose resolution is
+1200dpi~--- far finer than the unaided human eye can distinguish.  The
+advertisements are talking about the precision with which the printer
+can place spots on the printed image, which affects the fineness of
+the representation of fonts, and the accuracy of the placement of
+glyphs and other marks on the page.
+
+In fact, there are two sorts of ``resolution'' on the printed page
+that we need to consider for \AllTeX{}'s purposes:
+\begin{itemize}
+\item the positioning accuracy, and
+\item the quality of the fonts.
+\end{itemize}
+In the case where \AllTeX{} output is being sent direct to a printer,
+in the printer's ``native'' language, it's plain that the \acro{DVI}
+processor must know all such details, and must take detailed account
+of both types of resolution.
+
+In the case where output is being sent to an intermediate distribution
+format, that has potential for printing (or displaying) we know not
+where, the final translator, that connects to directly to the printer
+or display, has the knowledge of the device's properties: the
+\acro{DVI} processor need not know, and should not presume to guess.
+
+Both \PS{} and \acro{PDF} output are in this category.  While \PS{} is
+used less frequently for document distribution nowadays, it is
+regularly used as the source for distillation into \acro{PDF}; and
+\acro{PDF} is the workhorse of an enormous explosion of document
+distribution.
+
+Therefore, we need \acro{DVI} processors that will produce
+``resolution independent'' \PS{} or \acro{PDF} output; of course, the
+independence needs to extend to both forms of independence outlined
+above.
+
+Resolution-independence of fonts was for a  long time forced upon the
+world by the feebleness of Adobe's \ProgName{Acrobat}
+\ProgName{Reader} at dealing with bitmap files: a sequence of answers
+starting with one aiming at the % ! line break
+\Qref*{quality of \acro{PDF} from \PS{}}{Q-dvips-pdf} addresses
+the problems that arise.
+
+Resolution-independence of positioning is more troublesome:
+\ProgName{dvips} is somewhat notorious for insisting on positioning to
+the accuracy of the declared resolution of the printer.
+One commonly-used approach is to declare a resolution of 8000 (``better
+than any device''), and this is reasonably successful though it does
+have its \Qref*{problems}{Q-8000}.
+
+\Question[Q-fontname]{What is the ``Berry naming scheme''?}
+
+In the olden days, \AllTeX{} distributions were limited by the
+feebleness of file systems' ability to represent long names.  (The
+\MSDOS{} file system was a particular bugbear: fortunately any current
+Microsoft system allows rather more freedom to specify file names.
+Sadly, the ISO~9660 standard for the structure of \CDROM{}s has a
+similar failing, but that too has been modified by various extension
+mechanisms.)
+
+One area in which these short file names posed a particular problem
+was that of file names for Type~1 fonts.
+These fonts are distributed by their vendors with
+pretty meaningless short names, and there's a natural ambition to
+change the name to something that identifies the font somewhat
+precisely.  Unfortunately, names such as ``BaskervilleMT'' are
+already far beyond the abilities of the typical feeble file system,
+and add the specifier of a font shape or variant, and the difficulties
+spiral out of control.  Font companies deal with the issue by
+inventing silly names, and providing a map file to show what the
+``real'' names.  Thus the Monotype Corporation provides the
+translations:
+\begin{quote}
+  \texttt{bas\_\_\_\_\_ BaskervilleMT}\\
+  \texttt{basb\_\_\_\_ BaskervilleMT-Bold}\\
+  \texttt{basbi\_\_\_ BaskervilleMT-BoldItalic}
+\end{quote}
+and so on.  These names could be used within \AllTeX{} programs,
+except that they are not unique: there's nothing to stop Adobe using
+`\texttt{bas\_\_\_\_\_}' for \emph{their} Baskerville font.
+
+Thus arose the Berry naming scheme.
+
+The basis of the scheme is to encode the meanings of the various parts
+of the file's specification in an extremely terse way, so that enough
+font names can be expressed even in impoverished file name-spaces.  The
+encoding allocates one character to the font ``foundry'' (Adobe, Monotype,
+and so on), two to the typeface name (Baskerville, Times Roman, and so
+on), one to the weight, shape, and encoding and so on.  
+
+The whole scheme is outlined in the \Package{fontname} distribution,
+which includes extensive documentation and a set of tables of fonts
+whose names have been systematised.
+\begin{ctanrefs}
+\item[fontname distribution]\CTANref{fontname}
+\end{ctanrefs}
+

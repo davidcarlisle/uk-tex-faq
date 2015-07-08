@@ -1,0 +1,40 @@
+Changes since version 3.19d
+
+New answers:
+ +Label initex:	   why is there no initex?
+ +Label sysunix:   TeX for Unix and GNU/Linux systems, revised from TeXsystems
+		   added the tex-gpc distribution
+ +Label syswin:	   TeX for Windows 32, etc., systems, revised from TeXsystems
+ +Label sysmac:	   TeX for Macintosh systems, revised from TeXsystems
+ +Label sysother:  TeX for other systems, revised from TeXsystems
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label baselinepar: rewritten, taking info account a recent issue from ctt
+ +Label biblatex:    can now give a CTAN link for Biber
+ +Label cd:	     reworded to reflect current realities
+ +label extsizes:    mention some classes that have non-standard font sizes
+ +label filename:    bugfix for (simple) macros saving "current file name"
+ +Label letterclass: mention knuth's letter stuff and isodoc class
+ +Label manymathalph:correction to us of controls on alphabets in bm
+ +Label mathml:	     recognise STIX fonts as potential contribution
+ +Label mcite:	     revtex 4.1 has its own mechanism
+ +Label metrics:     rewrite text about LY1 encoding
+ +Label multidoc:    mention docmute, standalone  and subdocs
+ +Label nopagebrk:   correct assertion about lists vs. samepage environment
+ +Label poster:	     mention beamerposter
+ +Label psfchoice:   add URW Classico to the list
+ +Label reallyblank: mention emptypage package
+ +Label slidecls:    mention lecturer and present packages (neither is a class)
+ +Label TeXsystems:  now a list of links to the new sys* labels
+ +Label widows:	     rewritten with clarification from Peter Moulder
+
+Deleted answers:
+ <none>
+
+Web interface:
+ Links to packages, etc., now use http://mirror.ctan.org
+
+Robin Fairbairns

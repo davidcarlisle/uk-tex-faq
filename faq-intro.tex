@@ -1,0 +1,203 @@
+% $Id: faq-intro.tex,v 1.31 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+% this environment is for the benefit of new-style file generation
+\begin{introduction}
+% suppress section numbers until end environment
+\nothtml{\csname c@secnumdepth\endcsname=-1 } 
+\section{Introduction}
+
+This is a set of Frequently Asked Questions (\acro{FAQ}) for
+English-speaking users of \TeX{}.
+
+The questions answered here cover a wide range of topics, but
+typesetting issues are mostly covered from the viewpoint of a \LaTeX{}
+user.  Some of the questions answered have little relevance to today's
+users; this is inevitable~--- it's easier to add information than it
+is to decide that information is no longer needed.  The set of
+answered questions is therefore in a state of slow flux: new questions
+are answered, while old questions are deleted~\dots{}~but the whole
+process depends on the time available for \acro{FAQ} maintenance.
+
+\nothtml{\noindent} You may use the \acro{FAQ}
+\begin{itemize}
+\item by reading a printed document,
+\item by viewing a \acro{PDF} file, with hyperlinks to assist
+  browsing: copies are available formatted so that they could be
+  printed on \CTANhref{faq-a4}{A4 paper} or on % ! line break
+  \CTANhref{faq-letter}{North American ``letter'' paper}, \htmlonly{or}
+\begin{typesetversion}
+\item by using the \acro{FAQ}'s web interface (base \acro{URL}:
+  \URL{http://www.tex.ac.uk/faq}); this version provides simple
+  search capabilities, as well as a link to Google for a more
+  sophisticated search restricted to the \acro{FAQ} itself, or
+\end{typesetversion}
+\item via Scott Pakin's \CTANhref{visualFAQ}{Visual FAQ}, which shows
+  \LaTeX{} constructions with links to \acro{FAQ} explanations of how
+  they may be created.
+\end{itemize}
+
+\subsection{Licence of the \acro{FAQ}}
+
+The source of the \acro{FAQ}, available in the % ! line break
+\CTANhref{faq}{\acro{FAQ}'s \ctan{} directory}, and its derived
+representations (currently, the \acro{HTML} found at
+\url{http://www.tex.ac.uk/faq} and \acro{PDF} copies, also in the
+% ! line break
+\CTANhref{faq}{\acro{FAQ}'s \ctan{} directory}) are all placed in the
+public domain.
+
+\subsection{Finding the Files}
+\begin{typesetversion}
+Unless otherwise specified, all files mentioned in this \acro{FAQ}
+are available from a \ctan{} archive, or from a mirror of
+\ctan{}~--- see \Qref[question]{later discussion}{Q-archives}% ! space
+\narrowonly{, which gives details} of the \ctan{}
+archives\wideonly{ and}\narrowonly{, including} how to retrieve files
+from them.
+
+The reader should also note that the first directory name of the path
+name of every file on \ctan{} is omitted from what follows, for
+the simple reason that, while it's always the same
+(\path{tex-archive/}) on the main sites, mirror sites often choose
+something else.
+
+To avoid confusion, we also omit the full stop from the end of any
+sentence whose last item is a path name (such sentences are rare, and
+only occur at the end of paragraphs).  Though the path names are set
+in a different font from running text, it's not easy to distinguish
+the font of a single dot!
+\end{typesetversion}
+\begin{htmlversion}
+Almost all files suggested in any answer in these \acro{FAQ}s are
+available from \Qref{\ctan{} archives}{Q-archives}, and may be
+reached via links in the file list at the end of the answer.  In
+particular, documentation (when available) is linked from the
+\ctan{} Catalogue entry, which is also listed in the file list.
+
+Unless doing so is unavoidable, the answers do not mention things that
+are not on the \ctan{} archives.  An obvious exception is web
+resources such as supplementary documents, etc.
+\end{htmlversion}
+
+\begin{typesetversion}
+  \subsection*{Origins}
+\end{typesetversion}
+\begin{htmlversion}
+  \textbf{Origins}
+\end{htmlversion}
+The \acro{FAQ} was originated by the Committee of the \acro{UK}
+\TeX{} Users' Group (\acro{UK}~\acro{TUG}), in 1994, as a development of a
+regular posting to the \emph{Usenet} newsgroup
+\Newsgroup{comp.text.tex} that was maintained for some time by Bobby
+Bodenheimer.  The first \acro{UK} version was much re-arranged and
+corrected from the original, and little of Bodenheimer's work now
+remains.
+
+\htmlignore
+The following people (at least~--- there are almost certainly others
+whose names weren't correctly recorded) have contributed help or
+advice on the development of the \acro{FAQ}:
+William Adams, % spotting dead url
+Donald Arseneau, % indefatigable
+Rosemary Bailey, % lots of initial set of maths answers
+Barbara Beeton, % one of first reviewers outside cttee
+Karl Berry, % often provides comments & suggestions
+Giuseppe Bilotta,
+Charles Cameron,
+Fran\c{c}ois Charette, % update of q-xetex
+Damian Cugley,
+Martin Garrod, % two consecutive "report" in clsvpkg
+Michael Dewey,
+Michael Downes, % (RIP) on (ams)maths stuff
+Jean-Pierre Drucbert, % (RIP) corrected my interpretation of minitoc
+David Epstein, % comment on q-algorithms, suggestion of tex-sx
+Michael Ernst, % alert on confusing colloquialism
+Thomas Esser,
+Ulrike Fischer, % spotted boondoggle in q-tabcellalign
+                % args like \section improvement; general typos
+Bruno Le Floch, % alert to mess in q-latex3
+Anthony Goreham,
+Norman Gray,
+Enrico Gregorio, % new definition for q-seccntfmt
+Werner Grundlingh, % xparse for *-commands
+Eitan Gurari, % (RIP) comparative html translators
+William Hammond, % lots of work on xml-related answers
+John Hammond, % corrections to q-protect
+John Harper, % patient help with q-robust ;-)
+Gernot Hassenpflug, % impetus and suggestions for q-printvar
+Troy Henderson, % metapost tutorials update
+Hartmut Henkel,
+Stephan Hennig, % text about vc in Q-RCS
+John Hobby,
+Morten H\textoslash gholm, % eagle eyes in search for problems
+Berthold Horn, % lots of stuff on fonts
+Ian Hutchinson, % comparative html translators
+Werner Icking, % (RIP) answer on tex-music
+William Ingram, % extension of transcinit
+David Jansen, % error in errmissitem example code
+Alan Jeffrey, % another founding father
+Regnor Jernsletten,
+David Kastrup, % inter alia, suggested mention of lilypond
+Oleg Katsitadze, % revision of q-eplain
+Isaac Khabaza, % kindersley book
+Ulrich Klauer, % pointed out twaddle in TeXpronounce
+Markus Kohm, % help with functionality of Koma-script
+Stefan Kottwitz % picked up text of q-wideflt
+David Kraus, % help with tocbibind (spotted embarrassing typo :-} )
+Ryszard Kubiak, % comment about q-driver
+Simon Law,
+Uwe L\"uck, % correction of typo 
+Daniel Luecking, % typos
+Aditya Mahajan, % rewrite of q-context
+Sanjoy Mahajan,
+Diego Andres Alvarez Marin, % suggestion of lacheck
+Andreas Matthias, % most recently q-isitanum
+Steve Mayer, % proof reading
+Javier Mora, % bug in q-cmdstar
+Brooks Moses, % editorial suggestion
+Peter Moulder, % improvement of q-widows
+Iain Murray, % alternative solution in q-hyperdupdest
+Vilar Camara Neto, % explain breakurl pkg, suggest use of numprint
+Dick Nickalls,
+Ted Nieland,
+Hans Nordhaug,
+Pat Rau,
+Heiko Oberdiek,
+Piet van Oostrum,
+Scott Pakin, % bug reports (at least)
+Oren Patashnik,
+Manuel P\'egouri\'e-Gonnard, % improvement of q-luatex
+Steve Peter, % comprehensive review, lots of typos etc
+Sebastian Rahtz, % without whom there would be no...
+Philip Ratcliffe, % help with a bibtex oddity, editorial comment
+Chris Rowley, % founding father
+Jos\'e Carlos Santos, % assiduous reader of new versions
+Walter Schmidt,
+Hans-Peter Schr\"ocker,
+Joachim Schrod,
+Uwe Siart, % correction for manymathalph
+Maarten Sneep, % summary of c.t.t thread for outszwrng, inter alia
+Axel Sommerfeldt, % suggested rewrite of q-hyperdupdest
+Philipp Stephani, % xlation of komascript keyval stuff
+James Szinger, % who responded on c.t.t to request for answer
+Nicola Talbot, % correction of link
+Bob Tennent, % urw classico + sansmath
+Tomek Trzeciak, % suggested docmute and standalone together
+Ulrik Vieth,
+Mike Vulis, % details of micropress offerings
+Chris Walker, % revtex alert, ite suggestion (q-labelfig)
+Peter Wilson, % several, incl functionality of memoir
+Joseph Wright, % help with keyval, l3keys, etc.
+Rick Zaccone,
+Gregor Zattler % typo spotted
+and
+Reinhard Zierke.
+
+That list does \emph{not} cover the many people whose ideas were
+encountered on various mailing lists, in newsgroups, or (more
+recently!) in web forums.  Many 
+such people have helped, even if simply to highlight an area in which
+\acro{FAQ} work would be useful.
+\endhtmlignore
+% \LastEdit{2013-08-20} % not to be typeset or converted to html...
+\end{introduction}

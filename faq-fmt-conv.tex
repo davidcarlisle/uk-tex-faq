@@ -1,0 +1,465 @@
+% $Id: faq-fmt-conv.tex,v 1.10 2014/05/29 11:24:34 rf10 Exp rf10 $
+
+\section{Format conversions}
+
+\Question[Q-toascii]{Conversion from \AllTeX{} to plain text}
+
+The aim here is to emulate the Unix \ProgName{nroff}, which formats
+text as best it can for the screen, from the same
+input as the Unix typesetting program \ProgName{troff}.
+
+Converting \acro{DVI} to plain text is the basis of many of these
+techniques; sometimes the simple conversion provides a good enough
+response.  Options are:
+\begin{itemize}
+\item \ProgName{dvi2tty} (one of the earliest),
+\item \ProgName{crudetype} and
+\item \ProgName{catdvi}, which is capable of generating Latin-1
+  (ISO~8859-1) or \acro{UTF}-8 encoded output.  \ProgName{Catdvi} was
+  conceived as a replacement for \ProgName{dvi2tty}, but development
+  seems to have stopped before the authors were willing to declare the
+  work complete.
+\end{itemize}
+A common problem is the hyphenation that \TeX{} inserts when
+typesetting something: since the output is inevitably viewed using
+fonts that don't match the original, the hyphenation usually looks
+silly.
+
+Ralph Droms provides a \Package{txt} bundle of things in support of
+\acro{ASCII} generation,
+but it doesn't do a good job with tables and mathematics.
+
+Another possibility is to
+use the \LaTeX{}-to-\acro{ASCII} conversion program, \ProgName{l2a},
+although this is really more of a de-\TeX{}ing program.
+
+The canonical de-\TeX{}ing program is \ProgName{detex}, which removes
+all comments and control sequences 
+from its input before writing it to its output.  Its original purpose
+was to prepare input for a dumb spelling checker, and it's only usable
+for preparing useful \acro{ASCII} versions of a document in highly
+restricted circumstances.
+
+\ProgName{Tex2mail} is slightly more than a de-TeX{}er~--- it's a
+\ProgName{Perl} script that converts \TeX{} files into
+plain text files, expanding various mathematical symbols
+(sums, products, integrals, sub/superscripts, fractions, square
+roots, \dots{}\@) into ``\acro{ASCII} art'' that spreads over
+multiple lines if necessary. The result is more readable to human
+beings than the flat-style \TeX{} code.
+
+Another significant possibility is to use one of the
+\Qref*{\acro{HTML}-generation solutions}{Q-LaTeX2HTML},
+and then to use a browser such as \ProgName{lynx} to dump the resulting
+\acro{HTML} as plain text.
+\begin{ctanrefs}
+\item[catdvi]\CTANref{catdvi}
+\item[crudetype]\CTANref{crudetype}
+\item[detex]\CTANref{detex}
+\item[dvi2tty]\CTANref{dvi2tty}
+\item[l2a]\CTANref{l2a}
+\item[tex2mail]\CTANref{tex2mail}
+\item[txt]\CTANref{txtdist}
+\end{ctanrefs}
+\LastEdit{2011-07-21}
+
+\Question[Q-SGML2TeX]{Conversion from \acro{SGML} or \acro{HTML} to \protect\TeX{}}
+
+\acro{SGML} is a very important system for document storage and interchange,
+but it has no formatting features; its companion \acro{ISO} standard
+\acro{DSSSL}
+(see \URL{http://www.jclark.com/dsssl/}) is designed for writing
+transformations and formatting,
+but this has not yet been widely implemented. Some \acro{SGML} authoring
+systems (e.g., SoftQuad \ProgName{Author/Editor}) have formatting
+abilities, and
+there are high-end specialist \acro{SGML} typesetting systems (e.g., Miles33's
+\ProgName{Genera}).  However, the majority of \acro{SGML} users probably transform
+the source to an existing typesetting system when they want to print. 
+\TeX{} is a good candidate for this. There are three approaches to writing a
+translator:
+\begin{enumerate}
+\item Write a free-standing translator in the traditional way, with
+  tools like \ProgName{yacc} and \ProgName{lex}; this is hard, in
+  practice, because of the complexity of \acro{SGML}.
+\item Use a specialist language designed for \acro{SGML} transformations; the
+  best known are probably \ProgName{Omnimark} and \ProgName{Balise}.
+  They are expensive, but powerful, incorporating \acro{SGML} query and
+  transformation abilities as well as simple translation.
+\item Build a translator on top of an existing \acro{SGML} parser.  By far
+  the best-known (and free!) parser is James Clark's
+  \ProgName{nsgmls}, and this produces a much simpler output format,
+  called \acro{ESIS}, which can be parsed quite straightforwardly (one also
+  has the benefit of an \acro{SGML} parse against the \acro{DTD}). Two
+  good public domain packages use this method:
+  \begin{itemize}
+  \item
+\begin{narrowversion} % really non-hyper
+      David Megginson's \ProgName{sgmlspm}, written in \ProgName{Perl}
+      5, which is available from 
+      \URL{http://www.perl.com/CPAN/modules/by-module/SGMLS}
+\end{narrowversion}
+\begin{wideversion}
+      David Megginson's
+      \href{http://www.perl.com/CPAN/modules/by-module/SGMLS}{\ProgName{sgmlspm}},
+      written in \ProgName{Perl} 5.
+\end{wideversion}
+    \item
+\begin{narrowversion} % really non-hyper
+      Joachim Schrod and Christine Detig's \ProgName{STIL}
+      (`\acro{SGML} Transformations in Lisp'), which is available from
+      \URL{ftp://ftp.tu-darmstadt.de/pub/text/sgml/stil}
+\end{narrowversion}
+\begin{wideversion}
+      Joachim Schrod and Christine Detig's
+      \href{ftp://ftp.tu-darmstadt.de/pub/text/sgml/stil}{\ProgName{STIL}},
+       (`\acro{SGML} Transformations in Lisp').
+\end{wideversion}
+  \end{itemize}
+  Both of these allow the user to write `handlers' for every \acro{SGML}
+  element, with plenty of access to attributes, entities, and
+  information about the context within the document tree.
+
+  If these packages don't meet your needs for an average \acro{SGML}
+  typesetting job, you need the big commercial stuff.
+\end{enumerate}
+
+Since \acro{HTML} is simply an example of \acro{SGML}, we do not need a specific
+system for \acro{HTML}.  However, Nathan Torkington developed
+% (\Email{Nathan.Torkington@vuw.ac.nz}) 
+\ProgName{html2latex} from the \acro{HTML} parser in \acro{NCSA}'s
+Xmosaic package.
+The program takes an \acro{HTML} file and generates a \LaTeX{} file from it.
+The conversion code is subject to \acro{NCSA} restrictions, but the whole
+source is available on \acro{CTAN}.
+
+Michel Goossens and Janne Saarela published a very useful summary of
+\acro{SGML}, and of public domain tools for writing and manipulating it, in
+\TUGboat{} 16(2).
+\begin{ctanrefs}
+\item[html2latex \nothtml{\rmfamily}source]\CTANref{html2latex}
+\end{ctanrefs}
+
+\Question[Q-LaTeX2HTML]{Conversion from \AllTeX{} to \acro{HTML}}
+
+\TeX{} and \LaTeX{} are well suited to producing electronically publishable
+documents. However, it is important to realize the difference
+between page layout and functional markup. \TeX{} is capable of
+extremely detailed page layout; \acro{HTML} is not, because \acro{HTML} is a
+functional markup language not a page layout language. \acro{HTML}'s exact
+rendering is not specified by the document that is published but is, to
+some degree, left to the discretion of the browser. If you require your
+readers to see an exact replication of what your document looks like
+to you, then you cannot use \acro{HTML} and you must use some other
+publishing format such as \acro{PDF}. That is true for any \acro{HTML}
+authoring tool.
+
+\TeX{}'s excellent mathematical capabilities remain a challenge in the
+business of conversion to \acro{HTML}.  There are only two generally
+reliable techniques for generating mathematics on the web: creating
+bitmaps of bits of typesetting that can't be translated, and using
+symbols and table constructs.  Neither technique is entirely
+satisfactory.  Bitmaps lead to a profusion of tiny files, are slow to
+load, and are inaccessible to those with visual disabilities.  The
+symbol fonts offer poor coverage of mathematics, and their use
+requires configuration of the browser.  The future of mathematical
+browsing may be brighter~--- see
+% beware line break
+\Qref[question]{future Web technologies}{Q-mathml}.
+
+For today, possible packages are:
+\begin{description}
+\item[\ProgName{LaTeX2HTML}]a \ProgName{Perl} script package that
+  supports \LaTeX{} only, and generates mathematics (and other
+  ``difficult'' things) using bitmaps.  The original version was
+  written by Nikos Drakos for Unix systems, but the package now sports
+  an illustrious list of co-authors and is also available for Windows
+  systems.  Michel Goossens and Janne Saarela published a detailed
+  discussion of \ProgName{LaTeX2HTML}, and how to tailor it, in
+  \TUGboat{} 16(2).
+
+  A mailing list for users may be found via
+  \URL{http://tug.org/mailman/listinfo/latex2html}
+\item[\ProgName{TtH}]a compiled program that supports either \LaTeX{}
+  or \plaintex{}, and uses the font/table technique for representing
+  mathematics.  It is written by Ian Hutchinson, using
+  \ProgName{flex}.  The distribution consists of a single \acro{C}
+  source (or a compiled executable), which is easy to install and very
+  fast-running.
+\item[\ProgName{TeX4ht}]a compiled program that supports either
+  \LaTeX{} or \plaintex{}, by processing a \acro{DVI} file; it uses
+  bitmaps for mathematics, but can also use other technologies where
+  appropriate.  Written by Eitan Gurari, it parses the \acro{DVI}
+  file generated when you run \AllTeX{} over your file with
+  \ProgName{tex4ht}'s macros included.  As a result, it's pretty
+  robust against the macros you include in your document, and it's
+  also pretty fast.
+\item[\ProgName{plasTeX}]a Python-based \LaTeX{} document processing
+    framework.  It gives DOM-like access to a \LaTeX{} document, as
+    well as the ability to generate mulitple output formats
+    (e.g. HTML, DocBook, tBook, etc.).
+\item[\ProgName{TeXpider}]a commercial program from
+  \Qref*{Micropress}{Q-commercial}, which is
+  described on \URL{http://www.micropress-inc.com/webb/wbstart.htm};
+  it uses bitmaps for equations.
+\item[\ProgName{Hevea}] a compiled program that supports \LaTeX{}
+  only, and uses the font/table technique for equations (indeed its
+  entire approach is very similar to \ProgName{TtH}).  It is written
+  in Objective \acro{CAML} by Luc Maranget.  \ProgName{Hevea} isn't
+  archived on \acro{CTAN}; details (including download points) are
+  available via \URL{http://pauillac.inria.fr/~maranget/hevea/}
+\end{description}
+An interesting set of samples, including conversion of the same text
+by the four free programs listed above, is available at
+\URL{http://www.mayer.dial.pipex.com/samples/example.htm}; a linked
+page gives lists of pros and cons, by way of comparison.
+
+The World Wide Web Consortium maintains a list of ``filters'' to
+\acro{HTML}, with sections on \AllTeX{} and \BibTeX{}~--- see
+\URL{http://www.w3.org/Tools/Word_proc_filters.html}
+\begin{ctanrefs}
+\item[latex2html]Browse \CTANref{latex2html}
+\item[plasTeX]Browse \CTANref{plastex}
+\item[tex4ht]\CTANref{tex4ht} (but see \url{http://tug.org/tex4ht/})
+\item[tth]\CTANref{tth}
+\end{ctanrefs}
+
+\Question[Q-fmtconv]{Other conversions to and from \AllTeX{}}
+
+\begin{description}
+\item[troff]\ProgName{Tr2latex}, assists in the translation of a
+  \ProgName{troff} document into \LaTeXo{} format.  It recognises most
+  |-ms| and |-man| macros, plus most \ProgName{eqn} and some
+  \ProgName{tbl} preprocessor commands.  Anything fancier needs to be
+  done by hand. Two style files are provided. There is also a man page
+  (which converts very well to \LaTeX{}\dots{}).
+  \ProgName{Tr2latex} is an enhanced version of the earlier
+  \ProgName{troff-to-latex} (which is no longer available).
+
+% The \acro{DECUS} \TeX{} distribution (see
+% \Qref[question]{sources of software}{Q-archives})
+% also contains a program which converts \ProgName{troff} to \TeX{}.
+
+%\item[Scribe] Mark James (\Email{jamesm@dialogic.com}) has a copy of
+%  \ProgName{scribe2latex} he has been unable to test but which he will
+%  let anyone interested have. The program was written by Van Jacobson
+%  of Lawrence Berkeley Laboratory.%
+%  \checked{RF}{1994/11/18}
+  
+\item[WordPerfect] \ProgName{wp2latex} is actively maintained, and is
+  available either for \MSDOS{} or for Unix systems.
+\item[\acro{RTF}] \ProgName{Rtf2tex}, by Robert Lupton, is for
+  converting Microsoft's Rich Text Format to \TeX{}.  There is also a
+  converter to \LaTeX{} by Erwin Wechtl, called \ProgName{rtf2latex}.
+  The latest converter, by Ujwal Sathyam and Scott Prahl, is
+  \ProgName{rtf2latex2e} which seems rather good, though development
+  of it seems to have stalled.
+
+  Translation \emph{to} \acro{RTF} may be done (for a somewhat
+  constrained set of \LaTeX{} documents) by \TeX{}2\acro{RTF}, which
+  can produce ordinary \acro{RTF}, Windows Help \acro{RTF} (as well as
+  \acro{HTML}, \Qref{conversion to HTML}{Q-LaTeX2HTML}).
+  \TeX{}2\acro{RTF} is supported on various Unix platforms and under
+  Windows~3.1
+\item[Microsoft Word] A rudimentary (free) program for converting
+  \acro{MS-W}ord to \LaTeX{} is \ProgName{wd2latex}, which runs on \MSDOS{};
+  it probably processes the output of an archaic version of
+  \acro{MS-W}ord (the program itself was archived in 1991).
+
+  For conversion in the other direction, the current preferred
+  free-software method is a two-stage process:
+  \begin{itemize}
+  \item Convert \latex{} to \ProgName{OpenOffice} format, using the
+    \ProgName{tex4ht} command \ProgName{oolatex};
+  \item open the result in \ProgName{OpenOffice} and `save as' a
+    \acro{MS-W}ord document.
+  \end{itemize}
+  (Note that \ProgName{OpenOffice} itself is \emph{not} on
+  \acro{CTAN}; see \url{http://www.openoffice.org/}, though most
+  \ProgName{linux} systems offer it as a ready-to-install bundle.)
+
+  \ProgName{tex4ht} can also generate OpenOffice \acro{ODT}
+  format, which may be used as an intermediate to producing Word
+  format files.
+
+  \ProgName{Word2}\emph{\TeX{}} and \emph{\TeX{}}\ProgName{2Word} are 
+  shareware translators from % beware line break
+  \href{http://www.chikrii.com/}{Chikrii Softlab}; positive users'
+  reports have been noted (but not recently).
+
+  If cost is a constraint, the best bet is probably to use an
+  intermediate format such as \acro{RTF} or \acro{HTML}.
+  \ProgName{Word} outputs and reads both, so in principle this route
+  may be useful.
+
+  You can also use \acro{PDF} as an intermediate format: Acrobat Reader
+  for Windows (version 5.0 and later) will output rather feeble
+  \acro{RTF} that \ProgName{Word} can read.
+\item[Excel] \ProgName{Excel2Latex} converts an \ProgName{Excel} file
+  into a \LaTeX{} \environment{tabular} environment; it comes as a
+  \extension{xls} file which defines some \ProgName{Excel} macros to produce
+  output in a new format.
+\item[runoff] Peter Vanroose's \ProgName{rnototex}
+  conversion program is written in \acro{VMS} Pascal.
+  The sources are distributed with a \acro{VAX} executable.
+\item[refer/tib] There are a few programs for converting bibliographic
+  data between \BibTeX{} and \ProgName{refer}/\ProgName{tib} formats.
+  The collection includes a shell script converter from \BibTeX{} to
+  \ProgName{refer} format as well. The collection
+  is not maintained.
+\item[\acro{PC}-Write]\ProgName{pcwritex.arc} is a
+  print driver for \acro{PC}-Write that ``prints'' a \acro{PC}-Write
+  V2.71 document to a \TeX{}-compatible disk file.  It was written by Peter
+  Flynn at University College, Cork, Republic of Ireland.
+\end{description}
+
+% beware line breaks
+\href{http://www.tug.org/utilities/texconv/index.html}{Wilfried Hennings' \acro{FAQ}},
+which deals specifically with conversions between \TeX{}-based formats
+and word processor formats, offers much detail as well as tables that
+allow quick comparison of features.
+
+A group at Ohio State University (\acro{USA}) is working on
+a common document format based on \acro{SGML}, with the ambition that any
+format could be
+translated to or from this one.  \ProgName{FrameMaker} provides
+``import filters'' to aid translation from alien formats
+(presumably including \TeX{}) to \ProgName{FrameMaker}'s own.
+\begin{ctanrefs}
+\item[excel2latex]\CTANref{excel2latex}
+\item[pcwritex.arc]\CTANref{pcwritex}
+\item[refer and tib tools]\CTANref{refer-tools}
+\item[rnototex]\CTANref{rnototex}
+\item[rtf2latex]\CTANref{rtf2latex}
+\item[rtf2latex2e]\CTANref{rtf2latex2e}
+\item[rtf2tex]\CTANref{rtf2tex}
+\item[tex2rtf]\CTANref{tex2rtf}
+\item[tex4ht]\CTANref{tex4ht} (but see \url{http://tug.org/tex4ht/})
+\item[tr2latex]\CTANref{tr2latex}
+\item[wd2latex]\CTANref{wd2latex}
+\item[wp2latex]\CTANref{wp2latex}
+\item[\nothtml{\rmfamily}Word processor \acro{FAQ} (source)]%
+  \CTANref{texcnvfaq}
+\end{ctanrefs}
+
+\Question[Q-readML]{Using \TeX{} to read \acro{SGML} or \acro{XML} directly}
+
+\Qref*{\context{} (mark \acro{IV})}{Q-context} can process some
+\acro{*ML}, to produce typeset output directly.  Details of what can
+(and can not) be done, are discussed in % ! line break
+\href{http://wiki.contextgarden.net/XML}{The \context{} \acro{WIKI}}.
+\context{} is probably the system of choice for \alltex{} users who
+also need to work in \acro{XML} (and friends).  (Note that \context{}
+mark~\acro{IV} requires \Qref*{\luatex{}}{Q-luatex}, and should
+therefore be regarded as experimental, though many people \emph{do}
+use it successfully).
+
+Older systems also manage, using no more than \alltex{} macro
+programming, to process \acro{XML} and the like.  David Carlisle's
+\Package{xmltex} is the prime example; it offers a solution
+for typesetting \acro{XML} files, and is still in active (though not
+very widespread) use.
+
+One use of a \TeX{} that can typeset \acro{XML} files is as a backend
+processor for \acro{XSL} formatting objects, serialized as \acro{XML}.
+Sebastian Rahtz's Passive\TeX{} uses \Package{xmltex} to
+achieve this end.
+
+However, modern usage would proceed via \acro{XSL} or \acro{XSLT}2 to
+produce a formattable version.
+\begin{ctanrefs}
+\item[Context]\CTANref{context}
+\item[xmltex]\CTANref{xmltex}
+\item[passivetex]\CTANref{passivetex}
+\end{ctanrefs}
+\LastEdit{2013-04-11}
+
+\Question[Q-recovertex]{Retrieving \AllTeX{} from \acro{DVI}, etc.}
+
+The job just can't be done automatically: \acro{DVI}, \PS{} and
+\acro{PDF} are ``final'' formats, supposedly not susceptible to
+further editing~--- information about where things came from has been
+discarded.  So if you've lost your \AllTeX{} source (or never
+had the source of a document you need to work on) you've a serious job
+on your hands.  In many circumstances, the best strategy is to retype
+the whole document, but this strategy is to be tempered by
+consideration of the size of the document and the potential typists'
+skills.
+
+If automatic assistance is necessary, it's unlikely that any more than
+text retrieval is going to be possible; the \AllTeX{} markup that
+creates the typographic effects of the document needs to be recreated
+by editing.
+
+If the file you have is in \acro{DVI} format, many of the techniques
+for \Qref*{converting \AllTeX{} to \acro{ASCII}}{Q-toascii} are
+applicable.  Consider \ProgName{dvi2tty}, \ProgName{crudetype} and
+\ProgName{catdvi}.  Remember that there are likely to be problems
+finding included material (such as included \PS{} figures, that
+don't appear in the \acro{DVI} file itself), and mathematics is
+unlikely to convert easily.
+
+To retrieve text from \PS{} files, the
+\ProgName{ps2ascii} tool (part of the
+\href{http://www.ghostscript.com/}{\ProgName{ghostscript}}
+distribution) is available.  One could try applying this tool to
+\PS{} derived from an \acro{PDF} file using \ProgName{pdf2ps} (also
+from the \href{http://www.ghostscript.com/}{\ProgName{ghostscript}}
+distribution), or \ProgName{Acrobat}
+\ProgName{Reader} itself; an alternative is \ProgName{pdftotext},
+which is distributed with \ProgName{xpdf}.
+
+Another avenue available to those with a \acro{PDF} file they want to
+process is offered by Adobe \ProgName{Acrobat} (version 5 or later):
+you can tag the \acro{PDF} file into an estructured document, output
+thence to well-formed \acro{XHTML}, and import the results into
+Microsoft \ProgName{Word} (2000 or later).  From there, one may
+convert to \AllTeX{} using one of the techniques discussed in
+% beware line break
+\wideonly{``}\Qref[question]{converting to and from \AllTeX{}}{Q-fmtconv}\wideonly{''}.
+
+The result will typically (at best) be poorly marked-up.  Problems may
+also arise from the oddity of typical \TeX{} font encodings (notably
+those of the maths fonts), which \ProgName{Acrobat} doesn't know how
+to map to its standard Unicode representation.
+\begin{ctanrefs}
+\item[catdvi]\CTANref{catdvi}
+\item[crudetype]\CTANref{crudetype}
+\item[dvi2tty]\CTANref{dvi2tty}
+\item[xpdf]Browse \CTANref{xpdf}
+\end{ctanrefs}
+\LastEdit{2013-04-16}
+
+\Question[Q-LaTeXtoPlain]{Translating \LaTeX{} to \plaintex{}}
+
+Unfortunately, no ``general'', simple, automatic process is likely to
+succeed at this task.  See % ! line break
+``\Qref*{How does \LaTeX{} relate to \plaintex{}}{Q-LaTeXandPlain}''
+for further details.
+
+Obviously, trivial documents will translate in a trivial way.
+Documents that use even relatively simple things, such as labels and
+references, are likely to cause trouble (\plaintex{} doesn't support
+labels).  While graphics are in principle covered, by the \plaintex{}
+
+Translating a document designed to work with \LaTeX{} into one
+that will work with \plaintex{} is likely to amount to carefully
+including (or otherwise re-implementing) all those parts of \LaTeX{},
+beyond the provisions of \plaintex{}, which the document uses.
+
+Some of this work has (in a sense) been done, in the port of the
+\LaTeX{} graphics package to \plaintex{}.  However, while
+\Package{graphics} is available, other complicated packages (notably
+\Package{hyperref}) are not.  The aspiring translator may find the
+\Qref*{\Eplain{}}{Q-eplain} system a useful source of code.  (In fact,
+a light-weight system such as \Eplain{} might reasonably be adopted as
+an alternative target of translation, though it undoubtedly gives the
+user more than the ``bare minimum'' that \plaintex{} is designed to
+offer.)
+\begin{ctanrefs}
+\item[\nothtml{\begingroup\rmfamily}The\nothtml{\endgroup} eplain \nothtml{\rmfamily}system]%
+  \CTANref{eplain}
+\item[\nothtml{\begingroup\rmfamily'}\plaintex{}\nothtml{'\endgroup} graphics]%
+  \CTANref{graphics-plain}
+\end{ctanrefs}
+\LastEdit{2011-05-30}

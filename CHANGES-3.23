@@ -1,0 +1,50 @@
+Changes since version 3.22
+
+New answers:
+ +Label book-lists:  redirector to the dismembered parts of old "label books"
+ +Label ctan:	     summary of the salient points of the archives
+ +Label catalogue:   outline of the CTAN catalogue
+ +Label latex-books: the LaTeX part of old "label books"
+ +Label other-books: the miscellanea from old "label books"
+ +Label subdepth:    getting even subscripts in your maths
+ +Label tex-books:   TeX and Plain TeX part of old "label books"
+ +Label type-books:  typesetting part of old "label books"
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label altabcr:     error can be caused by insufficient columns in a matrix
+ +Label clsvpkg:     rewritten with a LaTeX 2e perspective (rather than 2.09)
+ +Label context:     add detail following Hans Hagen's outline in Tugboat 100
+ +Label destable:    more details of caption above table
+ +Label doc-dirs:    correct link to TUG India tutorials page
+ +Label drawing:     link to intro doc on pgf/TikZ, and sparse docs of DraTeX
+ +Label gethelp:     rewritten for (slightly) improved clarity
+ +Label hyphen:	     LuaTeX's hyphenation pattern loading is different
+ +Label keyval:	     references to expl3, xpackages replaced with l3* versions
+        keyval:	     mention getoptk
+ +Label labelfig:    mention pst-layout; mention that pgf/TikZ is also capable
+ +Label latex2e:     mention "frozen" state
+ +Label latex3:	     references to expl3, xpackages replaced with l3* versions
+ +Label latexqual:   mention lacheck
+ +Label luatex:      "clarify" statement about future changes to PDFTeX
+	luatex:	     updated versions mentioned; MikTeX now offers LuaTeX
+ +Label MF:	     mention sidelining of Metafont in the modern world
+ +Label patch:	     use letltxmacro where necessary
+ +Label RCS:	     mention gitinfo
+ +Label texthings:   clarify description of luatex
+ +Label tfm:	     XeTeX and LuaTeX don't need TFM files
+ +Label underscore:  \_ in OT1 encoding is bad news
+ +Label useMF:	     a step in removing archaic baggage from this answer
+
+Deleted answers:
+ +Label books:	     dismembered to produce the new *-books above (the
+		     label is now redirected to book-lists)
+
+Web interface, etc.:
+ A small change to the HTML generation has (to the author's eye)
+ improved the appearance of pages on the web.  There remain problems
+ in this area, despite the improvement.
+
+Robin Fairbairns

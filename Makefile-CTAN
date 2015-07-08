@@ -1,0 +1,103 @@
+# this file is auto-generated; edit mk-makefile, not this
+
+/anfs/ctan/tex-archive/help/uk-tex-faq/ChangeLog:	ChangeLog
+/anfs/ctan/tex-archive/help/uk-tex-faq/Makefile:	Makefile
+/anfs/ctan/tex-archive/help/uk-tex-faq/README:	README
+/anfs/ctan/tex-archive/help/uk-tex-faq/dirctan.tex:	dirctan.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq.cls:	faq.cls
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq.sty:	faq.sty
+/anfs/ctan/tex-archive/help/uk-tex-faq/filectan.tex:	filectan.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/gather-faqbody.tex:	gather-faqbody.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/letterfaq.tex:	letterfaq.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/archive.cfg:	archive.cfg
+/anfs/ctan/tex-archive/help/uk-tex-faq/markup-syntax:	markup-syntax
+/anfs/ctan/tex-archive/help/uk-tex-faq/newfaq.tex:	newfaq.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/letterfaq.pdf:	letterfaq.pdf
+/anfs/ctan/tex-archive/help/uk-tex-faq/newfaq.pdf:	newfaq.pdf
+/anfs/ctan/tex-archive/help/uk-tex-faq/faqfont.cfg.cmfonts:	faqfont.cfg.cmfonts
+/anfs/ctan/tex-archive/help/uk-tex-faq/FAQ-html.tar.gz:	FAQ-html.tar.gz
+/anfs/ctan/tex-archive/help/uk-tex-faq/CHANGES-3.25:	CHANGES-3.25
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-adj-types.tex:	faq-adj-types.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-backgrnd.tex:	faq-backgrnd.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-biblio.tex:	faq-biblio.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-bits+pieces.tex:	faq-bits+pieces.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-docs.tex:	faq-docs.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-dvi.tex:	faq-dvi.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-fmt-conv.tex:	faq-fmt-conv.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-fonts.tex:	faq-fonts.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-getit.tex:	faq-getit.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-graphics.tex:	faq-graphics.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-how-do-i.tex:	faq-how-do-i.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-hyp+pdf-1.tex:	faq-hyp+pdf-1.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-hyp+pdf.tex:	faq-hyp+pdf.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-hyp-pdf-rev.tex:	faq-hyp-pdf-rev.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-images.tex:	faq-images.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-install.tex:	faq-install.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-intro.tex:	faq-intro.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-jot-err.tex:	faq-jot-err.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-lab-ref.tex:	faq-lab-ref.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-litprog.tex:	faq-litprog.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-mac-prog.tex:	faq-mac-prog.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-projects.tex:	faq-projects.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-support.tex:	faq-support.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-symbols.tex:	faq-symbols.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-t-g-wr.tex:	faq-t-g-wr.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-texsys.tex:	faq-texsys.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-the-end.tex:	faq-the-end.tex
+/anfs/ctan/tex-archive/help/uk-tex-faq/faq-wdidt.tex:	faq-wdidt.tex
+
+TARGETS = \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/ChangeLog \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/Makefile \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/README \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/dirctan.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq.cls \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq.sty \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/filectan.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/gather-faqbody.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/letterfaq.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/archive.cfg \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/markup-syntax \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/newfaq.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/letterfaq.pdf \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/newfaq.pdf \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faqfont.cfg.cmfonts \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/FAQ-html.tar.gz \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-adj-types.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-backgrnd.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-biblio.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-bits+pieces.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-docs.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-dvi.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-fmt-conv.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-fonts.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-getit.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-graphics.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-how-do-i.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-hyp+pdf-1.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-hyp+pdf.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-hyp-pdf-rev.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-images.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-install.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-intro.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-jot-err.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-lab-ref.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-litprog.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-mac-prog.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-projects.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-support.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-symbols.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-t-g-wr.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-texsys.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-the-end.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/faq-wdidt.tex \
+	/anfs/ctan/tex-archive/help/uk-tex-faq/CHANGES-3.25
+
+all:	$(TARGETS)
+	echo $^
+	if [ -f $^ ]; then		\
+		     /anfs/ctan-maint/install/ctan_install -replace -silent -nozip $(F^) help/uk-tex-faq/$(F^);	\
+		   else					\
+		     /anfs/ctan-maint/install/ctan_install -new -silent $(F^) help/uk-tex-faq/$(F^);	\
+		   fi
+

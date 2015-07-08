@@ -1,0 +1,613 @@
+% $Id: faq-symbols.tex,v 1.15 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{Symbols, etc.}
+
+\Question[Q-usesymb]{Using symbols}
+
+Most symbol font sets come with a package that defines commands for
+every symbol in the font.  While this is convenient, it can lead to
+difficulties, particularly with name clashes when you load packages
+that cover fonts which duplicate symbols~--- an issue which is
+discussed in
+\begin{narrowversion}
+  \Qref[question]{}{Q-alreadydef}.
+\end{narrowversion}
+\begin{wideversion}
+  ``\Qref{symbol already defined}{Q-alreadydef}''.
+\end{wideversion}
+Some font sets (for example the related set: \FontName{FdSymbol},
+\FontName{MdSymbol} and \FontName{MnSymbol}) are huge, and the
+accompanying macros cover so many symbols that name clashes are surely
+a serious problem.
+
+The \Package{pifont} package (originally designed to use the Adobe
+\FontName{Zapf Dingbats} font) avoids this sort of problem: it requires
+you to know the font position of any symbol you want to use (the
+documentation provides font tables).  The basic command is
+\cmdinvoke*{ding}{number} for a single symbol; there are commands for
+other fancier uses.  \Package{Pifont} also allows you to select other
+fonts, for similar use.
+
+The \Package{yagusylo} describes itself as ``an extended version of
+\Package{pifont}, gone technicolor''.  It provides all the facilities
+of \Package{pifont}, but allows you to create your own mnemonic names
+for symbols.  Thus, while you can say % ! line break
+\cmdinvoke*{yagding}[family]{symbol number}[colour], you can also
+define symbol names with \csx{defdingname}, and then use them
+with \cmdinvoke*{yagding*}{symbol name} (the defined name carries the
+font family and colour specified in the arguments of
+\csx{defdingname}).
+
+\Package{Yagusylo} is somewhat complicated, but its documentation is
+clear; it is probably the best tool to use for picking and choosing
+symbols from a variety of font families.
+\begin{ctanrefs}
+\item[FdSymbol \nothtml{\rmfamily}fonts]\CTANref{fdsymbol}
+\item[MdSymbol \nothtml{\rmfamily}fonts]\CTANref{mdsymbol}
+\item[MnSymbol \nothtml{\rmfamily}fonts]\CTANref{mnsymbol}
+\item[pifont.sty]Distributed as part of \CTANref{psnfss}
+\item[yagusylo.sty]\CTANref{yagusylo}
+\end{ctanrefs}
+
+\Question[Q-numbersets]{Symbols for the number sets}
+
+Mathematicians commonly use special lettering for the real numbers and
+other standard number sets. Traditionally these were typeset in bold.
+In the ordinary course of events, but mathematicians do not have
+access to bold chalk, so they invented special symbols that are now
+often used for the number sets.  Such symbols are known as
+``blackboard bold'' (or double-stroked) letters; in place of the heavier
+strokes of a bold font, (some) strokes of the letters are doubled.
+The minimum useful set is upper-case letters `I', `N', `R', `Q' and
+`Z'; some fonts offer a figure `1' (for a unit matrix~--- not a number
+set at all).
+
+A set of blackboard bold capitals is available in the \acro{AMS}
+\FontName{msbm} fonts (\FontName{msbm} is available at a range of
+design sizes, with names such as \FontName{msbm10}).  The \acro{AMS}
+actually provides a pair of font
+families (the other is called \FontName{msam}), which offer a large number of
+mathematical symbols to supplement those provided in Knuth's fonts.
+The fonts are available in Type~1 format in
+modern distributions.   Support for using the fonts under
+\LaTeX{} is available in packages \Package{amssymb} and
+\Package{amsfonts}.  The font shape is a rather
+austere sans, which many people don't like (though it captures the
+essence of quickly-chalked writing rather well).
+
+The \FontName{bbold} family is set of blackboard bold fonts written in
+\MF{}.  This set offers blackboard bold forms of lower-case letters;
+the font source directory also contains sources for a \LaTeX{} package
+that enables use of the fonts.  The fonts are not available in Type~1 format.
+
+The \FontName{bbm} family claims to provide
+`blackboard' versions of most of the \FontName{cm} fonts~\dots{} including
+the bold and bold-extended series.  Again, the fonts are designed in
+\MF{} and are not available in Type~1 format.  \LaTeX{} macro support
+comes from a package by Torsten Hilbrich.
+
+The \FontName{doublestroke} family comes in just roman
+and sans shapes, at a single weight, and is available both as \MF{}
+sources and as Type~1; the font covers the uppercase latin letters,
+lowercase `h' and 'k', and the digit `1'.
+
+A document that shows the \FontName{bbm}, \FontName{bbold},
+\FontName{doublestroke} and \FontName{msbm} fonts, so that you can get
+a feel for their appearance, is available (\acro{CTAN} package
+\Package{blackboard}).
+
+The \Package{boondox} font set consists of Type~1 versions of the
+\acro{STIX} mathematics set (the originals are distributed in
+\acro{OTF} format).  The set contains a font
+`BOONDOXDoubleStruck-Regular' (blackboard bold) (as well as a `bold'
+version of that.
+
+An alternative source of Type~1 fonts with blackboard bold characters
+may be found in the steadily increasing set of complete families, both
+commercial and free, that have been prepared for use with \AllTeX{}
+(see % beware line break
+\htmlonly{``}\Qref[question]{choice of outline fonts}{Q-psfchoice}\htmlonly{''}).
+Of the free sets, the \FontName{txfonts} and \FontName{pxfonts} families
+both come with replicas of \FontName{msam} and \FontName{msbm}, but
+(as noted elsewhere, there are other reasons not to use these fonts);
+revised versions of the fonts, \FontName{newtx} and \FontName{newpx}
+are better adjusted.  The \FontName{mathpazo} family includes a
+``mathematically significant'' choice of blackboard bold characters, and the
+\FontName{fourier} fonts contain blackboard bold upper-case letters,
+the digit `1', and lower-case `k'.
+
+The ``lazy person's'' blackboard bold macros:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\R}{{\textsf{R}\hspace*{-0.9ex}%
+  \rule{0.15ex}{1.5ex}\hspace*{0.9ex}}}
+\newcommand{\N}{{\textsf{N}\hspace*{-1.0ex}%
+  \rule{0.15ex}{1.3ex}\hspace*{1.0ex}}}
+\newcommand{\Q}{{\textsf{Q}\hspace*{-1.1ex}%
+  \rule{0.15ex}{1.5ex}\hspace*{1.1ex}}}
+\newcommand{\C}{{\textsf{C}\hspace*{-0.9ex}%
+  \rule{0.15ex}{1.3ex}\hspace*{0.9ex}}}
+\end{verbatim}
+\end{quote}
+are almost acceptable at normal size if the surrounding text is
+\FontName{cmr10} (the position of the vertical bar can be affected by
+the surrounding font).  However, they are not part of a proper maths font,
+and do not work in sub- and superscripts.  As we've seen, there are
+plenty of alternatives: that mythical ``lazy'' person can inevitably
+do better than the macros, or anything similar using capital `I'
+(which looks even worse!).  Voluntary  \AllTeX{} effort has redefined
+the meaning of laziness (in this respect!).
+\begin{ctanrefs}
+\item[AMS support files]Distributed as part of \CTANref{amsfonts}
+\item[AMS symbol fonts]Distributed as part of \CTANref{amsfonts}
+\item[bbm fonts]\CTANref{bbm}
+\item[bbm macros]\CTANref{bbm-macros}
+\item[bbold fonts]\CTANref{bbold}
+\item[blackboard \nothtml{\rmfamily}evaluation set]\CTANref{blackboard}
+\item[doublestroke fonts]\CTANref{doublestroke}
+\item[fourier fonts]\CTANref{fourier}
+\item[mathpazo fonts]\CTANref{mathpazo}
+\item[newpx]\CTANref{newpx}
+\item[newtx]\CTANref{newtx}
+\item[pxfonts]\CTANref{pxfonts}
+\item[txfonts]\CTANref{txfonts}
+\end{ctanrefs}
+\LastEdit{2013-12-04}
+
+\Question[Q-scriptfonts]{Better script fonts for maths}
+
+The font selected by \csx{mathcal} is the only script font `built
+in'. However, there are other useful calligraphic fonts included with
+modern \TeX{} distributions.
+\begin{description}
+\item[Euler] The \Package{eucal} package (part of most sensible \TeX{}
+  distributions; the fonts are part of the \acro{AMS} font set) gives
+  a slightly curlier font than the default. The package changes the
+  font that is selected by \csx{mathcal}.
+  
+  Type 1 versions of the fonts are available in the \acro{AMS} fonts
+  distribution.
+\item[mathabx] The \FontName{mathabx} bundle provides calligraphic
+  letters (in both upper and lower case); the fonts were developed in
+  MetaFont, but a version in Adobe Type 1 format is available.  The
+  bundle's documentation offers a series of comparisons of its
+  calligraphic set with Computer Modern's (both regular mathematical
+  and calligraphic letters); the difference are not large.
+\item[mnsymbol] The \FontName{mnsymbol} bundle provides (among many
+  other symbols) a set of calligraphic letters, though (again) they're
+  rather similar to the default Computer Modern set.
+\item[RSFS] The \Package{mathrsfs} package uses a really fancy script
+  font (the name stands for ``Ralph Smith's Formal Script'') which is
+  already part of most modern \TeX{} distributions (Type~1 versions of
+  the font are also provided, courtesy of Taco Hoekwater).  The package
+  creates a new command \csx{mathscr}.
+\item[RSFSO] The bundle \Package{rsfso} provides a less dramatically
+  oblique version of the \acro{RSFS} fonts; the result proves quite
+  pleasing~--- similar to the effect of the the (commercial) script
+  font in the Adobe Mathematical Pi collection.
+\item[Zapf Chancery] is the standard \PS{} calligraphic font.  There
+  is no package but you can easily make it available by means of the
+  command
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}%
+                                 {m}{it}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}{m}{it} 
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+  in your preamble.  You may find the font rather too big; if so, you
+  can use a scaled version of it like this:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}%
+             {<-> s * [0.900] pzcmi7t}{}
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}%
+                                 {m}{it}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [0.900] pzcmi7t}{}
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}{m}{it}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+  Adobe Zapf Chancery (which the above examples use) is distributed in
+  any but the most basic \PS{} printers.  A substantially identical
+  font (to the extent that the same metrics may be used) is
+  available from \acro{URW}, called URW Chancery L: it is distributed
+  as part of the ``URW base35'' bundle; the
+  \Package{urwchancal} package (which includes virtual fonts to tweak
+  appearance) provides for its use as a calligraphic font.
+
+  The TeX Gyre font family also includes a Chancery replacement,
+  \FontName{Chorus}; use it with \Package{tgchorus} (and ignore the
+  complaints about needing to change font shape).
+\end{description}
+Examples of the available styles are linked from the packages'
+catalogue entries.
+\begin{ctanrefs}
+\item[eucal.sty]Distributed as part of \CTANref{amsfonts}
+\item[euler fonts]Distributed as part of \CTANref{amsfonts}
+\item[mathabx \nothtml{\rmfamily}as \MF{}]\CTANref{mathabx}
+\item[mathabx \nothtml{\rmfamily}in Type 1 format]\CTANref{mathabx-type1}
+\item[mathrsfs.sty]Distributed as part of \CTANref{jknappen-macros}[mathrsfs]
+\item[mnsymbol \nothtml{\rmfamily}fonts]\CTANref{mnsymbol}
+\item[rsfs \nothtml{\rmfamily}fonts]\CTANref{rsfs}
+\item[rsfso \nothtml{\rmfamily}fonts]\CTANref{rsfso}
+\item[Script font examples]\CTANref{mathscript}
+\item[TeX Gyre Chorus font family]Distributed as part of \CTANref{tex-gyre}[tex-gyre-chorus]
+\item[urwchancal]\CTANref{urwchancal}[urwchancal]
+\item[URW Chancery L]Distributed as part of \CTANref{urw-base35}
+\end{ctanrefs}
+\LastEdit{2011-08-17}
+
+\Question[Q-boldgreek]{Setting bold Greek letters in \LaTeX{} maths}
+
+The issue here is complicated by the fact that \csx{mathbf} (the
+command for setting bold \emph{text} in \TeX{} maths) affects a select
+few mathematical `symbols' (the uppercase Greek letters).
+
+In the default configuration, lower-case Greek letters behave
+differently from upper-case Greek letters (the lower-case greek
+letters are in the maths fonts, while the upper-case letters are in
+the original (OT1-encoded) text fonts).
+
+The \plaintex{} solution \emph{does} work, in a limited way; you set a
+maths \emph{style}, before you start an equation; thus
+\begin{quote}
+\begin{verbatim}
+{\boldmath$\theta$}
+\end{verbatim}
+\end{quote}
+does the job, but \csx{boldmath} may not be used in maths mode.  As a
+result, this solution requires that you embed single bold characters
+in a text box:
+\begin{quote}
+\begin{verbatim}
+$... \mbox{\boldmath$\theta$} ...$
+\end{verbatim}
+\end{quote}
+which then causes problems in superscripts, etc.  With
+\Package{amsmath} loaded,
+\begin{quote}
+\begin{verbatim}
+$... \text{\boldmath$\theta$} ...$
+\end{verbatim}
+\end{quote}
+does the trick (and is less bad in regard to superscripts, etc), but
+is an unsatisfactory solution, too.
+
+These problems may be addressed by using a bold mathematics package.
+\begin{itemize}
+\item The \Package{bm} package, which is part of the \LaTeX{} tools
+  distribution, defines a command \csx{bm} which may be used anywhere
+  in maths mode.
+\item The \Package{amsbsy} package (which is part of \AMSLaTeX{})
+  defines a command \csx{boldsymbol}, which (though slightly less
+  comprehensive than \csx{bm}) covers almost all common cases.
+\end{itemize}
+
+All these solutions apply to all mathematical symbols, not merely
+Greek letters.
+\begin{ctanrefs}
+\item[bm.sty]Distributed as part of \CTANref{2etools}[bm]
+\item[amsbsy.sty]Distributed as part of \AMSLaTeX{} \CTANref{amslatex}[amsbsy]
+\item[amsmath.sty]Distributed as part of \AMSLaTeX{}
+  \CTANref{amslatex}[amsmath]
+\end{ctanrefs}
+\LastEdit{2013-06-12}
+
+\Question[Q-prinvalint]{The Principal Value Integral symbol}
+
+This symbol (an integral sign, `crossed') does not appear in any of
+the fonts ordinarily available to \AllTeX{} users, but it can be
+created by use of the following macros:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle
+                      \scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{%
+     \setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+\csx{dashint} gives a single-dashed integral sign, \csx{ddashint} a
+double-dashed one.
+
+\Question[Q-underscore]{How to typeset an underscore character}
+
+The underscore character `\texttt{\_}' is ordinarily used in \TeX{} to
+indicate a subscript in maths mode; if you type \texttt{\_}, on its
+own, in the course of ordinary text, \TeX{} will complain.  The
+``proper'' \latex{} command for underscore is \csx{textunderscore},
+but the \latexo{} command \csx{\_} is an established alias.  Even so,
+if you're writing a document which will contain a large number of
+underscore characters, the prospect of typing \csx{\_} for every one
+of them will daunt most ordinary people.
+
+Moderately skilled macro programmers can readily generate a quick hack
+to permit typing `\texttt{\_}' to mean `text underscore' (the answer in
+\begin{hyperversion}
+  ``\Qref{defining characters as macros}{Q-activechars}''
+\end{hyperversion}
+\begin{flatversion}
+  \Qref[question]{}{Q-activechars}
+\end{flatversion}
+uses this example to illustrate its techniques).
+However, the code \emph{is} somewhat tricky, and more importantly
+there are significant points where it's easy to get it wrong.  There
+is therefore a package \Package{underscore} which provides a general
+solution to this requirement.
+
+There is a problem, though: \acro{OT}1 text fonts don't contain an
+underscore character, unless they're in the typewriter version of the
+encoding (used by fixed-width fonts such as \texttt{cmtt}).  In place
+of such a character, \latex{} (in \acro{OT}1 encoding) uses a short rule
+for the command \csx{textunderscore}, but this poses problems
+for systems that interpret \acro{PDF}~--- for example those
+\acro{PDF}-to-voice systems used by those who find reading difficult.
+
+So either you must ensure that your underscore characters only occur
+in text set in a typewriter font, or you must use a more modern
+encoding, such as \acro{T}1, which has the same layout for every font,
+and thus an underscore in every font.
+
+A stable procedure to achieve this is:
+\begin{quote}
+\begin{verbatim}
+% (1) choose a font that is available as T1
+% for example:
+\usepackage{lmodern}
+
+% (2) specify encoding
+\usepackage[T1]{fontenc}
+
+% (3) load symbol definitions
+\usepackage{textcomp}
+\end{verbatim}
+\end{quote}
+which will provide a command \csx{textunderscore} which robustly
+selects the right character.  The \Package{underscore} package,
+mentioned above, will use this command.
+\begin{ctanrefs}
+\item[underscore.sty]\CTANref{underscore}
+\end{ctanrefs}
+\LastEdit{2011-08-17}
+
+\Question[Q-atsign]{How to type an `@' sign?}
+
+Long ago, some packages used to use the `@' sign as a special
+character, so that special measures were needed to type it.  While
+those packages are still in principle available, few people use them,
+and those that do use them have ready access to rather good
+documentation.
+
+Ordinary people (such as the author of this \acro{FAQ}) need only type
+`@'.
+\LastEdit{2011-08-16}
+
+\Question[Q-euro]{Typesetting the Euro sign}
+
+The European currency ``Euro'' (\texteuro {}) is represented by a symbol
+of somewhat dubious design, but it's an important currency and
+\AllTeX{} users need to typeset it.  When the currency first appeared,
+typesetting it was a serious problem for \AllTeX{} users; things are
+easier now (most fonts have some way of providing a Euro sign), but
+this answer provides a summary of methods ``just in case''.
+
+Note that the Commission of the European Community at first deemed
+that the Euro symbol should always be set in a sans-serif font;
+fortunately, this eccentric ruling has now been rescinded, and one may
+apply best typesetting efforts to making it appear at least slightly
+``respectable'' (typographically).
+
+The \acro{TS}1-encoded \acro{TC} fonts provided as part of the \acro{EC} font
+distribution provide Euro glyphs.  The fonts are called Text Companion
+(\acro{TC}) fonts, and offer the same range
+of faces as do the \acro{EC} fonts themselves.  The
+\Package{textcomp} package provides a \csx{texteuro} command for
+accessing the symbol, which selects a symbol to match the surrounding
+text.  The design of the symbol in the \acro{TC} fonts is not
+universally loved\dots{}
+Nevertheless, use the \acro{TC} font version of the symbol if you are
+producing documents using Knuth's Computer Modern Fonts.
+
+The each of the \Package{latin9} and \Package{latin10} input encoding
+definitions for the \Package{inputenc} package has a euro character
+defined (character position 164, occupied in other \acro{ISO} Latin
+character sets by the ``currency symbol'' \textcurrency {}, which
+ordinary people seldom see except in character-set listings\dots{}).
+The \acro{TC} encoding file offers the command \csx{texteuro} for the
+character; that command is (probably) \emph{only} available from the
+\Package{textcomp} package.
+
+Use of the \acro{TC} encoding character may therefore made via
+\csx{texteuro} or via the Latin-9 or Latin-10 character in ordinary
+text.
+
+Note that there is a Microsoft code page position (128), too, and that has
+been added to \Package{inputenc} tables for \acro{CP}1252 and
+\acro{CP}1257.  (There's another position in \acro{CP}858, which has
+it in place of ``dotless i'' in \acro{CP850}; the standardisation of
+these things remains within Microsoft, so one can never tell what will
+come next\dots{})
+
+Outline fonts which contain nothing but Euro symbols are available
+(free) from
+\href{ftp://ftp.adobe.com/pub/adobe/type/win/all/eurofont.exe}{Adobe}\nobreakspace---
+the file is packaged as a \ProgName{Windows} self-extracting
+executable, but it may be decoded as a \extension{zip} format archive
+on other operating systems.
+The \Package{euro} bundle contains metrics, \ProgName{dvips} map
+files, and macros (for \plaintex{} and \LaTeX{}), for using these
+fonts in documents.  \LaTeX{} users will find two packages in the
+bundle: \Package{eurosans} only offers the sans-serif version (to
+conform with the obsolete ruling about sans-serif-only symbols; the
+package provides the
+command \csx{euro}), whereas \Package{europs} matches the Euro symbol
+with the surrounding text (providing the command \csx{EUR}).  To use
+either package
+with the \Package{latin9} encoding, you need to define \csx{texteuro}
+as an alias for the euro command the package defines.
+
+The Adobe fonts are probably the best bet for use in non-Computer
+Modern environments.  They are apparently designed to fit with Adobe
+Times, Helvetica and Courier, but can probably fit with a wider range
+of modern fonts.
+
+The \Package{eurofont} package provides a compendious analysis of the
+``problem of the euro symbol'' in its documentation, and offers macros
+for configuring the source of the glyphs to be used; however, it seems
+rather large for everyday use.
+
+The \Package{euro-ce} bundle is a rather pleasing \MF{}-only design
+providing Euro symbols in a number of shapes.  The file
+\File{euro-ce.tex}, in the distribution, offers hints as to how a
+\plaintex{} user might make use of the fonts.
+
+Euro symbols are found in several other places, which we list here for
+completeness.
+
+The \Package{marvosym} font contains a Euro symbol (in a number of
+typographic styles), among many other good things; the font is
+available in both Adobe Type 1 and TrueType formats.
+
+Other \MF{}-based bundles containing Euro symbols are to be found in
+\Package{china2e} (whose primary aim is Chinese dates and suchlike
+matters) and the \Package{eurosym} fonts.
+\begin{ctanrefs}
+\item[china2e bundle]\CTANref{china2e}
+\item[EC fonts]\CTANref{ec}
+\item[euro fonts]\CTANref{euro-fonts}
+\item[euro-ce fonts]\CTANref{euro-ce}
+\item[eurofont.sty]\CTANref{eurofont}
+\item[eurosym fonts]\CTANref{eurosym}
+\item[marvosym fonts]\CTANref{marvosym-fonts}
+\item[textcomp.sty]Part of the \LaTeX{} distribution.
+\end{ctanrefs}
+\LastEdit{2011-11-21}
+
+\Question[Q-tradesyms]{How to get copyright, trademark, etc.}
+
+The ``\nothtml{Comprehensive symbol list'' (}% beware line break
+\Qref{Comprehensive symbol list}{Q-symbols}\latexhtml{)}{''}, lists
+the symbol commands \csx{textcopyright},
+\csx{textregistered} and \csx{texttrademark}, which are available in
+\acro{TS}1-encoded fonts, and which are enabled using the
+\Package{textcomp} package.
+
+In fact, all three commands are enabled in default \LaTeX{}, but the
+glyphs you get aren't terribly beautiful.  In particular,
+\csx{textregistered} behaves oddly when included in bold text (for
+example, in a section heading), since it is composed of a small-caps
+letter, which typically degrades to a regular shape letter when asked
+to set in a bold font.  This means that the glyph becomes a circled
+``r'', whereas the proper symbol is a circled ``R''.
+
+This effect is of course avoided by use of \Package{textcomp}.
+
+Another problem arises if you want \csx{textregistered} in a
+superscript position (to look similar to \csx{texttrademark}).
+Using a maths-mode superscript to do this provokes lots of pointless
+errors: you \emph{must} use
+\begin{quote}
+\begin{verbatim}
+\textsuperscript{\textregistered}
+\end{verbatim}
+\end{quote}
+
+\Question[Q-osf]{Using ``old-style'' figures}
+
+These numbers are also called medieval or lowercase figures and their
+use is mostly font-specific.  Terminology is confusing since the
+lining figures (which are now the default) are a relatively recent
+development (19th century) and before they arrived, oldstyle figures
+were the norm, even when setting mathematics.  (An example is Thomas
+Harriot's \emph{Artis Analyticae Praxis} published in 1631).  In a
+typical old style 3, 4, 5, 7 and 9 have descenders and 6 and 8 ascend
+above the x-height; sometimes 2 will also ascend (this last seems to
+be a variation associated with French typography).
+
+\LaTeX{} provides a command \cmdinvoke*{oldstylenums}{digits}, which
+by default uses an old-style set embedded in Knuth's `math italic'
+font.  The command is only sensitive to `bold' of the font style of
+surrounding text: glyphs (for this command) are only available to
+match the normal medium and bold (i.e., bold-extended) weights of the
+Computer Modern Roman fonts.
+
+The \Package{textcomp} package changes \csx{oldstylenums} to use the
+glyphs in the Text Companion fonts (\LaTeX{} \acro{TS}1 encoding) when
+in text mode, and also makes them available using the macros of the
+form \csx{text<number>oldstyle}, e.g., \csx{textzerooldstyle}.
+(Of course, not all font families can provide this facility.)
+
+Some font packages (e.g., \Package{mathpazo}) make old-style figures
+available and provide explicit support for making them the default:
+\cmdinvoke{usepackage}[osf]{mathpazo} selects a form where digits are
+always old-style in text.  The \Package{fontinst} package will
+automatically generate ``old-style versions'' of commercial Adobe Type
+1 font families for which ``expert'' sets are available.
+
+It's also possible to make virtual fonts, that offer old-style digits,
+from existing font packages.  The \FontName{cmolddig} bundle provides
+a such a virtual version of Knuth's originals, and the \FontName{eco}
+or \FontName{hfoldsty} bundles both provide versions of the \acro{EC}
+fonts.  The \FontName{lm} family offers old-style figures to OpenType
+users (see below), but we have no stable mapping for \FontName{lm}
+with old-style digits from the Adobe Type 1 versions of the fonts.
+
+Originally, oldstyle figures were only to be found the expert sets of
+commercial fonts, but now they are increasingly widely available.  An
+example is Matthew Carter's Georgia font, which has old-style figures
+as its normal form (the font was created for inclusion with certain
+Microsoft products and is intended for on-screen viewing).
+
+OpenType fonts have a pair of axes for number variations~---
+proportional/tabular and lining/oldstyle selections are commonly
+available.  ``Full feature access'' to OpenType fonts, making such
+options available to the \AllTeX{} user, is already supported by
+\Qref*{\xetex{}}{Q-xetex} using, for example, the \Package{fontspec}
+package.  Similar support is also in the works for
+\Qref*{\LuaTeX{}}{Q-luatex}.
+\begin{ctanrefs}
+\item[boondox \nothtml{\rmfamily}fonts]\CTANref{boondox}
+\item[cmolddig \nothtml{\rmfamily}fonts]\CTANref{cmolddig}
+\item[eco \nothtml{\rmfamily}fonts]\CTANref{eco}
+\item[fontinst]\CTANref{fontinst}
+\item[fontspec.sty]\CTANref{fontspec}
+\item[mathpazo \nothtml{\rmfamily}fonts]\CTANref{mathpazo}
+\end{ctanrefs}
+\LastEdit{2013-12-04}

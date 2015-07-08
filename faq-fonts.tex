@@ -1,0 +1,1316 @@
+% $Id: faq-fonts.tex,v 1.21 2014/01/22 17:29:03 rf10 Exp $
+
+\section{Fonts}
+
+\subsection{Adobe Type~1 (``\PS{}'') fonts}
+
+\Question[Q-usepsfont]{Using Adobe Type 1 fonts with \protect\TeX{}}
+
+In order to use any font, \TeX{} needs a
+\emph{metric} file (\acro{TFM} file).  Several sets of metrics for
+common Adobe Type 1 fonts are
+available from the archives; for mechanisms for generating new ones,
+see \Qref[question]{metrics for \PS{} fonts}{Q-metrics}.  You
+also need the fonts themselves; \PS{} printers come with a set of
+fonts built in, but to extend your repertoire you usually
+need to buy from one of the many commercial font vendors (see, for
+example, \Qref[question]{``choice of fonts''}{Q-psfchoice}).
+
+If you use \LaTeXe{}, access to your printer's fonts is offered by the
+\acro{PSNFSS} package; the \LaTeX{}3 project team declare that
+\acro{PSNFSS} is a ``required'' part of a \latex{} distribution, and
+bug reports may be submitted via the % ! line break
+\Qref*{\LaTeX{} bugs system}{Q-latexbug}. 
+\acro{PSNFSS} gives you a set of packages for changing the default
+roman, sans-serif and typewriter fonts; \emph{e.g}., the
+\Package{mathptmx} package will set up \FontName{Times}
+\FontName{Roman} as the main text font (and introduces mechanisms to
+typeset mathematics using \FontName{Times} and various more-or-less
+matching fonts),  while package \Package{avant} changes the sans-serif
+family to \FontName{AvantGarde}, and \Package{courier} changes the
+typewriter font to \FontName{Courier}.  To go with these
+packages, you need the font metric files
+and font description (\File{.fd}) files for each font family you
+want to use.  For convenience,
+metrics for the `common 35' \PS{} fonts found in most \PS{} printers
+are provided with \acro{PSNFSS}, packaged as the ``Laserwriter set''.
+
+For older versions of \LaTeX{} there are various schemes, of which the
+simplest to use is probably the \acro{PS}\LaTeX{} macros distributed with
+\ProgName{dvips}.
+
+For \plaintex{}, you load whatever fonts you like; if the encoding of
+the fonts is not the same as Computer Modern it will be up to you to
+redefine various macros and accents, or you can use the font
+re-encoding mechanisms available in many drivers and in
+\ProgName{ps2pk} and \ProgName{afm2tfm}.
+
+Some common problems encountered are discussed elsewhere
+(see \Qref[question]{problems with \acro{PS} fonts}{Q-psfontprob}).
+\begin{ctanrefs}
+\item[Metrics for the `Laserwriter' set of 35 fonts]\CTANref{lw35nfss-zip}
+\item[psnfss]\CTANref{psnfss}
+\end{ctanrefs}
+
+\Question[Q-PSpreview]{Previewing files using Type 1 fonts}
+
+Originally, free \TeX{} previewers were only capable of displaying
+bitmap (\acro{PK}) fonts, but free Type~1 font rendering software has
+been available for some time, and many previewers now use such
+facilities.
+
+The alternative, for previewers, is automatic generation of the
+requisite \acro{PK} files (using \ProgName{gsftopk}, or similar,
+behind the scenes).
+
+In the unlikely event that your previewer isn't capable of either, you
+have a couple options:
+\begin{itemize}
+\item Convert the \acro{DVI} file to \PS{} and use a
+  \PS{} previewer.  Some systems offer this capability as
+  standard, but most people will need to use a separate previewer such
+  as \href{http://www.ghostscript.com/}{\ProgName{ghostscript}} or
+  \ProgName{ghostscript}-based viewers
+  such as (free) \ProgName{gv} or (shareware)
+  \href{http://www.ghostgum.com.au/}{\ProgName{gsview}}.
+% \item Under Windows on a \acro{PC}, or on a Macintosh, let Adobe Type Manager
+%   display the fonts (textures, on the Macintosh, works like this).
+% %%   , and under
+% %%   Windows you can use \YandY{}'s \ProgName{dviwindo} for bitmap-free
+% %%   previewing.
+% \begin{narrowversion} % really hyper
+%   (See \Qref[question]{}{Q-commercial} for details of these
+%   suppliers.)
+% \end{narrowversion}
+% %\typeout{after narrowversion, before wideversion}
+% \begin{wideversion}
+%   (See \Qref{commercial suppliers}{Q-commercial} for details.)
+% \end{wideversion}
+% %\typeout{after wideversion}
+\item If you have the \PS{} fonts in Type~1 format, use
+  \ProgName{ps2pk} or \ProgName{gsftopk} (designed for use with the
+  \href{http://www.ghostscript.com/}{\ProgName{ghostscript}} fonts) to
+  make \acro{PK} bitmap fonts which
+  your previewer will understand (a process similar to the way some
+  browsers fo the job `automatically') This can produce adequate results,
+  also suitable for printing with non-\PS{} devices.  (Note: if you
+  purchased the fonts, it is advisable to check that their licence
+  permits you to convert them, for private use, in this way.)
+\end{itemize}
+\begin{ctanrefs}
+\item[gsftopk]\CTANref{gsftopk}
+\item[gv]Browse \CTANref{gv}
+\item[ps2pk]\CTANref{ps2pk}
+\end{ctanrefs}
+
+\Question[Q-metrics]{\TeX{} font metric files for Type 1 fonts}
+
+Reputable font vendors such as Adobe supply metric files for each
+font, in \acro{AFM} (Adobe Font Metric) form; these can be converted
+to \acro{TFM} (\TeX{} Font Metric) form. Most modern distributions have
+prebuilt metrics which will be more than enough for many people; but you may
+need to do the conversion yourself if you have special needs or
+acquire a new font. One important question is the \emph{encoding} of
+(Latin character) fonts; while we all more or less agree about the
+position of about 96 characters in fonts (the basic \acro{ASCII} set), the
+rest of the (typically) 256 vary. The most obvious problems are with
+floating accents and special characters such as the `pounds sterling'
+sign. There are three ways of dealing with this: either you change the
+\TeX{} macros which reference the characters (not much fun, and
+error-prone); or you change the encoding of the font (easier than you
+might think); or you use \Qref*{virtual fonts}{Q-virtualfonts} to
+\emph{pretend} to \TeX{} that the encoding is the same as it is used to.
+\LaTeXe{} has facilities for dealing with fonts in different
+encodings; read the \Qref*{\emph{\LaTeX{} Companion}}{Q-latex-books} for
+more details.  In practice, if you do much non-English (but Latin
+script) typesetting, you are strongly recommended to use the
+\Package{fontenc} package with option `\pkgoption{T1}' to select
+\Qref*{`Cork'}{Q-ECfonts} encoding.
+
+An alternative favoured by some is \YandY{}'s ``private'' \acro{LY}1 encoding,
+which is designed to sit well with ``Adobe standard'' encoded fonts.
+Basic macro support of \acro{LY}1 is available: note that the
+``relation with Adobe's encoding'' means that the \acro{LY}1 user
+needs no virtual fonts.
+
+Alan Jeffrey's \ProgName{fontinst} package is an \acro{AFM} to
+\acro{TFM} converter written in \TeX{}; it is used to generate the
+files used by \LaTeXe{}'s \acro{PSNFSS} package to support use of
+\PS{} fonts. It is a sophisticated package, not for the faint-hearted,
+but is powerful enough to cope with most needs.  Much of its power
+relies on the use of \Qref*{virtual fonts}{Q-virtualfonts}.
+
+For slightly simpler problems, Rokicki's \ProgName{afm2tfm},
+distributed with \ProgName{dvips}, is fast and
+efficient; note that the metrics and styles that come with
+\ProgName{dvips} are \emph{not} currently \LaTeXe{} compatible.
+
+For the Macintosh (classic), there is a program called
+\ProgName{EdMetrics} which does the job (and more).
+\ProgName{EdMetrics} comes with the (commercial)
+\Qref*{Textures}{Q-commercial} distribution, but is itself free
+software, and is available on \acro{CTAN}.
+%% \par
+%% Windows users can buy \Qref*{\YandY{}'s}{Q-commercial}
+%% Font Manipulation Tools package which includes a powerful
+%% \ProgName{afmtotfm} program among many other goodies.
+\begin{ctanrefs}
+\item[dvips]\CTANref{dvips}
+\item[EdMetrics]\CTANref{edmetrics}
+\item[fontinst]\CTANref{fontinst}
+\item[LY1 support]\CTANref{ly1}
+\end{ctanrefs}
+\LastEdit{2011-06-01}
+
+\Question[Q-psfontprob]{Deploying Type 1 fonts}
+
+For the \LaTeX{} user trying to use the
+\Qref*{\acro{PSNFSS}}{Q-usepsfont} package, three questions may arise.
+
+First, you have to declare to the \acro{DVI} driver that you are using
+\PS{} fonts; in the case of \ProgName{dvips}, this means adding
+lines to the \File{psfonts.map} file, so that \ProgName{dvips} will know
+where the proper fonts are, and won't try to find \acro{PK} 
+files.  If the font isn't built into the printer, you have to acquire
+it (which may mean that you need to purchase the font files).
+
+Second, your previewer must know what to do with the fonts: see
+\Qref[question]{previewing type 1 fonts}{Q-PSpreview}.
+
+Third, the stretch and shrink between words is a function of the
+font metric; it is not specified in \acro{AFM} files, so different converters
+choose different values. The \PS{} metrics that come with \acro{PSNFSS} 
+used to produce quite tight setting, but they were revised in mid 1995
+to produce a compromise between American and European practice. 
+Sophisticated users may not find even the new the values to their taste, and
+want to override them. Even the casual user may find  more
+hyphenation or overfull boxes than Computer Modern produces; but \acro{CM}
+is extremely generous. 
+
+\Question[Q-psfchoice]{Choice of Type~1 fonts for typesetting Maths}
+
+If you are interested in text alone, you can in principle use any of
+the huge numbers of text fonts in Adobe Type~1, TrueType or OpenType
+formats.  The constraint is, of course, that your previewer and
+printer driver should support such fonts (\TeX{} itself \emph{only}
+cares about metrics, not the actual character programs).
+
+If you also need mathematics, then your choice is more limited, in
+particular  by the
+demands that \TeX{} makes of maths fonts (for details, see the papers
+by
+\begin{wideversion}
+% !! line break !!
+  \href{http://tug.org/TUGboat/Articles/tb14-3/tb40horn.pdf}{B.K.P. Horn in \TUGboat{} 14(3)},
+  or by % ! line break
+  \href{http://tug.org/TUGboat/Articles/tb19-2/tb59bouc.pdf}{Thierry Bouche in \TUGboat{} 19(2)}).
+\end{wideversion}
+\begin{narrowversion}
+  B.K.P. Horn in \TUGboat{} 14(3) or by Thierry Bouche in \TUGboat{}
+  19(2), available as
+  \URL{http://tug.org/TUGboat/Articles/tb14-3/tb40horn.pdf} or
+  \URL{http://tug.org/TUGboat/Articles/tb19-2/tb59bouc.pdf}, respectively).
+\end{narrowversion}
+There are several options available, which are
+based on Knuth's original designs.  Others complement other
+commercial and free text font designs; one set (MicroPress's `informal math')
+stands alone.
+
+Users should also consider the possibilities of typesetting
+\Qref*{maths using OpenType fonts}{Q-otf-maths}.
+
+``Free'' font families that will support \TeX{} mathematics include:
+\begin{booklist}
+\item[Computer Modern](75 fonts~--- optical scaling) Donald E. Knuth\\
+  The \acro{CM} fonts were originally designed in \MF{}, but are also
+  now available in scalable outline form.  There are commercial as
+  well as public domain versions, and there are both Adobe Type~1 and
+  TrueType versions.  A set of outline versions of the fonts was
+  developed as a commercial venture by \YandY{} and Blue Sky Research;
+  they have since assigned the copyright to the \acro{AMS}, and the
+  fonts are now freely available from \acro{CTAN}.  Their quality is
+  such that they have become the \emph{de facto} standard for Type~1
+  versions of the fonts.
+
+\item[\acro{AMS} fonts](52 fonts, optical scaling) The \acro{AMS}\\
+  This set of fonts offers adjuncts to the \acro{CM} set, including
+  two sets of symbol fonts (\FontName{msam} and \FontName{msbm}) and
+  Euler text fonts.
+  These are not a self-standing family, but merit discussion here (not
+  least because several other families mimic the symbol fonts).
+  Freely-available Type~1 versions of the fonts are available on
+  \acro{CTAN}.  The \Package{eulervm} package permits use
+  of the Euler maths alphabet in conjunction with text fonts that do
+  not provide maths alphabets of their own (for instance, Adobe
+  Palatino or Minion).
+
+\item[Mathpazo version 1.003](5 fonts) Diego Puga\\
+  The Pazo Math fonts are a family of type~1 fonts suitable for
+  typesetting maths in combination with the Palatino family of text
+  fonts.  Four of the five fonts of the distribution are maths
+  alphabets, in upright and italic shapes, medium and bold weights;
+  the fifth font contains a small selection of ``blackboard bold''
+  characters (chosen for their mathematical significance).  Support
+  under \LaTeXe{} is available in 
+  \Qref*{\acro{PSNFSS}}{Q-usepsfont}; the fonts are
+  licensed under the \acro{GPL}, with legalese permitting the use of
+  the fonts in published documents.
+
+\item[Fourier/Utopia](15 fonts) Michel Bovani\\
+  \FontName{Fourier} is a family built on Adobe \FontName{Utopia}
+  (which has been released for usage free of charge by Adobe).  The
+  fonts provide the basic Computer Modern set of mathematical symbols,
+  and add many of the \acro{AMS} mathematical symbols (though you are
+  expected to use some from the \acro{AMS} fonts themselves).  There
+  are also several other mathematical and decorative symbols.  The
+  fonts come with a \Package{fourier} package for use with \LaTeX{};
+  text support of \acro{OT}1 encoding is not provided~--- you are
+  expected to use \acro{T}1.
+
+  For a sample, see \url{http://www.tug.dk/FontCatalogue/utopia/}
+
+\item[Fourier/New Century Schoolbook]Michael Zedler\\
+  \FontName{Fouriernc} is a configuration using the Fourier fonts in
+  the context of New Century Schoolbook text fonts.
+
+  For a sample, see \url{http://www.tug.dk/FontCatalogue/newcent/}
+
+\item[KP-fonts]The Johannes Kepler project\\
+  The \FontName{kp-fonts} family provides a comprehensive set of text
+  and maths fonts.  The set includes replacement fixed-width and sans
+  fonts (though some reports have suggested that these are less
+  successful, and their use may be suppressed when loading the fonts'
+  \Package{kpfonts} \LaTeX{} support package).
+
+  For an example, see \url{http://www.tug.dk/FontCatalogue/kpserif/}
+
+\item[MathDesign](3 free families, 3 commercial-based
+  families\dots{}so far) Paul Pichaureau\\
+  This set so far offers mathematics fonts to match the free fonts
+  Adobe Utopia, URW Garamond and Bitstream Charter (the text versions
+  of all of which are separately available, on \acro{CTAN}, in Type~1
+  format), and Adobe Garamond Pro, Adobe UtopiaStd and ITC Charter
+  (which are commercial fonts, all available for purchase on the web).
+  There has been a little comment on these fonts, but none
+  from actual users posted to the public forums.  Users, particularly
+  those who are willing to discuss their experiences, would obviously
+  be welcome.  Browse the \acro{CTAN} directory and see which you
+  want: there is a wealth of documentation and examples.
+
+  For samples of the free variants, see
+  \url{http://www.tug.dk/FontCatalogue/charter/} for URW Charter,
+  \url{http://www.tug.dk/FontCatalogue/garamond/} for URW Garamond and
+  \url{http://www.tug.dk/FontCatalogue/utopia-md/} for Adobe Utopia.
+
+\item[Belleek](3 fonts) Richard Kinch\\
+  Belleek is the upshot of Kinch's thoughts on how \MF{} might be used
+  in the future: they were published simultaneously as \MF{} source,
+  as Type~1 fonts, and as TrueType fonts.  The fonts act as ``drop-in''
+  replacements for the basic MathTime set (as an example of ``what might
+  be done'').
+
+  The paper outlining Kinch's thoughts, proceeding from considerations
+  of the `intellectual' superiority of \MF{} to evaluations of why its
+  adoption is so limited and what might be done about the problem, is
+  to be found at \URL{http://truetex.com/belleek.pdf}
+
+\item[MTPro2 Lite]Pubish or Perish (Michael Spivak)\\
+  A (functional) subset of the MathTime Pro 2 font set, that is made
+  available, free, for general use.  While it does not offer the full
+  power of the commercial product (see below), it is nevertheless a
+  desirable font set.
+
+\item[Mathptmx]Alan Jeffrey, Walter Schmidt and others.\\
+  This set contains maths italic, symbol, extension, and roman virtual
+  fonts, built from Adobe Times, Symbol, Zapf Chancery, and the
+  Computer Modern fonts.  The resulting mixture is not  entirely
+  acceptable, but can pass in many circumstances.  The real advantage
+  is that the mathptm fonts are (effectively) free, and the resulting
+  \PS{} files can be freely exchanged.  Support under \LaTeXe{}
+  is available in \Qref*{\acro{PSNFSS}}{Q-usepsfont}.
+
+  For a sample, see \url{http://www.tug.dk/FontCatalogue/times/}
+
+\item[Computer Modern Bright]Free scalable outline versions of these
+  fonts do exist; they are covered below together with their
+  commercial parallels.
+
+\item[URW Classico](4 fonts)  LaTeX support by Bob Tennent\\
+  These are clones of Zapf's Optima available from CTAN (for
+  non-commercial use only).  Mathematics support can be provided by
+  using packages \Package{eulervm} or \Package{sansmath}. As a
+  sans-serif font family, Optima is especially suitable for
+  presentations.
+\end{booklist}
+The excellent \emph{font catalogue} keeps an % ! line break
+\href{http://www.tug.dk/FontCatalogue/mathfonts.html}{up-to-date list}
+which describes the fonts by giving names and short examples, only.
+(At the time of writing~--- June 2008~--- the list has several that
+are only scheduled for inclusion here.
+
+Another useful document is Stephen Hartke's ``Free maths font
+survey'', which is available on \acro{CTAN} in both \acro{PDF} and
+\acro{HTML} formats.  The survey covers most of the fonts mentioned in
+the font catalogue, but also mentions some (such as \Package{Belleek}
+that the catalogue omits.
+
+Fonts capable of setting \TeX{} mathematics, that are available
+commercially, include:
+\begin{booklist}
+\item[BA Math](13 fonts) MicroPress Inc.\\
+  BA Math is a family of serif fonts, inspired by the elegant
+  and graphically perfect font design of John Baskerville.  BA
+  Math comprises the fonts necessary for mathematical typesetting
+  (maths italic, math symbols and extensions) in normal and bold
+  weights.  The family also includes all \acro{OT}1 and \acro{T}1
+  encoded text fonts of various shapes, as well as fonts with most
+  useful glyphs of the \acro{TS}1 encoding.  Macros for using the
+  fonts with \plaintex{}, \LaTeXo{} and current \LaTeX{} are
+  provided.
+
+  \nothtml{\bgroup\raggedwithindent}
+  For further details (including samples) see\\
+  \URL{http://www.micropress-inc.com/fonts/bamath/bamain.htm}
+  \nothtml{\par\egroup}
+\item[CH Math](15 fonts) MicroPress Inc.\\
+  CH Math is a family of slab serif fonts, designed as a maths
+  companion for Bitstream Charter.  (The distribution includes
+  four free Bitstream text fonts, in addition to the 15 hand-hinted
+  MicroPress fonts.)
+  \nothtml{\bgroup\raggedwithindent}
+  For further details (including samples) see\\
+  \URL{http://www.micropress-inc.com/fonts/chmath/chmain.htm}
+  \nothtml{\par\egroup}
+
+\item[Computer Modern Bright](62 fonts~--- optical scaling) Walter
+  Schmidt\\
+  \acro{CM} Bright is a family of sans serif fonts, based on Knuth's
+  \acro{CM} fonts.  It comprises the fonts necessary for mathematical
+  typesetting, including \acro{AMS} symbols, as well as text and text
+  symbol fonts of various shapes.  The collection comes with its own
+  set of files for use with \LaTeX{}.  The \acro{CM} Bright fonts are
+  supplied in Type~1 format by MicroPress, Inc.   The
+  \Package{hfbright} bundle offers free Type~1 fonts for text using
+  the \acro{OT}1 encoding~--- the \Package{cm-super} fonts provide the
+  fonts in \acro{T}1 text encoding but don't support \acro{CM} bright
+  mathematics.
+
+  \nothtml{\bgroup\raggedwithindent}
+  For further details of Micropress' offering (including samples) see\\
+  \URL{http://www.micropress-inc.com/fonts/brmath/brmain.htm}
+  \nothtml{\par\egroup}
+
+\item[Concrete Math](25 fonts~--- optical scaling) Ulrik Vieth\\
+  The Concrete Math font set was derived from the Concrete Roman
+  typefaces designed by Knuth.  The set provides a collection of math
+  italics, math symbol, and math extension fonts, and fonts of
+  \acro{AMS} symbols that fit with the Concrete set, so that Concrete
+  may be used as a complete replacement for Computer Modern.  Since
+  Concrete is considerably darker than \acro{CM}, the family may
+  particularly attractive for use in low-resolution printing or in
+  applications such as posters or transparencies.  Concrete Math
+  fonts, as well as Concrete Roman fonts, are supplied in Type 1
+  format by MicroPress, Inc.
+
+  \nothtml{\bgroup\raggedwithindent}
+  For further information (including samples) see\\
+  \URL{http://www.micropress-inc.com/fonts/ccmath/ccmain.htm}
+  \nothtml{\par\egroup}
+
+\item[HV Math](14 fonts) MicroPress Inc.\\
+  HV Math is a family of sans serif fonts, inspired by the
+  Helvetica (\acro{TM}) typeface.  HV Math comprises the fonts
+  necessary for mathematical typesetting (maths italic, maths symbols
+  and extensions) in normal and bold weights.  The family also
+  includes all \acro{OT}1 and \acro{T}1 encoded text fonts of various
+  shapes, as well as fonts with most useful glyphs of the \acro{TS}1
+  encoding.  Macros for using the fonts with \plaintex{}, \LaTeXo{}
+  and current \LaTeX{} are provided.  Bitmapped copies of the fonts
+  are available free, on \acro{CTAN}.
+
+  \nothtml{\bgroup\raggedwithindent}
+  For further details (and samples) see\\
+  \URL{http://www.micropress-inc.com/fonts/hvmath/hvmain.htm}
+  \nothtml{\par\egroup}
+
+\item[Informal Math](7 outline fonts) MicroPress Inc.\\
+  Informal Math is a family of fanciful fonts loosely based on the
+  Adobe's Tekton (\acro{TM}) family, fonts which imitate handwritten
+  text.  Informal Math comprises the fonts necessary for
+  mathematical typesetting (maths italic, maths symbols and extensions)
+  in normal weight, as well as \acro{OT}1 encoded text fonts in
+  upright and oblique shapes.  Macros for using the fonts with
+  \plaintex{}, \LaTeXo{} and current \LaTeX{} are provided.
+
+  \nothtml{\bgroup\raggedwithindent}
+  For further details (including samples) see\\
+  \URL{http://www.micropress-inc.com/fonts/ifmath/ifmain.htm}
+  \nothtml{\par\egroup}
+
+\item[Lucida Bright \emph{with} Lucida New Math](25 fonts) Chuck Bigelow and
+  Kris Holmes\\
+  Lucida is a family of related fonts including seriffed, sans serif,
+  sans serif fixed width, calligraphic, blackletter, fax, Kris Holmes'
+  connected handwriting font, \emph{etc}; they're not as `spindly' as
+  Computer Modern, with a large x-height, and include a larger set of
+  maths symbols, operators, relations and delimiters than \acro{CM}
+  (over 800 instead of 384: among others, it also includes the
+  \acro{AMS} \FontName{msam} and \FontName{msbm} symbol sets).  `Lucida
+  Bright Expert' 
+  (14 fonts) adds seriffed fixed width, another handwriting font,
+  smallcaps, bold maths, upright `maths italic', \emph{etc}., to the
+  set.  Support under \LaTeX{} is available under the auspices of the
+  \acro{PSNFSS}, and pre-built metrics are also provided.
+
+  \nothtml{\bgroup\raggedwithindent}
+  \acro{TUG} has the right to distribute these fonts; the web site
+\begin{narrowversion}
+    \href{http://tug.org/lucida/}{``Lucida and TUG''}
+\end{narrowversion}
+\begin{wideversion}
+    ``\href{http://tug.org/lucida/}{Lucida and TUG}''
+\end{wideversion}
+  has details.
+  \nothtml{\par\egroup}
+
+\item[Adobe Lucida, LucidaSans \emph{and} LucidaMath](12 fonts)\\
+  Lucida and LucidaMath are generally considered to be a bit heavy.
+  The three maths fonts contain only the glyphs in the \acro{CM} maths
+  italic, symbol, and extension fonts.  Support for using LucidaMath
+  with \TeX{} is not very good; you will need to do some work
+  reencoding fonts \emph{etc}.  (In some sense this set is the
+  ancestor of the LucidaBright plus LucidaNewMath font set, which are
+  not currently available.)
+
+\item[MathTime Pro2]Publish or Perish (Michael Spivak)\\
+  This latest instance of the MathTime family covers all the weights
+  (medium, bold and heavy) and symbols of previous versions of
+  MathTime.  In addition it has a much extended range of symbols, and
+  many typographic improvements that make for high-quality documents.
+  The fonts are supported under both \plaintex{} and \LaTeXe{}, and
+  are exclusively available for purchase from
+  \Qref*{Personal \TeX{} Inc}{Q-commercial}.
+  \par{}
+  \nothtml{\bgroup\raggedwithindent}
+  For further details and samples and fliers, see
+  \URL{http://www.pctex.com/mtpro2.html}
+  \nothtml{\par\egroup}
+
+\item[Minion Pro and MnSymbol]Adobe, \LaTeX{} support and packaging by
+  Achim Blumensath \emph{et al}.\\
+  \FontName{Minion Pro} derives from the widely-available commercial
+  OpenType font of the same name by Adobe; scripts are provided to
+  convert relevant parts of it to Adobe Type~1 format.  The
+  \Package{MinionPro} package will set up text and maths support using
+  \FontName{Minion Pro}, but a separate (free) font set
+  \FontName{MnSymbol} greatly extends the symbol coverage.
+
+\item[PA Math] PA~Math is a family of serif fonts
+  loosely based on the Palatino (\acro{TM}) typeface.  PA~Math
+  comprises the fonts necessary for mathematical typesetting (maths
+  italics, maths, calligraphic and oldstyle symbols, and extensions)
+  in normal and bold weights. The family also includes all \acro{OT}1,
+  \acro{T}1 encoded text fonts of various shapes, as well as fonts
+  with the most useful glyphs of the \acro{TS}1 encoding.  Macros for
+  using the fonts with \plaintex{}, \LaTeXo{} and current \LaTeX{}
+  are provided.
+
+  \nothtml{\bgroup\raggedwithindent}
+  For further details (and samples) see\\
+  \URL{http://www.micropress-inc.com/fonts/pamath/pamain.htm} 
+  \nothtml{\par\egroup}
+
+\item[TM Math](14 fonts) MicroPress Inc.\\
+  TM Math is a family of serif fonts, inspired by the Times
+  (\acro{TM}) typeface.  TM Math comprises the fonts necessary for
+  mathematical typesetting (maths italic, maths symbols and extensions)
+  in normal and bold weights. The family also includes all \acro{OT}1
+  and \acro{T}1 encoded text fonts of various shapes, as well as fonts
+  with most useful glyphs of the \acro{TS}1 encoding.  Macros for
+  using the fonts with \plaintex{}, \LaTeXo{} and current \LaTeX{}
+  are provided.  Bitmapped copies of the fonts are available free, on
+  \acro{CTAN}.
+
+  \nothtml{\bgroup\raggedwithindent}
+  For further details (and samples) see\\
+  \URL{http://www.micropress-inc.com/fonts/tmmath/tmmain.htm} 
+  \nothtml{\par\egroup}
+\end{booklist}
+Two other font sets should be mentioned, even though they don't
+currently produce satisfactory output~--- their author is no longer
+working on them, and several problems have been identified:
+\begin{booklist}
+\item[Pxfonts set version 1.0](26 fonts) by Young Ryu\\
+  The \FontName{pxfonts} set consists of
+  \begin{itemize}
+  \item virtual text fonts using \FontName{Adobe} \FontName{Palatino}
+    (or its \acro{URW} replacement, \FontName{Palladio})
+    with modified plus, equal and slash symbols;
+  \item maths alphabets using \FontName{Palatino} (or \FontName{Palladio};
+  \item maths fonts of all symbols in the computer modern maths fonts
+    (\FontName{cmsy}, \FontName{cmmi}, \FontName{cmex} and the Greek
+    letters of \FontName{cmr}) 
+  \item maths fonts of all symbols corresponding to the \acro{AMS}
+    fonts (\FontName{msam} and \FontName{msbm});
+  \item additional maths fonts of various symbols.
+  \end{itemize}
+  The text fonts are available in \acro{OT}1, \acro{T}1 and \acro{LY}1
+  encodings, and \acro{TS} encoded symbols are also available.  The
+  sans serif and monospaced fonts supplied with the \FontName{txfonts}
+  set (see below) may be used with \FontName{pxfonts}; the
+  \FontName{txfonts} set should be installed whenever \FontName{pxfonts}
+  are.  \LaTeX{}, \ProgName{dvips} and \PDFTeX{} support files are
+  included.
+
+  The fonts are not perfect; the widths assigned to the characters in
+  the \extension{tfm} file are wrong for some glyphs; this can cause
+  sequences of characters to ``look wrong'', or in some cases even to
+  overlap; the \FontName{newpx} fonts (noted above) aim to reduce
+  these problems.
+
+  The fonts are licensed under the \acro{GPL}; use in published
+  documents is permitted.
+
+\item[Newpx]by Michael Sharpe from Young Ryu's \ProgName{pxfonts}\\
+  This collection is derived from \ProgName{pxfonts}; the maths fonts
+  metrics have been adjusted so that the output is less cramped than
+  when \ProgName{pxfonts} is used; the appearance of the output is
+  much improved.  Two packages are provided, \Package{newpxtext} for
+  using the associated text fonts, and \Package{newpxmath} for
+  mathematics.
+
+\item[Txfonts set version 3.1](42 fonts) by Young Ryu\\
+  The \FontName{txfonts} set consists of
+  \begin{itemize}
+  \item virtual text fonts using \FontName{Adobe} \FontName{Times} (or
+    the \acro{URW} \FontName{Nimbus Roman No9 L} font that
+    substitutes for Times, which is distributed as part of the
+    \acro{URW} ``basic 35'' collection) with
+    modified plus, equal and slash symbols;
+  \item matching sets of sans serif and monospace (`typewriter')
+    fonts (the sans serif set is based on \FontName{Adobe} \FontName{Helvetica});
+  \item maths alphabets using Adobe \FontName{Times}, or the URW
+    equivalent \FontName{NimbusRomanNo9};
+  \item maths fonts of all symbols in the computer modern maths fonts
+    (\FontName{cmsy}, \FontName{cmmi}, \FontName{cmex} and the Greek
+    letters of \FontName{cmr})
+  \item maths fonts of all symbols corresponding to the \acro{AMS}
+    fonts (\FontName{msam} and \FontName{msbm});
+  \item additional maths fonts of various symbols.
+  \end{itemize}
+  The text fonts are available in \acro{OT}1, \acro{T}1 and \acro{LY}1
+  encodings, and \acro{TS} encoded symbols are also available.
+
+  The fonts are not perfect; the widths assigned to the characters in
+  the \extension{tfm} file are wrong for some glyphs; this can cause
+  sequences of characters to ``look wrong'', or in some cases even to
+  overlap; the \FontName{newtx} fonts (noted above) aim to reduce
+  these problems.
+
+  The fonts are licensed under the \acro{GPL}; use in published
+  documents is permitted.
+\item[Txfontsb set version 1.00] by Young Ryu and Antonis Tsolomitis\\
+  The \ProgName{txfontsb} bundles \ProgName{txfonts}, extended to
+  provide a Small Caps set, Old-Style numbers and Greek text (from the
+  GNU Freefont set).
+\begin{flatversion}
+  Documentation
+  (\URL{http://mirrors.ctan.org/fonts/txfontsb/doc/txfontsb.pdf})
+\end{flatversion}
+\begin{hyperversion}
+  \href{http://mirrors.ctan.org/fonts/txfontsb/doc/txfontsb.pdf}{Documentation}
+\end{hyperversion}
+  is available for this variant, too.
+
+\item[Newtx]by Michael Sharpe from Young Ryu's \ProgName{txfonts}\\
+  This collection is derived from \ProgName{txfonts}; the maths fonts
+  metrics have been adjusted so that the output is less cramped than
+  when \ProgName{txfonts} is used; the appearance of the output is
+  much improved.  Two packages are provided, \Package{newtxtext} for
+  using the associated text fonts, and \Package{newtxmath} for
+  mathematics.  Options are provided to substitute
+  letters and symbols from the \FontName{Libertine} set, and from the
+  Garamond extension font \FontName{garamondx} (but note that
+  \FontName{garamondx}, which is an adaptation of \acro{URW} Garamond,
+  is not available via \texlive{}).
+\end{booklist}
+Finally, one must not forget:
+\begin{booklist}
+\item[Proprietary fonts]Various sources.\\
+  Since having a high quality font set in scalable outline form that
+  works with \TeX{} can give a publisher a real competitive advantage,
+  there are some publishers that have paid (a lot) to have such font
+  sets made for them.  Unfortunately, these sets are not available on
+  the open market, despite the likelihood that they're more complete
+  than those that are.
+\end{booklist}
+We observe a very limited selection of commercial maths font sets; a
+Type~1 maths font has to be explicitly designed for use with \TeX{},
+which is an expensive business, and is of little appeal in other
+markets.  Furthermore, the \TeX{} market for commercial fonts is
+minute by comparison with the huge sales of other font sets.
+
+Text fonts in Type~1 format are available from many vendors including
+Adobe, Monotype and Bitstream.  However, be careful with cheap font
+``collections''; many of them dodge copyright restrictions by removing
+(or crippling) parts of the font programs such as hinting.  Such
+behaviour is both unethical and bad for the consumer.
+The fonts may not render well (or at all, under \acro{ATM}), may not have the
+`standard' complement of 228 glyphs, or may not include metric files
+(which you need to make \acro{TFM} files).
+
+\ttype{} was for a long time the ``native'' format for Windows, but
+MicroSoft joined the development of the \otype{} specification, and
+`modern' windows will work happily with fonts in either format.  Some \TeX{}
+implementations such as \Qref*{True\TeX{}}{Q-commercial} use TrueType
+versions of Computer Modern and Times Maths fonts to render \TeX{}
+documents in Windows without the need for additional system software like
+\acro{ATM}.  (When used on a system running Windows~XP or later,
+True\TeX{} can also use Adobe Type~1 fonts.)
+
+When choosing fonts, your own system environment may not be the only one of
+interest.  If you will be sending your finished documents to others for
+further use, you should consider whether a given font format will introduce
+compatibility problems.  Publishers may require TrueType exclusively because
+their systems are Windows-based, or Type~1 exclusively, because their systems
+are based on the early popularity of that format in the publishing industry.
+Many service bureaus don't care as long as you present them with a finished
+print file (\PS{} or \acro{PDF}) for their output device.
+\begin{ctanrefs}
+\item[\nothtml{\normalfont}CM family collection]%
+  Distributed as part of \CTANref{amsfonts}
+\item[\nothtml{\normalfont}AMS font collection]%
+  Distributed as part of \CTANref{amsfonts}
+\item[Belleek \nothtml{\normalfont}fonts]%
+  \CTANref{belleek}
+\item[\nothtml{\normalfont} URW Classico fonts]\CTANref{classico}
+\item[CM-super \nothtml{\normalfont}collection]\CTANref{cm-super}
+\item[eulervm.sty \nothtml{\normalfont}and supporting metrics]%
+  \CTANref{eulervm}
+\item[fourier \nothtml{\normalfont}(including metrics and other support for \nothtml{\itshape}utopia]%
+  \CTANref{fourier}
+\item[fouriernc]\CTANref{fouriernc}
+\item[garamondx]\CTANref{garamondx}
+\item[hfbright \nothtml{\normalfont}collection]\CTANref{hfbright}
+\item[hvmath \nothtml{\normalfont\itshape}(free bitmapped version)]%
+  \CTANref{hvmath}
+\item[kpfonts \nothtml{\normalfont}family]\CTANref{kpfonts}
+\item[Libertine \nothtml{\normalfont}family]\CTANref{libertine}
+\item[Lucida Bright/Math metrics]\CTANref{lucida}
+\item[Lucida PSNFSS support]\CTANref{lucida-psnfss}
+\item[MathDesign \nothtml{\normalfont}collection]\CTANref{mathdesign}
+\item[\nothtml{\normalfont}Maths Font Survey]\CTANref{mathsurvey.pdf}
+  (\acro{PDF}) or \CTANref{mathsurvey.html} (\acro{HTML})
+\item[\nothtml{\normalfont}MathTime Pro 2 Lite]\CTANref{mtp2lite}
+\item[\nothtml{\normalfont}Minion Pro support]\CTANref{minionpro}
+\item[MnSymbol \nothtml{\normalfont}family]\CTANref{mnsymbol}
+\item[Newtx \nothtml{\normalfont}fonts]\CTANref{newtx}
+\item[NimbusRomanNo9 fonts]distributed in \CTANref{urw-base35}
+\item[Palladio fonts]distributed in \CTANref{urw-base35}
+\item[pxfonts]\CTANref{pxfonts}
+\item[sansmath.sty]\CTANref{sansmath}
+\item[tmmath \nothtml{\normalfont\itshape}(free bitmapped version)]%
+  \CTANref{tmmath}
+\item[txfonts]\CTANref{txfonts}
+\item[\nothtml{\normalfont}URW ``35 fonts'' collection]\CTANref{urw-base35}
+\item[utopia \nothtml{\normalfont}fonts]\CTANref{utopia}
+\end{ctanrefs}
+\LastEdit{2014-01-22}
+
+\Question[Q-otf-maths]{Unicode Maths using OpenType fonts}
+
+The \acro{ISO} standard Universal Coding Scheme (UCS), which is
+commonly known as Unicode, was adopted early by the designers of
+TrueType (\acro{TTF}) and OpenType (\acro{OTF}) fonts.  The
+flexibility of the fonts offers hope, for the first time, of a uniform
+method for typesetting essentially any language.
+
+\tex{} users have been eagerly adopting the fonts, for some time,
+using \xetex{} (now a rather stable system) and \luatex{} (which is,
+at the time of writing, still being developed).
+
+While \tex{} users were investigating the use of these text fonts,
+\acro{ISO} was extending Unicode to provide a means of expressing
+mathematics.  As this work proceeded, MicroSoft and (separately) a
+consortium of publishing companies were developing OpenType maths
+fonts.  (Microsoft contributed on the development of the concepts,
+within the \acro{ISO} process.)  MicroSoft's OpenType Maths font,
+\FontName{Cambria Math} has been available for purchase for some time.
+
+The first free OpenType Maths font to appear was % !line break
+\FontName{Asana Math}, which was eventually followed by
+the publishers' consortium's offer of an interim version
+of their font, \FontName{STIX}, which has been
+redeveloped to provide a more usable whole, \FontName{XITS}, by a group
+of \tex{} users.
+
+Other fonts are appearing, including % ! line break
+\FontName{TeX Gyre Termes Math} (based on Times-like fonts) and
+\FontName{Tex Gyre Pagella Math} (based on Palatino-like fonts),
+and \FontName{LM Math} extending the OpenType version of the
+\FontName{Latin Modern} font family.
+
+Actually using a unicode maths font is quite a complicated business,
+but the \latex{} package \Package{unicode-math} (supported
+by the \Package{fontspec} package) does the essential groundwork.
+\begin{ctanrefs}
+\item[Asana-Math \nothtml{\rmfamily}font]\CTANref{asana-math}[asana-math]
+\item[fontspec.sty]\CTANref{fontspec}
+\item[lm-math \nothtml{\rmfamily}fonts]\CTANref{lm-math}
+\item[STIX \nothtml{\rmfamily}fonts]\CTANref{stix}
+\item[unicode-math.sty]\CTANref{unicode-math}
+\item[tex-gyre-math-pagella \nothtml{\rmfamily}font]distributed as
+  part of \CTANref{tex-gyre-math}[tex-gyre-math-pagella]
+\item[tex-gyre-math-termes \nothtml{\rmfamily}font]distributed as part
+  of \CTANref{tex-gyre-math}[tex-gyre-math-termes]
+\item[XITS \nothtml{\rmfamily}fonts]\CTANref{xits}
+\end{ctanrefs}
+\LastEdit*{2014-01-22}
+% more to come...
+
+\Question[Q-charshift]{Weird characters in \ProgName{dvips} output}
+\keywords{fi ligature pound pounds sterling elephants}
+
+You've innocently generated output, using \ProgName{dvips}, and there
+are weird transpositions in it: for example, the \texttt{fi} ligature has
+appeared as a \textsterling{} symbol.
+This is an unwanted side-effect of the precautions
+outlined in \Qref*{generating \PS{} for PDF}{Q-dvips-pdf}.
+The \texttt{-G1} switch discussed in that question is appropriate for
+Knuth's text fonts, but doesn't work with text fonts that don't follow
+Knuth's patterns (such as fonts supplied by Adobe).
+
+If the problem arises, suppress the \texttt{-G1} switch: if you were using it
+explicitly, \emph{don't}; if you were using \texttt{-Ppdf}, add \texttt{-G0} to
+suppress the implicit switch in the pseudo-printer file.
+
+The problem has been corrected in \ProgName{dvips} v~5.90 (and later
+versions); it is unlikely ever to recur\dots{}
+\LastEdit{2012-10-24}
+
+\subsection{Macros for using fonts}
+
+\Question[Q-fonts-pln]{Using non-standard fonts in \plaintex{}}
+
+\plaintex{} (in accordance with its description) doesn't do anything
+fancy with fonts: it sets up the fonts that Knuth found he needed when
+writing the package, and leaves you to do the rest.
+
+To use something other than Knuth's default, you can use Knuth's
+mechanism, the \csx{font} primitive:
+\begin{quote}
+\begin{verbatim}
+\font\foo=nonstdfont
+...
+\foo
+Text set using nonstdfont ...
+\end{verbatim}
+\end{quote}
+The name you use (\texttt{nonstdfont}, above) is the name of the
+\extension{tfm} file for the font you want.
+
+If you want to use an italic version of \csx{foo}, you need to use
+\csx{font} again:
+\begin{quote}
+\begin{verbatim}
+\font\fooi=nonstdfont-italic
+...
+\fooi
+Text set using nonstdfont italic...
+\end{verbatim}
+\end{quote}
+This is all very elementary stuff, and serves for simple use of fonts.
+However, there are wrinkles, the most important of which is the matter
+of \Qref*{font encodings}{Q-whatenc}.  One almost never sees new fonts
+that use Knuth's eccentric font encodings~--- but those encodings are
+built into \plaintex{}, so that some macros of \plaintex{} need to be
+changed to use the fonts.  \LaTeX{} gets around all these problems by
+using a ``font selection scheme''~--- this `\acro{NFSS}' (`\acro{N}'
+for `new', as opposed to what \LaTeXo{} had) carries around with it
+separate information about the fonts you use, so the changes to
+encoding-specific commands happen automagically.
+
+If you only want to use the \Qref*{\acro{EC} fonts}{Q-ECfonts}, you
+can in principle use the \Package{ec-plain} bundle, which gives you a version
+of \plaintex{} which you can run in the same way that you run
+\plaintex{} using the original \acro{CM} fonts, by invoking
+\ProgName{tex}.  (\Package{Ec-plain} also extends the \acro{EC} fonts,
+for reasons which aren't immediately clear, but which might cause
+problems if you're hoping to use Type 1 versions of the fonts.)
+
+The \Package{font_selection} package provides a sort of halfway house:
+it provides font face and size, but not family selection.  This gives
+you considerable freedom, but leaves you stuck with the original
+\acro{CM} fonts.  It's a compact solution, within its restrictions.
+
+Other \plaintex{} approaches to the problem (packages
+\Package{plnfss}, \Package{fontch} and \Package{ofs}) break out of the
+\plaintex{} model, towards the sort of font selection provided by
+\CONTeXT{} and \LaTeX{}~--- font selection that allows you to change
+family, as well as size and face.  The remaining packages all make
+provision for using encodings other than Knuth's \acro{OT}1.
+
+\Package{Plnfss} has a rather basic set of font family details;
+however, it is capable of using font description (\extension{fd}) files
+created for \LaTeX{}.  (This is useful, since most modern mechanisms
+for integrating outline fonts with \TeX{} generate \extension{fd} files
+in their process.)
+
+\Package{Fontch} has special provision for \acro{T}1 and \acro{TS}1
+encodings, which you select by arcane commands, such as:
+\begin{quote}
+\begin{verbatim}
+\let\LMTone\relax
+\input fontch.tex
+\end{verbatim}
+\end{quote}
+for \acro{T}1.
+
+\Package{Ofs} seems to be the most thoroughly thought-through of the
+alternatives, and can select more than one encoding: as well as
+\acro{T}1 it covers the encoding \acro{IL}2, which is favoured in the
+Czech Republic and Slovakia.  \Package{Ofs} also covers mathematical fonts,
+allowing you the dubious pleasure of using fonts such as the % ! line break
+\Qref*{\FontName{pxfonts} and \FontName{txfonts}}{Q-psfchoice}.
+
+The \Package{pdcmac} \plaintex{} macro package aims to be a complete
+document preparation environment, like \Qref*{\Eplain{}}{Q-eplain}.  One
+of its components is a font selection scheme, \Package{pdcfsel}, which
+is rather simple but adequately powerful for many uses.  The package
+doesn't preload fonts: the user is required to declare the fonts the
+document is going to use, and the package provides commands to select
+fonts as they're needed.  The distribution includes a configuration to
+use Adobe `standard' fonts for typesetting text.  (\Eplain{} itself
+seems not to offer a font selection scheme.)
+
+The \Package{font-change} collection takes a rather different
+approach~--- it supplies what are (in effect) a series of templates
+that may be included in a document to change font usage.  The
+package's documentation shows the effect rather well.
+
+Simply to change font \emph{size} in a document (i.e., not changing
+the default font itself), may be done using the rather straightforward
+\Package{varisize}, which offers font sizes ranging from 7~points to
+20~points (nominal sizes, all).  Font size commands are generated when
+any of the package files is loaded, so the \File{11pt.tex} defines a
+command \csx{elevenpoint}; each of the files ensures there's a ``way
+back'', by defining a \csx{tenpoint} command.
+\begin{ctanrefs}
+\item[ec-plain]\CTANref{ec-plain}
+\item[font-change]\CTANref{font-change}
+\item[fontch]\CTANref{fontch}
+\item[font_selection]\CTANref{font_selection}
+\item[ofs]\CTANref{ofs}
+\item[pdcmac]\CTANref{pdcmac}
+\item[plnfss]\CTANref{plnfss}
+\item[varisize]\CTANref{varisize}
+\end{ctanrefs}
+
+\subsection{Particular font families}
+
+\Question[Q-concrete]{Using the ``Concrete'' fonts}
+
+The Concrete Roman fonts were designed by Don Knuth for a book called
+``Concrete Mathematics'', which he wrote with Graham and Patashnik
+(\emph{the} Patashnik, of \BibTeX{} fame).  Knuth
+only designed text fonts, since the book used the Euler fonts for
+mathematics.  The book was typeset using \plaintex{}, of course, with
+additional macros that may be viewed in a file \File{gkpmac.tex},
+which is available on \acro{CTAN}.
+
+The packages \Package{beton}, \Package{concmath}, and
+\Package{ccfonts} are \LaTeX{} packages that change the default text
+fonts from Computer Modern to Concrete.  Packages \Package{beton} and
+\Package{ccfonts} also slightly increase the default value of
+\csx{baselineskip} to account for the rather heavier weight of the
+Concrete fonts.  If you wish to use the \FontName{Euler} fonts for
+mathematics, as Knuth did, there's the \Package{euler} package which
+has been developed from Knuth's own \plaintex{}-based set: these
+macros are currently deprecated (they clash with many things, including
+\AMSLaTeX{}).  The independently-developed \Package{eulervm}
+bundle is therefore preferred to the \Package{euler} package.  (Note
+that installing the \Package{eulervm} bundle involves installing a
+series of virtual fonts.  While most modern distributions seem to have
+the requisite files installed by default, you may find you have to
+install them.  If so, see the file \File{readme} in the
+\Package{eulervm} distribution.)
+
+A few years after Knuth's original design, Ulrik Vieth
+designed the Concrete Math fonts.  Packages
+\Package{concmath}, and \Package{ccfonts} also change the default math
+fonts from Computer Modern to Concrete and use the Concrete versions
+of the \acro{AMS} fonts (this last behaviour is optional in the case
+of the \Package{concmath} package).
+
+There are no bold Concrete fonts, but it is generally accepted that
+the Computer Modern Sans Serif demibold condensed fonts are an
+adequate substitute.  If you are using \Package{concmath} or
+\Package{ccfonts} and you want to follow this suggestion, then use the
+package with \pkgoption{boldsans} class option (in spite of the fact
+that the \Package{concmath} documentation calls it
+\pkgoption{sansbold} class option). If you are using \Package{beton},
+add
+\begin{quote}
+  \cmdinvoke{renewcommand}{\csx{bfdefault}}{sbc}
+\end{quote}
+to the preamble of your document.
+
+Type~1 versions of the fonts are available.  For \acro{OT}1 encoding,
+they are available from \Qref*{MicroPress}{Q-psfchoice}.  The
+\Qref*{CM-Super fonts}{Q-textrace} contain Type~1 versions
+of the Concrete fonts in \acro{T}1 encoding.
+\begin{ctanrefs}
+\item[beton.sty]\CTANref{beton}
+\item[ccfonts.sty]\CTANref{ccfonts}
+\item[\nothtml{\rmfamily}CM-Super fonts]\CTANref{cm-super}
+\item[concmath.sty]\CTANref{concmath}
+\item[\nothtml{\rmfamily}Concmath fonts]\CTANref{concmath-f}
+\item[\nothtml{\rmfamily}Concrete fonts]\CTANref{concrete}
+\item[euler.sty]\CTANref{euler-latex}
+\item[eulervm \nothtml{\rmfamily}bundle]\CTANref{eulervm}
+\item[gkpmac.tex]\CTANref{gkpmac}
+\end{ctanrefs}
+
+\Question[Q-uselmfonts]{Using the Latin Modern fonts}
+
+The \Package{lm} fonts are an exciting addition to
+the armoury of the \AllTeX{} user: high quality outlines of fonts that
+were until recently difficult to obtain, all in a free and
+relatively compact package.  However, the spartan information file
+that comes with the fonts remarks ``It is presumed that a potential
+user knows what to do with all these files''.  This answer aims to
+fill in the requirements: the job is really not terribly difficult.
+
+Note that te\TeX{} distributions, from version~3.0, already have the
+\Package{lm} fonts: all you need do is use them.  The fonts may also
+be installed via the package manager, in a current \miktex{} system.
+The remainder of this answer, then, is for people who don't use such
+systems.
+
+The font (and related) files appear on \acro{CTAN} as a set of
+single-entry \Qref*{\acro{TDS} trees}{Q-tds}~---
+\File{fonts}, \File{dvips}, \File{tex} and \File{doc}.  The \File{doc}
+subtree really need not be copied (it's really a pair of sample
+files), but copy the other three into your existing Local
+\texttt{\$TEXMF} tree, and
+% beware line break
+\Qref*{update the filename database}{Q-inst-wlcf}.
+
+Now, incorporate the fonts in the set searched by \PDFLaTeX{},
+\ProgName{dvips}, \ProgName{dvipdfm}/\ProgName{dvipdfmx}, your
+previewers and Type~1-to-\acro{PK} conversion programs, by
+\begin{itemize}
+\item On a te\TeX{} system earlier than version~2.0, edit the file
+  \File{$TEXMF/dvips/config/updmap} %$
+  and insert an absolute path for the \File{lm.map} just after the
+  line that starts \texttt{extra\_modules="} (and before the closing
+  quotes).
+\item On a te\TeX{} version~2.0 (or later), execute the command
+\begin{quote}
+\begin{verbatim}
+updmap --enable Map lm.map
+\end{verbatim}
+\end{quote}
+\item On a \miktex{} system earlier than version~2.2, the ``Refresh
+  filename database'' operation, which you performed after installing
+  files, also updates the system's ``\PS{} resources database''.
+\item On a \miktex{} system, version~2.2 or later, update
+  \File{updmap.cfg} as described in the \miktex{} % beware line break
+  \href{http://docs.miktex.org/manual/psfonts.html#chgupdmapcfg}{online documentation}.
+  Then execute the command \texttt{initexmf -\relax-mkmaps}, and the
+  job is done.
+\end{itemize}
+
+To use the fonts in a \LaTeX{} document, you should
+\begin{quote}
+  \cmdinvoke{usepackage}{lmodern}
+\end{quote}
+this will make the fonts the default
+for all three \LaTeX{} font families (``roman'', ``sans-serif'' and
+``typewriter'').  You also need 
+\begin{quote}
+  \cmdinvoke{usepackage}[T1]{fontenc}
+\end{quote}
+for text, and 
+\begin{quote}
+  \cmdinvoke{usepackage}{textcomp}
+\end{quote}
+if you want to use any of the \acro{TS}1-encoding symbols.  There is
+no support for using fonts according to the \acro{OT}1 encoding.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Latin Modern fonts]\CTANref{lm}
+\end{ctanrefs}
+
+\Question[Q-getnff]{Getting `free' fonts not in your distribution}
+
+Some fonts are free to use, but may not be sold.  This creates a
+dilemma for distributions: users may want the fonts, but since the
+distribution is also available on a \acro{DVD} for sale, the fonts may
+not be in the distribtution.
+
+The \acro{CTAN} archives hold such fonts, together with all the
+necessary support files, but even with the support files ready-made,
+installing a font is a tedious business.
+
+For \texlive{} users, this dilemma is solved by the
+\ProgName{getnonfreefonts} script.  Download the script installer from
+\url{http://tug.org/fonts/getnonfreefonts/}; the web page tells you
+how to run the installer to get the script, and what fonts are
+currently available
+
+Once the script is installed, you can ask it what it has available by
+saying:
+\begin{quote}
+\begin{verbatim}
+getnonfreefonts -l
+\end{verbatim}
+\end{quote}
+and you can ask it to install a font (in your local texmf tree) by:
+\begin{quote}
+\begin{verbatim}
+getnonfreefonts luximono
+\end{verbatim}
+\end{quote}
+(for example; the printed version of the \acro{FAQ} uses luximono, so
+that the example was to hand\dots{}).
+
+(System adminstrators may use \ProgName{getnonfreefonts-sys}, which
+will install the font in the `public' \texttt{texmf} tree, so that all
+users of the system may use the new font.)
+
+The script will download the relevant font files from \acro{CTAN},
+extract them from their \extension{zip} file, install them and update
+the font maps.  It even goes so far as to apologise for how long it's
+taking!
+\LastEdit*{2013-10-22}
+
+\subsection{\MF{} fonts}
+
+\Question[Q-useMF]{Getting \MF{} to do what you want}
+
+\MF{} allows you to create your own fonts, and most \TeX{} users
+will never need to use it~--- modern \AllTeX{} systems contain
+rather few \MF{} fonts of any significance, and when \MF{} output is
+needed the font generation is done, automatically, ``on the fly''.
+
+If you find you have some special requirement that the system doesn't
+satisfy, you need to know about \MF{} in rather more detail.  \MF{},
+unlike \TeX{}, requires customisation for each output device: such
+customisation is conventionally held in a ``mode'' associated with the
+device.  Modes are commonly defined using the \texttt{mode\_def}
+convention described on page~94 of \emph{The \MF{}book} % ! line break
+(see \Qref[question]{\TeX{}-related books}{Q-other-books}).  Your
+distribution should provide
+a file, conventionally called \File{local.mf}, containing all the
+\texttt{mode\_def}s you will be using. In the unlikely event that
+\File{local.mf} doesn't already exist, Karl Berry's collection of
+modes (\File{modes.mf}) is a good starting point 
+(it can be used as a `\File{local.mf}' without modification in a
+modern implementation of \MF{}).  
+Settings for new output devices are added to \File{modes.mf} as they
+become available.
+
+Now create
+a \texttt{plain} base file using \ProgName{mf} (in ``initialisation''
+mode), \texttt{plain.mf}, and \texttt{local.mf}: 
+\begin{quote}
+\begin{verbatim}
+% mf -ini
+This is METAFONT...
+**plain # you type plain
+(output)
+*input local # you type this
+(output)
+*dump # you type this
+Beginning to dump on file plain...
+(output)
+\end{verbatim}
+\end{quote}
+This will create a base file named \File{plain.base} (or something
+similar; for example, it will be \File{PLAIN.BAS} on \MSDOS{}
+systems).  Move the file to the directory containing the base files on
+your system, and run \ProgName{texhash} as necessary.
+
+Now you need to make sure \MF{} loads this new base when it starts up. If
+\MF{} loads the \texttt{plain} base by default on your system, then you're
+ready to go. Under Unix (using the default \texlive{} (and earlier)
+distributions this does indeed happen, but we could for instance
+define a command \ProgName{plainmf}%
+\begin{footnoteenv}
+  On the grounds that a command \ProgName{plain} could be misconstrued
+  as a reference to \plaintex{}
+\end{footnoteenv}
+which executes `\texttt{mf -base=plain}' (or, in more traditional
+style `\texttt{mf \&plain}') which loads the \texttt{plain} base
+file.
+
+The usual way to create a font with \MF{} (with an appropriate base
+file loaded) is to start \MF{}'s input with the
+\begin{narrowversion}
+  lines
+  \begin{quote}
+    \csx{mode}\texttt{=<mode name>;}\\
+    \texttt{mag=<magnification>;}\\
+    \texttt{input <font file name>}
+  \end{quote}
+\end{narrowversion}
+\begin{wideversion}
+line
+\begin{quote}
+\begin{verbatim}
+\mode=<mode name>; mag=<magnification>; input <font file name>
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+in response to the `\texttt{**}' prompt or on the \MF{} command line. (If
+\texttt{<mode name>} is unknown or omitted, the mode defaults to
+`proof' mode and \MF{} will produce an output file called % ! line break
+\File{<font file name>.2602gf})
+The \texttt{<magnification>} is a floating point number or a
+`magstep' (magsteps define sizes by stating how many times you need to
+multiply a base size by \texttt{1.2}, so for a base size of
+\texttt{10}, \texttt{magstep 1} is \texttt{12}, \texttt{magstep 2} is
+\texttt{14.4}
+If \texttt{mag=<magnification>} is omitted, then the default
+is \texttt{1}~(\texttt{magstep 0}).  For example, to generate
+\FontName{cmr10} at \texttt{12pt} for an Epson,
+printer you might type
+\begin{quote}
+\begin{verbatim}
+mf \mode=epson; mag=magstep 1; input cmr10
+\end{verbatim}
+\end{quote}
+Note that under Unix the \texttt{\textbackslash } and \texttt{;}
+characters must usually be quoted or escaped, so this would typically
+look something like
+\begin{quote}
+\begin{verbatim}
+ mf '\mode=epson; mag=magstep 1; input cmr10'
+\end{verbatim}
+\end{quote}
+If you need a special mode that isn't in the base, you can put its
+commands in a file (\emph{e.g.}, \File{ln03.mf}) and invoke it on the
+fly with the \csx{smode} command.  For example, to create
+\File{cmr10.300gf} for an \acro{LN}03 printer, using the file
+\begin{quote}
+\begin{verbatim}
+% This is ln03.mf as of 1990/02/27
+% mode_def courtesy of John Sauter
+proofing:=0;
+fontmaking:=1;
+tracingtitles:=0;
+pixels_per_inch:=300;
+blacker:=0.65;
+fillin:=-0.1;
+o_correction:=.5;
+\end{verbatim}
+\end{quote}
+(note the absence of the \texttt{mode\_def} and \texttt{enddef}
+commands), you would type
+\begin{quote}
+\begin{verbatim}
+mf \smode="ln03"; input cmr10
+\end{verbatim}
+\end{quote}
+This technique isn't one you should regularly use, but it may
+prove useful if you acquire a new printer and want to experiment with
+parameters, or for some other reason are regularly editing the
+parameters you're using.  Once you've settled on an appropriate set of
+parameters, you should use them to rebuild the base file that you use.
+
+Other sources of help are discussed in our list of % ! line break
+\Qref*{\MF{} and \MP{} Tutorials}{Q-mfptutorials}.
+\begin{ctanrefs}
+\item[modes.mf]\CTANref{modes-file}
+\end{ctanrefs}
+\LastEdit{2011-09-04}
+
+\Question[Q-keepfonts]{Which font files should be kept}
+
+\MF{} produces from its run three files, a metrics (\acro{TFM}) file, a
+generic font (\acro{GF}) file, and a log file; all of these files have the
+same base name as does the input (\emph{e.g.}, if the input file was
+\File{cmr10.mf}, the outputs will be \File{cmr10.tfm},
+\File{cmr10.nnngf} (the file name may be mangled if you are using an
+operating system which doesn't permit long file names)
+and \File{cmr10.log}).
+
+For \TeX{} to use the font, you need a \acro{TFM} file, so you need
+to keep that.  However, you are likely to generate the same font
+at more than one magnification, and each time you do so you'll
+(incidentally) generate another \acro{TFM} file; these files are
+all the same, so you only need to keep one of them.
+
+To preview or to produce printed output, the \acro{DVI} processor will need a
+font raster file; this is what the \acro{GF} file provides.  However, while
+there used (once upon a time) to be \acro{DVI} processors that could use 
+\acro{GF} files, modern processors  use
+packed raster (\acro{PK}) files (incidentally, \pdftex{} also uses
+\acro{PK} files if nothing ``better'' is available, but
+see \Qref[]{fuzzy fonts in \acro{PDF}}{Q-fuzzy-type3}).
+Therefore, you need to generate a \acro{PK} file from the \acro{GF} file; the
+program \ProgName{gftopk} does this for you, and once you've done that you
+may throw the \acro{GF} file away.
+
+The log file should never be needed again, unless there was some sort
+of problem in the \MF{} run, and need not therefore be kept.
+\LastEdit{2011-09-04}
+
+\Question[Q-getbitmap]{Acquiring bitmap fonts}
+
+When \acro{CTAN} was young, most people would start using \TeX{}
+with a 300 dots-per-inch (dpi) laser printer, and sets of Computer
+Modern bitmap fonts for this resolution are available on \acro{CTAN}.
+(There are separate sets for write-black and write-white printers, as
+well as sets at 120~dpi and 240~dpi.)
+
+There used to regular requests that \acro{CTAN} should hold
+a wider range of resolutions, but they were resisted for two reasons:
+\begin{itemize}
+\item The need to decide which printers to generate fonts for.  The
+  broad-brush approach taken for 300~dpi printers was (more or less)
+  justified back then, given the dominance of certain printer
+  `engines', but nowadays one could not make any such assumption.
+\item Given the above, it has been near-impossible to justify the
+  space that would be required by a huge array of bitmap fonts.
+\end{itemize}
+Fortunately, \AllTeX{} distribution technology has put a stop to these
+arguments: most (if not all) current distributions generate bitmap
+fonts as needed, and cache them for later re-use.  The impatient
+user, who is determined that all bitmap fonts should be created once
+and for all, may be supported by scripts such as \ProgName{allcm}
+(distributed with \texlive{}, at least; otherwise such a
+person should consult ``\Qref*{the use of \MF{}}{Q-useMF})''.
+
+If your output is to a \PS{}-capable device, or if your output is
+destined to be converted to \acro{PDF}, you should switch to
+using Type~1 versions of the \acro{CM} fonts.  Two free
+sets are available; the older (\Package{bakoma}) is
+somewhat less well produced than the \Package{bluesky} fonts, which were
+originally professionally produced and sold, but were then released
+for general public use by their originators \YandY{} and Bluesky Research,
+in association with the \acro{AMS} and other scientific publishers
+(they are nowadays available under the SIL's Open Fonts Licence).  The
+two sets contain slightly different ranges of fonts, but you are
+advised to use the \Package{bluesky} set except when \Package{bakoma}
+is for some reason absolutely unavoidable.  In recent years, several
+other `\MF{}' fonts have been converted to Type~1 format; it's
+uncommon ever to need to generate bitmap fonts for any purpose other
+than previewing~--- see % ! line wrap
+\Qref*{``previewing documents with Type~1 fonts''}{Q-PSpreview}~---
+if even then.
+
+More modern fonts may be used in place of the Computer Modern set.  The
+\Qref*{\acro{EC} fonts}{Q-ECfonts} and the % ! line break
+\Qref*{Latin Modern fonts}{Q-uselmfonts} are both close relatives with
+wider ranges of glyphs to offer.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}BaKoMa fonts]\CTANref{bakoma}
+\item[\nothtml{\rmfamily}Bluesky fonts]Distributed as part of
+  \CTANref{amsfonts}
+\item[\nothtml{\rmfamily}CM fonts (write-black printers)]\CTANref{pk300}
+\item[\nothtml{\rmfamily}CM fonts (write-white printers)]\CTANref{pk300w}
+\item[\nothtml{\rmfamily}EC fonts (Type 1 format)]\CTANref{cm-super}
+\item[\nothtml{\rmfamily}Latin Modern fonts]\CTANref{lm}
+\end{ctanrefs}
+\LastEdit{2011-09-4}

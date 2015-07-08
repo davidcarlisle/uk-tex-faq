@@ -1,0 +1,488 @@
+% $Id: faq-texsys.tex,v 1.17 2013/07/24 21:50:56 rf10 Exp $
+
+\section{\TeX{} Systems}
+
+\Question[Q-TeXsystems]{\AllTeX{} for different machines}
+
+We list here the free or shareware packages;
+\htmlignore
+a later \Qref{question}{Q-commercial} discusses commercial \tex{} products.
+\endhtmlignore
+\begin{htmlversion}
+  another question addresses
+  \Qref{commercial \TeX{} vendors'}{Q-commercial} products.
+\end{htmlversion}
+
+The list is provided in four answers:
+\begin{itemize}
+\item \TeX{} systems for use with
+  \Qref*{Unix and \acro{GNU} Linux systems}{Q-sysunix}
+\item \TeX{} systems for use with % ! line break
+  \Qref*{Modern Windows systems}{Q-syswin32}
+\item \TeX{} systems for use with % ! line break
+  \Qref*{Macintosh systems}{Q-sysmac}
+\item \TeX{} systems for % ! line break
+  \Qref*{Other sorts of systems}{Q-sysother}
+\end{itemize}
+
+\Question[Q-sysunix]{Unix and \acro{GNU} Linux systems}
+
+\begin{quote}
+  Note that \macosx{}, though it is also a Unix-based system, has
+  different options; users should refer to the information in
+  \Qref[question]{Mac systems}{Q-sysmac}.
+\end{quote}
+
+The \TeX{} distribution of choice, for Unix systems (including
+\acro{GNU}/Linux and most other free Unix-like systems) is \texlive{},
+which is distributed as part of the \Qref*{\TeX{} collection}{Q-CD}.
+
+\texlive{} may also be installed ``over the network''; a network
+installer is provided, and once you have a system (whether installed
+from the network or installed off-line from a disc) a manager
+(\ProgName{tlmgr}) can both keep your installation up-to-date and add
+packages you didn't install at first.
+
+\texlive{} may be run with no installation at all; the web page % ! line break
+\href{http://www.tug.org/texlive/portable.html}{\texlive{} portable usage}
+describes the options for installing \texlive{} on a memory stick for
+use on another computer, or for using the \texlive{} \acro{DVD} with
+no installation at all.
+
+\tex{}-gpc is a ``back-to-basics'' distribution of \tex{} utilities,
+\emph{only} (unlike \texlive{}, no `tailored' package bundles are
+provided).  It is distributed as source, and compiles with \acro{GNU}
+Pascal, thereby coming as close as you're likely to get to Knuth's original
+distribution.  It is known to work well, but the omission of \etex{}
+and \pdftex{} will rule it out of many users' choices.
+\begin{ctanrefs}
+\item[tex-gpc]\CTANref{tex-gpc}
+\item[texlive]Browse \CTANref{texlive}
+\item[texlive installer (Unix)]\CTANref{texlive-unix}
+\end{ctanrefs}
+\LastEdit{2013-07-18}
+
+\Question[Q-syswin32]{(Modern) Windows systems}
+
+Windows users nowadays have a real choice, between two excellent
+distributions, \miktex{} and \texlive{}.  \texlive{} on windows has
+only in recent years been a real challenger to the long-established
+\miktex{}, and even now \miktex{} has features that \texlive{} lacks.
+Both are comprehensive
+distributions, offering all the established \tex{} variants (\tex{},
+\pdftex{}~--- both with \etex{} variants~--- as well as \xetex{} and
+\luatex{}), together with a wide range of support tools.
+  
+Both \miktex{} and \texlive{} offer management tools, including the
+means of keeping an installation ``up-to-date'', by reinstalling
+packages that have been updated on \acro{CTAN} (the delay between a
+package update appearing, and it being available to the distribution
+users) can be as short as a day (and is never very long).
+
+\miktex{}, by Christian Schenk, is the longer-established of the pair,
+and has a large audience of satisfied users; \texlive{} is the
+dominant distribution in use in the world of Unix-like systems, and so
+its Windows version may be expected to appeal to those who use both
+Unix-like and Windows systems.  The latest release of \miktex{}~---
+version 2.9~--- requires Windows~XP, or later (so it does not work on
+Windows~2000 or earlier).
+
+Both distributions may be used in a configuration which involves no
+installation at all.  \miktex{}'s ``portable'' distribution may be
+unpacked on a memory stick, and used on any windows computer without
+making any direct use of the hard drive.  The web page % ! line break
+\href{http://www.tug.org/texlive/portable.html}{\texlive{} portable usage}
+describes the options for installing \texlive{} on a memory stick, or
+for using the \texlive{} \acro{DVD} with no installation at all.
+  
+Both \miktex{} and \texlive{} may be downloaded and installed, package
+by package, over the net.  This is a mammoth undertaking, only to be
+undertaken by those with a good network connection (and a patient
+disposition!).
+
+A ready-to-run copy of the \miktex{} distribution,
+on \acro{DVD} may be bought via the % ! line break
+\href{http://www.miktex.org/cd/}{\miktex{} web site}.  \miktex{} may
+also be installed using Pro\TeX{}t, on the % ! line break
+\Qref*{\TeX{} Collection \acro{DVD}}{Q-CD}.
+
+The \Qref*{\TeX{} Collection \acro{DVD}}{Q-CD} also provides an
+offline installer for \texlive{}.
+
+%  can't find any evidence this is still available
+%
+%% \href{http://foundry.supelec.fr/projects/xemtex/}{XEm\TeX{}}, by
+%% Fabrice Popineau (he who created the excellent, but now defunct,
+%% fp\TeX{} distribution), is another integrated distribution of \tex{},
+%% \latex{}, \CONTeXT{}, \ProgName{XEmacs} and other friends for Windows.
+%% All programs have been compiled natively to take the best advantage of
+%% the Windows environment.  Configuration is provided so that the
+%% resulting set of programs runs out-of-the-box, but the distribution is
+%% not actively promoted.
+%
+% this isn't right, but i'm not sure how to deal with it...
+%
+%%   The (Japanese) \acro{W}32\acro{TEX} distribution was motivated by
+%%   the needs of Japanese users (Japanese won't fit in a ``simple''
+%%   character set like \acro{ASCII}, but \TeX{} is based on a version of
+%%   \acro{ASCII}).  Despite its origins, \acro{W}32\acro{TEX} is said to
+%%   be a good bet for Western users, notably those whose disks are short
+%%   of space: the minimum documented download is as small as
+%%   95\,MBytes.  Investigate the distribution at
+%%   \URL{http://www.fsci.fuk.kindai.ac.jp/kakuto/win32-ptex/web2c75-e.html}
+%
+% the url is now http://w32tex.org/current/
+  
+A further (free) option is available thanks to the
+\href{http://www.cygwin.com}{CygWin bundle}, which presents a
+Unix-like environment in Windows systems (and also provides an
+X-windows server).  The (now obsolete) te\TeX{} distribution is
+provided as part of the CygWin distribution, but there is a CygWin
+build of \texlive{} so you can have a current \tex{} system.  \TeX{}
+under CygWin is reputedly somewhat slower than native Win32
+implementations such as \miktex{}, and of course the \tex{}
+applications behave like Unix-system applications.
+
+BaKoMa \TeX{}, by Basil Malyshev, is a comprehensive (shareware)
+distribution, which focuses on support of Acrobat.  The distribution
+comes with a bunch of Type~1 fonts packaged to work with BaKoMa
+\TeX{}, which further the focus.
+\begin{ctanrefs}
+\item[bakoma]\CTANref{bakoma-tex}
+\item[miktex]\CTANref{miktex}; % ! line break so only one \CTANref on line
+  acquire \CTANref{miktex-setup} (also available from the \miktex{}
+  web site), and read installation instructions from % ! line break
+  \href{http://www.miktex.org/2.9/setup}{the \miktex{} installation page}
+\item[\nothtml{\bgroup\rmfamily}Portable\nothtml{\egroup} miktex]\CTANref{miktex-portable} 
+\item[protext.exe]\CTANref{protext}
+\item[texlive]Browse \CTANref{texlive}
+\item[texlive installer (Windows)]\CTANref{texlive-windows}
+\end{ctanrefs}
+\LastEdit{2013-04-11}
+
+\Question[Q-sysmac]{Macintosh systems}
+
+The \Qref*{\TeX{} collection}{Q-CD} \acro{DVD} includes Mac\TeX{},
+which is a Mac-tailored version of \texlive{}; details may be found on
+the \href{http://tug.org/mactex}{\acro{TUG} web site}.  If you don't
+have the disc, you can download the distribution from \acro{CTAN} (but
+note that it's pretty big).  Mac\TeX{} is an instance of \texlive{},
+and has a Mac-tailored graphical \texlive{} manager, so that you can
+keep your distribution up-to-date.
+
+Note that installing Mac\TeX{} requires \texttt{root} privilege.  This
+is a pity, since it offers several extras that aren't available via a
+standard \texlive{}, which aren't therefore available to ``ordinary
+folk'' at work.  For those who don't have \texttt{root} privilege, the
+option is to install using the \texlive{} \texttt{tlinstall} utility.
+
+\href{http://www.trevorrow.com/oztex/}{Oz\TeX{}}, by Andrew Trevorrow,
+is a shareware version of \TeX{} for the Macintosh.  A \acro{DVI}
+previewer and \PS{} driver are also included.
+Oz\TeX{} is a Carbon app, so will run under \macosx{} (see
+\url{http://www.trevorrow.com/oztex/ozosx.html} for details), but it
+is \emph{not} a current version: it doesn't even offer \pdftex{}.  A
+mailing list is provided by \acro{TUG}: sign up via
+\url{http://tug.org/mailman/listinfo/oztex}
+
+Another partly shareware program is
+\href{http://www.kiffe.com/cmactex.html}{CMac\TeX{}}, put together by
+Tom Kiffe.  CMac\TeX{} is much closer than Oz\TeX{} to the Unix \TeX{}
+model of things (it uses \ProgName{dvips}, for instance).  CMac\TeX{}
+runs natively under \macosx{}; it includes a port of a version of
+\Qref*{Omega}{Q-omegaleph}.
+
+\begin{flatversion}
+  A wiki for Mac users is to be found at
+  \URL{http://mactex-wiki.tug.org/}
+\end{flatversion}
+\begin{hyperversion}
+  Further information may be available in the % ! line break
+  \href{http://mactex-wiki.tug.org/}{MacTeX wiki}.
+\end{hyperversion}
+The Mac\TeX{}-on-OS~X mailing list is another useful resource for
+users; subscribe via the
+\href{http://mactex-wiki.tug.org/wiki/index.php?title=TeX_on_Mac_OS_X_mailing_list}{list home page}
+\begin{ctanrefs}
+\item[cmactex]\CTANref{cmactex}
+\item[mactex]\CTANref{mactex}
+\item[oztex]\CTANref{oztex}
+\end{ctanrefs}
+
+\Question[Q-sysother]{Other systems' \tex{} availability}
+
+For \acro{PC}s, running \MSDOS{} or \acro{OS/}2, Em\TeX{} (by Eberhard
+Mattes) offers \LaTeX{}, \BibTeX{}, previewers, and drivers.  It is
+available as a series of zip archives, with documentation in both
+German and English.  Appropriate memory managers for using em\TeX{}
+with 386 (and better) processors and under pre-'9x Windows, are
+included in the distribution.  (Em\TeX{} \emph{can} be made to operate
+under Windows, but even back when it was ``current'', such use wasn't
+very actively encouraged.)
+
+A version of em\TeX{}, packaged to use a % ! line break
+\Qref*{TDS directory structure}{Q-tds}, is separately available as an
+em\TeX{} `contribution'.  Note that neither em\TeX{} itself, nor
+em\TeX{}-\acro{TDS}, is maintained.  Users of Microsoft operating
+systems, who want an up-to-date \AllTeX{} system, need Win32-based
+systems.
+
+For \acro{PC}s, running \MSDOS{}, a further option is a port of the
+Web2C~7.0 implementation, using the \acro{GNU} \ProgName{djgpp}
+compiler.  While this package is more recent than em\TeX{}, it
+nevertheless also offers a rather old instance of \AllTeX{}.
+
+For \acro{VAX} systems running Open\acro{VMS}, a \TeX{} distribution
+is available \acro{CTAN}, but is almost certainly not the latest (it
+is more than 10 years old).  Whether a version is even available for
+current \acro{VMS} (which typically runs on Intel 64-bit processors)
+is not clear, but it seems unlikely.
+
+For the Atari \acro{ST} and \acro{TT}, \acro{CS}-\TeX{} is available
+from \acro{CTAN}; it's offered as a set of \acro{ZOO} archives.
+
+Amiga users have the option of a full implementations of \TeX{} 3.1
+(Pas\TeX{}) and \MF{} 2.7.
+
+It's less likely that hobbyists would be running \acro{TOPS}-20
+machines, but since \TeX{} was originally written on a \acro{DEC}-10
+under \acro{WAITS}, the \acro{TOPS}-20 port is another near approach
+to Knuth's original environment. Sources are available by anonymous
+\texttt{ftp} from \url{ftp://ftp.math.utah.edu/pub/tex/pub/web}
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Atari TeX]\CTANref{atari-cstex}
+\item[djgpp]\CTANref{djgpp}
+\item[emtex]\CTANref{emtex}
+\item[emtexTDS]\CTANref{emtextds}
+\item[OpenVMS]\CTANref{OpenVMSTeX}
+\item[PasTeX]\CTANref{amiga}
+\end{ctanrefs}
+\LastEdit{2013-07-18}
+
+\Question[Q-editors]{\TeX{}-friendly editors and shells}
+
+There are good \TeX{}-writing environments and editors for most
+operating systems; some are described below, but this is only a
+personal selection:
+\begin{description}
+\item[Unix] The commonest choices are \ProgName{[X]Emacs} or
+  \ProgName{vim}, though several others are available.
+  
+  \href{http://www.gnu.org/software/emacs/emacs.html}{\acro{GNU}\nobreakspace\ProgName{emacs}}
+  and \href{http://www.xemacs.org/}{\ProgName{XEmacs}} are supported
+  by the \acro{AUC}-\TeX{}
+  bundle (available from \acro{CTAN}).  \acro{AUC}-\TeX{} provides menu
+  items and control sequences for common constructs, checks syntax,
+  lays out markup nicely, lets you call \TeX{} and drivers from
+  within the editor, and everything else like this that you can think
+  of.  Complex, but very powerful.
+
+  \href{http://vim.sourceforge.net}{\ProgName{Vim}} is also highly
+  configurable (also available for Windows and Macintosh systems).
+  Many plugins are available to support the needs of the \AllTeX{} user,
+  including syntax highlighting, calling \TeX{} programs,
+  auto-insertion and -completion of common \AllTeX{} structures, and
+  browsing \LaTeX{} help.  The scripts \File{auctex.vim} and
+  \File{bibtex.vim} seem to be the most common recommendations.
+
+  The editor \href{http://nedit.org/}{\ProgName{NEdit}} is also free
+  and programmable, and is available for Unix systems.  An
+  \acro{AUC}-\TeX{}-alike set of extensions for \ProgName{NEdit} is available
+  from \acro{CTAN}.
+
+  \ProgName{LaTeX4Jed} provides much enhanced \LaTeX{} support for the
+  \href{http://www.jedsoft.org/jed/}{\ProgName{jed}} editor.
+  \ProgName{LaTeX4Jed} is similar to \acro{AUC}-\TeX{}: menus,
+  shortcuts, templates, syntax highlighting, document outline,
+  integrated debugging, symbol completion, full integration with
+  external programs, and more. It was designed with both the beginner
+  and the advanced LaTeX user in mind.
+
+  The \ProgName{Kile} editor that is provided with the \acro{KDE}
+  window manager provides \acro{GUI} ``shell-like'' facilities, in a
+  similar way to the widely-praised \ProgName{Winedt} (see below);
+  details (and downloads) are available from the project's
+  \href{http://kile.sourceforge.net/}{home on SourceForge}.
+
+  \acro{TUG} is sponsoring the development of a cross-platform editor
+  and shell, modelled on the excellent \texshop{} for the Macintosh.
+  The result,
+  \href{http://www.tug.org/texworks/}{\texworks{}}, is recommended: if
+  you're looking for a
+  \AllTeX{} development environment, it may be for you.  (It is
+  distributed with both \texlive{} and \miktex{}.)
+
+  A possible alternative is
+  \href{http://texstudio.sourceforge.net/}{TeXstudio}
+\item[Windows-32]\ProgName{TeXnicCenter} is a (free)
+  \TeX{}-oriented development system, uniting a powerful platform for
+  executing \AllTeX{} and friends with a configurable editor.
+
+  \texworks{} (see above) is also available for Windows systems.
+  
+  \ProgName{Winedt}, a shareware package, is also highly spoken of.
+  It too provides a shell for the use of \TeX{} and related programs,
+  as well as a powerful and well-configured editor.  The editor can
+  generate its output in \acro{UTF}-8 (to some extent), which is
+  useful when working with \Qref*{\xetex{}}{Q-xetex} (and other
+  ``next-generation'' \AllTeX{} applications).
+
+  Both \ProgName{emacs} and \ProgName{vim} are available in versions
+  for Windows systems.
+\item[Macintosh] For \macosx{} users, the free tool of choice appears to be
+  \href{http://pages.uoregon.edu/koch/texshop/index.html}{\texshop{}}, which
+  combines an editor and a shell with a coherent philosophy of dealing
+  with \AllTeX{} in the OS~X environment.  TeXShop is distributed as
+  part of the MacTeX system, and will therefore be available out of
+  the box on machines on which MacTeX has been installed.
+
+  \ProgName{Vim} is also available for use on Macintosh systems.
+
+  The commercial Textures provides an excellent integrated Macintosh
+  environment with its own editor.  More powerful still (as an editor)
+  is the shareware \ProgName{Alpha} which is extensible enough to let
+  you perform almost any \TeX{}-related job. It also works well with
+  Oz\TeX{}.  From release 2.2.0 (at least), Textures works under \macosx{}.
+\item[\acro{OS/}2] \ProgName{epmtex} offers an \acro{OS/}2-specific shell.
+\end{description}
+Atari, Amiga and \acro{N}e\acro{XT} users also have nice
+environments. \LaTeX{} users looking for \ProgName{make}-like
+facilities should review the answer on
+\Qref*{Makefiles for \LaTeX{} documents}{Q-make}.
+
+While many \AllTeX{}-oriented editors can support work on \BibTeX{}
+files, there are many systems that provide specific ``database-like''
+access to your \BibTeX{} files~---
+\begin{hyperversion}
+  see ``\Qref{creating a bibliography file}{Q-buildbib}''.
+\end{hyperversion}
+\begin{flatversion}
+  these are discussed in % ! line break
+  ``\Qref*{creating a bibliography file}{Q-buildbib}''.
+\end{flatversion}
+\begin{ctanrefs}
+\item[alpha]\CTANref{alpha}
+\item[auctex]\CTANref{auctex}
+\item[epmtex]\CTANref{epmtex}
+\item[LaTeX4Jed]\CTANref{latex4jed}
+\item[Nedit LaTeX support]\CTANref{nedit-latex}
+\item[TeXnicCenter]\CTANref{texniccenter}
+\item[TeXshell]\CTANref{texshell}
+\item[TeXtelmExtel]\CTANref{TeXtelmExtel}
+\item[winedt]\CTANref{winedt}
+\end{ctanrefs}
+\LastEdit{2013-05-20}
+
+\Question[Q-commercial]{Commercial \TeX{} implementations}
+\keywords{windows,macintosh,commercial}
+
+There are many commercial implementations of \TeX{}. The first
+appeared not long after \TeX{} itself appeared.
+
+What follows is probably an incomplete list.  Naturally, no warranty or
+fitness for purpose is implied by the inclusion of any vendor in this
+list.  The source of the information is given to provide some clues to
+its currency.
+
+In general, a commercial implementation will come `complete', that is,
+with suitable previewers and printer drivers.  They normally also have
+extensive documentation (\emph{i.e}., not just the \TeX{}book!) and some
+sort of support service.  In some cases this is a toll free number
+(probably applicable only within the \acro{USA} and or Canada), but others
+also have email, and normal telephone and fax support.
+\begin{description}
+\item[\acro{PC}; True\TeX{}] Runs on all versions of Windows.
+  \begin{quote}
+    Richard J. Kinch\\
+    TrueTeX Software\\
+    7890 Pebble Beach Court\\
+    Lake Worth \acro{FL} 33467\\
+    \acro{USA}\\[.25\baselineskip]
+    Tel: +1 561-966-8400\\
+    Email: \mailto{kinch@truetex.com}\\
+    Web: \URL{http://www.truetex.com/}
+  \end{quote}
+  Source: Mail from Richard Kinch, August 2004.
+\item[pc\TeX{}] Long-established: pc\TeX{}32 is a Windows implementation.
+  \begin{quote}
+    Personal \TeX{} Inc\\
+    725 Greenwich Street, Suite 210 \\
+    San Francisco, \acro{CA} 94133\\
+    \acro{USA}\\[.25\baselineskip]
+    Tel: 800-808-7906 (within the \acro{USA})\\
+    Tel: +1 415-296-7550\\
+    Fax: +1 415-296-7501\\
+    Email: \mailto{sales@pctex.com}\\
+    Web: \URL{http://www.pctex.com/}
+  \end{quote}
+  Source: Personal \TeX{} Inc web site, December 2004
+\item[\acro{PC}; Scientific Word] Scientific Word and Scientific Workplace
+  offer a mechanism for near-\WYSIWYG{} input of \LaTeX{} documents; they
+  ship with True\TeX{} from Kinch (see above).  Queries within the \acro{UK}
+  and Ireland should be addressed to Scientific Word Ltd., others should be
+  addressed directly to the publisher, MacKichan Software Inc.
+  \begin{quote}
+    Dr Christopher Mabb\\
+    Scientific Word Ltd.\\
+    990 Anlaby Road,\\
+    Hull,\\
+    East Yorkshire,\\
+    \acro{HU}4 6\acro{AT}\\
+    \acro{UK}\\[0.25\baselineskip]
+    Tel: 0845 766\,0340 (within the \acro{UK}) \\
+    Fax: 0845 603\,9443 (within the \acro{UK}) \\
+    Email: \mailto{christopher@sciword.demon.co.uk} \\
+    Web: \URL{http://www.sciword.demon.co.uk}
+  \end{quote}
+  \begin{quote}
+    MacKichan Software Inc.\\
+    19307 8th Avenue, Suite C\\
+    Poulsbo \acro{WA} 98370-7370\\
+    \acro{USA}\\[0.25\baselineskip]
+    Tel: +1 360 394\,6033\\
+    Tel: 877 724\,9673 (within the \acro{USA})
+    Fax: +1  360 394\,6039\\
+    Email: \mailto{info@mackichan.com}\\
+    Web: \URL{http://www.mackichan.com}
+  \end{quote}
+  Source: Mail from Christopher Mabb, August 2007
+%% \item[Macintosh; Textures] ``A \TeX{} system `for the rest of
+%%   us'\,''.  A beta release of Textures for \macosx{} is
+%%   available~--- see \URL{http://www.bluesky.com/news/news_frames.html}
+%%
+%%   (Blue Sky also gives away a \MF{} implementation and some
+%%   font manipulation tools for Macs.)
+%%   \begin{quote}
+%%     Blue Sky Research\\
+%%     PO Box 80424\\
+%%     Portland, \acro{OR} 97280\\
+%%     \acro{USA}\\[.25\baselineskip]
+%%     Tel: 800-622-8398 (within the \acro{USA})\\
+%%     Tel/Fax: +1 503-222-9571\\
+%%     Fax: +1 503-246-4574\\
+%%     Email: \mailto{sales@bluesky.com}\\
+%%     Web: \URL{http://www.bluesky.com/}
+%%   \end{quote}
+%%   Source: Mail from Gordon Lee, April 2007
+\item[Amiga\TeX{}] A full implementation for the Commodore Amiga,
+  including full, on-screen and printing support for all \PS{}
+  graphics and fonts, IFF raster graphics, automatic font generation,
+  and all of the standard macros and utilities.
+  \begin{quote}
+    Radical Eye Software\\
+    \acro{PO} Box 2081\\
+    Stanford, \acro{CA} 94309\\
+    \acro{USA}
+  \end{quote}
+  Source: Mail from Tom Rokicki, November 1994
+\end{description}
+\checked{mc}{1994/11/09}%
+\checked{RF}{1994/11/24}%
+
+Note that the company \YandY{} has gone out of business, and \YandY{}
+\TeX{} (and support for it) is therefore no longer available.  Users
+of \YandY{} systems may care to use the self-help
+\href*{http://tug.org/pipermail/yandytex/}{mailing list}
+that was established in 2003; the remaining usable content of
+\YandY{}'s web site is available at \URL{http://www.tug.org/yandy/}
+

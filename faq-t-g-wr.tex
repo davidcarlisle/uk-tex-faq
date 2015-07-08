@@ -1,0 +1,467 @@
+% $Id: faq-t-g-wr.tex,v 1.15 2014/01/22 17:27:56 rf10 Exp $
+
+\section{Things are Going Wrong\dots{}}
+
+\subsection{Getting things to fit}
+\Question[Q-enlarge]{Enlarging \TeX{}}
+
+The \TeX{} error message `capacity exceeded' covers a multitude of
+problems.  What has been exhausted is listed in brackets after the
+error message itself, as in:
+\begin{quote}
+\begin{verbatim}
+! TeX capacity exceeded, sorry
+...              [main memory size=263001].
+\end{verbatim}
+\end{quote}
+Most of the time this error can be fixed
+\emph{without} enlarging \TeX{}. The most common causes are unmatched braces,
+extra-long lines, and poorly-written macros. Extra-long lines are
+often introduced when files are transferred incorrectly between
+operating systems, and line-endings are not preserved properly (the
+tell-tale sign of an extra-long line error is the complaint
+that the `|buf_size|' has overflowed).
+
+If you really need to extend your \TeX{}'s capacity, the proper method
+depends on your installation.  There is no need (with modern \TeX{}
+implementations) to change the defaults in Knuth's \acro{WEB} source;
+but if you do need to do so, use a change file to modify the values set in
+module 11, recompile your \TeX{} and regenerate all format files.
+
+Modern implementations allow the sizes of the various bits of \TeX{}'s
+memory to be changed semi-dynamically.  Some (such as em\TeX{}) allow
+the memory parameters to be changed in command-line switches when
+\TeX{} is started; most frequently, a configuration file is read which
+specifies the size of the memory.  On \ProgName{web2c}-based systems,
+this file is called \File{texmf.cnf}: see the documentation that comes
+with the distribution for other implementations.  Almost invariably,
+after such a change, the format files need to be regenerated after
+changing the memory parameters.
+
+\Question[Q-usepictex]{Why can't I load \pictex{}?}
+
+\pictex{} is a resource hog; fortunately, most modern \TeX{}
+implementations offer generous amounts of space, and most modern
+computers are pretty fast, so users aren't too badly affected by its
+performance.
+
+However, \pictex{} has the further unfortunate tendency to fill up
+\TeX{}'s fixed-size arrays~--- notably the array of 256 `dimension'
+registers.  This is a particular problem when you're using
+\File{pictex.sty} with \LaTeX{} and some other packages that also need
+dimension registers.  When this happens, you will see the \TeX{} error
+message:
+\begin{quote}
+\begin{verbatim}
+! No room for a new \dimen.
+\end{verbatim}
+\end{quote}
+There is nothing that can directly be done about this error: you
+can't extend the number of available \csx{dimen} registers without
+extending \TeX{} itself.
+\begin{wideversion} % hyper
+  \Qref{Omega}{Q-omegaleph} and \Qref{\eTeX{}}{Q-etex} both do this.
+\end{wideversion}
+\begin{narrowversion}
+  \ensuremath{\Omega} and \eTeX{}~---
+  \Qref[see questions]{}{Q-omegaleph}
+  \Qref[and]{}{Q-etex} respectively~--- both do this.
+\end{narrowversion}
+
+It's actually quite practical (with most modern distributions) to use
+\eTeX{}'s extended register set: use package \Package{etex} (which
+comes with \eTeX{} distributions) and the allocation mechanism is
+altered to cope with the larger register set: \pictex{} will now load.
+
+If you're in some situation where you can't use \eTeX{}, you need to change
+\pictex{}; unfortunately \pictex{}'s author is no longer active in the
+\TeX{} world, so one must resort to patching.  There are two solutions
+available.
+
+The \CONTeXT{} module \File{m-pictex.tex} (for \plaintex{} and
+variants) or the corresponding \LaTeX{} \Package{m-pictex} package provide
+an ingenious solution to the problem based on hacking the code of
+\csx{newdimen} itself.
+
+Alternatively, Andreas Schrell's \Package{pictexwd} and related
+packages replace \pictex{} with a version that uses 33 fewer
+\csx{dimen} registers; so use \Package{pictexwd} in place of
+\Package{pictex} (either as a \LaTeX{} package, or as a file to read
+into \plaintex{}).
+
+And how does one use \pictex{} anyway, given that the
+manual is so \Qref*{hard to come by}{Q-docpictex}?
+Fortunately for us all, the \ProgName{MathsPic}
+system may be used to translate a somewhat different language into
+\pictex{} commands; and the \ProgName{MathsPic} manual is free (and
+part of the distribution).  \ProgName{MathsPic} is available either as
+a \ProgName{Basic} program for \acro{DOS}, or as a \ProgName{Perl}
+program for other systems (including Windows, nowadays).
+\begin{ctanrefs}
+\item[etex.sty]\CTANref{etex-pkg}
+\item[m-pictex.sty]Distributed as part of \CTANref{context-tmf}
+\item[m-pictex.tex]Distributed as part of \CTANref{context-tmf}
+\item[MathsPic]\CTANref{mathspic}
+\item[pictexwd.sty]Distributed as part of \CTANref{pictex-addon}[pictexwd]
+\end{ctanrefs}
+\LastEdit{2014-01-22}
+
+\subsection{Making things stay where you want them}
+
+\Question[Q-floats]{Moving tables and figures in \LaTeX{}}
+
+Tables and figures have a tendency to surprise, by \emph{floating}
+away from where they were specified to appear.  This is in fact
+perfectly ordinary document design; any professional typesetting
+package will float figures and tables to where they'll fit without
+violating the certain typographic rules.  Even if you use the
+placement specifier~''\texttt{h}'' (for `here'), the figure or table
+will not be 
+printed `here' if doing so would break the rules; the rules themselves
+are pretty simple, and are given on page~198, section~C.9 of the
+\LaTeX{} manual.  In the worst case, \LaTeX{}'s rules can cause the
+floating items to pile up to the extent that you get an error message
+saying ``\Qref*{Too many unprocessed floats}{Q-tmupfl}''.
+What follows is a simple checklist of things to do to solve these
+problems (the checklist talks throughout about figures, but applies
+equally well to tables, or to ``non-standard'' floats defined by the
+\Package{float} or other packages).
+\begin{itemize}
+\item Do your figures need to float at all?  If not, look at the
+  recommendations for ``\Qref*{non-floating floats}{Q-figurehere}''
+\item Are the placement parameters on your figures right?  The
+  default (``\texttt{tbp}'') is usually satisfactory, but you can
+  reasonably change it (for example, to add an ``\texttt{h}'').
+  Whatever you do, \emph{don't} 
+  omit the ``\texttt{p}'': doing so could cause \LaTeX{} to believe that if you
+  can't have your figure \emph{here}, you don't want it
+  \emph{anywhere}.  (\LaTeX{} does try to avoid being confused in
+  this way\dots{})
+\item \LaTeX{}'s own float placement parameters could be preventing
+  placements that seem entirely ``reasonable'' to you~--- they're
+  notoriously rather conservative.  To encourage \LaTeX{} not to move
+  your figure, you may need to loosen its demands.  (The most important
+  ones are the ratio of text to float on a given page, but it's
+  sensible to have a fixed set that changes the whole lot, to meet
+  every eventuality.)
+\begin{verbatim}
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\renewcommand{\dbltopfraction}{.66}
+\renewcommand{\dblfloatpagefraction}{.66}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
+\setcounter{dbltopnumber}{9}
+\end{verbatim}
+  The meanings of these
+  parameters are described on pages~199--200, section~C.9 of the
+  \LaTeX{} manual.
+\item Are there places in your document where you could `naturally'
+  put a \csx{clearpage} command?  If so, do: the backlog of floats is
+  cleared after a \csx{clearpage}.  (Note that the \csx{chapter}
+  command in the standard \Class{book} and \Class{report} classes
+  implicitly executes \csx{clearpage}, so your floats can't wander past
+  the end of a chapter.)
+\item Try the \Package{placeins} package: it defines a
+  \csx{FloatBarrier} command beyond which floats may not pass.  A
+  package option allows you to declare that floats may not pass a
+  \csx{section} command, but you can place \csx{FloatBarrier}s wherever
+  you choose.
+\item If you are bothered by floats appearing at the top of the page
+  (before they are specified in your text), try the \Package{flafter}
+  package, which avoids this problem by insisting that floats should
+  always appear after their definition.
+\item Have a look at the \LaTeXe{} \Package{afterpage} package.
+  Its documentation gives as an example the idea
+  of putting \csx{clearpage} \emph{after} the current page (where it
+  will clear the backlog, but not cause an ugly gap in your text), but
+  also admits that the package is somewhat fragile.  Use it as a last
+  resort if the other possibilities below don't help.
+\item If you would actually \emph{like} great blocks of floats at the
+  end of each of your chapters, try the \Package{morefloats} package;
+  this allows you to increase the number of floating inserts that \LaTeX{}
+  can handle at one time (from its original value of~18, in
+  \LaTeXe{}).  Note that, even with \etex{}'s greater supply of
+  registers, there is still a modest limit on the total number of
+  floating inserts (\etex{} increases the total number of registers
+  available, but inserts don't work if they are constructed from
+  registers in the extended range).
+
+  Caveat: if you are using \Package{etex} to increase the number of
+  registers available, you need to ``reserve'' some inserts for
+  \Package{morefloats}: something like:
+  \begin{quote}
+\begin{verbatim}
+\usepackage{etex}
+\reserveinserts{18}
+\usepackage{morefloats}
+\end{verbatim}
+  \end{quote}
+\item If you actually \emph{wanted} all your figures to float to the
+  end (\emph{e.g}., for submitting a draft copy of a paper), don't
+  rely on \LaTeX{}'s mechanism: get the \Package{endfloat} package to do
+  the job for you.
+\end{itemize}
+\begin{ctanrefs}
+\item[afterpage.sty]Distributed as part of \CTANref{2etools}[afterpage]
+\item[endfloat.sty]\CTANref{endfloat}
+\item[etex.sty]\CTANref{etex-pkg}
+\item[flafter.sty]Part of the \LaTeX{} distribution
+\item[float.sty]\CTANref{float}
+\item[morefloats.sty]\CTANref{morefloats}
+\item[placeins.sty]\CTANref{placeins}
+\end{ctanrefs}
+
+\Question[Q-underline]{Underlined text won't break}
+
+Knuth made no provision for underlining text: he took the view that
+underlining is not a typesetting operation, but rather one that
+provides emphasis on typewriters, which typically offer but one
+typeface.  The corresponding technique in typeset text is to switch
+from upright to italic text (or vice-versa): the \LaTeX{} command
+\csx{emph} does just that to its argument.
+
+Nevertheless, typographically illiterate people (such as those that
+specify double-spaced
+\nothtml{thesis styles~--- }\Qref{thesis styles}{Q-linespace})
+continue to require underlining of us, so \LaTeX{} as distributed
+defines an \csx{underline} command that applies the mathematical
+`underbar' operation to text.  This technique is not entirely
+satisfactory, however: the text gets stuck into a box, and won't break
+at line end.
+
+Two packages are available that solve this problem.  The
+\Package{ulem} package redefines the
+\csx{emph} command to underline its argument; the underlined text thus
+produced behaves as ordinary emphasised text, and will break over the
+end of a line.  (The package is capable of other peculiar effects,
+too: read its documentation.)
+The \Package{soul} package defines an \csx{ul} command (after which the
+package is, in part, named) that underlines running text.
+
+Beware of \Package{ulem}'s default behaviour, which is to convert the
+\csx{emph} command into an underlining command; this can be avoided by
+loading the package with:
+\begin{quote}
+\begin{verbatim}
+\usepackage[normalem]{ulem}
+\end{verbatim}
+\end{quote}
+\begin{ctanrefs}
+\item[ulem.sty]\CTANref{ulem}
+\item[soul.sty]\CTANref{soul}
+\end{ctanrefs}
+
+\Question[Q-widows]{Controlling widows and orphans}
+
+Widows (the last line of a paragraph at the start of a page) and
+orphans (the first line of paragraph at the end of a page) interrupt
+the reader's flow, and are generally considered ``bad form'';
+\AllTeX{} takes some precautions to avoid them, but completely
+automatic prevention is often impossible.  If you are typesetting your
+own text, consider whether you can bring yourself to change the
+wording slightly so that the page break will fall differently.
+
+The \AllTeX{} page maker, when forming a page, takes account of variables
+\csx{widowpenalty} and \csx{clubpenalty} (which relates to orphans!).
+These penalties are usually set to the moderate value of \texttt{150}; this
+offers mild discouragement of bad breaks.  You can increase the values
+by saying (for example) \csx{widowpenalty}\texttt{=500}; however, vertical
+lists (such as pages are made of) typically have rather little
+stretchability or shrinkability, so if the page maker has to balance
+the effect of stretching the unstretchable and being penalised, the
+penalty will seldom win.  Therefore, for typical layouts, there are
+only two sensible settings for the penalties: finite (150 or 500, it
+doesn't matter which) to allow widows and orphans, and infinite (10000
+or greater) to forbid them.
+
+The problem can be avoided by allowing the pagemaker to run pages
+short, by using the \csx{raggedbottom} directive; however, many
+publishers insist on the default \csx{flushbottom}; it is seldom
+acceptable to introduce stretchability into the vertical list, except
+at points (such as section headings) where the document design
+explicitly permits it.
+
+Once you've exhausted the automatic measures, and have a final draft
+you want to ``polish'', you should proceed to manual measures.  To
+get rid of an orphan is simple: precede the paragraph with
+\csx{clearpage} and the paragraph can't start in the wrong place.
+
+Getting rid of a widow can be more tricky.  Options are
+\begin{itemize}
+\item If the previous page contains a long paragraph with a short last
+  line, it may be possible to set it `tight': write
+  \csx{looseness}\texttt{=-1} immediately after the last word of the
+  paragraph.
+\item If that doesn't work, adjusting the page size, using
+  \cmdinvoke{enlargethispage}{\csx{baselineskip}} to `add a line' to
+  the page, which may have the effect of getting the whole paragraph
+  on one page.
+\item Reducing the size of the page by
+  \cmdinvoke{enlargethispage}{-\csx{baselineskip}} may produce a
+  (more-or-less) acceptable ``two-line widow''.
+\end{itemize}
+Note that \csx{looseness}\texttt{=1} (which should increase the line
+length by one) seldom has the right effect~--- the looser paragraph
+typically has a one-word final line, which doesn't look much better
+than the original widow.
+
+\subsection{Things have ``gone away''}
+
+\Question[Q-oldfontnames]{Old \LaTeX{} font references such as \csx{tenrm}}
+
+\LaTeXo{} defined a large set of commands for access to the fonts
+that it had built in to itself.  For example, \FontName{cmr} might
+appear as \csx{fivrm}, \csx{sixrm}, \csx{sevrm},
+\csx{egtrm}, \csx{ninrm}, \csx{tenrm}, \csx{elvrm}, \csx{twlrm},
+\csx{frtnrm}, \csx{svtnrm}, \csx{twtyrm} and \csx{twfvrm}, according
+to the size it's being typeset at.
+These commands were never documented, but certain packages
+nevertheless used them to achieve effects they needed.
+
+Since the commands weren't public, they weren't included in \LaTeXe{};
+to use the unconverted \LaTeXo{} packages under \LaTeXe{}, you need
+also to include the \Package{rawfonts} package (which is part of the
+\LaTeXe{} distribution).
+
+\Question[Q-misssymb]{Missing symbol commands}
+
+You're processing an old document, and some symbol commands such as
+\csx{Box} and \csx{lhd} appear no longer to exist.  These commands were
+present in the core of \LaTeXo{}, but are not in current \LaTeX{}.
+They are available in the \Package{latexsym} package (which is part of
+the \LaTeX{} distribution), and in the \Package{amsfonts} package
+(which is part of the \acro{AMS} distribution, and requires \acro{AMS}
+symbol fonts).
+\begin{ctanrefs}
+\item[AMS fonts]\CTANref{amsfonts}
+\end{ctanrefs}
+
+\Question[Q-msxy]{Where are the \texttt{msx} and \texttt{msy} fonts?}
+
+The \FontName{msx} and \FontName{msy} fonts were designed by the
+American Mathematical Society in the very early days of \TeX{}, for
+use in typesetting papers for mathematical journals.  They were
+designed using the `old' \MF{}, which wasn't portable and is no longer
+available; for a long time they were only available in 300dpi versions
+which only imperfectly matched modern printers.  The \acro{AMS} has
+now redesigned the fonts, using the current version of \MF{}, and the
+new versions are called the \FontName{msa} and \FontName{msb}
+families.
+
+Nevertheless, \FontName{msx} and \FontName{msy} continue to turn up.
+There may, of course, still be sites that haven't got around to
+upgrading; but, even if everyone upgraded, there would still be the
+problem of old documents that specify them.
+
+If you have a \extension{tex} source that requests \FontName{msx} and
+\FontName{msy}, the best technique is to edit it so that it requests
+\FontName{msa} and \FontName{msb} (you only need to change the single
+letter in the font names).
+
+A partial re-implementation of the blackboard-bold part of the
+\FontName{msy} font (covering C, N, R, S and Z, only) is available in
+Type~1 format; if your mathematical needs only extend that far, the
+font could be a good choice.
+
+If you have a \acro{DVI} file that requests the fonts, there is a package
+of \Qref*{virtual fonts}{Q-virtualfonts} to map the old to the new series.
+\begin{ctanrefs}
+\item[msam \& msbm \nothtml{\rmfamily}fonts]Distributed as part of \CTANref{amsfonts}
+\item[msym \nothtml{\rmfamily}fonts]\CTANref{msym}
+\item[\nothtml{\rmfamily}virtual font set]\CTANref{msx2msa}
+\end{ctanrefs}
+\LastEdit{2012-03-09}
+
+%%%???%%% spell-checked to here....zzzyx
+
+\Question[Q-amfonts]{Where are the \texttt{am} fonts?}
+
+One \emph{still} occasionally comes across a request for the \FontName{am}
+series of fonts.  The initials stood for `Almost [Computer] Modern',
+and they were the predecessors of the Computer Modern fonts that we
+all know and love (or hate)%
+\begin{footnoteenv}
+  The fonts acquired their label `Almost' following the realisation
+  that their first implementation in \MF{}79 still wasn't quite right;
+  Knuth's original intention had been that they were the final answer.
+\end{footnoteenv}.
+There's not a lot one can do with these
+fonts; they are (as their name implies) almost (but not quite) the
+same as the \FontName{cm} series; if you're faced with a document that requests
+them, the only reasonable approach is to edit the document to replace
+\FontName{am*} font names with \FontName{cm*}.
+
+The appearance of \acro{DVI} files that request them is sufficiently
+rare that no-one has undertaken the mammoth task of creating a
+translation of them by means of virtual fonts.
+
+You therefore have to fool the system into using \FontName{cm*} fonts
+where the original author specified \FontName{am*}.
+
+One option is the font substitutions that many
+\acro{DVI} drivers provide via their configuration file~---
+specify that every \FontName{am} font should be replaced by its
+corresponding \FontName{cm} font.
+
+Alternatively, one may try \acro{DVI} editing~--- packages
+\Package{dtl} (\acro{DVI} Text Language) and \Package{dviasm}
+(\acro{DVI} assembler) can both provide round trips from \acro{DVI} to
+text and back to \acro{DVI}.  One therefore edits font names
+(throughout the text representation of the file) in the middle of that
+round trip.
+
+The \acro{DTL} text is pretty straightforward, for this purpose:
+fontnames are in single quotes at the end of lines, so:
+\begin{quote}
+  \texttt{dv2dt -o} \meta{doc.txt} \meta{doc.dvi}\\
+  (\emph{edit the \extension{txt} file})\\
+  \texttt{dt2dv -o} \meta{edited.dvi} \meta{edited.txt}
+\end{quote}
+(you have to compile the \acro{C} programs for this).
+
+\ProgName{Dviasm} is a \ProgName{Python} script; its output has font
+names in a section near the start of the document, and then dotted
+about through the body, so:
+\begin{quote}
+  \texttt{python dviasm.py -o} \meta{doc.txt} \meta{doc.dvi}\\
+  (\emph{edit the \extension{txt} file})\\
+  \texttt{python dviasm.py -o} \meta{edited.dvi} \meta{edited.txt}
+\end{quote}
+Both routes seem acceptable ways forward; it is a matter of taste
+which any particular user may choose (it's not likely that it will be
+necessary very often...).
+\begin{ctanrefs}
+\item[dviasm.py]\CTANref{dviasm}
+\item[dtl]\CTANref{dtl}
+\end{ctanrefs}
+
+\Question[Q-initex]{What's happened to \ProgName{initex}?}
+
+In the beginning, \AllTeX{} was stretching the capacity of every
+system it was ported to, so there was a premium on reducing the size
+of executables.  One way of doing this was to have a separate
+executable, \ProgName{initex}, that had things in it that aren't
+needed in ordinary document runs~--- notably \csx{patterns} (which
+builds hyphenation tables), and \csx{dump} (which writes out a format).
+
+On modern systems, the size of this code is insignificant in
+comparison to the memory available, and maintaining separate programs
+has been found sufficiently error-prone that free Unix-style system
+distributions have abolished \ProgName{initex} and its friends and
+relations such as \ProgName{inipdftex} in favour of a single
+executable (that is, just \ProgName{tex} or \ProgName{pdftex}) that
+will ``do what \ProgName{initex} (or whatever) used to do'' if it
+detects the command option ``\texttt{-ini}''.
+
+The change happened with the advent of te\TeX{} version
+3.0, which appeared at the beginning of 2005.  At that time,
+\texlive{} was following te\TeX{}, so that year's \texlive{}
+distribution would also have dropped \ProgName{initex}.
+
+It would appear that the equation is somewhat different for the
+\miktex{} developers, since that system continues to offer an
+\ProgName{initex} executable.

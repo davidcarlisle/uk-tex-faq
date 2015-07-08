@@ -1,0 +1,182 @@
+% $Id: faq-lab-ref.tex,v 1.4 2011/05/08 10:16:43 rf10 Exp $
+
+\subsection{Labels and references}
+
+\Question[Q-nameref]{Referring to things by their name}
+
+\LaTeX{}'s labelling mechanism is designed for the impersonal world of
+the academic publication, in which everything has a number: an
+extension is necessary if we are to record the \emph{name} of things
+we've labelled.  The two packages available extend the \LaTeX{}
+sectioning commands to provide reference by the name of the section.
+
+The \Package{titleref} package is a simple extension which provides
+the command \csx{titleref}; it is a stand-alone package~--- don't use it
+in a document in which you also need to use \Package{hyperref}.
+
+The \Package{byname} package is part of the \Package{smartref} bundle
+and works well with \Package{smartref}, and works (to an extent) with
+\Package{hyperref}, but the links it defines are not hyperlinks.
+
+The \Class{memoir} class incorporates the functionality of
+\Package{titleref}, but doesn't work with \Package{byname} (though a
+search of \Newsgroup{comp.text.tex} on \URL{groups.google.com} will
+find a patch to \Package{byname} to remedy the problem).
+
+The \Package{hyperref} bundle includes a package \Package{nameref},
+which will work standing alone (i.e., without \Package{hyperref}: of
+course, in this mode its references are not hyperlinked).  If you load
+\Package{hyperref} itself, \Package{nameref} is automatically loaded.
+\Class{Memoir} requires the \Package{memhfixc} when running with
+\Package{hyperref}; following the sequence:
+\begin{quote}
+\begin{verbatim}
+\documentclass[...]{memoir}
+...
+\usepackage[...]{hyperref}
+\usepackage{memhfixc}
+\end{verbatim}
+\end{quote}
+\Package{nameref} commands may be used in a \Class{memoir} document.
+
+\Package{Zref} defines a proposed replacement for all of the \LaTeX{}
+reference mechanisms, and among other things provides
+name-referencing mechanisms:
+\begin{quote}
+\begin{verbatim}
+\usepackage[user,titleref]{zref}
+...
+\section{hello}\zlabel{sec:one}
+The section name is: \ztitleref{sec:one}.
+\end{verbatim}
+\end{quote}
+(One might hope that something of this sort would be the ``way of the
+future'', but things move slowly in the \LaTeX{} world: don't hold
+your breath.) 
+
+Each of \Package{titleref}, \Package{byname} and \Package{nameref}
+defines a reference command with the same name as the package:
+\csx{titleref}, \csx{byname} and \csx{nameref}. The \Package{nameref}
+package also defines a command \csx{byshortnameref}, which uses the
+optional `short' title argument to the chapter and section commands.
+(Although it comes from the same author, \Package{zref} \emph{doesn't}
+define a short-name variant.)
+\begin{ctanrefs}
+\item[byname.sty]Distributed with \CTANref{smartref}
+\item[hyperref.sty]\CTANref{hyperref}
+\item[memoir.cls]\CTANref{memoir}
+\item[nameref.sty]Distributed with \CTANref{hyperref}
+\item[smartref.sty]\CTANref{smartref}
+\item[titleref.sty]\CTANref{titleref}
+\item[zref.sty]Distributed as part of \CTANref{oberdiek}[zref]
+\end{ctanrefs}
+
+\Question[Q-extref]{Referring to labels in other documents}
+
+When producing a set of inter-related documents, you'll often want to
+refer to labels in another document of the set; but \LaTeX{}, of its
+own accord, doesn't permit this.
+
+So the package \Package{xr} was written: if you say
+\begin{quote}
+\begin{verbatim}
+\usepackage{xr}
+\externaldocument{volume1}
+\end{verbatim}
+\end{quote}
+will load all the references from \File{volume1} into your present
+document.
+
+But what if the documents both have a section labelled
+``\environment{introduction}'' (likely enough, after all)?  The
+package provides a means to transform all the imported labels, so you
+don't have to change label names in either document.  For example:
+\begin{quote}
+\begin{verbatim}
+\usepackage{xr}
+\externaldocument[V1-]{volume1}
+\end{verbatim}
+\end{quote}
+loads the references from \File{volume1}, but prefixes every one with
+the string \texttt{V1-}.  So you would refer to the introduction to volume~1
+as:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\usepackage{xr}
+\externaldocument[V1-]{volume1}
+...
+... the introduction to volume1
+               (\ref{V1-introduction})...
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\usepackage{xr}
+\externaldocument[V1-]{volume1}
+...
+... the introduction to volume1 (\ref{V1-introduction})...
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+To have the facilities of \Package{xr} working with
+\Package{hyperref}, you need \Package{xr-hyper}.  For simple
+hyper-cross-referencing (i.e., to a local \acro{PDF} file you've just
+compiled), write:
+\begin{quote}
+\begin{verbatim}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\externaldocument[V1-]{volume1}
+...
+... the \nameref{V1-introduction})...
+\end{verbatim}
+\end{quote}
+and the name reference will appear as an active link to the
+``introduction'' chapter of \File{volume1.pdf}.
+
+To link to a \acro{PDF} document on the Web, for which you happen to
+have the .aux file, write:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\externaldocument[V1-]{volume1}[http://mybook.com/volume1.pdf]
+...
+... the \nameref{V1-introduction})...
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\externaldocument[V1-]{volume1}%
+    [http://mybook.com/volume1.pdf]
+...
+... the \nameref{V1-introduction})...
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+Heiko Oberdiek's experimental \Package{zref} bundle includes a
+hyper-crossreferencing mechanism using its \Package{zref-xr} module.
+Usage is closely modelled on \Package{xr} and \Package{xr-hyper}; a
+trivial example (from a \Newsgroup{comp.text.tex} posting) is
+\begin{quote}
+\begin{verbatim}
+\usepackage{zref-xr,zref-user}
+\zexternaldocument*{xr02}
+...
+\zref{foo}
+\end{verbatim}
+\end{quote}
+The module provides all the facilities of the older packages, and can
+deal both with ``traditional'' \LaTeX{} labels and with
+\Package{zref}'s style of labels.
+\begin{ctanrefs}
+\item[xr.sty]Distributed as part of \CTANref{2etools}[xr]
+\item[xr-hyper.sty]Distributed with \CTANref{hyperref}[xr-hyper]
+\item[zref \nothtml{\rmfamily\itshape}bundle]Distributed as part of
+  \CTANref{oberdiek}[zref]
+\end{ctanrefs}
+

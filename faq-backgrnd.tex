@@ -1,0 +1,1220 @@
+% $Id: faq-backgrnd.tex,v 1.31 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{The Background}
+
+\Question[Q-startup]{Getting started}
+
+\alltex{} offers a very large number of choices, and the beginner has
+to navigate through that set before even taking his first steps.  The
+aim here is to guide the beginner through a set of answers that may
+help the process.  We assume the beginner `knows' that \alltex{} is
+for them; if not, the discussion ``\Qref{what is \tex{}}{Q-whatTeX}''
+may help.
+
+To start at the very beginning, then, the beginner may wish to know
+what all those % ! line break
+``\Qref*{things with \tex{} in their name are}{Q-texthings}''.
+
+Armed with that knowledge, the beginner needs to decide what macro
+format she needs (always assuming someone hasn't already told her she
+needs to use ``foo\tex{}''.  Learn about the alternatives in answers
+discussing common formats: look at % line break
+\Qref*{writing \plaintex{}}{Q-plaintex},
+\Qref*{\latex{}}{Q-latex} or
+\Qref*{\context{}}{Q-context}.
+
+If no system has been provided, the beginner needs to acquire a \tex{}
+distribution appropriate to their machine.  Available options are
+available via the answer % ! line break
+``\Qref*{\alltex{} for various machines}{Q-TeXsystems}''; we assume
+here that the beginner can install things for herself, or has access
+to someone who can.
+
+Finally, the beginner needs to get started in the chosen format.  For
+\plaintex{}, see ``\Qref[]{Online introductions: \TeX{}}{Q-man-tex}'';
+for \latex{}, see % ! line break
+``\Qref[]{Online introductions: \LaTeX{}}{Q-man-latex}''; and for
+\context{}, the place to start is the % line break
+\href{http://wiki.contextgarden.net/Main_Page}{ConTeXt garden wiki}
+(which is so good the present \acro{FAQ}s don't even try to compete).
+\LastEdit*{2011-03-04}
+
+
+\Question[Q-whatTeX]{What is \TeX{}?}
+
+\TeX{} is a typesetting system written by
+\href{http://sunburn.stanford.edu/~knuth/}{Donald E. Knuth}, who
+says in the Preface to his book on \TeX{}
+(see \Qref[question]{books about TeX}{Q-tex-books}) that it is
+%% !line wrap avoided by two commands
+``\emph{intended for the creation of beautiful books~---}
+\emph{and especially for books that contain a lot of mathematics}''.
+(If \TeX{} were \emph{only} good for mathematical books, much of its
+use nowadays would not happen: it's actually a pretty good general
+typesetting system.)
+
+Knuth is Emeritus Professor of the Art of Computer Programming at
+Stanford University in California, \acro{USA}.  Knuth developed the
+first version of \TeX{} in 1978 to deal with revisions to his series
+``the Art of Computer Programming''.  The idea proved popular and
+Knuth produced a second version (in 1982) which is the basis of what
+we use today.
+
+Knuth developed a system of % ! line breaks
+`\Qref*{literate programming}{Q-lit}' to write \TeX{},
+and he provides the literate (\acro{WEB}) source of \TeX{} free of charge,
+together with tools for processing the |web| source into something
+that can be compiled and something that can be printed; there is (in
+principle) never any mystery about what \TeX{} does.  Furthermore, the
+\acro{WEB} system provides mechanisms to port \TeX{} to new operating
+systems and computers; and in order that one may have some confidence
+in the ports, Knuth supplied a \Qref*{test}{Q-triptrap} by
+means of which one may judge the fidelity of a \TeX{} system.  \TeX{}
+and its documents are therefore highly portable.
+
+For the interested programmer, the distribution of \TeX{} has some
+fascination: it's nothing like the way one would construct such a
+program nowadays, yet it has lasted better than most, and has been
+ported to many different computer architectures and operating
+systems~--- the sorts of attributes that much modern programming
+practice aims for.  The processed `readable' source of \TeX{} the
+program may be found in the % ! line break
+\begin{hyperversion}
+  \Qref*{\acro{TDS} structured}{Q-tds} version of the distribution.
+\end{hyperversion}
+\begin{dviversion}
+  \acro{TDS} structured version of the distribution (see
+  \Qref*{\acro{TDS} structure}{Q-tds}).
+\end{dviversion}
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Knuth's source distribution]\CTANref{knuth-dist}
+\item[\nothtml{\rmfamily}Knuth's sources in \acro{TDS} layout]\CTANref{knuth-tds}
+\end{ctanrefs}
+\LastEdit{2013-11-27}
+
+\Question[Q-plaintex]{What's ``writing in \TeX{}''?}
+
+\TeX{} is a macro processor, and offers its users a powerful
+programming capability.  To produce a document, you write macros and
+text interleaved with each other.  The macros define an environment in
+which the text is to be typeset.
+
+However, the basic \TeX{} engine is pretty
+basic, and is a pretty difficult beast to deal with. Recognising this
+(and not wanting to write the same things at the start of every
+document, himself) Knuth provided a package of macros for use with
+\TeX{}, called \plaintex{}; \plaintex{} is a useful minimum set of
+macros that can be used with \TeX{}, together with some demonstration
+versions of higher-level commands.  When people say they're ``writing
+(or programming) in \TeX{}'', they usually mean they're programming in
+\plaintex{}.
+
+\Question[Q-TeXpronounce]{How should I pronounce ``\TeX{}''?}
+
+The `X' is ``really'' the Greek letter % ! line break
+Chi\nothtml{ (\ensuremath{\chi}, in lower case)}, and is pronounced by
+English-speakers either a bit like the `ch' in the Scots word `loch'
+([x] in the IPA) or (at a pinch, if you can't do the Greek sound) like
+`k'.  It definitely is not pronounced `ks' (the Greek letter with that
+sound doesn't look remotely like the Latin alphabet `X').
+
+This curious usage derives from Knuth's explanation in the \TeX{}book
+that the name comes from the Greek word for `art' or `craft'
+(`\latexhtml{\ensuremath{\tau\epsilon\chi\nu\eta}}{\emph{techni}}'),
+which is the root of the English word `technology'.  Knuth's logo for \TeX{} is
+merely the uppercase version of the first three (Greek) letters of the
+word, jiggled about a bit; we don't use that logo (and logos like it)
+in this \acro{FAQ} (see % ! line break
+\Qref[question]{Typesetting \TeX{}-related logos}{Q-logos}).
+
+\Question[Q-MF]{What is \MF{}?}
+
+\MF{} was written by Knuth as a companion to \TeX{}; whereas \TeX{}
+defines the layout of glyphs on a page, \MF{} defines the shapes of
+the glyphs and the relations between them.  \MF{} details the sizes of
+glyphs, for \TeX{}'s benefit, and creates bitmaps that may be used to
+represent the glyphs, for the benefit of programs that will produce
+printed output as post processes after a run of \TeX{}.
+
+\MF{}'s language for defining fonts permits the expression of several
+classes of things: first (of course), the simple geometry of the
+glyphs; second, the properties of the print engine for which the
+output is intended; and third, `meta'-information which can
+distinguish different design sizes of the same font, or the difference
+between two fonts that belong to the same (or related) families.
+
+Knuth (and others) have designed a fair range of fonts using \MF{},
+but font design using \MF{} is much more of a minority skill (even) than is
+\TeX{} macro-writing.
+What is more, it is a dying art: few new \tex{}-related fonts are
+produced using \MF{}, nowadays.  Indeed, several of the major font
+families (that originated in \MF{} designs) are now seldom used in any
+other way than their conversion to an outline font format.
+%% The complete \TeX{}-user nevertheless needs to
+%% be aware of \MF{}, and may even be required run \MF{} to generate personal
+%% copies of Meta-fonts that come her way.
+\LastEdit{2011-07-03}
+
+\Question[Q-MP]{What is \MP{}?}
+
+The \MP{} system (by John Hobby) implements a picture-drawing language
+very much like that of \MF{}; the difference is that \MP{} outputs
+vector graphic files instead of run-length-encoded bitmaps; output
+formats available are \PS{} or \acro{SVG}
+\MP{}
+is a powerful language for producing figures for documents to be
+printed on \PS{} printers, either directly or embedded in \AllTeX{}
+documents.  \MP{} is able to integrate text and mathematics, marked up
+for use with \TeX{}, within the graphics.  (Knuth tells us that he
+uses nothing but \MP{} for diagrams in text that he is writing.)
+
+Although \PDFLaTeX{} cannot ordinarily handle \PS{} graphics, the
+output of \MP{} is sufficiently simple and regular that \PDFLaTeX{}
+can handle it direct, using code borrowed from
+\begin{hyperversion}
+  \Qref*{\context{}}{Q-context}~---
+\end{hyperversion}
+\begin{flatversion}
+  \context{}~---
+\end{flatversion}
+see \Qref[question]{graphics in \PDFLaTeX{}}{Q-pdftexgraphics}.
+
+Much of \MP{}'s source code was copied from \MF{}'s sources, with
+Knuth's permission.
+
+A mailing list discussing \MP{} is available;
+\begin{flatversion}
+  subscribe via the \acro{TUG} \ProgName{mailman} interface at
+  \URL{http://lists.tug.org/metapost}
+\end{flatversion}
+\begin{hyperversion}
+  subscribe via the % ! line break
+  \href{http://lists.tug.org/metapost}{\acro{TUG} \ProgName{mailman} interface}.
+\end{hyperversion}
+The \acro{TUG} website also hosts a % ! line break
+\href{http://tug.org/metapost.html}{\MP{} summary page}, and the
+\Package{tex-overview} document gives you a lot more detail (and some
+explanatory background material).
+\begin{ctanrefs}
+\item[tex-overview.pdf]\CTANref{tex-overview}
+\end{ctanrefs}
+\LastEdit{2013-12-10}
+
+\Question[Q-texthings]{Things with ``\TeX{}'' in the name}
+
+New \TeX{} users are often baffled by the myriad terms with ``\TeX{}''
+in the name.  The goal of this answer is to clarify some of the more
+common such terms.
+
+\paragraph{\TeX{} itself}
+\TeX{} proper is a typesetting system based on a set of low-level
+control sequences that instruct \TeX{} how to lay out text on the
+page.  For example, \csx{hskip} inserts a given amount of horizontal
+space into the document, and \csx{font} makes a given font available
+in a document.  \TeX{} is fully programmable using an integrated macro
+scripting language that supports variables, scoping, conditional
+execution, control flow, and function (really, macro) definitions.
+See % ! line break
+\Qref[question]{what is \TeX{}?}{Q-whatTeX} for some background
+information on \TeX{} and % ! line break
+\Qref[question]{some reference documents}{Q-ref-doc} for pointers to
+descriptions of \TeX{} control sequences, data types, and other key
+parts of \TeX{}.
+
+\paragraph{\TeX{} macro packages (a.k.a.~\TeX{} formats)}
+Some of \TeX{}'s control sequences are tedious to use directly; they are
+intended primarily as building blocks for higher-level~--- and therefore
+more user-friendly~---  abstractions.  For example, there is no way in
+base \TeX{} to specify that a piece of text should be typeset in a
+larger font.  Instead, one must keep track of the current size and
+typeface, load a new font with the same typeface but a (specified)
+larger size, and tell \TeX{} to use that new font until instructed
+otherwise.  Fortunately, because \TeX{} is programmable, it is
+possible to write a macro that hides this complexity behind a simple,
+new control sequence.  (For example, it is possible to define
+\cmdinvoke{larger}{my text} to typeset ``my text'' in
+at a font size next larger than the current one.)
+
+While some users write their own, perfectly customized set of
+macros~--- which they then typically reuse across many documents~--- it is
+far more common to rely upon a \emph{macro package}, a collection of
+\TeX{} macros written by experts.  For the user's convenience, these
+macro packages are often combined with the base \TeX{} engine into a
+standalone executable.  The following are some of that macro packages
+that you are likely to encounter:
+\begin{description}
+  \item[Plain \TeX{} (executable: \ProgName{tex})]
+  See
+  \Qref[questions]{Books on \TeX{} and \plaintex{}}{Q-tex-books},
+  \Qref[]{Online introductions: \TeX{}}{Q-man-tex},
+  \Qref[]{Should I use Plain \TeX{} or \LaTeX{}?}{Q-plainvltx} and
+  \Qref[]{Freely available \AllTeX{} books}{Q-ol-books}.
+  Note that the Plain \TeX{} executable is called \ProgName{tex}; the
+  base \TeX{} engine is generally provided by a separate executable
+  such as \ProgName{initex} or as a \texttt{-ini} flag to
+  \ProgName{tex}.
+
+  \item[\LaTeX{} (executable: \ProgName{latex})]
+  See
+  \Qref[questions]{Books on \TeX{} and its relations}{Q-latex-books},
+  \Qref[]{\AllTeX{} Tutorials, etc.}{Q-tutorials*},
+  \Qref[]{Online introductions: \LaTeX{}}{Q-man-latex} and
+  \Qref[]{Specialized \AllTeX{} tutorials}{Q-tutbitslatex}.
+  Note that there have been two major versions of \LaTeX{}: \LaTeXe{}
+  refers to the current version of \LaTeX{} while \LaTeXo{} is the
+  long-since-obsolete (since 1994) version (cf.~%
+  \Qref[question]{What is \LaTeXe{}?}{Q-latex2e} for more information).
+
+  \item[\CONTeXT{} (executable: \ProgName{texmfstart})]
+  See
+  \Qref[question]{What is \CONTeXT{}?}{Q-context}.
+
+  \item[Texinfo (executables: \ProgName{tex}, \ProgName{makeinfo})]
+  See
+  \Qref[question]{What is Texinfo?}{Q-texinfo}.  \ProgName{makeinfo}
+  converts Texinfo documents to \acro{HTML}, DocBook, Emacs info,
+  \acro{XML}, and plain text.  \ProgName{Tex} (or wrappers such as
+  \ProgName{texi2dvi} and \ProgName{texi2pdf}) produce one of \TeX{}'s
+  usual output formats such as \acro{DVI} or \acro{PDF}.  Because
+  \ProgName{tex} loads the Plain \TeX{} macros, not the Texinfo ones,
+  a Texinfo document must begin with
+  \begin{quote}
+    \csx{input}\texttt{ texinfo}
+  \end{quote}
+  explicitly load the Texinfo macro package.
+
+  \item[\Eplain{}~--- Extended Plain \TeX{} (executable: \ProgName{eplain})]
+  See
+  \Qref[question]{What is \Eplain{}?}{Q-eplain}.
+\end{description}
+
+\paragraph{Modified \ProgName{tex} executables}
+The original \ProgName{tex} executable was produced in the late 1970s
+(cf.~\Qref[question]{What is \TeX{}?}{Q-whatTeX}) and consequently
+lacked some features that users have come to expect from today's
+software.  The following programs address these issues by augmenting
+the \TeX{} engine with some additional useful features:
+
+\begin{description}
+  \item[\PDFTeX{} (executable: \ProgName{pdftex})]
+  \TeX{}, which predates the \acro{PDF} file format by a decade,
+  outputs files in a \TeX{}-specific format called \acro{DVI}
+  (cf.~\Qref[question]{What is a \acro{DVI} file?}{Q-dvi}).  In
+  contrast, \PDFTeX{} can output both \acro{DVI} \emph{and} \acro{PDF}
+  files.  In \acro{PDF} mode, it lets documents exploit various
+  \acro{PDF} features such as hyperlinks, bookmarks, and annotations,
+  \PDFTeX{} additionally supports two sophisticated micro-typographic
+  features: character protrusion and font expansion.  See
+  \Qref[question]{What is \PDFTeX{}?}{Q-whatpdftex}.
+
+  \item[\xetex{} (executable: \ProgName{xetex})]
+  \xetex{} reads \acro{UTF}-8 encoded Unicode input, and extends
+  \TeX{}'s font support to include `modern' formats such as TrueType
+  and OpenType; these extensions to its capabilities make it
+  well-suited to multi-lingual texts covering different writing
+  systems.  See \Qref[question]{What is \xetex{}?}{Q-xetex}.
+
+  \item[\LuaTeX{} (executable: \ProgName{luatex})]
+  \TeX{} is programmed in its own arcane, integrated, macro-based
+  programming language.  \LuaTeX{} adds a second programming engine
+  using a modern scripting language, Lua, which is `embedded' in a
+  \tex{}-alike engine; it too reads \acro{UTF}-8 and uses TrueType
+  OpenType fonts.  See % ! line break
+  \Qref[question]{What is \LuaTeX{}?}{Q-luatex}.
+
+  \item[\eTeX{} (executable: \ProgName{etex})]
+  \eTeX{} is an extension of \tex{}'s programming interface; as such
+  it's only indirectly useful to end users, but it can be valuable to
+  package developers; there is an increasing number of macro packages
+  that require the use of \eTeX{}.  As well as existing in
+  \ProgName{etex}, \eTeX{} features are usually available in the
+  \ProgName{pdftex} executables provided in the standard
+  distributions; \xetex{} and \luatex{} also provide \etex{}'s
+  programming facilities.    See % ! line break
+  \Qref[question]{What is \eTeX{}?}{Q-etex}.
+
+  (Note: \eTeX{}, which enhances the \TeX{} engine, is not to be
+  confused with \Eplain{}, which enhances the Plain \TeX{} macro
+  package.)
+\end{description}
+
+Because each of the above derive from a base \TeX{} engine, it is in
+principle possible to combine any of them with one of the \TeX{} macro
+packages listed earlier to produce `extended' executables.  For
+example, the \ProgName{pdflatex}, \ProgName{xelatex} and
+\ProgName{lualatex} executables each combine \LaTeX{} with an enhanced
+\TeX{} engine.  Indeed, most (if not all) of the development of
+\context{} is now using \luatex{}.
+
+Some executables combine the features of multiple enhanced \TeX{}
+engines: for example, \ProgName{pdftex} now (in current distributions)
+offers both \PDFTeX{} and \eTeX{} extensions into a single executable
+This executable may be offered with a \LaTeX{} format (as
+\ProgName{latex} or \ProgName{pdflatex}) or with a \plaintex{} format
+(as \ProgName{pdftex}).  (\ProgName{Tex} remains with an unadorned
+\TeX{} executable using \plaintex{}, for people such as Knuth himself,
+who want the certainty of the ``original''.)
+
+\paragraph{\TeX{} distributions}
+A \emph{\TeX{} distribution} provides a structured collection of
+\TeX{}-related software.  Generally, a \TeX{} distribution includes a
+set of ``core'' \TeX{} executables such as \ProgName{tex} and
+\ProgName{latex}; various fonts optimized for use with \TeX{}; helper
+programs such as the \BibTeX{} bibliographic-database formatter,
+editors, integrated development environments, file-format-conversion
+programs; numerous \LaTeX{} packages; configuration tools; and any
+other goodies the distributor chooses to include.
+
+Commonly encountered \TeX{} distributions include \texlive{},
+\miktex{} and Mac\TeX{}; older ones include oz\TeX{},
+\acro{CM}ac\TeX{} and te\TeX{}.  \miktex{} is also available as the
+basis of the Pro\TeX{}t bundle, distributed on the \texlive{}
+\acro{DVD} mailing, as well as being available online.
+
+Some \TeX{} distributions target a specific operating system and/or
+processor architecture; others run on multiple platforms.  Many \TeX{}
+distributions are free; a few require payment.  See % ! line break
+\Qref[question]{\AllTeX{} for different machines}{Q-TeXsystems} for a
+list of free and shareware \TeX{} distributions and % ! line break
+\Qref[question]{Commercial \TeX{} implementations}{Q-commercial} for a
+list of commercial \TeX{} distributions.
+
+\paragraph{Summary}
+What does it all mean?~--- the simple lists of objects, alone, offer
+no help for the beginner.  The \acro{FAQ} team expects this answer
+only to be of use for people who are seeking guidance elsewhere
+(possibly within these \acro{FAQ}s) and coming across an unexpected
+name like ``blah\tex{}''.
+
+The subject matter covered by this answer is also addressed in a page
+on the \acro{TUG} site, % ! line break
+``\href{http://tug.org/levels.html}{the Levels of \tex{}}''.
+\LastEdit{2011-09-26}
+
+\Question[Q-ctan]{What is \acro{CTAN}?}
+
+The acronym stands for ``Comprehensive \tex{} Archive Network'', which
+more-or-less specifies what it's \emph{for}:
+\begin{itemize}
+\item The archives offer a comprehensive collection of \tex{} resources.
+\item The content is made publicly accessible, via the internet.
+\item \acro{CTAN} is a \emph{network} of archives, which strive to
+  stay in step with one another.
+\end{itemize}
+The basic framework was developed by a \acro{TUG} working group set up
+to resolve the (then existing) requirement for users to \emph{know} on
+which archive site a particular package might be found.
+
+Actual implementation offers three distinct types of host:
+\begin{description}
+\item[\emph{Core} archives]Which form a small, tightly-coupled set of
+  machines, which perform management functions as well as serving
+  files;
+\item[\emph{Mirror} archives]Which do no more than take regular copies
+  of core archives, and serve them; and
+\item[Archive selector]Which is a meta-service, which routes requests
+  to an apparently ``local'' mirror (``local'' is determined by an
+  algorithm that uses your net address to determine where you are, and
+  then selects a mirror that's close).
+\end{description}
+Note that there is nothing to prevent any archive from supporting
+other functions, so a \acro{CTAN} mirror may also operate as a
+\acro{CPAN} (Perl) mirror and as a SourceForge (general free software)
+mirror, and \dots{}
+
+Functions that distinguish core archives are:
+\begin{itemize}
+\item Uploads: users may submit new (or updated) material via the
+  \Qref*{upload redirector}{Q-uploads}. Significant changes to the
+  archive are reported via the mailing list \Email{ctan-ann@dante.de}
+\item Weak consistency: changes to the content of the archives are
+  rapidly distributed to all core archives.  (Consistency is `weak'
+  since changes can take several minutes to propagate.)
+\item Providing distribution (\texlive{} and \miktex{}) support.
+\item Catalogue maintenance.
+\item Mirror monitoring.
+\end{itemize}
+
+Users may make direct contact with the
+\begin{flatversion}
+  \ctan{} management team, via \mailto{ctan@dante.de}
+\end{flatversion}
+\begin{hyperversion}
+  \href{mailto:ctan@dante.de}{\ctan{} management team}.
+\end{hyperversion}
+
+Users should ordinarily download material from \acro{CTAN} via the
+\href*{http://mirror.ctan.org/}{archive selector}: this uses the
+mirror monitor's database, and uses the caller's geographical location to
+offer an efficient choice of ``sufficiently up-to-date'' mirror site for
+you to connect to.  This procedure has the advantage of distributing
+the load on \ctan{} mirrors.
+
+Note that all the download links, given in the web representation of
+these \acro{FAQ}s, are set up to use the mirror selector.
+\LastEdit{2013-05-21}
+
+\Question[Q-catalogue]{The (\acro{CTAN}) catalogue}
+
+Finding stuff on networks used always to be difficult, but in recent years,
+search engines have become amazingly good at digging out unconsidered
+trifles from the myriad items of information available on the net.
+However, for the \alltex{} user, confusion is added by the tendency to
+index the same file at several \acro{CTAN} mirror sites.
+
+Further, the \alltex{} user usually needs the most recent version of a
+package; it's a rare search result that describes itself as obsolete!
+
+The \acro{CTAN} catalogue, several years after it was introduced, has
+developed into a powerful tool for dealing with these difficulties.
+It provides an entry for each package to be found on \acro{CTAN};
+users may search the catalogue for an entry, or they may browse its
+contents, using the catalogue's lists of ``categories'' of item.
+
+The basis of the catalogue is a collection of small, stylised,
+articles; each shows basic information about a package on \acro{CTAN},
+and includes pointers to download address (on a \acro{CTAN} mirror),
+documentation and home page if any, and related packages.
+
+The \href{http://www.ctan.org}{\acro{CTAN} central database machine}
+offers a ``Browse \acro{CTAN}'' area, with links to the list of
+packages, to a list of `topics' (with packages that match each topic),
+and to a list of authors (with their packages).
+
+In addition, every \acro{CTAN} mirror holds a copy of the catalogue,
+presented as a series of web pages; one may scan the files in
+alphabetic order, or use a category-based index.  Such access is not
+as ``sophisticated'' as that on the central site, but it served for
+years before the central site appeared.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}The CTAN catalogue (on CTAN)]\CTANref{Catalogue}
+\end{ctanrefs}
+\LastEdit{2014-03-17}
+
+\Question[Q-triptrap]{How can I be sure it's really \TeX{}?}
+
+\TeX{} (and \MF{} and \MP{}) are written in a
+\begin{flatversion} % really "non-hyper"
+  `literate' programming language called \ProgName{Web} (\Qref{}{Q-lit})
+\end{flatversion}
+\begin{hyperversion}
+  \Qref{`literate' programming}{Q-lit} language called \ProgName{Web}
+\end{hyperversion}
+which is designed to be portable across a wide range of computer
+systems.  How, then, is a new version of \TeX{} checked?
+
+Of course, any sensible software implementor will have his own suite
+of tests to check that his software runs: those who port \TeX{} and
+its friends to other platforms do indeed perform such tests.
+
+Knuth, however, provides a `conformance test' for both \TeX{}
+(\Package{trip}) and \MF{} (\Package{trap}).
+%%% Is there a similar one for \MP{}?
+He characterises these as `torture tests': they are designed not to
+check the obvious things that ordinary typeset documents, or font
+designs, will exercise, but rather to explore small alleyways off the
+main path through the code of \TeX{}.  They are, to the casual reader,
+pretty incomprehensible!
+
+Once an implementation of \TeX{} has passed its \Package{trip} test, or
+an implementation of \MF{} has passed its \Package{trap} test, then it
+may in principle be distributed as a working version.  (In practice,
+any distributor would test new versions against ``real'' documents or
+fonts, too; while \Package{trip} and \Package{trap} test bits of
+pathways within the program, they don't actually test for any real
+world problem.)
+\LastEdit{2011-05-28}
+
+% \Question[Q-y2k]{Are \TeX{} and friends Y2K compliant?}
+
+% \begin{description}
+% \item[Crashing:] None of \TeX{}, \MF{} or \MP{} can themselves crash
+%   due to any change whatever in the date of any sort.
+
+% \item[Timestamps:] In the original sources, a 2-digit year was
+%   stored as the creation time for format files and that value is
+%   printed in log-files.  These items should not be of general concern,
+%   since the only use of the date format file is to produce the log
+%   output, and the log file is designed for human readers only.
+  
+%   Knuth announced in 1998 that implementors would be permitted
+%   alter this code without fear of being accused of non-compliance.
+%   Nearly all implementations that are being actively maintained had
+%   been modified to generate 4-digit years in the format file and the
+%   log, by the end of 1998.  The original sources themselves have now
+%   been modified so that 4-digit year numbers are stored.
+
+% \item[The \csx{year} primitive:] Certification of a \TeX{}
+%   implementation (see \Qref[question]{trip/trap testing}{Q-triptrap})
+%   does not require that \csx{year} return a meaningful value (which
+%   means that \TeX{} can, in principle, be implemented on platforms
+%   that don't make the value of the clock available to user programs).
+%   The \emph{\TeX{}book} (see
+%   \Qref[question]{TeX-related books}{Q-tex-books}) defines \csx{year} as
+%   ``the current year of our Lord'', which is the only correct meaning
+%   for \csx{year} for those implementations which can supply a
+%   meaningful value, which is to say nearly all of them.
+
+%   In short, \TeX{} implementations should provide a value in \csx{year}
+%   giving the 4-digit year Anno Domini, or the value 1776 if the
+%   platform does not support a date function.
+
+%   Note that if the system itself fails to deliver a correct date to
+%   \TeX{}, then \csx{year} will of course return an incorrect value.
+%   \TeX{} cannot be considered Y2K compliant, in this sense, on a
+%   system that is not itself Y2K compliant.
+
+% \item[Macros:] \TeX{} macros can in principle perform calculations on
+%   the basis of the value of \csx{year}.
+%   The \Qref*{LaTeX suite}{Q-latex}
+%   performs such calculations in a small number of places; the
+%   calculations performed in the current (supported) version of \LaTeX{} are
+%   known to be Y2K compliant.
+
+%   Other macros and macro packages should be individually checked.
+
+% \item[External software:] Software such as \acro{DVI} translators
+%   needs to be individually checked.
+% \end{description}
+% \LastEdit{2011-06-01} 
+%
+% withdrawn 2013-05-21
+
+\Question[Q-etex]{What is \eTeX{}?}
+
+While Knuth has declared that \TeX{} will never % !line break
+\Qref*{change in any substantial way}{Q-TeXfuture}, there remain
+things that one might wish had been done differently, or indeed
+implemented at all.
+
+The \acro{NTS} project set out to produce an advanced replacement for
+\TeX{}, to provide a basis for developing such modifications: this
+``New Typesetting System'' would share Knuth's aims, but would
+implement the work in a modern way taking account of the lessons
+learned with \TeX{}.  While a first demonstrator \acro{NTS} did
+appear, it wasn't practically useful, and the project seems no longer
+active.
+
+In parallel with its work on \acro{NTS} itself, the project developed
+a set of extensions that can be used with a (``true'') \TeX{} system.
+Such a modified system is known as an \eTeX{} system, and the concept
+has proved widely successful.  Indeed, current \TeX{} distributions
+are delivered with most formats built with an \eTeX{}-based system (for
+those who don't want them, \eTeX{}'s extensions can be disabled, leaving
+a functionally standard \TeX{} system).
+
+The extensions range from the seemingly simple (increasing the number
+of available registers from 256 to 32768) through to extremely subtle
+programming support.
+
+\Qref*{\CONTeXT{}}{Q-context} has required \eTeX{} for its operation
+for some time, though development is now focused on the use of
+\Qref*{\luatex{}}{Q-luatex}.
+
+Some \LaTeX{} packages already specify the use of \eTeX{}.  Some such
+packages may not work at all on a non-\eTeX{} system; others will
+work, but not as well as on an \eTeX{} system.  The % ! line break
+\Qref*{\LaTeX{} team}{Q-LaTeX3} has announced that future \LaTeX{}
+packages (specifically those from the team, as opposed to those
+individually contributed) may require \eTeX{} for optimum performance.
+\begin{ctanrefs}
+\item[\eTeX{}]\CTANref{etex}
+\end{ctanrefs}
+\LastEdit{2011-07-13}
+
+\Question[Q-whatpdftex]{What is \PDFTeX{}?}
+
+One can reasonably say that \PDFTeX{} is (today) the main stream of
+\TeX{} distributions: most \LaTeX{} and many \CONTeXT{} users nowadays use
+\PDFTeX{} whether they know it or not (more precisely, they use
+\PDFTeX{} extended by
+\begin{hyperversion}
+  \Qref*{\eTeX{}}{Q-etex}).
+\end{hyperversion}
+\begin{flatversion}
+  \eTeX{}~--- \Qref{}{Q-etex}).
+\end{flatversion}
+So what is \PDFTeX{}?
+
+\PDFTeX{} is a development of \TeX{} that is capable of generating
+typeset \acro{PDF} output in place of \acro{DVI}.  \PDFTeX{} has
+other capabilities, most notably in the area of fine typographic
+detail (for example, its support for % ! line break
+\begin{hyperversion}
+  \Qref{optimising line breaks}{Q-overfull}),
+\end{hyperversion}
+\begin{flatversion}
+  % ( <- dummy for paren balancing
+  optimising line breaks~--- \Qref{}{Q-overfull}),
+\end{flatversion}
+but its greatest impact to date has been in the area of
+\acro{PDF} output.
+
+\PDFTeX{} started as a topic for H\`an \The {} Th\`anh's Master's~thesis,
+and seems first to have been published in \TUGboat{} 18(4), in 1997
+(though it was certainly discussed at the \acro{TUG}'96 conference in
+Russia).
+
+While the world was making good use of ``pre-releases'' of \PDFTeX{},
+Th\`anh used it as a test-bed for the micro-typography which was the
+prime subject of his Ph.D.~research.  Since Th\`anh was finally
+awarded his Ph.D., day-to-day maintenance and development of
+\PDFTeX{}~1.0 (and later) has been in the hands of a group of
+\PDFTeX{} maintainers (which includes Th\`anh); the group has managed
+to maintain a stable platform for general use.
+
+Development of \PDFTeX{} has mostly stopped (only bug fixes, and
+occasional small development items are processed): future development
+is focused on \Qref*{\LuaTeX{}}{Q-luatex}.
+\LastEdit{2011-05-28}
+
+\Question[Q-latex]{What is \LaTeX{}?}
+
+\LaTeX{} is a \TeX{} macro package, originally written by Leslie Lamport, that
+provides a document processing system.  \LaTeX{} allows markup to
+describe the structure of a document, so that the user
+need not think about presentation. By using document classes and
+add-on packages, the same document can be produced in a variety of
+different layouts.
+
+Lamport says that \LaTeX{}
+``\emph{represents a balance between functionality and ease of use}''.
+This shows itself as a continual conflict that leads to
+the need for such things as \acro{FAQ}s: \LaTeX{} \emph{can} 
+meet most user requirements, but finding out \emph{how} is often
+tricky.
+
+\Question[Q-latex2e]{What is \LaTeXe{}?}
+
+Lamport's last version of \LaTeX{} (\LaTeXo{}, last updated in 1992)
+was superseded in 1994 by a new version (\LaTeXe{}) provided by
+\Qref*{the \LaTeX{} team}{Q-LaTeX3}.
+\LaTeXe{} is now the only readily-available version of
+\LaTeX{}, and draws together several threads of \LaTeX{} development
+from the later days of \LaTeXo{}.  The ``e'' of the name is (in the
+% next (ghastly) line needed to maintain typesetting
+\wideonly{\Qref{official logo}{Q-logos}}\narrowonly{official logo~--- \Qref{\relax}{Q-logos}})
+% the \relax allows sanitize to cope with the line.  just don't ask...
+a single-stroke epsilon
+(\latexhtml{\ensuremath{\varepsilon}}{&epsilon;}, supposedly
+indicative of no more than a small change).
+
+\LaTeXe{} has several enhancements over \LaTeXo{}, but they were all
+rather minor, with a view to continuity and stability rather than the
+``big push'' that some had expected from the team.  \LaTeXe{}
+continues to this day to offer a compatibility mode in which most
+files prepared for use with \LaTeXo{} will run (albeit with somewhat
+reduced performance, and subject to voluminous complaints in the log
+file).  Differences between \LaTeXe{} and \LaTeXo{} are
+outlined in a series of `guide' files that are available in every
+\LaTeX{} distribution (the same directory also contains ``news'' about
+each new release of \LaTeXe{}).
+
+Note that, now, \latexe{} is ``feature frozen'' (the only allowed
+changes come from bug reports); this, too, is in pursuit of stability,
+and is a driving force for many of the efforts to contribute \latex{}
+packages.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\LaTeX{} guides and news]\CTANref{latexdoc}
+\end{ctanrefs}
+\LastEdit{2011-08-19}
+
+\Question[Q-latexpronounce]{How should I pronounce ``\LaTeX{}(\twee{})''?}
+
+Lamport never recommended how one should pronounce \LaTeX{}, but a lot
+of people pronounce it `Lay \TeX{}' or perhaps `Lah \TeX{}' (with
+\TeX{} pronounced as the program itself; see
+\Qref[question]{the rules for TeX}{Q-TeXpronounce}).  It is definitely
+\emph{not} to be pronounced in the same way as the rubber-tree gum
+(which would be `lay teks').
+
+The \LaTeXe{} logo is supposed to end with an
+\latexhtml{\ensuremath{\varepsilon}}{&epsilon;}; nevertheless, most
+people pronounce the name as `\LaTeX{}-two-ee'.
+\LastEdit{2009-06-08}
+
+\Question[Q-plainvltx]{Should I use \plaintex{} or \LaTeX{}?}
+
+There's no straightforward answer to this question.  Many people swear
+by \plaintex{}, and produce highly respectable documents using it
+(Knuth is an example of this, of course).  But equally, many people
+are happy to let someone else take the design decisions for them,
+accepting a small loss of flexibility in exchange for a saving of
+(mental) effort.
+
+The arguments around this topic can provoke huge amounts of noise and
+heat, without offering much by way of light; your best bet may be to
+find out what those around you are using, and to follow them in the
+hope of some support.  Later on, you can always switch your
+allegiance; don't bother about it.
+
+If you are preparing a manuscript for a publisher or journal, ask them
+what markup they want before you
+develop your own; many big publishers have developed their own
+\AllTeX{} styles for journals and books, and insist that authors stick
+closely to their markup.
+
+\Question[Q-LaTeXandPlain]{How does \LaTeX{} relate to \plaintex{}?}
+
+\tex{} provides a programming language (of sorts), and any document
+more complex than the trivial ``hello world'' will need some
+programming.
+
+\LaTeX{} and \plaintex{} are both libraries written for use with
+\tex{}; the user commands \ProgName{tex} and \ProgName{latex} invoke
+\tex{}-the-program with a library incorporated.  Libraries that may be
+loaded in this way are known as `\emph{formats}'; when a user ``runs''
+\plaintex{} or \latex{}, they are running \tex{} (the program) with an
+appropriate format.  The documents are then programmed in \plaintex{}
+or \latex{} \emph{language}.
+
+\plaintex{} and \latex{} exist because writing your documents in `raw'
+\TeX{} could involve much reinventing of wheels for every document.
+Both languages serve as convenient aids to make document writing more
+pleasant: \LaTeX{} provides many more items to support `common'
+requirements of documents.
+
+As such, \LaTeX{} is close to being a superset of \plaintex{}, but
+some \plaintex{} commands don't work as expected when used in a
+\latex{} document.  Using \plaintex{} commands in a \latex{} document
+is an occasional source of bugs: the output is \emph{almost} right,
+but some things are misplaced.
+
+So, \plaintex{} and \latex{} are related through a common parent, and
+are designed for use in similar jobs; programming for one will often
+not work correctly in the other.
+\LastEdit{2014-03-18}
+
+\Question[Q-context]{What is \context{}?}
+
+\href{http://www.pragma-ade.com/}{\context{}} is a macro package
+created by Hans Hagen of Pragma-Ade; it started as a production tool
+for Pragma (which is a publishing company).  \CONTeXT{} is a
+document-production system based, like \LaTeX{}, on the \TeX{}
+typesetting system.  Whereas \LaTeX{} insulates the writer from
+typographical details, \context{} takes a complementary approach by
+providing structured interfaces for handling typography, including
+extensive support for colors, backgrounds, hyperlinks, presentations,
+figure-text integration, and conditional compilation.  It gives the
+user extensive control over formatting while making it easy to create
+new layouts and styles without learning the \TeX{} macro
+language. \CONTeXT{}'s unified design avoids the package clashes that
+can happen with \LaTeX{}.
+
+\context{} also integrates MetaFun, a superset of \MP{} and a powerful
+system for vector graphics.  MetaFun can be used as a stand-alone
+system to produce figures, but its strength lies in enhancing
+\context{} documents with accurate graphic elements.
+
+\context{} allows users to specify formatting commands in English,
+Dutch, German, French, or Italian, and to use different typesetting
+engines (\PDFTeX{}, Xe\TeX{}, Aleph and \LuaTeX{}) without
+changing the user interface. \context{} continues to develop, often in
+response to requests from the user community.
+
+The development of \Qref*{\luatex{}}{Q-luatex} was originally driven
+by \context{}, almost from the start of its project.  Nowadays,
+\context{} it is distributed in two versions~--- mark two (files with
+extension \extension{mkii}) which runs on \pdftex{} but is not under
+active development, and mark four (files with extension
+\extension{mkiv}) (which runs on \luatex{} and is where development
+happens).
+
+\context{} has a large developer community (though possibly not as
+large as that of latex{}), but those developers who are active seem to have
+prodigious energy.  Support is available via a % ! line break
+\href{http://wiki.contextgarden.net/Main_Page}{\acro{WIKI} site} and via the
+\href{http://www.ntg.nl/mailman/listinfo/ntg-context}{mailing list}.
+A ``standalone'' distribution (a \TeX{} distribution with no macros
+other than \context{}-based ones) is available from
+\url{http://minimals.contextgarden.net/} --- it provides
+a \context{} system on any of a number of platforms, executing either
+mark~ii or mark~iv \context{}.
+
+Note that \acro{CTAN} does \emph{not} hold the primary distribution of
+\context{}~--- potential users should refer to
+\href{http://contextgarden.net}{\context{} `garden' site} for details
+of the
+current distribution.  \acro{CTAN} holds a copy of \CONTeXT{} but
+makes no claim about its ``up-to-date''ness.  Likewise, \acro{CTAN}
+holds a few contributed \context{} packages, but many more are to be
+found via the \href{http://contextgarden.net}{\CONTeXT{} garden}.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\CONTeXT{} distribution]\CTANref{context}
+\item[\nothtml{\rmfamily}\CONTeXT{} packages selection]\CTANref{context-contrib}
+\end{ctanrefs}
+\LastEdit{2014-05-30}
+
+\Question[Q-AMSpkg]{What are the \acro{AMS} packages (\AMSTeX{}, \emph{etc}.)?}
+
+\AMSTeX{} is a \TeX{} macro package, originally written by Michael Spivak for
+the American Mathematical Society (\acro{AMS}) during 1983--1985 and
+is described in the book ``\Qref*{The Joy of \TeX{}}{Q-tex-books}''.
+It is based on \plaintex{}, and provides many
+features for producing more professional-looking maths formulas with
+less burden on authors.  It pays attention to the finer details of
+sizing and positioning that mathematical publishers care about. The
+aspects covered include multi-line displayed equations, equation
+numbering, ellipsis dots, matrices, double accents, multi-line
+subscripts, syntax checking (faster processing on initial
+error-checking \TeX{} runs), and other things.
+
+As \LaTeX{} increased in popularity, authors sought to submit papers to
+the \acro{AMS} in \LaTeX{}, so \AMSLaTeX{} was developed.  \AMSLaTeX{}
+is a collection of \LaTeX{} packages and classes that offer authors most of
+the functionality of \AMSTeX{}.
+The \acro{AMS} no longer recommends the use of \AMSTeX{}, and urges
+its authors to use \AMSLaTeX{} instead.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\AMSTeX{} distribution]\CTANref{amstex}
+\item[\nothtml{\rmfamily}\AMSLaTeX{} distribution]\CTANref{amslatex}
+\end{ctanrefs}
+\LastEdit{2011-06-01}
+
+\Question[Q-eplain]{What is \Eplain{}?}
+
+The \href{http://tug.org/eplain}{\Eplain{}}
+macro package expands on and extends the definitions in \plaintex{}.
+\Eplain{} is not intended to provide ``generic typesetting
+capabilities'', as do \CONTeXT{}, \LaTeX{} or
+\Qref*{Texinfo}{Q-texinfo}.  Instead, it defines macro tools that
+should be useful whatever commands you choose to use when you prepare
+your manuscript.
+
+For example, \Eplain{} does not have a command \csx{section},
+which would format section headings in an ``appropriate'' way, as
+\LaTeX{}'s \csx{section} does.  The philosophy of \Eplain{} is that
+some people will always need or want to go beyond the macro designer's
+idea of ``appropriate''.  Canned sets of macros are fine~--- as long as you
+are willing to accept the resulting output.  If you don't like the
+results, or if you are trying to match a different format, you may
+find that \Eplain{} is for you.
+
+On the other hand, almost everyone would like capabilities such as
+cross-referencing by labels, so that you don't have to put actual page
+numbers in the manuscript.  The authors of \Eplain{} believe it is the
+only generally available macro package that does not force its
+typographic style on an author, and yet provides these capabilities.
+
+Another useful feature of \Eplain{} is the ability to create PDF files
+with hyperlinks.  The cross-referencing macros can implicitly generate
+hyperlinks for the cross-references, but you can also create explicit
+hyperlinks, both internal (pointing to a destination within the
+current document) and external (pointing to another local document or
+a URL).
+
+Several \LaTeX{} packages provide capabilities which \plaintex{}
+users are lacking, most notably text colouring and rotation provided by
+the \Package{graphics} bundle (packages \Package{color} and
+\Package{graphics}).  Although the \Package{graphics} bundle provides
+a \plaintex{} ``loader'' for some of the packages, it is not a
+trivial job to pass options to those packages under \plaintex{}, and
+much of the functionality of the packages is accessed through package
+options.  \Eplain{} extends the loader so that options can be passed
+to the packages just as they are in \LaTeX{}.  The following packages are
+known to work with \Eplain{}:  \Package{graphics}, \Package{graphicx},
+\Package{color}, \Package{autopict} (\LaTeX{} picture environment),
+\Package{psfrag}, and \Package{url}.
+
+\href{http://tug.org/docs/html/eplain}{\Eplain{} documentation} is
+available online (there's a \acro{PDF} copy in the \acro{CTAN}
+package as well), and there's also a mailing list~--- sign up, or
+browse the list archives, via
+\URL{http://tug.org/mailman/listinfo/tex-eplain}
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\Eplain{} distribution]\CTANref{eplain}
+\end{ctanrefs}
+\LastEdit{2013-06-25}
+
+\Question[Q-texinfo]{What is Texinfo?}
+
+Texinfo is a documentation system that uses one source file to produce
+both on-line information and printed output.  So instead of writing
+two different documents, one for the on-line help and the other for a
+typeset manual, you need write only one document source file.  When
+the work is revised, you need only revise one document.  By
+convention, Texinfo source file names end with a \extension{texi} or
+\extension{texinfo} extension.
+
+Texinfo is a macro language, somewhat similar to \LaTeX{}, but with
+slightly less expressive power.  Its appearance is of course rather
+similar to any \TeX{}-based macro language, except that its macros
+start with \texttt{@} rather than the |\| that's more commonly used in
+\TeX{} systems.
+
+You can write and format Texinfo files into Info files within \acro{GNU}
+\ProgName{emacs}, and read them using the \ProgName{emacs} Info
+reader.  You can also format Texinfo files into Info files using
+\ProgName{makeinfo} and read them using \ProgName{info}, so you're not
+dependent on \ProgName{emacs}.  The distribution includes a
+\ProgName{Perl} script, \ProgName{texi2html}, that will convert
+Texinfo sources into \acro{HTML}: the language is a far better fit to
+\acro{HTML} than is \LaTeX{}, so that the breast-beating agonies of
+\Qref*{converting \LaTeX{} to \acro{HTML}}{Q-LaTeX2HTML} are largely
+avoided.
+
+Finally, of course, you can also print the files, or convert them to
+\acro{PDF} using \PDFTeX{}.
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Texinfo distribution]\CTANref{texinfo}
+\end{ctanrefs}
+
+\Question[Q-lollipop]{Lollipop}
+
+A long time ago (in the early 1990s), the Lollipop \tex{} format was
+developed (originally to typeset the excellent book % !line break
+\Qref{\tex{} by topic}{Q-tex-books}).  Several people admired the
+format, but no ``critical mass'' of users appeared, that could have
+prompted maintenance of the format.
+
+More than 20 years later, a new maintainer appeared: he hopes to build
+Lollipop into an engine for rapid document style development.  (In
+addition, he intends to add support for right-to-left languages such
+as his own~--- Persian.)
+
+We can only hope that, this time, Lollipop will ``catch on''!
+\begin{ctanrefs}
+\item[lollipop]\CTANref{lollipop}
+\end{ctanrefs}
+
+\Question[Q-whyfree]{If \TeX{} is so good, how come it's free?}
+
+It's free because Knuth chose to make it so (he makes money from
+royalties on his \TeX{} books, which still sell well).  He is
+nevertheless apparently happy that others should earn money by selling
+\TeX{}-based services and products. While several valuable
+\TeX{}-related tools and packages are offered subject to restrictions
+imposed by the \acro{GNU} General Public Licence (\acro{GPL},
+sometimes referred to as `Copyleft'), which denies the right to
+commercial exploitation.  \TeX{} itself is offered under a pretty
+permissive licence of Knuth's own.
+
+There are commercial versions of \TeX{} available; for some users,
+it's reassuring to have paid support.  What is more, some of the
+commercial implementations
+have features that are not available in free versions.  (The
+reverse is also true: some free implementations have features
+not available commercially.)
+
+This \acro{FAQ} concentrates on `free' distributions of \TeX{}, but we
+do at least list the \Qref*{major vendors}{Q-commercial}.
+\LastEdit{2013-06-25}
+
+\Question[Q-TeXfuture]{What is the future of \TeX{}?}
+
+Knuth has declared that he will do no further development of \TeX{};
+he will continue to fix any bugs that are reported to him (though
+bugs are rare).  This decision was made soon after
+\TeX{} version~3.0 was released; at each bug-fix release
+the version number acquires one more digit, so that it tends to the
+limit~\ensuremath{\pi} (at the time of writing, Knuth's latest release
+is version 3.1415926).  Knuth wants \TeX{} to be frozen at
+version~\ensuremath{\pi} when he dies; thereafter, no further changes
+may be made to Knuth's source.  (A similar rule is applied to \MF{};
+its version number tends to the limit~\emph{e}, and currently
+stands at 2.718281.)
+
+Knuth explains his decision, and exhorts us all to respect it, in a
+paper originally published in % ! line break
+\href{http://tug.org/TUGboat/Articles/tb11-4/tb30knut.pdf}{\TUGboat{} 11(4)},
+and reprinted in the % ! line break
+\href{http://www.ntg.nl/maps/pdf/5_34.pdf}{NTG journal MAPS}.
+
+There are projects (some of them long-term
+projects: see, for example,
+\Qref[question]{the LaTeX3 project}{Q-LaTeX3})
+%\Qref[and]{and the SGML work}{Q-SGML})
+to build substantial new macro packages based on \TeX{}.  There are
+also various projects to build a \emph{successor} to \TeX{}.  The
+\Qref*{\eTeX{}}{Q-etex} extension to \TeX{} itself arose from such a
+project (\acro{NTS}).  Another pair of projects, which have delivered
+all the results they are likely to deliver, is the
+related % ! line break
+\Qref*{Omega and Aleph}{Q-omegaleph}.  The % ! line break
+\Qref*{\xetex{} system}{Q-xetex} is in principle still under
+development, but is widely used, and the % ! line break
+\Qref*{\LuaTeX{} project}{Q-luatex} (though not scheduled to produce
+for some time) has already delivered a system that increasingly
+accessible to ``ordinary users''.
+\LastEdit{2013-05-21}
+
+\Question[Q-readtex]{Reading \AllTeX{} files}
+
+So you've been sent an \AllTeX{} file: what are you going to do with
+it?
+
+You can, of course, ``just read it'', since it's a plain text file;
+the problem is that the markup tags in the document may prove
+distracting.  Most of the time, even \TeX{} \emph{experts} will
+typeset a \AllTeX{} file before attempting to read it\nobreakspace{}\dots{}
+
+So you shouldn't be too concerned if you can't make head nor tail of
+the file: it is designed to be read by a (sort of) compiler, and
+compilers don't have much in common with human readers.
+
+A possible next step is to try an on-line \latex{} editor.  There are
+many of these~--- a compilation of links may be found in % line break
+\href{http://texblog.net/latex-link-archive/online-compiler/}{this blog post}
+
+Of that long list, the present author has only dabbled with 
+\href{https://www.writelatex.com/}{Write\latex{}}; it seems well
+suited to simple `one-shot' use in this way.
+
+If no online compiler helps, you need to typeset the document
+``yourself''.  The good news is that \TeX{} systems are available,
+free, for most sorts of computer; the bad news is that you need a
+pretty complete \TeX{} system even to read a single file, and complete
+\TeX{} systems are pretty large.
+
+\TeX{} is a typesetting system that arose from a publishing project (see
+\wideonly{``}\Qref[question]{what is \TeX{}}{Q-whatTeX}\wideonly{''}),
+and its basic source is available free from its author.  However, at
+its root, it is \emph{just} a typesetting engine: even to view or to
+print the typeset output, you will need ancillary programs.  In short,
+you need a \TeX{} \emph{distribution}~--- a collection of
+\TeX{}-related programs tailored to your operating system: for details
+of the sorts of things that are available, see
+% beware line break
+\htmlonly{``}\Qref[question]{\TeX{} distributions}{Q-TeXsystems}\htmlonly{''}
+or
+% beware line break
+\htmlonly{``}\Qref[\htmlonly]{commercial \TeX{} distributions}{Q-commercial}\latexhtml{ (for commercial distributions)}{''}.
+
+But beware~--- \TeX{} makes no attempt to look like the sort of
+\WYSIWYG{} system you're probably used to (see
+% beware line wrap
+\wideonly{``}\Qref[question]{why is \TeX{} not \WYSIWYG{}}{Q-notWYSIWYG}\wideonly{''}):
+while many modern versions of \TeX{} have a compile--view cycle that
+rivals the best commercial word processors in its responsiveness, what
+you type is usually \emph{markup}, which typically defines a logical
+(rather than a visual) view of what you want typeset.
+
+So there's a balance between the simplicity of the original
+(marked-up) document, which can more-or-less be read in \emph{any}
+editor, and the really rather large investment needed to install a
+system to read a document ``as intended''.
+
+Are you ``put off'' by all this?~--- remember that \tex{} is good at
+producing \acro{PDF}: why not ask the person who sent the \tex{} file
+to send an \acro{PDF} copy?
+\LastEdit{2014-05-21}
+
+\Question[Q-notWYSIWYG]{Why is \TeX{} not a \WYSIWYG{} system?}
+
+\WYSIWYG{} is a marketing term (``What you see is what you get'') for
+a particular style of text processor.  \WYSIWYG{} systems are
+characterised by two principal claims: that you type what you want to
+print, and that what you see on the screen as you type is a close
+approximation to how your text will finally be printed.
+
+The simple answer to the question is, of course, that \TeX{} was
+conceived long before the marketing term, at a time when the marketing
+imperative wasn't perceived as significant.  (In fact, it appears that
+the first experimental \WYSIWYG{} systems were running in commercial
+labs, near where Knuth was working on \tex{}.  At the time, of course,
+\tex{} was only available on a mainframe, and getting it to run on the
+small experimental machines would have distracted Knuth from his
+mission to create a typesetting system that he could use when
+preparing his books for publication.)
+
+However, all that was a long time ago: why has nothing been done with
+the ``wonder text processor'' to make it fit with modern perceptions?
+
+There are two answers to this.  First, the simple ``things \emph{have}
+been done'' (but they've not taken over the \TeX{} world); and second,
+``there are philosophical reasons why the way \TeX{} has developed is
+ill-suited to the \WYSIWYG{} style''.
+
+Indeed, there is a fundamental problem with applying \WYSIWYG{}
+techniques to \TeX{}: the complexity of \TeX{} makes it hard to get
+the equivalent of \TeX{}'s output without actually running \TeX{} over
+the whole of the document being prepared.
+
+A celebrated early system offering ``\WYSIWYG{} using \TeX{}'' came
+from the Vor\TeX{} project: a pair of Sun workstations worked in
+tandem, one handling the user interface while the other beavered away
+in the background typesetting the result.  Vor\TeX{} was quite
+impressive for its time, but the two workstations combined had hugely
+less power than the average sub-thousand-dollar Personal Computer
+nowadays, and its code has not proved portable (it never even made the
+last `great' \TeX{} version change, at the turn of the 1990s, to
+\TeX{} version 3).
+
+Lightning Textures (an extension of Blue Sky's original \TeX{} system
+for the Macintosh), is sadly no longer available.
+
+Thus``\Qref*{Scientific Word}{Q-commercial}'' (which can also interact
+with a computer algebra system), is the only remaining \tex{} system
+that even approximates to \WYSIWYG{} operation.
+
+The issue has of recent years started to attract attention
+from \TeX{} developers, and several interesting projects that address
+the ``\Qref*{\TeX{} document preparation environment}{Q-WYGexpts}''
+are in progress.
+
+All the same, it's clear that the \TeX{} world has taken a long time
+to latch onto the idea of \WYSIWYG{}.
+Apart from simple arrogance (``we're better, and have no need to
+consider the petty doings of the commercial word processor market''),
+there is a real conceptual difference between the word processor model
+of the world and the model \LaTeX{} and \CONTeXT{} employ~--- the idea of
+``markup''.  ``Pure'' markup expresses a logical model of a document,
+where every object within the document is labelled according to what
+it is rather than how it should appear: appearance is deduced from the
+properties of the type of object.  Properly applied, markup can
+provide valuable assistance when it comes to re-use of documents.
+
+Established \WYSIWYG{} systems find the expression of this sort of
+structured markup difficult; however, markup \emph{is} starting to
+appear in the lists of the commercial world's requirements, for two
+reasons.  First, an element of markup helps impose style on a
+document, and commercial users are increasingly obsessed with
+uniformity of style; and second, the increasingly pervasive use of
+\acro{XML}-derived document archival formats demands it.  The same
+challenges must needs be addressed by \TeX{}-based document
+preparation support schemes, so we are
+observing a degree of confluence of the needs of the two communities:
+interesting times may be ahead of us.
+\LastEdit{2013-06-03}
+
+\Question[Q-TUG*]{\TeX{} User Groups}
+
+There has been a \TeX{} User Group since very near the time \TeX{}
+first appeared.  That first group, \acro{TUG}, is still active and its
+journal \textsl{TUGboat} continues in regular publication
+with articles about \TeX{}, \MF{} and related technologies, and about
+document design, processing and production.  \acro{TUG} holds a yearly
+conference, whose proceedings are published in \textsl{TUGboat}.
+
+\acro{TUG}'s \href{http://www.tug.org}{web site} is a valuable
+resource for all sorts of
+\TeX{}-related matters, such as details of \TeX{} software, and lists
+of \TeX{} vendors and \TeX{} consultants.  Back articles from
+\textsl{TUGboat} are also available.
+
+Some time ago, \acro{TUG} established a ``technical council'', whose
+task was to oversee the development of \TeX{}nical projects.  Most
+such projects nowadays go on their way without any support from
+\acro{TUG}, but \acro{TUG}'s web site lists its
+
+\begin{hyperversion}
+\href{http://www.tug.org/twg.html}{Technical Working Groups (\acro{TWG}s)}.
+\end{hyperversion}
+\begin{flatversion}
+Technical Working Groups (\acro{TWG}s: see
+\URL{http://www.tug.org/twg.html}).
+\end{flatversion}
+
+\acro{TUG} has a reasonable claim to be considered a world-wide
+organisation, but there are many national and regional user groups,
+too; \acro{TUG}'s web site maintains a list of
+\begin{hyperversion}
+href{http://www.tug.org/lugs.html}{``Local User Groups'' (\acro{LUG}s)}.
+\end{hyperversion}
+\begin{flatversion}
+``local user groups'' (\acro{LUG}s: see
+\URL{http://www.tug.org/lugs.html}).
+\end{flatversion}
+
+Contact \acro{TUG} itself via \URL{http://tug.org/contact}
+LastEdit{2013-06-25}

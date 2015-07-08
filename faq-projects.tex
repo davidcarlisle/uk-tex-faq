@@ -1,0 +1,644 @@
+% $Id: faq-projects.tex,v 1.29 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{Current \TeX{}-related projects}
+
+\Question[Q-LaTeX3]{The \LaTeX{} project}
+
+The \LaTeX{} project team (see \URL{http://www.latex-project.org/latex3.html})
+is a small group of volunteers whose aim is
+to produce a major new document processing system based on the
+principles pioneered by Leslie Lamport in the current \LaTeX{}.  The
+new system is (provisionally) called \LaTeX{}3; it
+will remain freely available and it will be fully documented at
+all levels.
+
+The \LaTeX{} team's first product (\LaTeXe{}) was delivered in 1994
+(it's now properly called ``\LaTeX{}'', since no other version is current).
+
+\LaTeXe{} was intended as a consolidation exercise, unifying several
+sub-variants of \LaTeX{} while changing nothing whose change wasn't
+absolutely necessary.  This has permitted the team to support a single
+version of \LaTeX{}, in parallel with development of \LaTeX{}3.
+
+Some of the older discussion papers about directions for \LaTeX{}3 are
+to be found on \acro{CTAN}; other (published) articles are to be found
+on the project web site (\URL{http://www.latex-project.org/papers/}).
+
+Some of the project's experimental code is visible on the net:
+\begin{itemize}
+\item via \URL{http://www.latex-project.org/code.html}, which points
+  to the project's \acro{SVN} repository;
+\item via the project's
+  \href{https://github.com/latex3/svn-mirror}{\emph{GitHub} mirror};
+\item from \acro{CTAN}: snapshots of two major collections from the
+  code, \Package{l3kernel} (supporting \LaTeX{}3 coding conventions in
+  a \LaTeXe{} environment), \Package{l3packages} (a first cut of a
+  ``document designer's interface'') as well as
+  \Package{l3experimental} (new stuff that's still under
+  development).
+\end{itemize}
+The packages \Package{l3kernel} and \Package{l3packages} provide an
+``experimental harness'' that may be used as a testbed for \latex{}3
+work.
+
+Note that \Package{l3kernel} introduces a coding structure quite
+different from earlier \latex{} code; a few hardy authors, who are not
+members of the project, are nevertheless using it in their development
+work.
+
+Anyone may participate in discussions of the future of \LaTeX{}
+through the mailing list \texttt{latex-l}; some development work
+(outside the project) is discussed on the list.  Subscribe to the list
+by sending a message `\texttt{subscribe latex-l <\emph{your name}>}'
+to  \mailto{listserv@urz.Uni-Heidelberg.de}
+\begin{ctanrefs}
+\item[l3experimental \nothtml{\rmfamily}bundle]\CTANref{l3experimental}
+\item[l3kernel \nothtml{\rmfamily}bundle]\CTANref{l3kernel}
+\item[\nothtml{\rmfamily}\LaTeX{} project publications]\CTANref{ltx3pub}
+\item[l3packages \nothtml{\rmfamily}bundle]\CTANref{l3packages}
+\end{ctanrefs}
+\LastEdit{2012-02-07}
+
+\Question[Q-mathml]{Future \acro{WWW} technologies and \AllTeX{}}
+
+An earlier answer % ! line break
+(\Qref[number]{``converting to \acro{HTML}''}{Q-LaTeX2HTML})
+addresses the issue of converting existing \AllTeX{} documents for
+viewing on the Web as \acro{HTML}.  All the present techniques are
+somewhat flawed: the answer explains why.
+
+However, things are changing, with
+better font availability, cunning \acro{HTML} programming and the
+support for new Web standards.
+\begin{description}
+\item[Font technologies] Direct representation of mathematics in
+  browsers has been hampered up to now by the limited range of symbols
+  in the fonts whose availability designers can count on.  Some existing
+  \AllTeX{} to \acro{HTML} converters provide maths symbols by
+  hitching them to alternate font face specifications for standard
+  code points in a non-standard way.  This does nothing for the
+  universality of the \acro{HTML} so generated.
+
+  Now, however, free Unicode-encoded OpenType fonts, with coverage of
+  mathematical symbols, are starting to appear.  The much-heralded
+  \href{http://www.stixfonts.org/}{\FontName{STIX} fonts} are now
+  available on \acro{CTAN}, and a tweaked version
+  (\FontName{XITS}) and \FontName{Asana Math} are also
+  available.  The \acro{STIX} project has still not released macros
+  for using the fonts, but the \Package{unicode-math} package will do
+  what is necessary under \xetex{} and \luatex{}, and the fonts can of
+  course be used in browsers.
+%%   In the near future, we can expect rather wide availability of
+%%   Unicode fonts with good coverage of symbols, which should make life
+%%   easier for those who need to represent mathematics.
+\item[\acro{XML}] The core of the range of new standards is
+  \acro{XML}, which provides a framework for better structured markup;
+  limited support for it has already appeared in some browsers.
+
+  Conversion of \AllTeX{} source to \acro{XML} is already available
+  (through \TeX{}4ht at least), and work continues in that arena.  The
+  alternative, authoring in \acro{XML} (thus producing documents that
+  are immediately Web-friendly, if not ready) and using \AllTeX{} to
+  typeset is also well advanced.  One useful technique is
+  \Qref*{\emph{transforming} the \acro{XML} to \LaTeX{}}{Q-SGML2TeX},
+  using an \acro{XSLT} stylesheet or code for an \acro{XML} library,
+  and then simply using \LaTeX{}; alternatively, one may
+  \Qref*{typeset direct from the \acro{XML} source}{Q-readML}.
+\item[Direct representation of mathematics]
+  Math\acro{ML} is a standard for representing maths on the Web; its
+  original version was distinctly limited, but version 2 of Math\acro{ML}
+  has had major browser support since 2002 with richness of mathematical
+  content for online purposes approaching that of \TeX{} for print.
+  Browser support for Math\acro{ML} is provided by \ProgName{amaya}, the
+  `Open Source' browser \ProgName{mozilla} (and its derivatives
+  including \ProgName{NetScape}, \ProgName{Firefox} and \ProgName{Galeon}) and
+  \ProgName{Internet Explorer} when equipped with a suitable plug-in
+  such as \ProgName{MathPlayer}.
+  There's evidence that \AllTeX{} users are starting to use such
+  browsers.  Some believe that \acro{XHTML}+Math\acro{ML} now provides
+  better online viewing than \acro{PDF}.
+  Work to produce \acro{XHTML}+Math\acro{ML} is well advanced in both the
+  \TeX{}4ht and \ProgName{TtH} projects for \AllTeX{} conversion.
+%%   Such conversion, however, has limits of soundness unless one
+%%   is very much aware of the needs of one's conversion program
+%%   and adapts one's usage of \AllTeX{} accordingly.
+
+  The \href{http://www.mathjax.org}{\ProgName{MathJax}} engine will process the
+  content of \latex{} \csx{[} \dots{}~\csx{]} and \csx{(} \dots{}~\csx{)}
+  `environments' in an \acro{HTML} document, to produce mathematical
+  output that may (for example) be cut-and-pasted into other programs.
+
+  Incorporation into your document can be
+\begin{wideversion}
+  as simple as incorporating:
+\begin{verbatim}
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+\end{verbatim}
+  into the header of your \acro{HTML} document,
+\end{wideversion}
+\begin{narrowversion}
+  incorporating the script~---
+  \url{http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML}
+  ---~as the \texttt{src} tab of a \texttt{script type="text/javascript"}
+  element in the header of your \acro{HTML} document,
+\end{narrowversion}
+  though the \href{http://www.mathjax.org/}{MathJax project's site}
+  also allows you to download your own copy and install it on one of
+  \emph{your} servers.  \ProgName{MathJax} is open source software, so
+  you could, in principle, extend it to do even more eccentric tasks.
+
+  An approach different from \AllTeX{} conversion is taken by
+  the \href{http://www.albany.edu/~hammond/gellmu/}{\emph{GELLMU} Project}.
+  Its \emph{article} \acro{XML} document type, which has a markup vocabulary
+  close to \LaTeX{} that can be edited using \LaTeX{}-like markup
+  (even though it is not \LaTeX{}~--- so far), comes with translators
+  that make both \acro{PDF} (via \emph{pdflatex}) and
+  \acro{XHTML}+Math\acro{ML}.  Such an approach avoids the inherent
+  limitations of the ``traditional'' \AllTeX{} translation processes,
+  which have traps that can be sprung by unfettered use of \AllTeX{}
+  markup.
+\item[Graphics] 
+  \acro{SVG} is a standard for graphics representation on the web.
+  While the natural use is for converting existing figures,
+  representations of formulas are also possible, in place of the separate
+  bitmaps that have been used in the past (and while we wait for the
+  wider deployment of Math\acro{ML}).
+  
+  Browser plug-ins, that deal with \acro{SVG} are already available
+  (Adobe offer one, for example).  More recently, the open source
+  graphics editor \href{http://www.inkscape.org/}{\ProgName{Inkscape}}
+  has appeared, and has been reported to be useful for
+  \acro{SVG}-related work in at least one \TeX{}-related project.  Be
+  aware that the developers of \ProgName{Inkscape} have no illusions
+  about being able to replace commercial software, yet\dots{}
+\item[Direct use of \TeX{} markup]
+  Some time back, \acro{IBM} developed a browser plug-in called
+  TechExplorer, which would display \AllTeX{} documents direct in a
+  browser.  Over the years, it developed into a Math\acro{ML} browser
+  plug-in, while still retaining its \AllTeX{} abilities, but it's now
+  distributed (free for Linux and Windows platforms) by
+  \href{http://www.integretechpub.com/}{Integre Technical Publishing}.
+
+  The disadvantage of the TechExplorer approach is that it places the
+  onus on the browser user; and however technically proficient
+  \emph{you} are, it's never safe to assume too much of your readers.
+  An interesting alternative is
+  \href{http://www.forkosh.com/mathtex.html}{Math\TeX{}}, which sits
+  on your server as a \acro{CGI} script, and you use it to include
+  your \TeX{}, in your \acro{HTML}, as if it were an image:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+<img src="/cgi-bin/mathtex.cgi?f(x)=\int\limits_{-\infty}^xe^{-t^2}dt">
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+<img src="/cgi-bin/mathtex.cgi?f(x)=
+   \int\limits_{-\infty}^xe^{-t^2}dt">
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+(\Package{Mathtex} supersedes the author's earlier \Package{mimetex}.)
+\end{description}
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}Asana Math fonts]\CTANref{asana-math}
+\item[GELLMU]\CTANref{gellmu}
+\item[MathTeX]\CTANref{MathTeX}
+\item[MimeTeX]\CTANref{MimeTeX}
+\item[\nothtml{\rmfamily}STIX fonts]\CTANref{stix}
+\item[tex4ht]\CTANref{tex4ht} (but see \url{http://tug.org/tex4ht/})
+\item[unicode-math.sty]\CTANref{unicode-math}
+\item[\nothtml{\rmfamily}XITS fonts]\CTANref{xits}
+\end{ctanrefs}
+\LastEdit{2011-10-17}
+
+\Question[Q-textrace]{Making outline fonts from \MF{}}
+
+\ProgName{TeXtrace}, originally developed by  P\'eter Szab\'o, is a
+bundle of Unix scripts that use  Martin Weber's freeware boundary
+tracing package
+\href{http://autotrace.sourceforge.net}{\ProgName{autotrace}} to 
+generate Type~1 outline fonts from \MF{} bitmap 
+font outputs.  The result is unlikely ever to be of the quality of
+the commercially-produced Type~1 font, but there's always the
+\href{http://fontforge.sourceforge.net/}{\ProgName{FontForge}} font
+editor to tidy things.  Whatever, there
+remain fonts which many people find useful and which fail to attract
+the paid experts, and auto-tracing is providing a useful service here.
+Notable sets of
+fonts generated using \ProgName{TeXtrace} are P\'eter Szab\'o's own
+\acro{EC}/\acro{TC} font set \FontName{tt2001} and Vladimir Volovich's
+\acro{CM}-Super set, which covers the \acro{EC}, \acro{TC}, and the
+Cyrillic \acro{LH} font sets (for details of both of which sets, see
+\Qref[answer]{``8-bit'' type 1 fonts}{Q-type1T1}).
+
+Another system, which arrived slightly later, is 
+\href{http://www.cs.uu.nl/~hanwen/mftrace/}{\ProgName{mftrace}}:
+this is a small \ProgName{Python} program that does the same job.
+\ProgName{Mftrace} may use either \ProgName{autotrace} (like
+\ProgName{TeXtrace}) or Peter Selinger's
+\href{http://potrace.sourceforge.net}{\ProgName{potrace}} to produce
+the initial outlines to process.  \ProgName{Mftrace} is said to be
+more flexible, and easier to use, than is \ProgName{TeXtrace}, but both systems
+are increasingly being used to provide Type~1 fonts to the public domain.
+
+The \ProgName{MetaType1} system aims to use \MF{} font sources, by way
+of \MP{} and a bunch of scripts and so on, to produce high-quality
+Type~1 fonts.  The first results, the % ! line break
+\Qref*{\Package{Latin Modern} fonts}{Q-type1T1}, are now
+well-established, and a bunch of existing designs have been reworked
+in MetaType1 format.
+
+\Package{Mf2pt1} is another translator of \MF{} font sources by way of
+\MP{}; in addition,
+available, \Package{mf2pt1} will use
+\href{http://fontforge.sourceforge.net/}{\ProgName{fontforge}} (if it's
+available) to auto-hint the result of its conversion.
+(\Package{Mf2pt1} is also written in \ProgName{perl}.)
+\begin{ctanrefs}
+\item[MetaType1]\CTANref{metatype1}
+\item[mf2pt1]\CTANref{mf2pt1}
+\end{ctanrefs}
+
+\Question[Q-WYGexpts]{The \TeX{} document preparation environment}
+
+``\Qref*{Why \TeX{} is not \WYSIWYG{}}{Q-notWYSIWYG}''
+outlines the reasons (or excuses) for the huge disparity of user
+interface between ``typical'' \TeX{} environments and commercial word
+processors.
+
+Nowadays, at last, there is a range of tools available that try either
+to bridge or to close the gap.  One range modestly focuses on
+providing the user with a legible source document.  At the other
+extreme we have \href{http://www.texmacs.org}{\ProgName{TeXmacs}},
+a~document processor using
+\TeX{}'s algorithms and fonts for both editor display and printing.
+\ProgName{TeXmacs} does not use the \TeX{}
+language itself (though among other formats, \LaTeX{} may be exported
+and imported).  A bit closer to \LaTeX{} is
+\href{http://www.lyx.org/}{LyX}, which has its own
+editor display and file formats as well, but does its print output by
+exporting to \LaTeX{}.  The editor display merely resembles the
+printed output, but you have the possibility of entering arbitrary
+\LaTeX{} code.  If you use constructs that LyX does not
+understand, it will just display them as source text marked red, but
+will properly export them.
+
+Since a lot of work is needed to create an editor from scratch that
+actually is good at editing (as well as catering for \TeX{}), it is
+perhaps no accident that several approaches have been implemented
+using the extensible \ProgName{emacs} editor.  The low end of the
+prettifying range is occupied by syntax highlighting: marking \TeX{}
+tokens, comments and other stuff with special colours.
+Many free editors (including \ProgName{emacs}) can cater for \TeX{} in
+this way.  Under Windows, one of the more popular editors with such
+support is the
+Shareware product \href{http://www.winedt.com/}{\ProgName{winedt}}.
+Continuing the range of
+tools prettifying your input, we have the \ProgName{emacs} package
+\href{http://x-symbol.sourceforge.net}{\Package{x-symbol}}, which does
+the \WYSIWYG{} part of its work by replacing single \TeX{} tokens and
+accented letter sequences with appropriate-looking characters on the
+screen.
+
+A different type of tool focuses on making update and access to
+previews of the typeset document more immediate.  A recent addition
+in several viewers, editors and \TeX{} executables are so-called
+`source specials' for cross-navigation.  When \TeX{} compiles a
+document, it will upon request insert special markers for every input
+line into the typeset output.  The markers are interpreted by the \acro{DVI}
+previewer which can be made to let its display track the page
+corresponding to the editor input position, or to let the editor jump
+to a source line corresponding to a click in the preview window.
+
+An \ProgName{emacs} package that combines this sort of editor movement
+tracking with automatic fast recompilations (through the use of dumped
+formats) is
+\href{http://pauillac.inria.fr/whizzytex/}{\Package{WhizzyTeX}}
+ which is best used with a previewer by the
+same author.
+
+Another \ProgName{emacs} package called
+\href{http://preview-latex.sourceforge.net}{\Package{preview-latex}}
+tries to solve
+the problem of visual correlation between source and previews in a
+more direct way: it uses a \LaTeX{} package to chop the document source
+into interesting fragments (like figures, text or display math) which
+it runs through \LaTeX{} and replaces the source text of those
+fragments with the corresponding rendered output images.  Since it
+does not know about the structure of the images, at the actual cursor
+position the source text is displayed while editing rather than the
+preview.  This approach is more or less a hybrid of the source
+prettifying and fast preview approaches since it works in the source
+buffer but uses actual previews rendered by \LaTeX{}.
+
+A more ambitious contender is called \TeX{}lite.  This
+system is only available on request from its author;
+it continuously updates its screen with the help of a special version
+of \TeX{} dumping its state in a compressed format at each page and
+using hooks into \TeX{}'s line breaking mechanism for reformatting
+paragraphs on the fly.  That way, it can render the output from the
+edited \TeX{} code with interactive speed on-screen, and it offers the
+possibility of editing directly in the preview window.
+
+That many of these systems occupy slightly different niches can be
+seen by comparing the range of the
+\ProgName{emacs}-based solutions ranging from syntax highlighting to instant
+previewing: all of them can be activated at the same time without
+actually interfering in their respective tasks.
+
+The different approaches offer various choices differing in the
+immediacy of their response, the screen area they work on (source or
+separate window), degree of correspondence of the display to the final
+output, and the balance they strike between visual aid and visual
+distraction.
+\begin{ctanrefs}
+\item[preview-latex]Distributed as part of \CTANref{auctex}[preview-latex]
+\item[texmacs]Browse \CTANref{texmacs}
+\end{ctanrefs}
+
+\Question[Q-omegaleph]{Omega and Aleph}
+
+Omega\nothtml{ (\ensuremath{\Omega})} was developed as an extension of
+\TeX{}, to use with multilingual texts, expressed in a variety of
+input encodings.  Omega uses 16-bit, Unicode-encoded, characters.  It
+provides many innovative concepts, notably including the ``translation
+process'' that takes a character stream and transforms it according to
+various processes that may be internally specified, or be a separate
+program.
+
+While Omega showed a lot of promise at its mid-1990s announcement,
+progress was slow, and development was essentially dead by the time
+that one of the original developers withdrew (taking with him a bunch
+of research students).
+
+Before that distressing event, a separate thread of development had
+started, to produce a program % !avoid space between Aleph and comma
+called Aleph\nothtml{ (\ensuremath{\aleph})}, which merged the facilities of
+\Qref*{\eTeX{}}{Q-etex} into a stable Omega codebase and added other
+extensions.  Aleph also proved an attractive platform for many people;
+but its development, too, has dried up.
+
+A presentation at Euro\TeX{} 2006 claimed that development of Omega
+was picking up again, in parallel with research into what the (new)
+developers consider a rational scheme for supporting \TeX{}-style
+typesetting.  The new system was to be known as Omega-2
+(\latexhtml{\ensuremath{\Omega_2}}{Omega subscript 2}), and was to be
+designed in a modular fashion so that support of new facilities (such
+as use of advanced OpenType fonts) could be added in a relatively
+straightforward fashion.  A quick web search leads to a recommendation
+that potential users consider \Qref*{\luatex{}}{Q-luatex} instead;
+fortunately, lessons learned in Aleph project have been carried
+forward in the development of \luatex{}.
+
+\Question[Q-xetex]{\xetex{}}
+
+\href{http://scripts.sil.org/xetex}{\xetex{}}, by Jonathan Kew, is a
+successor to the shareware TeX/GX program for Macintoshes.  It was
+developed as a \acro{WEB} `change file' applied to the original source
+of \tex{}; the main changes include:
+\begin{description}
+\item[The input stage] \xetex{} by default reads Unicode (UTF-8, for
+  instance), although it's also capable of interpreting differently
+  encoded files (for backwards compatibility).  Multibyte characters
+  are reduced to a single internal character upon reading, so they are
+  considered as a unique entity when tokenization is performed.  (So,
+  for example, you can have command names in cyrillic, if you must,
+  but such a practice is not recommended.)
+\item[The font management] a substantial revision has added support
+  for OpenType and TrueType fonts, delegating some parts to
+  third-party libraries.
+\item[The maths font set up] \xetex{} introduces new primitives for
+  extending the \csx{mathcode} and \csx{mathchardef} commands in TeX,
+  allowing the user to specify characters in the whole Unicode set and
+  in 256 `math families' (\tex{} only has 16, which limits some maths
+  coding techniques).
+\item[``Post-processing'' features (A)] \xetex{} links to the
+  \ProgName{teckit} library so it can apply a \extension{map} file
+  that allows transformation of characters in already formed token
+  lists, before they are processed in the ``stomach'' for typesetting.
+  In this way, a declaration ``\texttt{Ligatures=TeX}'' is provided,
+  which attaches a map directive to the font that transforms the
+  character combinations (familiar to \tex{} users) into a single
+  character; for instance \texttt{-{}-{}-} is transformed into
+  ``\textemdash''.
+\item[``Post-processing'' features (B)] Characters can be assigned to
+  an ``interchar token class'' and it is possible to specify tokens to
+  be added when there is a transition from one class to another.  The
+  packages \Package{polyglossia}, \Package{xeCJK} and
+  \Package{ucharclasses} exploit this feature.
+\end{description}
+Otherwise, the process of typesetting is essentially the same as
+\tex{}'s.  (However some changes have also been made in the
+hyphenation stage that may give slightly different results if the same
+document is compiled with \pdftex{} or \xetex{}.)
+\begin{ctanrefs}
+\item[polyglossia.sty]\CTANref{polyglossia}
+\item[xeCJK.sty]\CTANref{xecjk}
+\item[ucharclasses.sty]\CTANref{ucharclasses}
+\end{ctanrefs}
+\LastEdit{2013-02-21}
+
+
+\Question[Q-luatex]{\PDFTeX{} and \LuaTeX{}}
+
+Elsewhere in these \acro{FAQ}s, we learn that development of
+\Qref*{\PDFTeX{}}{Q-whatpdftex} is ``in essence'' complete~--- no new
+facilities are being developed at the time of writing.  The \PDFTeX{}
+team has announced that they have frozen \PDFTeX{}'s specification in
+its current state (version 1.40.11), and that nothing but bug
+corrections will be provided up to the time of the final release,
+\PDFTeX{} 1.50.0.  (The interpretation of the statement seems to allow
+sensible changes that are beyond any reasonable definition of
+\emph{bug}\dots{})
+
+As \PDFTeX{} development ran down,
+development of a new system, \LuaTeX{} was started.
+\href{http://www.lua.org/}{\ProgName{Lua}} is a interpreter designed
+to be incorporated into other applications.  \LuaTeX{} consists of a
+\TeX{}-like engine with a \ProgName{lua} interpreter `embedded' in it;
+the \ProgName{lua} interpreter has access to many of the data
+structures used for typesetting, so that the programmer may also
+interpolate chunks of \ProgName{lua} code into their \AllTeX{} macros,
+or as `call-backs' for use when the \TeX{}-like engine does certain
+operations.
+
+This arrangement offers the prospect of a ``semi-soft'' typesetting
+engine: it will have its basic behaviour, but the user gets to
+redefine functionality if an idea occurs~--- there will be no need to
+persuade the world first, and then find a willing developer to work on
+the sources of of the distribution.
+
+The \href{http://www.luatex.org/}{\LuaTeX{} project} is (with monetary
+support from various sources) pursuing avenues that many of the other
+current projects have in their sights, notably Unicode character
+representations and support for OpenType fonts.  The intention is
+to integrate the extensions pioneered by \Qref*{Aleph}{Q-omegaleph}.
+Users may also care to view the % ! line break
+\href{http://www.luatex.org/documentation.html}{\luatex{} documentation page}
+or the \href{http://wiki.luatex.org}{\luatex{} \acro{WIKI}}
+
+\texlive{} (2013) holds version 0.76.0 of \luatex{}.  This version
+demonstrates the ``final functionality'', though the project
+remains a \ensuremath{\beta}-release.  Functional stability was first
+declared for version 0.50.0, released near the end of December 2009.
+
+\CONTeXT{} `Mark 4' can already make use of \LuaTeX{}; much of its
+code already appears in two forms~--- a \TeX{}-based version
+(\extension{mkii}) and a `\extension{mkiv}' version (new functionality
+typically \emph{only} appears in `\extension{mkiv}' form), which uses
+\luatex{} extensions (including \ProgName{lua} scripting).  \LaTeX{}
+packages that support its use are appearing (some of them providing
+re-implementations of existing \context{} code).
+
+\latex{} running over \luatex{} (commonly known as Lua\latex{}) is not
+an ``official'' entity (yet), but useful packages are
+appearing (i.e., the \ctan{} path \path{macros/luatex/latex} holds
+several items).
+\begin{ctanrefs}
+\item[\nothtml{\rmfamily}\luatex{} snapshot]\CTANref{luatex}
+\item[\nothtml{\rmfamily}\pdftex{} distribution]\CTANref{pdftex}
+\end{ctanrefs}
+\LastEdit{2013-05-21}
+
+\Question[Q-ant]{The \textsf{ANT} typesetting system}
+
+Achim Blumensath's \href{http://ant.berlios.de}{\textsf{ANT}} project
+aims not to replicate \TeX{} with a different implementation
+technique, but rather to provide a replacement for \TeX{} which uses
+\TeX{}-like typesetting algorithms in a very different programming
+environment.  \textsf{ANT} remains under development, but it is now
+approaching the status of a usable typesetting system.
+
+\textsf{ANT}'s markup language is immediately recognisable to the
+\AllTeX{} user, but the scheme of implementing design in
+\textsf{ANT}'s own implementation language (presently
+\ProgName{OCaml}) comes as a pleasant surprise to the jaded \acro{FAQ}
+writer.  This architecture holds the promise of a system that avoids a
+set of serious problems with \TeX{}'s user interface: those that
+derive from the design language being the same as the markup language.
+\begin{ctanrefs}
+\item[\textsf{ANT}]\CTANref{ant}
+\end{ctanrefs}
+
+\Question[Q-extex]{The \ExTeX{} project}
+
+\href{http://www.extex.org/}{The \ExTeX{} project} is
+building on the experience of the many existing \TeX{} development and
+extension projects, to develop a new \TeX{}-like system.  The system
+is to be developed in Java (like the ill-fated \NTS{} project).
+
+While \ExTeX{} will implement all of \TeX{}'s primitives, some may be
+marked as obsolete, and ``modern'' alternatives provided (an obvious
+example is the primitive \csx{input} command, whose syntax inevitably
+makes life difficult for users of modern operating system file
+paths).  Desirable extensions from \Qref*{\eTeX{}}{Q-etex},
+\Qref*{\PDFTeX{}}{Q-whatpdftex} and \Qref*{\ensuremath{\Omega}}{Q-omegaleph}
+have been identified.
+
+Usability will be another focus of the work: debugging support and log
+filtering mechanisms will please those who have long struggled with
+\TeX{} macros.
+
+\ExTeX{} will accept Unicode input, from the start.  In the longer
+term, drawing primitives are to be considered.
+
+\Question[Q-biblatex]{Replacing the \BibTeX{}--\LaTeX{} mechanism}
+
+Producing a successor to \BibTeX{} has long been a favoured activity
+among a certain class of \TeX{}-users; the author has seen reports of
+progress (on several projects), over the years, but few that claim to
+be ready for ``real-world'' use.
+
+Few would deny that \BibTeX{} is ripe for renewal: as originally
+conceived, it was a program for creating bibliographies for technical
+documents, in English.  People have contributed mechanisms for a
+degree of multilingual use (whose techniques are arcane, and quite
+likely inextensible), while an extension (\ProgName{bibtex8}) allows
+use with 8-bit character codes, thus providing some multilingual
+capabilities.  In addition, specialist \BibTeX{} style files are
+available for use in non-technical papers.
+
+\BibTeX{} uses a style language whose mechanisms are unfamiliar to
+most current programmers: it's difficult to learn, but since there are
+few opportunities to write the language, it's also difficult to become
+fluent (in the way that so many people fluently write the equally
+arcane \TeX{} macro language).
+
+Oren Patashnik (the author of \BibTeX{}) summarises the issues as he
+sees them, in a % !line break
+\href{http://tug.org/TUGboat/Articles/tb24-1/patashnik.pdf}{\acro{TUG} conference paper from 2003}
+that seems to suggest that we might expect a
+\BibTeX{}~1.0 \dots{} which hasn't (yet) appeared.
+
+In the absence of \BibTeX{}~1.0, what do we need from the bibliography
+system of the future?~--- simple: a superset of what \BibTeX{} does
+(or can be made to do), preferably implementing a simpler style
+language, and with coherent multilingual capabilities.
+
+There are two parts to a bibliography system; processing the database
+of citations, and typesetting the results.  The existing \bibtex{}
+system provides a means of processing the database, and there are
+macros built into \latex{}, as well as many \latex{} packages, that
+process the results.
+
+Of the direct \BibTeX{} replacements, only two have been submitted to
+\acro{CTAN}: Cross\TeX{} and \ProgName{biber}.
+
+Cross\TeX{}'s language feels familiar to the existing user of
+\BibTeX{}, but it's redesigned in an object-oriented style, and looks
+(to a non-user) as if it may well be adequately flexible.  It is said
+to operate as a \bibtex{} replacement.
+
+Cross\TeX{}'s team respond to queries, and seem well aware of the
+need for multilingual support, though it isn't currently offered.
+
+\ProgName{Biber} is intimately associated with the \latex{} package
+\Package{biblatex}; it is logically a \bibtex{} replacement, but is also
+capable of using bibliography databases in its own
+\ProgName{biblatexml} (\acro{XML}-based) format.  \Package{Biblatex}
+can also use \bibtex{}, but \ProgName{biber} opens up a far wider
+range of possibilities, including full Unicode support.
+
+\Package{Biblatex} is a processor for the output of an application
+such as \ProgName{biber} or \bibtex{}; the style of citations and of
+the bibliography itself (in your document) is determined by the way
+your \Package{biblatex} style has been set up, not on some
+\bibtex{}-\latex{} package combination.  \Package{Biblatex}'s
+structure thus eliminates the collections of \BibTeX{} styles, at a
+stroke; it comes with a basic set of styles, and details are
+determined by options, set at package loading time.  The author,
+Philipp Lehman, evaluated the whole field of bibliography software
+before starting, and as a result the package provides answers to
+many of the questions asked in the bibliography sections of these
+\acro{FAQ}s.
+
+\Package{Biblatex} was released as experimental software, but it's
+clear that many users are already using it happily; Lehman is
+responsive to problem reports, at the moment, but a \emph{de facto}
+set of expert users is already establishing itself.  A set of
+contributed styles has appeared, which cover some of the trickier
+bibliography styles.  The road map of the project shows that we are
+now working on the final \emph{beta} releases before the ``stable''
+\Package{biblatex}~1.0.
+
+Finally, \Package{Amsrefs} uses a transformed \extension{bib} file,
+which is expressed as \LaTeX{} macros.  (The package provides a
+\BibTeX{} style that performs the transformation, so that a \LaTeX{}
+source containing a \cmdinvoke{nocite}{*} command enables \BibTeX{} to
+produce a usable \Package{amsrefs} bibliography database.)
+
+\Package{Amsrefs} is maintained by the AMS as part of its author
+support programme,
+\begin{ctanrefs}
+\item[amsrefs.sty]\CTANref{amsrefs}
+\item[biber]\CTANref{biber}
+\item[biblatex.sty]\CTANref{biblatex}
+\item[bibtex8]\CTANref{bibtex8}
+\item[\nothtml{\rmfamily}biblatex contributions]\CTANref{biblatex-contrib}
+\item[\nothtml{\rmfamily}CrossTeX]\CTANref{crosstex}
+\end{ctanrefs}
+

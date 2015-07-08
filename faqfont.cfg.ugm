@@ -1,0 +1,12 @@
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\RequirePackage{lmodern} % for sans text (one instance only?)
+\renewcommand\rmdefault{ugm}
+\renewcommand\bfdefault{b}
+\RequirePackage{eulervm}
+\RequirePackage[scaled=0.85]{luximono}
+\@ifundefined{Dings}{\RequirePackage{pifont}%
+  \def\Dings{\nopagebreak{\footnotesize
+      \dingline{167}}}}{}%
+\boldmathavailtrue % is it?
+\def\acro#1{#1\@{}}

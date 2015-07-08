@@ -1,0 +1,11 @@
+\renewcommand\rmdefault{mbvj}
+\renewcommand{\sfdefault}{lmss}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\DeclareRobustCommand{\$}{\char`\$}
+\@ifundefined{Dings}{\RequirePackage{pifont}%
+  \def\Dings{\nopagebreak{\footnotesize
+      \dingline{167}}}}{}%
+\boldmathavailfalse
+\def\acro##1{##1\@{}}

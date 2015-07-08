@@ -1,0 +1,48 @@
+# this file is auto-generated; edit mk-makefile, not this
+
+for f in \
+	ChangeLog \
+	Makefile \
+	README \
+	dirctan.tex \
+	faq.cls \
+	faq.sty \
+	filectan.tex \
+	gather-faqbody.tex \
+	letterfaq.tex \
+	archive.cfg \
+	markup-syntax \
+	newfaq.tex \
+	letterfaq.pdf \
+	newfaq.pdf \
+	faqfont.cfg.cmfonts \
+	FAQ-html.tar.gz \
+	CHANGES-3.24 \
+	faq-adj-types.tex \
+	faq-backgrnd.tex \
+	faq-biblio.tex \
+	faq-bits+pieces.tex \
+	faq-docs.tex \
+	faq-dvi.tex \
+	faq-fmt-conv.tex \
+	faq-fonts.tex \
+	faq-getit.tex \
+	faq-graphics.tex \
+	faq-how-do-i.tex \
+	faq-hyp+pdf.tex \
+	faq-install.tex \
+	faq-intro.tex \
+	faq-jot-err.tex \
+	faq-lab-ref.tex \
+	faq-litprog.tex \
+	faq-mac-prog.tex \
+	faq-projects.tex \
+	faq-support.tex \
+	faq-symbols.tex \
+	faq-t-g-wr.tex \
+	faq-texsys.tex \
+	faq-the-end.tex \
+	faq-wdidt.tex ; do 
+if [ -f /anfs/ctan/tex-archive/help/uk-tex-faq/$f ]; then
+  ctan_install -replace -silent -nozip $f help/uk-tex-faq/$f ; else 
+  ctan_install -new -silent -nozip $f help/uk-tex-faq/$f ; fi; done 

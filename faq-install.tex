@@ -1,0 +1,1021 @@
+% $Id: faq-install.tex,v 1.17 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{Installing \AllTeX{} files}
+
+\Question[Q-installthings]{Installing things on a \AllTeX{} system}
+\AliasQuestion{Q-instpackages}
+
+Installing (or replacing) things on your \AllTeX{} system has the
+potential to be rather complicated; the following questions attempt to
+provide a step-by-step approach, starting from the point where you've
+decided what it is that you want to install:
+\begin{itemize}
+\item You must \Qref*{find the file you need}{Q-install-find};
+\item If you are going to install a \LaTeX{} package, you may need to
+  \Qref*{unpack the distributed files}{Q-install-unpack};
+\item It may be necessary to % ! line break
+  \Qref*{generate some documentation to read}{Q-install-doc};
+\item You need to % ! line break
+  \Qref*{decide where to install the files}{Q-install-where};
+\item You must now \Qref*{install the files}{Q-inst-wlcf}; and
+  finally
+\item You may need to \Qref*{tidy up}{Q-inst-tidy} after the installation.
+\end{itemize}
+
+\Question[Q-install-find]{Finding packages to install}
+
+How did you learn about the package?
+
+If the information came from these \acro{FAQ}s, you should already
+have a link to the file (there are lists of packages at the end of
+each answer).
+\begin{narrowversion}
+  Make a browser link from \URL{http://mirror.ctan.org/} and the text
+  in the package list; if the link returns a directory listing, you can
+  generally retrieve the whole directory by appending the link with
+  \extension{zip}~--- so, for example
+  \URL{http://mirror.ctan.org/macros/latex/doc.zip} for the \latex{}
+  documentation directory.
+\end{narrowversion}
+\begin{wideversion}
+  Click on one of the links associated with the package, and you can
+  get the package (which may be one file or several).
+% need separate wording for pdfversion and htmlversion, here
+\end{wideversion}
+
+If you heard about the file somewhere else, it's possible that the
+source told you where to look; if not, try the \acro{CTAN} searching
+facilities, such as \URL{http://www.tex.ac.uk/search/}.  That (rather
+simple) search engine can return data from a search of the CTAN
+catalogue (which covers most useful packages), or data from a search
+of the names of files on the archive.
+
+Packages come in a variety of different styles of distribution; the
+very simplest will actually offer just \File{package.sty}~--- in this
+case, just download the file and % ! line break
+\Qref*{get on with installation}{Q-inst-wlcf}.
+
+You will regularly find that the file you want (e.g., \File{foo.sty})
+is distributed in a \LaTeX{} documented source file \File{foo.dtx};
+thus you should search just for \emph{foo}~--- \File{foo.sty} won't be
+visible anywhere on the archive or in the catalogue.
+
+Since most packages are distributed in this
+\extension{dtx}/\extension{ins} way, they usually occupy their own
+directory on the archive.  Even if that directory contains other
+packages, you should download everything in the directory: as often as
+not, packages grouped in this way depend on each other, so that you
+really \emph{need} the other ones.
+
+Having acquired the package distribution, % ! line break
+``\Qref*{unpacking \LaTeX{} packages}{Q-install-unpack}'' outlines
+your next step.
+
+\Question[Q-install-unpack]{Unpacking \LaTeX{} packages}
+
+As discussed \Qref*{elsewhere}{Q-dtx}, the `ordinary' way to
+distribute a \LaTeX{} package is as a pair of files \File{package.dtx}
+and \File{package.ins}.  If you've acquired such a pair, you simply
+process \File{package.ins} with \LaTeX{}, and the files will appear,
+ready for installation.
+
+Other sorts of provision should ordinarily be accompanied by a
+\File{README} file, telling you what to do; we list a few example
+configurations.
+
+Sometimes, a directory comes with a bunch of \extension{dtx} files, but
+fewer (often only one) \extension{ins} files (\LaTeX{} itself comes
+looking like this).  If there is more than one \extension{ins} file,
+and in the absence of any instruction in the \File{README} file, simply
+process the \extension{ins} file(s) one by one.
+
+If you're missing the \File{package.ins} altogether, you need to play
+around until something works.  Some \extension{dtx} files are
+``self-extracting''~--- they do without an \extension{ins} file, and once
+you've processed the \File{package.dtx}, \File{package.sty} has
+automagically appeared.  Various other oddities may appear, but the
+archivists aim to have \File{README} file in every package, which
+should document anything out of the ordinary with the distribution.
+
+\Question[Q-install-doc]{Generating package documentation}
+
+We are faced with a range of ``normal'' provision, as well as several
+oddities.  One should note that documentation of many packages is
+available on \acro{CTAN}, without the need of any further effort by
+the user~--- such documentation can usually be browsed \emph{in situ}.
+
+However, if you find a package that does not offer documentation on
+the archive, or if you need the documentation in some other format
+than the archive offers, you can usually generate the documentation
+yourself from what you download from the archive.
+
+The standard mechanism, for \LaTeX{} packages, is simply to run
+\LaTeX{} on the \File{package.dtx} file, as you would any ordinary
+\LaTeX{} file (i.e., repeatedly until the warnings go away).
+
+A variant is that the unpacking process provides a file
+\File{package.drv}; if such a thing appears, process it in preference
+to the \File{package.dtx} (it seems that when the documented \LaTeX{}
+source mechanism was first discussed, the \File{.drv} mechanism was
+suggested, but it's not widely used nowadays).
+
+Sometimes, the \LaTeX{} run will complain that it can't find
+\File{package.ind} (the code line index) and/or \File{package.gls}
+(the list of change records, not as you might imagine, a glossary).
+Both types of file are processed with special \ProgName{makeindex}
+style files; appropriate commands are:
+\begin{quote}
+\begin{verbatim}
+makeindex -s gind package
+makeindex -s gglo -o package.gls package.glo
+\end{verbatim}
+\end{quote}
+This author finds that the second (the change record) is generally of
+limited utility when reading package documentation; it is, however,
+valuable if you're part of the package development team.  If you don't
+feel you need it, just leave out that step
+
+Another common (and reasonable) trick performed by package authors is
+to provide a separate file \File{package-doc.tex} or even simply
+\File{manual.tex}; if the file \File{package.dtx} doesn't help, simply
+look around for such alternatives.  The files are treated in the same
+way as any ``ordinary'' \LaTeX{} file.
+
+\Question[Q-inst-wlcf]{Installing files ``where \AllTeX{} can find them''}
+\AliasQuestion{Q-wherefiles}
+
+In the past, package documentation used always to tell you to put your
+files ``where \LaTeX{} can find them''; this was always unhelpful~---
+if you knew where that \emph{was}, you didn't need telling, but if you
+\emph{didn't} know, you were completely stuck.
+
+It was from this issue that the whole idea of the \acro{TDS} sprang;
+``where to put'' questions now come down to ``where's the \acro{TDS}
+tree?''.
+
+We therefore answer the question by considering:
+\begin{itemize}
+\item \Qref*{what tree to use}{Q-what-TDS}, and
+\item \Qref*{where in the tree to put the files}{Q-install-where}.
+\end{itemize}
+
+Once we know the answer to both questions, and we've created any
+directories that are needed, we simply copy files to their rightful
+location.
+
+This has done what the old requirement specified: \LaTeX{} (or
+whatever) \emph{can} (in principle) find the files.  However, in order
+that the software \emph{will} find the files, we need to update an
+index file.
+
+On a \miktex{} system, open the window
+  \texttt{Start}\arrowhyph{}%
+  \texttt{All Programs}\arrowhyph{}%
+  \texttt{\miktex{} \meta{version}}\arrowhyph{}%
+  \texttt{Settings},
+and click on \texttt{Refresh FNDB}.
+The job may also be done in a command window, using the command:
+\begin{quote}
+\begin{verbatim}
+initexmf --update-fndb
+\end{verbatim}
+\end{quote}
+The % ! line break
+\href{http://docs.miktex.org/manual/initexmf.html}{\miktex{} documentation}
+gives further details about \texttt{initexmf}.
+
+On a \texlive{}-based system (or its predecessor te\TeX{}, use the command
+\texttt{texhash} (or if that's not available, \texttt{mktexlsr}~---
+they ought to be different names for the same program).
+
+Having done all this, the new package will be available for use.
+
+\Question[Q-what-TDS]{Which tree to use}
+
+In almost all cases, new material that you install should go into the
+``local'' tree of your \AllTeX{} installation.  (A discussion of
+reasons \emph{not} to use the local tree appears below.)
+
+On a Unix(-alike) system, using \texlive{} or te\TeX{}, the root
+directory will be named something like \path{/usr/share/texmf-local/}
+or \path{/usr/local/share/texmf/}
+You can ask such a system where it believes a local tree should be:
+\begin{quote} 
+\begin{verbatim}
+kpsewhich -var-value TEXMFLOCAL
+\end{verbatim}
+\end{quote}
+the output being the actual path, for example (on the workstation this
+author is using today):
+\begin{quote}
+\begin{verbatim}
+/usr/local/share/texmf
+\end{verbatim}
+\end{quote}
+
+In a \miktex{} installation, the location will in fact typically be
+something you specified yourself when you installed \miktex{} in the
+first place, but you may find you need to create one.  The \miktex{}
+``Settings'' window (%
+  \texttt{Start}\arrowhyph{}%
+  \texttt{Programs}\arrowhyph{}%
+  \texttt{\miktex{}}\arrowhyph{}%
+  \texttt{Settings})
+has a tab ``\texttt{Roots}''; that tab gives a list of current
+\acro{TDS} roots (they're typically not called
+\texttt{texmf}-anything).  If there's not one there with
+``\texttt{local}'' in its name, create an appropriate one (see below),
+and register it using the window's
+``\texttt{Add}'' button.
+
+The % ! line break
+\href{http://docs.miktex.org/faq/maintenance.html}{\miktex{} \acro{FAQ}}
+suggests that you should create % ! line break
+``\texttt{C:\textbackslash Local TeX Files}'', which is good if you
+manage your own machine, but often not even possible in corporate, or
+similar, environments~--- in such situations, the user may have no
+control over the hard disc of the computer, at all.
+
+So the real criterion is that your local tree should be somewhere that
+\emph{you}, rather than the system, control.  Restrictive systems often
+provide a ``home directory'' for each user, mounted as a network
+drive; this is a natural home for the user's local tree.  Other (often
+academic) environments assume the user is going to provide a memory
+stick, and will assign it a defined drive letter~--- another good
+candidate location.  Note that the semantics of such a tree are
+indistinguishable from those of a % ! line break
+\Qref*{``home'' \acro{TEXMF} tree}{Q-privinst}.
+
+You might not wish to use the `local' tree:
+\begin{itemize}
+\item if the package, or whatever, is ``personal'' (for example,
+  something commercial that has been licensed to you alone, or
+  something you're developing yourself), it should go in your
+  \Qref*{``home'' \acro{TEXMF} tree}{Q-privinst};
+\item if you \emph{know} that the package you are installing is a
+  replacement for the copy on the \acro{TEXMF} tree of your \AllTeX{}
+  distribution; in this case it is reasonable to replace the existing
+  copy in the \acro{TEXMF} tree.
+\end{itemize}
+If the system is upgraded (or otherwise re-installed), a copy made in
+the \acro{TEXMF} tree will probably be overwritten or deleted.  This
+may be what you want, but otherwise it's a powerful incentive to use a
+tree that is \emph{not} ``part of the installed system''.
+
+The reason one might place upgrades the distribution's main tree is to
+avoid confusion.  Suppose you were to place the file on the local
+tree, and then install a new version of the distribution~--- you might
+have an effect like:
+\begin{itemize}
+\item distribution comes with package version \ensuremath{n};
+\item you install package version \ensuremath{n+1} on the local tree; and
+\item the updated distribution provides package version \ensuremath{n+2}.
+\end{itemize}
+In such a situation, you could find yourself using version
+\ensuremath{n+1} (from the local tree) \emph{after} the new
+distribution has been installed.
+
+If you install in the local tree, the only way to avoid such problems
+is to carefully purge the local tree when installing a new
+distribution.  This is tedious, if you're maintaining a large
+installation.
+
+\Question[Q-install-where]{Where to install packages}
+
+We assume here that you have decided what tree to put your files in,
+after reading % ! line break
+``\Qref*{choosing a \acro{TDS} tree}{Q-what-TDS}''.  We will therefore
+write \texttt{\$TEXMF} for it, and you need to substitute the tree
+you decided on.
+
+The basic idea is to imitate the directory structure in your
+existing tree(s). Here are some examples of where various sorts of
+files should go:
+\begin{verbatim}
+.sty, .cls or .fd: $TEXMF/tex/<format>/<package>/
+.mf:   $TEXMF/fonts/source/<supplier>/<font>/
+.tfm:  $TEXMF/fonts/tfm/<supplier>/<font>/
+.vf:   $TEXMF/fonts/vf/<supplier>/<font>/
+.afm:  $TEXMF/fonts/afm/<supplier>/<font>/
+.pfb:  $TEXMF/fonts/type1/<supplier>/<font>/
+.ttf:  $TEXMF/fonts/truetype/<supplier>/<font>/
+.otf:  $TEXMF/fonts/opentype/<supplier>/<font>/
+.pool, .fmt, .base or .mem: $TEXMF/web2c
+\end{verbatim}
+and for modern systems (those distributed in 2005 or later, using \acro{TDS}
+v1.1 layouts):
+\begin{verbatim}
+.map:  $TEXMF/fonts/map/<syntax>/<bundle>/
+.enc:  $TEXMF/fonts/enc/<syntax>/<bundle>/
+\end{verbatim}
+(Map and encoding files went to directories under
+\File{$TEXMF/dvips/}, %$
+in earlier distributions.)
+
+In the lists above \meta{format} identifies the format the macros
+are designed for~--- it can be things such as \texttt{plain},
+\texttt{generic} (i.e., any format), \texttt{latex} or
+\texttt{context} (or several less common formats).
+
+For fonts, \meta{font} refers to the font family (such as \texttt{cm}
+for Knuth's Computer Modern, \texttt{times} for Adobe's Times Roman).
+The supplier is usually obvious~--- the supplier
+``public'' is commonly used for free fonts.
+
+The \meta{syntax} (for \extension{map} and \extension{enc} files) is a
+categorisation based on the way the files are written; candidates are
+names of programs such as \ProgName{dvips} or \ProgName{pdftex}.
+
+``Straight'' \AllTeX{} input can take other forms than the
+\extension{sty}, \extension{cls} or \extension{fd} listed above, too
+(apart from the `obvious' \extension{tex}).  Examples are (the
+obvious) \extension{tex}, \extension{lfd} for \Package{babel} language
+definitions, \extension{sto} and \extension{clo} for package and class
+options, \extension{cfg} for configuration information,
+\extension{def} for variants (such as the types of devices
+\Package{graphics} drives).  The \File{README} of the package should
+tell you of any others, though sometimes that information is printed
+when the package's \Qref*{comments are stripped}{Q-install-unpack}.
+All of these files should live together with the main package files.
+
+Note that \meta{font} may stand for a single font or an entire family:
+for example, files for all of Knuth's Computer Modern fonts are to be
+found in \texttt{.../public/cm}, with various prefixes as appropriate.
+
+The font ``supplier'' \emph{public} is a sort of hold-all for
+``free fonts produced for use with \AllTeX{}'': as well as Knuth's
+fonts, \emph{public}'s directory holds fonts designed by others
+(originally, but no longer exclusively, in \MF{}).
+
+Documentation for each package should all go, undifferentiated, into a
+directory on the \path{doc/} subtree of the \acro{TDS}.  The layout of
+the subtree is slightly different: \path{doc/latex} hosts all
+\LaTeX{} documentation directories, but more fundamental things are
+covered, e.g., by \path{doc/etex} or \path{doc/xetex}.
+
+\Question[Q-inst-tidy]{Tidying up after installation}
+
+There's not usually a lot to do after you've completed the steps
+above~--- indeed, if you're merely installed files direct from the
+archive, or whatever, there will be precisely nothing left, by way of
+debris.
+
+Things you might care to clean up are:
+\begin{itemize}
+\item the archive file, if you retrieved your data from the archive
+  as a \extension{zip} file, or the like;
+\item the \extension{dtx} and \extension{ins} files, if you chose not
+  to install them with the documentation; and
+\item the \extension{aux}, \extension{log}, \extension{idx}, etc.,
+  from building the documentation.
+\end{itemize}
+A simple way of achieving all this is to download to a working
+directory that was created for the purpose, and then to delete that
+directory and all its contents after you've finished installing.
+
+\Question[Q-inst-scut]{Shortcuts to installing files}
+
+There are circumstances in which most of the fuss of installation can
+be bypassed:
+\begin{itemize}
+\item If you are a \miktex{} user, the 
+\begin{hyperversion}
+  \Qref{\miktex{} package management system}{Q-inst-miktex*}
+  can usually help;
+\end{hyperversion}
+\begin{flatversion}
+  \miktex{} package management system can usually help
+  (\Qref{}{Q-inst-miktex*});
+\end{flatversion}
+\item Similarly, if you are a \texlive{} user, the 
+\begin{hyperversion}
+  \Qref{\texlive{} manager}{Q-inst-texlive}
+  can usually help;
+\end{hyperversion}
+\begin{flatversion}
+  \texlive{} package management system can usually help
+  (\Qref{}{Q-inst-texlive});
+\end{flatversion}
+\item The package you want may already exist as a \acro{ZIP} file
+\begin{wideversion}
+  formatted for \Qref{direct installation}{Q-inst-tds-zip}.
+\end{wideversion}
+\begin{narrowversion}
+  formatted for direct installation (\Qref{}{Q-inst-tds-zip}).
+\end{narrowversion}
+\end{itemize}
+
+\Question[Q-inst-miktex*]{Installation using \miktex{} package manager}
+\AliasQuestion{Q-inst-miktex}
+
+Packages for use with \miktex{} are maintained very efficiently by the
+project managers (new packages and updates on \acro{CTAN} ordinarily
+make their way to the \miktex{} package repository within a week).
+Thus it makes sense for the \miktex{} user to take advantage of the
+system rather than grinding through the steps of installation.
+
+\miktex{} maintains a database of packages it ``knows about'',
+together with (coded) installation instructions that enable it to
+install the packages with minimal user intervention; you can update
+the database over the internet.
+
+If \miktex{} does know about a package you need installed, it's worth
+using the system:
+first, open the \miktex{} packages window: click on
+  \texttt{Start}\arrowhyph{}%
+  \texttt{Programs}\arrowhyph{}%
+  \texttt{MiKTeX}\arrowhyph{}%
+  \texttt{MiKTeX Options}, and select the
+  \texttt{Packages} tab.
+  
+On the tab, there is an Explorer-style display of packages.
+Right-click on the root of the tree, ``\texttt{MiKTeX Packages}'',
+and select ``\texttt{Search}'': enter the name of the package you're
+interested in, and press the ``\texttt{Search}'' button.  If
+\miktex{} knows about your package, it will open up the tree to show
+you a tick box for your package: check that box.
+
+If you prefer a command-line utility, there's \ProgName{mpm}.  Open a
+command shell, and type:
+\begin{quote}
+\begin{verbatim}
+mpm --install=<package>
+\end{verbatim}
+\end{quote}
+(which of course assumes you know the name by which \miktex{} refers to
+your package).
+
+\Question[Q-inst-texlive]{Installation using \texlive{} manager}
+
+\texlive{} manager (\ProgName{tlmgr}) is, by default, a shell (or
+Windows terminal window) command.  There is voluminous documentation
+about it from the command
+\begin{quote}
+  \texttt{tldoc tlmgr}
+\end{quote}
+but basic operation is pretty straightforward.  The manager needs to
+know where to download stuff from; the canonical setup is
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+tlmgr option repository \
+  http://mirror.ctan.org/systems/texlive/tlnet
+\end{verbatim}
+(line wrapped to fit in the narrow column)
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+which passes the decision to the mirror selector.  You can (of course)
+specify a particular archive or mirror that you ``trust'', or even a
+local disc copy that you keep up-to-date (disc space and bandwidth are
+so cheap nowadays, that a ``home mirror'' of \acro{CTAN} is a feasible
+proposition).
+
+To update a single package, use:
+\begin{quote}
+\begin{verbatim}
+tlmgr update <package>
+\end{verbatim}
+\end{quote}
+
+To update everything you already have in your installation, use:
+\begin{quote}
+\begin{verbatim}
+tlmgr update --all
+\end{verbatim}
+\end{quote}
+
+\Question[Q-inst-tds-zip]{Installing using ready-built \acro{ZIP} files}
+
+Installing packages, as they (``traditionally'') appear on
+\acro{CTAN}, involves:
+\begin{itemize}
+\item identifying where to put the various files on an \acro{TDS}
+  tree,
+\item installing them, and
+\item a few housekeeping operations.
+\end{itemize}
+Most people, for most packages, find the first two steps onerous, the
+last being easy (unless it is forgotten!).
+
+Ready-built \acro{ZIP} files~--- also known as % ! line break
+\Qref*{\acro{TDS}-\acro{ZIP} files}{Q-tds-zip}~--- are designed to lighten
+the load of performing the first two steps of installation: they
+contain all the files that are to be installed for a given
+package, in their ``correct'' locations in a % ! line break
+\Qref*{\acro{TDS} tree}{Q-tds}.
+
+To install such a file on a Unix system (we assume that you'll install
+into the local \acro{TEXMF} tree, at \texttt{\$TEXMFLOCAL}):
+\begin{quote}
+\begin{verbatim}
+cd $TEXMFLOCAL
+unzip $package.tds.zip
+\end{verbatim}
+\end{quote}
+
+On a Windows system that is modern enough that it has a built-in
+\acro{ZIP} unpacker, simply double-click on the file, and browse to
+where it's to be unpacked.  (We trust that those using earlier
+versions of Windows will already have experience of using
+\ProgName{WinZIP} or the like.)
+
+Having unpacked the \extension{zip} archive, in most cases the only
+remaining chore is to update the file indexes~--- as in % ! line break
+\Qref*{normal installation instructions}{Q-inst-wlcf}.  However, if
+the package provides a font, you also need to enable the font's map,
+which is discussed in % ! line break
+``\Qref*{Installing a Type~1 font}{Q-instt1font}''
+\LastEdit{2012-02-08}
+
+\Question[Q-tempinst]{``Temporary'' installation of \AllTeX{} files}
+
+Operating systems and applications need to know where to find files:
+many files that they need are ``just named''~--- the user doesn't
+necessarily know \emph{where} they are, but knows to ask for them.
+The commonest case, of course, is the commands whose names you type to
+a shell (yes, even Windows' ``\MSDOS{} prompt'') are using a shell to read what
+you type: many of the commands simply involve loading and executing a
+file, and the \texttt{PATH} variable tells the shell where to find those files.
+
+Modern \TeX{} implementations come with a bunch of search paths
+built in to them.  In most circumstances these paths are adequate, but
+one sometimes needs to extend them to pick up files in strange
+places: for example, we may wish to try a new bundle of packages
+before \Qref*{installing them `properly'}{Q-installthings}.  To do
+this, we need to change the relevant path as \TeX{} perceives it.
+However, we don't want to throw away \TeX{}'s built-in path (all of a
+sudden, \TeX{} won't know how to deal with all sorts of things).
+
+To \emph{extend} a \TeX{} path, we define an operating system
+environment variable in `path format', but leaving a gap which \TeX{}
+will fill with its built-in value for the path.  The commonest case is
+that we want to place our extension in front of the path, so that our
+new things will be chosen in preference, so we leave our `gap to be
+filled' at the end of the environment variable.  The syntax is simple
+(though it depends which shell you're actually using): so on a
+Unix-like system, using the \ProgName{bash} shell, the job might be
+done like:
+\begin{quote}
+\begin{verbatim}
+export TEXINPUTS=/tmp:
+\end{verbatim}
+\end{quote}
+while in a Windows system, within a \MSDOS{} window, it would be:
+\begin{quote}
+\begin{verbatim}
+set TEXINPUTS=C:/temp;
+\end{verbatim}
+\end{quote}
+In either case, we're asking \TeX{} to load files from the root disc
+temporary files directory; in the Unix case, the ``empty slot'' is
+designated by putting the path separator `|:|' on its own at the end
+of the line, while in the Windows case, the technique is the same, but
+the path separator is `|;|'.
+
+Note that in either sort of system, the change will only affect
+instances of \TeX{} that are started from the shell where the
+environment variable was set.  If you run \TeX{} from another window,
+it will use the original input path.  To make a change of input path
+that will ``stick'' for all windows, set the environment variable in
+your login script or profile (or whatever) in a Unix system and log
+out and in again, or in \File{autoexec.bat} in a Windows system, and
+reboot the system.
+
+While all of the above has talked about where \TeX{} finds its macro
+files, it's applicable to pretty much any sort of file any
+\TeX{}-related program reads~--- there are lots of these paths, and of
+their corresponding environment variables.  In a
+\ProgName{web2c}-based system, the copious annotations in the
+\File{texmf.cnf} system configuration file help you to learn which
+path names correspond to which type of file.
+
+\Question[Q-privinst]{``Private'' installations of files}
+
+It sometimes happens that you need a new version of some macro package
+or font, but that the machine you use is maintained by someone who's
+unwilling to update and won't give you privileges to do the job
+yourself.  A \Qref*{``temporary'' installation}{Q-tempinst} is
+sometimes the correct approach, but if there's the slightest chance
+that the installation will be needed on more than one project,
+temporary installations aren't right.
+
+In circumstances where you have plenty of quota on backed-up media, or
+adequate local scratch space, the correct approach is to create a
+private installation of \AllTeX{} which includes the new stuff you
+need; this is the ideal, but is not generally possible.
+
+So, since you can't install into the public \texttt{texmf} tree, you
+have to install into a \File{texmf} tree of your own; fortunately, the
+\acro{TDS} standard allows for this, and modern distributions allow
+you to do it.  The most modern distributions refer to the tree as
+\texttt{\$TEXMFHOME}, but it used to be called \texttt{\$HOMETEXMF};
+so to check that your \TeX{} system does indeed support the mechanism
+you should start with
+\begin{quote}
+\begin{verbatim}
+kpsewhich -var-value TEXMFHOME
+\end{verbatim}
+\end{quote}
+(for example).  This will almost invariably return a pointer to a
+subdirectory \File{texmf} of your home directory; the commonest
+exception is Macintoshes, using Mac\TeX{}, where the diretory is
+conventionally \File{Library/texmf} in your home directory.
+
+If you can confirm that the technique does indeed work, install your
+new package (or whatever) in the \Qref*{correct place}{Q-install-where}
+in a tree based on \File{$HOME/texmf}, %$
+and generate an index of that tree
+\begin{quote}
+\begin{verbatim}
+texhash $HOME/texmf
+\end{verbatim}
+\end{quote}
+(the argument specifies which tree you are indexing: it's necessary
+since you don't, by hypothesis, have access to the main tree, and
+\ProgName{texhash} without the argument would try to write the main
+tree.
+
+There are two wrinkles to this simple formula: first, the installation
+you're using may \emph{not} define a home TEXMF directory, and second,
+there may be some obstruction to using \File{$HOME/texmf} %$
+as the
+default name.  In either case, a good solution is to have your own
+\File{texmf.cnf}~--- an idea that sounds more frightening that it
+actually is.  The installation's existing file may be located with the
+command:
+\begin{quote}
+\begin{verbatim}
+kpsewhich texmf.cnf
+\end{verbatim}
+\end{quote}
+Take a copy of the file and put it into a directory of your own; this
+could be any directory, but an obvious choice is the \File{web2c}
+directory of the tree you want to create, i.e.,
+\File{$HOME/texmf/web2c} %$
+or the like.  Make an environment variable to
+point to this directory:
+\begin{quote}
+\begin{verbatim}
+TEXMFCNF=$HOME/texmf/web2c
+export TEXMFCNF
+\end{verbatim}
+\end{quote}
+(for a Bourne shell style system), or
+\begin{quote}
+\begin{verbatim}
+setenv TEXMFCNF $HOME/texmf/web2c
+\end{verbatim}
+\end{quote}
+(for a C-shell style system).  Now edit the copy of \File{texmf.cnf}
+
+There will be a line in the existing file that defines the tree where
+everything searches; the simplest form of the line is:
+\begin{quote}
+\begin{verbatim}
+TEXMF = !!$TEXMFMAIN
+\end{verbatim}
+\end{quote}
+but, there are likely to be several alternative settings behind
+comment markers (``\texttt{\textpercent{}}''), and the person who 
+installed your system may have left them there.  Whatever, you need to
+modify the line that's in effect: change the above to three lines:
+\begin{quote}
+\begin{verbatim}
+HOMETEXMF = $HOME/texmf
+TEXMF = {$HOMETEXMF,!!$TEXMFMAIN}
+% TEXMF = !!$TEXMFMAIN
+\end{verbatim}
+\end{quote}
+the important point being that \texttt{\$HOMETEXMF} must come before
+whatever was there before, inside the braces.  For example, if the
+original was
+\begin{quote}
+\begin{verbatim}
+TEXMF = {!!$LOCALTEXMF,!!$TEXMFMAIN}
+\end{verbatim}
+\end{quote}
+it should be converted to:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+HOMETEXMF = $HOME/texmf
+TEXMF = {$HOMETEXMF,!!$LOCALTEXMF,
+                     !!$TEXMFMAIN}
+% TEXMF = {!!$LOCALTEXMF,!!$TEXMFMAIN}
+\end{verbatim}
+{\small Note that the \texttt{TEXMF} line is only wrapped to make it
+  fit in the column; there should be no line break or space between
+  the final comma on the line and the \texttt{!!} on the next line.\par
+}%
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+HOMETEXMF = $HOME/texmf
+TEXMF = {$HOMETEXMF,!!$LOCALTEXMF,!!$TEXMFMAIN}
+% TEXMF = {!!$LOCALTEXMF,!!$TEXMFMAIN}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+(retaining the original, as a comment, is merely an aide-memoir in
+case you need to make another change, later).  The \texttt{!!} signs
+tell the file-searching library that it should insist on a
+\ProgName{texhash}-ed directory tree; if you can count on yourself
+remembering to run \ProgName{texhash} on your new tree every time you
+change it, then it's worth adding the marks to your tree:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+TEXMF = {!!$HOMETEXMF,!!$LOCALTEXMF,
+                       !!$TEXMFMAIN}
+\end{verbatim}
+{\small Note that the line is only wrapped to make it
+  fit in the column; there should be no line break or space between
+  the final comma on the line and the \texttt{!!} on the next line.\par
+}%
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+TEXMF = {!!$HOMETEXMF,!!$LOCALTEXMF,!!$TEXMFMAIN}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+as this will make \AllTeX{} find its files marginally faster.
+
+Having made all these changes, \AllTeX{} should ``just use'' files in
+your new tree, in preference to anything in the main tree~--- you can
+use it for updates to packages in the main tree, as well as for
+installing new versions of things.
+\LastEdit{2011-04-13}
+
+\Question[Q-instfont]{Installing a new font}
+
+Fonts are really ``just another package'', and so should be installed
+in the same sort of way as packages.  However, fonts tend to be more
+complicated than the average package, and as a result it's sometimes
+difficult to see the overall structure.
+
+Font files may appear in any of a large number of different formats;
+each format has a different function in a \TeX{} system, and each is
+stored in a directory its own sub-tree in the installation's
+\acro{TDS} tree; all these sub-trees have the directory
+\File{$TEXMF/fonts} %$
+as their root.  A sequence of answers\nothtml{, below,} describes the
+installation of fonts\latexhtml{.}{:}
+\begin{htmlversion}
+follow the list through the ``next question'' links at the bottom of
+this answer to view them all.
+\end{htmlversion}
+Other answers discuss specific font families~--- for example,
+% ! line break
+``\Qref*{using the concrete fonts}{Q-concrete}''.
+
+\Question[Q-instmffont]{Installing a font provided as \MF{} source}
+
+Installing Metafont fonts is (by comparison with other sorts of font) rather
+pleasingly simple.  Nowadays, they are mostly distributed just as the
+\MF{} source, since modern \TeX{} distributions are able to produce
+everything the user needs ``on the fly''; however, if the distribution
+\emph{does} include \acro{TFM} files, install them too, since they
+save a little time and don't occupy much disc space.  Always distrust
+distributions of \acro{PK} font bitmap files: there's no way of
+learning from them what printer they were generated for, and naming
+schemes under different operating systems are another source of
+confusion.
+
+``\Qref*{Where to install files}{Q-install-where}''
+specifies where the files should go.
+
+Further confusion is introduced by font families whose authors devise rules
+for automatic generation of \MF{} sources for generating fonts at
+particular sizes; the installation has to know about the rules, as
+otherwise it cannot generate font files.  No general advice is
+available, but most such font families are now obsolescent.
+
+\Question[Q-instprinterfont]{`Installing' a \PS{} printer built-in font}
+
+There is a ``standard'' set of fonts that has appeared in every \PS{}
+printer since the second generation of the type.  These fonts
+(8~families of four text fonts each, and three special-purpose fonts)
+are of course widely used, because of their simple availability.  The
+set consists of:
+\begin{itemize}
+\item \FontName{Times} family (4 fonts)
+\item \FontName{Palatino} family (4 fonts)
+\item \FontName{New} \FontName{Century} \FontName{Schoolbook} family (4 fonts)
+\item \FontName{Bookman} family (4 fonts)
+\item \FontName{Helvetica} family (4 fonts)
+\item \FontName{Avant} \FontName{Garde} (4 fonts)
+\item \FontName{Courier} family (4 fonts)
+\item \FontName{Utopia} family (4 fonts)
+\item Zapf \FontName{Chancery} (1 font)
+\item Zapf \FontName{Dingbats} (1 font)
+\item \FontName{Symbol} (1 font)
+\end{itemize}
+All these fonts are supported, for \LaTeX{} users, by the
+\Package{psnfss} set of metrics and support files in the file
+\File{lw35nfss.zip} on \acro{CTAN}.  Almost any remotely modern \TeX{}
+system will have some version of \Package{psnfss} installed, but
+users should note that the most recent version has much improved
+coverage of maths with \FontName{Times} (see package
+\Package{mathptmx}) and with \FontName{Palatino} (see package
+\Package{mathpazo}, as well as a more reliable set of font metrics.
+
+The archive \File{lw35nfss.zip} is laid out according to the
+\acro{TDS}, so in principle, installation consists simply of
+``unzipping'' the file at the root of a \path{texmf} tree.
+
+Documentation of the \Package{psnfss} bundle is provided in
+\File{psnfss2e.pdf} in the distribution.
+\begin{ctanrefs}
+\item[mathpazo.sty]Part of the \Package{psnfss} bundle
+\item[mathptmx.sty]Part of the \Package{psnfss} bundle
+\item[psnfss \nothtml{\rmfamily}bundle]\CTANref{psnfss}
+\end{ctanrefs}
+
+\Question[Q-prept1font]{Preparing a Type~1 font}
+
+The process of installing a Type~1 font set is rather convoluted, and
+we will deal with it in two chunks: first (in the present answer)
+preparing the font for installation, and second % ! line break
+\Qref*{installing a Type~1 font}{Q-instt1font}).
+
+Many fonts are supplied in \AllTeX{} ready form: such fonts need no
+preparation, and may be installed immediately.
+
+However, if you purchase a font from a Type foundry (either direct or
+via one of the web stores), you are likely to need to `prepare' it for
+use with \AllTeX{}.  The rest of this answer discusses this preparation.
+\begin{itemize}
+\item Acquire the font.  A very small set of Type~1 fonts is installed
+  in most \PS{} printers you will encounter.  For those few (whose use
+  is covered by the basic \acro{PSNFSS} package), you don't need the
+  Type~1 font itself, to be able to print using the font.
+
+  For all the myriad other Type~1 fonts, to be able to print using
+  the font you need the Type~1 file itself.  Some of these are
+  available for free (they've either been donated to the public
+  domain, or were developed as part of a free software project), but
+  the vast majority are commercial products, requiring you to spend
+  real money.
+\item Acquire the fonts' \acro{AFM} files.  \acro{AFM} files contain
+  information from the font foundry, about the sizes of the characters
+  in the font, and how they fit together.  One measure of the quality
+  of a font-supplier is that they provide the \acro{AFM} files by
+  default: if the files are not available, you are unlikely to be able
+  to use the font with \AllTeX{}.
+\item Rename the \acro{AFM} files and the Type~1 files to match the
+  \Qref*{Berry font naming scheme}{Q-fontname}.
+\item Generate \TeX{} metric files from the \acro{AFM} files.  The
+  commonest tool for this task is \Package{fontinst}; the package
+  documentation helps, but other guides are available (see below).
+  The simplest possible script to pass to \Package{fontinst} is:
+  \begin{quote}
+\begin{verbatim}
+\latinfamily{xyz}{}
+\bye
+\end{verbatim}
+  \end{quote}
+  where \texttt{xyz} is the Berry name of the font family.  This
+  simple script is adequate for most purposes: its output covers the
+  font family in both \acro{T}1 and \acro{OT}1 font encodings.  Nevertheless,
+  with fancier fonts, more elaborate things are possible with
+  \Package{fontinst}: see its documentation for details.
+
+  \Package{Fontinst} also generates map files, and \LaTeX{} font
+  definition (\extension{fd}) files.
+\end{itemize}
+Having traversed this list, you have a set of font files ready for
+installation.
+\begin{ctanrefs}
+\item[fontinst.sty]\CTANref{fontinst}
+\item[\nothtml{\rmfamily}Type 1 installation guide]\CTANref{T1instguide}
+\end{ctanrefs}
+
+
+\Question[Q-instt1font]{Installing a Type~1 font}
+
+Once you have a prepared Type~1 font, either direct from \acro{CTAN}
+or the like, or having \Qref*{`prepared' it yourself}{Q-prept1font},
+you can get on with installation.
+
+The procedure is merely an extension of that for packages, etc., so
+much of what follows will be familiar:
+\begin{itemize}
+\item Install the files, in your local \texttt{texmf} tree (the advice
+  about installing non-standard things applies here, too).  The
+  following list gives reasonable destinations for the various files
+  related to a font family \meta{fname}:
+\begin{narrowversion}
+\begin{verbatim}
+.pfb,
+.pfa  .../fonts/type1/<foundry>/<fname>
+.tfm  .../fonts/tfm/<foundry>/<fname>
+.vf   .../fonts/vf/<foundry>/<fname>
+.sty,
+.fd   .../tex/latex/<fname>
+.map  .../fonts/map/dvips/<foundry>
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{quote}
+\begin{verbatim}
+.pfb,
+.pfa  .../fonts/type1/<foundry>/<fname>
+.tfm  .../fonts/tfm/<foundry>/<fname>
+.vf   .../fonts/vf/<foundry>/<fname>
+.sty,
+.fd   .../tex/latex/<fname>
+.map  .../fonts/map/dvips/<foundry>
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+  but if you are lucky, you will be starting from a distribution from
+  \acro{CTAN} and there is a corresponding \extension{tds.zip} file:
+  using this \acro{TDS}-file saves the bother of deciding where to put
+  your files in the \acro{TDS} tree.
+\item Regenerate the file indexes (as described in
+  \Qref[question]{package installation}{Q-inst-wlcf}).
+\item Update the \ProgName{dvips}, \PDFTeX{} and other maps:
+  \begin{itemize}
+  \item On any current \texlive{}-based system, or a te\TeX{} v3.0
+    system, execute the command
+\begin{quote}
+\begin{verbatim}
+updmap-sys --enable Map <fname>.map
+\end{verbatim}
+\end{quote}
+    as root.  (If you \emph{can} use \ProgName{updmap-sys}~--- do; if
+    not~--- presumably because your \alltex{} system was set up by
+    someone else~--- you have to fall back on plain \ProgName{updmap},
+    but be aware that it's a potent source of confusion, setting up
+    map sets that might be changed behind your back.)
+  \item On a current \miktex{} system, update the system file
+    \File{updmap.cfg}, using the shell command
+\begin{quote}
+\begin{verbatim}
+initexmf --edit-config-file updmap
+\end{verbatim}
+\end{quote}
+    adding a line at the end:
+\begin{quote}
+\begin{verbatim}
+Map <fname>.map
+\end{verbatim}
+\end{quote}
+    for each font family \meta{fname} you are adding to the system.
+    Now generate revised maps with the shell command
+\begin{quote}
+\begin{verbatim}
+initexmf --mkmaps
+\end{verbatim}
+\end{quote}
+    This, and other matters, are described in \miktex{} % beware line break
+    \href{http://docs.miktex.org/manual/advanced.html}{``advanced'' documentation}.
+  \end{itemize}
+\end{itemize}
+Both processes (preparing and installing a font) are very well (and
+thoroughly) described in Philipp Lehman's guide to font installation,
+which may be found on \acro{CTAN}.
+\begin{ctanrefs}
+\item[fontinst.sty]\CTANref{fontinst}
+\item[\nothtml{\rmfamily}Type 1 installation guide]\CTANref{T1instguide}
+\end{ctanrefs}
+
+\Question[Q-inst1cm]{Installing the Type~1 versions of the CM~fonts}
+
+This is a specialised case of \Qref*{installing a font}{Q-instfont},
+but it is almost never necessary~--- it's inconceivable that any (even
+remotely) recent system will \emph{not} have the fonts already
+installed.  You can confirm this (near-inevitable) fact by trying the
+fonts.  On a system that uses \ProgName{dvips} (almost all do), try
+the sequence:
+\begin{quote}
+\begin{verbatim}
+latex sample2e
+dvips -o sample2e.ps sample2e
+\end{verbatim}
+\end{quote}
+at a ``command prompt'' (\ProgName{shell}, in a Unix-style system,
+``\acro{DOS} box'' in a Windows system).
+
+If the command works at all, the console output of the command will
+include a sequence of Type~1 font file names, listed as
+\texttt{<\emph{path}/cmr10.pfb>} and so on; this is \ProgName{dvips}
+telling you it's copying information from the Type~1 font, and you
+need do no more.
+
+If the test has failed, you need to install your own set of the fonts;
+the distribution (including all the fonts the \acro{AMS} designed and
+produced themselves) is now described as \Package{amsfonts}.  The
+bundle contains metric and map files~--- all you need to
+\Qref*{install the fonts}{Q-instt1font}.
+\begin{ctanrefs}
+\item[AMS and CM fonts, in Type 1 format]\CTANref{amsfonts}
+\end{ctanrefs}
+
+

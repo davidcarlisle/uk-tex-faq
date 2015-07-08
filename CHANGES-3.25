@@ -1,0 +1,47 @@
+Changes since version 3.24
+
+New answers:
+ +Label includeother:LaTeX refuses to \include from (some) other directories
+
+Relabelled answers:
+ <none>
+
+Revised answers:
+ +Label acrobat:     Rearranged and extended somewhat (dropped V-TeX details)
+ +Label bibinline:   Outline use of the new usebib package
+ +Label citesort:    Show how to do the job with biblatex
+ +Label cmdstar:     Suggest use of xparse for *-commands
+ +Label crossref:    Clarified wording, and removed incorrect "effect" of error
+ +Label eqnarray:    Added link to Stefan Kottwitz blog entry on the problem
+ +Label euro:	     Updated note about using marvosym font
+ +Label extrabrace:  Some clarification (and a new solution)
+ +Label filesused:   Discuss mkjobtexmf
+ +Label findfont:    Rewritten, downplaying Metafont and covering TTF and OTF
+ +Label footintab:   Discuss tablefootnote package
+ +Label i18nbib:     BibLaTeX is another candidate
+ +Label inlgrphapp:  Add picture environment to list, mention picture package
+ +Label isitanum:    Improve \testnum definition
+ +Label labelfig:    Describe pinlabel package
+ +Label man-latex:   Correct link to Chris Harrison's (now) tutorial;
+		     Mention van Dongen's, Wilkins' and Buxbaum's offerings
+ +Label marginpkgs:  Discuss zwpagelayout
+ +Label mfptutorials:Restore (lost) link to MetaFun manual
+ +Label noroom:	     Mention morewrites for lots of (pretend) output streams
+ +Label papergeom:   Outline use of zwpagelayout package
+ +Label ref-doc:     Added reference to macros2e document
+ +Label slashbox:    Recommend diagbox package in preference to slashbox
+ +Label syswin32:    Miktex 2.9 no longer beta ... so catch up!
+ +Label tutbitslatex:Rearrange stuff on pgf/tikz, after new management of site
+ +Label tutorials*:  Changed question title to "... TeX-based systems"
+ +Label usesymb:     Add fdsymbol, mdsymbol
+ +Label verbwithin:  Suggest "v" argument type of xparse
+ +Label watermark:   Discuss xwatermark and use of pdftk
+ +Label whatengine:  Sort out erroneous wording, correct HTML of example code
+
+Deleted answers:
+ <none removed>
+
+Web interface, etc.:
+ <no changes>
+
+Robin Fairbairns

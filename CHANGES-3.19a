@@ -1,0 +1,44 @@
+Changes in version 3.19
+
+This file lists changes since its most recent release (with version 3.18
+of the FAQ). 
+
+New answers:
+[none yet]
+ +Label grffilenames: "modern" file names in graphics
+ +Label keyval:    using key-value input in macros and package
+ +Label linmacnames: why non-letters in macro names are a bad idea
+ +Label osf:	   using fonts with "old-style" numbers
+ +Label pdf-fig-chars: disappearing glyphs in pdfTeX figures (from Thanh)
+ +Label texorpdf:  error "not allowed in PDFDocEncoded string"
+ +Label texthings: what all these <thing>TeX names are
+ +Label usesymb:   using symbols
+ +Label whatmacros:brief outline of macros for "bits and pieces" section
+ +Label wideflt:   centre a float wider than text area
+
+Relabelled answers:
+[none yet]
+ +Label xfigetc:   discusses xfig and asymptote (so far) (was label xfig)
+
+Revised answers:
+ +Label impgraph:  changed the question title
+ +Label man-latex: mention Philip Hirschhorn's "getting up and running..."
+ +Label mathstext: correct discussion of \textrm in maths
+
+Deleted answers:
+[none yet]
+ +Label outszwrng
+(remember, as of the previous release, links to "old" labels remain
+valid, pointing to an answer that is as near relevant as possible)
+
+Web interface:
+[no changes yet]
+  The initial list of questions no longer gives a URL containing all
+  the answers -- Google was returning that for every match, which
+  didn't help!
+  All links to CTAN files, directory .zips and directories for
+  browsing are now http, and there's no longer any mention of .tar.gz
+  archives of CTAN directories (since they're no longer available)
+
+Robin Fairbairns
+2009-06-16

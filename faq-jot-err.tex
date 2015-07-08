@@ -1,0 +1,2467 @@
+% $Id: faq-jot-err.tex,v 1.25 2014/01/28 18:17:36 rf10 Exp rf10 $
+
+\section{The joy of \TeX{} errors}
+
+\Question[Q-erroradvice]{How to approach errors}
+
+Since \TeX{} is a macroprocessor, its error messages are often
+difficult to understand; this is a (seemingly invariant) property of
+macroprocessors.  Knuth makes light of the problem in the \TeX{}book,
+suggesting that you acquire the sleuthing skills of a latter-day
+Sherlock Holmes; while this approach has a certain romantic charm to
+it, it's not good for the `production' user of \AllTeX{}.  This
+answer (derived, in part, from an article by Sebastian Rahtz in
+\TUGboat{} 16(4)) offers some general guidance in dealing with \TeX{}
+error reports, and other answers in this section deal with common (but
+perplexing) errors that you may encounter.  There's a long list of
+``hints'' in Sebastian's article, including the following:
+\begin{itemize}
+\item Look at \TeX{} errors; those messages may seem cryptic at first,
+  but they often contain a straightforward clue to the problem.  See
+  \Qref[question]{the structure of errors}{Q-errstruct} for further
+  details. 
+\item Read the \extension{log} file; it contains hints to things you may
+  not understand, often things that have not even presented as error
+  messages.
+\item Be aware of the amount of context that \TeX{} gives you.  The
+  error messages gives you some bits of \TeX{} code (or of the
+  document itself), that show where the error ``actually happened'';
+  it's possible to control how much of this `context' \TeX{} actually
+  gives you.  \LaTeX{} (nowadays) instructs \TeX{} only to give you
+  one line of context, but you may tell it otherwise by saying
+\begin{quote}
+\begin{verbatim}
+\setcounter{errorcontextlines}{999}
+\end{verbatim}
+\end{quote}
+  in the preamble of your document.  (If you're not a confident macro
+  programmer, don't be ashamed of cutting that 999 down a bit; some
+  errors will go on and \emph{on}, and spotting the differences
+  between those lines can be a significant challenge.)
+\item As a last resort, tracing can be a useful tool; reading a full
+  \AllTeX{} trace takes a strong constitution, but once you know how,
+  the trace can lead you quickly to the source of a problem.  You need
+  to have read the \TeX{}book (see
+% beware line break
+  \Qref[question]{books about \TeX{}}{Q-tex-books}) in some detail, fully
+  to understand the trace.
+  
+  The command \csx{tracingall} sets up maximum tracing; it also sets
+  the output to come to the interactive terminal, which is somewhat of
+  a mixed blessing (since the output tends to be so vast~--- all but
+  the simplest traces are best examined in a text editor after the event).
+
+  The \LaTeX{} \Package{trace} package (first distributed with the
+  2001 release of \LaTeX{}) provides more manageable tracing.  Its
+  \csx{traceon} command gives you what \csx{tracingall} offers, but
+  suppresses tracing around some of the truly verbose parts of
+  \LaTeX{} itself.  The package also provides a \csx{traceoff}
+  command (there's no ``off'' command for \csx{tracingall}), and a
+  package option (|logonly|) allows you to suppress output to the
+  terminal.
+\end{itemize}
+The best advice to those faced with \TeX{} errors is not to panic:
+most of the common errors are plain to the eye when you go back to the
+source line that \TeX{} tells you of.  If that approach doesn't work,
+the remaining answers in this section deal with some of the odder
+error messages you may encounter.  You should not ordinarily need to
+appeal to the \Qref*[question]{wider public}{Q-gethelp}
+for assistance, but if you do, be sure to
+report full backtraces (see |errorcontextlines| above) and so on.
+\begin{ctanrefs}
+\item[trace.sty]Distributed as part of \CTANref{2etools}[trace]
+\end{ctanrefs}
+\LastEdit{2011-06-01}
+
+\Question[Q-errstruct]{The structure of \TeX{} error messages}
+
+\TeX{}'s error messages are reminiscent of the time when \TeX{} itself
+was conceived (the 1970s): they're not terribly user-friendly, though
+they do contain all the information that \TeX{} can offer, usually in
+a pretty concise way.
+
+\TeX{}'s error reports all have the same structure:
+\begin{itemize}
+\item An error message
+\item Some `context'
+\item An error prompt
+\end{itemize}
+The error message will relate to the \emph{\TeX{}} condition that is
+causing a problem.  Sadly, in the case of complex macro packages such
+as \LaTeX{}, the underlying \TeX{} problem may be superficially
+difficult to relate to the actual problem in the ``higher-level''
+macros.  Many \LaTeX{}-detected problems manifest themselves as
+`generic' errors, with error text provided by \LaTeX{} itself (or by a
+\LaTeX{} class or package).
+
+The context of the error is a stylised representation of what \TeX{}
+was doing at the point that it detected the error.  As noted in
+\Qref[question]{approaching errors}{Q-erroradvice}, a macro package
+can tell \TeX{} how much context to display, and the user may need to
+undo what the package has done.  Each line of context is split at the
+point of the error; if the error \emph{actually} occurred in a macro
+called from the present line, the break is at the point of the call.
+(If the called object is defined with arguments, the ``point of call''
+is after all the arguments have been scanned.)  For example:
+\begin{verbatim}
+\blah and so on
+\end{verbatim}
+produces the error report
+\begin{verbatim}
+! Undefined control sequence.
+l.4 \blah
+          and so on
+\end{verbatim}
+while:
+\begin{verbatim}
+\newcommand{\blah}[1]{\bleah #1}
+\blah{to you}, folks
+\end{verbatim}
+produces the error report
+\begin{verbatim}
+! Undefined control sequence.
+\blah #1->\bleah 
+                 #1
+l.5 \blah{to you}
+                 , folks
+\end{verbatim}
+If the argument itself is in error, we will see things such as
+\begin{verbatim}
+\newcommand{\blah}[1]{#1 to you}
+\blah{\bleah}, folks
+\end{verbatim}
+producing
+\begin{verbatim}
+! Undefined control sequence.
+<argument> \bleah 
+                  
+l.5 \blah{\bleah}
+                 , folks
+\end{verbatim}
+
+The prompt accepts single-character commands: the list of what's
+available may be had by typing |?|\@.  One immediately valuable
+command is |h|, which gives you an expansion of \TeX{}s original
+pr\'ecis message, sometimes accompanied by a hint on what to do to
+work round the problem in the short term.  If you simply type `return'
+(or whatever else your system uses to signal the end of a line) at the
+prompt, \TeX{} will attempt to carry on (often with rather little
+success).
+
+\Question[Q-extrabrace]{An extra `\texttt{\cbracesymbol{}}'??}
+\keywords{caption heading}
+
+You've looked at your \LaTeX{} source and there's no sign of a misplaced
+\texttt{\cbracesymbol{}} on the line in question.
+
+Well, no: this is \TeX{}'s cryptic way of hinting that you've put a
+\begin{wideversion} % hyper
+\Qref{fragile command}{Q-protect} in a moving argument.
+\end{wideversion}
+\begin{narrowversion}
+fragile command in a moving argument (\Qref{}{Q-protect}).
+\end{narrowversion}
+
+For example, \csx{footnote} is fragile, and if we put that in the
+moving argument of a \csx{section} command, as
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\section{Mumble\footnote{%
+    I couldn't think of anything better}}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\section{Mumble\footnote{I couldn't think of anything better}}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+we get told
+\begin{quote}
+\begin{verbatim}
+! Argument of \@sect has an extra }.
+\end{verbatim}
+\end{quote}
+The same happens with captions (the following is a simplification of a
+\Newsgroup{comp.text.tex} post):
+\begin{quote}
+\begin{verbatim}
+\caption{Energy: \[e=mc^2\]}
+\end{verbatim}
+\end{quote}
+giving us the error message
+\begin{quote}
+\begin{verbatim}
+! Argument of \@caption has an extra }.
+\end{verbatim}
+\end{quote}
+The similar (but more sensible):
+\begin{quote}
+\begin{verbatim}
+\caption{Energy: \(e=mc^2\)}
+\end{verbatim}
+\end{quote}
+is more tiresome, still: there's no error when you first run the
+job~\dots{} but there is on the second pass, when the list of figures
+(or tables) is generated, giving:
+\begin{quote}
+\begin{verbatim}
+! LaTeX Error: Bad math environment delimiter.
+\end{verbatim}
+\end{quote}
+in the \csx{listoffigures} processing.
+
+The solution is usually to use a robust command in place of the one
+you are using, or to force your command to be robust by prefixing it
+with \csx{protect}, which in the \csx{section} case would show as
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\section{Mumble\protect\footnote{%
+    I couldn't think of anything better}}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\section{Mumble\protect\footnote{I couldn't think of anything better}}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+However, in both the \csx{section} case and the \csx{caption} case,
+you can separate the moving argument, as in
+\cmdinvoke*{section}[moving]{static}; this gives us another standard
+route~--- simply to omit (or otherwise sanitise) the fragile command
+in the moving argument.  So, one might rewrite the \csx{caption}
+example as:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\caption[Energy: (Einstein's equation)]%
+        {Energy: \(E=mc^2\)}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\caption[Energy: (Einstein's equation)]{Energy: \(E=mc^2\)}
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+In practice, inserting mathematics in a moving argument has already
+been addressed in \latexe{} by the robust command \csx{ensuremath}:
+\begin{quote}
+\begin{verbatim}
+\caption{Energy: \ensuremath{E=mc^2}}
+\end{verbatim}
+\end{quote}
+So: always look for alternatives to the \csx{protect} route.
+
+Footnotes can be even more complex; % ! line break
+``\Qref*[question]{footnotes in \LaTeX{} section headings}{Q-ftnsect}''
+deals specifically with that issue.
+\LastEdit{2012-02-09}
+
+\Question[Q-semanticnest]{Capacity exceeded [semantic nest\,\dots{}]}
+
+\begin{narrowversion}
+\begin{verbatim}
+! TeX capacity exceeded, sorry [semantic nest
+                                      size=100].
+...
+If you really absolutely need more capacity,
+you can ask a wizard to enlarge me.
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+! TeX capacity exceeded, sorry [semantic nest size=100].
+...
+If you really absolutely need more capacity,
+you can ask a wizard to enlarge me.
+\end{verbatim}
+\end{wideversion}
+Even though \TeX{} suggests (as always) that enlargement by a wizard
+may help, this message usually results from a broken macro or bad
+parameters to an otherwise working macro.
+
+The ``semantic nest'' \TeX{} talks about is the nesting
+of boxes within boxes.  A stupid macro can provoke the error pretty
+easily:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+\def\silly{\hbox{here's \silly
+                         being executed}}
+\silly
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\def\silly{\hbox{here's \silly being executed}}
+\silly
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+The extended traceback
+% beware of filling this line...
+(see \Qref{\emph{general advice} on errors}{Q-erroradvice})
+\emph{does} help, though it does rather run on.  In the case above,
+the traceback consists of
+\begin{verbatim}
+\silly ->\hbox {
+                here's \silly being executed}
+\end{verbatim}
+followed by 100 instances of
+\begin{verbatim}
+\silly ->\hbox {here's \silly 
+                              being executed}
+\end{verbatim}
+The repeated lines are broken at exactly the offending macro; of
+course the loop need not be as simple as this~--- if \csx{silly} calls
+\csx{dopy} which boxes \csx{silly}, the effect is just the same and
+alternate lines in the traceback are broken at alternate positions.
+
+There are in fact two items being consumed when you nest boxes: the
+other is the grouping level.  Whether you exhaust your % !line wrap
+\emph{semantic nest} or your permitted \emph{grouping levels} first is
+controlled entirely by the relative size of the two different sets of
+buffers in your \AllTeX{} executable.
+
+\Question[Q-noroom]{No room for a new `\emph{thing}'}
+
+The technology available to Knuth at the time \TeX{} was written is
+said to have been particularly poor at managing dynamic storage; as a
+result much of the storage used within \TeX{} is allocated as fixed
+arrays, in the reference implementations.  Many of these fixed arrays
+are expandable in modern \TeX{} implementations, but size of the
+arrays of ``registers'' is written into the specification as being 256
+(usually); this number may not be changed if you still wish to call
+the result \TeX{}
+%% beware line wrap
+(see \Qref[question]{testing \TeX{} implementations}{Q-triptrap}).
+
+If you fill up one of these register arrays, you get a \TeX{} error
+message saying
+\begin{quote}
+\begin{verbatim}
+! No room for a new \<thing>.
+\end{verbatim}
+\end{quote}
+The \csx{thing}s in question may be \csx{count} (the object underlying
+\LaTeX{}'s \csx{newcounter} command), \csx{skip} (the object underlying
+\LaTeX{}'s \csx{newlength} command), \csx{box} (the object underlying
+\LaTeX{}'s \csx{newsavebox} command), or \csx{dimen}, \csx{muskip},
+\csx{toks}, \csx{read}, \csx{write} or \csx{language} (all types of object
+whose use is ``hidden'' in \LaTeX{}; the limit on the number of
+\csx{read} or \csx{write} objects is just 16).
+
+There is nothing that can directly be done about this error, as you can't
+extend the number of available registers without extending \TeX{}
+itself.
+\begin{htmlversion}
+  Of course, \Qref{\eTeX{}}{Q-etex}, \Qref{Omega}{Q-omegaleph} and
+  \Qref{\LuaTeX{}}{Q-luatex}
+\end{htmlversion}
+\htmlignore
+% beware line wrap here
+  Of course \Qref[question]{\etex{}}{Q-etex},
+  \Qref[question]{\ensuremath{\Omega}}{Q-omegaleph} and
+  \Qref[question]{\LuaTeX{}}{Q-luatex}
+\endhtmlignore
+all do this, as does \Qref*{MicroPress Inc's V\TeX{}}{Q-commercial}.
+
+The commonest way to encounter one of these error messages is to have
+broken macros of some sort, or incorrect usage of macros (an example
+is discussed in \Qref[question]{epsf problems}{Q-epsf}).
+
+However, sometimes one just \emph{needs} more than \TeX{} can offer,
+and when this happens, you've just got to work out a different way of
+doing things.  An example is the % beware line wrap
+\Qref*{difficulty of loading \PiCTeX{} with \LaTeX{}}{Q-usepictex}.
+The more modern drawing package, \Package{pgf} with its higher-level
+interface \Package{TikZ} is also a common source of such problems.
+
+In such cases, it is usually possible to use the
+\Qref*{\eTeX{}}{Q-etex} extensions (all modern distributions provide
+them).  The \LaTeX{} package \Package{etex} modifies the register allocation
+mechanism to make use of \eTeX{}'s extended register sets.
+\Package{Etex} is a
+derivative of the \plaintex{} macro file \Package{etex.src}, which is
+used in building the \eTeX{} Plain format; both files are part of the
+\eTeX{} distribution and are available in current distributions.
+
+It is possible that, even with \Package{etex} loaded, you still find
+yourself running out of things.  Problems can be caused by packages
+that use large numbers of ``inserts'' (inserts are combinations of
+counter, box, dimension and skip registers, used for storing floats
+and footnotes).  \Package{Morefloats} does this, of course (naturally enough,
+allocating new floats), and footnote packages such as
+\Package{manyfoot} and \Package{bigfoot} (which uses \Package{manyfoot})
+can also give problems.  The \Package{etex} extensions allow you to deal with
+these things: the command \cmdinvoke*{reserveinserts}{n} ensures there
+is room for \meta{n} more inserts.  Hint: by default
+\Package{morefloats} adds 18 inserts (though it can be instructed to
+use more), and \Package{manyfoot} seems to be happy with 10 reserved,
+but there are `hard' limits that we cannot program around~--- the
+discussion of \Qref*{running out of floats}{Q-tmupfl} has more about this.
+It is essential that you load \Package{etex} before any other
+packages, and reserve any extra inserts immediately:
+\begin{quote}
+\begin{verbatim}
+\documentclass[...]{...}
+\usepackage{etex}
+\reserveinserts{28}
+\end{verbatim}
+\end{quote}
+
+The \eTeX{} extensions don't help with \csx{read} or \csx{write}
+objects (and neither will the \Package{etex} package), but the
+\Package{morewrites} package can provide the \emph{illusion} of large
+numbers of \csx{write} objects.
+\begin{ctanrefs}
+\item[morewrites.sty]\CTANref{morewrites}
+\end{ctanrefs}
+
+\Question[Q-epsf]{\texttt{epsf} gives up after a bit}
+
+Some copies of the documentation of \File{epsf.tex} seemed once to
+suggest that the command
+\begin{verbatim}
+  \input epsf
+\end{verbatim}
+is needed for every figure included.  If you follow this suggestion
+too literally, you get an error
+\begin{verbatim}
+  ! No room for a new \read .
+\end{verbatim}
+after a while; this is because each time \File{epsf.tex} is loaded, it
+allocates itself a \emph{new} file-reading handle to check the figure
+for its bounding box, and there just aren't enough of these things
+(see \Qref[question]{no room for a new thing}{Q-noroom}).
+
+The solution is simple~--- this is in fact an example of misuse of
+macros; one only need read \File{epsf.tex} once, so change
+\begin{verbatim}
+  ...
+  \input epsf
+  \epsffile{...}
+  ...
+  \input epsf
+  \epsffile{...}
+\end{verbatim}
+(and so on) with a single
+\begin{verbatim}
+  \input epsf
+\end{verbatim}
+somewhere near the start of your document, and then decorate your
+\csx{epsffile} statements with no more than adjustments of
+\csx{epsfxsize} and so on.
+
+\Question[Q-badhyph]{Improper \csx{hyphenation} will be flushed}
+
+For example
+\begin{verbatim}
+! Improper \hyphenation will be flushed.
+\'#1->{
+       \accent 19 #1}
+<*> \hyphenation{Ji-m\'e
+                        -nez}
+\end{verbatim}
+(in \plaintex{}) or
+\begin{verbatim}
+! Improper \hyphenation will be flushed.
+\leavevmode ->\unhbox 
+                      \voidb@x 
+<*> \hyphenation{Ji-m\'e
+                        -nez}
+\end{verbatim}
+in \LaTeX{}.
+
+As mentioned in
+\begin{flatversion}
+  \Qref[question]{hyphenation failures}{Q-nohyph},
+\end{flatversion}
+\begin{hyperversion}
+  ``\Qref[question]{hyphenation failures}{Q-nohyph}'',
+\end{hyperversion}
+``words'' containing \csx{accent} commands may not be hyphenated.  As
+a result, any such word is deemed improper in a \csx{hyphenation}
+command.
+
+Hyphenation happens as paragraphs are laid out; by this time, \tex{}
+knows what font is used for each glyph; thus it knows the encoding
+being used.  So the solution to the problem is to use a font that
+contains the accented character; doing this this ``hides'' the accent
+from the hyphenation mechanisms.
+
+For \LaTeX{} users, this is quite an easy task; they select an 8-bit
+font with the package, as in \cmdinvoke{usepackage}[T1]{fontenc}, and
+accented-letter commands such as the \csx{'}\texttt{e} in
+\cmdinvoke{hyphenation}{Ji-m\csx{'}e-nez} automatically become the
+single accented character by the time the hyphenation gets to look at
+it.
+
+
+\Question[Q-optionclash]{Option clash for package}
+
+So you've innocently added:
+\begin{quote}
+\cmdinvoke{usepackage}[draft]{foo}
+\end{quote}
+to your document, and \LaTeX{} responds with
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+! LaTeX Error: Option clash for package foo.
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+! LaTeX Error: Option clash for package foo.
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+
+The error is a complaint about loading a package % ! line break
+\emph{with options}, more than once.  \LaTeX{} complains because it
+has no means of examining the options, rather than because it
+\emph{knows} there is a problem.  (You may load a package any number
+of times in a document's preamble, with no options, and \LaTeX{} will
+ignore every loading request after the first; but you may only supply
+options when you first load the package.)
+
+So perhaps you weren't entirely innocent~--- the error would have
+occurred on the second line of:
+\begin{quote}
+\cmdinvoke{usepackage}[dvips]{graphics}\\
+\cmdinvoke{usepackage}[draft]{graphics}
+\end{quote}
+which could quite reasonably (and indeed correctly) have been typed:
+\begin{quote}
+\cmdinvoke{usepackage}[dvips,draft]{graphics}
+\end{quote}
+
+But if you've not made that mistake (even with several lines
+separating the \csx{usepackage} commands, it's pretty easy to spot),
+the problem could arise from something else loading the package for
+you.  How do you find the culprit?  The "\texttt{h}" response to the
+error message tells you which options were loaded each time.
+Otherwise, it's down to the log analysis games discussed in % ! line break
+``\Qref*{How to approach errors}{Q-erroradvice}''; the trick to remember
+is that that the process of loading each file is parenthesised in the
+log; so if package \Package{foo} loads \Package{graphics}, the log
+will contain something like:
+\begin{quote}
+\begin{verbatim}
+(<path>/foo.sty ...
+...
+(<path>/graphics.sty ...
+...)
+...
+)
+\end{verbatim}
+\end{quote}
+(the parentheses for \Package{graphics} are completely enclosed in
+those for \Package{foo}; the same is of course true if your class
+\Class{bar} is the culprit, except that the line will start with the
+path to \texttt{bar.cls}).
+
+If we're dealing with a package that loads the package you are
+interested in, you need to ask \LaTeX{} to slip in options when
+\Package{foo} loads it.  Instead of:
+\begin{quote}
+\cmdinvoke{usepackage}{foo}\\
+\cmdinvoke{usepackage}[draft]{graphics}
+\end{quote}
+you would write:
+\begin{quote}
+\cmdinvoke{PassOptionsToPackage}{draft}{graphics}\\
+\cmdinvoke{usepackage}{foo}
+\end{quote}
+The command \csx{PassOptionsToPackage} tells \LaTeX{} to behave as if
+its options were passed, when it finally loads a package.  As you would
+expect from its name, \csx{PassOptionsToPackage} can deal with a list
+of options, just as you would have in the the options brackets of
+\csx{usepackage}.
+
+The problem is more tricky if your document class loads a package you
+want options for.  In this case, instead of:
+\begin{quote}
+\cmdinvoke{documentclass}[...]{bar}\\
+\cmdinvoke{usepackage}[draft]{graphics}
+\end{quote}
+you would write:
+\begin{quote}
+\cmdinvoke{PassOptionsToPackage}{draft}{graphics}\\
+\cmdinvoke{documentclass}[...]{bar}
+\end{quote}
+with \csx{PassOptionsToPackage} \emph{before} the \csx{documentclass}
+command.
+
+However, if the \Package{foo} package or the \Class{bar} class loads
+\Package{graphics} with an option of its own that clashes with
+what you need in some way, you're stymied.  For example:
+\begin{quote}
+\cmdinvoke{PassOptionsToPackage}{draft}{graphics}
+\end{quote}
+where the package or class does:
+\begin{quote}
+\cmdinvoke{usepackage}[final]{graphics}
+\end{quote}
+sets \pkgoption{final} \emph{after} it's dealt with option you passed to
+it, so your \pkgoption{draft} will get forgotten.  In extreme cases,
+the package might generate an error here (\Package{graphics} doesn't
+go in for that kind of thing, and there's no indication that
+\pkgoption{draft} has been forgotten).
+
+In such a case, you have to modify the package or class itself
+(subject to the terms of its licence).  It may prove useful to contact
+the author: she may have a useful alternative to suggest.
+
+\Question[Q-optclash]{Option clash for package}
+
+The error message
+\begin{quote}
+\begin{verbatim}
+! LaTeX Error: Option clash for package footmisc
+\end{verbatim}
+\end{quote}
+means what it says~--- your document contains a (potentially) clashing
+pair of options; sadly, it is not always obvious how the error has
+arisen.
+
+If you simply write:
+\begin{quote}
+\begin{verbatim}
+\usepackage[a]{foo}
+...
+\usepackage{foo}
+\end{verbatim}
+\end{quote}
+\latex{} is happy, as it is with:
+\begin{quote}
+\begin{verbatim}
+\usepackage[a]{foo}
+...
+\usepackage[a]{foo}
+\end{verbatim}
+\end{quote}
+since \latex{} can see there's no conflict (in fact, the second load
+does nothing).
+
+Similarly,
+\begin{quote}
+\begin{verbatim}
+\usepackage[a,b]{foo}
+...
+\usepackage[a]{foo}
+\end{verbatim}
+\end{quote}
+produces no error and does nothing for the second load.
+
+However
+\begin{quote}
+\begin{verbatim}
+\usepackage[a]{foo}
+...
+\usepackage[b]{foo}
+\end{verbatim}
+\end{quote}
+produces the error; even if option `\pkgoption{b}' is an alias for
+option `\pkgoption{a}'~--- \latex{} doesn't ``look inside'' the package
+to check anything like that.
+
+The general rule is: the first load of a package defines a set of
+options; if a further \csx{usepackage} or \csx{RequirePackage} also
+calls for the package, the options on that call may not extend the set
+on the first load.
+
+Fortunately, the error (in that sort of case) is easily curable
+once you've examined the preamble of your document.
+
+Now, suppose package \Package{foo} loads \Package{bar} with option
+\pkgoption{b}, and your document says:
+\begin{quote}
+\begin{verbatim}
+\usepackage{foo}
+...
+\usepackage[a]{bar}
+\end{verbatim}
+\end{quote}
+or
+\begin{quote}
+\begin{verbatim}
+\usepackage[a]{bar}
+...
+\usepackage{foo}
+\end{verbatim}
+\end{quote}
+the error will be detected, even though you have only explicitly
+loaded \Package{bar} once.  Debugging such errors is tricky: it may
+involve reading the logs (to spot which packages were called), or the
+documentation of package \Package{foo}.
+
+\Question[Q-tmupfl]{``Too many unprocessed floats''}
+
+If \LaTeX{} responds to a \cmdinvoke{begin}{figure} or
+\cmdinvoke{begin}{table} command with the error message
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+! LaTeX Error: Too many unprocessed floats.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+! LaTeX Error: Too many unprocessed floats.
+
+See the LaTeX manual or LaTeX Companion
+...                        for explanation.
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+your figures (or tables) are not being placed properly.  \LaTeX{}
+has a limited amount of storage for `floats' (figures, tables, or
+floats you've defined yourself with the \Package{float} package); if
+something you have done has prevented \latex{} from typesetting
+floats, it will run out of storage space.
+
+This failure usually occurs in extreme cases of % ! line break
+\Qref*{floats moving ``wrongly''}{Q-floats};
+\LaTeX{} has found it can't place a float, and floats of the same type
+have piled up behind it.
+
+How does this happen?~--- \LaTeX{} guarantees that caption numbers are
+sequential in the document, but the caption number is allocated when
+the figure (or whatever) is created, and can't be changed.  Thus, if
+floats are placed out of order, their caption numbers would also
+appear out of order in the body of the document (and in the list of
+figures, or whatever).  As a result, enforcement of the guarantee
+means that simple failure to place a float means that no subsequent
+float can be placed; and hence (eventually) the error.
+
+Techniques for solving the problem are discussed in the % ! line break
+\Qref*{floats question}{Q-floats} already referenced.
+
+An alternative \emph{may} be to use the \Package{morefloats} package.
+The package will allocate more ``float skeletons'' than \latex{}
+does by default; each such skeleton may then be used to store a
+float.  Beware that even with \Package{morefloats}, the number you can
+allocate is limited; even with the \Package{etex} package (which makes
+available many more registers, etc., than \latex{} does by default;
+\etex{} can create lots more registers, but none of those ``beyond
+the original \TeX{} default'' may be used in float skeletons).  Thus,
+\Package{etex} may offer some relief, but it can \emph{not} be
+regarded as a panacea
+
+The error also occurs in a long sequence of float environments, with
+no intervening text.  Unless the environments will fit ``here'' (and
+you've allowed them to go ``here''), there will never be a page break,
+and so there will never be an opportunity for \LaTeX{} to reconsider
+placement.  (Of course, the floats can't all fit ``here'' if the
+sequence is sufficiently prolonged: once the page fills, \LaTeX{}
+won't place any more floats, leading to the error.
+
+Techniques for resolution may involve redefining the floats using the
+\Package{float} package's \texttt{[H]} float qualifier, but you are unlikely
+to get away without using \csx{clearpage} from time to time.
+\begin{ctanrefs}
+\item[float.sty]\CTANref{float}
+\item[morefloats.sty]\CTANref{morefloats}
+\end{ctanrefs}
+
+\Question[Q-atvert]{\csx{spacefactor} complaints}
+
+The errors
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+! You can't use `\spacefactor' in
+...                           vertical mode.
+\@->\spacefactor 
+                 \@m 
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+! You can't use `\spacefactor' in vertical mode.
+\@->\spacefactor 
+                 \@m 
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+or
+\begin{quote}
+\begin{verbatim}
+! You can't use `\spacefactor' in math mode.
+\@->\spacefactor 
+                 \@m 
+\end{verbatim}
+\end{quote}
+or simply
+\begin{quote}
+\begin{verbatim}
+! Improper \spacefactor.
+...
+\end{verbatim}
+\end{quote}
+bite the \LaTeX{} programmer who uses an internal command without
+taking ``precautions''.  An internal-style command such as \csx{@foo}
+has been defined or used in a private macro, and it is interpreted as
+\csx{@}, followed by the `text' \texttt{foo}.  (\csx{@} is used, for
+real, to set up end-of-sentence space in some circumstances; it uses
+\csx{spacefactor} to do that.)
+
+The problem is discussed in detail in
+% beware line wrap
+``\Qref*[question]{\texttt{@} in macro names}{Q-atsigns}'',
+together with solutions.
+
+\Question[Q-endingroup]{\csx{end} occurred inside a group}
+
+The actual error we observe is:
+
+\nothtml{\noindent}%
+|(\end occurred inside a group at level <|\texttt{\emph{n}}|>)|
+
+\nothtml{\noindent}%
+and it tells us that something we started in the document never got
+finished before we ended the document itself.  The things involved
+(`groups') are what \TeX{} uses for restricting the scope of things:
+you see them, for example, in the ``traditional'' font selection
+commands: |{\it stuff\/}|~--- if the closing brace is left off such a
+construct, the effect of \csx{it} will last to the end of the document,
+and you'll get the diagnostic.
+
+\TeX{} itself doesn't tell you where your problem is, but you can
+often spot it by looking at the typeset output in a previewer.
+Otherwise, you can usually find mismatched braces using an intelligent
+editor (at least \ProgName{emacs} and \ProgName{winedt} offer this facility).
+However, groups are not \emph{only} created by matching
+\texttt{\obracesymbol{}} with \texttt{\cbracesymbol{}}:
+other grouping commands are discussed elsewhere in these \acro{FAQ}s,
+and are also a potential source of unclosed group.
+
+\cmdinvoke{begin}{\meta{environment}} encloses the environment's body
+in a group, and establishes its own diagnostic mechanism.  If you end
+the document before closing some other environment, you get the
+`usual' \LaTeX{} diagnostic
+\htmlignore
+\begin{dviversion}
+\begin{verbatim}
+! LaTeX Error: \begin{blah} on input line 6
+                       ended by \end{document}.
+\end{verbatim}
+\end{dviversion}
+\begin{pdfversion}
+\begin{verbatim}
+! LaTeX Error: \begin{blah} on input line 6 ended by \end{document}.
+\end{verbatim}
+\end{pdfversion}
+\endhtmlignore
+\begin{htmlversion}
+\begin{verbatim}
+! LaTeX Error: \begin{blah} on input line 6 ended by \end{document}.
+\end{verbatim}
+\end{htmlversion}
+which (though it doesn't tell you which \emph{file} the
+\cmdinvoke{begin}{blah} was in) is usually enough to locate the
+immediate problem.  If you press on past the \LaTeX{} error, you get
+one or more repetitions of the ``occurred inside a group'' message
+before \LaTeX{} finally exits.  The \Package{checkend} package
+recognises other unclosed \cmdinvoke{begin}{blob} commands, and
+generates an ``ended by'' error message for each one, rather than
+producing the ``occurred inside a group'' message, which is sometimes
+useful (if you remember to load the package).
+
+In the absence of such information from \LaTeX{}, you need to use
+``traditional'' binary search to find the offending group.  Separate
+the preamble from the body of your file, and process each half on its
+own with the preamble; this tells you which half of the file is at
+fault.  Divide again and repeat.  The process needs to be conducted
+with care (it's obviously possible to split a correctly-written group
+by chopping in the wrong place), but it will usually find the problem
+fairly quickly.
+
+\eTeX{} (and \elatex{}~--- \LaTeX{} run on \eTeX{}) gives you
+further diagnostics after the traditional infuriating \TeX{} one~--- it
+actually keeps the information in a similar way to \LaTeX{}:
+\htmlignore
+\begin{dviversion}
+\begin{verbatim}
+(\end occurred inside a group at level 3)
+
+### semi simple group (level 3) entered
+                         at line 6 (\begingroup)
+### simple group (level 2) entered at line 5 ({)
+### simple group (level 1) entered at line 4 ({)
+### bottom level
+\end{verbatim}
+\end{dviversion}
+\begin{pdfversion}
+\begin{verbatim}
+(\end occurred inside a group at level 3)
+
+### semi simple group (level 3) entered at line 6 (\begingroup)
+### simple group (level 2) entered at line 5 ({)
+### simple group (level 1) entered at line 4 ({)
+### bottom level
+\end{verbatim}
+\end{pdfversion}
+\endhtmlignore
+\begin{htmlversion}
+\begin{verbatim}
+(\end occurred inside a group at level 3)
+
+### semi simple group (level 3) entered at line 6 (\begingroup)
+### simple group (level 2) entered at line 5 ({)
+### simple group (level 1) entered at line 4 ({)
+### bottom level
+\end{verbatim}
+\end{htmlversion}
+The diagnostic not only tells us where the group started, but also the
+\emph{way} it started: \csx{begingroup} or |{| (which is an alias of
+\csx{bgroup}, and the two are not  distinguishable at the \TeX{}-engine
+level).
+\begin{ctanrefs}
+\item[checkend.sty]Distributed as part of \CTANref{bezos}[checkend]
+\end{ctanrefs}
+
+\Question[Q-nonum]{``Missing number, treated as zero''}
+
+In general, this means you've tried to assign something to a count,
+dimension or skip register that isn't (in \TeX{}'s view of things) a
+number.  Usually the problem will become clear using the
+\Qref*{ordinary techniques of examining errors}{Q-erroradvice}.
+
+Two \LaTeX{}-specific errors are commonly aired on the newsgroups.
+
+The commonest arises from attempting to use an example from the
+\Qref*{\emph{The \LaTeX{} Companion} (first edition)}{Q-latex-books}, and is
+exemplified by the following error text:
+\begin{verbatim}
+! Missing number, treated as zero.
+<to be read again> 
+                   \relax 
+l.21 \begin{Ventry}{Return values}
+\end{verbatim}
+The problem arises because, in its first edition, the
+\emph{Companion}'s examples always assumed that the \Package{calc}
+package is loaded: this fact is mentioned in the book, but often not
+noticed.  The remedy is to load the \Package{calc} package in any
+document using such examples from the \emph{Companion}.  (The problem
+does not really arise with the second edition; copies of all the
+examples are available on the accompanying \CDROM{}, or on
+\acro{CTAN}.)
+
+The other problem, which is increasingly rare nowadays, arises from
+misconfiguration of a system that has been upgraded from \LaTeXo{}:
+the document uses the \Package{times} package, and the error appears
+at \cmdinvoke{begin}{document}.  The file search paths are wrongly set
+up, and your \cmdinvoke{usepackage}{times} has picked up a \LaTeXo{}
+version of the package, which in its turn has invoked another which
+has no equivalent in \LaTeXe{}.  The obvious solution is to rewrite
+the paths so that \LaTeXo{} packages are chosen only as a last resort
+so that the startlingly simple \LaTeXe{} \Package{times} package will
+be picked up.  Better still is to replace the whole thing with
+something more modern still; current \Package{psnfss} doesn't provide
+a \Package{times} package~--- the alternative \Package{mathptmx}
+incorporates \FontName{Times}-like mathematics, and a sans-serif face
+based on \FontName{Helvetica}, but scaled to match \FontName{Times}
+text rather better.
+\begin{ctanrefs}
+\item[calc.sty]Distributed as part of \CTANref{2etools}[calc]
+\item[\nothtml{\rmfamily}Examples for \nothtml{\upshape}\LaTeX{} Companion]\CTANref{tlc2}
+\item[The psnfss bundle]\CTANref{psnfss}
+\end{ctanrefs}
+\LastEdit{2011-06-01}
+
+\Question[Q-typend]{``Please type a command or say \csx{end}''}
+
+Sometimes, when you are running \AllTeX{}, it will abruptly stop and
+present you with a prompt (by default, just a |*| character).  Many
+people (including this author) will reflexively hit the `return'
+key, pretty much immediately, and of course this is no help at all~---
+\TeX{} just says:
+\begin{verbatim}
+(Please type a command or say `\end')
+\end{verbatim}
+and prompts you again.
+
+What's happened is that your \AllTeX{} file has finished prematurely,
+and \TeX{} has fallen back to a supposed including file, from the
+terminal.  This could have happened simply because you've omitted
+the \csx{bye} (\plaintex{}), \cmdinvoke{end}{document} (\LaTeX{}), or
+whatever.  Other common errors are failure to close the braces round a
+command's argument, or (in \LaTeX{}) failure to close a verbatim
+environment: in such cases you've already read and accepted an
+error message about encountering end of file while scanning something.
+
+If the error is indeed because you've forgotten to end your document,
+you can insert the missing text: if you're running \plaintex{}, the
+advice, to ``say \csx{end}'' is good enough: it will kill the run; if
+you're running \LaTeX{}, the argument will be necessary:
+\cmdinvoke{end}{document}.  
+
+However, as often as not this isn't the problem, and (short of
+debugging the source of the document before ending) brute force is
+probably necessary.  Excessive force (killing the job that's
+running \TeX{}) is to be avoided: there may well be evidence in the
+\extension{log} file that will be useful in determining what the
+problem is~--- so the aim is to persuade \TeX{} to shut itself down
+and hence flush all log output to file.
+
+If you can persuade \TeX{} to read it, an end-of-file indication
+(control-|D| under Unix, control-|Z| under Windows) will provoke
+\TeX{} to report an error and exit immediately.  Otherwise you should
+attempt to provoke an error dialogue, from which you can exit (using
+the |x| `command').  An accessible error could well be inserting an
+illegal character: what it is will depend on what macros you are
+running.  If you can't make that work, try a silly command name or
+two.
+
+\Question[Q-unkgrfextn]{``Unknown graphics extension''}
+
+The \LaTeX{} graphics package deals with several different types of
+\acro{DVI} (or other) output drivers; each one of them has a potential
+to deal with a different selection of graphics formats.  The package
+therefore has to be told what graphics file types its output driver
+knows about; this is usually done in the \meta{driver}\extension{def} file
+corresponding to the output driver you're using.
+
+The error message arises, then, if you have a graphics file whose
+extension doesn't correspond with one your driver knows about.  Most
+often, this is because you're being optimistic: asking
+\ProgName{dvips} to deal with a \extension{png} file, or \PDFTeX{} to deal with
+a \extension{eps} file: the solution in this case is to transform the graphics
+file to a format your driver knows about.
+
+If you happen to \emph{know} that your device driver deals with the
+format of your file, you are probably falling foul of a limitation of
+the file name parsing code that the graphics package uses.  Suppose
+you want to include a graphics file \File{home.bedroom.eps} using the
+\ProgName{dvips} driver; the package will conclude that your file's
+extension is \extension{bedroom.eps}, and will complain.
+
+The \Package{grffile} package deals with the last problem (and
+others~--- see the package documentation); using the package, you may
+write:
+\begin{quote}
+\begin{verbatim}
+\usepackage{graphicx}
+\usepackage{grffile}
+...
+\includegraphics{home.bedroom.eps}
+\end{verbatim}
+\end{quote}
+or you may even write
+\begin{quote}
+\begin{verbatim}
+\includegraphics{home.bedroom}
+\end{verbatim}
+\end{quote}
+and \Package{graphicx} will find a \extension{eps} or \extension{pdf}
+(or whatever) version, according to what version of \AllTeX{} you're
+running.
+
+If for some reason you can't use \Package{grffile}, you have three
+unsatisfactory alternatives:
+\begin{itemize}
+\item Rename the file~--- for example \File{home.bedroom.eps}\arrowhyph{}%
+  \File{home-bedroom.eps}
+\item Mask the first dot in the file name:
+\begin{verbatim}
+\newcommand*{\DOT}{.}
+\includegraphics{home\DOT bedroom.eps}
+\end{verbatim}
+\item Tell the graphics package what the file is, by means of options
+  to the \csx{includegraphics} command:
+\begin{narrowversion}
+\begin{verbatim}
+\includegraphics[type=eps,ext=.eps,
+                 read=.eps]{home.bedroom}
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+\includegraphics[type=eps,ext=.eps,read=.eps]{home.bedroom}
+\end{verbatim}
+\end{wideversion}
+\end{itemize}
+\begin{ctanrefs}
+\item[grffile.sty]Distributed as part of the Oberdiek collection
+  \CTANref{oberdiek}[grffile]
+\end{ctanrefs}
+
+\Question[Q-nodollar]{``Missing \texttt{\$} inserted''}
+
+There are certain things that \emph{only} work in maths mode.  If your
+document is not in maths mode and you have an |_| or a |^| character,
+\TeX{} (and by inheritance, \LaTeX{} too) will say
+\begin{verbatim}
+! Missing $ inserted
+\end{verbatim}
+as if you couldn't possibly have misunderstood the import of what you
+were typing, and the only possible interpretation is that you had
+committed a typo in failing to enter maths mode.  \TeX{}, therefore,
+tries to patch things up by inserting the \texttt{\$} you `forgot', so that
+the maths-only object will work; as often as not this will land you in
+further confusion.
+
+It's not just the single-character maths sub- and superscript
+operators: anything that's built in or declared as a maths operation,
+from the simplest lower-case \csx{alpha} through the inscrutable
+\csx{mathchoice} primitive, and beyond, will provoke the error if
+misused in text mode.
+
+\LaTeX{} offers a command \csx{ensuremath}, which will put you in maths
+mode for the execution of its argument, if necessary: so if you want
+an \csx{alpha} in your running text, say
+\cmdinvoke{ensuremath}{\csx{alpha}}; if the bit of running text somehow
+transmutes into a bit of mathematics, the \csx{ensuremath} will become
+a no-op, so it's pretty much always safe.
+
+\Question[Q-fontunavail]{Warning: ``Font shape \dots{}\ not available''}
+
+\LaTeX{}'s font selection scheme maintains tables of the font families
+it has been told about.  These tables list the font families that
+\LaTeX{} knows about, and the shapes and series in which those font
+families are available.  In addition, in some cases, the tables list
+the sizes at which \LaTeX{} is willing to load fonts from the family.
+
+When you specify a font, using one of the \LaTeX{} font selection
+commands, \LaTeX{} looks for the font (that is, a font that matches
+the encoding, family, shape, series and size that you want) in its
+tables.  If the font isn't there at the size you want, you will see a
+message like:
+\htmlignore
+\begin{dviversion}
+\begin{verbatim}
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in
+...                 size <11.5> not available
+(Font)              size <12> substituted on
+...                 input line ...
+\end{verbatim}
+(All the message texts in this answer have been wrapped so that they
+will fit in the narrow columns of this version of the \acro{FAQ}.  The
+continuation marker is |...| at the start of the broken-off portion of
+the line.)
+
+\end{dviversion}
+\begin{pdfversion}
+\begin{verbatim}
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <11.5> not available
+(Font)              size <12> substituted on input line ...
+\end{verbatim}
+\end{pdfversion}
+\endhtmlignore
+\begin{htmlversion}
+\begin{verbatim}
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <11.5> not available
+(Font)              size <12> substituted on input line ...
+\end{verbatim}
+\end{htmlversion}
+There will also be a warning like:
+\htmlignore
+\begin{dviversion}
+\begin{verbatim}
+LaTeX Font Warning: Size substitutions with
+...                 differences
+(Font)              up to 0.5pt have occurred.
+\end{verbatim}
+\end{dviversion}
+\begin{pdfversion}
+\begin{verbatim}
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 0.5pt have occurred.
+\end{verbatim}
+\end{pdfversion}
+\endhtmlignore
+\begin{htmlversion}
+\begin{verbatim}
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 0.5pt have occurred.
+\end{verbatim}
+\end{htmlversion}
+after \LaTeX{} has encountered \cmdinvoke{end}{document}.
+
+The message tells you that you've chosen a font size that is not in
+\LaTeX{}'s list of ``allowed'' sizes for this font; \LaTeX{} has
+chosen the nearest font size it knows is allowed.  In fact, you can
+tell \LaTeX{} to allow \emph{any} size: the restrictions come from the
+days when only bitmap fonts were available, and they have never
+applied to fonts that come in scaleable form in the first place.
+Nowadays, most of the fonts that were once bitmap-only are also
+available in scaleable (Adobe Type~1) form.  If your installation uses
+scaleable versions of the Computer Modern or European Computer Modern
+(\acro{EC}) fonts, you can tell \LaTeX{} to remove the restrictions;
+use the \Package{type1cm} or \Package{type1ec} package as appropriate.
+
+If the combination of font shape and series isn't available, \LaTeX{}
+will usually have been told of a fall-back combination that may be
+used, and will select that:
+\htmlignore
+\begin{dviversion}
+\begin{verbatim}
+LaTeX Font Warning: Font shape `OT1/cmr/bx/sc'
+...                 undefined
+(Font)              using `OT1/cmr/bx/n'
+...                 instead on input line 0.
+\end{verbatim}
+\end{dviversion}
+\begin{pdfversion}
+\begin{verbatim}
+LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
+(Font)              using `OT1/cmr/bx/n' instead on input line 0.
+\end{verbatim}
+\end{pdfversion}
+\endhtmlignore
+\begin{htmlversion}
+\begin{verbatim}
+LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
+(Font)              using `OT1/cmr/bx/n' instead on input line 0.
+\end{verbatim}
+\end{htmlversion}
+
+Substitutions may also be ``silent''; in this case, there is no more
+than an ``information'' message in the log file.  For example, if you
+specify an encoding for which there is no version in the current font
+family, the `default family for the encoding' is selected.  This
+happens, for example, if you use command \csx{textbullet}, which is
+normally taken from the maths symbols font, which is in |OMS|
+encoding.  My test log contained:
+\htmlignore
+\begin{dviversion}
+\begin{verbatim}
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in
+...                 size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n'
+...                 tried instead on input
+...                 line ...
+\end{verbatim}
+\end{dviversion}
+\begin{pdfversion}
+\begin{verbatim}
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line ...
+\end{verbatim}
+\end{pdfversion}
+\endhtmlignore
+\begin{htmlversion}
+\begin{verbatim}
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line ...
+\end{verbatim}
+\end{htmlversion}
+
+In summary, these messages are not so much error messages, as
+information messages, that tell you what \LaTeX{} has made of your
+text.  You should check what the messages say, but you will ordinarily
+not be surprised at their content.
+\begin{ctanrefs}
+\item[type1cm.sty]\CTANref{type1cm}
+\item[type1ec.sty]\CTANref{type1ec}
+\end{ctanrefs}
+
+\Question[Q-buffovl]{Unable to read an entire line}
+
+\TeX{} belongs to the generation of applications written for
+environments that didn't offer the sophisticated string and i/o
+manipulation we nowadays take for granted (\TeX{} was written in
+Pascal, and the original Pascal standard made no mention of i/o, so
+that anything but the most trivial operations were likely to be
+unportable).
+
+When you overwhelm \TeX{}'s input mechanism, you get told:
+\begin{verbatim}
+! Unable to read an entire line---bufsize=3000.
+    Please ask a wizard to enlarge me.
+\end{verbatim}
+(for some value of `3000'~--- the quote was from a
+\Newsgroup{comp.text.tex} posting by a someone who was presumably
+using an old \TeX{}).
+
+As the message implies, there's (what \TeX{} thinks of as a) line in
+your input that's ``too long'' (to \TeX{}'s way of thinking).  Since
+modern distributions tend to have tens of thousands of bytes of input
+buffer, it's somewhat rare that these messages occur ``for real''.
+Probable culprits are:
+\begin{itemize}
+\item A file transferred from another system, without translating
+  record endings.  With the decline of fixed-format records (on
+  mainframe operating systems) and the increased intelligence of
+  \TeX{} distributions at recognising other systems' explicit
+  record-ending characters, this is nowadays rather a rare cause of
+  the problem.
+\item A graphics input file, which a package is examining for its
+  bounding box, contains a binary preview section.  Again,
+  sufficiently clever \TeX{} distributions recognise this situation,
+  and ignore the previews (which are only of interest, if at all, to a
+  \TeX{} previewer).
+\end{itemize}
+
+The usual advice is to ignore what \TeX{} says (i.e., anything about
+enlarging), and to put the problem right in the source. 
+
+If the real problem is over-long text lines, most self-respecting text
+editors will be pleased to automatically split long lines (while
+preserving the ``word'' structure) so that they are nowhere any longer
+than a given length; so the solution is just to edit the file.
+
+If the problem is a ridiculous preview section, try using
+\href{http://www.ghostscript.com/}{\ProgName{ghostscript}}
+to reprocess the file, outputting a ``plain
+\extension{eps}'' file.  (\ProgName{Ghostscript}'s distribution
+includes a script \ProgName{ps2epsi} which will regenerate the preview
+if necessary.)  Users of the shareware program % ! line break
+\href{http://www.ghostgum.com.au/}{\ProgName{gsview}}
+will find buttons to perform the required transformation of the file
+being displayed.
+\LastEdit{2013-06-03}
+
+\Question[Q-formatstymy]{``Fatal format file error; I'm stymied''}
+
+\AllTeX{} applications often fail with this error when you've been
+playing with the configuration, or have just installed a new version.
+
+The format file contains the macros that define the system you want to
+use: anything from the simplest (\plaintex{}) all the way to the most
+complicated, such as \LaTeX{} or \CONTeXT{}.  From the command you
+issue, \TeX{} knows which format you want.
+
+The error message
+\begin{verbatim}
+  Fatal format file error; I'm stymied
+\end{verbatim}
+means that \TeX{} itself can't understand the format you want.
+Obviously, this could happen if the format file had got corrupted, but
+it usually doesn't.  The commonest cause of the message, is that a new
+binary has been installed in the system: no two \TeX{} binaries on the
+same machine can
+understand each other's formats.  So the new version of \TeX{} you
+have just installed, won't understand the format generated by the one
+you installed last year.
+
+Resolve the problem by regenerating the format; of course, this
+depends on which system you are using.
+\begin{itemize}
+\item On a te\TeX{}-based system, run
+\begin{verbatim}
+  fmtutil --all
+\end{verbatim}
+  or
+\begin{verbatim}
+  fmtutil --byfmt=<format name>
+\end{verbatim}
+  to build only the format that you are interested in.
+\item On a \miktex{} system, click \texttt{Start}\arrowhyph{}%
+\texttt{Programs}\arrowhyph{}%
+\texttt{\miktex{} \emph{version}}\arrowhyph{}%
+\texttt{\miktex{} Options}, and in the options window, click
+  \texttt{Update now}.
+\end{itemize}
+
+\Question[Q-nonpdfsp]{Non-\acro{PDF} special ignored!}
+
+This is a \PDFTeX{} error: \PDFTeX{} is running in \acro{PDF} output
+%  beware line break at end line
+mode, and it has encountered a \nothtml{\csx{special} command (}%
+\Qref{\csx{special}}{Q-specials}\latexhtml{)}{ command}.  \PDFTeX{} is
+able to generate its own output, and in this mode of operation has no
+need of \csx{special} commands (which allow the user to pass
+information to the driver being used to generate output).
+
+Why does this happen?  \LaTeX{} users, nowadays, hardly ever use
+\csx{special} commands on their own~--- they employ packages to do the
+job for them.  Some packages will generate \csx{special} commands
+however they are invoked: \Package{pstricks} is an example (it's very
+raison d'\^etre is to emit \PS{} code in a sequence of \csx{special}
+commands).  \Package{Pstricks} may be dealt with by other means (the
+\Package{pdftricks} package offers a usable technique).
+
+More amenable to correction, but more confusing, are packages (such as
+\Package{color}, \Package{graphics} and \Package{hyperref}) that
+specify a ``driver''.  These packages have plug-in modules that
+determine what \csx{special} (or other commands) are needed to generate
+any given effect: the \texttt{pdftex} driver for such packages knows not to
+generate \csx{special} commands.  In most circumstances, you can let
+the system itself choose which driver you need; in this case
+everything will act properly when you switch to using \PDFLaTeX{}.  If
+you've been using \ProgName{dvips} (and specifying the |dvips| driver)
+or \ProgName{dvipdfm} (for which you have to specify the driver), and
+decide to try \PDFLaTeX{}, you \emph{must} remove the |dvips| or
+|dvipdfm| driver specification from the package options, and let the
+system recognise which driver is needed.
+\begin{ctanrefs}
+\item[pdftricks.sty]\CTANref{pdftricks}
+\item[pstricks.sty]\CTANref{pstricks}
+\end{ctanrefs}
+
+\Question[Q-8000]{Mismatched mode ljfour and resolution 8000}
+
+You're running \ProgName{dvips}, and you encounter a stream of error
+messages, starting with ``\texttt{Mismatched mode}''.  The mode is the
+default used in your installation~--- it's set in the \ProgName{dvips}
+configuration file, and \texttt{ljfour} is commonest (since it's the
+default in most distributions), but not invariable.
+
+The problem is that \ProgName{dvips} has encountered a font for which
+it must generate a bitmap (since it can't find it in Type~1 format),
+and there is no proforma available to provide instructions to give to
+\MF{}.
+
+So what to do?  The number 8000 comes from the `\texttt{-Ppdf}' option
+to \ProgName{dvips}, which you might have found from the answer
+\nothtml{``wrong type of fonts'' (}% beware % beware line breaks
+\Qref{``wrong type of fonts''}{Q-fuzzy-type3}\nothtml{)}.  The obvious
+solution is to switch to the trivial substitute `\texttt{-Pwww}',
+which selects the necessary type~1 fonts for \acro{PDF} generation,
+but nothing else: however, this will leave you with undesirable bitmap
+fonts in your \acro{PDF} file.  The ``proper'' solution is to find a
+way of expressing what you want to do, using type~1 fonts.
+
+\Question[Q-toodeep]{``Too deeply nested''}
+
+This error appears when you start a \LaTeX{} list.
+
+\LaTeX{} keeps track of the nesting of one list inside another.  There
+is a set of list formatting parameters built-in for application to
+each of the list nesting levels; the parameters determine indentation,
+item separation, and so on.  The \environment{list} environment (the
+basis for list environments like \environment{itemize} and
+\environment{enumerate}) ``knows'' there are only 6 of these sets.
+
+There are also different label definitions for the
+\environment{enumerate} and \environment{itemize} environments at
+their own private levels of nesting.  Consider this example:
+\begin{quote}
+\begin{verbatim}
+\begin{enumerate}
+\item first item of first enumerate
+  \begin{itemize}
+  \item first item of first itemize
+    \begin{enumerate}
+    \item first item of second enumerate
+    ...
+    \end{enumerate}
+  ...
+  \end{itemize}
+...
+\end{enumerate}
+\end{verbatim}
+\end{quote}
+In the example,
+\begin{itemize}
+\item the first \environment{enumerate} has labels as for a
+  first-level \environment{enumerate}, and is indented as for a
+  first-level list;
+\item the first \environment{itemize} has labels as for a first level
+  \environment{itemize}, and is indented as for a second-level list;
+  and
+\item the second \environment{enumerate} has labels as for a
+  second-level \environment{enumerate}, and is indented as for a
+  third-level list.
+\end{itemize}
+Now, as well as \LaTeX{} \emph{knowing} that there are 6~sets of
+parameters for indentation, it also \emph{knows} that there are only
+4~types of labels each, for the environments \environment{enumerate}
+and \environment{itemize} (this ``knowledge'' spells out a requirement
+for class writers, since the class supplies the sets of parameters).
+
+From the above, we can deduce that there are several ways we can run
+out of space: we can have 6~lists (of any sort) nested, and try to
+start a new one; we can have 4~\environment{enumerate} environments
+somewhere among the set of nested lists, and try to add another one;
+and we can have 4~\environment{itemize} environments somewhere among
+the set of nested lists, and try to add another one.
+
+What can be done about the problem?  Not much, short of rewriting
+\LaTeX{}~--- you really need to rewrite your document in a slightly
+less labyrinthine way.
+
+\Question[Q-inputlev]{Capacity exceeded~--- input levels}
+
+The error
+\begin{wideversion}
+\begin{verbatim}
+! TeX capacity exceeded, sorry [text input levels=15].
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+! TeX capacity exceeded, sorry
+                         [text input levels=15].
+\end{verbatim}
+\end{narrowversion}
+is caused by nesting your input too deeply.  You can provoke it with
+the trivial (\plaintex{}) file \File{input.tex}, which contains
+nothing but: 
+\begin{verbatim}
+\input input
+\end{verbatim}
+In the real world, you are unlikely to encounter the error with a
+modern \TeX{} distribution.  Te\TeX{} (used to produce the error
+message above) allows 15 files open for \TeX{} input at any one time,
+which is improbably huge for a document generated by real human
+beings.
+
+However, for those improbable (or machine-generated) situations,
+some distributions offer the opportunity to adjust the parameter
+|max_in_open| in a configuration file.
+
+\Question[Q-hyperdupdest]{\PDFTeX{} destination \dots{}\ ignored}
+
+The warning:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+! pdfTeX warning (ext4): destination with the same identifier
+(name{page.1}) has been already used, duplicate ignored
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+! pdfTeX warning (ext4): destination with
+  the same identifier (name{page.1}) has
+  been already used, duplicate ignored
+\end{verbatim}
+{\small NB: message text wrapped to fit in the column\par}
+\end{narrowversion}
+\end{quote}
+arises because of duplicate page numbers in your document.  The
+problem is usually soluble: see % beware line break
+\Qref*[question]{\acro{PDF} page destinations}{Q-pdfpagelabels}~--- which
+answer also describes the problem in more detail.
+
+If the identifier in the message is different, for example
+\texttt{name\{figure.1.1\}}, the problem is (often) due to a problem of
+package interaction.  The \File{README} in the \Package{hyperref}
+distribution mentions some of these issues~--- for example,
+\environment{equation} and \environment{eqnarray} as supplied by the
+\Package{amsmath} package; means of working around the problem are
+typically supplied there.
+
+Some packages are simply incompatible with
+\Package{hyperref}, but most work simply by ignoring it.  In most
+cases, therefore, you should load your package before you load
+\Package{hyperref}, and \Package{hyperref} will patch things up so
+that they work, so you can utilise your (patched) package \emph{after}
+loading both:
+\begin{quote}
+  \cmdinvoke{usepackage}{\emph{your package}}\\
+  \texttt{...}\\
+  \cmdinvoke{usepackage}[\emph{opts}]{hyperref}\\
+  \texttt{...}\\
+  \meta{code that uses your package}
+\end{quote}
+\begin{wideversion}
+For example:
+\begin{quote}
+\begin{verbatim}
+\usepackage{float}          % defines \newfloat
+...
+\usepackage[...]{hyperref}  % patches \newfloat
+...
+\newfloat{...}{...}{...}
+\end{verbatim}
+\end{quote}
+\end{wideversion}
+\begin{narrowversion}
+So, if we need \csx{newfloat}:
+\begin{quote}
+\cmdinvoke{usepackage}{float}
+\end{quote}
+will define the command,
+\begin{quote}
+\cmdinvoke{usepackage}[\emph{opts}]{hyperref}
+\end{quote}
+will patch it, and now: 
+\begin{quote}
+\cmdinvoke{newfloat}{...}{...}{...}
+\end{quote}
+will use the command, patched to create `proper' hyperreferences.
+\end{narrowversion}
+You should load packages in this order as a matter of course, unless
+the documentation of a package says you \emph{must} load it after
+\Package{hyperref}.  (There are few packages that require to be
+loaded after hyperref: one such is \Class{memoir}'s
+``\Package{hyperref} fixup'' package \Package{memhfixc}.)
+
+If loading your packages in the (seemingly) ``correct'' order doesn't
+solve the problem, you need to \Qref*{seek further help}{Q-gethelp}.
+
+\Question[Q-altabcr]{Alignment tab changed to \csx{cr}}
+
+This is an error you may encounter in \LaTeX{} when a tabular
+environment is being processed.  ``Alignment tabs'' are the
+\texttt{\&} signs that separate the columns of a \environment{tabular}
+(or \environment{array} or matrix) environment; so the error message
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+! Extra alignment tab has been 
+                            changed to \cr
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+! Extra alignment tab has been changed to \cr
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+could arise from a simple typo, such as:
+\begin{quote}
+\begin{verbatim}
+\begin{tabular}{ll}
+  hello   & there & jim \\
+  goodbye & now
+\end{tabular}
+\end{verbatim}
+\end{quote}
+where the second \texttt{\&} in the first line of the table is more than the
+two-column \texttt{ll} column specification can cope with. In this
+case, an extra ``\texttt{l}'' in that solves the problem.  (If you
+continue from the error in this case, ``\texttt{jim}'' will be moved
+to a row of his own.)  Another simple typo that can provoke the error
+is:
+\begin{quote}
+\begin{verbatim}
+\begin{tabular}{ll}
+  hello   & there
+  goodbye & now
+\end{tabular}
+\end{verbatim}
+\end{quote}
+where the `\texttt{\bsbs }' has been missed from the first line of the table.
+In this case, if you continue from the error, you will find that
+\LaTeX{} has made a table equivalent to:
+\begin{quote}
+\begin{verbatim}
+\begin{tabular}{ll}
+  hello   & there goodbye\\
+  now
+\end{tabular}
+\end{verbatim}
+\end{quote}
+(with the second line of the table having only one cell).
+
+Rather more difficult to spot is the occurrence of the error when
+you're using alignment instructions in a ``\texttt{p}'' column:
+\begin{quote}
+\begin{verbatim}
+\usepackage{array}
+...
+\begin{tabular}{l>{\raggedright}p{2in}}
+here & we are again \\
+happy & as can be
+\end{tabular}
+\end{verbatim}
+\end{quote}
+the problem here (as explained in % ! line break
+\Qref[question]{tabular cell alignment}{Q-tabcellalign}) is that the
+\csx{raggedright} command in the column specification has overwritten
+\environment{tabular}'s definition of \texttt{\bsbs }, so that
+``\texttt{happy}'' appears in a new line of the second column, and the
+following \texttt{\&} appears to \LaTeX{} just like the second
+\texttt{\&} in the first example above.
+
+Get rid of the error in the way described in % ! linebreak
+\Qref[question]{tabular cell alignment}{Q-tabcellalign}~--- either use
+\csx{tabularnewline} explicitly, or use the \csx{RBS} trick described
+there.
+
+The \Package{amsmath} package adds a further twist; when typesetting
+a matrix (the package provides many matrix environments), it has a
+fixed maximum number of columns in a matrix~--- exceed that maximum,
+and the error will appear.  By default, the maximum is set to 10, but
+the value is stored in counter \texttt{MaxMatrixCols} and may be
+changed (in the same way as any counter):
+\begin{quote}
+\begin{verbatim}
+\setcounter{MaxMatrixCols}{20}
+\end{verbatim}
+\end{quote}
+\begin{ctanrefs}
+\item[array.sty]Distributed as part of \CTANref{2etools}[array]
+\end{ctanrefs}
+\LastEdit{2011-07-06}
+
+\Question[Q-divzero]{Graphics division by zero}
+
+While the error
+\begin{quote}
+\begin{verbatim}
+! Package graphics Error: Division by 0.
+\end{verbatim}
+\end{quote}
+can actually be caused by offering the package a figure which claims
+to have a zero dimension, it's more commonly caused by rotation.
+
+Objects in \TeX{} may have both height (the height above the baseline)
+and depth (the distance the object goes below the baseline).  If you
+rotate an object by 180\,degrees, you convert its height into depth,
+and vice versa; if the object started with zero depth, you've
+converted it to a zero-height object.
+
+Suppose you're including your graphic with a command like:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\includegraphics[angle=180,height=5cm]{myfig.eps}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\includegraphics[angle=180,%
+                height=5cm]{myfig.eps}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+In the case that \File{myfig.eps} has no depth to start with, the
+scaling calculations will produce the division-by-zero error.
+
+Fortunately, the \Package{graphicx} package has a keyword
+\pkgoption{totalheight}, which allows you to specify the size of the
+image relative to the sum of the object's \pkgoption{height} and
+\pkgoption{depth}, so
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+\includegraphics[angle=180,totalheight=5cm]{myfig.eps}
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+\includegraphics[angle=180,%
+           totalheight=5cm]{myfig.eps}
+\end{verbatim}
+\end{narrowversion}
+\end{quote}
+will resolve the error, and will behave as you might hope.
+
+If you're using the simpler \Package{graphics} package, use the
+\texttt{*} form of the \csx{resizebox} command to specify the use of
+\pkgoption{totalheight}:
+\begin{quote}
+\begin{verbatim}
+\resizebox*{!}{5cm}{%
+  \rotatebox{180}{%
+    \includegraphics{myfig.eps}%
+  }%
+}
+\end{verbatim}
+\end{quote}
+\begin{ctanrefs}
+\item[graphics.sty,graphicx.sty]Both parts of the \CTANref{graphics} bundle
+\end{ctanrefs}
+
+\Question[Q-missbegdoc]{Missing \csx{begin}\marg{document}}
+
+The \emph{preamble} of your document is the stuff before
+\cmdinvoke{begin}{document}; you put \csx{usepackage} commands and
+your own macro definitions in there.  \latex{} doesn't like
+\emph{typesetting} anything in the preamble, so if you have:
+\begin{itemize}
+\item typed the odd grumble,
+\item created a box with \csx{newsavebox} and put something in it
+  using \csx{sbox} (or the like),
+\item forgotten to put \cmdinvoke{begin}{document} into the document,
+  at all, or even
+\item gave it the wrong file
+\end{itemize}
+the error is inevitable and the solution is simple~--- judicious use
+of comment markers (`\texttt{\textpercent{}}') at the beginning of a
+line, moving things around, providing something that was
+missing~\dots{} or switching to the correct file.
+
+The error may also occur while reading the \extension{aux} file from an
+earlier processing run on the document; if so, delete the
+\extension{aux} file and start again from scratch.  If the error
+recurs, it could well be due to a buggy class or package.
+
+However, it may be that none of the above solves the problem.
+
+If so, remember that things that appear before \csx{documentclass} are
+also problematical: they are inevitably before
+\cmdinvoke{begin}{document}!
+
+Unfortunately, modern editors are capable of putting things there, and
+preventing you from seeing them.  This can happen when your document
+is being `written' in \Qref*{Unicode}{Q-unicode}.  The Unicode
+standard defines ``Byte Order Marks'' (\acro{BOM}), that reassure a
+program (that reads the document) of the way the Unicode codes are
+laid out.  Sadly ordinary \latex{} or \pdflatex{} choke on
+\acro{BOM}s, and consider them typesetting requests.  The error
+message you see will look like:
+\begin{quote}
+\begin{verbatim}
+! LaTeX Error: Missing \begin{document}.
+...
+l.1 <?>
+       <?><?>\documentclass{article}
+\end{verbatim}
+\end{quote}
+(Those \texttt{<?>}s are your operating system's representation of an
+unknown character; on the author's system it's a reverse video
+`\texttt{?}' sign.)
+
+You can spot the \acro{BOM} by examining the bytes; for example, the
+Unix \ProgName{hexdump} application can help:
+\begin{quote}
+\begin{verbatim}
+$ hexdump -C <file>
+00000000  ef bb bf 5c 64 6f 63 75 ...
+\end{verbatim}
+\end{quote}
+The \texttt{5c 64 6f 63 75} are the ``\csx{docu}'' at the start of
+(the `real' part of) your document; the three bytes before it form the
+\acro{BOM}.
+
+How to stop your editor from doing this to you depends, of course, on
+the editor you use; if you are using \acro{GNU E}macs, you have to
+change the encoding from \texttt{utf-8-with-signature} to `plain'
+\texttt{utf-8}; instructions for that are found on
+% ! line break
+\href{http://stackoverflow.com/questions/3859274/}{the ``stack overflow'' site}
+
+(So far, all instances of this problem that the author has seen have
+afflicted \acro{GNU E}macs users.)
+
+Fortunately \xetex{} and \luatex{} know about \acro{BOM}s and what to
+do with them, so \latex{} using them is ``safe''.
+
+\Question[Q-normalszmiss]{\csx{normalsize} not defined}
+
+The \LaTeX{} error:
+\begin{quote}
+\begin{narrowversion}
+\begin{verbatim}
+The font size command \normalsize is not
+   defined: there is probably something
+   wrong with the class file.
+\end{verbatim}
+\end{narrowversion}
+\begin{wideversion}
+\begin{verbatim}
+The font size command \normalsize is not defined:
+there is probably something wrong with the class file.
+\end{verbatim}
+\end{wideversion}
+\end{quote}
+reports something pretty fundamental (document base font size has not
+been set, something the document class does for you).  It \emph{can},
+in principle, be a problem with the document class, but is more often
+caused by the user forgetting to start their document with a
+\csx{documentclass} command.
+\LastEdit{2013-11-20}
+
+\Question[Q-manymathalph]{Too many math alphabets}
+
+\TeX{} mathematics is one of its most impressive features, yet the
+internal structure of the mechanism that produces it is painfully
+complicated and (in some senses) pathetically limited.  One area of
+limitation is that one is only allowed 16~''maths alphabets''
+
+\LaTeX{} offers the user quite a lot of flexibility with allocating
+maths alphabets, but few people use the flexibility directly.
+Nevertheless, there are many packages that provide symbols, or that
+manipulate them, which allocate themselves one or more maths alphabet.
+
+If you can't afford to drop any of these packages, you might be able
+to consider switching to use of \Qref*{\xetex{}}{Q-xetex} or
+\Qref{\luatex{}}{Q-luatex}, which both have 65536 alphabet slots
+available.  (Such a change is best not done when under pressure to
+complete a document; other issues, such as font availability) could
+make a change impractical.)
+
+Even if switching is not possible, there's still hope if you're using
+the \Package{bm} package to support \Qref*{bold maths}{Q-boldgreek}:
+\Package{bm} is capable of gobbling alphabets as if there is no
+tomorrow.  The package defines two limiter commands: \csx{bmmax} (for
+\emph{bold} symbols; default~4) and \csx{hmmax} (for \emph{heavy}
+symbols, if you have them; default~3), which control the number of
+alphabets to be used.
+
+Any reduction of the \csx{\emph{xx}max} variables will slow
+\Package{bm} down~--- but that's surely better than the document not
+running at all.  So unless you're using maths fonts (such as
+\FontName{Mathtime Plus}) that feature a heavy symbol weight, suppress all
+use of heavy families by
+\begin{quote}
+\begin{verbatim}
+  \newcommand{\hmmax}{0}
+\end{verbatim}
+\end{quote}
+(before loading \Package{bm}), and then steadily reduce the bold
+families, starting with 
+\begin{quote}
+\begin{verbatim}
+  \newcommand{\bmmax}{3}
+\end{verbatim}
+\end{quote}
+(again before loading \Package{bm}), until (with a bit of luck) the
+error goes away.
+\begin{ctanrefs}
+\item[bm.sty]Distributed as part of \CTANref{2etools}[bm]
+\end{ctanrefs}
+
+\Question[Q-ouparmd]{Not in outer par mode}
+
+The error:
+\begin{quote}
+\begin{verbatim}
+! LaTeX Error: Not in outer par mode.
+\end{verbatim}
+\end{quote}
+comes when some ``main'' document feature is shut up somewhere it
+doesn't like.
+
+The commonest occurrence is when the user wants a figure somewhere
+inside a table:
+\begin{quote}
+\begin{verbatim}
+\begin{tabular}{|l|}
+  \hline
+  \begin{figure}
+  \includegraphics{foo}
+  \end{figure}
+  \hline
+\end{tabular}
+\end{verbatim}
+\end{quote}
+a construction that was supposed to put a frame around the diagram,
+but doesn't work, any more than:
+\begin{quote}
+\begin{verbatim}
+\framebox{\begin{figure}
+  \includegraphics{foo}
+  \end{figure}%
+}
+\end{verbatim}
+\end{quote}
+The problem is, that the \environment{tabular} environment, and the
+\csx{framebox} command restrain the \environment{figure} environment
+from its natural m\'etier, which is to float around the document.
+
+The solution is simply not to use the \environment{figure} environment
+here:
+\begin{quote}
+\begin{verbatim}
+\begin{tabular}{|l|}
+  \hline
+  \includegraphics{foo}
+  \hline
+\end{tabular}
+\end{verbatim}
+\end{quote}
+What was the float for?~--- as written in the first two examples, it
+serves no useful purpose; but perhaps you actually wanted a diagram
+and its caption framed, in a float.
+
+It's simple to achieve this~--- just reverse the order of the
+environments (or of the \environment{figure} environment and the
+command):
+\begin{quote}
+\begin{verbatim}
+\begin{figure}
+  \begin{tabular}{|l|}
+    \hline
+    \includegraphics{foo}
+    \caption{A foo}
+    \hline
+  \end{tabular}
+\end{figure}
+\end{verbatim}
+\end{quote}
+The same goes for \environment{table} environments (or any other sort
+of float you've defined for yourself) inside tabulars or box commands;
+you \emph{must} get the float environment out from inside, one way or
+another.
+
+\Question[Q-errmissitem]{Perhaps a missing \csx{item}?}
+
+Sometimes, the error
+\begin{quote}
+\begin{verbatim}
+Something's wrong--perhaps a missing \item
+\end{verbatim}
+\end{quote}
+actually means what it says:
+\begin{quote}
+\begin{verbatim}
+\begin{itemize}
+  boo!
+\end{itemize}
+\end{verbatim}
+\end{quote}
+produces the error, and is plainly in need of an \csx{item} command.
+
+You can also have the error appear when at first sight things are
+correct:
+\begin{quote}
+\begin{verbatim}
+\begin{tabular}{l}
+  \begin{enumerate}
+  \item foo\\
+  \item bar
+  \end{enumerate}
+\end{tabular}
+\end{verbatim}
+\end{quote}
+produces the error at the \texttt{\bsbs }.  This usage is just wrong; if you
+want to number the cells in a table, you have to do it ``by hand'':
+\begin{quote}
+\begin{verbatim}
+\newcounter{tablecell}
+...
+\begin{tabular}{l}
+  \stepcounter{tablecell}
+  \thetablecell. foo\\
+  \stepcounter{tablecell}
+  \thetablecell. bar
+\end{tabular}
+\end{verbatim}
+\end{quote}
+This is obviously untidy; a command \csx{numbercell} defined as:
+\begin{quote}
+\begin{verbatim}
+\newcounter{tablecell}
+...
+\newcommand*{\numbercell}{%
+  \stepcounter{tablecell}%
+  \thetablecell. % **
+}
+\end{verbatim}
+\end{quote}
+could make life easier:
+\begin{quote}
+\begin{verbatim}
+\begin{tabular}{l}
+  \numbercell foo\\
+  \numbercell bar
+\end{tabular}
+\end{verbatim}
+\end{quote}
+Note the deliberate introduction of a space as part of the command,
+marked with asterisks.  Omitted above, the code needs to set the
+counter \ltxcounter{tablecell} to zero
+(\cmdinvoke{setcounter}{tablecell}{0}) before each tabular that uses it.
+
+The error also regularly appears when you would never have thought
+that a \csx{item} command  might be appropriate.  For example, the
+seemingly innocent:
+\begin{quote}
+\begin{verbatim}
+\fbox{%
+  \begin{alltt}
+    boo!
+  \end{alltt}%
+}
+\end{verbatim}
+\end{quote}
+produces the error (the same happens with \csx{mbox} in place of
+\csx{fbox}, or with either of their ``big brothers'', \csx{framebox} and
+\csx{makebox}).  This is because the \environment{alltt} environment
+uses a ``trivial'' list, hidden inside its definition.  (The
+\environment{itemize} environment also has this construct inside
+itself, in fact, so \cmdinvoke{begin}{itemize} won't work inside an
+\csx{fbox}, either.)  The list construct wants to happen between
+paragraphs, so it makes a new paragraph of its own.  Inside the
+\csx{fbox} command, that doesn't work, and subsequent macros convince
+themselves that there's a missing \csx{item} command.
+
+To solve this rather cryptic error, one must put the
+\environment{alltt} inside a paragraph-style box.  The following
+modification of the above \emph{does} work:
+\begin{quote}
+\begin{verbatim}
+\fbox{%
+  \begin{minipage}{0.75\textwidth}
+    \begin{alltt}
+      hi, there!
+    \end{alltt}
+  \end{minipage}
+}
+\end{verbatim}
+\end{quote}
+The code above produces a box that's far too wide for the text.  One
+may want to use something that allows % ! line break
+\Qref*{variable size boxes}{Q-varwidth} in place of the
+\environment{minipage} environment.
+
+Oddly, although the \environment{verbatim} environment wouldn't work
+inside a \csx{fbox} command argument (see % ! line break
+\Qref[question]{verbatim in command arguments}{Q-verbwithin}), you
+get an error that complains about \csx{item}: the environment's
+internal list bites you before \environment{verbatim} has even had a
+chance to create its own sort of chaos.
+
+Another (seemingly) obvious use of \csx{fbox} also falls foul of this
+error:
+\begin{quote}
+\begin{verbatim}
+\fbox{\section{Boxy section}}
+\end{verbatim}
+\end{quote}
+This is a case where you've simply got to be more subtle; you should
+either write your own macros to replace the insides of \LaTeX{}'s
+sectioning macros, or  look for some alternative in the packages
+discussed in % ! line break
+``\Qref*[question]{The style of section headings}{Q-secthead}''.
+
+\Question[Q-errparnum]{Illegal parameter number in definition}
+
+The error message means what it says.  In the simple case, you've
+attempted a definition like:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\abc}{joy, oh #1!}
+\end{verbatim}
+\end{quote}
+or (using \TeX{} primitive definitions):
+\begin{quote}
+\begin{verbatim}
+\def\abc{joy, oh #1!}
+\end{verbatim}
+\end{quote}
+In either of the above, the definition uses an argument, but the
+programmer did not tell \AllTeX{}, in advance, that she was going to.
+The fix is simple~--- \cmdinvoke{newcommand}{\csx{abc}}[1], in the
+\LaTeX{} case, |\def\abc#1| in the basic \TeX{} case.
+
+The more complicated case is exemplified by the attempted definition:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\abc}{joy, oh joy!%
+  \newcommand{\ghi}[1]{gloom, oh #1!}%
+}
+\end{verbatim}
+\end{quote}
+will also produce this error, as will its \TeX{} primitive equivalent:
+\begin{quote}
+\begin{verbatim}
+\def\abc{joy, oh joy!%
+  \def\ghi#1{gloom, oh #1!}%
+}
+\end{verbatim}
+\end{quote}
+This is because special care is needed when defining one macro within
+the code of another macro.  This is explained elsewhere, separately
+for \Qref*[question]{\LaTeX{} definitions}{Q-ltxhash} and for
+\Qref*[question]{\TeX{} primitive definitions}{Q-hash}
+
+\Question[Q-fllost]{Float(s) lost}
+
+The error
+\begin{quote}
+\begin{verbatim}
+! LaTeX Error: Float(s) lost.
+\end{verbatim}
+\end{quote}
+seldom occurs, but always seems deeply cryptic when it \emph{does}
+appear.
+
+The message means what it says: one or more figures, tables, etc., or
+marginpars has not been typeset.  (Marginpars are treated internally
+as floats, which is how they come to be lumped into this error
+message.)
+
+The most likely reason is that you placed a float or a \csx{marginpar}
+command inside another float or marginpar, or inside a
+\environment{minipage} environment, a \csx{parbox} or \csx{footnote}.
+Note that the error may be detected a long way from the problematic
+command(s), so the techniques of % ! line break
+\Qref*{tracking down elusive errors}{Q-erroradvice} all need to be
+called into play.
+
+This author has also encountered the error when developing macros that
+used the \LaTeX{} internal float mechanisms.  Most people doing that
+sort of thing are expected to be able to work out their own problems\dots{}
+
+\Question[Q-parmoderr]{Not in outer par mode}
+
+For example:
+\begin{quote}
+\begin{verbatim}
+*\mbox{\marginpar{foo}}
+
+! LaTeX Error: Not in outer par mode.
+\end{verbatim}
+\end{quote}
+The error comes when you try to build something movable inside a box.
+Movable things, in this context, are floating environments
+(\environment{figure} and \environment{table}, for example), and
+\csx{marginpar}s.  \latex{} simply doesn't have the mechanisms for
+floating out of boxes.  In fact, floats and \csx{marginpar}s
+themselves are built out of boxes, so that they can't be nested.
+
+If your error arises from \csx{marginpar}, you simply have to think of
+an alternative way of placing the command; there is no slick solution.
+
+If a floating environment is the culprit, it may be possible to use
+the ``\texttt{H}'' placement option, provided (for example) by the
+\Package{float} package:
+\begin{quote}
+\begin{verbatim}
+\parbox{25cm}{%
+  \begin{figure}[H]
+  ...
+  \caption{Apparently floating...}
+  \end{figure}%
+}
+\end{verbatim}
+\end{quote}
+This example makes little sense as it stands; however, it is
+conceivable that sane uses could be found (for example, using a
+package such as \Package{algorithm2e} to place two algorithms
+side-by-side).
+\begin{ctanrefs}
+\item[algorithm2e.sty]\CTANref{algorithm2e}
+\item[float.sty]\CTANref{float}
+\end{ctanrefs}
+\LastEdit{2013-09-09}
+
+\Question[Q-texorpdf]{Token not allowed in PDFDocEncoded string}
+
+The package \Package{hyperref} produces this error when it doesn't
+know how to make something into a ``character'' that will go into one
+of its \acro{PDF} entries.  For example, the (unlikely) sequence
+\begin{quote}
+\begin{verbatim}
+\newcommand{\filled}[2]{%
+  #1%
+  \hfil
+  #2%
+}
+\section{\filled{foo}{bar}}
+\end{verbatim}
+\end{quote}
+provokes the error.  \Package{Hyperref} goes on to tell you:
+\begin{quote}
+\begin{verbatim}
+removing `\hfil' on input line ...
+\end{verbatim}
+\end{quote}
+It's not surprising: how would \emph{you} put the
+typesetting instruction \csx{hfil} into a \acro{PDF} bookmark?
+
+\Package{Hyperref} allows you to define an alternative for such
+things: the command \csx{texorpdfstring}, which takes two
+arguments~--- the first is what is typeset, the second is what is put
+into the bookmark.  For example, what you would probably like in this
+case is just a single space in the bookmark; if so, the erroneous
+example above would become:
+\begin{quote}
+\begin{verbatim}
+\newcommand{\filled}[2]{%
+  #1%
+  \texorpdfstring{\hfil}{\space}%
+  #2%
+}
+\section{\filled{foo}{bar}}
+\end{verbatim}
+\end{quote}
+and with that definition, the example will compile succesfully
+(\Package{hyperref} knows about the macro \csx{space}).
+\LastEdit*{2009-05-29}
+
+\Question[Q-checksum]{Checksum mismatch in font}
+
+When \MF{} generates a font it includes a checksum in the font bitmap
+file, and in the font metrics file (\acro{TFM}).  \AllTeX{} includes
+the checksum from the \acro{TFM} file in the \acro{DVI} file.
+
+When \ProgName{dvips} (or other \acro{DVI} drivers) process a
+\acro{DVI} file, they compare checksums in the \acro{DVI} file to
+those in the bitmap fonts being used for character images.  If the
+checksums don't match, it means the font metric file used by \AllTeX{}
+was not generated from the same \MF{} program that generated the
+font.
+
+This commonly occurs when you're processing someone else's \acro{DVI}
+file.
+
+The fonts on your system may also be at fault: possibilities are that
+the new \acro{TFM} was not installed, or installed in a path after an
+old \acro{TFM} file, or that you have a personal cache of bitmaps from
+an old version of the font.
+
+In any case, look at the output -- the chances are that it's perfectly
+\acro{OK}, since metrics tend not to change, even when the bitmaps are
+improved.  (Indeed, many font designers~--- Knuth included~---
+maintain the metrics come what may.)
+
+If the output \emph{does} look bad, your only chance is to regenerate
+things from scratch.  Options include: flushing your bitmap cache,
+rebuild the \acro{TFM} file locally, and so on.
+
+\Question[Q-entercompmode]{Entering compatibility mode}
+
+You run your \LaTeX{} job, and it starts by saying
+\begin{quote}
+\begin{verbatim}
+Entering LaTeX 2.09 COMPATIBILITY MODE
+\end{verbatim}
+\end{quote}
+followed by lines of asterisks and \texttt{!!WARNING!!}.
+
+This means that the document is not written in ``current'' \LaTeX{}
+syntax, and that there is no guarantee that all parts of the document
+will be formatted correctly.
+
+If the document is someone else's, and you want no more than a copy to
+read, ignore the error.  The document may fail elsewhere, but as often
+as not it will provide a \extension{dvi} or \extension{pdf} that's
+adequate for most purposes.
+
+If it's a new document you have just started working on, you have been
+misled by someone.  You have written something like:
+\begin{quote}
+  \cmdinvoke{documentstyle}{article}
+\end{quote}
+or, more generally:
+\begin{quote}
+  \cmdinvoke*{documentstyle}[options]{class}
+\end{quote}
+These forms are (as the warning says) \LaTeXo{} syntax, and to get rid
+of the warning, you must change the command.
+
+The simple form is easy to deal with:
+\begin{quote}
+  \cmdinvoke{documentstyle}{article}
+\end{quote}
+should become:
+\begin{quote}
+  \cmdinvoke{documentclass}{article}
+\end{quote}
+The complex form is more difficult, since \LaTeXo{} ``options''
+conflate two sorts of things~--- options for the class (such as
+\pkgoption{11pt}, \pkgoption{fleqn}), and packages to be loaded.
+So:
+\begin{quote}
+  \cmdinvoke{documentstyle}[11pt,verbatim]{article}
+\end{quote}
+should become:
+\begin{quote}
+  \cmdinvoke{documentclass}[11pt]{article}\\
+  \cmdinvoke{usepackage}{verbatim}
+\end{quote}
+because \pkgoption{11pt} happens to be a class option, while
+\Package{verbatim} is a package.
+
+There's no simple way to work out what are class options under
+\LaTeXo{}; for \Class{article}, the list includes \pkgoption{10pt},
+\pkgoption{11pt}, \pkgoption{12pt}, \pkgoption{draft},
+\pkgoption{fleqn}, \pkgoption{leqno}, \pkgoption{twocolumn} and
+\pkgoption{twoside}~--- anything else must be a package.
+
+Your document may well ``just work'' after changes like those above;
+if not, you should think through what you're trying to do, and consult
+documentation on how to do it~--- there are lots of % ! line break
+\Qref*{free tutorials}{Q-tutorials*} to help you on your way, if you
+don't have access to a \LaTeX{} manual of any sort.
+
+\Question[Q-includeother]{\latex{} won't include from other directories}
+
+You wanted to \cmdinvoke{include}{../bar/xyz.tex}, but \latex{} says:
+\begin{quote}
+\begin{wideversion}
+\begin{verbatim}
+latex: Not writing to ../bar/xyz.aux (openout_any = p).
+! I can't write on file `../bar/xyz.aux'.
+\end{verbatim}
+\end{wideversion}
+\begin{narrowversion}
+\begin{verbatim}
+LaTeX: Not writing to ../bar/xyz.aux
+                          (openout_any = p).
+! I can't write on file `../bar/xyz.aux'.
+\end{verbatim}
+(The first line of that message is wrapped, here.)
+\end{narrowversion}
+\end{quote}
+The error comes from \tex{}'s protection against writing to
+directories that aren't descendents of the one where your document
+resides.  (The restriction protects against problems arising from
+\latex{}ing someone else's malicious, or merely broken, document.  If
+such a document overwrites something you wanted kept, there is obvious
+potential for havoc.)
+
+Document directory structures that can lead to this problem will look
+like the fictional \File{mybook}:
+\begin{quote}
+\begin{verbatim}
+./base/mybook.tex
+./preface/Preface.tex
+./preface/***
+./chapter1/Intro.tex
+...
+\end{verbatim}
+\end{quote}
+With such a structure, any document directory (other than the one
+where \File{mybook.tex} lives), seems ``up'' the tree from the
+base directory.  (References to such files will look like
+\cmdinvoke{include}{../preface/Preface}: the ``\texttt{..}'' is the
+hint.)
+
+But why did it want to write at all?~--- % ! line break
+``\Qref*{what's going in in my \csx{include}}{Q-include}'' explains
+how \csx{include} works, among other things by writing an
+\extension{aux} file for every \csx{includ}ed file.
+
+Solutions to the problem tend to be drastic:
+\begin{enumerate}
+\item Restructure the directories that hold your document so that the
+  master file is at the root of the tree:
+  \begin{quote}
+\begin{verbatim}
+./mybook.tex
+./mybook/preface/Preface.tex
+./mybook/preface/***
+./mybook/chapter1/Intro.tex
+...
+\end{verbatim}
+  \end{quote}
+  and so on.
+\item Did you actually \emph{need} \csx{include}?~--- if not, you can
+  replace \csx{include} by \csx{input} throughout.  (This only works
+  if you don't need \csx{includeonly}.)
+\item You \emph{could} patch your system's \File{texmf.cnf}~--- if you
+  know what you're doing, the error message should be enough of a
+  hint; this action is definitely not recommended, and is left to
+  those who can ``help themselves'' in this respect.
+\end{enumerate}
+\LastEdit*{2012-02-13}
+
+\Question[Q-expl3-old]{Support package \Package{expl3} too old}
+
+Some (rather modern) packages are written using the % ! line break
+\Qref*{\latex{}3 programming environment}{Q-LaTeX3}.  Since \latex{}3
+is still under development, the author cannot reliably guess what
+version of \latex{}3 the user has installed, and whether that version
+is adequate for the current package.  Thus the package's code often
+checks the user's installation, and complains if it's older than the
+author's installation at time of testing.  The error message is:
+\begin{quote}
+\begin{verbatim}
+! Support package expl3 too old.
+\end{verbatim}
+\end{quote}
+The ``additional help'' tells you the solution: update your \latex{}3
+installation.  The relevant things are \Package{l3kernel} (the
+programming environment, which contains the \Package{expl3} mentioned
+in the error message) and \Package{l3packages} (\latex{}3 constructs
+such as command definitions).
+
+While this sounds a drastic remedy, it is no longer the major
+undertaking it once was~--- if you are using a modern \tex{}
+distribution that you installed yourself, ask it to update over the
+internet; if that choice is not available, install from the
+\extension{tds.zip} files available for both packages on \ctan{}.
+\begin{ctanrefs}
+\item[l3kernel \nothtml{\rmfamily}bundle]\CTANref{l3kernel}
+\item[l3packages \nothtml{\rmfamily}bundle]\CTANref{l3packages}
+\end{ctanrefs}
+\LastEdit*{2013-02-20}
