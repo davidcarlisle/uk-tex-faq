@@ -14,7 +14,7 @@ on the [source GitHub site](https://github.com/uktug/uk-tex-faq).
 ## Licence
 
 The source of the FAQ itself and its derived products (human-readable
-versions presented as PDF and HTML) are released under the Creative
+versions presented as PDF and HTML) are released under the [Creative
 Commons Zero](https://creativecommons.org/publicdomain/zero/1.0/)
 license.
 
