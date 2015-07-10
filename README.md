@@ -10,6 +10,12 @@ by the UK-TUG group.
 If you wish to offer help, or to comment on the content of the FAQ,
 please mail [faq@tex.ac.uk](mailto:faq@tex.ac.uk) or log an issue
 on the [source GitHub site](https://github.com/uktug/uk-tex-faq).
+You may also send us a GitHub pull request: if you do make your own
+edits, please see the
+[editing guide](https://github.com/uktug/uk-tex-faq/blob/master/markup-syntax.md)
+and add yourself to the
+[contributors list](https://github.com/uktug/uk-tex-faq/blob/master/faq-intro.tex)
+as part of your request.
 
 ## Licence
 
@@ -29,6 +35,9 @@ Further, you are urged to be very careful about modifying the FAQ:
 - the source and its relationship to the macros that support it, and
   to the dubious Perl scripts that create HTML versions, is extremely
   fragile; so changes are likely to be tricky to "get right".
+  (see the
+  [editing guide](https://github.com/uktug/uk-tex-faq/blob/master/markup-syntax.md)
+  for more details)
 
 - there's a positive danger in publishing un-reviewed advice,
   particularly if it claims to come from a usually reliable source.
