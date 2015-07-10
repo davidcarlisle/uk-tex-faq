@@ -16,7 +16,7 @@ Rules for presentation of text
 
 1. Don't line wrap in macro calls.  Ignore the fact that this can mean
    very long lines.  This restriction applies equally to the
-   []-surrounded optional arguments of macros (e.g., `\item`).
+   `[]`-surrounded optional arguments of macros (e.g., `\item`).
 
 2. Always put `{}` after 'name' macros (such as `\TeX{}`).  Do this
    - even if you prefer `\TeX\` to ensure the name's delimited
@@ -207,24 +207,20 @@ wherever appropriate.
 
 Names, logos, etc., for use whenever needed (to be used just as
 `\name{}`):
-
->  `\AllTeX` [(La)TeX], `\LaTeXe`, `\LaTeXo` [LaTeX 2.09, with requisite
->  precautions about dealing with the undead], `\MF`, `\MP` [MetaPost], `\BV`
->  [Baskerville], `\PDFTeX`, `\PDFLaTeX`, `\CONTeXT`, `\NTS`, `\eTeX`, `\Eplain`,
-> ` \TeXsis`, `\YandY` [the firm, whose name is a bit tricky in HTML],
->  `\WYSIWYG`, `\dots`, `\ldots`, `\pounds`, `\arrowhyp`h [->, used in
->  descriptions of selections from menus, and looking better when
->  typeset], `\textpercent`, `\textasciitilde`
+`\AllTeX` [(La)TeX], `\LaTeXe`, `\LaTeXo` [LaTeX 2.09, with requisite
+precautions about dealing with the undead], `\MF`, `\MP` [MetaPost], `\BV`
+[Baskerville], `\PDFTeX`, `\PDFLaTeX`, `\CONTeXT`, `\NTS`, `\eTeX`, `\Eplain`,
+`\TeXsis`, `\YandY` [the firm, whose name is a bit tricky in HTML],
+`\WYSIWYG`, `\dots`, `\ldots`, `\pounds`, `\arrowhyph` [->, used in
+descriptions of selections from menus, and looking better when
+typeset], `\textpercent`, `\textasciitilde`
 
 Typesetting things, arguments in braces:
-
-> `\acro` [for upper-case acronyms such as CTAN], `\emph`, `\textit`,
-> `\textsl`, `\meta` [as in `doc.sty`], `\texttt`, `\thinspace`, `\ISBN`
+`\acro` [for upper-case acronyms such as CTAN], `\emph`, `\textit`,
+`\textsl`, `\meta` [as in `doc.sty`], `\texttt`, `\thinspace`, `\ISBN`
 
 Typesetting environments:
-
-> `quote`, `description`, `itemize`, `enumerate`, `verbatim`
+`quote`, `description`, `itemize`, `enumerate`, `verbatim`
 
 Other odds and ends:
-
-> `$\pi$`, `$...$`, `\$`, `\#`, `\ `, `\&`, `~` [just produces a space]
+`$\pi$`, `$...$`, `\$`, `\#`, `\ `, `\&`, `~` [just produces a space]
