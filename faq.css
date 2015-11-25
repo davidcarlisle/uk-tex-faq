@@ -1,0 +1,27 @@
+
+html {
+    background-color:#AAA;
+}
+body {
+    max-width:65em;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:white;
+    padding:1em;
+}
+
+li.tocsec {
+        margin-top:1em
+}
+li.tocsec >span {
+    font-weight:bold;
+    font-size:150%
+}
+
+li.tocsubsec {
+    margin-top:.5em;
+}
+li.tocsubsec >span{
+    font-weight:bold;
+    font-size:110%
+}
