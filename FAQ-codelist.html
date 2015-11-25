@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-codelist</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>Code listings in LaTeX</h1>
+
+
+<p>
+
+<p>
+&lsquo;Pretty&rsquo; code listings are sometimes considered worthwhile by the
+&ldquo;ordinary&rdquo; programmer, but they have a serious place in
+the typesetting of dissertations by computer science and other
+students who are expected to write programs.  Simple verbatim listings
+of programs are commonly useful, as well.
+
+<p>
+
+  <a href="FAQ-verbfile.html">Verbatim listings</a> are dealt with elsewhere,
+
+
+
+
+as is the problem of 
+<a href="FAQ-algorithms.html">typesetting algorithm specifications</a>.
+
+<p>
+The <i class="package">listings</i> package is widely regarded as the best bet for
+formatted output (it is capable of parsing program source, within the
+package itself), but there are several well-established packages that
+rely on a pre-compiler of some sort.  You may use <i class="package">listings</i>
+to typeset snippets that you include within your source:
+<blockquote>
+<pre>
+\usepackage{listings}
+\lstset{language=C}
+...
+\begin{document}
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(int argc, char ** argv)
+{
+  printf("Hello world!\n");
+  return 0;
+}
+\end{lstlisting}
+\end{document}
+</pre>
+</blockquote>
+or you can have it typeset whole files:
+<blockquote>
+<pre>
+\usepackage{listings}
+\lstset{language=C}
+...
+\begin{document}
+\lstinputlisting{main.c}
+\end{document}
+</pre>
+</blockquote>
+These very simple examples may be decorated in a huge variety of ways,
+and of course there are other languages in the package&rsquo;s vocabulary
+than just <i class="progname">C</i>&hellip;
+
+<p>
+For a long time, advice on (La)TeX lists seemed to regard
+<i class="package">listings</i> as the be-all and end-all on this topic.  In the
+last few years, viable alternatives have appeared
+
+<p>
+<i class="progname">Highlight</i> is attractive if you need more than one output
+format for your program: as well as (La)TeX output,
+<i class="progname">highlight</i> will produce (X)HTML, RTF
+and XSL-FO representations of your program listing.  The
+manual leads you through the details of defining a parameter file for
+a &ldquo;new&rdquo; language, as well as the presentation details of a language.
+
+<p>
+The <i class="package">minted</i> package is another alternative that offers
+the means of creating new language definitions.  It
+requires that code be processed using an external (<i class="progname">python</i>)
+script, <a href="http://pygments.org/.html"><i class="progname">Pygments</i></a>.
+<i class="progname">Pygments</i>, in turn, needs a &ldquo;lexer&rdquo; that knows the
+language you want to process; lots of these are available, for the
+more commonly-used languages, and there is advice on &ldquo;rolling your
+own&rdquo; on the 
+<a href=&rsquo;http://pygments.org/docs/lexerdevelopment/&rsquo;><i class="progname">Pygments</i> site</a>
+
+<p>
+Usage of <i class="package">minted</i> can be as simple as
+<blockquote>
+  <code>&#x5c;begin</code><code>&#x7b;minted&#x7d;</code></code><code>&#x7b;&lsaquo;<i>language</i>&rsaquo;&#x7d;</code><br>
+  &hellip;<br>
+  <code>&#x5c;end</code><code>&#x7b;minted&#x7d;</code>
+</blockquote>
+which processes the program code dynamically, at typesetting time&nbsp;&mdash;
+though such usage is likely to require that 
+<a href="FAQ-spawnprog.html">separate processing be enabled</a>.
+
+<p>
+On a rather different path, the package <i class="package">showexpl</i> supports
+typesetting [[[alltex]]][[[LBRACE]]][[[RBRACE]]] code and its typeset output, in parallel
+&lsquo;panes&rsquo;.  (Thiscould provide support for [[[alltex]]][[[LBRACE]]][[[RBRACE]]] instruction texts,
+or for papers in TeX user group publications.  The package uses
+<i class="package">listings</i> for its [[[alltex]]][[[LBRACE]]][[[RBRACE]]] pane, and typesets the result
+into a simple box, for the other pane.
+
+<p>
+Longer-established, and variously less &ldquo;powerful&rdquo; systems include:
+<ul>
+<li> The <i class="progname">lgrind</i> system is a well-established
+  pre-compiler, with all the facilities one might need and a wide
+  repertoire of languages; it is derived from the even
+  longer-established <i class="progname">tgrind</i>, whose output is based on
+  Plain TeX.
+<li> The <i class="progname">tiny_c2l</i> system is slightly more recent: users
+  are again encouraged to generate their own driver files for
+  languages it doesn&rsquo;t already deal with, but its &ldquo;tiny&rdquo; name
+  correctly hints that it&rsquo;s not a particularly elaborate system.
+<li> The <i class="progname">C++2LaTeX</i> system comes with strong
+  recommendations for use with C and C++.
+<li> An extremely simple system is <i class="progname">c2latex</i>, for which you
+  write LaTeX source in your C program comments.  The
+  program then converts your program into a LaTeX document for
+  processing.  The program (implicitly) claims to be
+  &ldquo;self-documenting&rdquo;.
+</ul>
+<dl>
+<dt class="ctanref">c2latex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/c2latex">c2latex</a>
+<dt class="ctanref">C++2LaTeX</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/c++2latex">c++2latex</a>
+<dt class="ctanref">highlight</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/highlight">highlight</a>
+<dt class="ctanref">lgrind</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lgrind">lgrind</a>
+<dt class="ctanref">listings.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/listings">listings</a>
+<dt class="ctanref">minted.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/minted">minted</a>
+<dt class="ctanref">showexpl.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/showexpl">showexpl</a>
+<dt class="ctanref">tgrind</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tgrind">tgrind</a>
+<dt class="ctanref">tiny\_c2l</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tiny_c2l">tiny_c2l</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-03-28</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-codelist">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-codelist</a>
+
+<p>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-etex</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#TheBackground">The Background</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What is e-TeX?</h1>
+
+
+<p>
+
+<p>
+While Knuth has declared that TeX will never 
+<a href="FAQ-TeXfuture.html">change in any substantial way</a>, there remain
+things that one might wish had been done differently, or indeed
+implemented at all.
+
+<p>
+The NTS project set out to produce an advanced replacement for
+TeX, to provide a basis for developing such modifications: this
+&ldquo;New Typesetting System&rdquo; would share Knuth&rsquo;s aims, but would
+implement the work in a modern way taking account of the lessons
+learned with TeX.  While a first demonstrator NTS did
+appear, it wasn&rsquo;t practically useful, and the project seems no longer
+active.
+
+<p>
+In parallel with its work on NTS itself, the project developed
+a set of extensions that can be used with a (&ldquo;true&rdquo;) TeX system.
+Such a modified system is known as an e-TeX system, and the concept
+has proved widely successful.  Indeed, current TeX distributions
+are delivered with most formats built with an e-TeX-based system (for
+those who don&rsquo;t want them, e-TeX&rsquo;s extensions can be disabled, leaving
+a functionally standard TeX system).
+
+<p>
+The extensions range from the seemingly simple (increasing the number
+of available registers from 256 to 32768) through to extremely subtle
+programming support.
+
+<p>
+<a href="FAQ-context.html">CONTeXT</a> has required e-TeX for its operation
+for some time, though development is now focused on the use of
+<a href="FAQ-luatex.html">LuaTeX</a>.
+
+<p>
+Some LaTeX packages already specify the use of e-TeX.  Some such
+packages may not work at all on a non-e-TeX system; others will
+work, but not as well as on an e-TeX system.  The 
+<a href="FAQ-LaTeX3.html">LaTeX team</a> has announced that future LaTeX
+packages (specifically those from the team, as opposed to those
+individually contributed) may require e-TeX for optimum performance.
+<dl>
+<dt class="ctanref">e-TeX</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/etex">etex</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-07-13</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-etex">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-etex</a>
+
+<p>

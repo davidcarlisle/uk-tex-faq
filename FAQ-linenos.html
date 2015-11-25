@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-linenos</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>Including line numbers in typeset output</h1>
+
+
+<p>
+
+<p>
+For general numbering of lines, there are two packages for use with
+LaTeX, <i class="package">lineno</i> (which permits labels attached to
+individual lines of typeset output) and <i class="package">numline</i>.
+(<i class="package">Numline</i> is considered obsolete, but remains available from
+the archive.)
+
+<p>
+Both of these packages play fast and loose with the LaTeX output
+routine, which can cause problems: the user should beware&hellip;
+
+<p>
+If the requirement is for numbering verbatim text, <i class="package">moreverb</i>,
+or <i class="package">fancyvrb</i> (see 
+<a class="FAquestion.html" href="FAQ-verbfile.html">including files verbatim</a>) may be used.
+Class <i class="class">memoir</i> also provides the necessary facilities.
+
+<p>
+One common use of line numbers is in critical editions of texts, and
+for this the <i class="package">edmac</i> package offers comprehensive support;
+<i class="package">ledmac</i> is a LaTeX port of <i class="package">edmac</i>.
+
+<p>
+The <i class="package">vruler</i> package sidesteps many of the problems associated
+with line-numbering, by offering (as its name suggests) a rule that
+numbers positions on the page.  The effect is good, applied to
+even-looking text, but is poor in texts that involve breaks such as
+interpolated mathematics or figures.  Documentation of the package, in
+the package itself, is pretty tough going, though there is an example
+(also inside the package file).
+<dl>
+<dt class="ctanref">edmac</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/edmac">edmac</a>
+<dt class="ctanref">fancyvrb.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fancyvrb">fancyvrb</a>
+<dt class="ctanref">ledmac.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ledmac">ledmac</a>
+<dt class="ctanref">lineno.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lineno">lineno</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">moreverb.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/moreverb">moreverb</a>
+<dt class="ctanref">numline.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/numline">numline</a>
+<dt class="ctanref">vruler.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/vruler">vruler</a>
+</dl>
+
+<p>

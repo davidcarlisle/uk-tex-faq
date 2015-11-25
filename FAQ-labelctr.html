@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-labelctr</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>Making labels from a counter</h1>
+
+
+<p>
+
+<p>
+Suppose we have a LaTeX counter, which we&rsquo;ve defined with
+<code>&#x5c;newcounter</code><code>&#x7b;foo&#x7d;</code>.  We can increment the value of the counter
+by <code>&#x5c;addtocounter</code><code>&#x7b;foo&#x7d;</code></code><code>&#x7b;1&#x7d;</code>, but that&rsquo;s pretty clunky for an
+operation that happens so often &hellip;&nbsp;so there&rsquo;s a command
+<code>&#x5c;stepcounter</code><code>&#x7b;foo&#x7d;</code> that does this special case of
+increasing-by-one.
+
+<p>
+There&rsquo;s an internal LaTeX variable, the &ldquo;current label&rdquo;, that
+remembers the last &lsquo;labellable&rsquo; thing that LaTeX has processed.
+You could (if you were to insist) set that value by the relevant
+TeX command (having taken the necessary precautions to ensure that
+the internal command worked)&nbsp;&mdash; but it&rsquo;s not necessary.  If, instead
+of either of the stepping methods above, you say
+<code>&#x5c;refstepcounter</code><code>&#x7b;foo&#x7d;</code>, the internal variable is set to the
+new value, and (until something else comes along), <code>&#x5c;label</code> will
+refer to the counter.
+
+<p>

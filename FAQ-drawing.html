@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-drawing</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Graphics">Graphics</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Drawing with TeX</h1>
+
+
+<p>
+
+<p>
+There are many packages to do pictures in (La)TeX itself (rather than
+importing graphics created externally), ranging from simple use of
+LaTeX <code class="environment">picture</code> environment, through enhancements like
+<i class="progname">eepic</i>, to 
+sophisticated (but slow) drawing with PicTeX. Depending on your type
+of drawing, and setup, here are a few systems you may consider:
+<ul>
+<li> The <code class="environment">picture</code> environment provides rather primitive
+  drawing capabilities (anything requiring more than linear
+  calculations is excluded, unless a font can come to your help).  The
+  environment&rsquo;s tedious insistence on its own <code>&#x5c;unitlength</code>, as the
+  basic measurement in a diagram, may be avoided by use of the
+  <i class="package">picture</i> package, which detects whether a length is quoted
+  as a number or as a length, and acts accordingly.
+<li> <i class="package">epic</i> was designed to make use of the LaTeX
+  <code class="environment">picture</code> environment somewhat less agonising;
+  <i class="package">eepic</i> extends it, and is capable of using <i class="progname">tpic</i>
+  <code>&#x5c;special</code> commands to improve printing performance.  (If the
+  <code>&#x5c;special</code>s aren&rsquo;t available, the <i class="package">eepicemu</i> will do the
+  business, far less efficiently.
+<li> <i class="package">pict2e</i>; this was advertised in 
+  <a href="FAQ-latex-books.html">the LaTeX manual</a>, but didn&rsquo;t appear for nearly
+  ten years after publication of the book!  It removes all the petty
+  restrictions that surround the use of the <code class="environment">picture</code>
+  environment.  It therefore suffers <em>only</em> from the rather
+  eccentric drawing language of the environment, and is a far more
+  useful tool than the original environment has ever been.  (Note that
+  <i class="package">pict2e</i> supersedes David Carlisle&rsquo;s stop-gap
+  <i class="package">pspicture</i>.)
+<li> PicTeX is a venerable, and very powerful, system, that draws
+  by placing dots on the page to give the effect of a line or curve.  While
+  this has the potential of great power, it is (of course) much slower
+  than any of the other established packages.  What&rsquo;s more, there
+  are problems with its <a href="FAQ-docpictex.html">documentation</a>.
+<li> <i class="package">PSTricks</i> gives you access to the (considerable) power of
+  PostScript via a set of TeX macros, which talk to PostScript using 
+  <a href="FAQ-specials.html"><code>&#x5c;special</code> commands</a>.  Since PostScript is itself a
+  pretty powerful programming language, many astounding things can in
+  principle be achieved using <i class="package">PSTricks</i> (a wide range of
+  contributed packages, ranging from world mapping to lens design
+  diagrams, is available).
+  <i class="package">Pstricks</i>&rsquo; <code>&#x5c;special</code>s are
+  by default specific to <i class="progname">dvips</i>, but there is
+  a <i class="package">Pstricks</i> &lsquo;driver&rsquo; that allow <i class="package">Pstricks</i> to
+  operate under XeTeX.  PDFTeX users may use <i class="package">pst-pdf</i>,
+  which (like <i class="package">epstopdf</i>&nbsp;&mdash; see 
+  <a class="FAquestion.html" href="FAQ-pdftexgraphics.html">PDFLaTeX graphics</a>) generates
+  PDF files using an auxiliary program, from <i class="package">PSTricks</i>
+  commands (<i class="package">pst-pdf</i> also requires a recent installation of
+  the <i class="package">preview</i> package).
+
+<p>
+  There is a <i class="package">PSTricks</i> mailing list
+  ([[[mailto]]][[[LBRACE]]]pstricks@tug.org[[[RBRACE]]]) which you may
+  <a href="http://tug.org/mailman/listinfo/pstricks.html">join</a>, or you may
+  just browse the 
+  <a href="http://tug.org/pipermail/pstricks/.html">list archives</a>.
+<li> <i class="package">pgf</i>: while <i class="package">pstricks</i> is very powerful and
+  convenient from &lsquo;traditional&rsquo; TeX, using it with PDFLaTeX is
+  pretty tiresome: if you 
+  simply want the graphical capabilities, <i class="package">pgf</i>, together with
+  its &ldquo;user-oriented&rdquo; interface <i class="package">tikz</i>, may be a good
+  bet for you.  While PDF has (in essence) the same graphical
+  capabilities as PostScript, it isn&rsquo;t programmable; <i class="package">pgf</i> provides
+  LaTeX commands that will utilise the graphical capabilities of
+  both PostScript and PDF equally.  <i class="package">Pgf</i> has extensive
+  mathematical support, which allows it to rival <i class="package">PSTricks</i>&rsquo;
+  use of the computation engine within PostScript.
+  The <i class="package">pgf</i> manual is enormous, but a simple introduction which
+  allows the user to get a feel for the capabilities of the system, is
+  available at <a href="http://cremeronline.com/LaTeX/minimaltikz.pdf.html">http://cremeronline.com/LaTeX/minimaltikz.pdf</a>
+<li> MetaPost; you liked MetaFont, but never got to grips with font files?
+  Try <a href="FAQ-MP.html">MetaPost</a>&nbsp;&mdash;
+  all the power of MetaFont, but it generates PostScript figures; MetaPost
+  is nowadays part of most serious (La)TeX distributions.  Knuth
+  uses it for all his work&hellip;
+
+<p>
+  Note that you can 
+  <a href="FAQ-inlgrphapp.html">&ldquo;embed&rdquo; MetaPost source in your document</a> (i.e.,
+  keep it in-line with your LaTeX code).
+<li> You liked MetaFont (or MetaPost), but find the language difficult?
+  <i class="progname">Mfpic</i> makes up MetaFont or MetaPost code for you using
+  familiar-looking (La)TeX macros.  Not <em>quite</em> the full power
+  of MetaFont or MetaPost, but a friendlier interface, and with MetaPost output
+  the results can be used equally well in either LaTeX or PDFLaTeX.
+<li> You liked PicTeX but don&rsquo;t have enough memory or time?  Look
+  at the late Eitan Gurari&rsquo;s <i class="package">dratex</i>: it is just as powerful,
+  but is an entirely new implementation which is not as hard on
+  memory, is much more readable and is (admittedly sparsely) documented at
+  <a href="http://www.cse.ohio-state.edu/&nbsp;gurari/tpf/html/README.html.html">http://www.cse.ohio-state.edu/&nbsp;gurari/tpf/html/README.html</a>,
+  as well as in the author&rsquo;s book &ldquo;TeX and LATeX: Drawing and
+  Literate Programming&rdquo;, which remains available from on-line
+  booksellers.
+</ul>
+
+<p>
+In addition, there are several means of generating code for your
+graphics application (<i class="progname">asymptote</i>, <i class="progname">gnuplot</i> and
+MetaPost, at least) in-line in your document, and then have them
+processed in a command spawned from your (La)TeX run.  For details,
+see <a href="FAQ-inlgrphapp.html">question</a>.
+<dl>
+<dt class="ctanref">dratex.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dratex">dratex</a>
+<dt class="ctanref">epic.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/epic">epic</a>
+<dt class="ctanref">eepic.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/eepic">eepic</a>
+<dt class="ctanref">eepicemu.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/eepic">eepic</a>
+<dt class="ctanref">mfpic</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mfpic">mfpic</a>
+<dt class="ctanref">preview.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/preview">preview</a>
+<dt class="ctanref">pspicture.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pspicture">pspicture</a>
+<dt class="ctanref">pst-pdf.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pst-pdf">pst-pdf</a>
+<dt class="ctanref">pgf.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pgf">pgf</a>
+<dt class="ctanref">pict2e.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pict2e">pict2e</a>
+<dt class="ctanref">pictex.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pictex">pictex</a>
+<dt class="ctanref">picture.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[picture]
+<dt class="ctanref">pstricks</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pstricks">pstricks</a>
+<dt class="ctanref">tikz.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/pgf">pgf</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-10-19</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-drawing">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-drawing</a>
+
+<p>

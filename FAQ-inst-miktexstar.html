@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-inst-miktexstar</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Installation using MiKTeX package manager</h1>
+
+
+<p>
+[[[AliasQuestion]]][[[LBRACE]]]Q-inst-miktex[[[RBRACE]]]
+
+<p>
+Packages for use with MiKTeX are maintained very efficiently by the
+project managers (new packages and updates on CTAN ordinarily
+make their way to the MiKTeX package repository within a week).
+Thus it makes sense for the MiKTeX user to take advantage of the
+system rather than grinding through the steps of installation.
+
+<p>
+MiKTeX maintains a database of packages it &ldquo;knows about&rdquo;,
+together with (coded) installation instructions that enable it to
+install the packages with minimal user intervention; you can update
+the database over the internet.
+
+<p>
+If MiKTeX does know about a package you need installed, it&rsquo;s worth
+using the system:
+first, open the MiKTeX packages window: click on
+  <tt>Start</tt>&rarr;
+  <tt>Programs</tt>&rarr;
+  <tt>MiKTeX</tt>&rarr;
+  <tt>MiKTeX Options</tt>, and select the
+  <tt>Packages</tt> tab.
+
+<p>
+On the tab, there is an Explorer-style display of packages.
+Right-click on the root of the tree, &ldquo;<tt>MiKTeX Packages</tt>&rdquo;,
+and select &ldquo;<tt>Search</tt>&rdquo;: enter the name of the package you&rsquo;re
+interested in, and press the &ldquo;<tt>Search</tt>&rdquo; button.  If
+MiKTeX knows about your package, it will open up the tree to show
+you a tick box for your package: check that box.
+
+<p>
+If you prefer a command-line utility, there&rsquo;s <i class="progname">mpm</i>.  Open a
+command shell, and type:
+<blockquote>
+<pre>
+mpm --install=<package>
+</pre>
+</blockquote>
+(which of course assumes you know the name by which MiKTeX refers to
+your package).
+
+<p>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-activechars</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Defining characters as macros</h1>
+
+
+<p>
+
+<p>
+Single characters can act as macros (defined commands), and both
+Plain TeX and LaTeX define the character
+&ldquo;<tt>[[[textasciitilde]]]</tt>&rdquo; as a &ldquo;non-breakable space&rdquo;.  A
+character is made definable, or &ldquo;active&rdquo;, by setting its
+<em>category code</em> (catcode) to be <code>&#x5c;active</code> (13):
+<blockquote>
+<pre>
+\catcode`\_=\active
+</pre>
+</blockquote>
+Any character could, in principle, be activated this way and defined
+as a macro:
+<blockquote>
+<pre>
+\def_{\_}
+</pre>
+</blockquote>
+which could be characterised as an over-simple answer to 
+<a class="FAquestion.html" href="FAQ-underscore.html">using underscores</a>.  However, you must be
+wary: whereas people expect an active tilde, other active characters
+may be unexpected and interact badly with other macros.  Furthermore,
+by defining an active character, you preclude the character&rsquo;s use for
+other purposes, and there are few characters &ldquo;free&rdquo; to be subverted
+in this way.
+
+<p>
+To define the character &ldquo;<tt>z</tt>&rdquo; as a command, one would say something
+like:
+<blockquote>
+<pre>
+\catcode`\z=\active
+\def z{Yawn, I'm tired}%
+</pre>
+</blockquote>
+and each subsequent &ldquo;<tt>z</tt>&rdquo; in the text would become a
+yawn. This would be an astoundingly bad idea for most documents, but
+might have special applications.  (Note that, in &ldquo;<code>&#x5c;def</code>[[[texttt]]][[[LBRACE]]]
+  z[[[RBRACE]]]&rdquo;, &ldquo;<tt>z</tt>&rdquo; is no longer interpreted as a letter; the space
+is therefore not necessary&nbsp;&mdash; &ldquo;<code>&#x5c;defz</code>&rdquo; would do; we choose to
+retain the space, for what little clarity we can manage.)
+Some LaTeX packages facilitate such definitions. For example, the
+<i class="package">shortvrb</i> package with its <code>&#x5c;MakeShortVerb</code> command.
+
+<p>
+TeX uses category codes to interpret characters as they are read 
+from the input.
+
+<em>Changing a catcode value will not affect characters that have already been read</em>.
+Therefore, it is best if characters have fixed category codes for the
+duration of a document.  If catcodes are changed for particular
+purposes (the <code>&#x5c;verb</code> command does this), then the altered
+characters will not be interpreted properly when they  appear in the
+argument to another command (as, for example, in
+
+&ldquo;<a class="FAquestion.html" href="FAQ-verbwithin.html"><code>&#x5c;verb</code> in command arguments</a>&rdquo;).
+An exemplary case is the <i class="package">doc</i> package, which processes .dtx
+files using the <i class="package">shortvrb</i> package to define
+<tt>[[[textbar]]]&hellip;[[[textbar]]]</tt> as a shorthand for
+<code>&#x5c;verb</code><tt>[[[textbar]]]&hellip;[[[textbar]]]</tt>. But <tt>[[[textbar]]]</tt> is
+also used in the preambles of tabular environments, so that tables in
+<code class="extension">dtx</code> files can only have vertical line separation between
+columns by employing special measures of some sort.
+
+<p>
+Another consequence is that catcode assignments made
+in macros often don&rsquo;t work as expected 
+(see &ldquo;<a href="FAQ-actinarg.html">Active characters in command arguments</a>&rdquo;).
+For example, the definition
+<blockquote>
+<pre>
+\def\mistake{%
+\catcode`_=\active
+\def_{\textunderscore\-}%
+}
+</pre>
+</blockquote>
+does not work because it attempts to define an ordinary <tt>\_</tt> character:
+When the macro is used, the category change does not apply to the 
+underscore character already in the macro definition.  Instead, one may
+use:
+<blockquote>
+<pre>
+\begingroup
+\catcode`_=\active
+\gdef\works{%    note the global \gdef
+  \catcode`_=\active
+  \def_{\textunderscore\-}%
+}
+\endgroup
+</pre>
+</blockquote>
+The alternative (&ldquo;tricksy&rdquo;) way of creating such an isolated
+definition depends on the curious properties of <code>&#x5c;lowercase</code>, which
+changes characters without altering their catcodes.  Since there is
+always <em>one</em> active character (&ldquo;<tt>[[[textasciitilde]]]</tt>&rdquo;), we
+can fool <code>&#x5c;lowercase</code> into patching up a definition without ever
+explicitly changing a catcode:
+<blockquote>
+<pre>
+\begingroup
+  \lccode`\~=`\_
+  \lowercase{\endgroup
+    \def~{\textunderscore\-}%
+  }%
+</pre>
+</blockquote>
+The two definitions have the same overall effect (the character is
+defined as a command, but the character does not remain active),
+except that the first defines a <code>&#x5c;global</code> command.
+
+<p>
+For active characters to be used only in maths mode, it is much better
+to leave the character having its ordinary catcode, but assign it a
+special active <em>maths code</em>, as with
+<blockquote>
+<pre>
+\begingroup
+  \lccode`~=`x
+  \lowercase{\endgroup
+    \def~{\times}%
+  }%
+\mathcode`x="8000
+</pre>
+</blockquote>
+The special character does not need to be redefined whenever it is
+made active&nbsp;&mdash; the definition of the command persists even if the
+character&rsquo;s catcode reverts to its original value; the definition
+becomes accessible again if the character once again becomes active.
+<dl>
+<dt class="ctanref">doc.sty</dt><dd>Part of the LaTeX distribution <a class="ctan" href="https://www.ctan.org/pkg/latex">latex</a>[doc]
+<dt class="ctanref">shortvrb.sty</dt><dd>Part of the LaTeX distribution <a class="ctan" href="https://www.ctan.org/pkg/latex">latex</a>[shortvrb]
+</dl>
+
+<p>
+
+<p>

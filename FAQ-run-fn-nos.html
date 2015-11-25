@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-run-fn-nos</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Footnotes">Footnotes</a> &gt; </div>
+<h1>Not resetting footnote numbers per chapter</h1>
+
+
+<p>
+
+<p>
+Some classes (for example, <i class="class">book</i> and <i class="class">report</i>) set up a
+different set of footnotes per chapter, by resetting the footnote
+number at the start of the chapter.  This is essentially the same
+action as that of 
+<a href="FAQ-running-nos.html">equation, figure and table numbers</a>,
+except that footnote numbers don&rsquo;t get &ldquo;decorated&rdquo; with the chapter
+number, as happens with those other numbers.
+
+<p>
+The solution is the same: use the <i class="package">chngcntr</i> package; since the
+numbers aren&rsquo;t &ldquo;decorated&rdquo; you can use the <code>&#x5c;counterwithout*</code>
+variant; the code:
+<blockquote>
+<pre>
+\counterwithout*{footnote}{chapter}
+</pre>
+</blockquote>
+is all you need
+<dl>
+<dt class="ctanref">chngcntr.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/chngcntr">chngcntr</a>
+</dl>
+
+<p>
+
+<p>
+
+<p>

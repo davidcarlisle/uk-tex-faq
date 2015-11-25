@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-inst-tds-zip</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Installing using ready-built ZIP files</h1>
+
+
+<p>
+
+<p>
+Installing packages, as they (&ldquo;traditionally&rdquo;) appear on
+CTAN, involves:
+<ul>
+<li> identifying where to put the various files on an TDS
+  tree,
+<li> installing them, and
+<li> a few housekeeping operations.
+</ul>
+Most people, for most packages, find the first two steps onerous, the
+last being easy (unless it is forgotten!).
+
+<p>
+Ready-built ZIP files&nbsp;&mdash; also known as 
+<a href="FAQ-tds-zip.html">TDS-ZIP files</a>&nbsp;&mdash; are designed to lighten
+the load of performing the first two steps of installation: they
+contain all the files that are to be installed for a given
+package, in their &ldquo;correct&rdquo; locations in a 
+<a href="FAQ-tds.html">TDS tree</a>.
+
+<p>
+To install such a file on a Unix system (we assume that you&rsquo;ll install
+into the local TEXMF tree, at <tt>&#x24;TEXMFLOCAL</tt>):
+<blockquote>
+<pre>
+cd $TEXMFLOCAL
+unzip $package.tds.zip
+</pre>
+</blockquote>
+
+<p>
+On a Windows system that is modern enough that it has a built-in
+ZIP unpacker, simply double-click on the file, and browse to
+where it&rsquo;s to be unpacked.  (We trust that those using earlier
+versions of Windows will already have experience of using
+<i class="progname">WinZIP</i> or the like.)
+
+<p>
+Having unpacked the <code class="extension">zip</code> archive, in most cases the only
+remaining chore is to update the file indexes&nbsp;&mdash; as in 
+<a href="FAQ-inst-wlcf.html">normal installation instructions</a>.  However, if
+the package provides a font, you also need to enable the font&rsquo;s map,
+which is discussed in 
+&ldquo;<a href="FAQ-instt1font.html">Installing a Type&nbsp;1 font</a>&rdquo;
+
+<p class="lastedit">This answer last edited: 2012-02-08</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-inst-tds-zip">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-inst-tds-zip</a>
+
+<p>

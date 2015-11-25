@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-parmoderr</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Not in outer par mode</h1>
+
+
+<p>
+
+<p>
+For example:
+<blockquote>
+<pre>
+*\mbox{\marginpar{foo}}
+
+! LaTeX Error: Not in outer par mode.
+</pre>
+</blockquote>
+The error comes when you try to build something movable inside a box.
+Movable things, in this context, are floating environments
+(<code class="environment">figure</code> and <code class="environment">table</code>, for example), and
+<code>&#x5c;marginpar</code>s.  LaTeX simply doesn&rsquo;t have the mechanisms for
+floating out of boxes.  In fact, floats and <code>&#x5c;marginpar</code>s
+themselves are built out of boxes, so that they can&rsquo;t be nested.
+
+<p>
+If your error arises from <code>&#x5c;marginpar</code>, you simply have to think of
+an alternative way of placing the command; there is no slick solution.
+
+<p>
+If a floating environment is the culprit, it may be possible to use
+the &ldquo;<tt>H</tt>&rdquo; placement option, provided (for example) by the
+<i class="package">float</i> package:
+<blockquote>
+<pre>
+\parbox{25cm}{%
+  \begin{figure}[H]
+  ...
+  \caption{Apparently floating...}
+  \end{figure}%
+}
+</pre>
+</blockquote>
+This example makes little sense as it stands; however, it is
+conceivable that sane uses could be found (for example, using a
+package such as <i class="package">algorithm2e</i> to place two algorithms
+side-by-side).
+<dl>
+<dt class="ctanref">algorithm2e.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/algorithm2e">algorithm2e</a>
+<dt class="ctanref">float.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/float">float</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-09-09</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-parmoderr">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-parmoderr</a>
+
+<p>

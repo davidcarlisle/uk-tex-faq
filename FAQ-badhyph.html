@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-badhyph</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Improper <code>&#x5c;hyphenation</code> will be flushed</h1>
+
+
+<p>
+
+<p>
+For example
+<pre>
+! Improper \hyphenation will be flushed.
+\'#1->{
+       \accent 19 #1}
+<*> \hyphenation{Ji-m\'e
+                        -nez}
+</pre>
+(in Plain TeX) or
+<pre>
+! Improper \hyphenation will be flushed.
+\leavevmode ->\unhbox 
+                      \voidb@x 
+<*> \hyphenation{Ji-m\'e
+                        -nez}
+</pre>
+in LaTeX.
+
+<p>
+As mentioned in
+
+
+
+
+  &ldquo;<a class="FAquestion.html" href="FAQ-nohyph.html">hyphenation failures</a>&rdquo;,
+
+&ldquo;words&rdquo; containing <code>&#x5c;accent</code> commands may not be hyphenated.  As
+a result, any such word is deemed improper in a <code>&#x5c;hyphenation</code>
+command.
+
+<p>
+Hyphenation happens as paragraphs are laid out; by this time, TeX
+knows what font is used for each glyph; thus it knows the encoding
+being used.  So the solution to the problem is to use a font that
+contains the accented character; doing this this &ldquo;hides&rdquo; the accent
+from the hyphenation mechanisms.
+
+<p>
+For LaTeX users, this is quite an easy task; they select an 8-bit
+font with the package, as in <code>&#x5c;usepackage</code><code>[T1]</code></code><code>&#x7b;fontenc&#x7d;</code>, and
+accented-letter commands such as the <code>&#x5c;&rsquo;</code><tt>e</tt> in
+<code>&#x5c;hyphenation</code><code>&#x7b;Ji-m<code>&#x5c;&rsquo;</code>e-nez&#x7d;</code> automatically become the
+single accented character by the time the hyphenation gets to look at
+it.
+
+<p>
+
+<p>

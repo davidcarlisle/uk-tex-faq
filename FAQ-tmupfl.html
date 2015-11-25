@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tmupfl</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>&ldquo;Too many unprocessed floats&rdquo;</h1>
+
+
+<p>
+
+<p>
+If LaTeX responds to a <code>&#x5c;begin</code><code>&#x7b;figure&#x7d;</code> or
+<code>&#x5c;begin</code><code>&#x7b;table&#x7d;</code> command with the error message
+<blockquote>
+
+<pre>
+! LaTeX Error: Too many unprocessed floats.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+</pre>
+
+
+<pre>
+! LaTeX Error: Too many unprocessed floats.
+
+See the LaTeX manual or LaTeX Companion
+...                        for explanation.
+</pre>
+
+</blockquote>
+your figures (or tables) are not being placed properly.  LaTeX
+has a limited amount of storage for &lsquo;floats&rsquo; (figures, tables, or
+floats you&rsquo;ve defined yourself with the <i class="package">float</i> package); if
+something you have done has prevented LaTeX from typesetting
+floats, it will run out of storage space.
+
+<p>
+This failure usually occurs in extreme cases of 
+<a href="FAQ-floats.html">floats moving &ldquo;wrongly&rdquo;</a>;
+LaTeX has found it can&rsquo;t place a float, and floats of the same type
+have piled up behind it.
+
+<p>
+How does this happen?&nbsp;&mdash; LaTeX guarantees that caption numbers are
+sequential in the document, but the caption number is allocated when
+the figure (or whatever) is created, and can&rsquo;t be changed.  Thus, if
+floats are placed out of order, their caption numbers would also
+appear out of order in the body of the document (and in the list of
+figures, or whatever).  As a result, enforcement of the guarantee
+means that simple failure to place a float means that no subsequent
+float can be placed; and hence (eventually) the error.
+
+<p>
+Techniques for solving the problem are discussed in the 
+<a href="FAQ-floats.html">floats question</a> already referenced.
+
+<p>
+An alternative <em>may</em> be to use the <i class="package">morefloats</i> package.
+The package will allocate more &ldquo;float skeletons&rdquo; than LaTeX
+does by default; each such skeleton may then be used to store a
+float.  Beware that even with <i class="package">morefloats</i>, the number you can
+allocate is limited; even with the <i class="package">etex</i> package (which makes
+available many more registers, etc., than LaTeX does by default;
+e-TeX can create lots more registers, but none of those &ldquo;beyond
+the original TeX default&rdquo; may be used in float skeletons).  Thus,
+<i class="package">etex</i> may offer some relief, but it can <em>not</em> be
+regarded as a panacea
+
+<p>
+The error also occurs in a long sequence of float environments, with
+no intervening text.  Unless the environments will fit &ldquo;here&rdquo; (and
+you&rsquo;ve allowed them to go &ldquo;here&rdquo;), there will never be a page break,
+and so there will never be an opportunity for LaTeX to reconsider
+placement.  (Of course, the floats can&rsquo;t all fit &ldquo;here&rdquo; if the
+sequence is sufficiently prolonged: once the page fills, LaTeX
+won&rsquo;t place any more floats, leading to the error.
+
+<p>
+Techniques for resolution may involve redefining the floats using the
+<i class="package">float</i> package&rsquo;s <tt>[H]</tt> float qualifier, but you are unlikely
+to get away without using <code>&#x5c;clearpage</code> from time to time.
+<dl>
+<dt class="ctanref">float.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/float">float</a>
+<dt class="ctanref">morefloats.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/morefloats">morefloats</a>
+</dl>
+
+<p>

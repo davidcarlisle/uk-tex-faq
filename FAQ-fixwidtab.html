@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-fixwidtab</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>Fixed-width tables</h1>
+
+
+<p>
+
+<p>
+There are two basic techniques for making fixed-width tables in
+LaTeX: you can make the gaps between the columns stretch, or you
+can stretch particular cells in the table.
+
+<p>
+Basic LaTeX can make the gaps stretch: the <code class="environment">tabular*</code>
+environment takes an extra argument (before the <tt>clpr</tt> layout one)
+which takes a length specification: you can say things like &ldquo;<tt>15cm</tt>&rdquo;
+or &ldquo;<code>&#x5c;columnwidth</code>&rdquo; here.  You must also have an <code>&#x5c;extracolsep</code>
+command in the <tt>clpr</tt> layout argument, inside an <tt>@&#x7b;&#x7d;</tt>
+directive.  So, for example, one might have
+<blockquote>
+
+<pre>
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lllr}
+</pre>
+
+
+<pre>
+\begin{tabular*}{\columnwidth}%
+  {@{\extracolsep{\fill}}lllr}
+</pre>
+
+</blockquote>
+The <code>&#x5c;extracolsep</code> applies to all inter-column gaps to its right as
+well; if you don&rsquo;t want all gaps stretched, add
+<code>&#x5c;extracolsep</code><code>&#x7b;0pt&#x7d;</code> to cancel the original.
+
+<p>
+The <i class="package">tabularx</i> package defines an extra <tt>clpr</tt> column
+specification, <tt>X</tt>; <tt>X</tt> columns behave as <tt>p</tt>
+columns which expand to fill the space available.  If there&rsquo;s more
+than one <tt>X</tt> column in a table, the spare space is distributed
+between them.
+
+<p>
+The <i class="package">tabulary</i> package (by the same author) provides a way of
+&ldquo;balancing&rdquo; the space taken by the columns of a table.  The package
+defines column specifications <tt>C</tt>, <tt>L</tt>, <tt>R</tt> and
+<tt>J</tt>, giving, respectively, centred, left, right and
+fully-justified versions of space-sharing columns.  The package
+examines how long each column would be &ldquo;naturally&rdquo; (i.e., on a piece of paper of unlimited width), and
+allocates space to each column accordingly.  There are &ldquo;sanity
+checks&rdquo; so that really large entries don&rsquo;t cause everything else to
+collapse into nothingness (there&rsquo;s a &ldquo;maximum width&rdquo; that any column
+can exert), and so that tiny entries can&rsquo;t get smaller than a
+specified minimum.  Of course, all this work means that the package
+has to typeset each row several times, so things that leave
+&ldquo;side-effects&rdquo; (for example, a counter used to produce a row-number
+somewhere) are inevitably unreliable, and should not even be tried.
+
+<p>
+The <i class="package">ltxtable</i> package combines the features of the
+<i class="package">longtable</i> and <i class="package">tabularx</i> packages.  It&rsquo;s important
+to read the documentation, since usage is distinctly odd; the
+distribution contains no more than a file <i class="filename">ltxtable.tex</i>, which you
+should process using LaTeX.  Processing will give you a <i class="filename">.sty</i>
+file as well as the <i class="filename">.dvi</i> or <i class="filename">.pdf</i> output containing the
+documentation.
+<dl>
+<dt class="ctanref">ltxtable.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/carlisle">carlisle</a>[ltxtable]
+<dt class="ctanref">tabularx.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[tabularx]
+<dt class="ctanref">tabulary.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tabulary">tabulary</a>
+</dl>
+
+<p>

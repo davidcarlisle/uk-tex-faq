@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-pdfpagelabels</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HypertextandPDF">Hypertext and PDF</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1><i class="package">Hyperref</i> and repeated page numbers</h1>
+
+
+<p>
+
+<p>
+The <i class="class">book</i> class (and its friends and relations) automatically
+changes the display of page numbers in the frontmatter of the document
+to lower-case roman.  This is fine for human readers, but if
+<i class="package">hyperref</i> has been misconfigured, the existence of pages have
+the same page number can cause problems.  Fortunately, the
+configuration options to make <i class="package">hyperref</i> &ldquo;do the right
+thing&rdquo; are (by default) set up to avoid problems.
+
+<p>
+The two options in question are:
+<dl>
+<dt class="description"><code class="pkgoption">plainpages=false</code></dt><dd> Make page anchors using the
+  formatted form of the page number.  With this option,
+  <i class="package">hyperref</i> writes different anchors for pages &lsquo;ii&rsquo; and &lsquo;2&rsquo;.
+  (This is the default value for the option, which is a 
+  <em>good thing</em>&hellip;)
+  If the option is set &lsquo;<tt>true</tt>&rsquo; <i class="package">hyperref</i> writes page
+  anchors as the arabic form of the page number, rather than the
+  formatted form that gets printed; this is not usually appropriate.
+<dt class="description"><code class="pkgoption">pdfpagelabels</code></dt><dd> Set PDF page labels; i.e.,
+  write the value of <code>&#x5c;thepage</code> to the PDF file so that
+  <i class="package">Acrobat Reader</i> can display the page number as (say) &lsquo;ii (4
+  of 40)&rsquo; rather than simply &lsquo;4 of 40&rsquo;.
+</dl>
+The two should be used whenever page numbering is not just
+&lsquo;1<tt>..</tt>n&rsquo;; they may be used independently, but
+usually are not.
+
+<p>
+The recipe isn&rsquo;t perfect: it relies on <code>&#x5c;thepage</code> being different
+for every page in the document.  A common problem arises when there is
+an unnumbered title page, after which page numbers are reset: the
+PDFTeX warning of &ldquo;<a href="FAQ-hyperdupdest.html">duplicate destinations</a>&rdquo;
+will happen in this case, regardless of the options.
+<dl>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+</dl>
+
+<p>

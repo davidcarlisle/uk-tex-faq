@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-LaTeX2HTML</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Formatconversions">Format conversions</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Conversion from (La)TeX to HTML</h1>
+
+
+<p>
+
+<p>
+TeX and LaTeX are well suited to producing electronically publishable
+documents. However, it is important to realize the difference
+between page layout and functional markup. TeX is capable of
+extremely detailed page layout; HTML is not, because HTML is a
+functional markup language not a page layout language. HTML&rsquo;s exact
+rendering is not specified by the document that is published but is, to
+some degree, left to the discretion of the browser. If you require your
+readers to see an exact replication of what your document looks like
+to you, then you cannot use HTML and you must use some other
+publishing format such as PDF. That is true for any HTML
+authoring tool.
+
+<p>
+TeX&rsquo;s excellent mathematical capabilities remain a challenge in the
+business of conversion to HTML.  There are only two generally
+reliable techniques for generating mathematics on the web: creating
+bitmaps of bits of typesetting that can&rsquo;t be translated, and using
+symbols and table constructs.  Neither technique is entirely
+satisfactory.  Bitmaps lead to a profusion of tiny files, are slow to
+load, and are inaccessible to those with visual disabilities.  The
+symbol fonts offer poor coverage of mathematics, and their use
+requires configuration of the browser.  The future of mathematical
+browsing may be brighter&nbsp;&mdash; see
+
+<a class="FAquestion.html" href="FAQ-mathml.html">future Web technologies</a>.
+
+<p>
+For today, possible packages are:
+<dl>
+<dt class="description"><i class="progname">LaTeX2HTML</i></dt><dd>a <i class="progname">Perl</i> script package that
+  supports LaTeX only, and generates mathematics (and other
+  &ldquo;difficult&rdquo; things) using bitmaps.  The original version was
+  written by Nikos Drakos for Unix systems, but the package now sports
+  an illustrious list of co-authors and is also available for Windows
+  systems.  Michel Goossens and Janne Saarela published a detailed
+  discussion of <i class="progname">LaTeX2HTML</i>, and how to tailor it, in
+  TUGboat 16(2).
+
+<p>
+  A mailing list for users may be found via
+  <a href="http://tug.org/mailman/listinfo/latex2html.html">http://tug.org/mailman/listinfo/latex2html</a>
+<dt class="description"><i class="progname">TtH</i></dt><dd>a compiled program that supports either LaTeX
+  or Plain TeX, and uses the font/table technique for representing
+  mathematics.  It is written by Ian Hutchinson, using
+  <i class="progname">flex</i>.  The distribution consists of a single C
+  source (or a compiled executable), which is easy to install and very
+  fast-running.
+<dt class="description"><i class="progname">TeX4ht</i></dt><dd>a compiled program that supports either
+  LaTeX or Plain TeX, by processing a DVI file; it uses
+  bitmaps for mathematics, but can also use other technologies where
+  appropriate.  Written by Eitan Gurari, it parses the DVI
+  file generated when you run (La)TeX over your file with
+  <i class="progname">tex4ht</i>&rsquo;s macros included.  As a result, it&rsquo;s pretty
+  robust against the macros you include in your document, and it&rsquo;s
+  also pretty fast.
+<dt class="description"><i class="progname">plasTeX</i></dt><dd>a Python-based LaTeX document processing
+    framework.  It gives DOM-like access to a LaTeX document, as
+    well as the ability to generate mulitple output formats
+    (e.g. HTML, DocBook, tBook, etc.).
+<dt class="description"><i class="progname">TeXpider</i></dt><dd>a commercial program from
+  <a href="FAQ-commercial.html">Micropress</a>, which is
+  described on <a href="http://www.micropress-inc.com/webb/wbstart.htm.html">http://www.micropress-inc.com/webb/wbstart.htm</a>;
+  it uses bitmaps for equations.
+<dt class="description"><i class="progname">Hevea</i></dt><dd> a compiled program that supports LaTeX
+  only, and uses the font/table technique for equations (indeed its
+  entire approach is very similar to <i class="progname">TtH</i>).  It is written
+  in Objective CAML by Luc Maranget.  <i class="progname">Hevea</i> isn&rsquo;t
+  archived on CTAN; details (including download points) are
+  available via <a href="http://pauillac.inria.fr/&nbsp;maranget/hevea/.html">http://pauillac.inria.fr/&nbsp;maranget/hevea/</a>
+</dl>
+An interesting set of samples, including conversion of the same text
+by the four free programs listed above, is available at
+<a href="http://www.mayer.dial.pipex.com/samples/example.htm.html">http://www.mayer.dial.pipex.com/samples/example.htm</a>; a linked
+page gives lists of pros and cons, by way of comparison.
+
+<p>
+The World Wide Web Consortium maintains a list of &ldquo;filters&rdquo; to
+HTML, with sections on (La)TeX and BibTeX&nbsp;&mdash; see
+<a href="http://www.w3.org/Tools/Word_proc_filters.html.html">http://www.w3.org/Tools/Word_proc_filters.html</a>
+<dl>
+<dt class="ctanref">latex2html</dt><dd>Browse <a class="ctan" href="https://www.ctan.org/pkg/latex2html">latex2html</a>
+<dt class="ctanref">plasTeX</dt><dd>Browse <a class="ctan" href="https://www.ctan.org/pkg/plastex">plastex</a>
+<dt class="ctanref">tex4ht</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tex4ht">tex4ht</a> (but see <a href="http://tug.org/tex4ht/.html">http://tug.org/tex4ht/</a>)
+<dt class="ctanref">tth</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tth">tth</a>
+</dl>
+
+<p>

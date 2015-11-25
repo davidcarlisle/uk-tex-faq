@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-reallyblank</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>Really blank pages between chapters</h1>
+
+
+<p>
+
+<p>
+If you&rsquo;re using the standard classes, you need to take special action;
+the <i class="class">memoir</i> class and the <i class="class">Koma-Script</i> classes provide
+their own support for this&nbsp;&mdash; see below. 
+
+<p>
+<i class="class">Book</i> (by default) and <i class="class">report</i> (with <code class="pkgoption">openright</code> class
+option) ensure that each chapter starts on a right-hand (recto) page;
+they do this by inserting a <code>&#x5c;cleardoublepage</code> command between
+chapters (rather than a mere <code>&#x5c;clearpage</code>).  The empty page thus
+created gets to have a normal running header, which some people don&rsquo;t
+like.
+
+<p>
+The (excellent) <i class="package">fancyhdr</i> manual covers this issue, basically
+advising the creation of a command <code>&#x5c;clearemptydoublepage</code>:
+<blockquote>
+<pre>
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{%
+  \clearpage
+  {\pagestyle{empty}\origdoublepage}%
+}
+</pre>
+</blockquote>
+The &ldquo;obvious&rdquo; thing is then to use this command to replace
+<code>&#x5c;cleardoublepage</code> in a patched version of the <code>&#x5c;chapter</code> command.
+(Make a package of your own containing a copy 
+of the command out of the class.)  This isn&rsquo;t particularly difficult,
+but you can instead simply subvert <code>&#x5c;cleardoublepage</code> (which isn&rsquo;t
+often used elsewhere):
+<blockquote>
+<pre>
+\let\cleardoublepage\clearemptydoublepage
+</pre>
+</blockquote>
+Note: this command works because <code>&#x5c;clearemptydoublepage</code> uses a copy
+of <code>&#x5c;cleardoublepage</code>: instructions on macro programming
+
+<a class="FAquestion.html" href="FAQ-patch.html">patching techniques</a> explain the problem and
+why this is a solution.
+
+<p>
+The <i class="package">emptypage</i> package does this sort of thing for you; all
+you need do is load the package, and it does the rest.
+
+<p>
+The <em>KOMA-Script</em> replacements for the
+<i class="class">book</i> and <i class="class">report</i> classes (<i class="class">scrbook</i> and
+<i class="class">scrreprt</i> offers class options <code class="pkgoption">cleardoubleempty</code>,
+<code class="pkgoption">cleardoubleplain</code> and <code class="pkgoption">cleardoublestandard</code>
+(using the running page style, as normal) that control the appearance
+of these empty pages.  The classes also offer do-it-yourself commands
+<code>&#x5c;cleardoubleempty</code> (etc.\@).
+
+<p>
+The <i class="class">memoir</i> class (and the <i class="package">nextpage</i> package)
+provide commands <code>&#x5c;cleartooddpage</code> and <code>&#x5c;cleartoevenpage</code>,
+which both take an optional argument (the first, with no argument,
+being an equivalent of <code>&#x5c;cleardoublepage</code>).  One can achieve
+&lsquo;special&rsquo; effects by putting commands in the optional argument: the
+<code>&#x5c;clearemptydoublepage</code> we&rsquo;re after would be achieved by
+<code>&#x5c;cleartooddpage[</code><code>&#x5c;thispagestyle</code><code>&#x7b;empty&#x7d;</code><tt>]</tt>.  The
+commands will also serve if you want the surreal effect of &ldquo;This page
+intentionally left blank&rdquo; in the centre of an otherwise empty page.
+<dl>
+<dt class="ctanref">emptypage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/emptypage">emptypage</a>
+<dt class="ctanref">fancyhdr.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fancyhdr">fancyhdr</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">nextpage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/nextpage">nextpage</a>
+<dt class="ctanref">scrbook.cls, scrrept.cls</dt><dd>Part of <a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+</dl>
+
+<p>

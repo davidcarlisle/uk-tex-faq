@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-filesused</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Documentmanagement">Document management</a> &gt; </div>
+<h1>All the files used by this document</h1>
+
+
+<p>
+
+<p>
+When you&rsquo;re sharing a document with someone else (perhaps as part of a
+co-development cycle) it&rsquo;s as well to arrange that both correspondents
+have the same set of auxiliary files, as well as the document in
+question.  Your correspondent obviously needs the same set of files
+(if you use the <i class="package">url</i> package, she has to have <i class="package">url</i>
+too, for example).  But suppose you have a bug-free version of the
+<i class="package">shinynew</i> package but her copy is still the unstable
+original; until you both realise what is happening, such a situation
+can be very confusing.
+
+<p>
+The simplest solution is the LaTeX <code>&#x5c;listfiles</code> command.  This
+places a list of the files used and their version numbers in the log
+file.  If you extract that list and transmit it with your file, it can
+be used as a check-list in case that problems arise.
+
+<p>
+Note that <code>&#x5c;listfiles</code> only registers things that are input by the
+&ldquo;standard&rdquo; LaTeX mechanisms (<code>&#x5c;documentclass</code>, <code>&#x5c;usepackage</code>,
+<code>&#x5c;include</code>, <code>&#x5c;includegraphics</code> and so on).
+The <code>&#x5c;input</code> command, as modified by LaTeX and used, with
+LaTeX syntax, as:
+<pre>
+  \input{mymacros}
+</pre>
+records file details for <i class="filename">mymacros.tex</i>, but if you use TeX
+primitive syntax for <code>&#x5c;input</code>, as:
+<pre>
+  \input mymacros
+</pre>
+<i class="filename">mymacros.tex</i> <em>won&rsquo;t</em> be recorded, and so won&rsquo;t listed by
+<code>&#x5c;listfiles</code>&nbsp;&mdash; you&rsquo;ve bypassed the mechanism that records its use.
+
+<p>
+The <i class="package">snapshot</i> package helps the owner of a LaTeX document
+obtain a list of the external dependencies of the document, in a form
+that can be embedded at the top of the document.  The intended use of
+the package is the creation of archival copies of documents, but it
+has application in document exchange situations too.
+
+<p>
+The <i class="progname">bundledoc</i> system uses the <i class="package">snapshot</i> to produce an
+archive (e.g., <code class="extension">tar.gz</code> or <code class="extension">zip</code>) of the files needed by your
+document; it comes with configuration files for use with
+texlive-<i class="progname">Unix</i> and <i class="progname">MiKTeX</i>.  It&rsquo;s plainly useful when
+you&rsquo;re sending the first copy of a document.
+
+<p>
+The <i class="progname">mkjobtexmf</i> finds which files are used in a &lsquo;job&rsquo;,
+either via the <tt>-recorder</tt> option of TeX, or by using the
+(Unix) command <i class="progname">strace</i> to keep an eye on what TeX is
+doing.  The files thus found are copied (or linked) to a directory
+which may then be saved for transmission or archiving.
+<dl>
+<dt class="ctanref">bundledoc</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bundledoc">bundledoc</a>
+<dt class="ctanref">mkjobtexmf</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mkjobtexmf">mkjobtexmf</a>
+<dt class="ctanref">snapshot.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/snapshot">snapshot</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2014-01-26</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-filesused">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-filesused</a>
+
+<p>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tocbibind</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Tablesofcontentsandindexes">Tables of contents and indexes</a> &gt; </div>
+<h1>Bibliography, index, etc., in TOC</h1>
+
+
+<p>
+
+<p>
+The standard LaTeX classes (and many others) use <code>&#x5c;section*</code> or
+<code>&#x5c;chapter*</code> for auto-generated parts of the document (the tables of
+contents, lists of figures and tables, the bibliography and the index).  As a
+result, these items aren&rsquo;t numbered (which most people don&rsquo;t mind),
+and (more importantly) they don&rsquo;t appear in the table of contents.
+
+<p>
+The correct solution (as always) is to have a class of your own that
+formats your document according to your requirements.  The macro to do
+the job (<code>&#x5c;addcontentsline</code>) is fairly simple, but there is always
+an issue of ensuring that the contents entry quotes the correct page.
+Supposing that our the document is chapter-based (class <i class="class">report</i>
+or <i class="class">book</i>, for example), the text:
+<blockquote>
+<pre>
+\bibliography{frooble}
+\addcontentsline{toc}{chapter}{Bibliography}
+</pre>
+</blockquote>
+will produce the <em>wrong</em> answer if the bibliography is more than
+one page long.  Instead, one should say:
+<blockquote>
+<pre>
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{frooble}
+</pre>
+</blockquote>
+(Note that <code>&#x5c;cleardoublepage</code> does the right thing, even if your
+document is single-sided&nbsp;&mdash; in that case, it&rsquo;s a synonym for
+<code>&#x5c;clearpage</code>).  Ensuring that the entry refers to the right place is
+trickier still in a <code>&#x5c;section</code>-based class.
+
+<p>
+If you are using <i class="package">hyperref</i> (which will link entries in the
+table of contents to the relevant place in the file), a slight
+adjustment is necessary:
+<blockquote>
+<pre>
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{frooble}
+</pre>
+</blockquote>
+The extra command (<code>&#x5c;phantomsection</code>) gives <i class="package">hyperref</i>
+something to &ldquo;hold on to&rdquo; when making the link.
+
+<p>
+The common solution, therefore, is to use the <i class="package">tocbibind</i>
+package, which provides many facilities to control the way these
+entries appear in the table of contents.
+
+<p>
+Classes of the <i class="class">KOMA-script</i> bundle provide this functionality
+as a set of class options (e.g., <code class="pkgoption">bibtotoc</code> to add the
+bibliography to the table of contents); the <i class="class">memoir</i> class includes
+<i class="package">tocbibind</i> itself.
+<dl>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">tocbibind.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tocbibind">tocbibind</a>
+</dl>
+
+<p>

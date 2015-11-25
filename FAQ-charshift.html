@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-charshift</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#AdobeTypenbspldquoPostScriptrdquofonts">Adobe Type&nbsp;1 (&ldquo;PostScript&rdquo;) fonts</a> &gt; </div>
+<h1>Weird characters in <i class="progname">dvips</i> output</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]fi ligature pound pounds sterling elephants[[[RBRACE]]]
+
+<p>
+You&rsquo;ve innocently generated output, using <i class="progname">dvips</i>, and there
+are weird transpositions in it: for example, the <tt>fi</tt> ligature has
+appeared as a [[[textsterling]]][[[LBRACE]]][[[RBRACE]]] symbol.
+This is an unwanted side-effect of the precautions
+outlined in <a href="FAQ-dvips-pdf.html">generating PostScript for PDF</a>.
+The <tt>-G1</tt> switch discussed in that question is appropriate for
+Knuth&rsquo;s text fonts, but doesn&rsquo;t work with text fonts that don&rsquo;t follow
+Knuth&rsquo;s patterns (such as fonts supplied by Adobe).
+
+<p>
+If the problem arises, suppress the <tt>-G1</tt> switch: if you were using it
+explicitly, <em>don&rsquo;t</em>; if you were using <tt>-Ppdf</tt>, add <tt>-G0</tt> to
+suppress the implicit switch in the pseudo-printer file.
+
+<p>
+The problem has been corrected in <i class="progname">dvips</i> v&nbsp;5.90 (and later
+versions); it is unlikely ever to recur&hellip;
+
+<p class="lastedit">This answer last edited: 2012-10-24</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-charshift">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-charshift</a>
+
+<p>
+
+<p>
+
+<p>

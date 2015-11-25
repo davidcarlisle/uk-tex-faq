@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-citesort</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingcitations">Creating citations</a> &gt; </div>
+<h1>Sorting and compressing citations</h1>
+
+
+<p>
+
+<p>
+If you give LaTeX
+<code>&#x5c;cite</code><code>&#x7b;fred,joe,harry,min&#x7d;</code>, its default commands could give
+something like &ldquo;[2,6,4,3]&rdquo;;
+this looks awful.  One can of course get the things in order by
+rearranging the keys in the <code>&#x5c;cite</code> command, but who wants to do
+that sort of thing for no more improvement than &ldquo;[2,3,4,6]&rdquo;?
+
+<p>
+The <i class="package">cite</i> package sorts the numbers and detects consecutive
+sequences, so creating &ldquo;[2&ndash;4,6]&rdquo;.  The <i class="package">natbib</i> package,
+with the <code class="pkgoption">numbers</code> and <code class="pkgoption">sort\&amp;compress</code> options, will
+do the same when working with its own numeric bibliography styles
+(<i class="filename">plainnat.bst</i> and <i class="filename">unsrtnat.bst</i>).
+
+<p>
+The package <i class="package">biblatex</i> has a built-in style
+<i class="package">numeric-comp</i> for its bibliographies.
+<dl>
+<dt class="ctanref">biblatex.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/biblatex">biblatex</a>
+<dt class="ctanref">cite.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cite">cite</a>
+<dt class="ctanref">hypernat.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hypernat">hypernat</a>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+<dt class="ctanref">plainnat.bst</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/natbib">natbib</a>
+<dt class="ctanref">unsrtnat.bst</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/natbib">natbib</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-02-10</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-citesort">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-citesort</a>
+
+<p>

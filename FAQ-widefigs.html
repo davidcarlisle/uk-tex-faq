@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-widefigs</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>Wide figures in two-column documents</h1>
+
+
+<p>
+
+<p>
+Floating figures and tables ordinarily come out the same width as the
+page, but in two-column documents they&rsquo;re restricted to the width of
+the column.  This is sometimes not good enough; so there are alternative
+versions of the float environments&nbsp;&mdash; in two-column documents,
+<tt>figure*</tt> provides a floating page-wide figure (and <tt>table*</tt> a
+page-wide table) which will do the necessary.
+
+<p>
+The &ldquo;<tt>*</tt>&rdquo;ed float environments can only appear at the top of a page,
+or on a whole page&nbsp;&mdash; <tt>h</tt> or <tt>b</tt> float placement directives are
+simply ignored.
+
+<p>
+Unfortunately, page-wide equations can only be accommodated inside
+float environments.  You should include them in <tt>figure</tt> environments,
+or use the <i class="package">float</i> or <i class="package">ccaption</i>package to define a
+new float type. 
+<dl>
+<dt class="ctanref">ccaption.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ccaption">ccaption</a>
+<dt class="ctanref">float.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/float">float</a>
+</dl>
+
+<p>

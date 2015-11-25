@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-baselinepar</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>Only one <code>&#x5c;baselineskip</code> per paragraph</h1>
+
+
+<p>
+
+<p>
+The <code>&#x5c;baselineskip</code>, which determines the space between lines, is
+not (as one might hope) a property of a line, but of a paragraph.  As
+a result, in a <tt>10pt</tt> (nominal) document (with a default
+<code>&#x5c;baselineskip</code> of <tt>12pt</tt>), a single character with a larger
+size, as:
+<blockquote>
+<pre>
+{\Huge A}
+</pre>
+</blockquote>
+will be squashed into the paragraph: TeX will make sure it doesn&rsquo;t
+scrape up against the line above, but won&rsquo;t give it &ldquo;room to
+breathe&rdquo;, as it does the text at standard size; that is, its size
+(<tt>24.88pt</tt>) is taken account of, but its <code>&#x5c;baselineskip</code>
+(<tt>30pt</tt>) isn&rsquo;t.  This problem may be solved by a <em>strut</em>:
+the name comes from movable metal typography, and refers to a spacer
+that held the boxes (that contained the metal character shapes) apart.
+Every time you change font size, LaTeX redefines the command
+<code>&#x5c;strut</code> to provide the equivalent of a metal-type strut for the
+size chosen.  So for the example above, we would type
+<blockquote>
+<pre>
+Paragraph text ...
+   {\Huge A\strut}
+   ... paragraph continues ...
+</pre>
+</blockquote>
+This technique <em>only</em> works for such very short intrusions; if
+you need several lines, you should convert your intrusion into a
+<code class="environment">quote</code> environment, since it&rsquo;s not possible to provide a
+<code>&#x5c;strut</code> command for every line of the intrusion, in a sensible
+way, so proceed by:
+<blockquote>
+<pre>
+\begin{quote}
+  \Huge A LENGTHY TEXT ...
+  SHOUTING AT THE READER!
+\end{quote}
+</pre>
+</blockquote>
+
+<p>
+The contrary case:
+<blockquote>
+<pre>
+Paragraph text ...
+{\footnotesize Extended interjection ...
+   ... into the paragraph.}
+      ... paragraph continues ...
+</pre>
+</blockquote>
+will look wrong, since the <tt>8pt</tt> interjection will
+end up set on the <tt>12pt</tt> <code>&#x5c;baselineskip</code> of the paragraph,
+rather than its preferred <tt>8.5pt</tt>.  A <code>&#x5c;strut</code> here is no
+help: there is no such thing as a &ldquo;negative strut&rdquo;, that draws lines
+together, so once more, one falls back on the <code class="environment">quote</code> to
+separate the interjection:
+<blockquote>
+<pre>
+Paragraph text ...
+\begin{quote}
+  \footnotesize Extended interjection ...
+  ... into the paragraph.
+\end{quote}
+... paragraph continues ...
+</pre>
+</blockquote>
+
+<p>
+The same effect is at work when we have something like:
+<blockquote>
+<pre>
+Paragraph text ...
+  ... paragraph body ends.
+{\footnotesize Comment on the paragraph.}
+
+Next paragraph starts...
+</pre>
+</blockquote>
+which will set the body of the first paragraph on the constricted
+<code>&#x5c;baselineskip</code> of the <code>&#x5c;footnotesize</code> comment.  Solve this
+problem by ending the initial paragraph before starting the comment:
+<blockquote>
+<pre>
+Paragraph text ...
+  ... paragraph body ends.
+\par\nothtml{\noindent}
+{\footnotesize Comment on the paragraph.}
+
+Next paragraph starts...
+</pre>
+</blockquote>
+(We suggest <code>&#x5c;noindent</code> to make the comment look as if it is part
+of the paragraph it discusses; omit <code>&#x5c;noindent</code> if that is inappropriate.)
+
+<p>
+A variation of the previous issue arises from a paragraph whose size
+is different from those around it:
+<blockquote>
+<pre>
+{\Large (Extended) IMPORTANT DETAILS ...}
+
+Main body of text...
+</pre>
+</blockquote>
+Again, the problem is solved by ending the paragraph in the same group
+as the text with a different size:
+<blockquote>
+<pre>
+{\Large (Extended) IMPORTANT DETAILS ...\par}
+
+Main body of text...
+</pre>
+</blockquote>
+
+<p>

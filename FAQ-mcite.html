@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-mcite</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingcitations">Creating citations</a> &gt; </div>
+<h1>Multiple citations</h1>
+
+
+<p>
+
+<p>
+A convention sometimes used in physics journals is to &ldquo;collapse&rdquo; a group of
+related citations into a single entry in the bibliography.  BibTeX,
+by default, can&rsquo;t cope with this arrangement, but the <i class="package">mcite</i>
+and <i class="package">mciteplus</i> packages deal with the problem.
+
+<p>
+<i class="package">mcite</i> overloads the <code>&#x5c;cite</code> command to recognise a
+&ldquo;<tt>*</tt>&rdquo; at the start of a key, so that citations of the form
+<blockquote>
+<pre>
+\cite{paper1,*paper2}
+</pre>
+</blockquote>
+appear in the document as a single citation, and appear arranged
+appropriately in the bibliography itself.  You&rsquo;re not limited to
+collapsing just two references.  You can mix &ldquo;collapsed&rdquo; references
+with &ldquo;ordinary&rdquo; ones, as in
+<blockquote>
+<pre>
+\cite{paper0,paper1,*paper2,paper3}
+</pre>
+</blockquote>
+Which will appear in the document as 3&nbsp;citations &ldquo;[4,7,11]&rdquo;
+(say)&nbsp;&mdash; citation &lsquo;4&rsquo; will refer to paper&nbsp;0, &lsquo;7&rsquo; will refer to a
+combined entry for paper&nbsp;1 and paper&nbsp;2, and &lsquo;11&rsquo; will refer to
+paper&nbsp;3.
+
+<p>
+You need to make a small change to the bibliography style
+(<code class="extension">bst</code>) file you use; the <i class="package">mcite</i> package
+documentation tells you how to do that.
+
+<p>
+Most recent versions of <i class="class">REVTeX</i> (version 4.1 and later), in
+conjunction with recent versions of <i class="package">natbib</i>, already contain
+support for combined citations and so no longer even need
+<i class="package">mciteplus</i> (but <i class="package">mciteplus</i> is more general and will
+work with many other class and package combinations).
+
+<p>
+The <i class="package">mciteplus</i> package adresses many of the infelicites of
+<i class="package">mcite</i>.  Again, &lsquo;ordinary&rsquo; <code class="extension">bst</code> files will not
+work with <i class="package">mciteplus</i>, but the package documentation explains
+how to patch an existing BibTeX style.
+
+<p>
+The <i class="package">collref</i> package takes a rather different approach to the
+problem, and will work with most (if not all) BibTeX packages.
+<i class="package">Collref</i> spots common subsets of the references, so if it
+sees a sequence
+<blockquote>
+<pre>
+\cite{paper0,paper1,paper2,paper3}
+...
+\cite{some_other_paper,paper1,paper2,and_another}
+</pre>
+</blockquote>
+it will collect <tt>paper1</tt> and <tt>paper2</tt> as a multiple reference.
+<dl>
+<dt class="ctanref">collref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/collref">collref</a>
+<dt class="ctanref">mcite.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mcite">mcite</a>
+<dt class="ctanref">mciteplus.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mciteplus">mciteplus</a>
+<dt class="ctanref">natbib.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/natbib">natbib</a>
+<dt class="ctanref">revtex 4.1</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/revtex4-1">revtex4-1</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2010-07-07</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-mcite">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-mcite</a>
+
+<p>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-edef</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacrotoolsandtechniques">LaTeX macro tools and techniques</a> &gt; </div>
+<h1><code>&#x5c;edef</code> does not work with <code>&#x5c;protect</code></h1>
+
+
+<p>
+
+<p>
+Robust LaTeX commands are either &ldquo;naturally robust&rdquo;&nbsp;&mdash; meaning that
+they never need <code>&#x5c;protect</code>, or &ldquo;self-protected&rdquo;&nbsp;&mdash; meaning that
+they have <code>&#x5c;protect</code> built in to their definition in some
+way.  Self-protected commands, and fragile commands with
+<code>&#x5c;protect</code>ion are only robust in a context where the <code>&#x5c;protect</code>
+mechanism is properly handled.  The body of an <code>&#x5c;edef</code> definition
+doesn&rsquo;t handle <code>&#x5c;protect</code> properly, since <code>&#x5c;edef</code> is a TeX
+primitive rather than a LaTeX command.
+
+<p>
+This problem is resolved by a LaTeX internal command
+<code>&#x5c;protected@edef</code>, which does the job of <code>&#x5c;edef</code> while keeping the
+<code>&#x5c;protect</code> mechanism working.  There&rsquo;s a corresponding
+<code>&#x5c;protected@xdef</code> which does the job of <code>&#x5c;xdef</code>.
+
+<p>
+Of course, these commands need to be tended carefully, since they&rsquo;re
+
+internal: see <a class="FAquestion.html" href="FAQ-atsigns.html">&rsquo;@&rsquo; in control sequence names</a>.
+
+<p>

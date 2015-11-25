@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-whatengine</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Am I using PDFTeX, XeTeX or LuaTeX?</h1>
+
+
+<p>
+[[[AliasQuestion]]][[[LBRACE]]]Q-ifpdf[[[RBRACE]]]
+
+<p>
+You often need to know what &ldquo;engine&rdquo; your macros are running on (the
+engine is the TeX-derivative or TeX-alike processor that
+typesets your document).  The reason that you need to know is that the
+set of functions available in each engine is different.  Thus, for
+TeX macros to run on any engine, they need to &ldquo;know&rdquo; what they
+can and cannot do, which depends on the engine in use.  Getting the
+right answer is surprisingly tricky (see below for an elaboration of
+one apparently simple test).
+
+<p>
+There is now a comprehensive set of packages that answer the question
+for you.  They all create a TeX conditional command:
+<ul>
+<li> <i class="package">ifpdf</i> creates a command <code>&#x5c;ifpdf</code>,
+<li> <i class="package">ifxetex</i> creates a command <code>&#x5c;ifxetex</code> and
+<li> <i class="package">ifluatex</i> creates a command <code>&#x5c;ifluatex</code>.
+</ul>
+These TeX commands may be used within the LaTeX conditional
+framework, as (for example):
+<blockquote>
+  <code>&#x5c;ifthenelse</code><tt>&#x7b;</tt><code>&#x5c;boolean</code><code>&#x7b;pdf&#x7d;</code><tt>&#x7d;</tt><tt>&#x7b;</tt>&lsaquo;<i>if pdf</i>&rsaquo;<tt>&#x7d;</tt><tt>&#x7b;</tt>&lsaquo;<i>if not pdf</i>&rsaquo;<tt>&#x7d;</tt>
+</blockquote>
+
+<p>
+The <i class="package">ifxetex</i> package also provides a command
+<code>&#x5c;RequireXeTeX</code> which creates an error if the code is not running
+under XeTeX; while the other packages don&rsquo;t provide such a command,
+it&rsquo;s not really difficult to write one for yourself.
+
+<p>
+
+
+
+<p>
+Now for those who want to do the job for themselves: here&rsquo;s a
+discussion of doing the job for PDFTeX and <code>&#x5c;ifpdf</code>&nbsp;&mdash; the
+eager programmer can regenerate <code>&#x5c;ifxetex</code> or <code>&#x5c;ifluatex</code> in the
+same fashion.  It&rsquo;s not recommended[[[dots]]]
+
+<p>
+Suppose you need to test whether your output will be PDF or
+DVI.  The natural thing is to check whether you have access to
+some PDFTeX-only primitive; a good one to try (not least because it
+was present in the very first releases of PDFTeX) is
+<code>&#x5c;pdfoutput</code>.  So you try
+<blockquote>
+<pre>
+\ifx\pdfoutput\undefined
+  ... % not running PDFTeX
+\else
+  ... % running PDFTeX
+\fi
+</pre>
+</blockquote>
+Except that neither branch of this conditional is rock-solid.  The
+first branch can be misleading, since the &ldquo;awkward&rdquo; user could have
+written:
+<blockquote>
+<pre>
+\let\pdfoutput\undefined
+</pre>
+</blockquote>
+so that your test will falsely choose the first alternative.  While
+this is a theoretical problem, it is unlikely to be a major one.
+
+<p>
+More important is the user who loads a package that uses
+LaTeX-style testing for the command name&rsquo;s existence (for example,
+the LaTeX <i class="package">graphics</i> package, which is useful even to the
+Plain TeX user).  Such a package may have gone ahead of you, so the
+test may need to be elaborated:
+<blockquote>
+<pre>
+\ifx\pdfoutput\undefined
+  ... % not running PDFTeX
+\else
+  \ifx\pdfoutput\relax
+    ... % not running PDFTeX
+  \else
+    ... % running PDFTeX
+  \fi
+\fi
+</pre>
+</blockquote>
+If you only want to know whether some PDFTeX extension (such as
+marginal kerning) is present, you can stop at this point: you know as
+much as you need.
+
+<p>
+However, if you need to know whether you&rsquo;re creating PDF
+output, you also need to know about the value of <code>&#x5c;pdfoutput</code>:
+<blockquote>
+<pre>
+\ifx\pdfoutput\undefined
+  ... % not running PDFTeX
+\else
+  \ifx\pdfoutput\relax
+    ... % not running PDFTeX
+  \else
+    % running PDFTeX, with...
+    \ifnum\pdfoutput>0
+      ... % PDF output
+    \else
+      ... % DVI output
+    \fi
+  \fi
+\fi
+</pre>
+</blockquote>
+<dl>
+<dt class="ctanref">ifpdf.sty</dt><dd>Distributed as part Heiko Oberdiek&rsquo;s bundle
+  <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[ifpdf]
+<dt class="ctanref">ifluatex.sty</dt><dd>Distributed as part of Heiko Oberdiek&rsquo;s bundle
+  <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[ifluatex]
+<dt class="ctanref">ifxetex.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ifxetex">ifxetex</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-02-13</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-whatengine">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-whatengine</a>
+
+<p>

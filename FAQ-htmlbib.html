@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-htmlbib</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Manipulatingwholebibliographies">Manipulating whole bibliographies</a> &gt; </div>
+<h1>Making HTML of your Bibliography</h1>
+
+
+<p>
+
+<p>
+A neat solution is offered by the <i class="package">noTeX</i> bibliography style.
+This style produces a <code class="extension">bbl</code> file which is in fact a series of
+HTML &lsquo;<tt>P</tt>&rsquo; elements of class <tt>noTeX</tt>, and which
+may therefore be included in an HTML file.  Provision is made
+for customising your bibliography so that its content when processed by
+<i class="package">noTeX</i> is different from that presented when it is processed
+in the ordinary way by (La)TeX.
+
+<p>
+A thorough solution is offered by <i class="package">bib2xhtml</i>; using it, you
+make use of one of its modified versions of many common BibTeX
+styles, and post-process the output so produced using a
+<i class="progname">perl</i> script.
+
+<p>
+A more conventional translator is the <i class="progname">awk</i> script
+<i class="progname">bbl2html</i>, which translates the <code class="extension">bbl</code> file you&rsquo;ve generated:
+a sample of the script&rsquo;s output may be viewed on the web, at
+<a href="http://rikblok.cjb.net/lib/refs.html.html">http://rikblok.cjb.net/lib/refs.html</a>
+<dl>
+<dt class="ctanref">bbl2html.awk</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bbl2html">bbl2html</a>
+<dt class="ctanref">bib2xhtml</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bib2xhtml">bib2xhtml</a>
+<dt class="ctanref">noTeX.bst</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/noTeX">noTeX</a>
+</dl>
+
+<p>
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>

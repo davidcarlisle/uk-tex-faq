@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tocloft</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Tablesofcontentsandindexes">Tables of contents and indexes</a> &gt; </div>
+<h1>The format of the Table of Contents, etc.</h1>
+
+
+<p>
+
+<p>
+The formats of entries in the table of contents (TOC) are
+controlled by a number of internal commands (discussed in section&nbsp;2.3
+of <a href="FAQ-latex-books.html"><em>The LaTeX Companion</em></a>.  The commands
+<code>&#x5c;@pnumwidth</code>, <code>&#x5c;@tocrmarg</code> and <code>&#x5c;@dotsep</code> control the space
+for page numbers, the indentation of the right-hand margin, and the
+separation of the dots in the dotted leaders, respectively.  The
+series of commands named [[[csx]]][[[LBRACE]]]l@<em>xxx</em>[[[RBRACE]]], where <tt><em>xxx</em></tt>
+is the name of a sectional heading (such as <tt>chapter</tt> or
+<tt>section</tt>, &hellip;\@) control the layout of the corresponding
+heading, including the space for section numbers.  All these internal
+commands may be individually redefined to give the effect that you
+want.
+
+<p>
+All that work may be avoided, using the package <i class="package">tocloft</i>
+which provides a set of user-level commands that may be used to change
+the TOC formatting.  Since exactly the same mechanisms are used
+for the List of Figures and List of Tables, the layout of these
+sections may be controlled in the same way.
+
+<p>
+The <i class="package">etoc</i> package offers similar flexibility, together with
+multicolumn tables of contents and boxes around tables (and the like).
+
+<p>
+The <i class="class">KOMA-Script</i> classes provides an optional variant structure
+for the table of contents, and calculates the space needed for the
+numbers automatically.  The <i class="class">memoir</i> class includes the functionality
+of <i class="package">tocloft</i>.
+<dl>
+<dt class="ctanref">etoc.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/etoc">etoc</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">tocloft.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tocloft">tocloft</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-12-07</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-tocloft">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-tocloft</a>
+
+<p>

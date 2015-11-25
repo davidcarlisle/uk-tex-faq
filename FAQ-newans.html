@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-newans</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Yoursquorestillstuck">You&rsquo;re still stuck?</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Submitting new material for the FAQ</h1>
+
+
+<p>
+
+<p>
+The FAQ will never be complete, and we always expect that
+there will be people out there who know better than we do about
+something or other.  We always need to be put right about whatever
+we&rsquo;ve got wrong, and suggestions for improvements, particularly
+covering areas we&rsquo;ve missed, are always needed: mail anything you have
+to the
+
+  <a href="mailto:faq-devel@tex.ac.uk.html">maintainers</a>
+
+
+
+
+
+<p>
+If you have actual material to submit, your contribution is more than
+ever welcome.  Submission in plain text is entirely acceptable, but
+if you&rsquo;re really willing, you may feel free to mark up your submission
+in the form needed for the FAQ itself.  The markup is a
+strongly-constrained version of LaTeX&nbsp;&mdash; the constraints come from
+the need to translate the marked-up text to HTML on the fly
+(and hence pretty efficiently).  There is a file <i class="filename">markup-syntax</i>
+in the FAQ distribution that describes the structure of the
+markup, but there&rsquo;s no real substitute for reading at least some of
+the source (<i class="filename">faqbody.tex</i>) of the FAQ itself.  If you
+understand <i class="progname">Perl</i>, you may also care to look at the
+translation code in <i class="filename">texfaq2file</i> and <i class="filename">sanitize.pl</i> in the
+distribution: this isn&rsquo;t the code actually used on the Web site, but
+it&rsquo;s a close relation and is kept
+up to date for development purposes.
+<dl>
+<dt class="ctanref">FAQ distribution</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/faq">faq</a>
+</dl>
+
+<p>

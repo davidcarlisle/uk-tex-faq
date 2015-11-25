@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-struttab</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>Spacing lines in tables</h1>
+
+
+<p>
+
+<p>
+(La)TeX mechanisms for maintaining the space between lines (the
+&ldquo;<em>leading</em>&rdquo;) rely on TeX&rsquo;s paragraph builder, which compares
+the shape of consecutive lines and adjusts the space between them.
+
+<p>
+These mechanisms can&rsquo;t work in exactly the same way when (La)TeX is
+building a table, because the paragraph builder doesn&rsquo;t get to see the
+lines themselves.  As a result, tables sometimes typeset with lines
+uncomfortably close together (or occasionally ridiculously far apart).
+
+<p>
+Traditional (moving metal type) typographers would adjust the spacing
+between lines of a table by use of a &ldquo;<em>strut</em>&rdquo; (a metal
+spacer).  A TeX user can do exactly the same thing: most macro
+packages define a <code>&#x5c;strut</code> command, that defines a space appropriate
+to the current size of the text; placing a <code>&#x5c;strut</code> command at the
+end of a troublesome row is the simplest solution to the problem&nbsp;&mdash;
+if it works.  Other solutions below are LaTeX-specific, but some
+may be simply translated to Plain TeX commands.
+
+<p>
+If your table exhibits a systematic problem (i.e., every row is wrong
+by the same amount) use <code>&#x5c;extrarowheight</code>, which is defined by the
+<i class="package">array</i> package:
+<blockquote>
+<pre>
+\usepackage{array}% in the preamble
+...
+\setlength{\extrarowheight}{length}
+\begin{tabular}{....}
+</pre>
+</blockquote>
+
+<p>
+To correct a single row whose maladjustment isn&rsquo;t corrected by a
+<code>&#x5c;strut</code> command, you can define your own, using
+<code>&#x5c;rule</code><code>&#x7b;0pt&#x7d;</code></code><code>&#x7b;length&#x7d;</code>&nbsp;&mdash; which is a near approximation to the
+command that goes inside a <code>&#x5c;strut</code>.  The <i class="package">bigstrut</i> package
+defines a strut command that you can use for this purpose:
+<code>&#x5c;bigstrut</code> on its own opens up both above and below the current
+line; [[[cmdinvoke]]][[[LBRACE]]]bigstrut[[[RBRACE]]][t] opens up above the line,
+[[[cmdinvoke]]][[[LBRACE]]]bigstrut[[[RBRACE]]][b] opens up below the line.
+
+<p>
+General solutions are available, however.  The <i class="package">tabls</i> package
+automatically generates an appropriately-sized strut at the end of
+each row.  Its disadvantages are that it&rsquo;s really rather slow in
+operation (since it gets in the way of everything within tables) and
+its (lack of) compatibility with other packages.
+
+<p>
+The <i class="package">makecell</i> package provides a command <code>&#x5c;gape</code> that may
+be used to apply strut expansion for a single cell of a table:
+<blockquote>
+<pre>
+\begin{tabular}{lll}
+  ... &amp; \gape{cell contents} &amp; ... \\
+  ...
+\end{tabular}
+</pre>
+</blockquote>
+The package&rsquo;s similar <code>&#x5c;Gape</code> command provides the same function,
+but with optional arguments that allow you to adjust the top and
+bottom adjustment.
+
+<p>
+To adjust every cell in whole tables, the
+<code>&#x5c;setcellgapes</code><code>&#x7b;&lsaquo;<i>value</i>&rsaquo;&#x7d;</code> sets the adjustment value (an
+optional argument of &ldquo;<tt>t</tt>&rdquo; or &ldquo;<tt>b</tt>&rdquo; restricts
+adjustment to the top or bottom of each cell, respectively).  Having
+issued <code>&#x5c;setcellgapes</code>, the command <code>&#x5c;makegapedcells</code> switches
+cell expansion on, and <code>&#x5c;nomakegapedcells</code> switches it off again.
+
+<p>
+The <i class="package">cellspace</i> package does a (possibly inferior) job by
+defining a new table/array column type &ldquo;S&rdquo;, which you apply to each
+column specification.  So, for example,
+<blockquote>
+<code>&#x5c;begin</code><code>&#x7b;tabular&#x7d;</code></code><code>&#x7b;l l l p[[[LBRACE]]]3cm[[[RBRACE]]]&#x7d;</code>
+</blockquote>
+would become
+<blockquote>
+<code>&#x5c;begin</code><code>&#x7b;tabular&#x7d;</code></code><code>&#x7b;Sl Sl Sl Sp[[[LBRACE]]]3cm[[[RBRACE]]]&#x7d;</code>
+</blockquote>
+and so on.  This technique shows
+promise of not interfering so much with other packages, but this
+author has heard of no reports from the field.
+
+<p>
+The <i class="package">booktabs</i> package comes with a thought-provoking essay
+about how tables should be designed.  Since table row-spacing problems
+most often appear in collisions with rules, the author&rsquo;s thesis,
+that LaTeX users tend too often to rule their tables, is
+interesting.  The package provides rule commands to support the
+author&rsquo;s scheme, but deals with inter-row spacing too.  The most
+recent release of <i class="package">booktabs</i> sports compatibility with
+packages such as <i class="package">longtable</i>.
+<dl>
+<dt class="ctanref">array.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[array]
+<dt class="ctanref">bigstrut.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bigstrut">bigstrut</a>
+<dt class="ctanref">booktabs.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/booktabs">booktabs</a>
+<dt class="ctanref">cellspace.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cellspace">cellspace</a>
+<dt class="ctanref">makecell.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/makecell">makecell</a>
+<dt class="ctanref">tabls.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tabls">tabls</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-05-02</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-struttab">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-struttab</a>
+
+<p>

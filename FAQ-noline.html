@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-noline</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>&ldquo;No line here to end&rdquo;</h1>
+
+
+<p>
+
+<p>
+The error
+<blockquote>
+
+<pre>
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+</pre>
+
+
+<pre>
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion
+...                           for explanation.
+</pre>
+
+</blockquote>
+appears when you give LaTeX a <tt>&#x5c; </tt> command at a time
+when it&rsquo;s not expecting it; it is a <em>line-breaking</em> command, and
+is confused if LaTeX isn&rsquo;t building a paragraph when you give the
+command.  A common case is where you&rsquo;ve decided you want the label of
+a list item to be on a line of its own, and written (for example):
+<blockquote>
+<pre>
+\begin{description}
+\item[Very long label] \\
+  Text...
+\end{description}
+</pre>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+<p>
+The proper solution to the problem is to write a new sort of
+<code class="environment">description</code> environment, that does just what you&rsquo;re after.  (The
+
+<a class="FAquestion.html" href="FAQ-latex-books.html"><em>LaTeX Companion</em></a>
+offers a rather wide selection of variants of these things.)
+
+<p>
+A straightforward solution, which avoids the warning, is to write:
+<blockquote>
+<pre>
+\begin{description}
+\item[Very long label] \leavevmode \\
+  Text...
+\end{description}
+</pre>
+</blockquote>
+which starts a paragraph before forcing a break.  The
+<i class="package">expdlist</i> package provides the same functionality with its
+<code>&#x5c;breaklabel</code> command, and <i class="package">mdwlist</i> provides it via its
+<code>&#x5c;desclabelstyle</code> command.
+
+<p>
+The other common occasion for the message is when you&rsquo;re using the
+<tt>center</tt> (or <code class="environment">flushleft</code> or <code class="environment">flushright</code>)
+environment, and have decided you need extra separation between lines
+in the environment:
+<blockquote>
+<pre>
+\begin{center}
+  First (heading) line\\
+  \\
+  body of the centred text...
+\end{center}
+</pre>
+</blockquote>
+The solution here is plain: use the <tt>&#x5c; </tt> command in the way it&rsquo;s
+supposed to be used, to provide more than just a single line break
+space.  <tt>&#x5c; </tt> takes an optional argument, which specifies
+how much extra space to add; the required effect in the text above can
+be had by saying:
+<blockquote>
+<pre>
+\begin{center}
+  First (heading) line\\[\baselineskip]
+  body of the centred text...
+\end{center}
+</pre>
+</blockquote>
+
+<p>
+You <em>can</em> use <code>&#x5c;leavevmode</code>, as above:
+<blockquote>
+<pre>
+\begin{center}
+  First (heading) line\\
+  \leavevmode\\
+  body of the centred text...
+\end{center}
+</pre>
+</blockquote>
+but that is just as tiresome to type as <tt>&#x5c; </tt> with an optional
+argument, and can not be recommended.
+<dl>
+<dt class="ctanref">expdlist.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/expdlist">expdlist</a>
+<dt class="ctanref">mdwlist.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/mdwtools">mdwtools</a>[mdwlist]
+</dl>
+
+<p class="lastedit">This answer last edited: 2014-01-13</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-noline">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-noline</a>
+
+<p>
+
+
+<p>

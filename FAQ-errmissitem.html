@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-errmissitem</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Perhaps a missing <code>&#x5c;item</code>?</h1>
+
+
+<p>
+
+<p>
+Sometimes, the error
+<blockquote>
+<pre>
+Something's wrong--perhaps a missing \item
+</pre>
+</blockquote>
+actually means what it says:
+<blockquote>
+<pre>
+\begin{itemize}
+  boo!
+\end{itemize}
+</pre>
+</blockquote>
+produces the error, and is plainly in need of an <code>&#x5c;item</code> command.
+
+<p>
+You can also have the error appear when at first sight things are
+correct:
+<blockquote>
+<pre>
+\begin{tabular}{l}
+  \begin{enumerate}
+  \item foo\\
+  \item bar
+  \end{enumerate}
+\end{tabular}
+</pre>
+</blockquote>
+produces the error at the <tt>&#x5c; </tt>.  This usage is just wrong; if you
+want to number the cells in a table, you have to do it &ldquo;by hand&rdquo;:
+<blockquote>
+<pre>
+\newcounter{tablecell}
+...
+\begin{tabular}{l}
+  \stepcounter{tablecell}
+  \thetablecell. foo\\
+  \stepcounter{tablecell}
+  \thetablecell. bar
+\end{tabular}
+</pre>
+</blockquote>
+This is obviously untidy; a command <code>&#x5c;numbercell</code> defined as:
+<blockquote>
+<pre>
+\newcounter{tablecell}
+...
+\newcommand*{\numbercell}{%
+  \stepcounter{tablecell}%
+  \thetablecell. % **
+}
+</pre>
+</blockquote>
+could make life easier:
+<blockquote>
+<pre>
+\begin{tabular}{l}
+  \numbercell foo\\
+  \numbercell bar
+\end{tabular}
+</pre>
+</blockquote>
+Note the deliberate introduction of a space as part of the command,
+marked with asterisks.  Omitted above, the code needs to set the
+counter [[[ltxcounter]]][[[LBRACE]]]tablecell[[[RBRACE]]] to zero
+(<code>&#x5c;setcounter</code><code>&#x7b;tablecell&#x7d;</code></code><code>&#x7b;0&#x7d;</code>) before each tabular that uses it.
+
+<p>
+The error also regularly appears when you would never have thought
+that a <code>&#x5c;item</code> command  might be appropriate.  For example, the
+seemingly innocent:
+<blockquote>
+<pre>
+\fbox{%
+  \begin{alltt}
+    boo!
+  \end{alltt}%
+}
+</pre>
+</blockquote>
+produces the error (the same happens with <code>&#x5c;mbox</code> in place of
+<code>&#x5c;fbox</code>, or with either of their &ldquo;big brothers&rdquo;, <code>&#x5c;framebox</code> and
+<code>&#x5c;makebox</code>).  This is because the <code class="environment">alltt</code> environment
+uses a &ldquo;trivial&rdquo; list, hidden inside its definition.  (The
+<code class="environment">itemize</code> environment also has this construct inside
+itself, in fact, so <code>&#x5c;begin</code><code>&#x7b;itemize&#x7d;</code> won&rsquo;t work inside an
+<code>&#x5c;fbox</code>, either.)  The list construct wants to happen between
+paragraphs, so it makes a new paragraph of its own.  Inside the
+<code>&#x5c;fbox</code> command, that doesn&rsquo;t work, and subsequent macros convince
+themselves that there&rsquo;s a missing <code>&#x5c;item</code> command.
+
+<p>
+To solve this rather cryptic error, one must put the
+<code class="environment">alltt</code> inside a paragraph-style box.  The following
+modification of the above <em>does</em> work:
+<blockquote>
+<pre>
+\fbox{%
+  \begin{minipage}{0.75\textwidth}
+    \begin{alltt}
+      hi, there!
+    \end{alltt}
+  \end{minipage}
+}
+</pre>
+</blockquote>
+The code above produces a box that&rsquo;s far too wide for the text.  One
+may want to use something that allows 
+<a href="FAQ-varwidth.html">variable size boxes</a> in place of the
+<code class="environment">minipage</code> environment.
+
+<p>
+Oddly, although the <code class="environment">verbatim</code> environment wouldn&rsquo;t work
+inside a <code>&#x5c;fbox</code> command argument (see 
+<a class="FAquestion.html" href="FAQ-verbwithin.html">verbatim in command arguments</a>), you
+get an error that complains about <code>&#x5c;item</code>: the environment&rsquo;s
+internal list bites you before <code class="environment">verbatim</code> has even had a
+chance to create its own sort of chaos.
+
+<p>
+Another (seemingly) obvious use of <code>&#x5c;fbox</code> also falls foul of this
+error:
+<blockquote>
+<pre>
+\fbox{\section{Boxy section}}
+</pre>
+</blockquote>
+This is a case where you&rsquo;ve simply got to be more subtle; you should
+either write your own macros to replace the insides of LaTeX&rsquo;s
+sectioning macros, or  look for some alternative in the packages
+discussed in 
+&ldquo;<a class="FAquestion.html" href="FAQ-secthead.html">The style of section headings</a>&rdquo;.
+
+<p>

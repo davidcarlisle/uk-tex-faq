@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-vertspacefloat</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>Extra vertical space in floats</h1>
+
+
+<p>
+
+<p>
+A common complaint is that extra vertical space has crept into
+<code class="environment">figure</code> or <code class="environment">table</code> floating environments.
+More common still are users who post code that introduces this extra
+space, and <em>haven&rsquo;t noticed the problem</em>!
+
+<p>
+The trouble arises from the fact that the <code class="environment">center</code>
+environment (and its siblings <code class="environment">flushleft</code> and
+<code class="environment">flushright</code>) are actually based on LaTeX&rsquo;s
+list-handling code; and lists always separate themselves from the
+material around them.  Meanwhile, there are parameters provided to
+adjust the spacing between floating environments and their
+surroundings; so if we have:
+<blockquote>
+<pre>
+\begin{figure}
+ \begin{center}
+   \includegraphics{...}
+   \caption{...}
+ \end{center}
+\end{figure}
+</pre>
+</blockquote>
+or worse still:
+<blockquote>
+<pre>
+\begin{figure}
+ \begin{center}
+   \includegraphics{...}
+ \end{center}
+ \caption{...}
+\end{figure}
+</pre>
+</blockquote>
+unwarranted vertical space is going to appear.
+
+<p>
+The solution is to let the float and the objects in it position
+themselves, and to use &ldquo;generic&rdquo; layout commands rather than their
+list-based encapsulations.
+<blockquote>
+<pre>
+\begin{figure}
+  \centering
+  \includegraphics{...}
+  \caption{...}
+\end{figure}
+</pre>
+</blockquote>
+(which even involves less typing).
+
+<p>
+This alternative code will work with any LaTeX package.  It will
+not work with obsolete (pre-LaTeX 2e) packages such as
+<i class="package">psfig</i> or <i class="package">epsf</i>&nbsp;&mdash; see 
+<a class="FAquestion.html" href="FAQ-impgraph.html">graphics inclusion</a> for discussion of the
+genesis of <code>&#x5c;includegraphics</code>.
+
+<p class="lastedit">This answer last edited: 2012-11-16</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-vertspacefloat">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-vertspacefloat</a>
+
+<p>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-oarglikesect</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacrotoolsandtechniques">LaTeX macro tools and techniques</a> &gt; </div>
+<h1>Optional arguments like <code>&#x5c;section</code></h1>
+
+
+<p>
+
+<p>
+Optional arguments, in macros defined using <code>&#x5c;newcommand</code>, don&rsquo;t
+quite work like the optional argument to <code>&#x5c;section</code>.  The default
+value of <code>&#x5c;section</code>&rsquo;s optional argument is the value of the
+mandatory argument, but <code>&#x5c;newcommand</code> requires that you &lsquo;know&rsquo; the
+value of the default beforehand.
+
+<p>
+The requisite trick is to use a macro in the optional argument:
+<blockquote>
+<pre>
+\documentclass{article}
+\newcommand\thing[2][\DefaultOpt]{%
+  \def\DefaultOpt{#2}%
+  optional arg: #1,  mandatory arg: #2%
+}
+\begin{document}
+\thing{manda}% #1=#2
+
+\thing[opti]{manda}% #1="opti"
+\end{document}
+</pre>
+</blockquote>
+LaTeX itself has a trickier (but less readily understandable)
+method, using a macro <code>&#x5c;@dblarg</code>; inside LaTeX, the example
+above would have been programmed:
+<blockquote>
+<pre>
+\newcommand\thing{\@dblarg\@thing}
+\newcommand\@thing[2][\@error]{%
+  optional arg: #1,  mandatory arg: #2%
+}
+</pre>
+</blockquote>
+In that code, <code>&#x5c;@thing</code> is only ever called with an optional and a
+mandatory argument; if the default from the <code>&#x5c;newcommand</code> is
+invoked, a bug in user code has bitten&hellip;
+
+<p>

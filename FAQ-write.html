@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-write</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Writing (text) files from TeX</h1>
+
+
+<p>
+
+<p>
+TeX allows you to write to output files from within your document.
+The facility is handy in many circumstances, but it is vital for
+several of the things LaTeX (and indeed almost any higher-level
+TeX-based macro package) does for you.
+
+<p>
+The basic uses of writing to an external file are &ldquo;obvious&rdquo;&nbsp;&mdash;
+remembering titles of sections for a table of contents, remembering
+label names and corresponding section or figure numbers, all for a
+later run of your document.  However, the &ldquo;non-obvious&rdquo; thing is
+easy to forget: that page numbers, in TeX, are slippery beasts, and
+have to be captured with some care.  The trick is that <code>&#x5c;write</code>
+operations are only executed as the page is sent to the DVI
+or PDF file.  Thus, if you arrange that your page-number macro
+(<code>&#x5c;thepage</code>, in LaTeX) is not expanded until the page is
+written, then the number written is correct, since that time is where
+TeX guarantees the page number tallies with the page being sent
+out.
+
+<p>
+Now, there are times when you want to write something straight away:
+for example, to interact with the user.  TeX captures that
+requirement, too, with the primitive command <code>&#x5c;immediate</code>:
+<blockquote>
+<pre>
+\immediate\write\terminal{I'm waiting...}
+</pre>
+</blockquote>
+writes a &ldquo;computer-irritates-user&rdquo; message, to the terminal.
+
+<p>
+Which brings us to the reason for that <code>&#x5c;terminal</code>.  TeX can
+&ldquo;<code>&#x5c;write</code>&rdquo; up to 16 streams simultaneously, and that argument to
+<code>&#x5c;write</code> says which is to be used.  Macro packages provide the
+means of allocating streams for your use: Plain TeX provides a macro
+<code>&#x5c;newwrite</code> (used as &ldquo;<code>&#x5c;newwrite</code><code>&#x5c;streamname</code>&rdquo;, which sets
+<code>&#x5c;streamname</code> as the stream number).  In fact, <code>&#x5c;terminal</code> (or
+its equivalent) is the first output stream ever set up (in most macro
+packages): it is never attached to a file, and if TeX is asked to
+write to <em>any</em> stream that isn&rsquo;t attached to a file it will send
+the output to the terminal (and the log).
+
+<p class="lastedit">This answer last edited: 2011-10-15</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-write">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-write</a>
+
+<p>

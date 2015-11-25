@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-cpy-srchpdf</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HypertextandPDF">Hypertext and PDF</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Copy-paste-able/searchable PDF files</h1>
+
+
+<p>
+
+<p>
+PDF files generated from TeX (and friends), will by default
+hold their text in the encoding of the original TeX font used by
+the document.
+
+<p>
+When PDF readers, etc., offer copy-paste or searching
+functions, the operations take place on the glyph codes used for the
+fonts selected by the document.  This is fine, for the simplest
+documents (in English, at least); the problem comes when you&rsquo;re using
+an inflected language (with accented letters, or composite glyphs
+such as &lsquo;[[[ae]]][[[LBRACE]]][[[RBRACE]]]&rsquo;)&nbsp;&mdash; TeX will typically use a non-standard
+encoding, and there are likely be problems, since PDF readers
+assume the text is presented in Unicode.
+
+<p>
+For PDF generated from LaTeX (the DVI being
+converted, by whatever means), or from PDFLaTeX, the character
+codes used in the PDF file are in fact those of the document&rsquo;s
+<a href="FAQ-whatenc.html">font encoding</a>; if you&rsquo;re using OT1 or
+T1, your document will be OK for almost all ASCII
+characters, but it&rsquo;s likely that anything &ldquo;out of the ordinary&rdquo; will
+not be represented properly.  (Of course, PDF generated from
+XeTeX- or LuaTeX-based formats is going to be OK, since
+those engines work in Unicode througout.)
+
+<p>
+The solution comes from the character-mapping facilities in the
+PDF specification: the file may specify a table of translations
+of characters present in the coding used in the file, to a Unicode
+version of the characters.
+
+<p>
+Packages <i class="package">cmap</i> and <i class="package">mmap</i> both offer means of
+generating such tables (<i class="package">mmap</i> has wider coverage, including
+the various maths encodings); both work with PDFTeX and no other
+engine.  Thus your document becomes something like:
+<blockquote>
+<pre>
+\documentclass{article}
+\usepackage{mmap} % (or cmap)
+\usepackage[T1]{fontenc}
+... % your other packages
+\begin{document}
+... % your actual text
+</pre>
+</blockquote>
+
+<p>
+Unfortunately, the packages only work with fonts that are directly
+encoded, such as the default (Computer Modern, i.e., <i class="fontname">cm</i>
+fonts, and things such as <i class="fontname">cm-super</i> or the <i class="fontname">Latin</i>
+<i class="fontname">Modern</i> sets.  Fonts like Adobe
+Times Roman (which are encoded for (La)TeX use via virtual fonts)
+are not amenable to this treatment.
+<dl>
+<dt class="ctanref">cmap.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cmap">cmap</a>
+<dt class="ctanref">cm-super fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cm-super">cm-super</a>
+<dt class="ctanref">Latin Modern fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lm">lm</a>
+<dt class="ctanref">mmap.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mmap">mmap</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-08-21</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-cpy-srchpdf">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-cpy-srchpdf</a>
+
+<p>

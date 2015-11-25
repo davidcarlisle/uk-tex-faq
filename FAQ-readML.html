@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-readML</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Formatconversions">Format conversions</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Using TeX to read SGML or XML directly</h1>
+
+
+<p>
+
+<p>
+<a href="FAQ-context.html">[[[context]]][[[LBRACE]]][[[RBRACE]]] (mark IV)</a> can process some
+*ML, to produce typeset output directly.  Details of what can
+(and can not) be done, are discussed in 
+<a href="http://wiki.contextgarden.net/XML.html">The [[[context]]][[[LBRACE]]][[[RBRACE]]] WIKI</a>.
+[[[context]]][[[LBRACE]]][[[RBRACE]]] is probably the system of choice for [[[alltex]]][[[LBRACE]]][[[RBRACE]]] users who
+also need to work in XML (and friends).  (Note that [[[context]]][[[LBRACE]]][[[RBRACE]]]
+mark&nbsp;IV requires <a href="FAQ-luatex.html">LuaTeX</a>, and should
+therefore be regarded as experimental, though many people <em>do</em>
+use it successfully).
+
+<p>
+Older systems also manage, using no more than [[[alltex]]][[[LBRACE]]][[[RBRACE]]] macro
+programming, to process XML and the like.  David Carlisle&rsquo;s
+<i class="package">xmltex</i> is the prime example; it offers a solution
+for typesetting XML files, and is still in active (though not
+very widespread) use.
+
+<p>
+One use of a TeX that can typeset XML files is as a backend
+processor for XSL formatting objects, serialized as XML.
+Sebastian Rahtz&rsquo;s PassiveTeX uses <i class="package">xmltex</i> to
+achieve this end.
+
+<p>
+However, modern usage would proceed via XSL or XSLT2 to
+produce a formattable version.
+<dl>
+<dt class="ctanref">Context</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/context">context</a>
+<dt class="ctanref">xmltex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xmltex">xmltex</a>
+<dt class="ctanref">passivetex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/passivetex">passivetex</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-04-11</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-readML">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-readML</a>
+
+<p>

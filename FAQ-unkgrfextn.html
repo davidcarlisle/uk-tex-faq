@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-unkgrfextn</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>&ldquo;Unknown graphics extension&rdquo;</h1>
+
+
+<p>
+
+<p>
+The LaTeX graphics package deals with several different types of
+DVI (or other) output drivers; each one of them has a potential
+to deal with a different selection of graphics formats.  The package
+therefore has to be told what graphics file types its output driver
+knows about; this is usually done in the &lsaquo;<i>driver</i>&rsaquo;<code class="extension">def</code> file
+corresponding to the output driver you&rsquo;re using.
+
+<p>
+The error message arises, then, if you have a graphics file whose
+extension doesn&rsquo;t correspond with one your driver knows about.  Most
+often, this is because you&rsquo;re being optimistic: asking
+<i class="progname">dvips</i> to deal with a <code class="extension">png</code> file, or PDFTeX to deal with
+a <code class="extension">eps</code> file: the solution in this case is to transform the graphics
+file to a format your driver knows about.
+
+<p>
+If you happen to <em>know</em> that your device driver deals with the
+format of your file, you are probably falling foul of a limitation of
+the file name parsing code that the graphics package uses.  Suppose
+you want to include a graphics file <i class="filename">home.bedroom.eps</i> using the
+<i class="progname">dvips</i> driver; the package will conclude that your file&rsquo;s
+extension is <code class="extension">bedroom.eps</code>, and will complain.
+
+<p>
+The <i class="package">grffile</i> package deals with the last problem (and
+others&nbsp;&mdash; see the package documentation); using the package, you may
+write:
+<blockquote>
+<pre>
+\usepackage{graphicx}
+\usepackage{grffile}
+...
+\includegraphics{home.bedroom.eps}
+</pre>
+</blockquote>
+or you may even write
+<blockquote>
+<pre>
+\includegraphics{home.bedroom}
+</pre>
+</blockquote>
+and <i class="package">graphicx</i> will find a <code class="extension">eps</code> or <code class="extension">pdf</code>
+(or whatever) version, according to what version of (La)TeX you&rsquo;re
+running.
+
+<p>
+If for some reason you can&rsquo;t use <i class="package">grffile</i>, you have three
+unsatisfactory alternatives:
+<ul>
+<li> Rename the file&nbsp;&mdash; for example <i class="filename">home.bedroom.eps</i>&rarr;
+  <i class="filename">home-bedroom.eps</i>
+<li> Mask the first dot in the file name:
+<pre>
+\newcommand*{\DOT}{.}
+\includegraphics{home\DOT bedroom.eps}
+</pre>
+<li> Tell the graphics package what the file is, by means of options
+  to the <code>&#x5c;includegraphics</code> command:
+
+<pre>
+\includegraphics[type=eps,ext=.eps,
+                 read=.eps]{home.bedroom}
+</pre>
+
+
+<pre>
+\includegraphics[type=eps,ext=.eps,read=.eps]{home.bedroom}
+</pre>
+
+</ul>
+<dl>
+<dt class="ctanref">grffile.sty</dt><dd>Distributed as part of the Oberdiek collection
+  <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[grffile]
+</dl>
+
+<p>

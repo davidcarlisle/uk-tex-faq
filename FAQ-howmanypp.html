@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-howmanypp</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Documentmanagement">Document management</a> &gt; </div>
+<h1>How many pages are there in my document?</h1>
+
+
+<p>
+
+<p>
+Simple documents (those that start at page 1, and don&rsquo;t have any
+breaks in their page numbering until their last page) present no
+problem to the seeker after this truth.  The number of pages is
+reported by the <i class="package">lastpage</i> package in its <tt>LastPage</tt> label.
+
+<p>
+For more complicated documents (most obviously, books with frontmatter
+in a different series of page numbers) this simple approach will not
+do.
+
+<p>
+The <i class="package">count1to</i> package defines a label <tt>TotalPages</tt>; this is
+the value of its copy of <code>&#x5c;count1</code> (a reserved TeX count
+register) at the end of the document.
+
+<p>
+Package <i class="package">totpages</i> defines a label <tt>TotPages</tt>, but it also
+makes the register it uses available as a LaTeX counter,
+<tt>TotPages</tt>, which you can also reference via <code>&#x5c;theTotPages</code>.  Of
+course, the counter <code class="verb">TotPages</code> is asynchronous in the same way that
+page numbers are, but snapshots may safely be taken in the output
+routine.
+
+<p>
+The <i class="class">memoir</i> class defines two counters <tt>lastpage</tt> and
+<tt>lastsheet</tt>, which are set (after the first run of a document)
+to the equivalent of the <tt>LastPage</tt> label and the
+<tt>TotalPages</tt> labels.
+
+<p>
+Both <i class="package">count1to</i> and <i class="package">totpages</i> need the support of
+the <i class="package">everyshi</i> package.
+<dl>
+<dt class="ctanref">count1to.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/ms">ms</a>[count1to]
+<dt class="ctanref">everyshi.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/ms">ms</a>[everyshi]
+<dt class="ctanref">lastpage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lastpage">lastpage</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">totpages.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/totpages">totpages</a>
+</dl>
+
+<p>

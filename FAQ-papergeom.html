@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-papergeom</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Pagelayout">Page layout</a> &gt; </div>
+<h1>Getting the right paper geometry from (La)TeX</h1>
+
+
+<p>
+
+<p>
+If your output is the wrong size, and you&rsquo;ve checked that it&rsquo;s not due
+to the <a href="FAQ-acroantics.html">ministrations of Adobe <i class="progname">Reader</i></a>,
+the problem is probably that your (La)TeX system is producing output
+that specifies the wrong paper size.  Paper sizes can be a pain:
+they&rsquo;re a forgotten backwater&nbsp;&mdash; Knuth seems not to have considered
+paper size as something the TeX engine needs to know about.  As a
+result, there is no DVI command to specify the paper on which
+the document should be printed, which has led a dichotomy where macros
+shape the text according to the needs of the author&rsquo;s chosen paper
+size, and device drivers&rsquo; choice happens independently of the macros&rsquo;
+ideas.
+
+<p>
+In practice, one usually finds that macro packages (such as Plain TeX and
+LaTeX) assume American &ldquo;letter&rdquo; paper size, by default; and since
+most distributions nowadays originate in Europe, the drivers usually
+default to ISO &ldquo;A4&rdquo; paper size.
+
+<p>
+This is (of course) pretty unsatisfactory.  Users may select a
+different paper size for their document (current LaTeX offers a
+range of sizes as options in the standard classes), pretty easily.
+Nevertheless, the user also has to be sure that each time
+<i class="progname">xdvi</i>, <i class="progname">dvips</i> (or whatever) runs, it uses the
+paper size the document was designed for.
+
+<p>
+The default paper size for DVI drivers may be changed by a
+distribution management command (<i class="progname">texconfig</i> for texlive,
+the <i class="progname">Options</i> application for MiKTeX), but this still
+doesn&rsquo;t provide for people using the &ldquo;wrong&rdquo; sort of paper for some
+reason.
+
+<p>
+A different issue arises for users of PDFTeX&nbsp;&mdash; the
+PDF format <em>does</em> have the means of expressing paper size
+and PDFTeX has system variables <code>&#x5c;pdfpagewidth</code> and
+<code>&#x5c;pdfpageheight</code>, that are written into the output PDF file.
+Unfortunately, most of the core software predates PDFTeX, so not even
+PDFLaTeX sets the correct values into those variables, to match the
+paper size specified in a <code>&#x5c;documentclass</code> option.
+
+<p>
+The DVI drivers <i class="progname">dvips</i>, <i class="progname">dvipdfm</i> and its
+extensions (<i class="progname">dvipdfmx</i> and <i class="progname">xdvipdfmx</i>) define
+<code>&#x5c;special</code> commands for the document to specify its own paper size;
+so in those cases, as when PDFTeX is being used, the
+paper size can be programmed by the document.  Users who wish to, may
+of course consult the manuals of the various programs to write the
+necessary code.
+
+<p>
+The <i class="package">geometry</i> and <i class="package">zwpagelayout</i> packages (whose main
+business includes defining
+typeset page areas), also takes notice the size of the paper that the
+document is going to be printed on, and can issue the commands
+necessary to ensure the correct size of paper is used.  If
+<i class="package">geometry</i> is used when a document is being processed by
+PDFLaTeX, it can set the necessary dimensions &ldquo;in the output&rdquo;.
+If the document is being processed by LaTeX on a TeX or e-TeX
+engine, there are package options which instruct <i class="package">geometry</i>
+which <code>&#x5c;special</code> commands to use.  (Note that the options are
+ignored if you are using PDFLaTeX.)
+
+<p>
+So, one resolution of the problem, when you are using LaTeX, is to add
+<blockquote>
+<pre>
+\usepackage[processor-option,...]{geometry}
+</pre>
+</blockquote>
+Where <code class="pkgoption">processor-option</code> tells the package what will produce
+your (PostScript or PDF output&nbsp;&mdash; <i class="package">geometry</i> knows about
+<code class="pkgoption">dvips</code> and <code class="pkgoption">dvipdfm</code> (<code class="pkgoption">dvipdfm</code> also
+serves for the extension <i class="progname">dvipdfmx</i> and
+<i class="progname">xdvipdfmx</i>).
+
+<p>
+If you&rsquo;re using PDFLaTeX or XeTeX, load with
+<blockquote>
+<pre>
+\usepackage[program-option,...]{geometry}
+</pre>
+</blockquote>
+where <code class="pkgoption">program-option</code> is <code class="pkgoption">pdftex</code>,
+<code class="pkgoption">xetex</code>.
+
+<p>
+The alternative, <i class="package">zwpagelayout</i> requires a <code class="pkgoption">driver</code>
+option:
+<blockquote>
+<pre>
+\usepackage[driver=value,...]{zwpagelayout}
+</pre>
+</blockquote>
+(permissible &lsaquo;<i>values</i>&rsaquo; are <code class="pkgoption">pdftex</code>, <code class="pkgoption">xetex</code>
+and <code class="pkgoption">dvips</code>; the default value is <code class="pkgoption">unknown</code>).
+
+<p>
+Needless to say, both the &ldquo;big&rdquo; classes (<i class="class">koma-script</i> and
+<i class="class">memoir</i>) provide their own ways to get the paper size
+&ldquo;right&rdquo;.
+
+<p>
+The <i class="package">typearea</i> package is the <i class="class">Koma-script</i>
+distribution&rsquo;s way of providing page layout functionality.  Load it
+with the <code class="pkgoption">pagesize</code> option and it will ensure the correct
+paper is selected, for PDF output from PDFLaTeX, and for
+PostScript output from LaTeX via <i class="progname">dvips</i>.
+
+<p>
+<i class="class">Memoir</i> has the standard classes&rsquo; paper-size selections
+(<code class="pkgoption">a4paper</code>, <code class="pkgoption">letterpaper</code> and so on), but also
+permits the user to choose an arbitrary paper size, by setting the
+length registers <code>&#x5c;stockheight</code> and <code>&#x5c;stockwidth</code>.  The commands
+<code>&#x5c;fixdvipslayout</code> (for LaTeX processing), and <code>&#x5c;fixpdflayout</code>
+(for PDFLaTeX processing) then instruct the processor to produce
+output that specifies the necessary paper size.
+<dl>
+<dt class="ctanref">geometry.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/geometry">geometry</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">typearea.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>[typearea]
+<dt class="ctanref">zwpagelayout.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/zwpagelayout">zwpagelayout</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-12-12</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-papergeom">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-papergeom</a>
+
+<p>

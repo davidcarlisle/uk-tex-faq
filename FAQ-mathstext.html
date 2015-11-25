@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-mathstext</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Text inside maths</h1>
+
+
+<p>
+
+<p>
+When we type maths in (La)TeX, the letters from which we make up
+ordinary text assume a special significance: they all become
+single-letter variable names.  The letters appear in italics, but it&rsquo;s
+not the same sort of italics that you see when you&rsquo;re typing ordinary
+text: a run of maths letters (for example &ldquo;here&rdquo;) looks oddly
+&ldquo;lumpy&rdquo; when compared with the word written in italic text.  The
+difference is that the italic text is kerned to make the letters fit
+well together, whereas the maths is set to look as if you&rsquo;re
+multiplying <em>h</em> by <em>e</em> by <em>r</em> by <em>e</em>.  The other
+way things are odd in TeX maths typing is that spaces are ignored:
+at best we can write single words in this oddly lumpy font.
+
+<p>
+So, if we&rsquo;re going to have good-looking text in amongst maths we&rsquo;re
+writing, we have to take special precautions.  If you&rsquo;re using
+LaTeX, the following should help.
+
+<p>
+The simplest is to use <code>&#x5c;mbox</code> or <code>&#x5c;textrm</code>:
+<blockquote>
+<pre>
+$e = mc^2 \mbox{here we go again}$
+</pre>
+</blockquote>
+The problem is that, with either, the size of the text remains firmly
+at the surrounding text size, so that
+<blockquote>
+<pre>
+$z = a_{\mbox{other end}}$
+</pre>
+</blockquote>
+can look quite painfully wrong.
+
+<p>
+The other simple technique, <code>&#x5c;textrm</code>, is no more promising:
+<blockquote>
+<pre>
+$z = a_{\textrm{other end}}$
+</pre>
+</blockquote>
+does the same as <code>&#x5c;mbox</code>, by default.
+
+<p>
+(The maths-mode instance of your roman font (<code>&#x5c;mathrm</code>) gets the
+size right, but since it&rsquo;s intended for use in maths, its spaces get
+ignored&nbsp;&mdash; use <code>&#x5c;mathrm</code> for upright roman alphabetic variable
+names, but not otherwise.)
+
+<p>
+You can correct these problems with size selectors in the text, as:
+<blockquote>
+<pre>
+$z = a_{\mbox{\scriptsize other end}}$
+</pre>
+</blockquote>
+which works if your surrounding text is at default document size, but
+gives you the wrong size otherwise.
+
+<p>
+The <code>&#x5c;mbox</code> short cut is (just about) OK for &ldquo;occasional&rdquo;
+use, but serious mathematics calls for a technique that
+relieves the typist of the sort of thought required.  As usual, the
+AMSLaTeX system provides what&rsquo;s necessary&nbsp;&mdash; the <code>&#x5c;text</code>
+command.  (The command is actually provided by the <i class="package">amstext</i>
+package, but the &ldquo;global&rdquo; <i class="package">amsmath</i> package loads it.)  Thus
+anyone using AMSLaTeX proper has the command available, so even
+this author can write:
+<blockquote>
+<pre>
+\usepackage{amsmath}
+...
+$z = a_{\text{other end}}$
+</pre>
+</blockquote>
+and the text will be at the right size, and in the same font as
+surrounding text.  (The <i class="package">amstext</i> package also puts
+<code>&#x5c;textrm</code> to rights&nbsp;&mdash; but <code>&#x5c;text</code> is easier to type than
+<code>&#x5c;textrm</code>!)
+
+<p>
+AMSLaTeX also makes provision for interpolated comments in the
+middle of one of its multi-line display structures, through the
+<code>&#x5c;intertext</code> command.  For example:
+<blockquote>
+
+<pre>
+\begin{align}
+  A_1&amp;=N_0(\lambda;\Omega')-
+    \phi(\lambda;\Omega'),\\
+  A_2&amp;=\phi(\lambda;\Omega')-
+    \phi(\lambda;\Omega),\\
+\intertext{and}
+  A_3&amp;=\mathcal{N}(\lambda;\omega).
+\end{align}
+</pre>
+
+
+<pre>
+\begin{align}
+  A_1&amp;=N_0(\lambda;\Omega')-\phi(\lambda;\Omega'),\\
+  A_2&amp;=\phi(\lambda;\Omega')-\phi(\lambda;\Omega),\\
+  \intertext{and} A_3&amp;=\mathcal{N}(\lambda;\omega).
+\end{align}
+</pre>
+
+</blockquote>
+places the text &ldquo;and&rdquo; on a separate line before the last line of the
+display.  If the interjected text is short, or the equations
+themselves are light-weight, you may find that <code>&#x5c;intertext</code> leaves
+too much space.  Slightly more modest is the <code>&#x5c;shortintertext</code>
+command from the <i class="package">mathtools</i> package:
+<blockquote>
+<pre>
+\begin{align}
+  a =&amp; b
+  \shortintertext{or}
+  c =&amp; b
+\end{align}
+</pre>
+</blockquote>
+To have the text on the same line as the second equation, one can use
+the <code class="environment">flalign</code> environment (from <i class="package">amsmath</i>)
+with lots of dummy equations (represented by the double <tt>\&amp;</tt>
+signs):
+<blockquote>
+<pre>
+\begin{flalign}
+            &amp;&amp; a =&amp; b &amp;&amp; \\
+  \text{or} &amp;&amp; c =&amp; b &amp;&amp;
+\end{flalign}
+</pre>
+</blockquote>
+<dl>
+<dt class="ctanref">amsmath.sty</dt><dd>Distributed as part of AMSLaTeX
+  <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>[amsmath]
+<dt class="ctanref">amstext.sty</dt><dd>Distributed as part of AMSLaTeX
+  <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>[amstext]
+<dt class="ctanref">mathtools.sty</dt><dd>Distributed as part of the <i class="package">mh</i> bundle
+  <a class="ctan" href="https://www.ctan.org/pkg/mh">mh</a>[mathtools]
+</dl>
+
+<p>

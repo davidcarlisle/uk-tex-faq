@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-brkinline</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Line-breaking in in-line maths</h1>
+
+
+<p>
+
+<p>
+TeX, by default, allows you to split a mathematical expression at
+the end of the line; it allows breaks at relational operators (like
+&ldquo;=&rdquo;, &ldquo;&lt;&rdquo;, etc.) and at binary operators (like &ldquo;+&rdquo;,
+&ldquo;-&rdquo;, etc.).  In the case of large expressions, this can sometimes be
+a life-saver.
+
+<p>
+However, in the case of simple expressions like a=b+c, a
+break can be really disturbing to the reader, and one would like to
+avoid it.
+
+<p>
+Fortunately, these breaks are controllable: there are &ldquo;penalties&rdquo;
+associated with each type of operator: the penalty 
+ says how
+undesirable a break at each point is.  Default values are:
+<blockquote>
+<pre>
+\relpenalty   = 500
+\binoppenalty = 700
+</pre>
+</blockquote>
+You make the break progressively less attractive by increasing these
+values.  You can actually forbid all breaks, everywhere, by:
+<blockquote>
+<pre>
+\relpenalty   = 10000
+\binoppenalty = 10000
+</pre>
+</blockquote>
+If you want just to prevent breaks in a single expression, write:
+<blockquote>
+<pre>
+{%
+  \relpenalty   = 10000
+  \binoppenalty = 10000
+  $a=b+c$
+}
+</pre>
+</blockquote>
+and the original values will remain undisturbed outside the braces.
+This is tedious: there is often value in an alternative approach,
+in which you say which parts of the expression may not break whatever
+happens, and fortunately this is surprisingly easy.  Suppose we want
+to defer a break until after the equality, we could write:
+<blockquote>
+<pre>
+${a+b+c+d} = z+y+x+w$
+</pre>
+</blockquote>
+The braces say &ldquo;treat this subformula as one atom&rdquo; and (in TeX at
+least) atoms don&rsquo;t get split: not a <code>&#x5c;binoppenalty</code> change in sight.
+
+<p>

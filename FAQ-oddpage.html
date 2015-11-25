@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-oddpage</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>Finding if you&rsquo;re on an odd or an even page</h1>
+
+
+<p>
+
+<p>
+<a class="FAQuestion.html" href="FAQ-marginparside.html">Another question</a> discusses the issue
+of getting <code>&#x5c;marginpar</code> commands to put their output in the correct
+margin of two-sided documents.  This is an example of the general
+problem of knowing where a particular bit of text lies: the output
+routine is asynchronous, and (La)TeX will usually process quite a
+bit of the &ldquo;next&rdquo; page before deciding to output any page.  As a
+result, the <code class="verb">page</code> counter (known internally in LaTeX as
+<code>&#x5c;c@page</code>) is normally only reliable when you&rsquo;re actually <em>in</em>
+the output routine.
+
+<p>
+The solution is to use some version of the <code>&#x5c;label</code> mechanism to
+determine which side of the page you&rsquo;re on; the value of the page
+counter that appears in a <code>&#x5c;pageref</code> command has been inserted in
+the course of the output routine, and is therefore safe.
+
+<p>
+However, <code>&#x5c;pageref</code> itself isn&rsquo;t reliable: one might hope that
+<blockquote>
+<pre>
+\ifthenelse{\isodd{\pageref{foo}}}{odd}{even}
+</pre>
+</blockquote>
+would do the necessary, but both the <i class="package">babel</i> and
+<i class="package">hyperref</i> packages have been known to interfere with the
+output of <code>&#x5c;pageref</code>; be careful!
+
+<p>
+The <i class="package">changepage</i> package needs to provide this functionality
+for its own use, and therefore provides a command <code>&#x5c;checkoddpage</code>;
+this sets a private-use &lsquo;label&rsquo;, and the page reference part of that
+label is then examined (in a <i class="package">hyperref</i>-safe way) to set a
+conditional <code>&#x5c;ifoddpage</code> true if the command was issued on an odd
+page.  (The <i class="class">memoir</i> class has the same command.)  LaTeX
+users who are unfamiliar with TeX&rsquo;s <code>&#x5c;if...</code> commands may use
+the <i class="package">ifthen</i> package:
+
+<blockquote>
+<pre>
+\usepackage{ifthen,changepage}
+...
+\checkoddpage
+\ifthenelse{\boolean{oddpage}}{<odd page stuff>}{<even page stuff>}
+</pre>
+</blockquote>
+
+
+
+<pre>
+\usepackage{ifthen,changepage}
+...
+\checkoddpage
+\ifthenelse{\boolean{oddpage}}%
+    {<odd page stuff>}%
+    {<even page stuff>}
+</pre>
+
+
+
+<p>
+Of course, the &lsquo;label&rsquo; contributes to LaTeX&rsquo;s &ldquo;Rerun to get
+cross-references right&rdquo; error messages&hellip;
+
+<p>
+The Koma-Script classes have an <code class="environment">addmargin*</code> environment
+that also provides the sorts of facilities that the <i class="package">changepage</i>
+offers.  Koma-Script&rsquo;s supporting command:
+<blockquote>
+<code>&#x5c;ifthispageodd</code><code>&#x7b;<true>&#x7d;</code></code><code>&#x7b;<false>&#x7d;</code>
+</blockquote>
+executes different things depending on the page number.
+
+<p>
+The package <i class="package">ifoddpage</i> is designed to provide the same
+facility; crucially, it can behave &ldquo;sensibly&rdquo; even if you are
+typesetting for one-side printing only; like the <i class="package">changepage</i>
+it uses a &lsquo;check&rsquo; command <code>&#x5c;checkoddpage</code>.  The conditional &lsquo;side&rsquo;
+flags are set using (Plain) TeX conditionals; they are defined
+locally, so that you can minimise their use of TeX workspace&nbsp;&mdash;
+see the package documentation for the somewhat tricky sequence
+involved.  In addition the package provides a command
+<code>&#x5c;ifoddpageoroneside</code>, which is true on odd pages of a two-side
+document, or on all pages of a one-side document.  Usage is:
+<blockquote>
+<pre>
+\checkoddpage
+\ifoddpage
+  odd-side text
+\else
+  even-side text
+\fi
+</pre>
+</blockquote>
+The author&rsquo;s recommended usage (trickily) includes the whole operation
+in a box; this has the advantage that your test will always work, but
+the usual disadvantage that boxes may not split.  In common uses, the
+whole work will be done inside a box (as, for example, in the case of
+a float), so the elaborate work proposed by the author is not
+necessary.
+<dl>
+<dt class="ctanref">changepage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/changepage">changepage</a>
+<dt class="ctanref">ifoddpage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ifoddpage">ifoddpage</a>
+<dt class="ctanref">ifthen.sty</dt><dd>Part of the LaTeX distribution: <a class="ctan" href="https://www.ctan.org/pkg/latex">latex</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+</dl>
+
+<p>

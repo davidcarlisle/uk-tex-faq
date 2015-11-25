@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-casechange</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>Case-changing oddities</h1>
+
+
+<p>
+
+<p>
+TeX provides two primitive commands <code>&#x5c;uppercase</code> and
+<code>&#x5c;lowercase</code> to change the case of text; they&rsquo;re not much used, but
+are capable creating confusion.
+
+<p>
+The two commands do not expand the text that is their parameter&nbsp;&mdash;
+the result of <code>&#x5c;uppercase</code><code>&#x7b;abc&#x7d;</code> is &lsquo;<tt>ABC</tt>&rsquo;, but
+<code>&#x5c;uppercase</code><code>&#x7b;<code>&#x5c;abc</code>&#x7d;</code> is always &lsquo;<code>&#x5c;abc</code>&rsquo;, whatever the
+meaning of <code>&#x5c;abc</code>.  The commands are simply interpreting a table of
+equivalences between upper- and lowercase characters.
+They have (for example) no mathematical sense, and
+<blockquote>
+<pre>
+\uppercase{About $y=f(x)$}
+</pre>
+</blockquote>
+will produce
+<blockquote>
+<pre>
+ABOUT $Y=F(X)$
+</pre>
+</blockquote>
+which is probably not what is wanted.
+
+<p>
+In addition, <code>&#x5c;uppercase</code> and <code>&#x5c;lowercase</code> do not deal very well
+with non-American characters, for example
+<code>&#x5c;uppercase</code><code>&#x7b;<code>&#x5c;ae</code>&#x7d;</code> is the same as <code>&#x5c;ae</code>.
+
+<p>
+LaTeX provides commands <code>&#x5c;MakeUppercase</code> and <code>&#x5c;MakeLowercase</code>
+which fixes the latter problem.  These commands are used in the
+standard classes to produce upper case running heads for chapters
+and sections.
+
+<p>
+Unfortunately <code>&#x5c;MakeUppercase</code> and <code>&#x5c;MakeLowercase</code> do not solve
+the other problems with <code>&#x5c;uppercase</code>, so for example a section
+title containing <code>&#x5c;begin</code><code>&#x7b;tabular&#x7d;</code> &hellip;
+<code>&#x5c;end</code><code>&#x7b;tabular&#x7d;</code> will produce a running head containing
+<code>&#x5c;begin</code><code>&#x7b;TABULAR&#x7d;</code>.  The simplest solution to this problem is
+using a user-defined command, for example: 
+<blockquote>
+<pre>
+\newcommand{\mytable}{\begin{tabular}...
+  \end{tabular}}
+\section{A section title \protect\mytable{}
+  with a table}
+</pre>
+</blockquote>
+Note that <code>&#x5c;mytable</code> has to be protected, otherwise it will be
+expanded and made upper case; you can achieve the same result by
+declaring it with <code>&#x5c;DeclareRobustCommand</code>, in which case the
+<code>&#x5c;protect</code> won&rsquo;t be necessary.
+
+<p>
+David Carlisle&rsquo;s <i class="package">textcase</i> package
+addresses many of these problems in a transparent way.  It defines
+commands <code>&#x5c;MakeTextUppercase</code> and <code>&#x5c;MakeTextLowercase</code> which do
+upper- or lowercase, with the fancier features of the LaTeX
+standard <code>&#x5c;Make*</code>-commands but without the problems
+mentioned above.  Load the package with
+<code>&#x5c;usepackage</code><code>[overload]</code></code><code>&#x7b;textcase&#x7d;</code>, and it will redefine the LaTeX
+commands (<em>not</em> the TeX primitive commands <code>&#x5c;uppercase</code> and
+<code>&#x5c;lowercase</code>), so that section headings and the like don&rsquo;t produce
+broken page headings.
+<dl>
+<dt class="ctanref">textcase.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/textcase">textcase</a>
+</dl>
+
+<p>

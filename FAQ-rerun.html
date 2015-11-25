@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-rerun</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>&ldquo;Rerun&rdquo; messages won&rsquo;t go away</h1>
+
+
+<p>
+
+<p>
+The LaTeX message &ldquo;Rerun to get crossreferences right&rdquo; is
+supposed to warn the user that the job needs to be processed again,
+since labels seem to have changed since the previous run.  (LaTeX
+compares the labels it has created this time round with what it found
+from the previous run when it started; it does this comparison at
+<code>&#x5c;end</code><code>&#x7b;document&#x7d;</code>.)
+
+<p>
+Sometimes, the message won&rsquo;t go away: however often you reprocess your
+document, LaTeX still tells you that &ldquo;Label(s) may have
+changed&rdquo;.  This can sometimes be caused by a broken package: both
+<i class="package">footmisc</i> (with the <code class="pkgoption">perpage</code> option) and <i class="package">hyperref</i>
+have been known to give trouble, in the past: if you are using either,
+check you have the latest version, and upgrade if possible.
+
+<p>
+However, there <em>is</em> a rare occasion when this error can happen
+as a result of pathological structure of the document itself.  Suppose
+you have pages numbered in roman, and you add a reference to a label
+on page &ldquo;ix&rdquo; (9).  The presence of the reference pushes the thing
+referred to onto page &ldquo;x&rdquo; (10), but since that&rsquo;s a shorter reference
+the label moves back to page &ldquo;ix&rdquo; at the next run.  Such a sequence
+can obviously not terminate.
+
+<p>
+The only solution to this problem is to make a small change to your
+document (something as small as adding or deleting a comma will often
+be enough).
+<dl>
+<dt class="ctanref">footmisc.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/footmisc">footmisc</a>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+</dl>
+
+<p>

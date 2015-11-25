@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-checksum</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Checksum mismatch in font</h1>
+
+
+<p>
+
+<p>
+When MetaFont generates a font it includes a checksum in the font bitmap
+file, and in the font metrics file (TFM).  (La)TeX includes
+the checksum from the TFM file in the DVI file.
+
+<p>
+When <i class="progname">dvips</i> (or other DVI drivers) process a
+DVI file, they compare checksums in the DVI file to
+those in the bitmap fonts being used for character images.  If the
+checksums don&rsquo;t match, it means the font metric file used by (La)TeX
+was not generated from the same MetaFont program that generated the
+font.
+
+<p>
+This commonly occurs when you&rsquo;re processing someone else&rsquo;s DVI
+file.
+
+<p>
+The fonts on your system may also be at fault: possibilities are that
+the new TFM was not installed, or installed in a path after an
+old TFM file, or that you have a personal cache of bitmaps from
+an old version of the font.
+
+<p>
+In any case, look at the output &ndash; the chances are that it&rsquo;s perfectly
+OK, since metrics tend not to change, even when the bitmaps are
+improved.  (Indeed, many font designers&nbsp;&mdash; Knuth included&nbsp;&mdash;
+maintain the metrics come what may.)
+
+<p>
+If the output <em>does</em> look bad, your only chance is to regenerate
+things from scratch.  Options include: flushing your bitmap cache,
+rebuild the TFM file locally, and so on.
+
+<p>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-fonts-pln</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#Macrosforusingfonts">Macros for using fonts</a> &gt; </div>
+<h1>Using non-standard fonts in Plain TeX</h1>
+
+
+<p>
+
+<p>
+Plain TeX (in accordance with its description) doesn&rsquo;t do anything
+fancy with fonts: it sets up the fonts that Knuth found he needed when
+writing the package, and leaves you to do the rest.
+
+<p>
+To use something other than Knuth&rsquo;s default, you can use Knuth&rsquo;s
+mechanism, the <code>&#x5c;font</code> primitive:
+<blockquote>
+<pre>
+\font\foo=nonstdfont
+...
+\foo
+Text set using nonstdfont ...
+</pre>
+</blockquote>
+The name you use (<tt>nonstdfont</tt>, above) is the name of the
+<code class="extension">tfm</code> file for the font you want.
+
+<p>
+If you want to use an italic version of <code>&#x5c;foo</code>, you need to use
+<code>&#x5c;font</code> again:
+<blockquote>
+<pre>
+\font\fooi=nonstdfont-italic
+...
+\fooi
+Text set using nonstdfont italic...
+</pre>
+</blockquote>
+This is all very elementary stuff, and serves for simple use of fonts.
+However, there are wrinkles, the most important of which is the matter
+of <a href="FAQ-whatenc.html">font encodings</a>.  One almost never sees new fonts
+that use Knuth&rsquo;s eccentric font encodings&nbsp;&mdash; but those encodings are
+built into Plain TeX, so that some macros of Plain TeX need to be
+changed to use the fonts.  LaTeX gets around all these problems by
+using a &ldquo;font selection scheme&rdquo;&nbsp;&mdash; this &lsquo;NFSS&rsquo; (&lsquo;N&rsquo;
+for &lsquo;new&rsquo;, as opposed to what LaTeX 2.09 had) carries around with it
+separate information about the fonts you use, so the changes to
+encoding-specific commands happen automagically.
+
+<p>
+If you only want to use the <a href="FAQ-ECfonts.html">EC fonts</a>, you
+can in principle use the <i class="package">ec-plain</i> bundle, which gives you a version
+of Plain TeX which you can run in the same way that you run
+Plain TeX using the original CM fonts, by invoking
+<i class="progname">tex</i>.  (<i class="package">Ec-plain</i> also extends the EC fonts,
+for reasons which aren&rsquo;t immediately clear, but which might cause
+problems if you&rsquo;re hoping to use Type 1 versions of the fonts.)
+
+<p>
+The <i class="package">font_selection</i> package provides a sort of halfway house:
+it provides font face and size, but not family selection.  This gives
+you considerable freedom, but leaves you stuck with the original
+CM fonts.  It&rsquo;s a compact solution, within its restrictions.
+
+<p>
+Other Plain TeX approaches to the problem (packages
+<i class="package">plnfss</i>, <i class="package">fontch</i> and <i class="package">ofs</i>) break out of the
+Plain TeX model, towards the sort of font selection provided by
+CONTeXT and LaTeX&nbsp;&mdash; font selection that allows you to change
+family, as well as size and face.  The remaining packages all make
+provision for using encodings other than Knuth&rsquo;s OT1.
+
+<p>
+<i class="package">Plnfss</i> has a rather basic set of font family details;
+however, it is capable of using font description (<code class="extension">fd</code>) files
+created for LaTeX.  (This is useful, since most modern mechanisms
+for integrating outline fonts with TeX generate <code class="extension">fd</code> files
+in their process.)
+
+<p>
+<i class="package">Fontch</i> has special provision for T1 and TS1
+encodings, which you select by arcane commands, such as:
+<blockquote>
+<pre>
+\let\LMTone\relax
+\input fontch.tex
+</pre>
+</blockquote>
+for T1.
+
+<p>
+<i class="package">Ofs</i> seems to be the most thoroughly thought-through of the
+alternatives, and can select more than one encoding: as well as
+T1 it covers the encoding IL2, which is favoured in the
+Czech Republic and Slovakia.  <i class="package">Ofs</i> also covers mathematical fonts,
+allowing you the dubious pleasure of using fonts such as the 
+<a href="FAQ-psfchoice.html"><i class="fontname">pxfonts</i> and <i class="fontname">txfonts</i></a>.
+
+<p>
+The <i class="package">pdcmac</i> Plain TeX macro package aims to be a complete
+document preparation environment, like <a href="FAQ-eplain.html">Eplain</a>.  One
+of its components is a font selection scheme, <i class="package">pdcfsel</i>, which
+is rather simple but adequately powerful for many uses.  The package
+doesn&rsquo;t preload fonts: the user is required to declare the fonts the
+document is going to use, and the package provides commands to select
+fonts as they&rsquo;re needed.  The distribution includes a configuration to
+use Adobe &lsquo;standard&rsquo; fonts for typesetting text.  (Eplain itself
+seems not to offer a font selection scheme.)
+
+<p>
+The <i class="package">font-change</i> collection takes a rather different
+approach&nbsp;&mdash; it supplies what are (in effect) a series of templates
+that may be included in a document to change font usage.  The
+package&rsquo;s documentation shows the effect rather well.
+
+<p>
+Simply to change font <em>size</em> in a document (i.e., not changing
+the default font itself), may be done using the rather straightforward
+<i class="package">varisize</i>, which offers font sizes ranging from 7&nbsp;points to
+20&nbsp;points (nominal sizes, all).  Font size commands are generated when
+any of the package files is loaded, so the <i class="filename">11pt.tex</i> defines a
+command <code>&#x5c;elevenpoint</code>; each of the files ensures there&rsquo;s a &ldquo;way
+back&rdquo;, by defining a <code>&#x5c;tenpoint</code> command.
+<dl>
+<dt class="ctanref">ec-plain</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ec-plain">ec-plain</a>
+<dt class="ctanref">font-change</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/font-change">font-change</a>
+<dt class="ctanref">fontch</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fontch">fontch</a>
+<dt class="ctanref">font_selection</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/font_selection">font_selection</a>
+<dt class="ctanref">ofs</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ofs">ofs</a>
+<dt class="ctanref">pdcmac</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdcmac">pdcmac</a>
+<dt class="ctanref">plnfss</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/plnfss">plnfss</a>
+<dt class="ctanref">varisize</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/varisize">varisize</a>
+</dl>
+
+<p>
+
+<p>
+
+<p>

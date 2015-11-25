@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-rulethk</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>The thickness of rules in LaTeX tables</h1>
+
+
+<p>
+
+<p>
+The rules in a LaTeX table are by default <tt>0.4pt</tt> thick;
+this is in fact a default built in at the lowest level, and applies to
+all rules (including those separating blocks of running text).
+
+<p>
+Sometimes, however, we look at a table and find we want the rules to
+stand out&nbsp;&mdash; perhaps to separate the text from the rest of the body
+text, or to make the sections of the table stand out from one another.
+However, a quick review of any LaTeX manual will reveal no
+technique for making any one rule stand out, and a little
+experimentation shows that it is indeed pretty difficult to prevent
+a change &ldquo;bleeding&rdquo; out to affect other rules in the same table.
+
+<p>
+If you look at what we have to say on the 
+<a href="FAQ-destable.html">design of tables</a>, elsewhere
+among these FAQs, and you may sense that the design of LaTeX
+simply skipped the issues surrounding table design: <em>that&rsquo;s</em>
+presumably why there&rsquo;s no facilities to help you.
+
+<p>
+Specifically, the length <code>&#x5c;arrayrulewidth</code> affects the thickness of
+the rules (both horizontal and vertical) within both
+<code class="environment">tabular</code> and <code class="environment">array</code> environments.  If you
+change from the default (see above) only as far as
+<blockquote>
+<pre>
+\setlength{\arrayrulewidth}{1pt}
+</pre>
+</blockquote>
+the change is remarkably striking.  However, really quite subtle user
+level programming proves incapable of changing just <em>one</em> rule:
+it&rsquo;s necessary to delve into the (rather tricky) code of <code>&#x5c;hline</code>
+and <code>&#x5c;cline</code> themselves.
+
+<p>
+Fortunately, this job has already been done for the community: the
+<i class="package">booktabs</i> package defines three different classes of rule
+(<code>&#x5c;toprule</code>, <code>&#x5c;midrule</code> and <code>&#x5c;bottomrule</code>), and the package
+documentation offers hints on how to use them.  You are
+<em>strongly</em> advised to read the documentation pretty carefully.
+
+<p>
+The <i class="class">memoir</i> class includes the <i class="package">booktabs</i> package, and
+repeats the documentation in its compendious manual.
+
+<p>
+Note that none of the above mentions the issue of the weight of
+vertical rules (except in passing).  For the reasons, see the
+documentation of the <i class="package">booktabs</i> package (again); vertical
+rules in tables are in any case even more trickily coded than are
+horizontal rules, and if their lack of configurability makes them
+still less attractive, so much the better for the design of your
+document.
+<dl>
+<dt class="ctanref">booktabs.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/booktabs">booktabs</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+</dl>
+
+<p>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-missbegdoc</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Missing <code>&#x5c;begin</code>[[[marg]]][[[LBRACE]]]document[[[RBRACE]]]</h1>
+
+
+<p>
+
+<p>
+The <em>preamble</em> of your document is the stuff before
+<code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code>; you put <code>&#x5c;usepackage</code> commands and
+your own macro definitions in there.  LaTeX doesn&rsquo;t like
+<em>typesetting</em> anything in the preamble, so if you have:
+<ul>
+<li> typed the odd grumble,
+<li> created a box with <code>&#x5c;newsavebox</code> and put something in it
+  using <code>&#x5c;sbox</code> (or the like),
+<li> forgotten to put <code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code> into the document,
+  at all, or even
+<li> gave it the wrong file
+</ul>
+the error is inevitable and the solution is simple&nbsp;&mdash; judicious use
+of comment markers (&lsquo;<tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt>&rsquo;) at the beginning of a
+line, moving things around, providing something that was
+missing&nbsp;&hellip; or switching to the correct file.
+
+<p>
+The error may also occur while reading the <code class="extension">aux</code> file from an
+earlier processing run on the document; if so, delete the
+<code class="extension">aux</code> file and start again from scratch.  If the error
+recurs, it could well be due to a buggy class or package.
+
+<p>
+However, it may be that none of the above solves the problem.
+
+<p>
+If so, remember that things that appear before <code>&#x5c;documentclass</code> are
+also problematical: they are inevitably before
+<code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code>!
+
+<p>
+Unfortunately, modern editors are capable of putting things there, and
+preventing you from seeing them.  This can happen when your document
+is being &lsquo;written&rsquo; in <a href="FAQ-unicode.html">Unicode</a>.  The Unicode
+standard defines &ldquo;Byte Order Marks&rdquo; (BOM), that reassure a
+program (that reads the document) of the way the Unicode codes are
+laid out.  Sadly ordinary LaTeX or PDFLaTeX choke on
+BOMs, and consider them typesetting requests.  The error
+message you see will look like:
+<blockquote>
+<pre>
+! LaTeX Error: Missing \begin{document}.
+...
+l.1 <?>
+       <?><?>\documentclass{article}
+</pre>
+</blockquote>
+(Those <tt><?></tt>s are your operating system&rsquo;s representation of an
+unknown character; on the author&rsquo;s system it&rsquo;s a reverse video
+&lsquo;<tt>?</tt>&rsquo; sign.)
+
+<p>
+You can spot the BOM by examining the bytes; for example, the
+Unix <i class="progname">hexdump</i> application can help:
+<blockquote>
+<pre>
+$ hexdump -C <file>
+00000000  ef bb bf 5c 64 6f 63 75 ...
+</pre>
+</blockquote>
+The <tt>5c 64 6f 63 75</tt> are the &ldquo;<code>&#x5c;docu</code>&rdquo; at the start of
+(the &lsquo;real&rsquo; part of) your document; the three bytes before it form the
+BOM.
+
+<p>
+How to stop your editor from doing this to you depends, of course, on
+the editor you use; if you are using GNU Emacs, you have to
+change the encoding from <tt>utf-8-with-signature</tt> to &lsquo;plain&rsquo;
+<tt>utf-8</tt>; instructions for that are found on
+
+<a href="http://stackoverflow.com/questions/3859274/.html">the &ldquo;stack overflow&rdquo; site</a>
+
+<p>
+(So far, all instances of this problem that the author has seen have
+afflicted GNU Emacs users.)
+
+<p>
+Fortunately XeTeX and LuaTeX know about BOMs and what to
+do with them, so LaTeX using them is &ldquo;safe&rdquo;.
+
+<p>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-getnff</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#Particularfontfamilies">Particular font families</a> &gt; </div>
+<h1>Getting &lsquo;free&rsquo; fonts not in your distribution</h1>
+
+
+<p>
+
+<p>
+Some fonts are free to use, but may not be sold.  This creates a
+dilemma for distributions: users may want the fonts, but since the
+distribution is also available on a DVD for sale, the fonts may
+not be in the distribtution.
+
+<p>
+The CTAN archives hold such fonts, together with all the
+necessary support files, but even with the support files ready-made,
+installing a font is a tedious business.
+
+<p>
+For texlive users, this dilemma is solved by the
+<i class="progname">getnonfreefonts</i> script.  Download the script installer from
+<a href="http://tug.org/fonts/getnonfreefonts/.html">http://tug.org/fonts/getnonfreefonts/</a>; the web page tells you
+how to run the installer to get the script, and what fonts are
+currently available
+
+<p>
+Once the script is installed, you can ask it what it has available by
+saying:
+<blockquote>
+<pre>
+getnonfreefonts -l
+</pre>
+</blockquote>
+and you can ask it to install a font (in your local texmf tree) by:
+<blockquote>
+<pre>
+getnonfreefonts luximono
+</pre>
+</blockquote>
+(for example; the printed version of the FAQ uses luximono, so
+that the example was to hand&hellip;).
+
+<p>
+(System adminstrators may use <i class="progname">getnonfreefonts-sys</i>, which
+will install the font in the &lsquo;public&rsquo; <tt>texmf</tt> tree, so that all
+users of the system may use the new font.)
+
+<p>
+The script will download the relevant font files from CTAN,
+extract them from their <code class="extension">zip</code> file, install them and update
+the font maps.  It even goes so far as to apologise for how long it&rsquo;s
+taking!
+[[[LastEdit]]]*[[[LBRACE]]]2013-10-22[[[RBRACE]]]
+
+<p>
+
+<p>
+
+<p>

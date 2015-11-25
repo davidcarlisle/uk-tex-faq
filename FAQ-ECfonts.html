@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-ECfonts</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What are the EC fonts?</h1>
+
+
+<p>
+
+<p>
+A font provides a number of <em>glyphs</em>. In order that the glyphs
+may be printed, they are <a href="FAQ-whatenc.html"><em>encoded</em></a>, and the
+encoding is used as an index into tables within the font.  For various
+reasons, Knuth chose deeply eccentric encodings for his Computer
+Modern family of fonts; in particular, he chose different encodings
+for different fonts, so that the application using the fonts has to
+remember which font of the family it&rsquo;s using before selecting a
+particular glyph.
+
+<p>
+When TeX version 3 arrived, most of the drivers for the
+eccentricity of Knuth&rsquo;s encodings went away, and at TUG&rsquo;s Cork
+meeting, an encoding for a set of 256 glyphs, for use in TeX text,
+was defined.  The intention was that these glyphs should cover &lsquo;most&rsquo;
+European languages that use Latin alphabets, in the sense of including
+all accented letters needed.  (Knuth&rsquo;s CMR fonts missed things
+necessary for Icelandic and Polish, for example, which the Cork fonts
+do have, though even Cork encoding&rsquo;s coverage isn&rsquo;t complete.)
+LaTeX refers to the Cork encoding as T1, and provides the
+means to use fonts thus encoded to avoid problems with the interaction
+of accents and hyphenation 
+(see <a class="FAquestion.html" href="FAQ-hyphenaccents.html">hyphenation of accented words</a>).
+
+<p>
+The first MetaFont-fonts to conform to the Cork encoding were the EC
+fonts. They look CM-like, though their metrics differ from CM-font
+metrics in several areas.  They have long been regarded as &lsquo;stable&rsquo; (in
+the same sense that the CM fonts are stable: their metrics are
+unlikely ever to change).  Each EC font is, of course, roughly twice the
+size of the corresponding CM font, and there are far more of them than
+there are CM fonts.  The simple number of fonts proved problematic in
+the production of Type&nbsp;1 versions of the fonts, but EC or
+EC-equivalent fonts in Type&nbsp;1 or TrueType form (the latter only from
+
+  <a href="FAQ-commercial.html">commercial suppliers</a>).
+
+
+
+
+
+Free <a href="FAQ-textrace.html">auto-traced versions</a>&nbsp;&mdash; the CM-super and
+the LGC fonts, and the Latin Modern series (rather directly generated
+from Metafont sources), are available.
+
+<p>
+Note that the Cork encoding doesn&rsquo;t cover mathematics (so that no
+&ldquo;T1-encoded&rdquo; font families can not support it).  If you&rsquo;re using
+Computer-Modern-alike fonts, this doesn&rsquo;t actually matter: your system
+will have the original Computer Modern mathematical fonts (or the
+those distributed with the Latin Modern set), which cover &lsquo;basic&rsquo; TeX
+mathematics; more advanced mathematics are likely to need separate
+fonts anyway.  Suitable mathematics fonts for use with other font
+families are discussed in 
+&ldquo;<a href="FAQ-psfchoice.html">choice of scalable fonts</a>&rdquo;.
+
+<p>
+The EC fonts are distributed with a set of &lsquo;Text Companion&rsquo; (TC) fonts
+that provide glyphs for symbols commonly used in text. The TC fonts
+are encoded according to the LaTeX TS1 encoding, and are not
+necessarily as &lsquo;stable&rsquo; are the EC fonts are.  Note that modern
+distributions tend not to distribute the EC fonts in outline format, but
+rather to provide Latin Modern for T1-encoded Computer Modern-style
+fonts.  This can sometimes cause confusion when users are recompiling
+old documents.
+
+<p>
+The Cork encoding is also implemented by virtual fonts provided in the
+PSNFSS system, for Adobe Type 1 fonts, and also by most other such
+fonts that have been developed (or otherwise made available) for use
+with [[[alltex]]][[[LBRACE]]][[[RBRACE]]]. 
+
+<p>
+Note that T1 (and other eight-bit font encodings) are superseded in
+the developing TeX-family members <a href="FAQ-xetex.html">XeTeX</a> and
+<a href="FAQ-luatex.html">LuaTeX</a>, which use Unicode as their base encoding,
+and use Unicode-encoded fonts (typically in [[[FontFormat]]][[[LBRACE]]]ttf[[[RBRACE]]] or
+[[[FontFormat]]][[[LBRACE]]]otf[[[RBRACE]]] formats).  The <i class="package">cm-unicode</i> fonts carry the
+flag in this arena, along with the Latin Modern set.
+<dl>
+<dt class="ctanref">CM-super fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cm-super">cm-super</a>
+<dt class="ctanref">CM-LGC fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cm-lgc">cm-lgc</a>
+<dt class="ctanref">CM unicode fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cm-unicode">cm-unicode</a>
+<dt class="ctanref">EC and TC fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ec">ec</a>
+<dt class="ctanref">Latin Modern fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lm">lm</a>
+</dl>
+
+<p>

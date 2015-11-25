@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-nonpdfsp</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Non-PDF special ignored!</h1>
+
+
+<p>
+
+<p>
+This is a PDFTeX error: PDFTeX is running in PDF output
+
+mode, and it has encountered a 
+<a href="FAQ-specials.html"><code>&#x5c;special</code></a> command.  PDFTeX is
+able to generate its own output, and in this mode of operation has no
+need of <code>&#x5c;special</code> commands (which allow the user to pass
+information to the driver being used to generate output).
+
+<p>
+Why does this happen?  LaTeX users, nowadays, hardly ever use
+<code>&#x5c;special</code> commands on their own&nbsp;&mdash; they employ packages to do the
+job for them.  Some packages will generate <code>&#x5c;special</code> commands
+however they are invoked: <i class="package">pstricks</i> is an example (it&rsquo;s very
+raison d&rsquo;\^etre is to emit PostScript code in a sequence of <code>&#x5c;special</code>
+commands).  <i class="package">Pstricks</i> may be dealt with by other means (the
+<i class="package">pdftricks</i> package offers a usable technique).
+
+<p>
+More amenable to correction, but more confusing, are packages (such as
+<i class="package">color</i>, <i class="package">graphics</i> and <i class="package">hyperref</i>) that
+specify a &ldquo;driver&rdquo;.  These packages have plug-in modules that
+determine what <code>&#x5c;special</code> (or other commands) are needed to generate
+any given effect: the <tt>pdftex</tt> driver for such packages knows not to
+generate <code>&#x5c;special</code> commands.  In most circumstances, you can let
+the system itself choose which driver you need; in this case
+everything will act properly when you switch to using PDFLaTeX.  If
+you&rsquo;ve been using <i class="progname">dvips</i> (and specifying the <code class="verb">dvips</code> driver)
+or <i class="progname">dvipdfm</i> (for which you have to specify the driver), and
+decide to try PDFLaTeX, you <em>must</em> remove the <code class="verb">dvips</code> or
+<code class="verb">dvipdfm</code> driver specification from the package options, and let the
+system recognise which driver is needed.
+<dl>
+<dt class="ctanref">pdftricks.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdftricks">pdftricks</a>
+<dt class="ctanref">pstricks.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pstricks">pstricks</a>
+</dl>
+
+<p>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-install-where</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Where to install packages</h1>
+
+
+<p>
+
+<p>
+We assume here that you have decided what tree to put your files in,
+after reading 
+&ldquo;<a href="FAQ-what-TDS.html">choosing a TDS tree</a>&rdquo;.  We will therefore
+write <tt>&#x24;TEXMF</tt> for it, and you need to substitute the tree
+you decided on.
+
+<p>
+The basic idea is to imitate the directory structure in your
+existing tree(s). Here are some examples of where various sorts of
+files should go:
+<pre>
+.sty, .cls or .fd: $TEXMF/tex/<format>/<package>/
+.mf:   $TEXMF/fonts/source/<supplier>/<font>/
+.tfm:  $TEXMF/fonts/tfm/<supplier>/<font>/
+.vf:   $TEXMF/fonts/vf/<supplier>/<font>/
+.afm:  $TEXMF/fonts/afm/<supplier>/<font>/
+.pfb:  $TEXMF/fonts/type1/<supplier>/<font>/
+.ttf:  $TEXMF/fonts/truetype/<supplier>/<font>/
+.otf:  $TEXMF/fonts/opentype/<supplier>/<font>/
+.pool, .fmt, .base or .mem: $TEXMF/web2c
+</pre>
+and for modern systems (those distributed in 2005 or later, using TDS
+v1.1 layouts):
+<pre>
+.map:  $TEXMF/fonts/map/<syntax>/<bundle>/
+.enc:  $TEXMF/fonts/enc/<syntax>/<bundle>/
+</pre>
+(Map and encoding files went to directories under
+<i class="filename">$TEXMF/dvips/</i>, 
+in earlier distributions.)
+
+<p>
+In the lists above &lsaquo;<i>format</i>&rsaquo; identifies the format the macros
+are designed for&nbsp;&mdash; it can be things such as <tt>plain</tt>,
+<tt>generic</tt> (i.e., any format), <tt>latex</tt> or
+<tt>context</tt> (or several less common formats).
+
+<p>
+For fonts, &lsaquo;<i>font</i>&rsaquo; refers to the font family (such as <tt>cm</tt>
+for Knuth&rsquo;s Computer Modern, <tt>times</tt> for Adobe&rsquo;s Times Roman).
+The supplier is usually obvious&nbsp;&mdash; the supplier
+&ldquo;public&rdquo; is commonly used for free fonts.
+
+<p>
+The &lsaquo;<i>syntax</i>&rsaquo; (for <code class="extension">map</code> and <code class="extension">enc</code> files) is a
+categorisation based on the way the files are written; candidates are
+names of programs such as <i class="progname">dvips</i> or <i class="progname">pdftex</i>.
+
+<p>
+&ldquo;Straight&rdquo; (La)TeX input can take other forms than the
+<code class="extension">sty</code>, <code class="extension">cls</code> or <code class="extension">fd</code> listed above, too
+(apart from the &lsquo;obvious&rsquo; <code class="extension">tex</code>).  Examples are (the
+obvious) <code class="extension">tex</code>, <code class="extension">lfd</code> for <i class="package">babel</i> language
+definitions, <code class="extension">sto</code> and <code class="extension">clo</code> for package and class
+options, <code class="extension">cfg</code> for configuration information,
+<code class="extension">def</code> for variants (such as the types of devices
+<i class="package">graphics</i> drives).  The <i class="filename">README</i> of the package should
+tell you of any others, though sometimes that information is printed
+when the package&rsquo;s <a href="FAQ-install-unpack.html">comments are stripped</a>.
+All of these files should live together with the main package files.
+
+<p>
+Note that &lsaquo;<i>font</i>&rsaquo; may stand for a single font or an entire family:
+for example, files for all of Knuth&rsquo;s Computer Modern fonts are to be
+found in <tt>.../public/cm</tt>, with various prefixes as appropriate.
+
+<p>
+The font &ldquo;supplier&rdquo; <em>public</em> is a sort of hold-all for
+&ldquo;free fonts produced for use with (La)TeX&rdquo;: as well as Knuth&rsquo;s
+fonts, <em>public</em>&rsquo;s directory holds fonts designed by others
+(originally, but no longer exclusively, in MetaFont).
+
+<p>
+Documentation for each package should all go, undifferentiated, into a
+directory on the <tt class="path">doc/</tt> subtree of the TDS.  The layout of
+the subtree is slightly different: <tt class="path">doc/latex</tt> hosts all
+LaTeX documentation directories, but more fundamental things are
+covered, e.g., by <tt class="path">doc/etex</tt> or <tt class="path">doc/xetex</tt>.
+
+<p>

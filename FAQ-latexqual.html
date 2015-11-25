@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-latexqual</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>The quality of your LaTeX</h1>
+
+
+<p>
+
+<p>
+The <i class="package">l2tabu</i> tutorial (mentioned in 
+<a class="FAquestion.html" href="FAQ-man-latex.html">online introductions</a>) is undoubtedly a
+good read.
+
+<p>
+However, it&rsquo;s always difficult to remember the things you should
+<em>not</em> do, when there are so many things to remember that you
+really must do: some automation is useful&hellip;.
+
+<p>
+The nicely-named <i class="package">nag</i> allows you to apply a configurable set
+of checks to your document, as you run it through LaTeX; you get
+messages like:
+<blockquote>
+
+<pre>
+Package nag Warning: Command \bf is an old LaTeX 2.09 command. 
+(nag)                Use \bfseries or \textbf instead on input line 30.
+</pre>
+
+
+<pre>
+Package nag Warning: Command \bf is an old
+                          LaTeX 2.09 command. 
+(nag)                Use \bfseries or \textbf
+                    instead on input line 30.
+</pre>
+
+</blockquote>
+
+  (the package provides a demo file which contains most of the sorts
+  of errors you might make&nbsp;&mdash; the example is one of them).
+
+
+
+
+
+
+While <i class="package">l2tabu</i> and <i class="package">nag</i> alert you to <em>possible</em>
+programming errors, you should not forget that they are merely
+commenting on <em>style</em>; don&rsquo;t assume that a <i class="package">nag</i> error is
+going to damn your code&nbsp;&mdash; rather, note the issue and try to train
+your fingers not to do the same &ldquo;next time&rdquo;.
+
+<p>
+The <i class="progname">lacheck</i> program analyses your source and comments on
+it; its view of what is &ldquo;bad&rdquo; is <em>very</em> subjective (the
+documentation says), but it can be useful.
+
+<p>
+There&rsquo;s also a web site
+<a href="http://www.kohm.name/markus/texidate.html.html">TeXidate</a>
+which will do a static analysis of your document (unfortunately, you
+have to paste your document source into a text window).  The site
+doesn&rsquo;t seem as comprehensive as <i class="package">nag</i>, but it allows you to
+download its script, which you can then juggle with to make it more
+draconian.
+<dl>
+<dt class="ctanref">l2tabu</dt><dd>Browse <a class="ctan" href="https://www.ctan.org/pkg/l2tabu">l2tabu</a> for a copy of the document in a
+  language that is convenient for you
+<dt class="ctanref">lacheck</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lacheck">lacheck</a>
+<dt class="ctanref">nag.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/nag">nag</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-10-09</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-latexqual">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-latexqual</a>
+
+<p>

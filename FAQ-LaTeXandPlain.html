@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-LaTeXandPlain</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#TheBackground">The Background</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>How does LaTeX relate to Plain TeX?</h1>
+
+
+<p>
+
+<p>
+TeX provides a programming language (of sorts), and any document
+more complex than the trivial &ldquo;hello world&rdquo; will need some
+programming.
+
+<p>
+LaTeX and Plain TeX are both libraries written for use with
+TeX; the user commands <i class="progname">tex</i> and <i class="progname">latex</i> invoke
+TeX-the-program with a library incorporated.  Libraries that may be
+loaded in this way are known as &lsquo;<em>formats</em>&rsquo;; when a user &ldquo;runs&rdquo;
+Plain TeX or LaTeX, they are running TeX (the program) with an
+appropriate format.  The documents are then programmed in Plain TeX
+or LaTeX <em>language</em>.
+
+<p>
+Plain TeX and LaTeX exist because writing your documents in &lsquo;raw&rsquo;
+TeX could involve much reinventing of wheels for every document.
+Both languages serve as convenient aids to make document writing more
+pleasant: LaTeX provides many more items to support &lsquo;common&rsquo;
+requirements of documents.
+
+<p>
+As such, LaTeX is close to being a superset of Plain TeX, but
+some Plain TeX commands don&rsquo;t work as expected when used in a
+LaTeX document.  Using Plain TeX commands in a LaTeX document
+is an occasional source of bugs: the output is <em>almost</em> right,
+but some things are misplaced.
+
+<p>
+So, Plain TeX and LaTeX are related through a common parent, and
+are designed for use in similar jobs; programming for one will often
+not work correctly in the other.
+
+<p class="lastedit">This answer last edited: 2014-03-18</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-LaTeXandPlain">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-LaTeXandPlain</a>
+
+<p>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-newfontstar</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What&rsquo;s wrong with <code>&#x5c;newfont</code>?</h1>
+
+
+<p>
+
+<p>
+If all else fails, you <em>can</em> specify a font using the LaTeX
+<code>&#x5c;newfont</code> command.  The font so specified doesn&rsquo;t fit into the
+LaTeX font selection mechanism, but the technique can be tempting
+under several circumstances.  The command is merely the thinnest of
+wrappers around the <code>&#x5c;font</code> primitive, and doesn&rsquo;t really fit with
+LaTeX at all.  A simple, but really rather funny, example of the
+problems it poses, may be seen in:
+<blockquote>
+<pre>
+\documentclass[10pt]{article}
+\begin{document}
+\newfont{\myfont}{cmr17 scaled 2000}
+\myfont
+\LaTeX
+\end{document}
+</pre>
+</blockquote>
+(the reader is encouraged to try this).  The &ldquo;A&rdquo; of <code>&#x5c;LaTeX</code> pretty
+much disappears: LaTeX chooses the size on the &ldquo;A&rdquo; according to
+<em>its</em> idea of the font size (10pt), but positions it according to
+the dimensions of &ldquo;<code>&#x5c;myfont</code>&rdquo;, which is more than three times
+that size.
+
+<p>
+Another &ldquo;<code>&#x5c;myfont</code>&rdquo; example arises from an entirely different
+source.  The mini-document:
+<blockquote>
+<pre>
+\documentclass{article}
+\begin{document}
+\newfont{\myfont}{ecrm1000}
+{\myfont voil\`a}
+\end{document}
+</pre>
+</blockquote>
+gives you &ldquo;German low double quotes&rdquo; (under the &ldquo;a&rdquo;) in place of
+the grave accent.  This happens because <i class="fontname">ecrm1000</i> is in a
+different <a href="FAQ-whatenc.html">font encoding</a> than LaTeX is
+expecting&nbsp;&mdash; if you use the LaTeX <i class="package">fontenc</i> package to
+select the EC fonts, all these tiresome encoding issues are
+solved for you, behind the scenes.
+
+<p>
+There does however remain a circumstance when you will be tempted to
+use <code>&#x5c;newfont</code>&nbsp;&mdash; viz., to get a font size that doesn&rsquo;t fall into
+the Knuth standard set of sizes: LaTeX (by default) won&rsquo;t allow you
+to use such a size.  Don&rsquo;t despair: see the answer 
+&ldquo;<a href="FAQ-fontsize.html">arbitrary font sizes</a>&rdquo;.
+
+<p>
+
+<p>
+
+
+<p>
+
+<p>
+
+<p>

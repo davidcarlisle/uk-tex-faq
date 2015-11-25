@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-mpprologues</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Graphics">Graphics</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Displaying MetaPost output in <i class="progname">ghostscript</i></h1>
+
+
+<p>
+
+<p>
+MetaPost ordinarily expects its output to be included in some context
+where the &lsquo;standard&rsquo; MetaFont fonts (that you&rsquo;ve specified) are already
+defined&nbsp;&mdash; for example, as a figure in TeX document.  If you&rsquo;re
+debugging your MetaPost code, you may want to view it in a
+<a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a>-based (or some
+other PostScript) previewer, but note that viewers (even
+<a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a>)
+<em>don&rsquo;t</em> ordinarily have the fonts loaded, and you&rsquo;ll experience
+an error such as
+<blockquote>
+<pre>
+Error: /undefined in cmmi10
+</pre>
+</blockquote>
+There is provision in MetaPost for avoiding this problem: issue the
+command <tt>prologues := 2;</tt> at the start of the <code class="extension">mp</code> file.
+
+<p>
+Unfortunately, the PostScript that MetaPost inserts in its output,
+following this command, is incompatible with ordinary use of the
+PostScript in inclusions into (La)TeX documents, so it&rsquo;s best to
+make the <tt>prologues</tt> command optional.  Furthermore, MetaPost takes a
+very simple-minded approach to font encoding: since TeX font
+encodings are anything but simple, encoding of text in diagrams are
+another source of problems.  If you&rsquo;re suffering such problems (the
+symptom is that 
+characters disappear, or are wrongly presented) the solution is
+to view the &lsquo;original&rsquo; MetaPost output after processing through
+LaTeX and <i class="progname">dvips</i>.
+
+<p>
+Conditional compilation may be done either
+by inputting <i class="filename">MyFigure.mp</i> indirectly from a simple wrapper
+<i class="filename">MyFigureDisplay.mp</i>:
+<blockquote>
+<pre>
+prologues := 2;
+input MyFigure
+</pre>
+</blockquote>
+or by issuing a shell command such as
+<blockquote>
+<pre>
+mp '\prologues:=2; input MyFigure'
+</pre>
+</blockquote>
+(which will work without the quote marks if you&rsquo;re not using a Unix
+shell).
+
+<p>
+A suitable LaTeX route would involve processing
+<i class="filename">MyFigure.tex</i>, which contains:
+<blockquote>
+<pre>
+\documentclass{article}
+\usepackage{graphicx}
+\begin{document}
+\thispagestyle{empty}
+\includegraphics{MyFigure.1}
+\end{document}
+</pre>
+</blockquote>
+Processing the resulting DVI file with the <i class="progname">dvips</i>
+command
+<blockquote>
+<pre>
+dvips -E -o MyFigure.eps MyFigure
+</pre>
+</blockquote>
+would then give a satisfactory Encapsulated PostScript file.  This
+procedure may be automated using the <i class="progname">Perl</i> script
+<i class="progname">mps2eps</i>, thus saving a certain amount of tedium.
+
+<p>
+The Plain TeX user may use an adaptation, by
+Dan Luecking, of a jiffy of Knuth&rsquo;s.  Dan&rsquo;s version
+<i class="package">mpsproof.tex</i> will work under
+TeX to produce a DVI file for use with <i class="progname">dvips</i>, or
+under PDFTeX to produce a PDF file, direct.  The output is
+set up to look like a proof sheet.
+
+<p>
+A script application, <i class="progname">mptopdf</i>, is available in recent
+(La)TeX distributions: it seems fairly reliably to produce
+PDF from MetaPost, so may reasonably be considered an answer to
+the question&hellip;
+<dl>
+<dt class="ctanref">mps2eps</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mps2eps">mps2eps</a>
+<dt class="ctanref">mpsproof.tex</dt><dd>Distributed as part of the MetaPost distribution <a class="ctan" href="https://www.ctan.org/pkg/metapost">metapost</a>
+<dt class="ctanref">mptopdf</dt><dd>Part of <a class="ctan" href="https://www.ctan.org/pkg/pdftex-graphics">pdftex-graphics</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-04-23</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-mpprologues">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-mpprologues</a>
+
+<p>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-breakbox</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>Breaking boxes of text</h1>
+
+
+<p>
+
+<p>
+(La)TeX boxes may not be broken, in ordinary usage: once you&rsquo;ve
+typeset something into a box, it will stay there, and the box will jut
+out beyond the side or the bottom of the page if it doesn&rsquo;t fit in the
+typeset area.
+
+<p>
+If you want a substantial portion of your text to be framed (or
+coloured), the restriction imposes a serious restriction.
+Fortunately, there are ways around the problem.
+
+<p>
+The <i class="package">framed</i> package provides <code class="environment">framed</code> and
+<code class="environment">shaded</code> environments; both put their content into
+something which looks like a framed (or coloured) box, but which
+breaks as necessary at page end.  The environments &ldquo;lose&rdquo; footnotes,
+marginpars and head-line entries, and will not work with
+<i class="package">multicol</i> or other column-balancing macros.  The
+<i class="class">memoir</i> class includes the functionality of the
+<i class="package">framed</i> package.
+
+<p>
+The <i class="package">mdframed</i> package does the same job, using a different
+algorithm.  The package also provides means of defining
+&lsquo;private&rsquo; framed environments, whose parameters are set at definition
+time, thus saving considerable effort in documents with many framed
+boxes.  Its restrictions seem much the same as those of
+<i class="package">framed</i>; this is as one would expect, but the list is
+noticeably different in the two packages&rsquo; documentation.
+
+<p>
+The <i class="package">boites</i> package provides a <code class="environment">breakbox</code>
+environment; examples of its use may be found in the distribution, and
+the package&rsquo;s <i class="filename">README</i> file contains terse documentation.  The
+environments may be nested, and may appear inside
+<code class="environment">multicols</code> environments; however, floats, footnotes and
+marginpars will be lost.
+
+<p>
+For Plain TeX users, the facilities of the <i class="package">backgrnd</i>
+package may be useful; this package subverts the output routine to
+provide vertical bars to mark text, and the macros are clearly marked
+to show where coloured backgrounds may be introduced (this requires
+<i class="package">shade</i>, which is distributed as tex macros and
+device-independent MetaFont for the shading).  The author of
+<i class="package">backgrnd</i> claims that the package works with LaTeX 2.09, but
+there are reasons to suspect that it may be unstable working with
+current LaTeX.
+<dl>
+<dt class="ctanref">backgrnd.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/backgrnd">backgrnd</a>
+<dt class="ctanref">boites.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/boites">boites</a>
+<dt class="ctanref">framed.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/framed">framed</a>
+<dt class="ctanref">mdframed.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mdframed">mdframed</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">shade.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/shade">shade</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-02-14</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-breakbox">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-breakbox</a>
+
+<p>

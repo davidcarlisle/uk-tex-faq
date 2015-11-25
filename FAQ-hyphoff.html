@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-hyphoff</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Hyphenation">Hyphenation</a> &gt; </div>
+<h1>Stopping all hyphenation</h1>
+
+
+<p>
+
+<p>
+It may seem an odd thing to want to do (after all, one of TeX&rsquo;s
+great advertised virtues is the quality of its hyphenation) but it&rsquo;s
+sometimes necessary.  The real problem is, that the quality of
+TeX&rsquo;s output is by default largely dependent on the presence of
+hyphenation; if you want to abandon hyphenation, something has to
+give.
+
+<p>
+TeX (slightly confusingly) offers four possible mechanisms for
+suppressing hyphenation (there were only two prior to the extensions
+that arrived with TeX version&nbsp;3).
+
+<p>
+First, one can set the hyphenation penalties <code>&#x5c;hyphenpenalty</code> and
+<code>&#x5c;exhyphenpenalty</code> to an &lsquo;infinite&rsquo; value (that is to say, 10000).
+This means that all hyphenations will sufficiently penalise the line
+that would contain them, that the hyphenation won&rsquo;t happen.  The
+disadvantage of this method is that TeX will re-evaluate any
+paragraph for which hyphenations might help, which will slow TeX
+down.
+
+<p>
+Second, one can select a language for which no hyphenation patterns
+exist.  Some distributions create a language <tt>nohyphenation</tt>,
+and the <i class="package">hyphenat</i> package uses this technique for its
+<code>&#x5c;nohyphens</code> command which sets its argument without any
+hyphenation.  You can load <i class="package">hyphenat</i> with the command
+<blockquote>
+  <code>&#x5c;usepackage</code><code>[none]</code></code><code>&#x7b;hyphenat&#x7d;</code>
+</blockquote>
+to prevent any hyphenation in a single-language document.  The
+technique cannot work in a document in which <i class="package">babel</i> controls
+language selection, since <i class="package">babel</i> incorporates hyphenation
+change into its language change facilities.
+
+<p>
+Third, one can set <code>&#x5c;left-</code> and/or <code>&#x5c;righthyphenmin</code> to a
+sufficiently large value that no hyphenation could possibly succeed,
+since the minimum is larger than the length of the longest word
+TeX is willing to hyphenate (the appropriate value is 62).
+
+<p>
+Fourth, one can suppress hyphenation for all text using the current
+font by the command
+<blockquote>
+<pre>
+\hyphenchar\font=-1
+</pre>
+</blockquote>
+This isn&rsquo;t a particularly practical way for users to suppress
+hyphenation&nbsp;&mdash; the command has to be issued for every font the
+document uses&nbsp;&mdash; but it&rsquo;s how LaTeX itself suppresses hyphenation
+in <tt>tt</tt> and other fixed-width fonts.
+
+<p>
+Which of the techniques you should use depends on what you actually
+want to do.  If the text whose hyphenation is to be suppressed runs
+for less than a paragraph, your only choice is the no-hyphens
+language: the language value is preserved along with the text (in the
+same way that the current font is); the values for penalties and
+hyphen minima active at the end of a paragraph are used when
+hyphenation is calculated.
+
+<p>
+Contrariwise, if you are writing a multilanguage document using the
+<i class="package">babel</i> package, you <em>cannot</em> suppress hyphenation
+throughout using either the no-hyphens language or the hyphen minima:
+all those values get changed at a <i class="package">babel</i> language switch: use
+the penalties instead.
+
+<p>
+If you simply switch off hyphenation for a good bit of text, the
+output will have a jagged edge (with many lines seriously overfull),
+and your (La)TeX run will bombard you with warnings about overfull
+and underfull boxes (that is, really, lines).  To avoid this you have
+two options.
+
+<p>
+The simplest route is to use <code>&#x5c;sloppy</code> (or its environment version
+<code class="environment">sloppypar</code>), and have TeX stretch what would otherwise
+be underfull lines to fill the space offered, while prematurely
+wrapping overfull lines and stretching the remainder.  
+
+<p>
+The better bet is to set the text <a href="FAQ-ragright.html">ragged right</a>,
+and at least get rid of the overfull lines; this technique is
+&lsquo;traditional&rsquo; (in the sense that typists have always done it) and may
+be expected to 
+appeal to the specifiers of eccentric document layouts (such as those
+for dissertations), but for once their sense conforms with typographic
+style.  (Or at least, style constrained in this curious way.)
+<dl>
+<dt class="ctanref">hyphenat.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyphenat">hyphenat</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-09-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-hyphoff">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-hyphoff</a>
+
+<p>

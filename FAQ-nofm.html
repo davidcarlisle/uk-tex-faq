@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-nofm</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>Page numbering &ldquo;&lsaquo;<i>n</i>&rsaquo; of &lsaquo;<i>m</i>&rsaquo;&rdquo;</h1>
+
+
+<p>
+
+
+<p>
+Finding the page number of the last page of a document, from within
+the document, is somewhat tricky.  The <i class="package">lastpage</i> and
+<i class="package">zref-lastpage</i> packages define a label
+<tt>LastPage</tt> whose number is <em>right</em> (after sufficiently many
+passes through LaTeX, of course).  The <i class="class">memoir</i> class also
+defines a &ldquo;last page&rdquo; label.
+
+<p>
+The documentation of the <i class="package">fancyhdr</i> package spells out exactly
+how one might actually use this information to produce page numbering
+as suggested in the question.
+<dl>
+<dt class="ctanref">fancyhdr documentation</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fancyhdr">fancyhdr</a>
+<dt class="ctanref">lastpage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lastpage">lastpage</a>
+<dt class="ctanref">zref-lastpage</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[zref]
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-10-16</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-nofm">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-nofm</a>
+
+<p>

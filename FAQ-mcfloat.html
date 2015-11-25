@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-mcfloat</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Floatingtablesfiguresetc">Floating tables, figures, etc.</a> &gt; </div>
+<h1>Floats in multicolumn setting</h1>
+
+
+<p>
+
+<p>
+If you use
+<blockquote>
+<pre>
+\begin{figure}
+  ...
+\end{figure}
+</pre>
+</blockquote>
+in a <code class="environment">multicols</code> environment, the figure won&rsquo;t appear.  If
+instead you use
+<blockquote>
+<pre>
+\begin{figure*}
+  ...
+\end{figure*}
+</pre>
+</blockquote>
+the figure will stretch right across the page (just the same as a
+<code class="environment">figure*</code> in standard LaTeX&rsquo;s <code class="pkgoption">twocolumn</code> option).
+
+<p>
+It&rsquo;s possible to have single-column figures and tables with captions,
+using the &lsquo;<tt>[H]</tt>&rsquo; placement option introduced by the <i class="package">float</i>
+package but you might have to fiddle with the placement because they
+won&rsquo;t &lsquo;float&rsquo;, and exhibit other strange behaviours (such as silently
+running off the end of the column at the end of the
+<code class="environment">multicols</code> environment).
+<dl>
+<dt class="ctanref">float.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/float">float</a>
+<dt class="ctanref">multicol.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[multicol]
+</dl>
+
+<p>

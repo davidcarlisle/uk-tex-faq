@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-osf</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Symbolsetc">Symbols, etc.</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>Using &ldquo;old-style&rdquo; figures</h1>
+
+
+<p>
+
+<p>
+These numbers are also called medieval or lowercase figures and their
+use is mostly font-specific.  Terminology is confusing since the
+lining figures (which are now the default) are a relatively recent
+development (19th century) and before they arrived, oldstyle figures
+were the norm, even when setting mathematics.  (An example is Thomas
+Harriot&rsquo;s <em>Artis Analyticae Praxis</em> published in 1631).  In a
+typical old style 3, 4, 5, 7 and 9 have descenders and 6 and 8 ascend
+above the x-height; sometimes 2 will also ascend (this last seems to
+be a variation associated with French typography).
+
+<p>
+LaTeX provides a command <code>&#x5c;oldstylenums</code><code>&#x7b;digits&#x7d;</code>, which
+by default uses an old-style set embedded in Knuth&rsquo;s &lsquo;math italic&rsquo;
+font.  The command is only sensitive to &lsquo;bold&rsquo; of the font style of
+surrounding text: glyphs (for this command) are only available to
+match the normal medium and bold (i.e., bold-extended) weights of the
+Computer Modern Roman fonts.
+
+<p>
+The <i class="package">textcomp</i> package changes <code>&#x5c;oldstylenums</code> to use the
+glyphs in the Text Companion fonts (LaTeX TS1 encoding) when
+in text mode, and also makes them available using the macros of the
+form <code>&#x5c;text<number>oldstyle</code>, e.g., <code>&#x5c;textzerooldstyle</code>.
+(Of course, not all font families can provide this facility.)
+
+<p>
+Some font packages (e.g., <i class="package">mathpazo</i>) make old-style figures
+available and provide explicit support for making them the default:
+<code>&#x5c;usepackage</code><code>[osf]</code></code><code>&#x7b;mathpazo&#x7d;</code> selects a form where digits are
+always old-style in text.  The <i class="package">fontinst</i> package will
+automatically generate &ldquo;old-style versions&rdquo; of commercial Adobe Type
+1 font families for which &ldquo;expert&rdquo; sets are available.
+
+<p>
+It&rsquo;s also possible to make virtual fonts, that offer old-style digits,
+from existing font packages.  The <i class="fontname">cmolddig</i> bundle provides
+a such a virtual version of Knuth&rsquo;s originals, and the <i class="fontname">eco</i>
+or <i class="fontname">hfoldsty</i> bundles both provide versions of the EC
+fonts.  The <i class="fontname">lm</i> family offers old-style figures to OpenType
+users (see below), but we have no stable mapping for <i class="fontname">lm</i>
+with old-style digits from the Adobe Type 1 versions of the fonts.
+
+<p>
+Originally, oldstyle figures were only to be found the expert sets of
+commercial fonts, but now they are increasingly widely available.  An
+example is Matthew Carter&rsquo;s Georgia font, which has old-style figures
+as its normal form (the font was created for inclusion with certain
+Microsoft products and is intended for on-screen viewing).
+
+<p>
+OpenType fonts have a pair of axes for number variations&nbsp;&mdash;
+proportional/tabular and lining/oldstyle selections are commonly
+available.  &ldquo;Full feature access&rdquo; to OpenType fonts, making such
+options available to the (La)TeX user, is already supported by
+<a href="FAQ-xetex.html">XeTeX</a> using, for example, the <i class="package">fontspec</i>
+package.  Similar support is also in the works for
+<a href="FAQ-luatex.html">LuaTeX</a>.
+<dl>
+<dt class="ctanref">boondox fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/boondox">boondox</a>
+<dt class="ctanref">cmolddig fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cmolddig">cmolddig</a>
+<dt class="ctanref">eco fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/eco">eco</a>
+<dt class="ctanref">fontinst</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fontinst">fontinst</a>
+<dt class="ctanref">fontspec.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fontspec">fontspec</a>
+<dt class="ctanref">mathpazo fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mathpazo">mathpazo</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-12-04</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-osf">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-osf</a>
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>

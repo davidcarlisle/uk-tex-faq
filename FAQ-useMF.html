@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-useMF</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Getting MetaFont to do what you want</h1>
+
+
+<p>
+
+<p>
+MetaFont allows you to create your own fonts, and most TeX users
+will never need to use it&nbsp;&mdash; modern (La)TeX systems contain
+rather few MetaFont fonts of any significance, and when MetaFont output is
+needed the font generation is done, automatically, &ldquo;on the fly&rdquo;.
+
+<p>
+If you find you have some special requirement that the system doesn&rsquo;t
+satisfy, you need to know about MetaFont in rather more detail.  MetaFont,
+unlike TeX, requires customisation for each output device: such
+customisation is conventionally held in a &ldquo;mode&rdquo; associated with the
+device.  Modes are commonly defined using the <tt>mode\_def</tt>
+convention described on page&nbsp;94 of <em>The MetaFontbook</em> 
+(see <a class="FAquestion.html" href="FAQ-other-books.html">TeX-related books</a>).  Your
+distribution should provide
+a file, conventionally called <i class="filename">local.mf</i>, containing all the
+<tt>mode\_def</tt>s you will be using. In the unlikely event that
+<i class="filename">local.mf</i> doesn&rsquo;t already exist, Karl Berry&rsquo;s collection of
+modes (<i class="filename">modes.mf</i>) is a good starting point 
+(it can be used as a &lsquo;<i class="filename">local.mf</i>&rsquo; without modification in a
+modern implementation of MetaFont).  
+Settings for new output devices are added to <i class="filename">modes.mf</i> as they
+become available.
+
+<p>
+Now create
+a <tt>plain</tt> base file using <i class="progname">mf</i> (in &ldquo;initialisation&rdquo;
+mode), <tt>plain.mf</tt>, and <tt>local.mf</tt>: 
+<blockquote>
+<pre>
+% mf -ini
+This is METAFONT...
+**plain # you type plain
+(output)
+*input local # you type this
+(output)
+*dump # you type this
+Beginning to dump on file plain...
+(output)
+</pre>
+</blockquote>
+This will create a base file named <i class="filename">plain.base</i> (or something
+similar; for example, it will be <i class="filename">PLAIN.BAS</i> on [[[MSDOS]]][[[LBRACE]]][[[RBRACE]]]
+systems).  Move the file to the directory containing the base files on
+your system, and run <i class="progname">texhash</i> as necessary.
+
+<p>
+Now you need to make sure MetaFont loads this new base when it starts up. If
+MetaFont loads the <tt>plain</tt> base by default on your system, then you&rsquo;re
+ready to go. Under Unix (using the default texlive (and earlier)
+distributions this does indeed happen, but we could for instance
+define a command <i class="progname">plainmf</i>
+[[[begin]]][[[LBRACE]]]footnoteenv[[[RBRACE]]]
+  On the grounds that a command <i class="progname">plain</i> could be misconstrued
+  as a reference to Plain TeX
+[[[end]]][[[LBRACE]]]footnoteenv[[[RBRACE]]]
+which executes &lsquo;<tt>mf -base=plain</tt>&rsquo; (or, in more traditional
+style &lsquo;<tt>mf \&amp;plain</tt>&rsquo;) which loads the <tt>plain</tt> base
+file.
+
+<p>
+The usual way to create a font with MetaFont (with an appropriate base
+file loaded) is to start MetaFont&rsquo;s input with the
+
+
+
+
+
+
+
+
+
+line
+<blockquote>
+<pre>
+\mode=<mode name>; mag=<magnification>; input <font file name>
+</pre>
+</blockquote>
+
+in response to the &lsquo;<tt>**</tt>&rsquo; prompt or on the MetaFont command line. (If
+<tt><mode name></tt> is unknown or omitted, the mode defaults to
+&lsquo;proof&rsquo; mode and MetaFont will produce an output file called 
+<i class="filename"><font file name>.2602gf</i>)
+The <tt><magnification></tt> is a floating point number or a
+&lsquo;magstep&rsquo; (magsteps define sizes by stating how many times you need to
+multiply a base size by <tt>1.2</tt>, so for a base size of
+<tt>10</tt>, <tt>magstep 1</tt> is <tt>12</tt>, <tt>magstep 2</tt> is
+<tt>14.4</tt>
+If <tt>mag=<magnification></tt> is omitted, then the default
+is <tt>1</tt>&nbsp;(<tt>magstep 0</tt>).  For example, to generate
+<i class="fontname">cmr10</i> at <tt>12pt</tt> for an Epson,
+printer you might type
+<blockquote>
+<pre>
+mf \mode=epson; mag=magstep 1; input cmr10
+</pre>
+</blockquote>
+Note that under Unix the <tt>&#x5c; </tt> and <tt>;</tt>
+characters must usually be quoted or escaped, so this would typically
+look something like
+<blockquote>
+<pre>
+ mf '\mode=epson; mag=magstep 1; input cmr10'
+</pre>
+</blockquote>
+If you need a special mode that isn&rsquo;t in the base, you can put its
+commands in a file (<em>e.g.</em>, <i class="filename">ln03.mf</i>) and invoke it on the
+fly with the <code>&#x5c;smode</code> command.  For example, to create
+<i class="filename">cmr10.300gf</i> for an LN03 printer, using the file
+<blockquote>
+<pre>
+% This is ln03.mf as of 1990/02/27
+% mode_def courtesy of John Sauter
+proofing:=0;
+fontmaking:=1;
+tracingtitles:=0;
+pixels_per_inch:=300;
+blacker:=0.65;
+fillin:=-0.1;
+o_correction:=.5;
+</pre>
+</blockquote>
+(note the absence of the <tt>mode\_def</tt> and <tt>enddef</tt>
+commands), you would type
+<blockquote>
+<pre>
+mf \smode="ln03"; input cmr10
+</pre>
+</blockquote>
+This technique isn&rsquo;t one you should regularly use, but it may
+prove useful if you acquire a new printer and want to experiment with
+parameters, or for some other reason are regularly editing the
+parameters you&rsquo;re using.  Once you&rsquo;ve settled on an appropriate set of
+parameters, you should use them to rebuild the base file that you use.
+
+<p>
+Other sources of help are discussed in our list of 
+<a href="FAQ-mfptutorials.html">MetaFont and MetaPost Tutorials</a>.
+<dl>
+<dt class="ctanref">modes.mf</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/modes-file">modes-file</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-09-04</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-useMF">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-useMF</a>
+
+<p>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-latexwords</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>Changing the words <i class="package">babel</i> uses</h1>
+
+
+<p>
+
+<p>
+LaTeX uses symbolic names for many of the automatically-generated
+text it produces (special-purpose section headings, captions, etc.).
+As noted in <a class="FAquestion.html" href="FAQ-fixnam.html">&ldquo;LaTeX fixed names&rdquo;</a> (which
+includes a list of the names themselves),
+this enables the user to change the
+names used by the standard classes, which is particularly useful if
+the document is being prepared in some language other than LaTeX&rsquo;s
+default English.  So, for example, a Danish author may wish that her
+table of contents was called &ldquo;Indholdsfortegnelse&rdquo;, and so 
+would expect to place a command
+<pre>
+\renewcommand{\contentsname}%
+    {Indholdsfortegnelse}
+</pre>
+in the preamble of her document.
+
+<p>
+However, it&rsquo;s natural for a user of a non-English language to use
+<i class="package">babel</i>, because it offers many conveniences and typesetting
+niceties for those preparing documents in those languages.  In
+particular, when <i class="package">babel</i> is selecting a new language, it
+ensures that LaTeX&rsquo;s symbolic names are translated appropriately
+for the language in question.  Unfortunately, <i class="package">babel</i>&rsquo;s choice
+of names isn&rsquo;t always to everyone&rsquo;s choice, and there is still a need
+for a mechanism to replace the &lsquo;standard&rsquo; names.
+
+<p>
+Whenever a new language is selected, <i class="package">babel</i> resets all the
+names to the settings for that language.  In particular,
+<i class="package">babel</i> selects the document&rsquo;s main language when
+<code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code> is executed, which immediately destroys
+any changes to these symbolic names made in the prologue of a document
+that uses <i class="package">babel</i>. 
+
+<p>
+Therefore, babel defines a command to enable users to change the
+definitions of the symbolic names, on a per-language basis:
+<code>&#x5c;addto</code><code>&#x5c;captions</code><tt>&lsaquo;<i>language</i>&rsaquo;</tt> is the thing
+(<tt>&lsaquo;<i>language</i>&rsaquo;</tt> being the language option you gave to
+<i class="package">babel</i> in the first place).  For example:
+<pre>
+\addto\captionsdanish{%
+  \renewcommand{\contentsname}%
+    {Indholdsfortegnelse}%
+}
+</pre>
+
+<p>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-repeat-num</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Repeating a command <em>n</em> times</h1>
+
+
+<p>
+
+<p>
+TeX was <em>not</em> designed as a programming language, but there
+are occasions when you want to repeat some part of your document, just
+as parts of programs need to run several times.  An obvious
+example is TeX-based drawing: LaTeX&rsquo;s <code class="environment">picture</code>
+environment and <i class="package">pgf</i> (at least) provide repeat facilities&nbsp;&mdash;
+they are useful for drawing repeating patterns.  As a result,
+&ldquo;common&rdquo; programming techniques often have to be emulated using
+obscure macro TeXniques.
+
+<p>
+This answer deals with repeating an operation a given number of times;
+repeating operations once for each of a set of objects is dealt with
+in the answer <a href="FAQ-repeat-set.html">repeating &ldquo;over a set&rdquo;</a>.
+
+<p>
+Plain TeX itself provides a <code>&#x5c;loop</code> &hellip; <code>&#x5c;repeat</code>
+contruct, which enables you to repeat a command (or set of commands).
+The syntax is simple enough, but it use of TeX conditionals is
+different enough that many people find it confusing.
+<blockquote>
+<pre>
+\newcount\foo
+\foo=10
+\loop
+  \message{\the\foo}
+  \advance \foo -1
+\ifnum \foo>0
+\repeat
+</pre>
+</blockquote>
+In this slightly tricky code, <code>&#x5c;loop</code> starts the construct ended by
+<code>&#x5c;repeat</code>, but <code>&#x5c;repeat</code> also &ldquo;serves as&rdquo; the <code>&#x5c;fi</code> to the
+<code>&#x5c;ifnum</code>.  The loop above prints the numbers from 10 down to 1 via
+TeX <code>&#x5c;message</code> (i.e., on the console output).
+
+<p>
+The <i class="package">multido</i> package is also &lsquo;generic&rsquo; (usable both in
+Plain TeX and latex[[[LBRACE]]][[[RBRACE]]]); it defines a command <code>&#x5c;multido</code> with
+three arguments:
+<blockquote>
+  
+  <code>&#x5c;multido</code><code>&#x7b;&lsaquo;<i>variables</i>&rsaquo;&#x7d;</code></code><code>&#x7b;&lsaquo;<i>repetitions</i>&rsaquo;&#x7d;</code>[[[LBRACE]]]&lsaquo;<i>stuff to repeat</i>&rsaquo;[[[RBRACE]]]
+</blockquote>
+When the macro is executing, the &lsaquo;<i>stuff to repeat</i>&rsaquo; gets executed
+&lsaquo;<i>repetitions</i>&rsaquo; times; the &lsaquo;<i>variables</i>&rsaquo; gives a list of
+variables that can be used in &lsaquo;<i>stuff</i>&rsaquo;.  Each variable is a
+composite of a command sequence and how it varies; so a variable
+&ldquo;<code>&#x5c;iz</code><tt>=2+4</tt>&rdquo; sets <code>&#x5c;iz</code> to <tt>2</tt> first time
+around, then <tt>6</tt> and <tt>10</tt> in the next two iterations,
+and so on.  (The variable <code>&#x5c;iz</code> is an integer; variables with other
+initial letters represent different data types.)
+
+<p>
+
+
+
+
+
+Both current LaTeX and (experimental) LaTeX3 have iteration
+commands for internal use and for package writers; their use is
+probably not recommendable.
+
+<p>
+The LaTeX distribution package <i class="package">ifthen</i> offers the macro
+<code>&#x5c;whiledo</code>:
+<blockquote>
+<pre>
+\newcounter{ct}
+...
+\setcounter{ct}{1}
+\whiledo {\value{ct} < 5}%
+{%
+  \thect\
+  \stepcounter {ct}%
+}
+</pre>
+</blockquote>
+
+<p>
+The <i class="package">forloop</i> package provides nothing but <code>&#x5c;forloop</code>:
+<blockquote>
+<pre>
+\newcounter{ct}
+...
+\forloop{ct}{1}{\value{ct} < 5}%
+{%
+  \thect\
+}
+</pre>
+</blockquote>
+as you can see, the arguments are counter, starting value and
+termination condition; an optional argument supplies a step value
+(default step is 1).
+
+<p>
+The LaTeX <code class="environment">picture</code> environment has a simple command
+for repeated drawing:
+<blockquote>
+<pre>
+\multiput(x,y)(xstep,ystep){n}{obj}
+</pre>
+</blockquote>
+which places &lsaquo;<i>obj</i>&rsaquo; (intended to be a bit of picture)
+&lsaquo;<i>n</i>&rsaquo; times at positions (&lsaquo;<i>x</i>&rsaquo;, &lsaquo;<i>y</i>&rsaquo;),
+(&lsaquo;<i>x</i>&rsaquo;+&lsaquo;<i>xstep</i>&rsaquo;, &lsaquo;<i>y</i>&rsaquo;+&lsaquo;<i>ystep</i>&rsaquo;),
+(&lsaquo;<i>x</i>&rsaquo;+2&lsaquo;<i>xstep</i>&rsaquo;, &lsaquo;<i>y</i>&rsaquo;+2&lsaquo;<i>ystep</i>&rsaquo;) and so on, adding the
+displacement again each time.  The command was designed for use in
+<code class="environment">picture</code>, but it makes no check, and may even be used to
+provide eccentric typesetting in a &ldquo;regular&rdquo; sentence, such as:
+<blockquote>
+<pre>
+Here \multiput(0,0)(1,1){3}{we} are again.
+</pre>
+</blockquote>
+with predictable (if not actually desirable) effect.  It may be used
+with nothing but an iterative calculation in the braced argument, in
+which case its graphical capabilities have no effect.
+
+<p>
+The <i class="package">pgffor</i> package, which is part of the 
+<a href="FAQ-drawing.html"><i class="package">pgf</i> distribution</a>, also
+provides iterations to support the needs of graphics.  Its syntax is
+in the style of common programming languages:
+<blockquote>
+<pre>
+\usepackage{pgffor}
+\newcommand{\cmd}{-x-}
+...
+\foreach \n in {1,...,4}{\cmd{}}
+</pre>
+</blockquote>
+typesets &ldquo;<tt>-x--x--x--x-</tt>&rdquo;
+
+<p>
+The <code>&#x5c;foreach</code> command has the potential drawback that its repeated
+unit is executed in a group, so that any calculations done within the
+loop are lost (unless their result is made <code>&#x5c;global</code>); however, it
+does not &lsquo;build in&rsquo; its graphical origins (as <code>&#x5c;multiput</code> does) so
+its potential outside its own graphics environment &ldquo;home&rdquo; is more
+clear.
+
+
+
+
+
+
+
+
+
+
+
+
+% <pre>
+% \input repeat
+% \newcount\foo
+% \repeat
+%   \for{foo} \from{1} \to{10} \do{x*}
+% </pre>
+
+
+
+
+
+
+
+
+
+
+% <pre>
+% \repeat
+%   \for{var}
+%     \from{<start>} \by{<step>} \to{<end>}
+%     \downto{<end>} \until{<cond>} \while{<cond>}
+% \do{<operate on something>}
+% </pre>
+
+
+
+
+
+<p>
+
+
+
+
+
+
+
+<dl>
+
+<dt class="ctanref">forarray.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/forarray">forarray</a>
+<dt class="ctanref">forloop.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/forloop">forloop</a>
+<dt class="ctanref">ifthen.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/latex">latex</a>
+<dt class="ctanref">multido.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/multido">multido</a>
+<dt class="ctanref">pgffor.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/pgf">pgf</a>
+
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-03-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-repeat-num">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-repeat-num</a>
+
+<p>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-parallel</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Pagelayout">Page layout</a> &gt; </div>
+<h1>Parallel setting of text</h1>
+
+
+<p>
+
+<p>
+It&rsquo;s commonly necessary to present text in two languages &lsquo;together&rsquo; on a
+page, or on a two-page spread.  For this to be satisfactory, one usually
+needs some sort of alignment between the two texts.
+
+<p>
+The <i class="package">parallel</i> package satisfies the need, permitting
+typesetting in two columns (not necessarily of the same width) on one
+page, or on the two opposing pages of a two-page spread.  Use can be
+as simple as
+<blockquote>
+<pre>
+\usepackage{parallel}
+...
+\begin{Parallel}{<left-width>}{<right-width}
+  \ParallelLText{left-text}
+  \ParallelRText{right-text}
+  \ParallelPar
+  ...
+\end{Parallel}
+</pre>
+</blockquote>
+<i class="package">Parallel</i> can get terribly confused with colour changes, in
+PDFTeX; the indefatigable Heiko Oberdiek has a patch for this
+issue&nbsp;&mdash; the <i class="package">pdfcolparallel</i> package, which maintains
+separate colour stacks for the columns.
+
+<p>
+The <i class="package">parcolumns</i> package can (in principle) deal with any
+number of columns: the documentation shows its use with three
+columns.  Usage is rather similar to that of <i class="package">parallel</i>,
+though there is of course a &ldquo;number of columns to specify&rdquo;:
+<blockquote>
+<pre>
+\usepackage{parcolumns}
+...
+\begin{parcolumns}[<options>]{3}
+  \colchunk{<Column 1 text>}
+  \colchunk{<Column 2 text>}
+  \colchunk{<Column 3 text>}
+  \colplacechunks
+  ...
+\end{parcolumns}
+</pre>
+</blockquote>
+The &lsaquo;<i>options</i>&rsaquo; can specify the widths of the columns, whether to
+place rules between the columns, whether to set the columns sloppy,
+etc.  Again, there are issues with colours, which are addressed by the
+<i class="package">pdfcolparcolumns</i> package.
+
+<p>
+The <i class="package">ledpar</i> package is distributed with (and integrated with)
+the <a href="FAQ-linenos.html"><i class="package">ledmac</i> package</a>.  It provides parallel
+setting carefully integrated with the needs of a scholarly text,
+permitting translation, or notes, or both, to be set in parallel with
+the &lsquo;base&rsquo; text of the document.
+<dl>
+<dt class="ctanref">ledpar.sty</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/ledmac">ledmac</a>
+<dt class="ctanref">parallel.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/parallel">parallel</a>
+<dt class="ctanref">parcolumns.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/sauerj">sauerj</a>[parcolumns]
+<dt class="ctanref">pdfcolparallel.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[pdfcolparallel]
+<dt class="ctanref">pdfcolparcolumns.sty</dt><dd>pdfcolparcolumns]
+</dl>
+
+<p>

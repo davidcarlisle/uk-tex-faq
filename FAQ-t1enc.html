@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-t1enc</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Why use <i class="package">fontenc</i> rather than <i class="package">t1enc</i>?</h1>
+
+
+<p>
+
+<p>
+In the very earliest days of LaTeX 2e, the only way to use the
+T1 encoding was <i class="package">t1enc</i>; with the summer 1994
+&ldquo;production&rdquo; release, the <i class="package">fontenc</i> package appeared, and
+provided comprehensive support for use of the encoding.
+
+<p>
+Nevertheless, the <i class="package">t1enc</i> package remains (as part of the
+LaTeX 2.09 compatibility code), but it does very little: it merely
+selects font encoding T1, and leaves to the user the business
+of generating the character codes required.
+
+<p>
+Generating such character codes could be a simple matter, <em>if</em>
+the T1 encoding matched any widely-supported encoding standard,
+since in that case, one might expect one&rsquo;s keyboard to generate the
+character codes.  However, the T1 encoding is a mix of several
+standard encodings, and includes code points in areas of the table
+which standard encodings specifically exclude, so no T1
+keyboards have been (or ever will be) manufactured.
+
+<p>
+By contrast, the <i class="package">fontenc</i> package generates the T1
+code points from ordinary LaTeX commands (e.g., it generates the
+<tt>\&rsquo;e</tt> character codepoint from the command <code>&#x5c;&rsquo;</code><tt>e</tt>).
+So, unless you have program-generated T1 input (which is almost
+inconceivable), use <code>&#x5c;usepackage</code><code>[T1]</code></code><code>&#x7b;fontenc&#x7d;</code> rather than
+<code>&#x5c;usepackage</code><code>&#x7b;t1enc&#x7d;</code>.
+
+<p>

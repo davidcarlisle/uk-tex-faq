@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-euro</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Symbolsetc">Symbols, etc.</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>Typesetting the Euro sign</h1>
+
+
+<p>
+
+<p>
+The European currency &ldquo;Euro&rdquo; ([[[texteuro]]] [[[LBRACE]]][[[RBRACE]]]) is represented by a symbol
+of somewhat dubious design, but it&rsquo;s an important currency and
+(La)TeX users need to typeset it.  When the currency first appeared,
+typesetting it was a serious problem for (La)TeX users; things are
+easier now (most fonts have some way of providing a Euro sign), but
+this answer provides a summary of methods &ldquo;just in case&rdquo;.
+
+<p>
+Note that the Commission of the European Community at first deemed
+that the Euro symbol should always be set in a sans-serif font;
+fortunately, this eccentric ruling has now been rescinded, and one may
+apply best typesetting efforts to making it appear at least slightly
+&ldquo;respectable&rdquo; (typographically).
+
+<p>
+The TS1-encoded TC fonts provided as part of the EC font
+distribution provide Euro glyphs.  The fonts are called Text Companion
+(TC) fonts, and offer the same range
+of faces as do the EC fonts themselves.  The
+<i class="package">textcomp</i> package provides a <code>&#x5c;texteuro</code> command for
+accessing the symbol, which selects a symbol to match the surrounding
+text.  The design of the symbol in the TC fonts is not
+universally loved&hellip;
+Nevertheless, use the TC font version of the symbol if you are
+producing documents using Knuth&rsquo;s Computer Modern Fonts.
+
+<p>
+The each of the <i class="package">latin9</i> and <i class="package">latin10</i> input encoding
+definitions for the <i class="package">inputenc</i> package has a euro character
+defined (character position 164, occupied in other ISO Latin
+character sets by the &ldquo;currency symbol&rdquo; [[[textcurrency]]] [[[LBRACE]]][[[RBRACE]]], which
+ordinary people seldom see except in character-set listings&hellip;).
+The TC encoding file offers the command <code>&#x5c;texteuro</code> for the
+character; that command is (probably) <em>only</em> available from the
+<i class="package">textcomp</i> package.
+
+<p>
+Use of the TC encoding character may therefore made via
+<code>&#x5c;texteuro</code> or via the Latin-9 or Latin-10 character in ordinary
+text.
+
+<p>
+Note that there is a Microsoft code page position (128), too, and that has
+been added to <i class="package">inputenc</i> tables for CP1252 and
+CP1257.  (There&rsquo;s another position in CP858, which has
+it in place of &ldquo;dotless i&rdquo; in CP850; the standardisation of
+these things remains within Microsoft, so one can never tell what will
+come next&hellip;)
+
+<p>
+Outline fonts which contain nothing but Euro symbols are available
+(free) from
+<a href="ftp://ftp.adobe.com/pub/adobe/type/win/all/eurofont.exe.html">Adobe</a>&nbsp;&mdash;
+the file is packaged as a <i class="progname">Windows</i> self-extracting
+executable, but it may be decoded as a <code class="extension">zip</code> format archive
+on other operating systems.
+The <i class="package">euro</i> bundle contains metrics, <i class="progname">dvips</i> map
+files, and macros (for Plain TeX and LaTeX), for using these
+fonts in documents.  LaTeX users will find two packages in the
+bundle: <i class="package">eurosans</i> only offers the sans-serif version (to
+conform with the obsolete ruling about sans-serif-only symbols; the
+package provides the
+command <code>&#x5c;euro</code>), whereas <i class="package">europs</i> matches the Euro symbol
+with the surrounding text (providing the command <code>&#x5c;EUR</code>).  To use
+either package
+with the <i class="package">latin9</i> encoding, you need to define <code>&#x5c;texteuro</code>
+as an alias for the euro command the package defines.
+
+<p>
+The Adobe fonts are probably the best bet for use in non-Computer
+Modern environments.  They are apparently designed to fit with Adobe
+Times, Helvetica and Courier, but can probably fit with a wider range
+of modern fonts.
+
+<p>
+The <i class="package">eurofont</i> package provides a compendious analysis of the
+&ldquo;problem of the euro symbol&rdquo; in its documentation, and offers macros
+for configuring the source of the glyphs to be used; however, it seems
+rather large for everyday use.
+
+<p>
+The <i class="package">euro-ce</i> bundle is a rather pleasing MetaFont-only design
+providing Euro symbols in a number of shapes.  The file
+<i class="filename">euro-ce.tex</i>, in the distribution, offers hints as to how a
+Plain TeX user might make use of the fonts.
+
+<p>
+Euro symbols are found in several other places, which we list here for
+completeness.
+
+<p>
+The <i class="package">marvosym</i> font contains a Euro symbol (in a number of
+typographic styles), among many other good things; the font is
+available in both Adobe Type 1 and TrueType formats.
+
+<p>
+Other MetaFont-based bundles containing Euro symbols are to be found in
+<i class="package">china2e</i> (whose primary aim is Chinese dates and suchlike
+matters) and the <i class="package">eurosym</i> fonts.
+<dl>
+<dt class="ctanref">china2e bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/china2e">china2e</a>
+<dt class="ctanref">EC fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ec">ec</a>
+<dt class="ctanref">euro fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/euro-fonts">euro-fonts</a>
+<dt class="ctanref">euro-ce fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/euro-ce">euro-ce</a>
+<dt class="ctanref">eurofont.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/eurofont">eurofont</a>
+<dt class="ctanref">eurosym fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/eurosym">eurosym</a>
+<dt class="ctanref">marvosym fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/marvosym-fonts">marvosym-fonts</a>
+<dt class="ctanref">textcomp.sty</dt><dd>Part of the LaTeX distribution.
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-11-21</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-euro">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-euro</a>
+
+<p>

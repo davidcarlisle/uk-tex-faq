@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-extref</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Labelsandreferences">Labels and references</a> &gt; </div>
+<h1>Referring to labels in other documents</h1>
+
+
+<p>
+
+<p>
+When producing a set of inter-related documents, you&rsquo;ll often want to
+refer to labels in another document of the set; but LaTeX, of its
+own accord, doesn&rsquo;t permit this.
+
+<p>
+So the package <i class="package">xr</i> was written: if you say
+<blockquote>
+<pre>
+\usepackage{xr}
+\externaldocument{volume1}
+</pre>
+</blockquote>
+will load all the references from <i class="filename">volume1</i> into your present
+document.
+
+<p>
+But what if the documents both have a section labelled
+&ldquo;<code class="environment">introduction</code>&rdquo; (likely enough, after all)?  The
+package provides a means to transform all the imported labels, so you
+don&rsquo;t have to change label names in either document.  For example:
+<blockquote>
+<pre>
+\usepackage{xr}
+\externaldocument[V1-]{volume1}
+</pre>
+</blockquote>
+loads the references from <i class="filename">volume1</i>, but prefixes every one with
+the string <tt>V1-</tt>.  So you would refer to the introduction to volume&nbsp;1
+as:
+<blockquote>
+
+<pre>
+\usepackage{xr}
+\externaldocument[V1-]{volume1}
+...
+... the introduction to volume1
+               (\ref{V1-introduction})...
+</pre>
+
+
+<pre>
+\usepackage{xr}
+\externaldocument[V1-]{volume1}
+...
+... the introduction to volume1 (\ref{V1-introduction})...
+</pre>
+
+</blockquote>
+To have the facilities of <i class="package">xr</i> working with
+<i class="package">hyperref</i>, you need <i class="package">xr-hyper</i>.  For simple
+hyper-cross-referencing (i.e., to a local PDF file you&rsquo;ve just
+compiled), write:
+<blockquote>
+<pre>
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\externaldocument[V1-]{volume1}
+...
+... the \nameref{V1-introduction})...
+</pre>
+</blockquote>
+and the name reference will appear as an active link to the
+&ldquo;introduction&rdquo; chapter of <i class="filename">volume1.pdf</i>.
+
+<p>
+To link to a PDF document on the Web, for which you happen to
+have the .aux file, write:
+<blockquote>
+
+<pre>
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\externaldocument[V1-]{volume1}[http://mybook.com/volume1.pdf]
+...
+... the \nameref{V1-introduction})...
+</pre>
+
+
+<pre>
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\externaldocument[V1-]{volume1}%
+    [http://mybook.com/volume1.pdf]
+...
+... the \nameref{V1-introduction})...
+</pre>
+
+</blockquote>
+Heiko Oberdiek&rsquo;s experimental <i class="package">zref</i> bundle includes a
+hyper-crossreferencing mechanism using its <i class="package">zref-xr</i> module.
+Usage is closely modelled on <i class="package">xr</i> and <i class="package">xr-hyper</i>; a
+trivial example (from a <i class="newsgroup">comp.text.tex</i> posting) is
+<blockquote>
+<pre>
+\usepackage{zref-xr,zref-user}
+\zexternaldocument*{xr02}
+...
+\zref{foo}
+</pre>
+</blockquote>
+The module provides all the facilities of the older packages, and can
+deal both with &ldquo;traditional&rdquo; LaTeX labels and with
+<i class="package">zref</i>&rsquo;s style of labels.
+<dl>
+<dt class="ctanref">xr.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[xr]
+<dt class="ctanref">xr-hyper.sty</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>[xr-hyper]
+<dt class="ctanref">zref bundle</dt><dd>Distributed as part of
+  <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[zref]
+</dl>
+
+<p>
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-grffilenames</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Graphics">Graphics</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>&ldquo;Modern&rdquo; graphics file names</h1>
+
+
+<p>
+
+<p>
+TeX was designed in a world where file names were very simple
+indeed, typically strictly limited both in character set and length.
+In modern systems, such restrictions have largely disappeared, which
+leaves TeX rather at odds with its environment.  Particular
+problems arise with spaces in file names, but things like multiple
+period characters can seriously confuse the <i class="package">graphics</i>
+package.
+
+<p>
+The specification of TeX leaves some leeway for distributions to
+adopt file access appropriate to their operating system, but this
+hasn&rsquo;t got us very far.  Many modern distributions allow you to
+specify a file name as <tt>"file name.tex"</tt> (for example), which
+helps somewhat, but while this allows us to say
+<blockquote>
+<pre>
+\input "foo bar.tex"
+</pre>
+</blockquote>
+the analogous usage
+<blockquote>
+<pre>
+\includegraphics{"gappy graphics.eps"}
+</pre>
+</blockquote>
+using &ldquo;ordinary&rdquo; LaTeX causes confusion in <i class="progname">xdvi</i> and
+<i class="progname">dvips</i>, even though it works at compilation time.  Sadly,
+even within such quotes, multiple dots give <code>&#x5c;includegraphics</code>
+difficulties.  Note that
+<blockquote>
+<pre>
+\includegraphics{"gappy graphics.pdf"}
+</pre>
+</blockquote>
+works in a similar version of PDFTeX.
+
+<p>
+If you&rsquo;re using the <i class="package">graphics</i> package, the <i class="package">grffile</i>
+package will help.  The package offers several options, the simplest
+of which are <code class="pkgoption">multidot</code> (allowing more than one dot in a
+file name) and <code class="pkgoption">space</code> (allowing space in a file name).  The
+<code class="pkgoption">space</code> option requires that you&rsquo;re running on a
+sufficiently recent version of PDFTeX, in PDF mode&nbsp;&mdash; and
+even then it won&rsquo;t work for MetaPost files, which are read as TeX
+input, and therefore use the standard input mechanism).
+<dl>
+<dt class="ctanref">grffile.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[grffile]
+</dl>
+
+<p>

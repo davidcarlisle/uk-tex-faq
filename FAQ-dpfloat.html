@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-dpfloat</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Floatingtablesfiguresetc">Floating tables, figures, etc.</a> &gt; </div>
+<h1>Facing floats on 2-page spread</h1>
+
+
+<p>
+
+<p>
+If a pair of floats need to be forced to form a 2-page spread (in a
+book, or whatever), the first must lie on the left side of the spread,
+on an even-numbered page.  The <i class="package">dpfloat</i> package provides for
+this: the construction to use is:
+<blockquote>
+<pre>
+\begin{figure}[p]
+  \begin{leftfullpage}
+    <left side figure>
+  \end{leftfullpage}
+\end{figure}
+\begin{figure}[p]
+  \begin{fullpage}
+    <right side figure>
+  \end{fullpage}
+\end{figure}
+</pre>
+</blockquote>
+The construction has no effect on documents with class option
+<code class="pkgoption">oneside</code> (<code class="pkgoption">twoside</code> is the default for
+<i class="class">book</i> class).
+
+<p>
+A special case of this requirement places the caption for a float on
+the next page.  (This is useful if you have a float that &ldquo;only just&rdquo;
+fits the page.)  You can (with a certain amount of twiddling) make
+this work with <i class="package">dpfloat</i>, but the <i class="package">fltpage</i> package is
+specially designed for the job:
+<blockquote>
+<pre>
+\documentclass[twoside]{article}
+\usepackage[leftFloats]{fltpage}
+\begin{document}
+...
+\begin{FPfigure}
+  \includegraphics{my-huge-figure}
+  \caption{Whew!  That was a big one!}
+\end{FPfigure}
+...
+\end{document}
+</pre>
+</blockquote>
+That example should produce a caption
+<blockquote>
+  Figure &lsaquo;<i>n</i>&rsaquo; <em>(facing page)</em>: Whew!  &hellip;
+</blockquote>
+(Note, however, that the package is an old one, and declares itself to
+be a beta release, and contains no valid licence statement so that it
+is not in texlive.  It seems to work, but&hellip;)
+
+<p>
+A alternative route is the &ldquo;continued&rdquo; mechanism of the
+<i class="package">caption</i> package.  The <code>&#x5c;ContinuedFloat</code> macro makes a
+small tweak to the next <code>&#x5c;caption</code> command, so that the command
+makes no increment to the caption number.  This does not (of course)
+have any effect on actual placement of the float, but it makes the
+caption texts read &lsquo;sensibly&rsquo;:
+<blockquote>
+<pre>
+\begin{table}
+  \caption{A table}
+  ...
+\end{table}
+...
+\begin{table}\ContinuedFloat
+  \caption{A table (cont.)}
+  ...
+\end{table}
+</pre>
+</blockquote>
+which would produce:
+<blockquote>
+  Table 3: A table
+  [[[dots]]]
+  Table 3: A table (cont.)
+</blockquote>
+<dl>
+<dt class="ctanref">caption.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/caption">caption</a>
+<dt class="ctanref">dpfloat.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dpfloat">dpfloat</a>
+<dt class="ctanref">fltpage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fltpage">fltpage</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-02-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dpfloat">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dpfloat</a>
+
+<p>

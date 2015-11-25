@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-oldfontnames</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThingsareGoingWronghellip">Things are Going Wrong&hellip;</a> &gt; <a href="index.html#Thingshaveldquogoneawayrdquo">Things have &ldquo;gone away&rdquo;</a> &gt; </div>
+<h1>Old LaTeX font references such as <code>&#x5c;tenrm</code></h1>
+
+
+<p>
+
+<p>
+LaTeX 2.09 defined a large set of commands for access to the fonts
+that it had built in to itself.  For example, <i class="fontname">cmr</i> might
+appear as <code>&#x5c;fivrm</code>, <code>&#x5c;sixrm</code>, <code>&#x5c;sevrm</code>,
+<code>&#x5c;egtrm</code>, <code>&#x5c;ninrm</code>, <code>&#x5c;tenrm</code>, <code>&#x5c;elvrm</code>, <code>&#x5c;twlrm</code>,
+<code>&#x5c;frtnrm</code>, <code>&#x5c;svtnrm</code>, <code>&#x5c;twtyrm</code> and <code>&#x5c;twfvrm</code>, according
+to the size it&rsquo;s being typeset at.
+These commands were never documented, but certain packages
+nevertheless used them to achieve effects they needed.
+
+<p>
+Since the commands weren&rsquo;t public, they weren&rsquo;t included in LaTeX 2e;
+to use the unconverted LaTeX 2.09 packages under LaTeX 2e, you need
+also to include the <i class="package">rawfonts</i> package (which is part of the
+LaTeX 2e distribution).
+
+<p>

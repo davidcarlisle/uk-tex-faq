@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-varwidcol</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>Variable-width columns in tables</h1>
+
+
+<p>
+
+<p>
+This is a slightly different take on the problem addressed in
+&ldquo;<a class="FAquestion.html" href="FAQ-fixwidtab.html">fixed-width tables</a>&rdquo;&nbsp;&mdash; here we have
+a column whose size we can&rsquo;t absolutely predict when we design the
+document.
+
+<p>
+While the basic techniques (the <i class="package">tabularx</i>, <i class="package">tabulary</i>
+and <i class="package">ltxtable</i> packages) are the same for this problem as for the
+fixed-width <em>table</em> problem, there&rsquo;s one extra tool that we can
+call to our aid, which may be preferable in some situations.
+
+<p>
+Suppose we have data in one column which we read from an external
+source, and the source itself isn&rsquo;t entirely predictable.  The data in
+the column may end up pretty narrow in every row of the table, or it
+may be wide enough that the table would run over the edge of the page;
+however, we don&rsquo;t want to make the column as wide as possible &ldquo;just
+in case&rdquo;, by defining a fixed size for the table.  We would like the
+column to be as small as possible, but have the possibility to spread
+to a maximum width and (if even that width is exceeded) turn into a
+<tt>p</tt>-style column.
+
+<p>
+The <i class="package">varwidth</i> package, discussed in 
+&ldquo;<a class="FAquestion.html" href="FAQ-varwidth.html">automatic sizing of minipages</a>&rdquo;, provides
+a solution.  If you load it together with the LaTeX &ldquo;required&rdquo;
+<i class="package">array</i> package, i.e.:
+<blockquote>
+<pre>
+\usepackage{array}
+\usepackage{varwidth}
+</pre>
+</blockquote>
+<i class="package">varwidth</i> defines a new column-type &ldquo;<tt>V</tt>&rdquo;, which you
+can use as follows:
+<blockquote>
+<pre>
+\begin{tabular}{l V{3.5cm} r}
+  foo &amp; blah      &amp; bar \\
+  foo &amp; blah blah &amp; bar \\
+\end{tabular}
+</pre>
+</blockquote>
+when the second column ends up less than 3.5cm wide;
+or you can use it as follows:
+<blockquote>
+<pre>
+\begin{tabular}{l V{3.5cm} r}
+  foo &amp; blah      &amp; bar \\
+  foo &amp; blah blah &amp; bar \\
+  foo &amp; blah blah blah blah blah blah
+                  &amp; bar \\
+\end{tabular}
+</pre>
+</blockquote>
+where the second column will end up noticeably wider, and will wrap to
+a second line in the third row.
+<dl>
+<dt class="ctanref">array.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[array]
+<dt class="ctanref">varwidth.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/varwidth">varwidth</a>
+</dl>
+
+<p>

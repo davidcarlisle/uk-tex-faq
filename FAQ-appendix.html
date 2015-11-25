@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-appendix</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>Appendixes</h1>
+
+
+<p>
+
+<p>
+LaTeX provides an exceedingly simple mechanism for appendixes: the
+command <code>&#x5c;appendix</code> switches the document from generating sections
+(in <i class="class">article</i> class) or chapters (in <i class="class">report</i> or
+<i class="class">book</i> classes) to producing appendixes.  Section or chapter
+numbering is restarted and the representation of the counter switches
+to alphabetic.  So:
+<blockquote>
+<pre>
+\section{My inspiration}
+...
+
+\section{Developing the inspiration}
+...
+
+\appendix
+\section{How I became inspired}
+...
+</pre>
+</blockquote>
+would be typeset (in an <i class="class">article</i> document) something like:
+<blockquote>
+<b>1&nbsp;&nbsp;My inspiration</b>
+
+<p>
+&hellip;
+
+<p>
+<b>2&nbsp;&nbsp;Developing the inspiration</b>
+
+<p>
+&hellip;
+
+<p>
+<b>A&nbsp;&nbsp;How I became inspired</b>
+
+<p>
+&hellip;
+</blockquote>
+which is quite enough for many ordinary purposes.  Note that, once
+you&rsquo;ve switched to typesetting appendixes, LaTeX provides you with
+no way back&nbsp;&mdash; once you&rsquo;ve had an appendix, you can no longer have an
+&ldquo;ordinary&rdquo; <code>&#x5c;section</code> or <code>&#x5c;chapter</code>.
+
+<p>
+The <i class="package">appendix</i> provides several ways of elaborating on this
+simple setup.  Straightforward use of the package allows you to have a
+separate heading, both in the body of the document and the table of
+contents; this would be achieved by
+<blockquote>
+<pre>
+\usepackage{appendix}
+...
+\appendix
+\appendixpage
+\addappheadtotoc
+</pre>
+</blockquote>
+The <code>&#x5c;appendixpage</code> command adds a separate title &ldquo;Appendices&rdquo;
+above the first appendix, and <code>&#x5c;addappheadtotoc</code> adds a similar
+title to the table of contents.  These simple modifications cover many
+people&rsquo;s needs about appendixes.
+
+<p>
+The package also provides an <code class="environment">appendices</code> environment,
+which provides for fancier use.  The environment is best controlled by
+package options; the above example would be achieved by
+<blockquote>
+<pre>
+\usepackage[toc,page]{appendix}
+...
+\begin{appendices}
+...
+\end{appendices}
+</pre>
+</blockquote>
+The great thing that the <code class="environment">appendices</code> environment gives
+you, is that once the environment ends, you can carry on with sections
+or chapters as before&nbsp;&mdash; numbering isn&rsquo;t affected by the intervening
+appendixes.
+
+<p>
+The package provides another alternative way of setting appendixes, as
+inferior divisions in the document.  The <code class="environment">subappendices</code>
+environment allows you to put separate appendixes for a particular
+section, coded as <code>&#x5c;subsection</code>s, or for a particular chapter, coded
+as <code>&#x5c;section</code>s.  So one might write:
+<blockquote>
+<pre>
+\usepackage{appendix}
+...
+\section{My inspiration}
+...
+\begin{subappendices}
+\subsection{How I became inspired}
+...
+\end{subappendices}
+
+\section{Developing the inspiration}
+...
+</pre>
+</blockquote>
+Which will produce output something like:
+<blockquote>
+<b>1&nbsp;&nbsp;My inspiration</b>
+
+<p>
+&hellip;
+
+<p>
+<b>1.A&nbsp;&nbsp;How I became inspired</b>
+
+<p>
+&hellip;
+
+<p>
+<b>2&nbsp;&nbsp;Developing the inspiration</b>
+
+<p>
+&hellip;
+</blockquote>
+
+<p>
+There are many other merry things one may do with the package; the
+user is referred to the package documentation for further details.
+
+<p>
+The <i class="class">memoir</i> class includes the facilities of the
+<i class="package">appendix</i> package.  The <i class="class">KOMA-script</i> classes offer a
+<code>&#x5c;appendixprefix</code> command for manipulating the appearance of appendixes.
+<dl>
+<dt class="ctanref">appendix.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/appendix">appendix</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+</dl>
+
+<p>

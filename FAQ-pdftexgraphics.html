@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-pdftexgraphics</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Graphics">Graphics</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Imported graphics in PDFLaTeX</h1>
+
+
+<p>
+
+<p>
+PDFTeX itself has a rather wide range of formats that it can
+&ldquo;natively&rdquo; incorporate into its output PDF stream:
+JPEG (<code class="extension">jpg</code> files) for photographs and similar images,
+PNG files for artificial bitmap images, and PDF for
+vector drawings.  Old versions of PDFTeX (prior to version&nbsp;1.10a)
+supported TIFF (<code class="extension">tif</code> files) format as an alternative
+to PNG files; don&rsquo;t rely on this facility, even if you
+<em>are</em> running an old enough version of PDFTeX&hellip;
+
+<p>
+In addition to the &lsquo;native&rsquo; formats, the standard PDFLaTeX
+<i class="package">graphics</i> package setup causes Hans Hagen&rsquo;s <i class="filename">supp-pdf</i>
+macros to be loaded: these macros are capable of translating the
+output of MetaPost to PDF &ldquo;on the fly&rdquo;; thus MetaPost output
+(<code class="extension">mps</code> files) may also be included in PDFLaTeX documents.
+
+<p>
+The commonest problem users encounter, when switching from TeX, is
+that there is no straightforward way to include EPS files:
+since PDFTeX is its own &ldquo;driver&rdquo;, and since it contains no means
+of converting PostScript to PDF, there&rsquo;s no direct way the job can
+be done.
+
+<p>
+The simple solution is to convert the EPS to an appropriate
+PDF file.  The <i class="progname">epstopdf</i> program will do this: it&rsquo;s
+available either as a Windows executable or as a <i class="progname">Perl</i>
+script to run on Unix and other similar systems.  A LaTeX package,
+<i class="package">epstopdf</i>, can be used to generate the requisite PDF
+files &ldquo;on the fly&rdquo;; this is convenient, but requires that you
+suppress one of TeX&rsquo;s security checks: don&rsquo;t allow its use in files
+from sources you don&rsquo;t entirely trust.
+
+<p>
+The package <i class="package">pst-pdf</i> permits other things than &lsquo;mere&rsquo;
+graphics files in its argument.  <i class="package">Pst-pdf</i> operates (the
+authors suggest) &ldquo;like BibTeX&rdquo;&nbsp;&mdash; you process your file using
+PDFLaTeX, then use LaTeX, <i class="progname">dvips</i> and <i class="progname">ps2pdf</i>
+in succession, to produce a secondary file to input to your next
+PDFLaTeX run.  (Scripts are provided to ease the production of the
+secondary file.)
+
+<p>
+A further extension is <i class="package">auto-pst-pdf</i>, which generates
+PDF (essentially) transparently, by spawning a job to process
+output such as <i class="package">pst-pdf</i> uses.  If your PDFLaTeX
+installation doesn&rsquo;t automatically allow it&nbsp;&mdash; see 
+<a href="FAQ-spawnprog.html">spawning a process</a>&nbsp;&mdash; then you need to start
+PDFLaTeX with:
+<blockquote>
+<pre>
+pdflatex -shell-escape <file>
+</pre>
+</blockquote>
+for complete &lsquo;automation&rsquo;.
+
+<p>
+An alternative solution is to use <i class="progname">purifyeps</i>, a
+<i class="progname">Perl</i> script which uses the good offices of
+<i class="progname">pstoedit</i> and of MetaPost to convert your Encapsulated PostScript to
+&ldquo;Something that looks like the encapsulated PostScript that comes out of
+MetaPost&rdquo;, and can therefore be included directly.  Sadly,
+<i class="progname">purifyeps</i> doesn&rsquo;t work for all <code class="extension">eps</code> files.
+
+<p>
+Good coverage of the problem is to be found in Herbert Vo&szlig;&rsquo;s
+<a href="http://pstricks.tug.org/main.cgi?file=pdf/pdfoutput.html">PDF support page</a>,
+which is targeted at the use of <i class="package">pstricks</i> in
+PDFLaTeX, and also covers the <i class="package">pstricks</i>-specific package
+<i class="package">pdftricks</i>.  A recent alternative (not covered in 
+Herbert Vo&szlig;&rsquo;s page) is <i class="package">pdftricks2</i>, which offers similar
+facilities to <i class="package">pdftricks</i>, but with some useful variations.
+<dl>
+<dt class="ctanref">auto-pst-pdf.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/auto-pst-pdf">auto-pst-pdf</a>
+<dt class="ctanref">epstopdf</dt><dd>Browse <a class="ctan" href="https://www.ctan.org/pkg/epstopdf">epstopdf</a>
+<dt class="ctanref">epstopdf.sty</dt><dd>Distributed with Heiko Oberdiek&rsquo;s packages
+  <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>
+<dt class="ctanref">pdftricks.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdftricks">pdftricks</a>
+<dt class="ctanref">pdftricks2.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdftricks2">pdftricks2</a>
+<dt class="ctanref">pst-pdf.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pst-pdf">pst-pdf</a>
+<dt class="ctanref">pstoedit</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pstoedit">pstoedit</a>
+<dt class="ctanref">purifyeps</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/purifyeps">purifyeps</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-11-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-pdftexgraphics">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-pdftexgraphics</a>
+
+<p>

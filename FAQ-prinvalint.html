@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-prinvalint</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Symbolsetc">Symbols, etc.</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>The Principal Value Integral symbol</h1>
+
+
+<p>
+
+<p>
+This symbol (an integral sign, &lsquo;crossed&rsquo;) does not appear in any of
+the fonts ordinarily available to (La)TeX users, but it can be
+created by use of the following macros:
+<blockquote>
+
+<pre>
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+</pre>
+
+
+<pre>
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle
+                      \scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{%
+     \setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+</pre>
+
+</blockquote>
+<code>&#x5c;dashint</code> gives a single-dashed integral sign, <code>&#x5c;ddashint</code> a
+double-dashed one.
+
+<p>

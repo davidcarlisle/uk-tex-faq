@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-atsigns</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacrotoolsandtechniques">LaTeX macro tools and techniques</a> &gt; </div>
+<h1><code>&#x5c;@</code> and <tt>@</tt> in macro names</h1>
+
+
+<p>
+
+<p>
+Macro names containing <tt>@</tt> are <em>internal</em> to LaTeX, and
+without special treatment just don&rsquo;t work in ordinary use.  A nice
+example of the problems caused is discussed in 
+<a href="FAQ-atvert.html"><code>&#x5c;@</code> in vertical mode</a>&rdquo;.
+
+<p>
+The problems users see are caused by copying bits of a class
+(<code class="extension">cls</code> file) or 
+package (<code class="extension">sty</code> file) into a document, or by including a class or
+package file into a LaTeX document by some means other than
+<code>&#x5c;documentclass</code> or <code>&#x5c;usepackage</code>.  LaTeX defines internal
+commands whose names contain the character <tt>@</tt> to
+avoid clashes between its internal names and names that we would
+normally use in our documents.  In order that these commands may work
+at all, <code>&#x5c;documentclass</code> and <code>&#x5c;usepackage</code> play around with the
+meaning of <tt>@</tt>.
+
+<p>
+If you&rsquo;ve included a file some other way (for example, using
+<code>&#x5c;input</code>), you can probably solve the problem by using the correct
+command.
+
+<p>
+If you&rsquo;re using a fragment of a package or class, you may well feel
+confused: books such as the first edition of the 
+<a href="FAQ-latex-books.html">The LaTeX Companion</a> 
+are full of fragments of packages as examples for you to employ.
+The second edition of the <em>Companion</em> makes clearer how you
+should use these fragments, and in addition, the code of
+all the examples is now available on CTAN.
+To see the technique in practice, look at the example below, from file
+<i class="filename">2-2-7.ltx</i> in the <em>Companion</em> examples directory:
+<blockquote>
+<pre>
+\makeatletter
+\renewcommand\subsection{\@startsection
+  {subsection}{2}{0mm}%name, level, indent
+  {-\baselineskip}%             beforeskip
+  {0.5\baselineskip}%            afterskip
+  {\normalfont\normalsize\itshape}}% style
+\makeatother
+</pre>
+</blockquote>
+(That example appears on page 29 of <em>The LaTeX Companion</em>,
+second edition.)
+
+<p>
+The alternative is to treat all these fragments as a package proper,
+bundling them up into a <code class="extension">sty</code> file and including them with
+<code>&#x5c;usepackage</code>; this way you hide your LaTeX internal code somewhere
+that LaTeX internal code is expected, which often looks &lsquo;tidier&rsquo;.
+<dl>
+<dt class="ctanref">Examples from the Companion</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tlc2">tlc2</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-06-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-atsigns">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-atsigns</a>
+
+<p>

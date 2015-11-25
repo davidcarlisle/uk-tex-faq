@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-dvi</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What is a DVI file?</h1>
+
+
+<p>
+
+<p>
+&lsquo;DVI&rsquo; is supposed to be an acronym for
+DeVice-Independent, meaning that the file may be
+processed for printing or viewing on most kinds of typographic output
+device or display.
+
+<p>
+A DVI file (that is, a file with the type or extension
+<code class="extension">dvi</code>) is the main output file of &ldquo;original&rdquo; TeX (later
+TeX-like systems, such as <a href="FAQ-whatpdftex.html">PDFTeX</a> may use
+other formats).
+
+<p>
+A DVI file contains all the information that is needed for
+printing or previewing, except for the actual bitmaps or outlines of
+fonts, and any material to be introduced by means of 
+<a href="FAQ-specials.html"><code>&#x5c;special</code> commands</a>.  Characters in the
+DVI file (representing glyphs for printing or display) appear
+in an encoding determined in the document.
+
+<p>
+Any TeX input file should produce the same DVI file
+regardless of which implementation of TeX is used to produce it.
+
+<p>
+An DVI file may be processed by a <a href="FAQ-driver.html">DVI driver</a>
+to produce further output designed specifically for a particular
+printer, or for output in another format (for distribution), or it may
+be used by a previewer for display on a computer screen.
+
+<p>
+Note that <a href="FAQ-xetex.html">XeTeX</a> (released some time after
+PDFTeX) uses an &ldquo;extended DVI format&rdquo; (XDV) to send
+its output to a close-coupled <a href="FAQ-driver.html">DVI driver</a>,
+<i class="progname">xdvipdfmx</i>.
+
+<p>
+The canonical reference for the structure of a DVI file is the
+source of Knuth&rsquo;s program <i class="progname">dvitype</i> (whose original purpose,
+as its name implies, was to view the content of a DVI file).
+A partially complete &ldquo;standard&rdquo; for the way they should be
+processed may offer further enlightenment.
+<dl>
+<dt class="ctanref">DVI processing standard</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dvistd">dvistd</a>
+<dt class="ctanref">dvitype</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dvitype">dvitype</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-03-15</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dvi">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dvi</a>
+
+<p>

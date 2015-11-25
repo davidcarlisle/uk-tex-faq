@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-multbib</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingcitations">Creating citations</a> &gt; </div>
+<h1>Multiple bibliographies?</h1>
+
+
+<p>
+
+<p>
+If you&rsquo;re thinking of multiple bibliographies tied to some part of
+your document (such as the chapters within the document), please see
+<a class="FAquestion.html" href="FAQ-chapbib.html">bibliographies per chapter</a>.
+
+<p>
+For more than one bibliography, there are three options.
+
+<p>
+The <i class="package">multibbl</i> package offers a very simple interface: you use
+a command <code>&#x5c;newbibliography</code> to define a bibliography &ldquo;tag&rdquo;.  The package
+redefines the other bibliography commands so that each time you use any one
+of them, you give it the tag for the bibliography where you want the
+citations to appear.  The <code>&#x5c;bibliography</code> command itself also takes
+a further extra argument that says what title to use for the resulting
+section or chapter (i.e., it patches
+
+<a href="FAQ-fixnam.html"><code>&#x5c;refname</code> and <code>&#x5c;bibname</code></a> in a
+<i class="package">babel</i>-safe way).  So one might write:
+
+
+<pre>
+\usepackage{multibbl}
+\newbibliography{bk}
+\bibliographystyle{bk}{alpha}
+\newbibliography{art}
+\bibliographystyle{art}{plain}
+...
+\cite[pp.~23--25]{bk}{milne:pooh-corner}
+...
+\cite{art}{einstein:1905}
+...
+\bibliography{bk}{book-bib}%
+             {References to books}
+\bibliography{art}{art-bib}%
+             {References to articles}
+</pre>
+
+
+
+<blockquote>
+<pre>
+\usepackage{multibbl}
+\newbibliography{bk}
+\bibliographystyle{bk}{alpha}
+\newbibliography{art}
+\bibliographystyle{art}{plain}
+...
+\cite[pp.~23--25]{bk}{milne:pooh-corner}
+...
+\cite{art}{einstein:1905}
+...
+\bibliography{bk}{book-bib}{References to books}
+\bibliography{art}{art-bib}{References to articles}
+</pre>
+</blockquote>
+
+(Note that the optional argument of <code>&#x5c;cite</code> appears <em>before</em> the
+new tag argument, and that the <code>&#x5c;bibliography</code> commands may list
+more than one <code class="extension">bib</code> file&nbsp;&mdash; indeed all <code>&#x5c;bibliography</code> commands
+may list the same set of files.)
+
+<p>
+The <code>&#x5c;bibliography</code> data goes into files whose names are
+&lsaquo;<i>tag-name</i>&rsaquo;<em>.aux</em>, so you will need to run
+<blockquote>
+<pre>
+bibtex bk
+bibtex art
+</pre>
+</blockquote>
+after the first run of LaTeX, to get the citations in the correct
+place.
+
+<p>
+The <i class="package">multibib</i> package allows you to define a series of
+&ldquo;additional topics&rdquo;, each of which comes with its own series of
+bibliography commands.  So one might write:
+<blockquote>
+<pre>
+\usepackage{multibib}
+\newcites{bk,art}%
+         {References from books,%
+          References from articles}
+\bibliographystylebk{alpha}
+\bibliographystyleart{plain}
+...
+\citebk[pp.~23--25]{milne:pooh-corner}
+...
+\citeart{einstein:1905}
+...
+\bibliographybk{book-bib}
+\bibliographyart{art-bib}
+</pre>
+</blockquote>
+Again, as for <i class="package">multibbl</i>, any <code>&#x5c;bibliography...</code> command may
+scan any list of <code class="extension">bib</code> files.
+
+<p>
+BibTeX processing with <i class="package">multibib</i> is much like that with
+<i class="package">multibbl</i>; with the above example, one needs:
+<blockquote>
+<pre>
+bibtex bk
+bibtex art
+</pre>
+</blockquote>
+Note that, unlike <i class="package">multibbl</i>, <i class="package">multibib</i> allows a
+simple, unmodified bibliography (as well as the &ldquo;topic&rdquo; ones).  
+
+<p>
+The <i class="package">bibtopic</i> package allows you separately to cite several
+different bibliographies.  At the appropriate place in your document,
+you put a sequence of <code class="environment">btSect</code> environments (each of which
+specifies a bibliography database to scan) to typeset the separate
+bibliographies.  Thus, one might have a file <i class="filename">diss.tex</i> containing:
+<blockquote>
+<pre>
+\usepackage{bibtopic}
+\bibliographystyle{alpha}
+...
+\cite[pp.~23--25]{milne:pooh-corner}
+...
+\cite{einstein:1905}
+...
+\begin{btSect}{book-bib}
+\section{References from books}
+\btPrintCited
+\end{btSect}
+\begin{btSect}[plain]{art-bib}
+\section{References from articles}
+\btPrintCited
+\end{btSect}
+</pre>
+</blockquote>
+Note the different way of specifying a bibliographystyle: if you want
+a different style for a particular bibliography, you may give it as an
+optional argument to the <code class="environment">btSect</code> environment.
+
+<p>
+Processing with BibTeX, in this case, uses <code class="extension">aux</code> files whose names
+are derived from the name of the base document.  So in this example
+you need to say:
+<blockquote>
+<pre>
+bibtex diss1
+bibtex diss2
+</pre>
+</blockquote>
+
+<p>
+There is also a command <code>&#x5c;btPrintNotCited</code>, which gives the rest of
+the content of the database (if nothing has been cited from the
+database, this is equivalent to LaTeX standard <code>&#x5c;nocite</code><code>&#x7b;*&#x7d;</code>).
+
+<p>
+However, the <em>real</em> difference from <i class="package">multibbl</i> and
+<i class="package">multibib</i> is that selection of what appears in each
+bibliography section is determined in <i class="package">bibtopic</i> by what&rsquo;s in
+the <code class="extension">bib</code> files.
+
+<p>
+An entirely different approach is taken by the <i class="package">splitbib</i>
+package.  You provide a <code class="environment">category</code> environment, in the
+preamble of your document, for each category you want a separate
+citation list for.  In each environment, you list the <code>&#x5c;cite</code> keys
+that you want listed in each category.  The <code>&#x5c;bibliography</code> command
+(or, more precisely, the <code class="environment">thebibliography</code> environment it
+uses) will sort the keys as requested.  (Keys not mentioned in a
+<code class="environment">category</code> appear in a &ldquo;misc&rdquo; category created in the
+sorting process.)  A code example appears in the package documentation
+(a PDF file in the CTAN directory,
+
+  which you can browse to, from the link, below).
+
+
+
+
+<dl>
+<dt class="ctanref">bibtopic.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bibtopic">bibtopic</a>
+<dt class="ctanref">multibbl.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/multibbl">multibbl</a>
+<dt class="ctanref">multibib.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/multibib">multibib</a>
+<dt class="ctanref">splitbib.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/splitbib">splitbib</a>
+</dl>
+
+<p>
+
+<p>

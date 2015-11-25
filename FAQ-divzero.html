@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-divzero</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Graphics division by zero</h1>
+
+
+<p>
+
+<p>
+While the error
+<blockquote>
+<pre>
+! Package graphics Error: Division by 0.
+</pre>
+</blockquote>
+can actually be caused by offering the package a figure which claims
+to have a zero dimension, it&rsquo;s more commonly caused by rotation.
+
+<p>
+Objects in TeX may have both height (the height above the baseline)
+and depth (the distance the object goes below the baseline).  If you
+rotate an object by 180\,degrees, you convert its height into depth,
+and vice versa; if the object started with zero depth, you&rsquo;ve
+converted it to a zero-height object.
+
+<p>
+Suppose you&rsquo;re including your graphic with a command like:
+<blockquote>
+
+<pre>
+\includegraphics[angle=180,height=5cm]{myfig.eps}
+</pre>
+
+
+<pre>
+\includegraphics[angle=180,%
+                height=5cm]{myfig.eps}
+</pre>
+
+</blockquote>
+In the case that <i class="filename">myfig.eps</i> has no depth to start with, the
+scaling calculations will produce the division-by-zero error.
+
+<p>
+Fortunately, the <i class="package">graphicx</i> package has a keyword
+<code class="pkgoption">totalheight</code>, which allows you to specify the size of the
+image relative to the sum of the object&rsquo;s <code class="pkgoption">height</code> and
+<code class="pkgoption">depth</code>, so
+<blockquote>
+
+<pre>
+\includegraphics[angle=180,totalheight=5cm]{myfig.eps}
+</pre>
+
+
+<pre>
+\includegraphics[angle=180,%
+           totalheight=5cm]{myfig.eps}
+</pre>
+
+</blockquote>
+will resolve the error, and will behave as you might hope.
+
+<p>
+If you&rsquo;re using the simpler <i class="package">graphics</i> package, use the
+<tt>*</tt> form of the <code>&#x5c;resizebox</code> command to specify the use of
+<code class="pkgoption">totalheight</code>:
+<blockquote>
+<pre>
+\resizebox*{!}{5cm}{%
+  \rotatebox{180}{%
+    \includegraphics{myfig.eps}%
+  }%
+}
+</pre>
+</blockquote>
+<dl>
+<dt class="ctanref">graphics.sty,graphicx.sty</dt><dd>Both parts of the <a class="ctan" href="https://www.ctan.org/pkg/graphics">graphics</a> bundle
+</dl>
+
+<p>

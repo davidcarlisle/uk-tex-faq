@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-writecls</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#DocumentationandHelp">Documentation and Help</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Learning to write LaTeX classes and packages</h1>
+
+
+<p>
+
+<p>
+There&rsquo;s nothing particularly magic about the commands you use when
+writing a package, so you can simply bundle up a set of LaTeX
+<code>&#x5c;(re)newcommand</code> and <code>&#x5c;(re)newenvironment</code> commands, put them in
+a file <i class="filename">package.sty</i> and you have a package.
+
+<p>
+However, any but the most trivial package will require rather more
+sophistication.  Some details of LaTeX commands for the job are to
+be found in &lsquo;LaTeX 2e for class and package writers&rsquo;
+(<i class="filename">clsguide</i>, part of the LaTeX documentation distribution).
+Beyond this, a good knowledge of TeX itself is valuable: thus books
+such as the <a href="FAQ-tex-books.html">TeXbook</a> or 
+<a href="FAQ-ol-books.html">TeX by topic</a> are relevant.  With good TeX
+knowledge it is possible to use the documented source of LaTeX as
+reference material (dedicated authors will acquaint themselves with the
+source as a matter of course).  A complete set of the documented
+source of LaTeX may be prepared by processing the file
+<i class="filename">source2e.tex</i> in the LaTeX distribution.  Such processing is
+noticeably tedious, but Heiko Oberdiek has prepared a well-linked
+PDF version, which is in the file <i class="filename">base.tds.zip</i> of his
+<i class="progname">latex-tds</i> distribution.  Individual files in the LaTeX
+distribution may be processed separately with LaTeX, like any
+well-constructed <a href="FAQ-dtx.html"><code class="extension">dtx</code> file</a>.
+
+<p>
+Writing good classes is not easy; it&rsquo;s a good idea to read some
+established ones (<i class="filename">classes.dtx</i>, for example, is the documented
+source of the standard classes other than <i class="class">Letter</i>, and may
+itself be formatted with LaTeX).  Classes that are not part of the
+distribution are commonly based on ones that are, and start by loading
+the standard class with <code>&#x5c;LoadClass</code>&nbsp;&mdash; an example of this
+technique may be seen in <i class="package">ltxguide.cls</i>
+
+<p>
+An 
+<a href="http://tug.org/TUGboat/Articles/tb28-1/tb88flynn.pdf.html">annotated version of <i class="class">article</i></a>,
+as it appears in <i class="filename">classes.dtx</i>, was published in
+TUGboat 28(1).  The article, by Peter Flynn, is a good guide to
+understanding <i class="filename">classes.dtx</i>
+<dl>
+<dt class="ctanref">classes.dtx</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latex-classes">latex-classes</a>
+<dt class="ctanref">clsguide.pdf</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/clsguide">clsguide</a>
+<dt class="ctanref">latex-tds collection</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latex-tds">latex-tds</a>
+<dt class="ctanref">ltxguide.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ltxguide">ltxguide</a>
+<dt class="ctanref">LaTeX documentation</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latexdoc">latexdoc</a>
+<dt class="ctanref">source2e.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latex-source">latex-source</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-07-19</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-writecls">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-writecls</a>
+
+<p>

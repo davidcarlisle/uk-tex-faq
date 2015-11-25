@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-crossref</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>LaTeX gets cross-references wrong</h1>
+
+
+<p>
+
+<p>
+Sometimes, however many times you run LaTeX, the cross-references
+are just wrong.  A likely reason is that you have placed the label
+before the data for the label was set; if the label is recording a
+<code>&#x5c;caption</code> command, the <code>&#x5c;label</code> command must appear
+<em>after</em> the <code>&#x5c;caption</code> command, or be part of it. For example:
+<blockquote>
+<pre>
+\begin{figure}
+  <the illustration itself>
+  \caption{My figure}
+  \label{myfig}
+\end{figure}
+</pre>
+</blockquote>
+is correct, as is
+<blockquote>
+<pre>
+\begin{figure}
+  <the illustration itself>
+  \caption{My figure%
+    \label{myfig}}
+\end{figure}
+</pre>
+</blockquote>
+whereas, in
+<blockquote>
+<pre>
+\begin{figure}
+  <the illustration itself>
+  \label{myfig}
+  \caption{My figure}
+\end{figure}
+</pre>
+</blockquote>
+the label will report the number of the section (or whatever) in which
+the surrounding text resides, or the like.
+
+<p>
+You can, with the same malign effect, shield the <code>&#x5c;caption</code> command
+from its associated <code>&#x5c;label</code> command, by enclosing the caption in an
+environment of its own.  This effect will be seen with:
+<blockquote>
+<pre>
+\begin{figure}
+  <the illustration itself>
+  \caption{A Figure}
+\end{figure}
+\label{myfig}
+</pre>
+</blockquote>
+where the <code>&#x5c;label</code> definitely <em>is</em> after the <code>&#x5c;caption</code>,
+but because the <code class="environment">figure</code> environment closed before the
+<code>&#x5c;label</code> command, the <code>&#x5c;caption</code> is no longer &ldquo;visible&rdquo;.
+
+<p>
+In summary, the <code>&#x5c;label</code> must be <em>after</em> the command that
+defines it (e.g., <code>&#x5c;caption</code>), and if the <code>&#x5c;caption</code> is inside
+an environment, the <code>&#x5c;label</code> must be in there too.
+
+<p class="lastedit">This answer last edited: 2012-02-07</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-crossref">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-crossref</a>
+
+<p>

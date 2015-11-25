@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-compjobnam</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Comparing the &ldquo;job name&rdquo;</h1>
+
+
+<p>
+
+<p>
+The token <code>&#x5c;jobname</code> amusingly produces a sequence of characters
+whose category code is 12 (&lsquo;other&rsquo;), regardless of what the characters
+actually are.  Since one inevitably has to compare a macro with the
+contents of another macro (using <code>&#x5c;ifx</code>, somewhere) one needs to
+create a macro whose expansion looks the same as the expansion of
+<code>&#x5c;jobname</code>.  We find we can do this with <code>&#x5c;meaning</code>, if we strip
+the &ldquo;<code>&#x5c;show</code> command&rdquo; prefix.
+
+<p>
+The full command looks like:
+<blockquote>
+
+<pre>
+\def\StripPrefix#1>{}
+\def\jobis#1{FF\fi
+  \def\predicate{#1}%
+  \edef\predicate{\expandafter\StripPrefix\meaning\predicate}%
+  \edef\job{\jobname}%
+  \ifx\job\predicate
+}
+</pre>
+
+
+<pre>
+\def\StripPrefix#1>{}
+\def\jobis#1{FF\fi
+  \def\predicate{#1}%
+  \edef\predicate{\expandafter\StripPrefix
+                    \meaning\predicate}%
+  \edef\job{\jobname}%
+  \ifx\job\predicate
+}
+</pre>
+
+</blockquote>
+And it&rsquo;s used as:
+<blockquote>
+<pre>
+\if\jobis{mainfile}%
+  \message{YES}%
+\else
+  \message{NO}%
+\fi
+</pre>
+</blockquote>
+Note that the command <code>&#x5c;StripPrefix</code> need not be defined if you&rsquo;re
+using LaTeX&nbsp;&mdash; there&rsquo;s already an 
+<a href="FAQ-atsigns.html">internal command</a> <code>&#x5c;strip@prefix</code> that you can
+use.
+
+<p>

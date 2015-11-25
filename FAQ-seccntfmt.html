@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-seccntfmt</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>Adjusting the presentation of section numbers</h1>
+
+
+<p>
+
+<p>
+The general issues of adjusting the appearance of section headings are
+pretty complex, and are covered in 
+the question on
+<a class="FA[[[htmlonly]]].html" href="FAQ-secthead.html">the style of section headings</a>.
+
+<p>
+However, people regularly want merely to change the way the section
+number appears in the heading, and some such people don&rsquo;t mind writing
+out a few macros.  This answer is for <em>them</em>.
+
+<p>
+The section number is typeset using the
+
+
+
+
+  <a href="FAQ-atsigns.html">LaTeX internal</a>
+
+<code>&#x5c;@seccntformat</code> command, which is given the &ldquo;name&rdquo; (section,
+subsection, &hellip;) of the heading, as argument.  Ordinarily,
+<code>&#x5c;@seccntformat</code> 
+merely outputs the section number, and then a <code>&#x5c;quad</code> of space:
+<blockquote>
+<pre>
+\renewcommand*{\@seccntformat}[1]{%
+  \csname the#1\endcsname\quad
+}
+</pre>
+</blockquote>
+Suppose you want to put a stop after every section (subsection,
+subsubsection, &hellip;) number, a trivial change may be implemented by
+simple modification of the command:
+<blockquote>
+<pre>
+\renewcommand*{\@seccntformat}[1]{%
+  \csname the#1\endcsname.\quad
+}
+</pre>
+</blockquote>
+However, many people want to modify section numbers, but not
+subsection numbers, or any of the others.  To do this, one must make
+<code>&#x5c;@seccntformat</code> switch according to its argument.  The following
+technique for doing the job is slightly wasteful, but is efficient
+enough for a relatively rare operation:
+<blockquote>
+<pre>
+\renewcommand*{\@seccntformat}[1]{%
+  \csname the#1\endcsname
+  \csname adddot@#1\endcsname\quad
+}
+</pre>
+</blockquote>
+which uses a second-level command to provide the dot, if it has been
+defined; otherwise it merely appends <code>&#x5c;relax</code> (which does nothing
+in this context).  The definition of the second-level command (the
+version for the <tt>section</tt>, here) specifies what to put after a
+section number, but it could be used to put anything after it:
+<blockquote>
+<pre>
+\newcommand*{\adddot@section}{.}
+</pre>
+</blockquote>
+Note that all the command definitions above are dealing in
+<a href="FAQ-atsigns.html">LaTeX internal commands</a>, so the above
+code should be in a package file, for preference.
+
+<p>
+The <i class="class">Koma-script</i> classes have different commands for specifying
+changes to section number presentation: <code>&#x5c;partformat</code>,
+<code>&#x5c;chapterformat</code> and <code>&#x5c;othersectionlevelsformat</code>, but otherwise
+their facilities are similar to those of &ldquo;raw&rdquo; LaTeX.
+<dl>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+</dl>
+
+<p>

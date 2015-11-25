@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-letterspace</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Spacingofcharactersandlines">Spacing of characters and lines</a> &gt; </div>
+<h1>Changing the space between letters</h1>
+
+
+<p>
+
+<p>
+A common technique in advertising copy (and other text whose actual
+content need not actually be <em>read</em>) is to alter the space
+between the letters (otherwise known as the tracking).  As a general
+rule, this is a very bad idea: it detracts from legibility, which is
+contrary to the principles of typesetting (any respectable font you
+might be using should already have optimum tracking built into it).
+
+<p>
+The great type designer, Eric Gill, is credited with saying &ldquo;he who
+would letterspace lower-case text, would steal sheep&rdquo;.  (The
+attribution is probably apocryphal: others are also credited with the
+remark.  Stealing sheep was, in the 19th century, a capital offence in
+Britain.)  As the remark suggests, though, letterspacing of upper-case
+text is less awful a crime; the technique used also to be used for
+emphasis of text set in Fraktur (or similar) fonts.
+
+<p>
+Straightforward macros (usable, in principle, with any TeX macro
+package) may be found in <i class="package">letterspacing</i> (which is the name of
+the <code class="extension">tex</code> file).
+
+<p>
+
+
+
+<p>
+A more comprehensive solution is to be found in the <i class="package">soul</i>
+package (which is optimised for use with LaTeX, but also works with
+Plain TeX).  Soul also permits hyphenation of letterspaced text;
+Gill&rsquo;s view of such an activity is not (even apocryphally) recorded.
+(Spacing-out forms part of the name of <i class="package">soul</i>; the other half
+is described in <a class="FAquestion.html" href="FAQ-underline.html">another question</a>.)
+
+<p>
+Possibly the &lsquo;ultimate&rsquo; in this field is the <i class="package">microtype</i>,
+which uses the micro-typography capabilities of current PDFTeX to
+provide a <code>&#x5c;textls</code> command, which operates according to parameters
+declared in a <code>&#x5c;SetTracking</code> command.  <i class="package">Microtype</i>&rsquo;s
+&lsquo;tracking&rsquo; facility expands the natural spacing of the font itself,
+rather than inserting space between characters.  Ordinarily,
+letter-spacing will destroy ligatures; however, this is <em>wrong</em>
+for some font styles (for example, <i class="fontname">fraktur</i>), and the
+package provides a means of protecting the ligatures in a
+letter-spaced text.
+<dl>
+<dt class="ctanref">letterspacing.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/letterspacing">letterspacing</a>
+<dt class="ctanref">microtype.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/microtype">microtype</a>
+<dt class="ctanref">soul.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/soul">soul</a>
+
+</dl>
+
+<p>

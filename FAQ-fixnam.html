@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-fixnam</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>How to change LaTeX&rsquo;s &ldquo;fixed names&rdquo;</h1>
+
+
+<p>
+
+<p>
+LaTeX document classes define several typographic operations that
+need &lsquo;canned text&rsquo; (text not supplied by the user).  In the earliest
+days of LaTeX 2.09 these bits of text were built in to the body of
+LaTeX&rsquo;s macros and were rather difficult to change, but &ldquo;fixed
+name&rdquo; macros were introduced for the benefit of those wishing to use
+LaTeX in languages other than English.
+For example, the special section produced by the <code>&#x5c;tableofcontents</code>
+command is always called <code>&#x5c;contentsname</code> (or rather, what
+<code>&#x5c;contentsname</code> is defined to mean).
+Changing the canned text is now one of the easiest customisations a
+user can do to LaTeX.
+
+<p>
+The canned text macros are all of the form
+<code>&#x5c;&lsaquo;<i>thing</i>&rsaquo;name</code>, and changing them is simplicity
+itself.  Put:
+<blockquote>
+<code>&#x5c;renewcommand</code><code>&#x7b;<code>&#x5c;&lsaquo;<i>thing</i>&rsaquo;name</code>&#x7d;</code></code><code>&#x7b;Res minor&#x7d;</code>
+</blockquote>
+in the preamble of your document, and the job is done.
+(However, beware of the <i class="package">babel</i> package, which requires you to
+use a different mechanism: be sure to check
+
+<a class="FAquestion.html" href="FAQ-latexwords.html">changing <i class="package">babel</i> names</a> if
+you&rsquo;re using it.)
+
+<p>
+The names that are defined in the standard LaTeX classes (and the
+<i class="package">makeidx</i> package) are listed
+below.  Some of the names are only defined in a subset of the classes
+(and the <i class="class">letter</i> class has a set of names all of its own);
+the list shows the specialisation of each name, where appropriate.
+
+<p>
+[[[begin]]][[[LBRACE]]]tabular[[[RBRACE]]][[[LBRACE]]]@[[[LBRACE]]][[[RBRACE]]]ll[[[RBRACE]]]
+<code>&#x5c;abstractname</code> [[[tbamp]]] Abstract[[[tbeol]]]
+<code>&#x5c;alsoname</code> [[[tbamp]]] see also (<i class="package">makeidx</i> package)[[[tbeol]]]
+<code>&#x5c;appendixname</code> [[[tbamp]]] Appendix[[[tbeol]]]
+<code>&#x5c;bibname</code> [[[tbamp]]] Bibliography (<i class="class">report</i>,<i class="class">book</i>)[[[tbeol]]]
+<code>&#x5c;ccname</code> [[[tbamp]]] cc (<i class="class">letter</i>)[[[tbeol]]]
+<code>&#x5c;chaptername</code> [[[tbamp]]] Chapter (<i class="class">report</i>,<i class="class">book</i>)[[[tbeol]]]
+<code>&#x5c;contentsname</code> [[[tbamp]]] Contents[[[tbeol]]]
+<code>&#x5c;enclname</code> [[[tbamp]]] encl (<i class="class">letter</i>)[[[tbeol]]]
+<code>&#x5c;figurename</code> [[[tbamp]]] Figure (for captions)[[[tbeol]]]
+<code>&#x5c;headtoname</code> [[[tbamp]]] To (<i class="class">letter</i>)[[[tbeol]]]
+<code>&#x5c;indexname</code> [[[tbamp]]] Index[[[tbeol]]]
+<code>&#x5c;listfigurename</code> [[[tbamp]]] List of Figures[[[tbeol]]]
+<code>&#x5c;listtablename</code> [[[tbamp]]] List of Tables[[[tbeol]]]
+<code>&#x5c;pagename</code> [[[tbamp]]] Page (<i class="class">letter</i>)[[[tbeol]]]
+<code>&#x5c;partname</code> [[[tbamp]]] Part[[[tbeol]]]
+<code>&#x5c;refname</code> [[[tbamp]]] References (<i class="class">article</i>)[[[tbeol]]]
+<code>&#x5c;seename</code> [[[tbamp]]] see (<i class="package">makeidx</i> package)[[[tbeol]]]
+<code>&#x5c;tablename</code> [[[tbamp]]] Table (for caption)
+[[[end]]][[[LBRACE]]]tabular[[[RBRACE]]]
+
+<p>

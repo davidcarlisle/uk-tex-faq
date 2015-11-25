@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-whatbst</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingcitations">Creating citations</a> &gt; </div>
+<h1>Choosing a bibliography style</h1>
+
+
+<p>
+
+<p>
+A large proportion of people are satisfied with one of Patashnik&rsquo;s
+original &ldquo;standard&rdquo; styles, <i class="package">plain</i>, <i class="package">unsrt</i>,
+<i class="package">abbrv</i> and <i class="package">alpha</i>.  However, no style in that set
+supports the &ldquo;author-date&rdquo; citation style that is popular in many
+fields; but there are a very large number of contributed styles
+available, that <em>do</em> support the format.
+
+<p>
+(Note that author-date styles arose because the simple and clear
+citation style that <i class="package">plain</i> produces is so awkward in a
+traditional manuscript preparation scenario.  However, TeX-based
+document production does away with all those difficulties, leaving us
+free once again to use the simple option.)
+
+<p>
+Fortunately, help is at hand, on the Web, with this problem:
+<ul>
+<li> a sample text, showing the sorts of style choices available, can
+  be found on 
+
+
+
+
+
+  
+  <a href="http://www.cs.stir.ac.uk/&nbsp;kjt/software/latex/showbst.html.html">Ken Turner&rsquo;s web site</a>;
+
+<li> an excellent survey, that lists a huge variety of styles,
+  sorted into their nominal topics as well as providing a good range
+  of examples, is the Reed College 
+
+
+
+
+
+  
+  &ldquo;<a href="http://web.reed.edu/cis/help/LaTeX/bibtexstyles.html.html">Choosing a BibTeX style</a>&rdquo;.
+
+</ul>
+
+<p>
+Of course, these pages don&rsquo;t cover everything; the problem the
+inquisitive user faces, in fact, is to find what the various available
+styles actually do.  This is best achieved (if the links above don&rsquo;t
+help) by using <i class="package">xampl.bib</i> from the BibTeX documentation
+distribution: one can get a pretty good feel for any style one has to
+hand using this &ldquo;standard&rdquo; bibliography.  For style
+<i class="package">my-style.bst</i>, the simple LaTeX document:
+<blockquote>
+<pre>
+\documentclass{article}
+\begin{document}
+\bibliographystyle{my-style}
+\nocite{*}
+\bibliography{xampl}
+\end{document}
+</pre>
+</blockquote>
+will produce a representative sample of the citations the style will
+produce.  (Because <i class="package">xampl.bib</i> is so extreme in some of its
+&ldquo;examples&rdquo;, the BibTeX run will also give you an interesting
+selection of BibTeX&rsquo;s error messages&hellip;)
+<dl>
+<dt class="ctanref">xampl.bib</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xampl-bib">xampl-bib</a>
+</dl>
+
+<p>

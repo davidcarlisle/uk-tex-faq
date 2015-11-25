@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-logos</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>Typesetting all those TeX-related logos</h1>
+
+
+<p>
+
+<p>
+Knuth was making a particular point about the capabilities of TeX
+when he defined the logo.  Unfortunately (in some people&rsquo;s opinion) he thereby
+opened floodgates to give the world a whole range of rather silly
+&lsquo;bumpy road&rsquo; logos for TeX entities such as AMSTeX, PicTeX,
+BibTeX, and so on, produced in a flurry of different fonts, sizes,
+and baselines&nbsp;&mdash; indeed, everything one might hope to cause them to
+obstruct the reading process.  In particular, Lamport invented
+LaTeX (silly enough in itself, with a raised small &lsquo;A&rsquo; and a
+lowered &lsquo;E&rsquo;) and marketing input from Addison-Wesley led to the even
+stranger current logo for LaTeX 2e, which appends a lowered 
+single-stroke Greek letter &amp;epsilon;.
+
+<p>
+Sensible users don&rsquo;t have to follow this stuff wherever it goes,
+but, for those who insist, a large collection of logos is defined in
+the <i class="package">texnames</i> package (but note that this set of macros isn&rsquo;t
+entirely reliable in LaTeX 2e).
+The MetaFont and MetaPost logos can be set in fonts that LaTeX 2e
+knows about (so that they scale with the surrounding text) using the
+<i class="package">mflogo</i> package; but be aware that booby-traps surround the
+use of the Knuthian font for MetaPost (you might get
+
+
+
+
+
+
+
+  something like &lsquo;META\&amp;nbsp;\&amp;nbsp;O\&amp;nbsp;\&amp;nbsp;T&rsquo;).
+
+You needn&rsquo;t despair, however&nbsp;&mdash; most versions of the logo font
+distributed nowadays contain the missing letters, and the author
+himself uses just &lsquo;MetaPost&rsquo;.
+
+<p>
+A well-designed set of macros is provided by package <i class="package">hologo</i>,
+which defines a command <code>&#x5c;hologo</code>, which one uses as (for example)
+<code>&#x5c;hologo</code><code>&#x7b;pdfLaTeX&#x7d;</code> for what you might get by typing
+&ldquo;<tt>pdf</tt><code>&#x5c;LaTeX</code>&rdquo;, as well as a capitalised version
+<code>&#x5c;Hologo</code><code>&#x7b;pdfLaTeX&#x7d;</code> for &ldquo;<tt>Pdf</tt><code>&#x5c;LaTeX</code>&rdquo;.
+
+<p>
+The package <i class="package">metalogo</i> deals with a problem of these myriad
+logos, that&rsquo;s often ignored nowadays: the geometry of characters from
+different fonts is (obviously) different, and they naturally fit
+together differently.  The package makes it possible for you to adjust
+the spacing between the the letters of one of these odd logos (even
+the especially weird mirrored &ldquo;E&rdquo; in XeTeX).
+
+<p>
+For those who don&rsquo;t wish to acquire the &lsquo;proper&rsquo; logos, the canonical
+thing to do is to say <tt>AMS-</tt><code>&#x5c;TeX</code><code>&#x7b;&#x7d;</code>
+for AMSTeX, <tt>Pic</tt><code>&#x5c;TeX</code><code>&#x7b;&#x7d;</code>
+for PicTeX, <tt>Bib</tt><code>&#x5c;TeX</code><code>&#x7b;&#x7d;</code>
+for BibTeX, and so on.
+<dl>
+<dt class="ctanref">hologo.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[hologo]
+<dt class="ctanref">metalogo.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/metalogo">metalogo</a>
+<dt class="ctanref">mflogo.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mflogo">mflogo</a>
+<dt class="ctanref">texnames.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texnames">texnames</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2010-03-24</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-logos">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-logos</a>
+
+<p>

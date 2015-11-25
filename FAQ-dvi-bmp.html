@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-dvi-bmp</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#DVIDriversandPreviewers">DVI Drivers and Previewers</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Generating bitmaps from DVI</h1>
+
+
+<p>
+
+<p>
+In the last analysis, any DVI driver or previewer is generating
+bitmaps: bitmaps for placing tiny dots on paper via a laser- or
+inkjet-printer, or bitmaps for filling some portion of your screen.
+However, it&rsquo;s usually difficult to extract any of those bitmaps any
+way other than by screen capture, and the resolution of <em>that</em> is
+commonly lamentable.
+
+<p>
+Why would one want separate bitmaps?  Most often, the requirement is for
+something that can be included in HTML generated from (La)TeX
+source&nbsp;&mdash; not everything that you can write in (La)TeX can be
+translated to HTML (at least, portable HTML that may be
+viewed in &lsquo;most&rsquo; browsers), so the commonest avoiding action is to
+generate a bitmap of the missing bit.  Examples are maths (a maths
+extension to the &lsquo;<code class="verb">*</code>ML&rsquo; family is available but not
+universally supported by browsers), and &lsquo;exotic&rsquo; typescripts (ones
+that you cannot guarantee your readers will have available).  Other
+common examples are generation of 
+sample bitmaps, and generation for insertion into some other
+application&rsquo;s display&nbsp;&mdash; to insert equations into Microsoft
+PowerPoint, or to support the enhanced-<i class="progname">emacs</i> setup called
+<a href="FAQ-WYGexpts.html"><i class="progname">preview</i>-<i class="progname">latex</i></a>.
+
+<p>
+In the past, the commonest way of generating bitmaps was to generate a
+PostScript file of the DVI and then use
+<a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a> to
+produce the required bitmap format (possibly by way of PNM
+format or something similar).  This is an undesirable procedure (it is
+tedious, involving requires two or three steps that run slowly) but it
+served for a long time.
+
+<p>
+(La)TeX users may now take advantage of two bitmap &lsquo;drivers&rsquo;.  The
+longer-established, <i class="progname">dvi2bitmap</i>, will generate XBM and
+XPM formats, the long-deprecated GIF format (which is
+now obsolescent, but has finally been relieved of the patent
+protection of the LZW compression it uses), and also
+the modern (ISO-standardised) PNG format.
+
+<p>
+<i class="progname">Dvipng</i> started out as a PNG renderer; from version 1.2 it can also
+render to the GIF format. It is designed for speed, in environments that
+generate large numbers of PNG files: the <i class="filename">README</i> mentions
+<i class="progname">preview</i>-<i class="progname">latex</i>, <i class="progname">LyX</i>, and a few
+web-oriented environments. Note that <i class="progname">dvipng</i> gives
+high-quality output even though its internal operations are optimised
+for speed.
+<dl>
+<dt class="ctanref">dvi2bitmap</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dvi2bitmap">dvi2bitmap</a>
+<dt class="ctanref">dvipng</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dvipng">dvipng</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-04-19</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dvi-bmp">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dvi-bmp</a>
+
+
+<p>
+
+<p>
+
+<p>

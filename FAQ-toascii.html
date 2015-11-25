@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-toascii</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Formatconversions">Format conversions</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Conversion from (La)TeX to plain text</h1>
+
+
+<p>
+
+<p>
+The aim here is to emulate the Unix <i class="progname">nroff</i>, which formats
+text as best it can for the screen, from the same
+input as the Unix typesetting program <i class="progname">troff</i>.
+
+<p>
+Converting DVI to plain text is the basis of many of these
+techniques; sometimes the simple conversion provides a good enough
+response.  Options are:
+<ul>
+<li> <i class="progname">dvi2tty</i> (one of the earliest),
+<li> <i class="progname">crudetype</i> and
+<li> <i class="progname">catdvi</i>, which is capable of generating Latin-1
+  (ISO&nbsp;8859-1) or UTF-8 encoded output.  <i class="progname">Catdvi</i> was
+  conceived as a replacement for <i class="progname">dvi2tty</i>, but development
+  seems to have stopped before the authors were willing to declare the
+  work complete.
+</ul>
+A common problem is the hyphenation that TeX inserts when
+typesetting something: since the output is inevitably viewed using
+fonts that don&rsquo;t match the original, the hyphenation usually looks
+silly.
+
+<p>
+Ralph Droms provides a <i class="package">txt</i> bundle of things in support of
+ASCII generation,
+but it doesn&rsquo;t do a good job with tables and mathematics.
+
+<p>
+Another possibility is to
+use the LaTeX-to-ASCII conversion program, <i class="progname">l2a</i>,
+although this is really more of a de-TeXing program.
+
+<p>
+The canonical de-TeXing program is <i class="progname">detex</i>, which removes
+all comments and control sequences 
+from its input before writing it to its output.  Its original purpose
+was to prepare input for a dumb spelling checker, and it&rsquo;s only usable
+for preparing useful ASCII versions of a document in highly
+restricted circumstances.
+
+<p>
+<i class="progname">Tex2mail</i> is slightly more than a de-TeX[[[LBRACE]]][[[RBRACE]]]er&nbsp;&mdash; it&rsquo;s a
+<i class="progname">Perl</i> script that converts TeX files into
+plain text files, expanding various mathematical symbols
+(sums, products, integrals, sub/superscripts, fractions, square
+roots, &hellip;\@) into &ldquo;ASCII art&rdquo; that spreads over
+multiple lines if necessary. The result is more readable to human
+beings than the flat-style TeX code.
+
+<p>
+Another significant possibility is to use one of the
+<a href="FAQ-LaTeX2HTML.html">HTML-generation solutions</a>,
+and then to use a browser such as <i class="progname">lynx</i> to dump the resulting
+HTML as plain text.
+<dl>
+<dt class="ctanref">catdvi</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/catdvi">catdvi</a>
+<dt class="ctanref">crudetype</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/crudetype">crudetype</a>
+<dt class="ctanref">detex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/detex">detex</a>
+<dt class="ctanref">dvi2tty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dvi2tty">dvi2tty</a>
+<dt class="ctanref">l2a</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/l2a">l2a</a>
+<dt class="ctanref">tex2mail</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tex2mail">tex2mail</a>
+<dt class="ctanref">txt</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/txtdist">txtdist</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-07-21</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-toascii">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-toascii</a>
+
+<p>

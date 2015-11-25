@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-type1T1</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HypertextandPDF">Hypertext and PDF</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Finding &lsquo;8-bit&rsquo; Type&nbsp;1 fonts</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]eight[[[RBRACE]]]
+
+<p>
+Elsewhere, answers to these FAQs recommend that you use an
+&lsquo;8-bit&rsquo; font to permit 
+<a href="FAQ-hyphenaccents.html">accentuation of inflected languages</a>,
+and also recommend the use of Type&nbsp;1 fonts to ensure that
+you get <a href="FAQ-fuzzy-type3.html">good quality PDF</a>.  These
+recommendations used to be contradictory: one could not just
+&ldquo;switch&rdquo; from the free CM fonts to free Cork- (or similarly)
+encoded Type&nbsp;1 fonts.  The first approach that started to alleviate
+these problems, was the development of virtual fonts that make
+a good approach to the Cork encoding (see below).  Now, however, we
+have &ldquo;true&rdquo; Type&nbsp;1 fonts available: as always, we have an
+embarrassment of riches with three free alternatives, and one
+commercial and one shareware version.
+
+<p>
+<i class="package">CM-super</i> is an
+auto-traced set which encompasses all of the T1 and TS1
+encodings as well as the T2* series (the family of encodings
+that cover languages based on Cyrillic alphabets).  These fonts are
+pretty easy to install (the installation instructions are clear), but
+they are huge: don&rsquo;t try to install them if you&rsquo;re short of disc
+space.
+
+<p>
+<i class="package">CM-LGC</i> is a similar &ldquo;super-font&rdquo; set, but of much more
+modest size; it covers T1, TS1 and T2[[[LBRACE]]]A[[[RBRACE]]]
+encodings (as does <i class="package">CM-super</i>, and also covers the LGR
+encoding (for typesetting Greek, based on Claudio Beccari&rsquo;s MetaFont
+sources).  <i class="package">CM-LGC</i> manages to be small by going to the
+opposite extreme from <i class="package">CM-super</i>, which includes fonts at all
+the sizes supported by the original EC (a huge range);
+<i class="package">CM-LGC</i> has one font per font shape, getting other sizes by
+scaling.  There is an inevitable loss of quality inherent in this
+approach, but for the disc-space-challenged machine, <i class="package">CM-LGC</i>
+is an obvious choice.
+
+<p>
+<i class="package">Tt2001</i> is a simple scan of the EC and TC
+fonts, and has some virtues&nbsp;&mdash; it&rsquo;s noticeably smaller than
+<i class="package">CM-super</i> while being less stark than <i class="package">CM-LGC</i>.
+
+<p>
+<i class="package">Latin</i> <i class="package">Modern</i> is produced using the
+program <a href="FAQ-textrace.html"><i class="progname">MetaType1</i></a>.  The
+<i class="package">Latin</i> <i class="package">Modern</i> set comes with T1, TS1
+LY1 encoded variants (as well as a variant using the Polish
+QX encoding); for the glyph set it covers, its outlines seem
+rather cleaner than those of <i class="package">CM-super</i>.  <i class="package">Latin</i>
+<i class="package">Modern</i> is more modest in its disc space demands than is
+<i class="package">CM-super</i>, while not being nearly as stark in its range of
+design sizes as is <i class="package">CM-LGC</i>&nbsp;&mdash;  <i class="package">Latin</i>
+<i class="package">Modern</i>&rsquo;s fonts are offered in the same set of sizes as the
+original <i class="package">CM</i> fonts.  It&rsquo;s hard to argue with the choice:
+Knuth&rsquo;s range of sizes has stood the test of time, and is one of the
+bases on which the excellence of the TeX system rests.
+
+<p>
+<a href="FAQ-virtualfonts.html">Virtual fonts</a> help us deal with the problem,
+since they allow us to map &ldquo;bits of DVI file&rdquo; to single
+characters in the virtual font; so we can create an &ldquo;\&rsquo;e&rdquo; character
+by recreating the DVI commands that would result from the code
+&ldquo;<code>&#x5c;&rsquo;</code><tt>e</tt>&rdquo;.  However, since this involves two characters being
+selected from a font, the arrangement is sufficient to fool
+<i class="progname">Acrobat</i> <i class="progname">Reader</i>: you can&rsquo;t use the program&rsquo;s
+facilities for searching for text that contains inflected characters,
+and if you <em>cut</em> text from a window that contains such a
+character, you&rsquo;ll find something unexpected (typically the accent and
+the &lsquo;base&rsquo; characters separated by a space) when you <i class="progname">paste</i>
+the result.  However, if you can live with this difficulty, virtual
+fonts are a useful and straightforward solution to the problem.
+
+<p>
+There are two virtual-font offerings of CM-based 8-bit
+fonts&nbsp;&mdash; the <i class="package">ae</i> (&ldquo;almost EC&rdquo;) and
+<i class="package">zefonts</i> sets; the <i class="package">zefonts</i> set has wider coverage
+(though the <i class="package">ae</i> set may be extended to offer guillemets by
+use of the <i class="package">aeguill</i> package).  Neither offers characters such
+as <tt>eth</tt> and <tt>thorn</tt> (used in, for example, in
+Icelandic), but the <i class="package">aecompl</i> package works with the
+<i class="package">ae</i> fonts to provide the missing characters from the
+EC fonts (i.e., as bitmaps).
+
+<p>
+The sole remaining commercial CM-like 8-bit font comes from
+Micropress, who offer the complete EC set
+in Type&nbsp;1 format, as part of their range of outline versions of fonts
+that were originally distributed in MetaFont format.  See
+<a class="FAquestion.html" href="FAQ-commercial.html">&ldquo;commercial distributions&rdquo;</a>.
+
+<p>
+The shareware 
+<a href="FAQ-TeXsystems.html">BaKoMa TeX distribution</a> offers a
+set of Type&nbsp;1 EC fonts, as an extra shareware option.  (As far
+as the present author can tell, these fonts are <em>only</em> available
+to users of BaKoMa TeX: they are stored in an archive format that
+seems not to be publicly available.)
+
+<p>
+Finally, you can use one of the myriad text fonts available in Type&nbsp;1
+format (with appropriate PSNFSS metrics for T1 encoding,
+or metrics for some other 8-bit encoding such as LY1).  However,
+if you use someone else&rsquo;s text font (even something as simple as
+Adobe&rsquo;s Times family) you have to find a matching family of
+mathematical fonts, which is a non-trivial undertaking&nbsp;&mdash;
+see <a href="FAQ-psfchoice.html">&ldquo;choice of scalable fonts&rdquo;</a>.
+<dl>
+<dt class="ctanref">ae fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ae">ae</a>
+<dt class="ctanref">aecompl.sty</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/ae">ae</a>
+<dt class="ctanref">aeguill.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/aeguill">aeguill</a>
+<dt class="ctanref">BaKoMa fonts</dt><dd>Browse <a class="ctan" href="https://www.ctan.org/pkg/bakoma-texfonts">bakoma-texfonts</a>
+<dt class="ctanref">CM-LGC fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cm-lgc">cm-lgc</a>
+<dt class="ctanref">CM-super fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cm-super">cm-super</a> (beware:
+  very large download)
+<dt class="ctanref">Latin Modern fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lm">lm</a>
+<dt class="ctanref">tt2001 fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tt2001">tt2001</a>
+<dt class="ctanref">zefonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/zefonts">zefonts</a>
+</dl>
+
+<p>

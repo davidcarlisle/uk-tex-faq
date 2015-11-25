@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-splitfoot</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>Why does LaTeX split footnotes across pages?</h1>
+
+
+<p>
+
+<p>
+LaTeX splits footnotes when it can think of nothing better to do.
+Typically, when this happens, the footnote mark is at the bottom of
+the page, and the complete footnote would overfill the page.  LaTeX
+could try to salvage this problem by making the page short of both the
+footnote and the line with the footnote mark, but its priorities told
+it that splitting the footnote would be preferable.
+
+<p>
+As always, the best solution is to change your text so that the
+problem doesn&rsquo;t occur in the first place.  Consider whether the text
+that bears the footnote could move earlier in the current page, or on
+to the next page.
+
+<p>
+If this isn&rsquo;t possible, you might want to change LaTeX&rsquo;s perception
+of its priorities: they&rsquo;re controlled by
+<code>&#x5c;interfootnotelinepenalty</code>&nbsp;&mdash; the larger it is, the less willing
+LaTeX is to split footnotes.
+
+<p>
+Setting
+<blockquote>
+<pre>
+\interfootnotelinepenalty=10000
+</pre>
+</blockquote>
+inhibits split footnotes altogether, which will cause &lsquo;<tt>Underfull</tt>
+<code>&#x5c;vbox</code>&rsquo; messages unless you also specify <code>&#x5c;raggedbottom</code>.  The
+default value of the penalty is <tt>100</tt>, which is rather mild.
+
+<p>
+An alternative technique is to juggle with the actual size of the
+pages.  <code>&#x5c;enlargethispage</code> changes the size of the current page by
+its argument (for example, you might say
+<code>&#x5c;enlargethispage</code><code>&#x7b;<code>&#x5c;baselineskip</code>&#x7d;</code> to add a single line
+to the page, but you can use any ordinary TeX length such as
+<tt>15mm</tt> or <tt>-20pt</tt> as argument).  Reducing the size of
+the current page could force the offending text to the next page;
+increasing the size of the page may allow the footnote to be included
+in its entirety.  It may be necessary to change the size of more than
+one page.
+
+<p>
+The <i class="package">fnbreak</i> package detects (and generates warnings about)
+split footnotes.
+<dl>
+<dt class="ctanref">fnbreak.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fnbreak">fnbreak</a>
+</dl>
+
+<p>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-changebars</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Documentmanagement">Document management</a> &gt; </div>
+<h1>Marking changed parts of your document</h1>
+
+
+<p>
+
+<p>
+One often needs clear indications of how a document has changed, but
+the commonest technique, &ldquo;change bars&rdquo; (also known as &ldquo;revision
+bars&rdquo;), requires surprisingly much
+trickery of the programmer.  The problem is that TeX &lsquo;proper&rsquo;
+doesn&rsquo;t provide the programmer with any information about the
+&ldquo;current position&rdquo; from which a putative start- or end-point of a
+bar might be calculated.   PDFTeX <em>does</em> provide that
+information, but no PDFTeX-based changebar package has been
+published, that takes advantage of that.
+
+<p>
+The simplest package that offers change bars is Peter Schmitt&rsquo;s
+<i class="package">backgrnd.tex</i>; this was written as a Plain TeX application
+that patches the output routine, but it appears to work at least on
+simple LaTeX documents.  Wise LaTeX users will be alerted by the
+information that <i class="package">backgrnd</i> patches their output routine, and
+will watch its behaviour very carefully (patching the LaTeX output
+routine is not something to undertake lightly&hellip;).
+
+<p>
+The longest-established LaTeX-specific solution is the
+<i class="package">changebar</i> package,
+which uses <code>&#x5c;special</code> commands supplied by the driver you&rsquo;re using.
+You need therefore to tell the package which driver to you&rsquo;re using
+(in the same way that you need to tell the <i class="package">graphics</i>
+package); the list of available drivers is pretty
+wide, but does not include <i class="progname">dvipdfm</i>.  The package comes with
+a shell script <i class="progname">chbar.sh</i> (for use on Unix machines) that
+will compare two documents and generate a third which is marked-up
+with <i class="package">changebar</i> macros to highlight changes.
+
+<p>
+The shareware <i class="progname">WinEDT</i> editor has a macro that will generate
+<i class="package">changebar</i> (or other) macros to show differences from an
+earlier version of your file, stored in an <i class="progname">RCS</i>-controlled
+repository&nbsp;&mdash; see
+<a href="http://www.winedt.org/Macros/LaTeX/RCSdiff.php.html">http://www.winedt.org/Macros/LaTeX/RCSdiff.php</a>
+
+<p>
+The <i class="package">vertbars</i> package uses the techniques of the
+<i class="package">lineno</i> package (which it loads, so the <i class="package">lineno</i>
+itself must be installed); it&rsquo;s thus the smallest of the packages for
+change bar marking, since it leaves all the trickery to another
+package.  <i class="package">Vertbars</i> defines a <code class="environment">vertbar</code>
+environment to create changebars.
+
+<p>
+The <i class="package">framed</i> package is
+another that provides bars as a side-effect of other desirable
+functionality: its <code class="environment">leftbar</code> environment is simply a
+stripped-down frame (note, though, that the environment makes a
+separate paragraph of its contents, so it is best used when the
+convention is to mark a whole changed paragraph.
+
+<p>
+Finally, the <i class="class">memoir</i> class allows marginal editorial comments,
+which you can obviously use to delimit areas of changed text.
+
+<p>
+An even more comprehensive way to keep track of changes is employed by
+some word-processors&nbsp;&mdash; to produce a document that embodies both
+&ldquo;old&rdquo; and &ldquo;new&rdquo; versions.
+
+<p>
+To this end, the package <i class="package">changes</i> allows the user to manually
+markup changes of text, such as additions, deletions, or replacements.
+Changed text is shown in a different colour; deleted text is crossed
+out.  The package allows you to define additional authors and their
+associated colour; it also allows you to define a markup for authors
+or annotations.  The documentation (very clearly) demonstrates how the
+various functions work.
+
+<p>
+The <i class="progname">Perl</i> script <i class="progname">latexdiff</i> may also be used to
+generate such markup for LaTeX documents; you feed it the two
+documents, and it produces a new LaTeX document in which the
+changes are very visible.  An example of the output is embedded in the
+documentation,
+
+
+
+ 
+  <a href="http://mirrors.ctan.org/support/latexdiff/latexdiff-man.pdf.html">latexdiff-man.pdf</a>
+  (part of the distribution).
+
+A rudimentary revision facility is provided by another
+<i class="progname">Perl</i> script, <i class="progname">latexrevise</i>, which accepts or rejects
+all changes.  Manual editing of the difference file can be used to 
+accept or reject selected changes only.
+<dl>
+<dt class="ctanref">backgrnd.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/backgrnd">backgrnd</a>
+<dt class="ctanref">changebar.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/changebar">changebar</a>
+<dt class="ctanref">changes.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/changes">changes</a>
+<dt class="ctanref">framed.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/framed">framed</a>
+<dt class="ctanref">latexdiff, latexrevise</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latexdiff">latexdiff</a>
+<dt class="ctanref">lineno.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lineno">lineno</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">vertbars.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/vertbars">vertbars</a>
+<dt class="ctanref">winedt</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/winedt">winedt</a>
+</dl>
+
+<p>

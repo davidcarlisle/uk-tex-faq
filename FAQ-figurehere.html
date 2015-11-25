@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-figurehere</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Floatingtablesfiguresetc">Floating tables, figures, etc.</a> &gt; </div>
+<h1>Figure (or table) <em>exactly</em> where I want it</h1>
+
+
+<p>
+
+<p>
+This is of course a contradiction: <code class="environment">figure</code> and
+<code class="environment">table</code> are <em>designed</em> to float, and will always have
+the potential to appear away from where you asked for them.  Therefore
+you need something that behaves like a <code class="environment">figure</code> or
+<code class="environment">table</code> environment, except that it doesn&rsquo;t allow the
+figure or table to float.
+
+<p>
+The most straightforward way is to use of the <i class="package">float</i> package;
+it gives you a <tt>[H]</tt> float placement option that prevents
+floating:
+<blockquote>
+<pre>
+\begin{figure}[H]
+  \centering
+  \includegraphics{foo}
+  \caption{caption text}
+  \label{fig:nonfloat}
+\end{figure}
+</pre>
+</blockquote>
+As the example suggests, such a &lsquo;<tt>[H]</tt>&rsquo; figure (or
+corresponding table) offers all you need to cross-reference as well
+as typeset.  (The package <i class="package">here</i> provides the same function,
+but is no longer recommended.)
+
+<p>
+However, you don&rsquo;t actually <em>have</em> to use <i class="package">float</i> (or
+<i class="package">here</i>) since it is, in fact, doing rather little for you.
+You can place your figure as you please, with a sequence like
+<blockquote>
+<pre>
+\begin{center}
+  \includegraphics{foo}
+  \captionof{figure}{caption text}
+  \label{fig:nonfloat}
+\end{center}
+</pre>
+</blockquote>
+which relies on the <code>&#x5c;captionof</code> command to place a caption without
+benefit of an enclosing float.  That command may be had from the extremely
+simple-minded package <i class="package">capt-of</i> or from the highly
+sophisticated <i class="package">caption</i> package.
+
+<p>
+Using either method, you have to deal with the possibility of the
+figure or table being too large for the page.  (Floating objects will
+float away in this circumstance; &ldquo;doing it by hand&rdquo;, like this, you
+take upon yourself the responsibility for avoiding 
+&lsquo;[[[textit]]][[[LBRACE]]]Overfull <code>&#x5c;vbox</code>[[[RBRACE]]]&rsquo; errors.
+
+<p>
+A further problem is the possibility that such &ldquo;fixed floats&rdquo; will
+overtake &ldquo;real floats&rdquo;, so that the numbers of figures will be out
+of order: figure 6 could be on page 12, while figure 5 had floated to
+page 13.  It&rsquo;s best, therefore, either to stay with floating figures
+throughout a document, or to use fixed figures throughout.
+
+<p>
+If it&rsquo;s really impossible to follow that counsel of perfection, you
+can use the <i class="package">perpage</i> package&rsquo;s command <code>&#x5c;MakeSorted</code>
+command:
+<blockquote>
+<pre>
+...
+\usepackage{float}
+\usepackage{perpage}
+\MakeSorted{figure}
+\MakeSorted{table}
+...
+</pre>
+</blockquote>
+and the sequence of float numbers is all correct.
+<dl>
+<dt class="ctanref">capt-of.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/capt-of">capt-of</a>
+<dt class="ctanref">caption.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/caption">caption</a>
+<dt class="ctanref">float.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/float">float</a>
+<dt class="ctanref">here.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/here">here</a>
+<dt class="ctanref">perpage.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/bigfoot">bigfoot</a>[perpage]
+</dl>
+
+<p>
+
+<p>
+
+<p>

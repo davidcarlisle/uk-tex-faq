@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-editors</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#TeXSystems">TeX Systems</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>TeX-friendly editors and shells</h1>
+
+
+<p>
+
+<p>
+There are good TeX-writing environments and editors for most
+operating systems; some are described below, but this is only a
+personal selection:
+<dl>
+<dt class="description">Unix</dt><dd> The commonest choices are <i class="progname">[X]Emacs</i> or
+  <i class="progname">vim</i>, though several others are available.
+
+<p>
+  <a href="http://www.gnu.org/software/emacs/emacs.html.html">GNU&nbsp;<i class="progname">emacs</i></a>
+  and <a href="http://www.xemacs.org/.html"><i class="progname">XEmacs</i></a> are supported
+  by the AUC-TeX
+  bundle (available from CTAN).  AUC-TeX provides menu
+  items and control sequences for common constructs, checks syntax,
+  lays out markup nicely, lets you call TeX and drivers from
+  within the editor, and everything else like this that you can think
+  of.  Complex, but very powerful.
+
+<p>
+  <a href="http://vim.sourceforge.net.html"><i class="progname">Vim</i></a> is also highly
+  configurable (also available for Windows and Macintosh systems).
+  Many plugins are available to support the needs of the (La)TeX user,
+  including syntax highlighting, calling TeX programs,
+  auto-insertion and -completion of common (La)TeX structures, and
+  browsing LaTeX help.  The scripts <i class="filename">auctex.vim</i> and
+  <i class="filename">bibtex.vim</i> seem to be the most common recommendations.
+
+<p>
+  The editor <a href="http://nedit.org/.html"><i class="progname">NEdit</i></a> is also free
+  and programmable, and is available for Unix systems.  An
+  AUC-TeX-alike set of extensions for <i class="progname">NEdit</i> is available
+  from CTAN.
+
+<p>
+  <i class="progname">LaTeX4Jed</i> provides much enhanced LaTeX support for the
+  <a href="http://www.jedsoft.org/jed/.html"><i class="progname">jed</i></a> editor.
+  <i class="progname">LaTeX4Jed</i> is similar to AUC-TeX: menus,
+  shortcuts, templates, syntax highlighting, document outline,
+  integrated debugging, symbol completion, full integration with
+  external programs, and more. It was designed with both the beginner
+  and the advanced LaTeX user in mind.
+
+<p>
+  The <i class="progname">Kile</i> editor that is provided with the KDE
+  window manager provides GUI &ldquo;shell-like&rdquo; facilities, in a
+  similar way to the widely-praised <i class="progname">Winedt</i> (see below);
+  details (and downloads) are available from the project&rsquo;s
+  <a href="http://kile.sourceforge.net/.html">home on SourceForge</a>.
+
+<p>
+  TUG is sponsoring the development of a cross-platform editor
+  and shell, modelled on the excellent [[[texshop]]][[[LBRACE]]][[[RBRACE]]] for the Macintosh.
+  The result,
+  <a href="http://www.tug.org/texworks/.html">[[[texworks]]][[[LBRACE]]][[[RBRACE]]]</a>, is recommended: if
+  you&rsquo;re looking for a
+  (La)TeX development environment, it may be for you.  (It is
+  distributed with both texlive and MiKTeX.)
+
+<p>
+  A possible alternative is
+  <a href="http://texstudio.sourceforge.net/.html">TeXstudio</a>
+<dt class="description">Windows-32</dt><dd><i class="progname">TeXnicCenter</i> is a (free)
+  TeX-oriented development system, uniting a powerful platform for
+  executing (La)TeX and friends with a configurable editor.
+
+<p>
+  [[[texworks]]][[[LBRACE]]][[[RBRACE]]] (see above) is also available for Windows systems.
+
+<p>
+  <i class="progname">Winedt</i>, a shareware package, is also highly spoken of.
+  It too provides a shell for the use of TeX and related programs,
+  as well as a powerful and well-configured editor.  The editor can
+  generate its output in UTF-8 (to some extent), which is
+  useful when working with <a href="FAQ-xetex.html">XeTeX</a> (and other
+  &ldquo;next-generation&rdquo; (La)TeX applications).
+
+<p>
+  Both <i class="progname">emacs</i> and <i class="progname">vim</i> are available in versions
+  for Windows systems.
+<dt class="description">Macintosh</dt><dd> For [[[macosx]]][[[LBRACE]]][[[RBRACE]]] users, the free tool of choice appears to be
+  <a href="http://pages.uoregon.edu/koch/texshop/index.html.html">[[[texshop]]][[[LBRACE]]][[[RBRACE]]]</a>, which
+  combines an editor and a shell with a coherent philosophy of dealing
+  with (La)TeX in the OS&nbsp;X environment.  TeXShop is distributed as
+  part of the MacTeX system, and will therefore be available out of
+  the box on machines on which MacTeX has been installed.
+
+<p>
+  <i class="progname">Vim</i> is also available for use on Macintosh systems.
+
+<p>
+  The commercial Textures provides an excellent integrated Macintosh
+  environment with its own editor.  More powerful still (as an editor)
+  is the shareware <i class="progname">Alpha</i> which is extensible enough to let
+  you perform almost any TeX-related job. It also works well with
+  OzTeX.  From release 2.2.0 (at least), Textures works under [[[macosx]]][[[LBRACE]]][[[RBRACE]]].
+<dt class="description">OS/2</dt><dd> <i class="progname">epmtex</i> offers an OS/2-specific shell.
+</dl>
+Atari, Amiga and NeXT users also have nice
+environments. LaTeX users looking for <i class="progname">make</i>-like
+facilities should review the answer on
+<a href="FAQ-make.html">Makefiles for LaTeX documents</a>.
+
+<p>
+While many (La)TeX-oriented editors can support work on BibTeX
+files, there are many systems that provide specific &ldquo;database-like&rdquo;
+access to your BibTeX files&nbsp;&mdash;
+
+  see &ldquo;<a href="FAQ-buildbib.html">creating a bibliography file</a>&rdquo;.
+
+
+
+
+
+<dl>
+<dt class="ctanref">alpha</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/alpha">alpha</a>
+<dt class="ctanref">auctex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/auctex">auctex</a>
+<dt class="ctanref">epmtex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/epmtex">epmtex</a>
+<dt class="ctanref">LaTeX4Jed</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latex4jed">latex4jed</a>
+<dt class="ctanref">Nedit LaTeX support</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/nedit-latex">nedit-latex</a>
+<dt class="ctanref">TeXnicCenter</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texniccenter">texniccenter</a>
+<dt class="ctanref">TeXshell</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texshell">texshell</a>
+<dt class="ctanref">TeXtelmExtel</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/TeXtelmExtel">TeXtelmExtel</a>
+<dt class="ctanref">winedt</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/winedt">winedt</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-05-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-editors">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-editors</a>
+
+<p>

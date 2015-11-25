@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-running-nos</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>Running equation, figure and table numbering</h1>
+
+
+<p>
+
+<p>
+Many LaTeX classes (including the standard <i class="class">book</i> class)
+number things per chapter; so figures in chapter 1 are numbered 1.1,
+1.2, and so on.  Sometimes this is not appropriate for the user&rsquo;s
+needs.
+
+<p>
+Short of rewriting the whole class, one may use the <i class="package">chngcntr</i>
+package, which provides commands <code>&#x5c;counterwithin</code> (which
+establishes this nested numbering relationship) and
+<code>&#x5c;counterwithout</code> (which undoes it).
+
+<p>
+So if you have figures numbered by chapter as 1.1, 1.2, 2.1, &hellip;,
+the command 
+<blockquote>
+<pre>
+\counterwithout{figure}{chapter}
+</pre>
+</blockquote>
+will convert them to figures 1, 2, 3, &hellip;.  (Note that the command
+has also removed the chapter number from the counter&rsquo;s definition.)
+
+<p>
+More elaborate use could change things numbered per section to things
+numbered per chapter:
+<blockquote>
+<pre>
+\counterwithout{equation}{section}
+\counterwithin{equation}{chapter}
+</pre>
+</blockquote>
+(assuming there was a class that did such a thing in the first place...)
+
+<p>
+The <i class="package">chngcntr</i> approach doesn&rsquo;t involve much programming, and
+the enthusiastic LaTeX programmer might choose to try the technique
+that we had to use before the advent of <i class="package">chngcntr</i>.  Each of
+the packages <i class="package">removefr</i> and <i class="package">remreset</i> defines a
+<code>&#x5c;@removefromreset</code> command, and having included the package one
+writes something like:
+<blockquote>
+<pre>
+\makeatletter
+\@removefromreset{figure}{chapter}
+\makeatother
+</pre>
+</blockquote>
+and the automatic renumbering stops.  You may then need to redefine the
+way in which the figure number (in this case) is printed:
+<blockquote>
+<pre>
+\makeatletter
+\renewcommand{\thefigure}{\@arabic\c@figure}
+\makeatother
+</pre>
+</blockquote>
+(remember to do the whole job, for every counter you want to
+manipulate, within <code>&#x5c;makeatletter</code> &hellip;\@ <code>&#x5c;makeatother</code>).
+
+<p>
+This technique, too, may be used to change where in a multilevel
+structure a counter is reset.  Suppose your class numbers figures as
+&lsaquo;<i>chapter</i>&rsaquo;.&lsaquo;<i>section</i>&rsaquo;.&lsaquo;<i>figure</i>&rsaquo;, and you want figures
+numbered per chapter, try:
+<blockquote>
+
+<pre>
+\makeatletter
+\@removefromreset{figure}{section}
+\@addtoreset{figure}{chapter}
+\renewcommand{\thefigure}{\thechapter.\@arabic\c@figure}
+\makeatother
+</pre>
+
+
+<pre>
+\makeatletter
+\@removefromreset{figure}{section}
+\@addtoreset{figure}{chapter}
+\renewcommand{\thefigure}%
+             {\thechapter.\@arabic\c@figure}
+\makeatother
+</pre>
+
+</blockquote>
+(the command <code>&#x5c;@addtoreset</code> is a part of LaTeX itself).
+<dl>
+<dt class="ctanref">chngcntr.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/chngcntr">chngcntr</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">removefr.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/removefr">removefr</a> (note, this is constructed as a
+  &ldquo;fragment&rdquo; for use within other packages: load by
+  <code>&#x5c;input</code><code>&#x7b;removefr&#x7d;</code>)
+<dt class="ctanref">remreset.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/carlisle">carlisle</a>[remreset]
+</dl>
+
+<p>

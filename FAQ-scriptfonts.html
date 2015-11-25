@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-scriptfonts</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Symbolsetc">Symbols, etc.</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>Better script fonts for maths</h1>
+
+
+<p>
+
+<p>
+The font selected by <code>&#x5c;mathcal</code> is the only script font &lsquo;built
+in&rsquo;. However, there are other useful calligraphic fonts included with
+modern TeX distributions.
+<dl>
+<dt class="description">Euler</dt><dd> The <i class="package">eucal</i> package (part of most sensible TeX
+  distributions; the fonts are part of the AMS font set) gives
+  a slightly curlier font than the default. The package changes the
+  font that is selected by <code>&#x5c;mathcal</code>.
+
+<p>
+  Type 1 versions of the fonts are available in the AMS fonts
+  distribution.
+<dt class="description">mathabx</dt><dd> The <i class="fontname">mathabx</i> bundle provides calligraphic
+  letters (in both upper and lower case); the fonts were developed in
+  MetaFont, but a version in Adobe Type 1 format is available.  The
+  bundle&rsquo;s documentation offers a series of comparisons of its
+  calligraphic set with Computer Modern&rsquo;s (both regular mathematical
+  and calligraphic letters); the difference are not large.
+<dt class="description">mnsymbol</dt><dd> The <i class="fontname">mnsymbol</i> bundle provides (among many
+  other symbols) a set of calligraphic letters, though (again) they&rsquo;re
+  rather similar to the default Computer Modern set.
+<dt class="description">RSFS</dt><dd> The <i class="package">mathrsfs</i> package uses a really fancy script
+  font (the name stands for &ldquo;Ralph Smith&rsquo;s Formal Script&rdquo;) which is
+  already part of most modern TeX distributions (Type&nbsp;1 versions of
+  the font are also provided, courtesy of Taco Hoekwater).  The package
+  creates a new command <code>&#x5c;mathscr</code>.
+<dt class="description">RSFSO</dt><dd> The bundle <i class="package">rsfso</i> provides a less dramatically
+  oblique version of the RSFS fonts; the result proves quite
+  pleasing&nbsp;&mdash; similar to the effect of the the (commercial) script
+  font in the Adobe Mathematical Pi collection.
+<dt class="description">Zapf Chancery</dt><dd> is the standard PostScript calligraphic font.  There
+  is no package but you can easily make it available by means of the
+  command
+<blockquote>
+
+<pre>
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}%
+                                 {m}{it}
+</pre>
+
+
+<pre>
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}{m}{it} 
+</pre>
+
+</blockquote>
+  in your preamble.  You may find the font rather too big; if so, you
+  can use a scaled version of it like this:
+<blockquote>
+
+<pre>
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}%
+             {<-> s * [0.900] pzcmi7t}{}
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}%
+                                 {m}{it}
+</pre>
+
+
+<pre>
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [0.900] pzcmi7t}{}
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}{m}{it}
+</pre>
+
+</blockquote>
+  Adobe Zapf Chancery (which the above examples use) is distributed in
+  any but the most basic PostScript printers.  A substantially identical
+  font (to the extent that the same metrics may be used) is
+  available from URW, called URW Chancery L: it is distributed
+  as part of the &ldquo;URW base35&rdquo; bundle; the
+  <i class="package">urwchancal</i> package (which includes virtual fonts to tweak
+  appearance) provides for its use as a calligraphic font.
+
+<p>
+  The TeX Gyre font family also includes a Chancery replacement,
+  <i class="fontname">Chorus</i>; use it with <i class="package">tgchorus</i> (and ignore the
+  complaints about needing to change font shape).
+</dl>
+Examples of the available styles are linked from the packages&rsquo;
+catalogue entries.
+<dl>
+<dt class="ctanref">eucal.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/amsfonts">amsfonts</a>
+<dt class="ctanref">euler fonts</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/amsfonts">amsfonts</a>
+<dt class="ctanref">mathabx as MetaFont</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mathabx">mathabx</a>
+<dt class="ctanref">mathabx in Type 1 format</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mathabx-type1">mathabx-type1</a>
+<dt class="ctanref">mathrsfs.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/jknappen-macros">jknappen-macros</a>[mathrsfs]
+<dt class="ctanref">mnsymbol fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mnsymbol">mnsymbol</a>
+<dt class="ctanref">rsfs fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/rsfs">rsfs</a>
+<dt class="ctanref">rsfso fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/rsfso">rsfso</a>
+<dt class="ctanref">Script font examples</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mathscript">mathscript</a>
+<dt class="ctanref">TeX Gyre Chorus font family</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/tex-gyre">tex-gyre</a>[tex-gyre-chorus]
+<dt class="ctanref">urwchancal</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/urwchancal">urwchancal</a>[urwchancal]
+<dt class="ctanref">URW Chancery L</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/urw-base35">urw-base35</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-08-17</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-scriptfonts">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-scriptfonts</a>
+
+<p>

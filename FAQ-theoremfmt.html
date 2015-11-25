@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-theoremfmt</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Theorem bodies printed in a roman font</h1>
+
+
+<p>
+
+<p>
+If you want to take advantage of the powerful <code>&#x5c;newtheorem</code> command
+without the constraint that the contents of the theorem is in a sloped
+font (for example, you may want to use it to create remarks, examples, proofs,
+&hellip;) then you can use the AMSLaTeX <i class="package">amsthm</i> package
+(which now supersedes the <i class="package">theorem</i> package previously
+recommended in these answers).
+Alternatively, the following sets up an environment
+<code class="environment">remark</code> whose content is in the default roman font.
+<blockquote>
+
+<pre>
+\newtheorem{preremark}{Remark}
+\newenvironment{remark}%
+  {\begin{preremark}\upshape}%
+  {\end{preremark}}
+</pre>
+
+
+<pre>
+\newtheorem{preremark}{Remark}
+\newenvironment{remark}%
+  {\begin{preremark}\upshape}{\end{preremark}}
+</pre>
+
+</blockquote>
+The <i class="package">ntheorem</i> package provides control of the fonts used by
+theorems, directly.
+<dl>
+<dt class="ctanref">amsthm.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>[amsthm]
+<dt class="ctanref">ntheorem.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ntheorem">ntheorem</a>
+<dt class="ctanref">theorem.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[theorem]
+</dl>
+
+<p>

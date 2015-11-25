@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-captsty</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>The style of captions</h1>
+
+
+<p>
+
+<p>
+Changes to the style of captions may be made by redefining the commands
+that produce the caption.  So, for example, <code>&#x5c;fnum@figure</code> (which
+produces the float number for figure floats) may be redefined, in a
+package of your own, or between
+<a href="FAQ-atsigns.html"><code>&#x5c;makeatletter</code>&ndash;<code>&#x5c;makeatother</code></a>:
+<blockquote>
+
+<pre>
+\renewcommand{\fnum@figure}{\textbf{Fig.~\thefigure}}
+</pre>
+
+
+<pre>
+\renewcommand{\fnum@figure}%
+  {\textbf{Fig.~\thefigure}}
+</pre>
+
+</blockquote>
+which will cause the number to be typeset in bold face.  (Note that
+the original definition used 
+<a href="FAQ-fixnam.html"><code>&#x5c;figurename</code></a>.)  More elaborate changes can be
+made by patching the <code>&#x5c;caption</code> command, but since there are
+packages to do the job, such changes (which can get rather tricky)
+aren&rsquo;t recommended for ordinary users.
+
+<p>
+The <i class="package">float</i> package provides some control of the appearance of
+captions, though it&rsquo;s principally designed for the creation of
+non-standard floats.  The <i class="package">caption</i> and <i class="package">ccaption</i>
+(note the double &ldquo;<em>c</em>&rdquo;) packages provide a range of different
+formatting options.
+
+<p>
+<i class="package">ccaption</i> also provides &lsquo;continuation&rsquo; captions and captions
+that can be placed outside of float environments.  The (very simple)
+<i class="package">capt-of</i> package also allows captions outside a float
+environment.  Note that care is needed when doing things that assume
+the sequence of floats (as in continuation captions), or potentially
+mix non-floating captions with floating ones.
+
+<p>
+The <i class="class">memoir</i> class includes the facilities of the
+<i class="package">ccaption</i> package; the <i class="class">KOMA-script</i> classes also
+provide a wide range of caption-formatting commands.
+
+<p>
+The documentation of <i class="package">caption</i> is available by processing a
+file <i class="filename">manual.tex</i>, which is created when you unpack
+<i class="filename">caption.dtx</i>
+
+<p>
+Note that the previously-recommended package <i class="package">caption2</i> has
+now been overtaken again by <i class="package">caption</i>; however,
+<i class="package">caption2</i> remains available for use in older documents.
+<dl>
+<dt class="ctanref">caption.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/caption">caption</a>
+<dt class="ctanref">capt-of.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/capt-of">capt-of</a>
+<dt class="ctanref">ccaption.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ccaption">ccaption</a>
+<dt class="ctanref">float.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/float">float</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+</dl>
+
+<p>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tradesyms</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Symbolsetc">Symbols, etc.</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>How to get copyright, trademark, etc.</h1>
+
+
+<p>
+
+<p>
+The &ldquo;
+<a href="FAQ-symbols.html">Comprehensive symbol list</a>&rdquo;, lists
+the symbol commands <code>&#x5c;textcopyright</code>,
+<code>&#x5c;textregistered</code> and <code>&#x5c;texttrademark</code>, which are available in
+TS1-encoded fonts, and which are enabled using the
+<i class="package">textcomp</i> package.
+
+<p>
+In fact, all three commands are enabled in default LaTeX, but the
+glyphs you get aren&rsquo;t terribly beautiful.  In particular,
+<code>&#x5c;textregistered</code> behaves oddly when included in bold text (for
+example, in a section heading), since it is composed of a small-caps
+letter, which typically degrades to a regular shape letter when asked
+to set in a bold font.  This means that the glyph becomes a circled
+&ldquo;r&rdquo;, whereas the proper symbol is a circled &ldquo;R&rdquo;.
+
+<p>
+This effect is of course avoided by use of <i class="package">textcomp</i>.
+
+<p>
+Another problem arises if you want <code>&#x5c;textregistered</code> in a
+superscript position (to look similar to <code>&#x5c;texttrademark</code>).
+Using a maths-mode superscript to do this provokes lots of pointless
+errors: you <em>must</em> use
+<blockquote>
+<pre>
+\textsuperscript{\textregistered}
+</pre>
+</blockquote>
+
+<p>

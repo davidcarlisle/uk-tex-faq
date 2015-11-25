@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-multidoc</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Alternativedocumentclasses">Alternative document classes</a> &gt; </div>
+<h1>A &lsquo;report&rsquo; from lots of &lsquo;article&rsquo;s</h1>
+
+
+<p>
+
+<p>
+This is a requirement, for example, if one is preparing the
+proceedings of a conference whose papers were submitted in LaTeX.
+
+<p>
+The nearest things to canned solutions are Peter Wilson&rsquo;s
+<i class="class">combine</i> and Federico Garcia&rsquo;s <i class="class">subfiles</i> classes, but
+many approaches have been proposed.  Each of of the offerings has its
+own advantages; in particular, several distinctly light-weight
+solutions (for example, <i class="package">includex</i> and <i class="package">docmute</i>) are
+available, well-suited to less formal documents.
+
+<p>
+<i class="class">Combine</i> defines the means to &lsquo;<code>&#x5c;import</code>&rsquo; entire documents,
+and provides means of specifying significant features of the layout of
+the document, as well as a global table of contents, and so on.  The
+complete set of facilities is pretty complex.  An auxiliary package,
+<i class="package">combinet</i>, allows use of the <code>&#x5c;title</code>s and <code>&#x5c;author</code>s
+(etc.\@) of the <code>&#x5c;import</code>ed documents to appear in the global table
+of contents.  The basic structure of a combined document would be:
+<blockquote>
+<pre>
+\documentclass[...]{combine}
+...
+\begin{document}
+...
+<introductory materiel>
+...
+\begin{papers}
+% title and author of first article,
+% to go the the main ToC
+\coltoctitle{...}
+\coltocauthor{...}
+\label{art1}
+\import{art1}
+...
+\end{papers}
+...
+<acknowledgements, etc.>
+...
+\end{document}
+</pre>
+</blockquote>
+
+<p>
+The <i class="class">subfiles</i> class is used in the component files of a multi-file
+project, and the corresponding <i class="package">subfiles</i> package is used in the
+master file; so the structure of the master file looks like:
+<blockquote>
+<pre>
+\documentclass{<whatever>}
+...
+\usepackage{subfiles}
+...
+\begin{document}
+...
+\subfile{subfile_name}
+...
+\end{document}
+</pre>
+</blockquote>
+while a subfile has the structure:
+<blockquote>
+<pre>
+\documentclass[mainfile_name]{subfiles}
+\begin{document}
+...
+\end{document}
+</pre>
+</blockquote>
+Arrangements may be made so that the component files will
+be typeset using different page format, etc., parameters than those
+used when they are typeset as a part of the main file.
+
+<p>
+A more &lsquo;raw&rsquo; toolkit is offered by Matt Swift&rsquo;s <i class="package">includex</i> and
+<i class="package">newclude</i> packages, both part of the <i class="package">frankenstein</i>
+bundle.  Note that Matt believes <i class="package">includex</i> is obsolete
+(though it continues to work for this author); furthermore, its
+replacement, <i class="package">newclude</i> remains &ldquo;in development&rdquo;, as it has
+been since 1999.
+
+<p>
+Both <i class="package">includex</i> and <i class="package">newclude</i> enable you to
+&lsquo;<code>&#x5c;includedoc</code>&rsquo; complete articles (in the way that you
+&lsquo;<code>&#x5c;include</code>&rsquo; chapter files in an ordinary report).  The preamble
+(everything up to <code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code>), and everything after
+<code>&#x5c;end</code><code>&#x7b;document&#x7d;</code>, is ignored by both packages.  Thus the
+packages don&rsquo;t &ldquo;do the whole job&rdquo; for you, though: you need to
+analyse the package use of the individual papers, and ensure that a
+consistent set is loaded in the preamble of the main report.  (Both
+packages require <i class="package">moredefs</i>, which is also part of the
+bundle.)
+
+<p>
+A neat (and simple) toolkit is offered by the
+<i class="package">docmute</i> package; once the package is loaded, anything
+between <code>&#x5c;documentclass</code><code>[...]</code></code><code>&#x7b;...&#x7d;</code> and
+<code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code> in an <code>&#x5c;input</code>&rsquo;ed or <code>&#x5c;include</code>&rsquo;d
+document is ignored, and then the input is processed up to
+<code>&#x5c;end</code><code>&#x7b;document&#x7d;</code> in the input file.  The package does nothing
+about <code>&#x5c;usepackage</code> (or anything else) in the preamble of the
+included document; it&rsquo;s up to the user to ensure that any packages
+needed are loaded, and any other necessary configuration is done, in
+the parent document.
+
+<p>
+The <i class="package">standalone</i> package develops on the ideas of
+<i class="package">docmute</i>; it was designed to meet the needs of users who are
+developing images from one of the more extreme new graphics packages
+(notably <i class="package">pgf/tikz</i>) where the compile time of the graphics is
+such that separate compilation is very desirable.
+<i class="package">Standalone</i> provides a means of developing the graphics in a
+convenient way, detached from the development of the document as a
+whole; its value for use in multiple documents is clear.
+
+<p>
+The user includes the <i class="package">standalone</i> package in the main
+document, and each subfile uses the <i class="class">standalone</i> class.
+(<i class="class">Standalone</i> uses <i class="class">article</i> for the &ldquo;real&rdquo; work in
+stand-alone mode, but it may be asked to use another).
+
+<p>
+The real difference from the <i class="package">docmute</i> package is
+flexibility.  In particular, you can ask that the preambles of the
+included documents be gathered up, so that you can construct a good
+preamble for the master document.
+
+<p>
+A final &ldquo;compile-together&rdquo; approach comes from the <i class="package">subdocs</i>
+package.  The driver file contains a <code>&#x5c;subdocuments</code> command:
+<blockquote>
+<code>&#x5c;subdocuments</code><code>[options]</code></code><code>&#x7b;file1, file2, ...&#x7d;</code>
+</blockquote>
+(the optional arguments provide layout options, such as control over
+whether <code>&#x5c;clearpage</code> or <code>&#x5c;cleardoublepage</code> are used between the
+files).  Each of the sub-files will execute
+<blockquote>
+  <code>&#x5c;usepackage</code><code>[master]</code></code><code>&#x7b;subdocs&#x7d;</code>
+</blockquote>
+to declare the name, <tt><em>master</em></tt>, of the calling file;
+each of the subfiles reads all the <code class="extension">aux</code> files, so that
+tables of contents may be produced.
+
+<p>
+A completely different approach is to use the <i class="package">pdfpages</i>
+package, and to include articles submitted in PDF format into a
+a PDF document produced by PDFLaTeX.  The package
+defines an <code>&#x5c;includepdf</code> command, which takes arguments similar to
+those of the <code>&#x5c;includegraphics</code> command.  With keywords in the
+optional argument of the command, you can specify which pages you want
+to be included from the file named, and various details of the layout
+of the included pages.
+<dl>
+<dt class="ctanref">combine.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/combine">combine</a>
+<dt class="ctanref">combinet.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/combine">combine</a>
+<dt class="ctanref">docmute.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/docmute">docmute</a>
+<dt class="ctanref">includex.sty</dt><dd>Distributed in the &ldquo;unsupported&rdquo; part of
+  <a class="ctan" href="https://www.ctan.org/pkg/frankenstein">frankenstein</a>[includex]
+<dt class="ctanref">moredefs.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/frankenstein">frankenstein</a>[moredefs]
+<dt class="ctanref">newclude.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/frankenstein">frankenstein</a>[newclude]
+<dt class="ctanref">pdfpages.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdfpages">pdfpages</a>
+<dt class="ctanref">standalone.cls, standalone.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/standalone">standalone</a>
+<dt class="ctanref">subdocs.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/bezos">bezos</a>[subdocs]
+<dt class="ctanref">subfiles.cls, etc.</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/subfiles">subfiles</a>
+</dl>
+
+<p>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-watermark</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Pagelayout">Page layout</a> &gt; </div>
+<h1>&lsquo;Watermarks&rsquo; on every page</h1>
+
+
+<p>
+
+<p>
+It&rsquo;s often useful to place some text (such as &lsquo;DRAFT&rsquo;) in the
+background of every page of a document.  For LaTeX users, the
+simplest way to do this uses the <i class="package">draftcopy</i> package.  This
+can deal with
+many types of DVI processors (in the same way that the graphics
+package does) and knows translations for the word &lsquo;DRAFT&rsquo; into a wide
+range of languages (though you can choose your own word, too).
+Unfortunately, however, the package relies on PostScript specials, and will
+therefore fail if you are viewing your document with <i class="progname">xdvi</i>,
+and won&rsquo;t even compile if you&rsquo;re using PDFLaTeX.  (PDFLaTeX
+users need one of the other solutions below.)
+
+<p>
+The <i class="package">wallpaper</i> package builds on <i class="package">eso-pic</i> (see
+below).  Apart from the single-image backdrops described above
+(&ldquo;wallpapers&rdquo;, of course, to this package), the package provides
+facilities for tiling images.  All its commands come in pairs: one for
+&ldquo;general&rdquo; use, and one applying to the current page only.
+
+<p>
+The <i class="package">draftwatermark</i> package uses the same author&rsquo;s
+<i class="package">everypage</i> package to provide a simple interface for adding
+textual (&lsquo;DRAFT&rsquo;-like) watermarks.
+
+<p>
+The <i class="package">xwatermark</i> package provides very flexible watermarking,
+with a &ldquo;modern&rdquo; (key-value) interface.
+
+<p>
+More elaborate watermarks may be achieved using the <i class="package">eso-pic</i>
+package, or by using <i class="package">everypage</i> (see below).
+<i class="package">Eso-pic</i> attaches a <code class="environment">picture</code> environment to
+every page as it is shipped out; the user can put things into that
+environment: the package provides commands for placing things at
+certain useful points (like &ldquo;text upper left&rdquo; or &ldquo;text centre&rdquo;) in
+the picture, but the user is at liberty to do what he or she likes.
+
+<p>
+<i class="package">Eso-pic</i> is, in turn, built upon the package
+<i class="package">atbegshi</i>.  That package has the capability to produce
+watermarks <em>on top of</em> the other material on the page; this
+doesn&rsquo;t sound very &ldquo;watermark-like&rdquo;, but can be useful on pages
+where the watermark would otherwise be hidden by graphics or the
+like.  The <i class="package">atbegshi</i> command that <i class="package">eso-pic</i> uses is
+<code>&#x5c;AtBeginShipoutUpperLeft</code>; <code>&#x5c;AtBeginShipoutUpperLeftForeground</code>
+is what&rsquo;s needed instead to place the material on top of the rest of
+the content of the page.
+
+<p>
+<i class="package">Everypage</i> allows you to add &ldquo;something&rdquo; to every page, or
+to a particular page; you therefore need to construct your own
+apparatus for anything complicated.
+
+<p>
+Finally, one can use the <i class="progname">pdftk</i> untility; with it, the
+command:
+<blockquote>
+<pre>
+pdftk a.pdf background b.pdf output c.pdf
+</pre>
+</blockquote>
+will recreate <i class="filename">a.pdf</i> as <i class="filename">c.pdf</i>, having used the first page
+of <i class="filename">b.pdf</i> as background on every page.  If you have a standard
+background (&ldquo;DRAFT&rdquo; or &ldquo;SECRET&rdquo;, or whatever) used in several
+files, <i class="progname">pdftk</i> might well be attractive.
+
+<p>
+<i class="progname">Pdftk</i> is available as a command line tool; it is available
+in most linux distritbutions, but may be downloaded from its
+
+<a href="http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/.html">home site</a>
+<dl>
+<dt class="ctanref">atbegshi.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[atbegshi]
+<dt class="ctanref">draftcopy.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/draftcopy">draftcopy</a>
+<dt class="ctanref">draftwatermark.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/draftwatermark">draftwatermark</a>
+<dt class="ctanref">eso-pic.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/eso-pic">eso-pic</a>
+<dt class="ctanref">everypage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/everypage">everypage</a>
+<dt class="ctanref">everyshi.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/ms">ms</a>[everyshi]
+<dt class="ctanref">wallpaper.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/wallpaper">wallpaper</a>
+</dl>
+
+<p>

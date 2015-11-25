@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-dtx</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Documented LaTeX sources (<code class="extension">dtx</code> files)</h1>
+
+
+<p>
+
+<p>
+LaTeX 2e, and many contributed LaTeX macro packages, are written
+in a <a href="FAQ-lit.html">literate programming style</a>, with source and
+documentation in the
+same file.  This format in fact originated before the
+days of the LaTeX project as one of the &ldquo;Mainz&rdquo; series of
+packages.  A documented source file conventionally has the suffix
+<code class="extension">dtx</code>, and will normally be &lsquo;stripped&rsquo; before use with
+LaTeX; an installation (<code class="extension">ins</code>) file is normally provided,
+to automate this process of removing comments for speed of loading.
+If the <code class="extension">ins</code> file is available, you may process <em>it</em>
+with LaTeX to produce the package (and, often, auxiliary files).
+
+<p>
+Output should look something like:
+<blockquote>
+<pre>
+Generating file(s) ./foo.sty 
+
+Processing file foo.dtx (package) -> foo.sty
+File foo.dtx ended by \endinput.
+Lines  processed: 2336
+Comments removed: 1336
+Comments  passed: 2
+Codelines passed: 972
+</pre>
+</blockquote>
+The lines &ldquo;<tt>Processing &hellip;\ ended by <code>&#x5c;endinput</code></tt>&rdquo; may
+be repeated if the <code class="extension">dtx</code> file provides more than one
+&lsquo;unpacked&rsquo; file.
+
+<p>
+To read the comments &ldquo;as a document&rdquo;, you can run LaTeX on the
+<code class="extension">dtx</code> file to produce a nicely formatted version of the
+documented code.  (Most LaTeX packages on CTAN, nowadays, already
+have PDF of the result of processing the <code class="extension">dtx</code> file,
+as &ldquo;documentation&rdquo;.)
+
+<p>
+Several packages may be included in one <code class="extension">dtx</code> file, with
+conditional sections, and there are facilities for indexes of macros,
+etc.  All of this m\&rsquo;elange is sorted out by directives in the
+<code class="extension">ins</code> file; conventional indexing utilities may be necessary
+for &ldquo;full&rdquo; output.
+
+<p>
+Anyone may write <code class="extension">dtx</code> files; the format is explained in
+<a href="FAQ-latex-books.html">The LaTeX Companion</a>, and a tutorial is available
+from CTAN (which comes with skeleton <code class="extension">dtx</code> and
+<code class="extension">ins</code> files).
+
+<p>
+Composition of <code class="extension">dtx</code> files is supported in <i class="progname">emacs</i> by
+<a href="FAQ-editors.html">AUC-TeX</a>.
+
+<p>
+The (unix-based) script <i class="progname">dtxgen</i> generates a proforma basic
+<code class="extension">dtx</code> file, which could be useful when starting a new
+project.
+
+<p>
+Another route to an <code class="extension">dtx</code> file is to write the
+documentation and the code separately, and then to combine them using
+the <i class="progname">makedtx</i> system.  This technique has particular value in
+that the documentation file can be used separately to generate
+HTML output; it is often quite difficult to make 
+<a href="FAQ-LaTeX2HTML.html">LaTeX to HTML conversion</a> tools deal
+with <code class="extension">dtx</code> files, since they use an unusual class file.
+
+<p>
+The <i class="progname">sty2dtx</i> system goes one step further: it attempts to
+create a <code class="extension">dtx</code> file from a &lsquo;normal&rsquo; <code class="extension">sty</code> file
+with comments.  It works well, in some circumstances, but can become
+confused by comments that aspire to &ldquo;structure&rdquo; (e.g., tabular
+material, as in many older packages&rsquo; file headers).
+
+<p>
+The <code class="extension">dtx</code> files are not used by LaTeX after they have been
+processed to produce <code class="extension">sty</code> or <code class="extension">cls</code> (or whatever)
+files.  They need not be kept with the working system; however, for
+many packages the <code class="extension">dtx</code> file is the primary source of
+documentation, so you may want to keep <code class="extension">dtx</code> files elsewhere.
+
+<p>
+An interesting sideline to the story of <code class="extension">dtx</code> files is the
+<i class="package">docmfp</i> package, which extends the model of the <i class="package">doc</i>
+package to
+
+
+
+
+  <a href="FAQ-MF.html">MetaFont</a> and <a href="FAQ-MP.html">MetaPost</a>,
+
+thus permitting documented distribution of bundles containing code for
+MetaFont and MetaPost together with related LaTeX code.
+<dl>
+<dt class="ctanref">AUC-TeX</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/auctex">auctex</a>
+<dt class="ctanref">clsguide.pdf</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/clsguide">clsguide</a>
+<dt class="ctanref">docmfp.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/docmfp">docmfp</a>
+<dt class="ctanref">docstrip.tex</dt><dd>Part of the LaTeX distribution
+<dt class="ctanref">DTX tutorial</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dtxtut">dtxtut</a>
+<dt class="ctanref">dtxgen</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dtxgen">dtxgen</a>
+<dt class="ctanref">makedtx</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/makedtx">makedtx</a>
+<dt class="ctanref">sty2dtx</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/sty2dtx">sty2dtx</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2014-06-03</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dtx">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dtx</a>
+
+<p>

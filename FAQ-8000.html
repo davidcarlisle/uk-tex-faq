@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-8000</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Mismatched mode ljfour and resolution 8000</h1>
+
+
+<p>
+
+<p>
+You&rsquo;re running <i class="progname">dvips</i>, and you encounter a stream of error
+messages, starting with &ldquo;<tt>Mismatched mode</tt>&rdquo;.  The mode is the
+default used in your installation&nbsp;&mdash; it&rsquo;s set in the <i class="progname">dvips</i>
+configuration file, and <tt>ljfour</tt> is commonest (since it&rsquo;s the
+default in most distributions), but not invariable.
+
+<p>
+The problem is that <i class="progname">dvips</i> has encountered a font for which
+it must generate a bitmap (since it can&rsquo;t find it in Type&nbsp;1 format),
+and there is no proforma available to provide instructions to give to
+MetaFont.
+
+<p>
+So what to do?  The number 8000 comes from the &lsquo;<tt>-Ppdf</tt>&rsquo; option
+to <i class="progname">dvips</i>, which you might have found from the answer
+
+<a href="FAQ-fuzzy-type3.html">&ldquo;wrong type of fonts&rdquo;</a>.  The obvious
+solution is to switch to the trivial substitute &lsquo;<tt>-Pwww</tt>&rsquo;,
+which selects the necessary type&nbsp;1 fonts for PDF generation,
+but nothing else: however, this will leave you with undesirable bitmap
+fonts in your PDF file.  The &ldquo;proper&rdquo; solution is to find a
+way of expressing what you want to do, using type&nbsp;1 fonts.
+
+<p>

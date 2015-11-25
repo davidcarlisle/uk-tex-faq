@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-letterclass</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Alternativedocumentclasses">Alternative document classes</a> &gt; </div>
+<h1>Letters and the like</h1>
+
+
+<p>
+
+<p>
+LaTeX itself provides a <i class="class">letter</i> document class, which is
+widely disliked; the present author long since gave up trying with
+it.  If you nevertheless want to try it, but are irritated by its way
+of vertically-shifting a single-page letter, try the following hack:
+<blockquote>
+<pre>
+\makeatletter
+\let\@texttop\relax
+\makeatother
+</pre>
+</blockquote>
+in the preamble of your file.
+
+<p>
+Doing-it-yourself is a common strategy; Knuth (for use with
+Plain TeX, in the TeXbook), and Kopka and Daly (in their Guide to
+LaTeX) offer worked examples.  (The latest version of Knuth&rsquo;s
+macros appear in his &ldquo;local library&rdquo; dump on the archive, which is
+updated in parallel with new versions of TeX&nbsp;&mdash; so not very often&hellip;)
+
+<p>
+Nevertheless, there <em>are</em> contributed alternatives&nbsp;&mdash; in fact
+there are an awfully large number of them: the following list, of
+necessity, makes but a small selection.
+
+<p>
+The largest, most comprehensive, class is <i class="class">newlfm</i>; the <tt>lfm</tt>
+part of the name implies that the class can create letters, faxes and
+memoranda.  The documentation is voluminous, and the package seems
+very flexible.
+
+<p>
+Other classes recommended for inclusion in this FAQ are
+<i class="class">akletter</i> and <i class="class">isodoc</i>.
+
+<p>
+The <i class="class">dinbrief</i> class, while recommended, is only documented in
+German.
+
+<p>
+There are letter classes in each of the excellent
+<i class="class">KOMA-script</i> (<i class="class">scrlttr2</i>: documentation is available in
+English) and <i class="package">ntgclass</i> (<i class="class">brief</i>: documentation in Dutch
+only) bundles.  While these are probably good (since the bundles
+themselves inspire trust) they&rsquo;ve not been specifically recommended by
+any users.
+<dl>
+<dt class="ctanref">akletter.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/akletter">akletter</a>
+<dt class="ctanref">brief.cls</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/ntgclass">ntgclass</a>
+<dt class="ctanref">dinbrief.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dinbrief">dinbrief</a>
+<dt class="ctanref">isodoc.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/isodoc">isodoc</a>
+<dt class="ctanref">Knuth&rsquo;s letter.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/knuth-letter">knuth-letter</a>
+<dt class="ctanref">newlfm.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/newlfm">newlfm</a>
+<dt class="ctanref">scrlttr2.cls</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+</dl>
+
+<p>

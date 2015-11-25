@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-linespread</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>Why doesn&rsquo;t <code>&#x5c;linespread</code> work?</h1>
+
+
+<p>
+
+<p>
+The command <code>&#x5c;linespread</code><code>&#x7b;factor&#x7d;</code> is supposed to multiply
+the current <code>&#x5c;baselineskip</code> by &lsaquo;<i>factor</i>&rsaquo;; but, to all
+appearances, it doesn&rsquo;t.
+
+<p>
+In fact, the command is equivalent to
+<code>&#x5c;renewcommand</code><code>&#x7b;<code>&#x5c;baselinestretch</code>&#x7d;</code></code><code>&#x7b;factor&#x7d;</code>: written that
+way, it somehow feels less surprising that the effect isn&rsquo;t immediate.
+The <code>&#x5c;baselinestretch</code> factor is only used when a font is selected;
+a mere change of <code>&#x5c;baselinestretch</code> doesn&rsquo;t change the font, any
+more than does the command
+<code>&#x5c;fontsize</code><code>&#x7b;size&#x7d;</code></code><code>&#x7b;baselineskip&#x7d;</code>&nbsp;&mdash; you have to follow
+either command with <code>&#x5c;selectfont</code>.  So:
+<blockquote>
+<pre>
+\fontsize{10}{12}%
+\selectfont
+</pre>
+</blockquote>
+or:
+<blockquote>
+<pre>
+\linespread{1.2}%
+\selectfont
+</pre>
+</blockquote>
+Of course, a package such as <i class="package">setspace</i>, whose job is to
+manage the baseline, will deal with all this stuff&nbsp;&mdash; see
+&ldquo;<a class="FAquestion.html" href="FAQ-linespace.html">managing double-spaced documents</a>&rdquo;.  If
+you want to avoid <i class="package">setspace</i>, beware the behaviour of
+linespread changes within a paragraph: read 
+&ldquo;<a class="FAquestion.html" href="FAQ-baselinepar.html"><code>&#x5c;baselineskip</code> is a paragraph parameter</a>&rdquo;.
+<dl>
+<dt class="ctanref">setspace.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/setspace">setspace</a>
+</dl>
+
+<p>

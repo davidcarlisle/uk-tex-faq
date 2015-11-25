@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-numbersets</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Symbolsetc">Symbols, etc.</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>Symbols for the number sets</h1>
+
+
+<p>
+
+<p>
+Mathematicians commonly use special lettering for the real numbers and
+other standard number sets. Traditionally these were typeset in bold.
+In the ordinary course of events, but mathematicians do not have
+access to bold chalk, so they invented special symbols that are now
+often used for the number sets.  Such symbols are known as
+&ldquo;blackboard bold&rdquo; (or double-stroked) letters; in place of the heavier
+strokes of a bold font, (some) strokes of the letters are doubled.
+The minimum useful set is upper-case letters &lsquo;I&rsquo;, &lsquo;N&rsquo;, &lsquo;R&rsquo;, &lsquo;Q&rsquo; and
+&lsquo;Z&rsquo;; some fonts offer a figure &lsquo;1&rsquo; (for a unit matrix&nbsp;&mdash; not a number
+set at all).
+
+<p>
+A set of blackboard bold capitals is available in the AMS
+<i class="fontname">msbm</i> fonts (<i class="fontname">msbm</i> is available at a range of
+design sizes, with names such as <i class="fontname">msbm10</i>).  The AMS
+actually provides a pair of font
+families (the other is called <i class="fontname">msam</i>), which offer a large number of
+mathematical symbols to supplement those provided in Knuth&rsquo;s fonts.
+The fonts are available in Type&nbsp;1 format in
+modern distributions.   Support for using the fonts under
+LaTeX is available in packages <i class="package">amssymb</i> and
+<i class="package">amsfonts</i>.  The font shape is a rather
+austere sans, which many people don&rsquo;t like (though it captures the
+essence of quickly-chalked writing rather well).
+
+<p>
+The <i class="fontname">bbold</i> family is set of blackboard bold fonts written in
+MetaFont.  This set offers blackboard bold forms of lower-case letters;
+the font source directory also contains sources for a LaTeX package
+that enables use of the fonts.  The fonts are not available in Type&nbsp;1 format.
+
+<p>
+The <i class="fontname">bbm</i> family claims to provide
+&lsquo;blackboard&rsquo; versions of most of the <i class="fontname">cm</i> fonts&nbsp;&hellip; including
+the bold and bold-extended series.  Again, the fonts are designed in
+MetaFont and are not available in Type&nbsp;1 format.  LaTeX macro support
+comes from a package by Torsten Hilbrich.
+
+<p>
+The <i class="fontname">doublestroke</i> family comes in just roman
+and sans shapes, at a single weight, and is available both as MetaFont
+sources and as Type&nbsp;1; the font covers the uppercase latin letters,
+lowercase &lsquo;h&rsquo; and &rsquo;k&rsquo;, and the digit &lsquo;1&rsquo;.
+
+<p>
+A document that shows the <i class="fontname">bbm</i>, <i class="fontname">bbold</i>,
+<i class="fontname">doublestroke</i> and <i class="fontname">msbm</i> fonts, so that you can get
+a feel for their appearance, is available (CTAN package
+<i class="package">blackboard</i>).
+
+<p>
+The <i class="package">boondox</i> font set consists of Type&nbsp;1 versions of the
+STIX mathematics set (the originals are distributed in
+OTF format).  The set contains a font
+&lsquo;BOONDOXDoubleStruck-Regular&rsquo; (blackboard bold) (as well as a &lsquo;bold&rsquo;
+version of that.
+
+<p>
+An alternative source of Type&nbsp;1 fonts with blackboard bold characters
+may be found in the steadily increasing set of complete families, both
+commercial and free, that have been prepared for use with (La)TeX
+(see 
+&ldquo;<a class="FAquestion.html" href="FAQ-psfchoice.html">choice of outline fonts</a>&rdquo;).
+Of the free sets, the <i class="fontname">txfonts</i> and <i class="fontname">pxfonts</i> families
+both come with replicas of <i class="fontname">msam</i> and <i class="fontname">msbm</i>, but
+(as noted elsewhere, there are other reasons not to use these fonts);
+revised versions of the fonts, <i class="fontname">newtx</i> and <i class="fontname">newpx</i>
+are better adjusted.  The <i class="fontname">mathpazo</i> family includes a
+&ldquo;mathematically significant&rdquo; choice of blackboard bold characters, and the
+<i class="fontname">fourier</i> fonts contain blackboard bold upper-case letters,
+the digit &lsquo;1&rsquo;, and lower-case &lsquo;k&rsquo;.
+
+<p>
+The &ldquo;lazy person&rsquo;s&rdquo; blackboard bold macros:
+<blockquote>
+<pre>
+\newcommand{\R}{{\textsf{R}\hspace*{-0.9ex}%
+  \rule{0.15ex}{1.5ex}\hspace*{0.9ex}}}
+\newcommand{\N}{{\textsf{N}\hspace*{-1.0ex}%
+  \rule{0.15ex}{1.3ex}\hspace*{1.0ex}}}
+\newcommand{\Q}{{\textsf{Q}\hspace*{-1.1ex}%
+  \rule{0.15ex}{1.5ex}\hspace*{1.1ex}}}
+\newcommand{\C}{{\textsf{C}\hspace*{-0.9ex}%
+  \rule{0.15ex}{1.3ex}\hspace*{0.9ex}}}
+</pre>
+</blockquote>
+are almost acceptable at normal size if the surrounding text is
+<i class="fontname">cmr10</i> (the position of the vertical bar can be affected by
+the surrounding font).  However, they are not part of a proper maths font,
+and do not work in sub- and superscripts.  As we&rsquo;ve seen, there are
+plenty of alternatives: that mythical &ldquo;lazy&rdquo; person can inevitably
+do better than the macros, or anything similar using capital &lsquo;I&rsquo;
+(which looks even worse!).  Voluntary  (La)TeX effort has redefined
+the meaning of laziness (in this respect!).
+<dl>
+<dt class="ctanref">AMS support files</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/amsfonts">amsfonts</a>
+<dt class="ctanref">AMS symbol fonts</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/amsfonts">amsfonts</a>
+<dt class="ctanref">bbm fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bbm">bbm</a>
+<dt class="ctanref">bbm macros</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bbm-macros">bbm-macros</a>
+<dt class="ctanref">bbold fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bbold">bbold</a>
+<dt class="ctanref">blackboard evaluation set</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/blackboard">blackboard</a>
+<dt class="ctanref">doublestroke fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/doublestroke">doublestroke</a>
+<dt class="ctanref">fourier fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fourier">fourier</a>
+<dt class="ctanref">mathpazo fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mathpazo">mathpazo</a>
+<dt class="ctanref">newpx</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/newpx">newpx</a>
+<dt class="ctanref">newtx</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/newtx">newtx</a>
+<dt class="ctanref">pxfonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pxfonts">pxfonts</a>
+<dt class="ctanref">txfonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/txfonts">txfonts</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-12-04</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-numbersets">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-numbersets</a>
+
+<p>

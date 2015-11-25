@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-inst1cm</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Installing the Type&nbsp;1 versions of the CM&nbsp;fonts</h1>
+
+
+<p>
+
+<p>
+This is a specialised case of <a href="FAQ-instfont.html">installing a font</a>,
+but it is almost never necessary&nbsp;&mdash; it&rsquo;s inconceivable that any (even
+remotely) recent system will <em>not</em> have the fonts already
+installed.  You can confirm this (near-inevitable) fact by trying the
+fonts.  On a system that uses <i class="progname">dvips</i> (almost all do), try
+the sequence:
+<blockquote>
+<pre>
+latex sample2e
+dvips -o sample2e.ps sample2e
+</pre>
+</blockquote>
+at a &ldquo;command prompt&rdquo; (<i class="progname">shell</i>, in a Unix-style system,
+&ldquo;DOS box&rdquo; in a Windows system).
+
+<p>
+If the command works at all, the console output of the command will
+include a sequence of Type&nbsp;1 font file names, listed as
+<tt><<em>path</em>/cmr10.pfb></tt> and so on; this is <i class="progname">dvips</i>
+telling you it&rsquo;s copying information from the Type&nbsp;1 font, and you
+need do no more.
+
+<p>
+If the test has failed, you need to install your own set of the fonts;
+the distribution (including all the fonts the AMS designed and
+produced themselves) is now described as <i class="package">amsfonts</i>.  The
+bundle contains metric and map files&nbsp;&mdash; all you need to
+<a href="FAQ-instt1font.html">install the fonts</a>.
+<dl>
+<dt class="ctanref">AMS and CM fonts, in Type 1 format</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/amsfonts">amsfonts</a>
+</dl>
+
+<p>
+
+<p>
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>

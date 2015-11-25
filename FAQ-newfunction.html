@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-newfunction</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Defining a new log-like function in LaTeX</h1>
+
+
+<p>
+
+<p>
+Use the <code>&#x5c;mathop</code> command, as in:
+<blockquote>
+<pre>
+\newcommand{\diag}{\mathop{\mathrm{diag}}}
+</pre>
+</blockquote>
+
+<p>
+Subscripts and superscripts on <code>&#x5c;diag</code> will be placed below and
+above the function name, as they are on
+<code>&#x5c;lim</code>.  If you want your subscripts and superscripts always placed
+to the right, do:
+<blockquote>
+
+<pre>
+\newcommand{\diag}%
+  {\mathop{\mathrm{diag}}\nolimits}
+</pre>
+
+
+<pre>
+\newcommand{\diag}{\mathop{\mathrm{diag}}\nolimits}
+</pre>
+
+</blockquote>
+
+<p>
+AMSLaTeX (in its <i class="package">amsopn</i> package, which is automatically
+loaded by <i class="package">amsmath</i>) provides a command
+<code>&#x5c;DeclareMathOperator</code> that takes does the same job as the first
+definition above.  To create our original <code>&#x5c;diag</code> command, one would
+say:
+<blockquote>
+<pre>
+\DeclareMathOperator{\diag}{diag}
+</pre>
+</blockquote>
+<code>&#x5c;DeclareMathOperator*</code> declares the operator always to have its
+sub- and superscripts in the 
+&ldquo;<a href="FAQ-limits.html"><code>&#x5c;limits</code> position</a>&rdquo;.
+
+<p>
+The <i class="package">amsopn</i> command <code>&#x5c;operatorname</code> allows you to
+introduce <em>ad hoc</em> operators into your mathematics, so
+<blockquote>
+  <code>&#x5c;[</code> <code>&#x5c;operatorname</code><code>&#x7b;foo&#x7d;</code><tt>(bar)</tt> <code>&#x5c;]</code>
+</blockquote>
+typesets the same as
+<blockquote>
+<pre>
+\DeclareMathOperator{\foo}{foo}
+...
+\[ \foo(bar) \]
+</pre>
+</blockquote>
+As with <code>&#x5c;DeclareMathOperator</code> there&rsquo;s a starred version
+<code>&#x5c;operatorname*</code> for sub- and superscripts in the limits position.
+
+<p>
+(It should be noted that &ldquo;log-like&rdquo; was reportedly a <em>joke</em> on
+Lamport&rsquo;s part; it is of course clear what was meant.)
+<dl>
+<dt class="ctanref">amsopn.sty</dt><dd>Distributed as part of the AMSLaTeX distribution
+  <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>[amsopn]
+</dl>
+
+<p>

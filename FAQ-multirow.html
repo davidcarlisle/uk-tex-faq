@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-multirow</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>Merging cells in a column of a table</h1>
+
+
+<p>
+
+<p>
+It&rsquo;s easy to come up with a table design that requires a cell that
+spans several rows.  An example is something where the left-most
+column labels the rest of the table; this can be done (in simple
+cases) by using 
+<a href="FAQ-slashbox.html">diagonal separation in corner cells</a>, but that
+technique rather strictly limits what can be used as the content of
+the cell.
+
+<p>
+The <i class="package">multirow</i> package enables you to construct such multi-row
+cells, in a very simple manner.  For the simplest possible use, one
+might write:
+<blockquote>
+<pre>
+\begin{tabular}{|c|c|}
+\hline
+\multirow{4}{*}{Common g text} 
+      &amp; Column g2a\\
+      &amp; Column g2b \\
+      &amp; Column g2c \\
+      &amp; Column g2d \\
+\hline
+\end{tabular}
+</pre>
+</blockquote>
+and <i class="package">multirow</i> will position &ldquo;Common g text&rdquo; at the vertical
+centre of the space defined by the other rows.  Note that the rows
+that don&rsquo;t contain the &ldquo;multi-row&rdquo; specification must have empty
+cells where the multi-row is going to appear.
+
+<p>
+The &ldquo;<tt>*</tt>&rdquo; may be replaced by a column width specification.  In this
+case, the argument may contain forced line-breaks:
+<blockquote>
+<pre>
+\begin{tabular}{|c|c|}
+\hline
+\multirow{4}{25mm}{Common\\g text} 
+      &amp; Column g2a\\
+      &amp; Column g2b \\
+      &amp; Column g2c \\
+      &amp; Column g2d \\
+\hline
+\end{tabular}
+</pre>
+</blockquote>
+A similar effect (with the possibility of a little more
+sophistication) may be achieved by putting a smaller table that lines
+up the text into a <tt>*</tt>-declared <code>&#x5c;multirow</code>.
+
+<p>
+The <code>&#x5c;multirow</code> command may also used to write labels vertically
+down one or other side of a table (with the help of the
+<i class="package">graphics</i> or <i class="package">graphicx</i> package, which provide the
+<code>&#x5c;rotatebox</code> command):
+<blockquote>
+<pre>
+\begin{tabular}{|l|l|}
+\hline
+\multirow{4}{*}{\rotatebox{90}{hi there}}
+      &amp; Column g2a\\
+      &amp; Column g2b \\
+      &amp; Column g2c \\
+      &amp; Column g2d \\
+\hline
+\end{tabular}
+</pre>
+</blockquote>
+(which gives text going upwards; use angle <tt>-90</tt> for text going
+downwards, of course).
+
+<p>
+To make a <code>&#x5c;multicolumn</code> multi-row &ldquo;cell&rdquo; in a table, you have to
+enclose a <code>&#x5c;multirow</code> inside a <code>&#x5c;multicolumn</code>&nbsp;&mdash; the other way
+around does not work, so:
+<blockquote>
+
+<pre>
+\begin{tabular}{|c|c|c|}\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{combined cells}}
+     &amp;top right\\ \cline{3-3}
+\multicolumn{2}{|c|}{}
+     &amp;middle right\\ \hline
+bottom left
+     &amp;bottom center
+     &amp;bottom right\\ \hline
+\end{tabular}
+</pre>
+
+
+<pre>
+\begin{tabular}{|c|c|c|}\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}%
+                           {combined cells}}
+     &amp;top right\\ \cline{3-3}
+\multicolumn{2}{|c|}{}
+     &amp;middle right\\ \hline
+bottom left
+     &amp;bottom center
+     &amp;bottom right\\ \hline
+\end{tabular}
+</pre>
+
+</blockquote>
+<i class="package">Multirow</i> is set up to interact with the <i class="package">bigstrut</i>
+package (which is also discussed in the answer to 
+<a class="FAquestion.html" href="FAQ-struttab.html">spacing lines in tables</a>).  You use an
+optional argument to the <code>&#x5c;multirow</code> command to say how many of the
+rows in the multi-row have been opened up with <code>&#x5c;bigstrut</code>.
+
+<p>
+The documentation of both <i class="package">multirow</i> and <i class="package">bigstrut</i> is
+to be found, as comments, in the package files themselves.
+<dl>
+<dt class="ctanref">bigstrut.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bigstrut">bigstrut</a>
+<dt class="ctanref">multirow.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/multirow">multirow</a>
+</dl>
+
+<p>
+
+<p>
+
+<p>

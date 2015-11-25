@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-centre-flt</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>Why is my table/figure/&hellip; not centred?</h1>
+
+
+<p>
+
+<p>
+You want a float whose contents are centred, but LaTeX ignores your
+<code class="environment">center</code> environment.  Most likely, you have written:
+<blockquote>
+<pre>
+\begin{center}
+  \begin{figure}
+    ...
+  \end{figure}
+\end{center}
+</pre>
+</blockquote>
+In this case, LaTeX has &ldquo;taken the <code class="environment">figure</code> away&rdquo;,
+and will typeset it at some location it fancies (it does the same with
+<code class="environment">table</code>s) the only thing we can say (for sure) about the
+location is that it <em>won&rsquo;t</em> be inside that <code class="environment">center</code>
+environment.  As a result, the <code class="environment">center</code> environment is
+left with nothing to do&nbsp;&hellip; except to 
+<a href="FAQ-vertspacefloat.html">make a mess of your vertical spacing</a>.
+
+<p>
+The solution is the same as that outlined in 
+<a href="FAQ-vertspacefloat.html">the same answer</a>, noting that all control of
+an <code class="environment">figure</code> or <code class="environment">table</code> needs to be
+inside the environment.  So the example&rsquo;s code should be converted to
+<blockquote>
+<pre>
+\begin{figure}
+  \centering
+  ...
+\end{figure}
+</pre>
+</blockquote>
+(or something similar for a <code class="environment">table</code>).
+[[[LastEdit]]]*[[[LBRACE]]]2013-11-19[[[RBRACE]]]
+
+<p>

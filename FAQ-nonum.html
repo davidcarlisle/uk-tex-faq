@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-nonum</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>&ldquo;Missing number, treated as zero&rdquo;</h1>
+
+
+<p>
+
+<p>
+In general, this means you&rsquo;ve tried to assign something to a count,
+dimension or skip register that isn&rsquo;t (in TeX&rsquo;s view of things) a
+number.  Usually the problem will become clear using the
+<a href="FAQ-erroradvice.html">ordinary techniques of examining errors</a>.
+
+<p>
+Two LaTeX-specific errors are commonly aired on the newsgroups.
+
+<p>
+The commonest arises from attempting to use an example from the
+<a href="FAQ-latex-books.html"><em>The LaTeX Companion</em> (first edition)</a>, and is
+exemplified by the following error text:
+<pre>
+! Missing number, treated as zero.
+<to be read again> 
+                   \relax 
+l.21 \begin{Ventry}{Return values}
+</pre>
+The problem arises because, in its first edition, the
+<em>Companion</em>&rsquo;s examples always assumed that the <i class="package">calc</i>
+package is loaded: this fact is mentioned in the book, but often not
+noticed.  The remedy is to load the <i class="package">calc</i> package in any
+document using such examples from the <em>Companion</em>.  (The problem
+does not really arise with the second edition; copies of all the
+examples are available on the accompanying [[[CDROM]]][[[LBRACE]]][[[RBRACE]]], or on
+CTAN.)
+
+<p>
+The other problem, which is increasingly rare nowadays, arises from
+misconfiguration of a system that has been upgraded from LaTeX 2.09:
+the document uses the <i class="package">times</i> package, and the error appears
+at <code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code>.  The file search paths are wrongly set
+up, and your <code>&#x5c;usepackage</code><code>&#x7b;times&#x7d;</code> has picked up a LaTeX 2.09
+version of the package, which in its turn has invoked another which
+has no equivalent in LaTeX 2e.  The obvious solution is to rewrite
+the paths so that LaTeX 2.09 packages are chosen only as a last resort
+so that the startlingly simple LaTeX 2e <i class="package">times</i> package will
+be picked up.  Better still is to replace the whole thing with
+something more modern still; current <i class="package">psnfss</i> doesn&rsquo;t provide
+a <i class="package">times</i> package&nbsp;&mdash; the alternative <i class="package">mathptmx</i>
+incorporates <i class="fontname">Times</i>-like mathematics, and a sans-serif face
+based on <i class="fontname">Helvetica</i>, but scaled to match <i class="fontname">Times</i>
+text rather better.
+<dl>
+<dt class="ctanref">calc.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[calc]
+<dt class="ctanref">Examples for LaTeX Companion</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tlc2">tlc2</a>
+<dt class="ctanref">The psnfss bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/psnfss">psnfss</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-06-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-nonum">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-nonum</a>
+
+<p>

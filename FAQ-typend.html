@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-typend</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>&ldquo;Please type a command or say <code>&#x5c;end</code>&rdquo;</h1>
+
+
+<p>
+
+<p>
+Sometimes, when you are running (La)TeX, it will abruptly stop and
+present you with a prompt (by default, just a <code class="verb">*</code> character).  Many
+people (including this author) will reflexively hit the &lsquo;return&rsquo;
+key, pretty much immediately, and of course this is no help at all&nbsp;&mdash;
+TeX just says:
+<pre>
+(Please type a command or say `\end')
+</pre>
+and prompts you again.
+
+<p>
+What&rsquo;s happened is that your (La)TeX file has finished prematurely,
+and TeX has fallen back to a supposed including file, from the
+terminal.  This could have happened simply because you&rsquo;ve omitted
+the <code>&#x5c;bye</code> (Plain TeX), <code>&#x5c;end</code><code>&#x7b;document&#x7d;</code> (LaTeX), or
+whatever.  Other common errors are failure to close the braces round a
+command&rsquo;s argument, or (in LaTeX) failure to close a verbatim
+environment: in such cases you&rsquo;ve already read and accepted an
+error message about encountering end of file while scanning something.
+
+<p>
+If the error is indeed because you&rsquo;ve forgotten to end your document,
+you can insert the missing text: if you&rsquo;re running Plain TeX, the
+advice, to &ldquo;say <code>&#x5c;end</code>&rdquo; is good enough: it will kill the run; if
+you&rsquo;re running LaTeX, the argument will be necessary:
+<code>&#x5c;end</code><code>&#x7b;document&#x7d;</code>.  
+
+<p>
+However, as often as not this isn&rsquo;t the problem, and (short of
+debugging the source of the document before ending) brute force is
+probably necessary.  Excessive force (killing the job that&rsquo;s
+running TeX) is to be avoided: there may well be evidence in the
+<code class="extension">log</code> file that will be useful in determining what the
+problem is&nbsp;&mdash; so the aim is to persuade TeX to shut itself down
+and hence flush all log output to file.
+
+<p>
+If you can persuade TeX to read it, an end-of-file indication
+(control-<code class="verb">D</code> under Unix, control-<code class="verb">Z</code> under Windows) will provoke
+TeX to report an error and exit immediately.  Otherwise you should
+attempt to provoke an error dialogue, from which you can exit (using
+the <code class="verb">x</code> &lsquo;command&rsquo;).  An accessible error could well be inserting an
+illegal character: what it is will depend on what macros you are
+running.  If you can&rsquo;t make that work, try a silly command name or
+two.
+
+<p>

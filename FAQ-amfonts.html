@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-amfonts</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThingsareGoingWronghellip">Things are Going Wrong&hellip;</a> &gt; <a href="index.html#Thingshaveldquogoneawayrdquo">Things have &ldquo;gone away&rdquo;</a> &gt; </div>
+<h1>Where are the <tt>am</tt> fonts?</h1>
+
+
+<p>
+
+<p>
+One <em>still</em> occasionally comes across a request for the <i class="fontname">am</i>
+series of fonts.  The initials stood for &lsquo;Almost [Computer] Modern&rsquo;,
+and they were the predecessors of the Computer Modern fonts that we
+all know and love (or hate)
+[[[begin]]][[[LBRACE]]]footnoteenv[[[RBRACE]]]
+  The fonts acquired their label &lsquo;Almost&rsquo; following the realisation
+  that their first implementation in MetaFont79 still wasn&rsquo;t quite right;
+  Knuth&rsquo;s original intention had been that they were the final answer.
+[[[end]]][[[LBRACE]]]footnoteenv[[[RBRACE]]].
+There&rsquo;s not a lot one can do with these
+fonts; they are (as their name implies) almost (but not quite) the
+same as the <i class="fontname">cm</i> series; if you&rsquo;re faced with a document that requests
+them, the only reasonable approach is to edit the document to replace
+<i class="fontname">am*</i> font names with <i class="fontname">cm*</i>.
+
+<p>
+The appearance of DVI files that request them is sufficiently
+rare that no-one has undertaken the mammoth task of creating a
+translation of them by means of virtual fonts.
+
+<p>
+You therefore have to fool the system into using <i class="fontname">cm*</i> fonts
+where the original author specified <i class="fontname">am*</i>.
+
+<p>
+One option is the font substitutions that many
+DVI drivers provide via their configuration file&nbsp;&mdash;
+specify that every <i class="fontname">am</i> font should be replaced by its
+corresponding <i class="fontname">cm</i> font.
+
+<p>
+Alternatively, one may try DVI editing&nbsp;&mdash; packages
+<i class="package">dtl</i> (DVI Text Language) and <i class="package">dviasm</i>
+(DVI assembler) can both provide round trips from DVI to
+text and back to DVI.  One therefore edits font names
+(throughout the text representation of the file) in the middle of that
+round trip.
+
+<p>
+The DTL text is pretty straightforward, for this purpose:
+fontnames are in single quotes at the end of lines, so:
+<blockquote>
+  <tt>dv2dt -o</tt> &lsaquo;<i>doc.txt</i>&rsaquo; &lsaquo;<i>doc.dvi</i>&rsaquo;<br>
+  (<em>edit the <code class="extension">txt</code> file</em>)<br>
+  <tt>dt2dv -o</tt> &lsaquo;<i>edited.dvi</i>&rsaquo; &lsaquo;<i>edited.txt</i>&rsaquo;
+</blockquote>
+(you have to compile the C programs for this).
+
+<p>
+<i class="progname">Dviasm</i> is a <i class="progname">Python</i> script; its output has font
+names in a section near the start of the document, and then dotted
+about through the body, so:
+<blockquote>
+  <tt>python dviasm.py -o</tt> &lsaquo;<i>doc.txt</i>&rsaquo; &lsaquo;<i>doc.dvi</i>&rsaquo;<br>
+  (<em>edit the <code class="extension">txt</code> file</em>)<br>
+  <tt>python dviasm.py -o</tt> &lsaquo;<i>edited.dvi</i>&rsaquo; &lsaquo;<i>edited.txt</i>&rsaquo;
+</blockquote>
+Both routes seem acceptable ways forward; it is a matter of taste
+which any particular user may choose (it&rsquo;s not likely that it will be
+necessary very often...).
+<dl>
+<dt class="ctanref">dviasm.py</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dviasm">dviasm</a>
+<dt class="ctanref">dtl</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dtl">dtl</a>
+</dl>
+
+<p>

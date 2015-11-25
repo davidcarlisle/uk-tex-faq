@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-boldgreek</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Symbolsetc">Symbols, etc.</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>Setting bold Greek letters in LaTeX maths</h1>
+
+
+<p>
+
+<p>
+The issue here is complicated by the fact that <code>&#x5c;mathbf</code> (the
+command for setting bold <em>text</em> in TeX maths) affects a select
+few mathematical &lsquo;symbols&rsquo; (the uppercase Greek letters).
+
+<p>
+In the default configuration, lower-case Greek letters behave
+differently from upper-case Greek letters (the lower-case greek
+letters are in the maths fonts, while the upper-case letters are in
+the original (OT1-encoded) text fonts).
+
+<p>
+The Plain TeX solution <em>does</em> work, in a limited way; you set a
+maths <em>style</em>, before you start an equation; thus
+<blockquote>
+<pre>
+{\boldmath$\theta$}
+</pre>
+</blockquote>
+does the job, but <code>&#x5c;boldmath</code> may not be used in maths mode.  As a
+result, this solution requires that you embed single bold characters
+in a text box:
+<blockquote>
+<pre>
+$... \mbox{\boldmath$\theta$} ...$
+</pre>
+</blockquote>
+which then causes problems in superscripts, etc.  With
+<i class="package">amsmath</i> loaded,
+<blockquote>
+<pre>
+$... \text{\boldmath$\theta$} ...$
+</pre>
+</blockquote>
+does the trick (and is less bad in regard to superscripts, etc), but
+is an unsatisfactory solution, too.
+
+<p>
+These problems may be addressed by using a bold mathematics package.
+<ul>
+<li> The <i class="package">bm</i> package, which is part of the LaTeX tools
+  distribution, defines a command <code>&#x5c;bm</code> which may be used anywhere
+  in maths mode.
+<li> The <i class="package">amsbsy</i> package (which is part of AMSLaTeX)
+  defines a command <code>&#x5c;boldsymbol</code>, which (though slightly less
+  comprehensive than <code>&#x5c;bm</code>) covers almost all common cases.
+</ul>
+
+<p>
+All these solutions apply to all mathematical symbols, not merely
+Greek letters.
+<dl>
+<dt class="ctanref">bm.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[bm]
+<dt class="ctanref">amsbsy.sty</dt><dd>Distributed as part of AMSLaTeX <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>[amsbsy]
+<dt class="ctanref">amsmath.sty</dt><dd>Distributed as part of AMSLaTeX
+  <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>[amsmath]
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-06-12</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-boldgreek">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-boldgreek</a>
+
+<p>

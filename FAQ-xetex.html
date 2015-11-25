@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-xetex</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#CurrentTeXrelatedprojects">Current TeX-related projects</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>XeTeX</h1>
+
+
+<p>
+
+<p>
+<a href="http://scripts.sil.org/xetex.html">XeTeX</a>, by Jonathan Kew, is a
+successor to the shareware TeX/GX program for Macintoshes.  It was
+developed as a WEB &lsquo;change file&rsquo; applied to the original source
+of TeX; the main changes include:
+<dl>
+<dt class="description">The input stage</dt><dd> XeTeX by default reads Unicode (UTF-8, for
+  instance), although it&rsquo;s also capable of interpreting differently
+  encoded files (for backwards compatibility).  Multibyte characters
+  are reduced to a single internal character upon reading, so they are
+  considered as a unique entity when tokenization is performed.  (So,
+  for example, you can have command names in cyrillic, if you must,
+  but such a practice is not recommended.)
+<dt class="description">The font management</dt><dd> a substantial revision has added support
+  for OpenType and TrueType fonts, delegating some parts to
+  third-party libraries.
+<dt class="description">The maths font set up</dt><dd> XeTeX introduces new primitives for
+  extending the <code>&#x5c;mathcode</code> and <code>&#x5c;mathchardef</code> commands in TeX,
+  allowing the user to specify characters in the whole Unicode set and
+  in 256 &lsquo;math families&rsquo; (TeX only has 16, which limits some maths
+  coding techniques).
+<dt class="description">&ldquo;Post-processing&rdquo; features (A)</dt><dd> XeTeX links to the
+  <i class="progname">teckit</i> library so it can apply a <code class="extension">map</code> file
+  that allows transformation of characters in already formed token
+  lists, before they are processed in the &ldquo;stomach&rdquo; for typesetting.
+  In this way, a declaration &ldquo;<tt>Ligatures=TeX</tt>&rdquo; is provided,
+  which attaches a map directive to the font that transforms the
+  character combinations (familiar to TeX users) into a single
+  character; for instance <tt>-[[[LBRACE]]][[[RBRACE]]]-[[[LBRACE]]][[[RBRACE]]]-</tt> is transformed into
+  &ldquo;&mdash;&rdquo;.
+<dt class="description">&ldquo;Post-processing&rdquo; features (B)</dt><dd> Characters can be assigned to
+  an &ldquo;interchar token class&rdquo; and it is possible to specify tokens to
+  be added when there is a transition from one class to another.  The
+  packages <i class="package">polyglossia</i>, <i class="package">xeCJK</i> and
+  <i class="package">ucharclasses</i> exploit this feature.
+</dl>
+Otherwise, the process of typesetting is essentially the same as
+TeX&rsquo;s.  (However some changes have also been made in the
+hyphenation stage that may give slightly different results if the same
+document is compiled with PDFTeX or XeTeX.)
+<dl>
+<dt class="ctanref">polyglossia.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/polyglossia">polyglossia</a>
+<dt class="ctanref">xeCJK.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xecjk">xecjk</a>
+<dt class="ctanref">ucharclasses.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ucharclasses">ucharclasses</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-02-21</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-xetex">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-xetex</a>
+
+<p>
+
+<p>

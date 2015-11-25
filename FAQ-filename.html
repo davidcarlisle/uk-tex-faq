@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-filename</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Documentmanagement">Document management</a> &gt; </div>
+<h1>What&rsquo;s the name of this file</h1>
+
+
+<p>
+
+<p>
+One might want this so as to automatically generate a page header or
+footer recording what file is being processed.  It&rsquo;s not easy&hellip;
+
+<p>
+TeX retains what it considers the name of the <em>job</em>, only, in
+the primitive <code>&#x5c;jobname</code>; this is the name of the file first
+handed to TeX, stripped of its directory name and of any extension
+(such as <code class="extension">tex</code>).  If no file was passed (i.e., you&rsquo;re using
+TeX interactively), <code>&#x5c;jobname</code> has the value <tt>texput</tt>
+(the name that&rsquo;s given to <code class="extension">log</code> files in this case).
+
+<p>
+This is fine, for the case of a small document, held in a single file;
+most significant documents will be held in a bunch of files, and
+TeX makes no attempt to keep track of files input to the
+<em>job</em>.  So the user has to keep track, himself&nbsp;&mdash; the only way
+is to patch the input commands and cause them to retain details of the
+file name.  This is particularly difficult in the case of Plain TeX,
+since the syntax of the <code>&#x5c;input</code> command is so peculiar.
+
+<p>
+In the case of LaTeX, the input commands have pretty regular
+syntax, and the simplest <a href="FAQ-patch.html">patching techniques</a> can be
+used on them.  (Note that latex[[[LBRACE]]][[[RBRACE]]]&rsquo;s <code>&#x5c;input</code> command is itself a
+patch on top of the Plain TeX command.  Our patches apply to the
+LaTeX version of the command, which is used as <code>&#x5c;input</code><code>&#x7b;file&#x7d;</code>)
+
+<p>
+
+
+
+%% <pre>
+%% \def\ThisFile{\jobname}
+%% \let\OldInput\input
+%% \renewcommand{\input}[1]{%
+%%   \renewcommand{\ThisFile}{#1}%
+%%   \OldInput#1%
+%% }
+%% </pre>
+
+
+
+
+
+
+
+
+%% <pre>
+%% \documentclass{article}
+%% ... (macros above)
+%% \begin{document}
+%% \input{preamble}
+%% <body of document>
+%% \input{postamble}
+%% \end{document}
+%% </pre>
+
+
+
+
+<p>
+
+
+
+
+
+
+%% <pre>
+%% \def\ThisFile{\jobname}
+%% \newcounter{FileStack}
+%% \let\OrigInput\input
+%% \renewcommand{\input}[1]{%
+%%   \stackinput{#1}{\OrigInput}%
+%% }
+%% \newcommand{\stackinput}[2]{%
+%%   \stepcounter{FileStack}%
+%%   \expandafter\let
+%%     \csname NameStack\theFileStack\endcsname
+%%     \ThisFile
+%%   \def\ThisFile{#1}%
+%%   #2#1%
+%%   \expandafter\let\expandafter
+%%     \ThisFile
+%%     \csname NameStack\theFileStack\endcsname
+%%   \addtocounter{FileStack}{-1}%
+%% }
+%% </pre>
+
+
+
+%% <pre>
+%% \let\OrigInclude\include
+%% \renewcommand{\include}[1]{%
+%%   \stackinput{#1}{\OrigInclude}%
+%% }
+%% </pre>
+
+
+
+
+<p>
+It is possible to keep track of the name of the file currently being
+processed, but it&rsquo;s surprisingly difficult (these FAQs offered
+code, for a long time, that just didn&rsquo;t work in many cases).
+
+<p>
+The <i class="package">currfile</i> package provides a regular means of keeping
+track of the details of the current file (its name in
+<code>&#x5c;currfilename</code>, directory in <code>&#x5c;currfiledir</code>, as well as the
+file &lsquo;base&rsquo; name (less its extension) and its extension).
+<i class="package">Currfile</i> does this with the help of a second package,
+<i class="package">filehook</i>, which spots file operations that use <code>&#x5c;input</code>,
+<code>&#x5c;InputIfFileExists</code> and <code>&#x5c;include</code>, as well as package and
+class loading.
+
+<p>
+The <i class="package">FiNK</i> (&ldquo;File Name Keeper&rdquo;) package keeps track of the
+file name and extension, in a macro <code>&#x5c;finkfile</code>.  <i class="package">FiNK</i> is
+now deprecated, in favour of <i class="package">currfile</i>, but remains available
+for use in old documents.
+
+
+
+
+%% <pre>
+%% \def\striptexext#1.tex{#1}
+%% ...
+%% \edef\ThisFile{\expandafter\stripext\finkfile}
+%% </pre>
+
+
+The <i class="package">FiNK</i> bundle includes a <i class="filename">fink.el</i> that provides
+support under <i class="progname">emacs</i> with AUC-TeX.
+<dl>
+<dt class="ctanref">currfile.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/currfile">currfile</a>
+<dt class="ctanref">filehook.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/filehook">filehook</a>
+<dt class="ctanref">fink.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fink">fink</a>
+</dl>
+
+<p>

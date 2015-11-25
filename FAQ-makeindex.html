@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-makeindex</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>Generating an index in (La)TeX</h1>
+
+
+<p>
+
+<p>
+Making an index is not trivial; what to index, and how to index it, is
+difficult to decide, and uniform implementation is difficult to
+achieve.  You will need to mark all items to be indexed in your text
+(typically with <code>&#x5c;index</code> commands).
+
+<p>
+It is not practical to sort a large index within TeX, so a
+post-processing program is used to sort the output of one TeX run,
+to be included into the document at the next run.
+
+<p>
+The following programs are available:
+<dl>
+<dt class="description">makeindex</dt><dd> Comes with most distributions&nbsp;&mdash; a good workhorse,
+  but is not well-arranged to deal with other sort orders than the
+  canonical ASCII ordering.
+
+<p>
+  The <i class="package">makeindex</i> documentation is a good source of
+  information on how to create your own index. <i class="package">Makeindex</i> can
+  be used with some TeX
+  macro packages other than LaTeX, such as 
+  <a href="FAQ-eplain.html">Eplain</a>, and TeX (whose macros can
+  be used independently with Plain TeX).
+<dt class="description">idxtex</dt><dd> for LaTeX under VMS; <i class="progname">idxtex</i> comes
+  with a glossary-maker <i class="progname">glotex</i>.
+<dt class="description">texindex(1)</dt><dd> A witty little shell-script using <i class="progname">sed</i>
+  and <i class="progname">awk</i>; designed for LaTeX under Unix.
+<dt class="description">texindex(2)</dt><dd> The <a href="FAQ-texinfo.html">Texinfo</a> system also offers a program
+  <i class="progname">texindex</i>, whose source is to be found in the
+  <i class="progname">texinfo</i> distribution.  The <i class="package">ltxindex</i> package
+  provides macros that enable LaTeX users to use this
+  <i class="progname">texindex</i>.
+<dt class="description">xindy</dt><dd> arose from frustration at the difficulty of making a
+  multi-language version of <i class="progname">makeindex</i>.  It is designed to
+  be a successor to <i class="progname">makeindex</i>, by a team that included the
+  then-current maintainer of <i class="progname">makeindex</i>.  It successfully
+  addresses many of <i class="progname">makeindex</i>&rsquo;s shortcomings, including
+  difficulties with collation order in different languages, and it is
+  highly flexible.
+
+<p>
+  <i class="progname">Xindy</i> itself will work with Unicode (UTF-8) encoded
+  LaTeX input.  A separate application (<i class="progname">texindy</i>) deals
+  with &lsquo;standard&rsquo; LaTeX source, processes it and passes
+  &lsquo;sanitised&rsquo; text to <i class="progname">Xindy</i>.
+</dl>
+<dl>
+<dt class="ctanref">idxtex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/glo+idxtex">glo+idxtex</a>
+<dt class="ctanref">ltxindex.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ltxindex">ltxindex</a>
+<dt class="ctanref">makeindex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/makeindex">makeindex</a>
+<dt class="ctanref">makeindex (Macintosh)</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/macmakeindex">macmakeindex</a>
+<dt class="ctanref">texindex (the script)</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texindex">texindex</a>
+<dt class="ctanref">texindex (the program)</dt><dd>Distributed
+  with <a class="ctan" href="https://www.ctan.org/pkg/texinfo">texinfo</a>
+<dt class="ctanref">texsis (system)</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texsis">texsis</a>
+<dt class="ctanref">texsis (makeindex support)</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texsis-index">texsis-index</a>
+<dt class="ctanref">xindy</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xindy">xindy</a>
+</dl>
+
+<p>

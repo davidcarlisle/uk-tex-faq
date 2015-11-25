@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-acrobat</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HypertextandPDF">Hypertext and PDF</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Making PDF documents from (La)TeX</h1>
+
+
+<p>
+
+<p>
+There are three general routes to PDF output: Adobe&rsquo;s original
+&lsquo;distillation&rsquo; route (via PostScript output), direct conversion of a
+DVI file, and the use of a direct TeX-like PDF
+generator such as <a href="FAQ-whatpdftex.html">PDFTeX</a>.
+
+<p>
+For simple documents (with no hyper-references), you can either
+<ul>
+<li> process the document in the normal way, produce PostScript
+  output and distill it;
+<li> (on a Windows or Macintosh machine with appropriate
+  tools installed) pass the output through a PDFwriter in place
+  of a printer driver.  This route is only appropriate for simple
+  documents: PDF writers cannot create hyperlinks;
+<li> process the document with &ldquo;vanilla&rdquo; LaTeX and generate PDF
+  direct from the DVI using <i class="progname">dvipdfm</i>/<i class="progname">dvipdfmx</i>; or 
+<li> process the document direct to PDF with PDFTeX,
+  <a href="FAQ-luatex.html">LuaTeX</a>, or <a href="FAQ-xetex.html">XeTeX</a>.
+</ul>
+
+<p>
+To translate all the LaTeX cross-referencing into Acrobat
+links, you need a LaTeX package to redefine
+the internal commands.  There are two of these for LaTeX, both
+capable of conforming to the
+<a href="FAQ-hyper.html">HyperTeX specification</a>:
+Heiko Oberdiek&rsquo;s <i class="package">hyperref</i>, and Michael Mehlich&rsquo;s
+<i class="package">hyper</i>.  (In practice, almost everyone uses
+<i class="package">hyperref</i>; <i class="package">hyper</i> hasn&rsquo;t been updated since 2000.)
+<i class="package">Hyperref</i> can often determine how it should generate
+hypertext from its environment, but there is a wide set of
+configuration options you can give via <code>&#x5c;usepackage</code>.  The package
+can operate using PDFTeX primitives, the hyperTeX
+<code>&#x5c;special</code>s, or DVI driver-specific <code>&#x5c;special</code> commands.
+Both <i class="progname">dvips</i> and Y&amp;Y&rsquo;s <i class="progname">DVIPSONE</i> can
+translate the DVI with these <code>&#x5c;special</code> commands into
+PostScript acceptable to Distiller, and
+<i class="progname">dvipdfm</i> and <i class="progname">dvipdfmx</i> have <code>&#x5c;special</code> commands of
+their own.
+
+<p>
+If you use Plain TeX, the <a href="FAQ-eplain.html">Eplain macros</a> can
+help you create PDF documents with hyper-references.
+It can operate using PDFTeX primitives, or <code>&#x5c;special</code> commands
+for the <i class="progname">dvipdfm</i>/<i class="progname">dvipdfmx</i> DVI drivers.
+
+<p>
+While there is no free implementation of all of <i class="progname">Adobe</i>
+<i class="progname">Distiller</i>&rsquo;s
+functionality, any but the implausibly old versions of
+<a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a>
+provide pretty reliable distillation (but beware of the problems with
+<a href="FAQ-dvips-pdf.html"><i class="progname">dvips</i> output for distillation</a>).
+
+<p>
+For viewing (and printing) the resulting files, Adobe&rsquo;s
+<i class="progname">Acrobat</i> <i class="progname">Reader</i> is available for a fair range of
+platforms; for those for which Adobe&rsquo;s reader is unavailable, remotely
+current versions of <a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a>
+combined with <i class="progname">gv</i> or
+<a href="http://www.ghostgum.com.au/.html"><i class="progname">gsview</i></a> can display and
+print PDF files, as can <i class="progname">xpdf</i>.
+
+<p>
+In some circumstances, a
+<a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a>-based viewer
+application is actually preferable to Acrobat Reader.  For example, on
+Windows Acrobat Reader locks the <code class="extension">pdf</code> file it&rsquo;s displaying: this
+makes the traditional (and highly effective) (La)TeX development
+cycle of &ldquo;Edit&rarr;Process&rarr;Preview&rdquo; become
+rather clumsy&nbsp;&mdash; <a href="http://www.ghostgum.com.au/.html"><i class="progname">gsview</i></a>
+doesn&rsquo;t make the same <mistake.
+<dl>
+<dt class="ctanref">Acrobat Reader</dt><dd>download from <a href="http://get.adobe.com/reader.html">http://get.adobe.com/reader</a>
+<dt class="ctanref">dvipdfm</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dvipdfm">dvipdfm</a>
+<dt class="ctanref">dvipdfmx</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dvipdfmx">dvipdfmx</a>
+<dt class="ctanref">gv</dt><dd>Browse <a class="ctan" href="https://www.ctan.org/pkg/gv">gv</a>
+<dt class="ctanref">hyper.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyper">hyper</a>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2014-01-22</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-acrobat">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-acrobat</a>
+
+<p>

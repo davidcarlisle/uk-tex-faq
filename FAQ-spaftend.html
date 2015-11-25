@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-spaftend</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>There&rsquo;s a space added after my environment</h1>
+
+
+<p>
+
+<p>
+You&rsquo;ve written your own environment <code class="environment">env</code>, and it works
+except that a space appears at the start of the first line of typeset
+text after <code>&#x5c;end</code><code>&#x7b;env&#x7d;</code>.  This doesn&rsquo;t happen with similar
+LaTeX-supplied environments.
+
+<p>
+You could impose the restriction that your users always put a
+&ldquo;<tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt>&rdquo; sign after the environment&nbsp;&hellip; but
+LaTeX environments don&rsquo;t require that, either.
+
+<p>
+The LaTeX environments&rsquo; &ldquo;secret&rdquo; is an internal flag which causes
+the unwanted spaces to be ignored.  Fortunately, you don&rsquo;t have to use
+the internal form: since 1996, LaTeX has had a user command
+<code>&#x5c;ignorespacesafterend</code>, which sets the internal flag.
+
+<p>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-wordcount</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#SupportPackagesforTeX">Support Packages for TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>How many words have you written?</h1>
+
+
+<p>
+
+<p>
+One often has to submit a document (e.g., a paper or a dissertation)
+under some sort of constraint about its size.  Sensible people set a
+constraint in terms of numbers of pages, but there are some that
+persist in limiting the numbers of words you type.
+
+<p>
+A simple solution to the requirement can be achieved following a
+simple observation: the powers that be are unlikely to count all the
+words of a document submitted to them.  Therefore, a statistical
+method can be employed: find how many words there are on a full page;
+find how many full pages there are in the document (allowing for
+displays of various sorts, this number will probably not be an
+integer); multiply the two.  However, if the document to be submitted
+is to determine the success of the rest of one&rsquo;s life, it takes a
+brave person to thumb their nose at authority quite so
+comprehensively&hellip;
+
+<p>
+The simplest method is to strip out the (La)TeX markup, and to count
+what&rsquo;s left.  On a  Unix-like system, this may be done using
+<i class="progname">detex</i> and the built-in <i class="progname">wc</i>:
+<blockquote>
+<pre>
+detex <filename> | wc -w
+</pre>
+</blockquote>
+The technique is beguilingly simple, but it&rsquo;s not terribly accurate
+
+<p>
+The <i class="progname">latexcount</i> script does the same sort of job, in one
+&ldquo;step&rdquo;; being a <i class="progname">perl</i> script, it is in principle rather
+easily configured (see documentation inside the script).
+Several <a href="FAQ-editors.html">editors and shells</a> offer something similar.
+
+<p>
+<i class="progname">TeXcount</i> goes a long way with heuristics for counting,
+starting from a LaTeX file; the documentation is comprehensive, and
+you may try the script on-line via the 
+
+  <a href="http://folk.uio.no/einarro/Comp/texwordcount.html.html">package home page</a>.
+
+
+
+
+
+
+<p>
+However, even quite sophisticated stripping of (La)TeX markup can
+never be entirely reliable: markup itself may contribute typeset
+words, or even consume words that appear in the text.
+
+<p>
+The <i class="package">wordcount</i> package
+contains a Bourne shell (i.e., typically Unix) script for running a
+LaTeX file with a special piece of supporting TeX code, and then
+counting word indications in the log file.  This is probably as
+accurate automatic counting as you can get, if it works for you.
+<dl>
+<dt class="ctanref">detex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/detex">detex</a>
+<dt class="ctanref">latexcount.pl</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latexcount">latexcount</a>
+<dt class="ctanref">TeXcount</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texcount">texcount</a>
+<dt class="ctanref">wordcount</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/wordcount">wordcount</a>
+</dl>
+
+<p>
+
+
+<p>
+
+<p>
+
+<p>

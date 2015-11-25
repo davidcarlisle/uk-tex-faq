@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-instprinterfont</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>&lsquo;Installing&rsquo; a PostScript printer built-in font</h1>
+
+
+<p>
+
+<p>
+There is a &ldquo;standard&rdquo; set of fonts that has appeared in every PostScript
+printer since the second generation of the type.  These fonts
+(8&nbsp;families of four text fonts each, and three special-purpose fonts)
+are of course widely used, because of their simple availability.  The
+set consists of:
+<ul>
+<li> <i class="fontname">Times</i> family (4 fonts)
+<li> <i class="fontname">Palatino</i> family (4 fonts)
+<li> <i class="fontname">New</i> <i class="fontname">Century</i> <i class="fontname">Schoolbook</i> family (4 fonts)
+<li> <i class="fontname">Bookman</i> family (4 fonts)
+<li> <i class="fontname">Helvetica</i> family (4 fonts)
+<li> <i class="fontname">Avant</i> <i class="fontname">Garde</i> (4 fonts)
+<li> <i class="fontname">Courier</i> family (4 fonts)
+<li> <i class="fontname">Utopia</i> family (4 fonts)
+<li> Zapf <i class="fontname">Chancery</i> (1 font)
+<li> Zapf <i class="fontname">Dingbats</i> (1 font)
+<li> <i class="fontname">Symbol</i> (1 font)
+</ul>
+All these fonts are supported, for LaTeX users, by the
+<i class="package">psnfss</i> set of metrics and support files in the file
+<i class="filename">lw35nfss.zip</i> on CTAN.  Almost any remotely modern TeX
+system will have some version of <i class="package">psnfss</i> installed, but
+users should note that the most recent version has much improved
+coverage of maths with <i class="fontname">Times</i> (see package
+<i class="package">mathptmx</i>) and with <i class="fontname">Palatino</i> (see package
+<i class="package">mathpazo</i>, as well as a more reliable set of font metrics.
+
+<p>
+The archive <i class="filename">lw35nfss.zip</i> is laid out according to the
+TDS, so in principle, installation consists simply of
+&ldquo;unzipping&rdquo; the file at the root of a <tt class="path">texmf</tt> tree.
+
+<p>
+Documentation of the <i class="package">psnfss</i> bundle is provided in
+<i class="filename">psnfss2e.pdf</i> in the distribution.
+<dl>
+<dt class="ctanref">mathpazo.sty</dt><dd>Part of the <i class="package">psnfss</i> bundle
+<dt class="ctanref">mathptmx.sty</dt><dd>Part of the <i class="package">psnfss</i> bundle
+<dt class="ctanref">psnfss bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/psnfss">psnfss</a>
+</dl>
+
+<p>

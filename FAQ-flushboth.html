@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-flushboth</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Spacingofcharactersandlines">Spacing of characters and lines</a> &gt; </div>
+<h1>Cancelling <code>&#x5c;ragged</code> commands</h1>
+
+
+<p>
+
+<p>
+LaTeX provides commands <code>&#x5c;raggedright</code> and <code>&#x5c;raggedleft</code>, but
+none to cancel their effect.  The <code>&#x5c;centering</code> command is
+implemented in the same way as the <code>&#x5c;ragged*</code> commands, and suffers
+in the same way.
+
+<p>
+The following code (to be inserted in a package of your own, or as
+
+<a href="FAQ-atsigns.html">internal LaTeX code</a>) defines a command that
+restores flush justification at both margins:
+<pre>
+\def\flushboth{%
+  \let\\\@normalcr
+  \@rightskip\z@skip \rightskip\@rightskip
+  \leftskip\z@skip
+  \parindent 1.5em\relax}
+</pre>
+There&rsquo;s a problem with the setting of <code>&#x5c;parindent</code> in the code: it&rsquo;s
+necessary because both the <code>&#x5c;ragged</code> commands set <code>&#x5c;parindent</code> to
+zero, but the setting isn&rsquo;t a constant of nature: documents using a
+standard LaTeX class with <code class="pkgoption">twocolumn</code> option will have
+<tt>1.0em</tt> by default, and there&rsquo;s no knowing what you (or some
+other class) will have done.
+
+<p>
+Any but a really old copy of Martin Schr\"oder&rsquo;s <i class="package">ragged2e</i>
+package has a <code>&#x5c;justifying</code> command to match its 
+<a href="FAQ-ragright.html">versions of the LaTeX &lsquo;ragged&rsquo; commands</a>.  The
+package also provides a <code class="environment">justify</code> environment, which
+permits areas of justified text in a larger area which is ragged.
+<dl>
+<dt class="ctanref">ragged2e.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/ms">ms</a>[ragged2e]
+</dl>
+
+
+
+
+
+
+
+
+
+
+<p>
+
+<p>
+
+<p>

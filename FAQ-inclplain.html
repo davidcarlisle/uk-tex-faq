@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-inclplain</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Documentmanagement">Document management</a> &gt; </div>
+<h1>Including Plain TeX files in LaTeX</h1>
+
+
+<p>
+
+<p>
+LaTeX, though originally <a href="FAQ-LaTeXandPlain.html">based on Plain TeX</a>, does not
+contain all of Plain TeX&rsquo;s commands.  Worse, some Plain TeX
+command names appear in LaTeX, with different semantics.  As a
+result, special measures need to be taken to allow general Plain TeX
+documents (or parts of documents) to be typeset within LaTeX.
+
+<p>
+The truly reliable way is to translate the Plain TeX commands, to
+produce an equivalent of the original&rsquo;s semantics.  However, this is
+not practical in many circumstances, and for those occasions, the
+<i class="package">plain</i> package will often come to your aid.  The package
+defines a <code class="environment">plain</code> environment, in which a Plain TeX
+document may be processed:
+<blockquote>
+<pre>
+\begin{plain}
+  \input{plain-doc}
+\end{plain}
+</pre>
+</blockquote>
+The package is known to fail, for example, with documents that use
+AMSTeX; no doubt it would also fail if asked to load Eplain.
+All these things can be overcome (although it&rsquo;s not often easy), but
+the environment saves a lot of work on many occasions.
+<dl>
+<dt class="ctanref">plain.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/carlisle">carlisle</a>[plain-ltx]
+</dl>
+
+<p>
+
+<p>
+
+<p>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-buildbib</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingbibliographies">Creating bibliographies</a> &gt; </div>
+<h1>Creating a BibTeX bibliography file</h1>
+
+
+<p>
+
+<p>
+A BibTeX bibliography file may reasonably be compared to a small
+database, the entries in which are references to literature that may
+be called up by citations in a document.
+
+<p>
+Each entry in the bibliography has a <em>type</em> and a unique
+<em>key</em>.  The bibliography is read, by BibTeX, using the details
+specified in a <em>bibliography style</em>.  From the style, BibTeX
+finds what entry types are permissible, what <em>fields</em> each entry
+type has, and how to format the whole entry.
+
+<p>
+The type specifies the type of document you&rsquo;re making reference to; it
+may run all the way from things like &ldquo;<code class="environment">Book</code>&rdquo; and
+&ldquo;<code class="environment">Proceedings</code>&rdquo; (which may even contain other citations
+of type &ldquo;<code class="environment">InBook</code>&rdquo; or  &ldquo;<code class="environment">InProceedings</code>&rdquo;)
+through dissertation styles like  &ldquo;<code class="environment">PhdThesis</code>&rdquo; to
+otherwise-uncategorisable things such as &ldquo;<code class="environment">Misc</code>&rdquo;.  The
+unique key is something you choose yourself: it&rsquo;s what you use when
+you want to <a href="FAQ-usebibtex.html">cite an entry in the file</a>.  People
+commonly create a key that combines the (primary) author&rsquo;s name and
+the year of publication, possibly with a marker to distinguish
+publications in the same year.  So, for example, the Dyson, Eddington,
+Davidson paper about deflection of starlight appears in my
+experimental <code class="extension">bib</code> file as <tt>Dyson20.1</tt>.
+
+<p>
+So, noting the rules of the style, you have &lsquo;simply&rsquo; to write a
+bibliography database.  Fortunately, there are several tools to help
+in this endeavour:
+<ul>
+<li> Most of the better <a href="FAQ-editors.html">(La)TeX-oriented editors</a>
+  have &ldquo;BibTeX modes&rdquo;.
+<li> If you have an existing <code class="environment">thebibliography</code>
+  environment, the <i class="progname">Perl</i> script <i class="progname">tex2bib</i> will
+  probably help.
+<li> There are a number of BibTeX bibliography management systems
+  available, some of which permit a graphical user interface to the
+  task.  Sadly, none seems to be available with the ordinary TeX
+  distributions.
+
+<p>
+  Tools such as <i class="progname">Xbibfile</i> (a graphical user interface),
+  <i class="progname">ebib</i> (a database application written to run &lsquo;inside&rsquo;
+  <i class="progname">emacs</i>) and 
+  <i class="progname">btOOL</i> (a set of <i class="progname">perl</i> tools for building 
+  BibTeX database handlers) are available from CTAN.
+
+<p>
+  Other systems, such as
+  <a href="http://refdb.sourceforge.net/.html"><i class="progname">RefDB</i></a>,
+  <a href="http://www.nongnu.org/biborb.html">BibORB</a>,
+  <a href="http://bibdesk.sourceforge.net/.html"><i class="progname">BibDesk</i></a>,
+  <a href="http://pybliographer.org.html"><i class="progname">pybliographer</i></a> and the
+  <i class="progname">Java</i>-based
+  <a href="http://freshmeat.net/projects/bibkeeper/.html"><i class="progname">Bibkeeper</i></a>
+  and <a href="http://jabref.sourceforge.net.html"><i class="progname">JabRef</i></a> (which
+  claims to supersede <i class="progname">Bibkeeper</i>)
+  are only available from their development sites.
+
+<li> Some commercial citation-management systems will export in
+  BibTeX format; an example is
+  <a href="http://www.endnote.com/.html">EndNote</a>.
+<li> Data from on-line citation databases may often be translated to
+  BibTeX format by utilities to be found on CTAN.  For
+  example, the <i class="progname">Perl</i> script <i class="progname">isi2bibtex</i> will
+  translate citations from ISI &ldquo;Web of knowledge&rdquo; (a
+  subscription service, available to UK academics via
+  BIDS).  UK academics may translate BIDS downloads
+  using <i class="progname">bids.to.bibtex</i>
+<li> <a href="http://scholar.google.com.html">Google Scholar</a> provides an
+  &ldquo;Import into BibTeX&rdquo; tab for each reference it finds for you:
+  that tab gives you a page containing a BibTeX entry for the
+  reference.
+</ul>
+<dl>
+<dt class="ctanref">bids.to.bibtex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bidstobibtex">bidstobibtex</a>
+<dt class="ctanref">btOOL</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/btOOL">btOOL</a>
+<dt class="ctanref">ebib</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ebib">ebib</a>
+<dt class="ctanref">isi2bibtex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/isi2bibtex">isi2bibtex</a>
+<dt class="ctanref">tex2bib</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tex2bib">tex2bib</a>
+<dt class="ctanref">tex2bib.readme</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tex2bib-doc">tex2bib-doc</a>
+<dt class="ctanref">xbibfile</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xbibfile">xbibfile</a>
+</dl>
+
+<p>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-backref</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingcitations">Creating citations</a> &gt; </div>
+<h1>References from the bibliography to the citation</h1>
+
+
+<p>
+
+<p>
+A link (or at least a page reference), from the bibliography to the
+citing command, is often useful in large documents.
+
+<p>
+Two packages support this requirement, <i class="package">backref</i> and
+<i class="package">citeref</i>.  <i class="package">Backref</i> is part of the
+<i class="package">hyperref</i> bundle, and supports hyperlinks back to the citing
+command.
+
+<p>
+<i class="package">Citeref</i> is the older, and seems to rely on rather simpler
+(and therefore possibly more stable) code; it produces a list of page
+references, only.  It doesn&rsquo;t interact well with other citation
+packages (for example, <i class="package">cite</i>), which probably reflects its
+antiquity (it&rsquo;s derived from a LaTeX 2.09 package).
+
+<p>
+Neither collapses
+lists of pages (&ldquo;<tt>5, 6, 7</tt>&rdquo; comes out as such, rather than as
+&ldquo;<tt>5&ndash;7</tt>&rdquo;), but neither package repeats the reference to a page that
+holds multiple citations.  (The failure to collapse lists is of course
+forgiveable in the case of the <i class="package">hyperref</i>-related
+<i class="package">backref</i>, since the concept of multiple hyperlinks from the
+same anchor is less than appealing.)
+<dl>
+<dt class="ctanref">backref.sty</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+<dt class="ctanref">citeref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/citeref">citeref</a>
+</dl>
+
+<p>

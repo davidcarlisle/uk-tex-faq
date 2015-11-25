@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-exscale</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>Maths symbols don&rsquo;t scale up</h1>
+
+
+<p>
+
+<p>
+By default, the &ldquo;large&rdquo; maths symbols stay at the same size
+regardless of the font size of the text of the document.  There&rsquo;s good
+reason for this: the <i class="fontname">cmex</i> fonts aren&rsquo;t really designed to
+scale, so that TeX&rsquo;s maths placement algorithms don&rsquo;t perform as
+well as they might when the fonts are scaled.
+
+<p>
+However, this behaviour confounds user expectations, and can lead to
+slightly odd-looking documents.  If you want the fonts to scale,
+despite the warning above, use the <i class="package">exscale</i> package&nbsp;&mdash; just
+loading it is enough.
+
+
+
+
+<dl>
+<dt class="ctanref">exscale.sty</dt><dd>Part of the LaTeX distribution.
+</dl>
+
+<p>

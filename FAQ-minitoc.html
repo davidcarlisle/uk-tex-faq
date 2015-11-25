@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-minitoc</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Tablesofcontentsandindexes">Tables of contents and indexes</a> &gt; </div>
+<h1>Table of contents, etc., per chapter</h1>
+
+
+<p>
+
+<p>
+The common style, of a &ldquo;small&rdquo; table of contents for each part,
+chapter, or even section, is supported by the <i class="package">minitoc</i>
+package.  The package also supports mini-lists of tables and figures;
+but, as the documentation observes, mini-bibliographies present a
+different problem&nbsp;&mdash; see
+<a class="FAquestion.html" href="FAQ-chapbib.html">bibliographies per chapter</a>.
+
+<p>
+The package&rsquo;s basic scheme is to generate a little <code class="extension">aux</code> file for
+each chapter, and to process that within the chapter.  Simple usage
+would be:
+<blockquote>
+<pre>
+\usepackage{minitoc}
+...
+\begin{document}
+...
+\dominitoc \tableofcontents
+\dominilof \listoffigures
+...
+\chapter{blah blah}
+\minitoc \mtcskip \minilof
+...
+</pre>
+</blockquote>
+though a lot of elaborations are possible (for example, you don&rsquo;t need
+a <code>&#x5c;minitoc</code> for every chapter).
+
+<p>
+<i class="package">Babel</i> doesn&rsquo;t know about <i class="package">minitoc</i>, but
+<i class="package">minitoc</i> makes provision for other document languages than
+English&nbsp;&mdash; a wide variety is available.  Fortunately, the current
+version of the <i class="package">hyperref</i> package does know about
+<i class="package">minitoc</i> and treats <code>&#x5c;minitoc</code> tables in the
+same way as &ldquo;real&rdquo; tables of contents.
+<dl>
+<dt class="ctanref">babel.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/babel">babel</a>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+<dt class="ctanref">minitoc.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/minitoc">minitoc</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-03-05</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-minitoc">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-minitoc</a>
+
+<p>

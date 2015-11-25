@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-virtualfonts</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What are virtual fonts?</h1>
+
+
+<p>
+
+<p>
+Virtual fonts provide a means of collecting bits and pieces together
+to make the glyphs of a font: the bits and pieces may be glyphs from
+&ldquo;other&rdquo; fonts, rules and other &ldquo;basic&rdquo; typesetting commands, and
+the positioning information that specifies how everything comes
+together.
+
+<p>
+An early instance of something like virtual fonts for TeX was
+implemented by David Fuchs to use an unusual printer.  However, for
+practical purposes for the rest of us, virtual fonts date from when Knuth
+specified a format and wrote some support software, in 1989 (he
+published an 
+<a href="http://tug.org/TUGboat/tb11-1/tb27knut.pdf.html">article in <i class="slanted">TUGboat</i></a>
+at the time; a plain text copy is available on CTAN).
+
+<p>
+Virtual fonts provide a way of telling TeX about something more
+complicated than just a one-to-one character mapping.  TeX reads a
+TFM file of the font, just as before, but the DVI
+processor will read the VF and use its content to specify how
+each glyph is to be processed.
+
+<p>
+The virtual font may contain commands:
+<ul>
+<li> to &lsquo;open&rsquo; one or more (real) fonts for subsequent use,
+<li> to remap a glyph from one of the (real) fonts for use in the
+  virtual font,
+<li> to build up a more complicated effect (using DVI commands).
+</ul>
+
+<p>
+
+
+In practice, the most common use of virtual fonts is to remap
+Adobe Type 1 fonts (see <a class="FAquestion.html" href="FAQ-metrics.html">font metrics</a>),
+though there has also been useful useful work building &lsquo;fake&rsquo; maths
+fonts (by bundling glyphs from several fonts into a single virtual
+font).  Virtual Computer Modern fonts, making a 
+<a href="FAQ-ECfonts.html">Cork encoded</a> font from Knuth&rsquo;s originals by using
+remapping and fragments of DVI for single-glyph &lsquo;accented
+characters&rsquo;, were the first &ldquo;Type&nbsp;1 format&rdquo; Cork-encoded Computer
+Modern fonts available.
+
+<p>
+Virtual fonts are normally created in a single ASCII VPL
+(Virtual Property List) file, which includes two sets of information.
+The <i class="progname">vptovf</i> utility will use the VPL file to create
+the binary TFM and VF files.
+
+<p>
+A &ldquo;how-to&rdquo; document, explaining how to generate a VPL,
+describes the endless hours of fun that may be had, doing the job by
+hand.  Despite the pleasures to be had, the commonest way (nowadays)
+of generating an VPL file is to use the 
+<i class="progname">fontinst</i> package, which is described in more detail
+together with the discussion of
+<a class="FAin answer.html" href="FAQ-metrics.html">PostScript font metrics</a>.
+<i class="package">Qdtexvpl</i> is another utility for creating ad-hoc virtual
+fonts (it uses TeX to parse a description of the virtual font, and
+<i class="progname">qdtexvpl</i> itself processes the resulting DVI file).
+<dl>
+<dt class="ctanref">fontinst</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fontinst">fontinst</a>
+<dt class="ctanref">Knuth on virtual fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/vf-knuth">vf-knuth</a>
+<dt class="ctanref">Virtual fonts &ldquo;how to&rdquo;</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/vf-howto">vf-howto</a>
+<dt class="ctanref">qdtexvpl</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/qdtexvpl">qdtexvpl</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-10-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-virtualfonts">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-virtualfonts</a>
+
+<p>

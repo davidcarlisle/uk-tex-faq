@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-complist</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Lists">Lists</a> &gt; </div>
+<h1>How to adjust list spacing</h1>
+
+
+<p>
+
+<p>
+<a href="FAQ-latex-books.html">Lamport&rsquo;s book</a> lists various
+parameters for the layout of list (things like <code>&#x5c;topsep</code>,
+<code>&#x5c;itemsep</code> and <code>&#x5c;parsep</code>), but fails to mention that they&rsquo;re set
+automatically within the standard (LaTeX-defined) lists.  This
+happens because each list
+executes a command <code>&#x5c;@list</code><tt>&lsaquo;<i>depth</i>&rsaquo;</tt> (the depth
+appearing as a lower-case roman numeral); what&rsquo;s more, the top-level
+<code>&#x5c;@listi</code> is usually reset when the font size is changed.  As a
+result, it&rsquo;s rather tricky for 
+the user to control list spacing.  Of course, the real answer is to use
+a document class designed with more modest list spacing, but we all
+know such things are hard to come by.  The <i class="class">memoir</i> class doesn&rsquo;t
+provide more compact lists, but offers the user control over the list
+spacing using <code>&#x5c;firmlist</code> and <code>&#x5c;tightlist</code> (and <tt>*</tt>-ed
+versions of them); see section&nbsp;8.6 of the memoir manual.
+
+<p>
+There are packages that provide some control of list spacing, but they
+seldom address the separation from surrounding text (defined by
+<code>&#x5c;topsep</code>).  The <i class="package">expdlist</i> package, among its many controls
+of the appearance of <code class="environment">description</code> lists, offers a
+compaction parameter (see the documentation); the <i class="package">mdwlist</i>
+package offers a <code>&#x5c;makecompactlist</code> command for users&rsquo; own list
+definitions, and uses it to define compact lists
+<code class="environment">itemize*</code>, <code class="environment">enumerate*</code> and
+<code class="environment">description*</code>.  In fact, you can write lists such as
+these commands define pretty straightforwardly&nbsp;&mdash; for example:
+<blockquote>
+<pre>
+\newenvironment{itemize*}%
+  {\begin{itemize}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+  {\end{itemize}}
+</pre>
+</blockquote>
+The <i class="package">paralist</i> package provides several approaches to list
+compaction:
+<ul>
+<li> its <code class="environment">asparaenum</code> environment formats each item as if
+  it were a paragraph introduced by the enumeration label (which saves
+  space if the item texts are long);
+<li> its <code class="environment">compactenum</code> environment is the same sort of
+  compact list as is provided in <i class="package">expdlist</i> and
+  <i class="package">mdwlist</i>; and
+<li> its <code class="environment">inparaenum</code> environment produces a list &ldquo;in
+  the paragraph&rdquo;, i.e., with no line break between items, which is a
+  great space-saver if the list item texts are short.
+</ul>
+The package will manipulate its <code class="environment">enumerate</code> environment
+labels just like the <a href="FAQ-enumerate.html"><i class="package">enumerate</i> package</a>
+does.
+
+<p>
+<i class="package">Paralist</i> also provides <code class="environment">itemize</code> equivalents
+(<code class="environment">asparaitem</code>, etc.), and <code class="environment">description</code>
+equivalents (<code class="environment">asparadesc</code>, etc.).
+
+<p>
+The <i class="package">multenum</i> package offers a more regular form of
+<i class="package">paralist</i>&rsquo;s <code class="environment">inparaenum</code>; you define a notional
+grid on which list entries are to appear, and list items will always
+appear at positions on that grid.  The effect is somewhat like that of
+the &lsquo;tab&rsquo; keys on traditional typewriters; the package was designed
+for example sheets, or lists of answers in the appendices of a book.
+
+<p>
+The <i class="package">expdlist</i>, <i class="package">mdwlist</i> and <i class="package">paralist</i>
+packages all offer other facilities for list configuration: you should
+probably not try the &ldquo;do-it-yourself&rdquo; approaches outlined below if
+you need one of the packages for some other list configuration
+purpose.
+
+<p>
+For ultimate flexibility (including manipulation of <code>&#x5c;topsep</code>), the
+<i class="package">enumitem</i> package permits adjustment of list parameters using
+a &ldquo;<em>key</em>=&lsaquo;<i>value</i>&rsaquo;&rdquo; format.
+For example, one might write
+<blockquote>
+<pre>
+\usepackage{enumitem}
+...
+\begin{enumerate}[topsep=0pt, partopsep=0pt]
+\item ...
+\item ...
+\end{enumerate}
+</pre>
+</blockquote>
+to suppress all spacing above and below your list, or
+<blockquote>
+<pre>
+\usepackage{enumitem}
+...
+\begin{enumerate}[itemsep=2pt,parsep=2pt]
+\item ...
+\item ...
+\end{enumerate}
+</pre>
+</blockquote>
+to set spacing between items and between paragraphs within items.
+<i class="package">Enumitem</i> also permits manipulation of the label format in a
+more &ldquo;basic&rdquo; (and therefore more flexible) manner than the 
+<a href="FAQ-enumerate.html"><i class="package">enumerate</i> package</a> does.
+
+<p>
+The ultimate in compaction (of every sort) is offered by the
+<i class="package">savetrees</i> package; compaction of lists is included.  The
+package&rsquo;s prime purpose is to save space at every touch and turn:
+don&rsquo;t use it if you&rsquo;re under any design constraint whatever!
+<dl>
+<dt class="ctanref">enumerate.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[enumitem]
+<dt class="ctanref">enumitem.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/enumitem">enumitem</a>
+<dt class="ctanref">expdlist.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/expdlist">expdlist</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">memoir manual</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir-man">memoir-man</a>
+<dt class="ctanref">mdwlist.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/mdwtools">mdwtools</a>[mdwlist]
+<dt class="ctanref">multenum.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/multenum">multenum</a>
+<dt class="ctanref">paralist.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/paralist">paralist</a>
+<dt class="ctanref">savetrees.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/savetrees">savetrees</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-10-30</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-complist">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-complist</a>
+
+<p>

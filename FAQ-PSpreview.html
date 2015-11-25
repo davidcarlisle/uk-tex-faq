@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-PSpreview</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#AdobeTypenbspldquoPostScriptrdquofonts">Adobe Type&nbsp;1 (&ldquo;PostScript&rdquo;) fonts</a> &gt; </div>
+<h1>Previewing files using Type 1 fonts</h1>
+
+
+<p>
+
+<p>
+Originally, free TeX previewers were only capable of displaying
+bitmap (PK) fonts, but free Type&nbsp;1 font rendering software has
+been available for some time, and many previewers now use such
+facilities.
+
+<p>
+The alternative, for previewers, is automatic generation of the
+requisite PK files (using <i class="progname">gsftopk</i>, or similar,
+behind the scenes).
+
+<p>
+In the unlikely event that your previewer isn&rsquo;t capable of either, you
+have a couple options:
+<ul>
+<li> Convert the DVI file to PostScript and use a
+  PostScript previewer.  Some systems offer this capability as
+  standard, but most people will need to use a separate previewer such
+  as <a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a> or
+  <i class="progname">ghostscript</i>-based viewers
+  such as (free) <i class="progname">gv</i> or (shareware)
+  <a href="http://www.ghostgum.com.au/.html"><i class="progname">gsview</i></a>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li> If you have the PostScript fonts in Type&nbsp;1 format, use
+  <i class="progname">ps2pk</i> or <i class="progname">gsftopk</i> (designed for use with the
+  <a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a> fonts) to
+  make PK bitmap fonts which
+  your previewer will understand (a process similar to the way some
+  browsers fo the job &lsquo;automatically&rsquo;) This can produce adequate results,
+  also suitable for printing with non-PostScript devices.  (Note: if you
+  purchased the fonts, it is advisable to check that their licence
+  permits you to convert them, for private use, in this way.)
+</ul>
+<dl>
+<dt class="ctanref">gsftopk</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/gsftopk">gsftopk</a>
+<dt class="ctanref">gv</dt><dd>Browse <a class="ctan" href="https://www.ctan.org/pkg/gv">gv</a>
+<dt class="ctanref">ps2pk</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ps2pk">ps2pk</a>
+</dl>
+
+<p>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-textrace</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#CurrentTeXrelatedprojects">Current TeX-related projects</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Making outline fonts from MetaFont</h1>
+
+
+<p>
+
+<p>
+<i class="progname">TeXtrace</i>, originally developed by  P\&rsquo;eter Szab\&rsquo;o, is a
+bundle of Unix scripts that use  Martin Weber&rsquo;s freeware boundary
+tracing package
+<a href="http://autotrace.sourceforge.net.html"><i class="progname">autotrace</i></a> to 
+generate Type&nbsp;1 outline fonts from MetaFont bitmap 
+font outputs.  The result is unlikely ever to be of the quality of
+the commercially-produced Type&nbsp;1 font, but there&rsquo;s always the
+<a href="http://fontforge.sourceforge.net/.html"><i class="progname">FontForge</i></a> font
+editor to tidy things.  Whatever, there
+remain fonts which many people find useful and which fail to attract
+the paid experts, and auto-tracing is providing a useful service here.
+Notable sets of
+fonts generated using <i class="progname">TeXtrace</i> are P\&rsquo;eter Szab\&rsquo;o&rsquo;s own
+EC/TC font set <i class="fontname">tt2001</i> and Vladimir Volovich&rsquo;s
+CM-Super set, which covers the EC, TC, and the
+Cyrillic LH font sets (for details of both of which sets, see
+<a class="FAanswer.html" href="FAQ-type1T1.html">&ldquo;8-bit&rdquo; type 1 fonts</a>).
+
+<p>
+Another system, which arrived slightly later, is 
+<a href="http://www.cs.uu.nl/&nbsp;hanwen/mftrace/.html"><i class="progname">mftrace</i></a>:
+this is a small <i class="progname">Python</i> program that does the same job.
+<i class="progname">Mftrace</i> may use either <i class="progname">autotrace</i> (like
+<i class="progname">TeXtrace</i>) or Peter Selinger&rsquo;s
+<a href="http://potrace.sourceforge.net.html"><i class="progname">potrace</i></a> to produce
+the initial outlines to process.  <i class="progname">Mftrace</i> is said to be
+more flexible, and easier to use, than is <i class="progname">TeXtrace</i>, but both systems
+are increasingly being used to provide Type&nbsp;1 fonts to the public domain.
+
+<p>
+The <i class="progname">MetaType1</i> system aims to use MetaFont font sources, by way
+of MetaPost and a bunch of scripts and so on, to produce high-quality
+Type&nbsp;1 fonts.  The first results, the 
+<a href="FAQ-type1T1.html"><i class="package">Latin Modern</i> fonts</a>, are now
+well-established, and a bunch of existing designs have been reworked
+in MetaType1 format.
+
+<p>
+<i class="package">Mf2pt1</i> is another translator of MetaFont font sources by way of
+MetaPost; in addition,
+available, <i class="package">mf2pt1</i> will use
+<a href="http://fontforge.sourceforge.net/.html"><i class="progname">fontforge</i></a> (if it&rsquo;s
+available) to auto-hint the result of its conversion.
+(<i class="package">Mf2pt1</i> is also written in <i class="progname">perl</i>.)
+<dl>
+<dt class="ctanref">MetaType1</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/metatype1">metatype1</a>
+<dt class="ctanref">mf2pt1</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mf2pt1">mf2pt1</a>
+</dl>
+
+<p>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-whatenv</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What are LaTeX &ldquo;environments&rdquo;</h1>
+
+
+<p>
+
+<p>
+While TeX makes direct provision for commands, LaTeX adds a
+concept of &ldquo;environment&rdquo;; environments perform an action on a block
+(of something or other) rather than than just doing something at one
+place in your document.
+
+<p>
+A totally trivial environment could change the font in use for a chunk
+of text, as
+<blockquote>
+<pre>
+\newenvironment{monoblock}%
+  {\ttfamily}%
+  {}
+</pre>
+</blockquote>
+which defines a <code class="environment">monoblock</code> which may be used as
+<blockquote>
+<pre>
+\begin{monoblock}
+  some text set in monospace
+\end{monoblock}
+</pre>
+</blockquote>
+which will look like:
+<blockquote>
+  <tt>some text set in monospace</tt>
+</blockquote>
+so it is a particularly simple example.  A rather complicated
+environment is introduced by <code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code>; it looks
+simple, but needs all sorts of special TeX code to make it work
+&lsquo;transparently&rsquo;; most environments are more elaborate than
+<code class="environment">monoblock</code> and <em>much</em> simpler than
+<code class="environment">document</code>.
+
+<p>
+An environment puts its content inside a TeX <em>group</em>, so that
+commands used inside the environment don&rsquo;t &lsquo;leak out&rsquo;&nbsp;&mdash; the
+<code class="environment">monoblock</code> environment, above, restricts its effect to
+its own contents (the stuff between the <code>&#x5c;begin</code><code>&#x7b;monoblock&#x7d;</code>
+and <code>&#x5c;end</code><code>&#x7b;monoblock&#x7d;</code>), which is just what you need for this
+sort of thing.
+
+<p>
+So that&rsquo;s &ldquo;simple&rdquo; environments; the <code class="environment">monoblock</code>, above
+doesn&rsquo;t actually gain us much over
+<blockquote>
+<pre>
+{\ttfamily some text set in monospace}
+</pre>
+</blockquote>
+though in fact many useful environments are just as simple (to look
+at).  Some, such as <code class="environment">verbatim</code>, look simple but are
+actually very tricky inside.
+
+<p>
+LaTeX also allows arguments to an environment:
+<blockquote>
+<pre>
+\newenvironment{fontblock}[1]%
+  {#1\selectfont}%
+  {}
+</pre>
+</blockquote>
+and use of <code class="environment">fontblock</code> as:
+<blockquote>
+<pre>
+\begin{fontblock}{\ttfamily}
+</pre>
+</blockquote>
+would produce the same effect as the <code class="environment">monoblock</code>
+environment.
+
+<p>
+Environments may also have optional arguments, in much the same way as
+commands:
+<blockquote>
+<pre>
+\newenvironment{normaltext}[1][\itshape]%
+  {#1}%
+  {}
+</pre>
+</blockquote>
+which will ordinarily set its body in italic, but
+<blockquote>
+<pre>
+\begin{normaltext}[\ttfamily]
+  ...
+\end{normaltext}
+</pre>
+</blockquote>
+will observe its optional argument, and behave the same as the
+<code class="environment">monoblock</code> we started with.
+
+<p>
+Note that an environments argument(s) (mandatory or optional) are
+<em>not</em> passed to the &lsquo;<code>&#x5c;end</code>&rsquo; text of the environment&nbsp;&mdash; that
+is specified as a macro with no arguments, so that
+<blockquote>
+<pre>
+\newenvironment{normaltext}[1][\itshape]%
+  {#1}%
+  {\typeout{what was #1, again?}
+</pre>
+</blockquote>
+produces an error message
+<blockquote>
+<pre>
+! Illegal parameter number in definition of \endnormaltext.
+</pre>
+</blockquote>
+So, if you need to pass an environment argument to the end-code, you
+have to wrap it in a macro of its own:
+<blockquote>
+<pre>
+\newenvironment{normaltext}[1][Intro]%
+  {#1%
+   \newcommand{\foo}{#1}}%
+  {\typeout{what was \foo{}, again?}
+</pre>
+</blockquote>
+[[[LastEdit]]]*[[[LBRACE]]]2013-02-20[[[RBRACE]]]
+
+<p>

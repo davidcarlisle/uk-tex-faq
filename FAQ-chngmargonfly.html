@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-chngmargonfly</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Pagelayout">Page layout</a> &gt; </div>
+<h1>Changing margins &ldquo;on the fly&rdquo;</h1>
+
+
+<p>
+
+<p>
+One of the surprises characteristic of TeX use is that you cannot
+change the width or height of the text within the document, simply by
+modifying the text size parameters; TeX can&rsquo;t change the text width
+on the fly, and LaTeX only ever looks at text height when starting
+a new page.
+
+<p>
+So the simple rule is that the parameters should only be
+changed in the preamble of the document, i.e., before the
+<code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code> statement (so before any typesetting has
+happened.
+
+<p>
+To adjust text width within a document we define an environment:
+<blockquote>
+<pre>
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+</pre>
+</blockquote>
+The environment takes two arguments, and will indent the left and
+right margins, respectively, by the parameters&rsquo; values. Negative
+values will cause the margins to be narrowed, so
+<code>&#x5c;begin</code><code>&#x7b;changemargin&#x7d;</code></code><code>&#x7b;-1cm&#x7d;</code>[[[LBRACE]]]-1cm[[[RBRACE]]] narrows the left and right
+margins by 1 centimetre.
+
+<p>
+Given that TeX can&rsquo;t do this, how does it work?&nbsp;&mdash; well, the
+environment (which is a close relation of the LaTeX
+<code class="environment">quote</code> environment) <em>doesn&rsquo;t</em> change the text width
+as far as TeX is concerned: it merely moves text around inside the
+width that TeX believes in.
+
+<p>
+The <i class="package">changepage</i> package provides ready-built commands to do
+the above; it includes provision for changing the shifts applied to
+your text according to whether you&rsquo;re on an odd (<em>recto</em>) or an
+even (<em>verso</em>) page of a two-sided document.
+<i class="package">Changepage</i>&rsquo;s structure matches that of the <i class="class">memoir</i>
+class.
+
+<p>
+The (earlier) package <i class="package">chngpage</i> provides the same facilities,
+but it uses rather different syntax.  <i class="package">Changepage</i>&rsquo;s structure
+matches that of the <i class="class">memoir</i> class, and it should be used for
+any new work.
+
+<p>
+Changing the vertical dimensions of a page is more clumsy still: the
+LaTeX command <code>&#x5c;enlargethispage</code> adjusts the size of the current
+page by the size of its argument.  Common uses are
+<blockquote>
+<pre>
+\enlargethispage{\baselineskip}
+</pre>
+</blockquote>
+to make the page one line longer, or
+<blockquote>
+<pre>
+\enlargethispage{-\baselineskip}
+</pre>
+</blockquote>
+to make the page one line shorter.  The process is (to an extent)
+simplified by the <i class="package">addlines</i> package: its <code>&#x5c;addlines</code>
+command takes as argument the <em>number</em> of lines to add to the
+page (rather than a length): the package documentation also provides a
+useful analysis of when the command may (or may not) be expected to
+work.
+<dl>
+<dt class="ctanref">addlines.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/addlines">addlines</a>
+<dt class="ctanref">changepage.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/changepage">changepage</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-06-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-chngmargonfly">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-chngmargonfly</a>
+
+<p>

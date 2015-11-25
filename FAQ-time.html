@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-time</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>Printing the time</h1>
+
+
+<p>
+
+<p>
+TeX has a primitive register that contains &ldquo;the number of minutes
+since midnight&rdquo;; with this knowledge it&rsquo;s a moderately simple
+programming job to print the time (one that no self-respecting
+Plain TeX user would bother with anyone else&rsquo;s code for).
+
+<p>
+However, LaTeX provides no primitive for &ldquo;time&rdquo;, so the
+non-programming LaTeX user needs help.
+
+<p>
+Two packages are available, both providing ranges of ways of printing
+the date, as well as of the time: this question will concentrate on
+the time-printing capabilities, and interested users can investigate
+the documentation for details about dates.
+
+<p>
+The <i class="package">datetime</i> package defines two time-printing functions:
+<code>&#x5c;xxivtime</code> (for 24-hour time), <code>&#x5c;ampmtime</code> (for 12-hour time) and
+<code>&#x5c;oclock</code> (for time-as-words, albeit a slightly eccentric set of
+words).
+
+<p>
+The <i class="package">scrtime</i> package (part of the compendious
+<i class="class">KOMA-Script</i> bundle) takes a package option (<code class="pkgoption">12h</code> or
+<code class="pkgoption">24h</code>) to specify how times are to be printed.  The command
+<code>&#x5c;thistime</code> then prints the time appropriately (though there&rsquo;s no
+<em>am</em> or <em>pm</em> in <code class="pkgoption">12h</code> mode).  The <code>&#x5c;thistime</code>
+command also takes an optional argument, the character to separate the
+hours and minutes: the default is of course <tt>:</tt>.
+<dl>
+<dt class="ctanref">datetime.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/datetime">datetime</a>
+<dt class="ctanref">scrtime.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+</dl>
+
+<p>

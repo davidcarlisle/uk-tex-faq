@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tfm</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What are TFM files?</h1>
+
+
+<p>
+
+<p>
+TFM is an acronym for &lsquo;TeX Font Metrics&rsquo;; TFM files hold
+information about the sizes of the characters of the font in question,
+and about ligatures and kerns within that font.  One TFM file is
+needed for each font used by TeX, that is for each design (point)
+size for each weight for each family; each TFM file serves for all
+magnifications of &lsquo;its&rsquo; font, so that there are (typically) fewer
+TFM files than there are <a href="FAQ-pk.html">PK</a> files.  TeX,
+LaTeX, etc.,\@
+themselves need only know about the sizes of characters and their
+interactions with each other, but not what characters look like.  By
+contrast, TFM files are not, in principle, needed by the
+DVI driver, which only needs to know about the glyphs that each
+character selects, so as to print or display them.
+
+<p>
+Note that TrueType and OpenType fonts contain the necessary metrics,
+so that <a href="FAQ-xetex.html">XeTeX</a> and <a href="FAQ-luatex.html">LuaTeX</a>, using
+such fonts, have no need of TFM files.  A corollary of this is
+that setting up fonts for use by these engines is far <em>easier</em>.
+
+<p class="lastedit">This answer last edited: 2012-10-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-tfm">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-tfm</a>
+
+<p>

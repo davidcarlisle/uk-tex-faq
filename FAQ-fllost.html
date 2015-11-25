@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-fllost</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Float(s) lost</h1>
+
+
+<p>
+
+<p>
+The error
+<blockquote>
+<pre>
+! LaTeX Error: Float(s) lost.
+</pre>
+</blockquote>
+seldom occurs, but always seems deeply cryptic when it <em>does</em>
+appear.
+
+<p>
+The message means what it says: one or more figures, tables, etc., or
+marginpars has not been typeset.  (Marginpars are treated internally
+as floats, which is how they come to be lumped into this error
+message.)
+
+<p>
+The most likely reason is that you placed a float or a <code>&#x5c;marginpar</code>
+command inside another float or marginpar, or inside a
+<code class="environment">minipage</code> environment, a <code>&#x5c;parbox</code> or <code>&#x5c;footnote</code>.
+Note that the error may be detected a long way from the problematic
+command(s), so the techniques of 
+<a href="FAQ-erroradvice.html">tracking down elusive errors</a> all need to be
+called into play.
+
+<p>
+This author has also encountered the error when developing macros that
+used the LaTeX internal float mechanisms.  Most people doing that
+sort of thing are expected to be able to work out their own problems&hellip;
+
+<p>

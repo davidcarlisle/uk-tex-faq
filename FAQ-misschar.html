@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-misschar</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>Where have my characters gone?</h1>
+
+
+<p>
+
+<p>
+You&rsquo;ve typed some apparently reasonable text and processed it, but the
+result contains no sign of some of the characters you typed.  A likely
+reason is that the font you selected just doesn&rsquo;t have a
+representation for the character in question.
+
+<p>
+For example, if I type &ldquo;that will be [[[pounds]]][[[LBRACE]]][[[RBRACE]]]44.00&rdquo; into an ordinary
+(La)TeX document, or if I select the font <tt>rsfs10</tt> (which contains
+uppercase letters only) and type pretty much anything, the [[[pounds]]][[[LBRACE]]][[[RBRACE]]]
+sign, or any lowercase letters or digits will not appear in the
+output.  There&rsquo;s no actual error message, either: you have to read the
+log file, where you&rsquo;ll find cryptic little messages like
+<blockquote>
+
+<pre>
+Missing character: There is no ^^a3 in font cmr10!
+Missing character: There is no 3 in font rsfs10!
+</pre> 
+
+
+<pre>
+Missing character:
+           There is no ^^a3 in font cmr10!
+Missing character:
+             There is no 3 in font rsfs10!
+</pre> 
+
+</blockquote>
+(the former demonstrating my TeX&rsquo;s unwillingness to deal in characters
+which have the eighth bit set, while the <tt>rsfs10</tt> example shows that
+TeX will log the actual character in error, if it thinks it&rsquo;s
+possible).
+
+<p>
+Somewhat more understandable are the diagnostics you may get from
+<i class="package">dvips</i> when using the OT1 and T1 versions of
+fonts that were supplied in Adobe standard encoding:
+<blockquote>
+<pre>
+dvips: Warning: missing glyph `Delta'
+</pre>
+</blockquote>
+The process that generates the metrics for using the fonts generates
+an instruction to <i class="package">dvips</i> to produce these diagnostics, so
+that their non-appearance in the printed output is less surprising
+than it might be.  Quite a few glyphs provided in Knuth&rsquo;s text
+encodings and in the Cork encoding are not available in the Adobe
+fonts.  In these cases, there <em>is</em> a typeset sign of the
+character: <i class="progname">dvips</i> produces a black rectangle of whatever
+size the concocted font file has specified.
+
+<p>

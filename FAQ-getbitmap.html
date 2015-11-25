@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-getbitmap</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Acquiring bitmap fonts</h1>
+
+
+<p>
+
+<p>
+When CTAN was young, most people would start using TeX
+with a 300 dots-per-inch (dpi) laser printer, and sets of Computer
+Modern bitmap fonts for this resolution are available on CTAN.
+(There are separate sets for write-black and write-white printers, as
+well as sets at 120&nbsp;dpi and 240&nbsp;dpi.)
+
+<p>
+There used to regular requests that CTAN should hold
+a wider range of resolutions, but they were resisted for two reasons:
+<ul>
+<li> The need to decide which printers to generate fonts for.  The
+  broad-brush approach taken for 300&nbsp;dpi printers was (more or less)
+  justified back then, given the dominance of certain printer
+  &lsquo;engines&rsquo;, but nowadays one could not make any such assumption.
+<li> Given the above, it has been near-impossible to justify the
+  space that would be required by a huge array of bitmap fonts.
+</ul>
+Fortunately, (La)TeX distribution technology has put a stop to these
+arguments: most (if not all) current distributions generate bitmap
+fonts as needed, and cache them for later re-use.  The impatient
+user, who is determined that all bitmap fonts should be created once
+and for all, may be supported by scripts such as <i class="progname">allcm</i>
+(distributed with texlive, at least; otherwise such a
+person should consult &ldquo;<a href="FAQ-useMF.html">the use of MetaFont</a>)&rdquo;.
+
+<p>
+If your output is to a PostScript-capable device, or if your output is
+destined to be converted to PDF, you should switch to
+using Type&nbsp;1 versions of the CM fonts.  Two free
+sets are available; the older (<i class="package">bakoma</i>) is
+somewhat less well produced than the <i class="package">bluesky</i> fonts, which were
+originally professionally produced and sold, but were then released
+for general public use by their originators Y&amp;Y and Bluesky Research,
+in association with the AMS and other scientific publishers
+(they are nowadays available under the SIL&rsquo;s Open Fonts Licence).  The
+two sets contain slightly different ranges of fonts, but you are
+advised to use the <i class="package">bluesky</i> set except when <i class="package">bakoma</i>
+is for some reason absolutely unavoidable.  In recent years, several
+other &lsquo;MetaFont&rsquo; fonts have been converted to Type&nbsp;1 format; it&rsquo;s
+uncommon ever to need to generate bitmap fonts for any purpose other
+than previewing&nbsp;&mdash; see 
+<a href="FAQ-PSpreview.html">&ldquo;previewing documents with Type&nbsp;1 fonts&rdquo;</a>&nbsp;&mdash;
+if even then.
+
+<p>
+More modern fonts may be used in place of the Computer Modern set.  The
+<a href="FAQ-ECfonts.html">EC fonts</a> and the 
+<a href="FAQ-uselmfonts.html">Latin Modern fonts</a> are both close relatives with
+wider ranges of glyphs to offer.
+<dl>
+<dt class="ctanref">BaKoMa fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bakoma">bakoma</a>
+<dt class="ctanref">Bluesky fonts</dt><dd>Distributed as part of
+  <a class="ctan" href="https://www.ctan.org/pkg/amsfonts">amsfonts</a>
+<dt class="ctanref">CM fonts (write-black printers)</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pk300">pk300</a>
+<dt class="ctanref">CM fonts (write-white printers)</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pk300w">pk300w</a>
+<dt class="ctanref">EC fonts (Type 1 format)</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cm-super">cm-super</a>
+<dt class="ctanref">Latin Modern fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lm">lm</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-09-4</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-getbitmap">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-getbitmap</a>
+
+
+<p>
+
+<p>
+
+<p>

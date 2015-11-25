@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-footnpp</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Footnotes">Footnotes</a> &gt; </div>
+<h1>Footnotes numbered &ldquo;per page&rdquo;</h1>
+
+
+<p>
+
+<p>
+The obvious solution is to make the footnote number reset whenever the
+page number is stepped, using the 
+<a href="FAQ-addtoreset.html">LaTeX internal mechanism</a>.  Sadly, the place
+in the document where the page number is stepped is unpredictable, not
+(&ldquo;tidily&rdquo;) at the end of the printed page; so changing the footnote
+number only ever works by &lsquo;luck&rsquo;.
+
+<p>
+As a result, resetting footnotes is inevitably a complicated process,
+using labels of some sort.  It&rsquo;s nevertheless important, given the
+common requirement for footnotes marked by symbols (with painfully
+small symbol sets).  There are four packages that manage it, one way
+or another.
+
+<p>
+The <i class="package">perpage</i> and <i class="package">zref-perpage</i> packages provide a
+general mechanism for resetting counters per page, so can obviously be
+used for this task.  The interface is pretty simple:
+<code>&#x5c;MakePerPage</code><code>&#x7b;footnote&#x7d;</code> (in <i class="package">perpage</i>) or
+<code>&#x5c;zmakeperpage</code><code>&#x7b;footnote&#x7d;</code> (in <i class="package">zref-perpage</i>).  If
+you want to restart the counter at something other than&nbsp;1 (for example
+to avoid something in the LaTeX footnote symbol list), you can use:
+<code>&#x5c;MakePerPage</code><code>[2]</code></code><code>&#x7b;footnote&#x7d;</code> (in <i class="package">perpage</i>) or
+<code>&#x5c;zmakeperpage</code><code>[2]</code></code><code>&#x7b;footnote&#x7d;</code> (in <i class="package">zref-perpage</i>).
+Note that you can also load <i class="package">zref-perpage</i> 
+
+<p>
+<i class="package">Perpage</i> is a compact and efficient package;
+<i class="package">zref-perpage</i>, being a <i class="package">zref</i> &ldquo;module&rdquo;, comes with
+<i class="package">zref</i>&rsquo;s general mechanism for extending the the
+<code>&#x5c;label</code>&mdash;<code>&#x5c;[page]ref</code> of LaTeX, which can offer many other
+useful facilities.
+
+<p>
+The <i class="package">footmisc</i> package provides a variety of means of
+controlling footnote appearance, among them a package option
+<code class="pkgoption">perpage</code> that adjusts the numbering per page; if you&rsquo;re
+doing something else odd about footnotes, it means you may only need
+the one package to achieve your ends.
+
+<p>
+The <i class="package">footnpag</i> package also does per-page footnotes (and
+nothing else).  With the competition from <i class="package">perpage</i>, it&rsquo;s
+probably not particularly useful any more.
+<dl>
+<dt class="ctanref">footmisc.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/footmisc">footmisc</a>
+<dt class="ctanref">footnpag.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/footnpag">footnpag</a>
+<dt class="ctanref">perpage.sty</dt><dd>Distributed as part <a class="ctan" href="https://www.ctan.org/pkg/bigfoot">bigfoot</a>[perpage]
+
+<dt class="ctanref">zref-perpage.sty</dt><dd>Distributed as part of <i class="package">zref</i> in
+  <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[zref]
+</dl>
+
+<p>

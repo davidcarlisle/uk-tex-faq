@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-marginparside</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>Getting <code>&#x5c;marginpar</code> on the right side</h1>
+
+
+<p>
+
+<p>
+In an ideal world, marginal notes would be in &ldquo;analogous&rdquo; places on
+every page: notes on an even-side page would be in the left margin,
+while those on an odd-side page would be in the right margin.  A
+moment&rsquo;s thought shows that a marginal note on the left needs to be
+typeset differently from a marginal note on the right.  The LaTeX
+<code>&#x5c;marginpar</code> command therefore takes two arguments in a
+<tt>twoside</tt> documents: 
+<code>&#x5c;marginpar</code><code>[left text]</code></code><code>&#x7b;right text&#x7d;</code>.  LaTeX uses the
+&ldquo;obvious&rdquo; test to
+get the <code>&#x5c;marginpar</code>s in the correct margin, but a booby-trap arises
+because TeX runs its page maker asynchronously.  If a
+<code>&#x5c;marginpar</code> is processed while page n is being built, but
+doesn&rsquo;t get used until page n+1, then the <code>&#x5c;marginpar</code> will turn
+up on the wrong side of the page.  This is an instance of a general
+problem: see
+
+&ldquo;<a href="FAQ-oddpage.html">finding if you&rsquo;re on an odd or an even page</a>&rdquo;.
+
+<p>
+The solution to the problem is for LaTeX to &lsquo;remember&rsquo; which side
+of the page each <code>&#x5c;marginpar</code> <em>should</em> be on.  The
+<i class="package">mparhack</i> package does this, using label-like marks stored in
+the <code class="extension">aux</code> file; the <i class="class">memoir</i> class does likewise.
+<dl>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">mparhack.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mparhack">mparhack</a>
+</dl>
+
+<p>

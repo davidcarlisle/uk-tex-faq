@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-hyperdupdest</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>PDFTeX destination &hellip;\ ignored</h1>
+
+
+<p>
+
+<p>
+The warning:
+<blockquote>
+
+<pre>
+! pdfTeX warning (ext4): destination with the same identifier
+(name{page.1}) has been already used, duplicate ignored
+</pre>
+
+
+<pre>
+! pdfTeX warning (ext4): destination with
+  the same identifier (name{page.1}) has
+  been already used, duplicate ignored
+</pre>
+
+
+</blockquote>
+arises because of duplicate page numbers in your document.  The
+problem is usually soluble: see 
+<a class="FAquestion.html" href="FAQ-pdfpagelabels.html">PDF page destinations</a>&nbsp;&mdash; which
+answer also describes the problem in more detail.
+
+<p>
+If the identifier in the message is different, for example
+<tt>name&#x7b;figure.1.1&#x7d;</tt>, the problem is (often) due to a problem of
+package interaction.  The <i class="filename">README</i> in the <i class="package">hyperref</i>
+distribution mentions some of these issues&nbsp;&mdash; for example,
+<code class="environment">equation</code> and <code class="environment">eqnarray</code> as supplied by the
+<i class="package">amsmath</i> package; means of working around the problem are
+typically supplied there.
+
+<p>
+Some packages are simply incompatible with
+<i class="package">hyperref</i>, but most work simply by ignoring it.  In most
+cases, therefore, you should load your package before you load
+<i class="package">hyperref</i>, and <i class="package">hyperref</i> will patch things up so
+that they work, so you can utilise your (patched) package <em>after</em>
+loading both:
+<blockquote>
+  <code>&#x5c;usepackage</code><code>&#x7b;<em>your package</em>&#x7d;</code><br>
+  <tt>...</tt><br>
+  <code>&#x5c;usepackage</code><code>[<em>opts</em>]</code></code><code>&#x7b;hyperref&#x7d;</code><br>
+  <tt>...</tt><br>
+  &lsaquo;<i>code that uses your package</i>&rsaquo;
+</blockquote>
+
+For example:
+<blockquote>
+<pre>
+\usepackage{float}          % defines \newfloat
+...
+\usepackage[...]{hyperref}  % patches \newfloat
+...
+\newfloat{...}{...}{...}
+</pre>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+You should load packages in this order as a matter of course, unless
+the documentation of a package says you <em>must</em> load it after
+<i class="package">hyperref</i>.  (There are few packages that require to be
+loaded after hyperref: one such is <i class="class">memoir</i>&rsquo;s
+&ldquo;<i class="package">hyperref</i> fixup&rdquo; package <i class="package">memhfixc</i>.)
+
+<p>
+If loading your packages in the (seemingly) &ldquo;correct&rdquo; order doesn&rsquo;t
+solve the problem, you need to <a href="FAQ-gethelp.html">seek further help</a>.
+
+<p>

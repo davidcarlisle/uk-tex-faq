@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-secthead</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>The style of section headings</h1>
+
+
+<p>
+
+<p>
+Suppose that the editor of your favourite journal has specified that section
+headings must be centred, in small capitals, and subsection headings ragged 
+right in italic, but that you don&rsquo;t want to get involved in the sort of
+programming described in section 2.2 of <em>The LaTeX Companion</em>
+
+
+
+
+ 
+  (see <a href="FAQ-latex-books.html">LaTeX books</a>; the
+  <a href="FAQ-atsigns.html">programming</a> itself is discussed elsewhere in this
+  FAQ).
+
+The following hack will 
+probably satisfy your editor. Define yourself new commands
+<blockquote>
+
+<pre>
+\newcommand{\ssection}[1]{%
+  \section[#1]{\centering\normalfont\scshape #1}}
+\newcommand{\ssubsection}[1]{%
+  \subsection[#1]{\raggedright\normalfont\itshape #1}}
+</pre>
+
+
+<pre>
+\newcommand{\ssection}[1]{%
+  \section[#1]{\centering
+               \normalfont\scshape #1}}
+\newcommand{\ssubsection}[1]{%
+  \subsection[#1]{\raggedright
+                  \normalfont\itshape #1}}
+</pre>
+
+</blockquote>
+and then use <code>&#x5c;ssection</code> and <code>&#x5c;ssubsection</code> in place of
+<code>&#x5c;section</code> and <code>&#x5c;subsection</code>. This isn&rsquo;t perfect: section numbers
+remain in bold, and starred forms need a separate redefinition.
+
+<p>
+The <i class="package">titlesec</i> package offers a structured approach to the
+problem, based on redefinition of the sectioning and chapter commands
+themselves.  This approach allows it to offer radical adjustment: its
+options provide (in effect) a toolbox for designing your own
+sectioning commands&rsquo; output.
+
+<p>
+The <i class="package">sectsty</i> package provides a more simply structured set of
+tools; while it is less powerful than is <i class="package">titlesec</i>, it is
+perhaps preferable for minor adjustments, since you can use it after
+having read a smaller proportion of the manual.
+
+<p>
+The <i class="package">fncychap</i> package provides a nice collection of customised
+chapter heading designs.  The <i class="package">anonchap</i> package provides a
+simple means of typesetting chapter headings &ldquo;like section headings&rdquo;
+(i.e., without the &ldquo;Chapter&rdquo; part of the heading); the
+<i class="package">tocbibind</i> package provides the same commands, in pursuit of
+another end.
+
+<p>
+The <i class="class">memoir</i> class includes facilities that match
+<i class="package">sectsty</i> and <i class="package">titlesec</i>, as well as a bundle of
+chapter heading styles (including an <i class="package">anonchap</i>-equivalent).
+The <i class="class">KOMA-script</i> classes also have sets of tools that provide
+equivalent functionality, notably formatting specifications <code>&#x5c;partformat</code>,
+<code>&#x5c;chapterformat</code>, <code>&#x5c;sectionformat</code>, &hellip;, as well as several
+useful overall formatting specifications defined in class options.
+
+<p>
+Finally, the indefatigable Vincent Zoonekynd supplies examples of how
+to program alternative 
+<a href="http://zoonek.free.fr/LaTeX/LaTeX_samples_chapter/0.html.html">chapter heading styles</a>
+and
+<a href="http://zoonek.free.fr/LaTeX/LaTeX_samples_section/0.html.html">section heading styles</a>.
+The web pages provide programming examples, and expect users to adapt
+them to their own LaTeX use.
+<dl>
+<dt class="ctanref">anonchap.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/anonchap">anonchap</a>
+<dt class="ctanref">fncychap.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fncychap">fncychap</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">sectsty.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/sectsty">sectsty</a>
+<dt class="ctanref">titlesec.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/titlesec">titlesec</a>
+<dt class="ctanref">tocbibind.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tocbibind">tocbibind</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-06-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-secthead">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-secthead</a>
+
+<p>

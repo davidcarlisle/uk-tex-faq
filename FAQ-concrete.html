@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-concrete</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#Particularfontfamilies">Particular font families</a> &gt; </div>
+<h1>Using the &ldquo;Concrete&rdquo; fonts</h1>
+
+
+<p>
+
+<p>
+The Concrete Roman fonts were designed by Don Knuth for a book called
+&ldquo;Concrete Mathematics&rdquo;, which he wrote with Graham and Patashnik
+(<em>the</em> Patashnik, of BibTeX fame).  Knuth
+only designed text fonts, since the book used the Euler fonts for
+mathematics.  The book was typeset using Plain TeX, of course, with
+additional macros that may be viewed in a file <i class="filename">gkpmac.tex</i>,
+which is available on CTAN.
+
+<p>
+The packages <i class="package">beton</i>, <i class="package">concmath</i>, and
+<i class="package">ccfonts</i> are LaTeX packages that change the default text
+fonts from Computer Modern to Concrete.  Packages <i class="package">beton</i> and
+<i class="package">ccfonts</i> also slightly increase the default value of
+<code>&#x5c;baselineskip</code> to account for the rather heavier weight of the
+Concrete fonts.  If you wish to use the <i class="fontname">Euler</i> fonts for
+mathematics, as Knuth did, there&rsquo;s the <i class="package">euler</i> package which
+has been developed from Knuth&rsquo;s own Plain TeX-based set: these
+macros are currently deprecated (they clash with many things, including
+AMSLaTeX).  The independently-developed <i class="package">eulervm</i>
+bundle is therefore preferred to the <i class="package">euler</i> package.  (Note
+that installing the <i class="package">eulervm</i> bundle involves installing a
+series of virtual fonts.  While most modern distributions seem to have
+the requisite files installed by default, you may find you have to
+install them.  If so, see the file <i class="filename">readme</i> in the
+<i class="package">eulervm</i> distribution.)
+
+<p>
+A few years after Knuth&rsquo;s original design, Ulrik Vieth
+designed the Concrete Math fonts.  Packages
+<i class="package">concmath</i>, and <i class="package">ccfonts</i> also change the default math
+fonts from Computer Modern to Concrete and use the Concrete versions
+of the AMS fonts (this last behaviour is optional in the case
+of the <i class="package">concmath</i> package).
+
+<p>
+There are no bold Concrete fonts, but it is generally accepted that
+the Computer Modern Sans Serif demibold condensed fonts are an
+adequate substitute.  If you are using <i class="package">concmath</i> or
+<i class="package">ccfonts</i> and you want to follow this suggestion, then use the
+package with <code class="pkgoption">boldsans</code> class option (in spite of the fact
+that the <i class="package">concmath</i> documentation calls it
+<code class="pkgoption">sansbold</code> class option). If you are using <i class="package">beton</i>,
+add
+<blockquote>
+  <code>&#x5c;renewcommand</code><code>&#x7b;<code>&#x5c;bfdefault</code>&#x7d;</code></code><code>&#x7b;sbc&#x7d;</code>
+</blockquote>
+to the preamble of your document.
+
+<p>
+Type&nbsp;1 versions of the fonts are available.  For OT1 encoding,
+they are available from <a href="FAQ-psfchoice.html">MicroPress</a>.  The
+<a href="FAQ-textrace.html">CM-Super fonts</a> contain Type&nbsp;1 versions
+of the Concrete fonts in T1 encoding.
+<dl>
+<dt class="ctanref">beton.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/beton">beton</a>
+<dt class="ctanref">ccfonts.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ccfonts">ccfonts</a>
+<dt class="ctanref">CM-Super fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cm-super">cm-super</a>
+<dt class="ctanref">concmath.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/concmath">concmath</a>
+<dt class="ctanref">Concmath fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/concmath-f">concmath-f</a>
+<dt class="ctanref">Concrete fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/concrete">concrete</a>
+<dt class="ctanref">euler.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/euler-latex">euler-latex</a>
+<dt class="ctanref">eulervm bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/eulervm">eulervm</a>
+<dt class="ctanref">gkpmac.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/gkpmac">gkpmac</a>
+</dl>
+
+<p>

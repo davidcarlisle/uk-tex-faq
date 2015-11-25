@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-hash</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Defining macros within macros</h1>
+
+
+<p>
+
+<p>
+The way to think of this is that <code class="verb">##</code> gets replaced by <code class="verb">#</code> in just the
+same way that <code class="verb">#1</code> gets replaced by &lsquo;whatever is the first argument&rsquo;.
+
+<p>
+So if you define a macro:
+<blockquote>
+<pre>
+\newcommand\a[1]{+#1+#1+#1+}
+</pre>
+</blockquote>
+or (using the TeX primitive <code>&#x5c;def</code>):
+<blockquote>
+<pre>
+\def\a#1{+#1+#1+#1+}
+</pre>
+</blockquote>
+and use it as <code>&#x5c;a</code><code>&#x7b;b&#x7d;</code>,
+the macro expansion produces &lsquo;+b+b+b+&rsquo;,
+as most people would expect.
+
+<p>
+However, if we now replace part of the macro:
+<blockquote>
+
+<pre>
+\newcommand\a[1]{+#1+%
+                 \newcommand\x[1]{xxx#1}}
+</pre>
+
+
+<pre>
+\newcommand\a[1]{+#1+\newcommand\x[1]{xxx#1}}
+</pre>
+
+</blockquote>
+then <code>&#x5c;a</code><code>&#x7b;b&#x7d;</code> will give us the rather odd
+<blockquote>
+  +b+<code>&#x5c;newcommand</code><code>&#x7b;x&#x7d;</code>[1][[[LBRACE]]]xxxb[[[RBRACE]]]
+</blockquote>
+so that the new <code>&#x5c;x</code> ignores its argument.
+
+<p>
+If we use the TeX primitive: 
+<blockquote>
+<pre>
+\def\a#1{+#1+\def\x #1{xxx#1}}
+</pre>
+</blockquote>
+<code>&#x5c;a</code><code>&#x7b;b&#x7d;</code> will expand to &lsquo;+b+|[[[def]]][[[x]]] b[[[LBRACE]]]xxxb[[[RBRACE]]]|&rsquo;.  This
+defines <code>&#x5c;x</code> to be a macro <em>delimited</em> by <code class="verb">b</code>, and taking no
+arguments, which is surely not what was intended!
+
+<p>
+Actually, to define <code>&#x5c;x</code> to take an argument, we need
+<blockquote>
+
+<pre>
+\newcommand\a[1]{+#1+%
+                 \newcommand\x[1]{xxx##1}}
+</pre>
+
+
+<pre>
+\newcommand\a[1]{+#1+\newcommand\x[1]{xxx##1}}
+</pre>
+
+</blockquote>
+or, using the TeX primitive definition:
+<blockquote>
+<pre>
+\def\a#1{+#1+\def\x ##1{xxx##1}}
+</pre>
+</blockquote>
+and <code>&#x5c;a</code><code>&#x7b;b&#x7d;</code> will expand to 
+<blockquote>
+  +b+|[[[def]]][[[x]]] #1[[[LBRACE]]]xxx#1[[[RBRACE]]]|
+</blockquote>
+because <code class="verb">#1</code> gets replaced by &lsquo;b&rsquo;
+and <code class="verb">##</code> gets replaced by <code class="verb">#</code>.
+
+<p>
+To nest a definition inside a definition inside a definition then you
+need <code class="verb">####1</code>, doubling the number of <code class="verb">#</code> signs; and at the next level
+you need 8&nbsp;<code class="verb">#</code>s each time, and so on.
+
+<p>

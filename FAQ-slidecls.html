@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-slidecls</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Alternativedocumentclasses">Alternative document classes</a> &gt; </div>
+<h1>Producing presentations (including slides)</h1>
+
+
+<p>
+
+<p>
+Lamport&rsquo;s original LaTeX had a separate program (SliTeX) for
+producing slides; it dates from the age when colour effects were
+produced by printing separate slides in different-coloured inks, and
+overlaying them, and was just about acceptable back then.  When
+LaTeX 2e came along, the reason SliTeX had to be a separate
+program went away, and its functionality was supplied by the
+<i class="class">slides</i> class.  While this makes life a little easier for
+system administrators, it does nothing for the inferior functionality
+of the class: no-one who &ldquo;knows&rdquo; uses <i class="class">slides</i> nowadays.
+
+<p>
+The &lsquo;classic&rsquo; alternatives have been <i class="class">seminar</i> and <i class="class">foils</i>
+(originally known as FoilTeX).  Both were originally designed to
+produce output on acetate foils, though subsequent work has provided
+environments in which they can be used with screen projectors (see
+below).
+
+<p>
+The advent of Microsoft <i class="progname">PowerPoint</i> (feeble though early
+versions of it were) has created a demand for &ldquo;dynamic&rdquo; slides&nbsp;&mdash;
+images that develop their content in a more elaborate fashion than by
+merely replacing one foil with the next in the way that was the norm
+when <i class="class">slides</i>, <i class="class">foils</i> and <i class="class">seminar</i> were designed.
+
+<p>
+The <i class="class">prosper</i> class builds on <i class="class">seminar</i> to provide dynamic
+effects and the like; it retains the ability to provide PDF for
+a projected presentation, or to print foils for a foil-based
+presentation.  The add-on package <i class="package">ppr-prv</i> adds &ldquo;preview&rdquo;
+facilities (that which is commonly called &ldquo;hand-out printing&rdquo;).  The
+<i class="package">HA-prosper</i> package, which you load with <i class="class">prosper</i>,
+mends a few bugs, and adds several facilities and slide design styles.
+The (more recent) <i class="class">powerdot</i> class is designed as a
+replacement for <i class="class">prosper</i> and <i class="package">HA-prosper</i>, co-authored
+by the author of <i class="package">HA-prosper</i>.
+
+<p>
+<i class="class">Beamer</i> is a relatively easy-to-learn, yet powerful, class that
+(as its name implies) was designed for use with projection displays.
+It needs the <i class="package">pgf</i> package (for graphics support), which in
+turn requires <i class="package">xcolor</i>; while this adds to the tedium of
+installing <i class="class">beamer</i> &ldquo;from scratch&rdquo;, both are good additions to
+a modern LaTeX installation.  <i class="class">Beamer</i> has reasonable
+facilities for producing printed copies of slides.
+
+<p>
+<i class="class">Talk</i> is another highly functional, yet easy-to-learn class
+which claims to differ from the systems mentioned above, such as
+<i class="class">beamer</i>, in that it doesn&rsquo;t impose a slide style on you.  You
+get to specify a bunch of slide styles, and you can switch from one to
+the other between slides, as you need.  The class itself provides
+just the one style, in the package <i class="package">greybars</i>: the author&rsquo;s
+suggestion that users should contribute their own has been
+enthusiastically accepted&nbsp;&mdash; see (for example) the 
+<a href="http://deic.uab.es/&nbsp;iblanes/beamer_gallery/.html">Beamer Gallery</a>.
+
+<p>
+<i class="package">Lecturer</i> is a <em>generic</em> solution (it works with
+Plain TeX, LaTeX and [[[context]]][[[LBRACE]]][[[RBRACE]]]&nbsp;mk&nbsp;ii, but not&nbsp;&mdash; yet&nbsp;&mdash; with
+[[[context]]][[[LBRACE]]][[[RBRACE]]]&nbsp;mk iv).  By separating the functionality needed for a
+presentation (using TeX for typesetting, and PDF functions
+for layering and dynamic effects) a clear structure emerges.  While it
+doesn&rsquo;t have the range of &ldquo;themes&rdquo; (presentation styles) of
+<i class="class">beamer</i> it seems a useful alternative candidate.
+
+<p>
+<i class="package">Present</i> is designed for use with Plain TeX only; its
+design is simple, to the extent that its author hopes that users will
+themselves be able to tune its macros.
+
+<p>
+<i class="progname">Ppower4</i> (commonly known as <i class="progname">pp4</i>) is a
+<i class="progname">Java</i>-based support program that will postprocess
+PDF, to &lsquo;animate&rsquo; the file at places you&rsquo;ve marked with
+commands from one of the <i class="progname">pp4</i> packages.  The commands don&rsquo;t
+work on PDF that has come from <i class="progname">dvips</i> output; they
+work with PDF generated by PDFLaTeX, LaTeX, or
+<i class="progname">dvipdfm</i> running on LaTeX output.
+
+<p>
+<i class="package">Pdfscreen</i> and <i class="package">texpower</i> are add-on packages that
+permit dynamic effects in documents formatted in &ldquo;more modest&rdquo;
+classes; <i class="package">pdfscreen</i> will even allow you to plug
+&ldquo;presentation effects&rdquo; into an <i class="class">article</i>-class document.
+
+<p>
+
+
+
+<p>
+A more detailed examination of the alternatives (including examples
+of code using many of them) may be found at Michael Wiedmann&rsquo;s fine
+<a href="http://www.miwie.org/presentations/presentations.html.html">http://www.miwie.org/presentations/presentations.html</a>
+
+<p>
+CONTeXT users will find that much (if not all) of what they need is
+already in CONTeXT itself; there&rsquo;s a useful summary of what&rsquo;s
+available, with examples, in
+<a href="http://wiki.contextgarden.net/Presentation_Styles.html">http://wiki.contextgarden.net/Presentation_Styles</a>
+
+<dl>
+<dt class="ctanref">beamer.cls</dt><dd>Download all of <a class="ctan" href="https://www.ctan.org/pkg/beamer">beamer</a>
+<dt class="ctanref">foils.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/foiltex">foiltex</a>
+<dt class="ctanref">greybars.sty</dt><dd>distributed with <a class="ctan" href="https://www.ctan.org/pkg/talk">talk</a>
+<dt class="ctanref">HA-prosper.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ha-prosper">ha-prosper</a>
+
+<dt class="ctanref">lecturer.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lecturer">lecturer</a>
+<dt class="ctanref">seminar.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/seminar">seminar</a>
+<dt class="ctanref">pdfscreen.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdfscreen">pdfscreen</a>
+<dt class="ctanref">pgf.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pgf">pgf</a>
+<dt class="ctanref">powerdot.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/powerdot">powerdot</a>
+<dt class="ctanref">pp4</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ppower4">ppower4</a>
+<dt class="ctanref">ppr-prv.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ppr-prv">ppr-prv</a>
+<dt class="ctanref">present.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/present">present</a>
+<dt class="ctanref">prosper.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/prosper">prosper</a>
+<dt class="ctanref">talk.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/talk">talk</a>
+<dt class="ctanref">texpower</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texpower">texpower</a>
+<dt class="ctanref">xcolor.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xcolor">xcolor</a>
+</dl>
+
+<p>

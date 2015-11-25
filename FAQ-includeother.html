@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-includeother</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>LaTeX won&rsquo;t include from other directories</h1>
+
+
+<p>
+
+<p>
+You wanted to <code>&#x5c;include</code><code>&#x7b;../bar/xyz.tex&#x7d;</code>, but LaTeX says:
+<blockquote>
+
+<pre>
+latex: Not writing to ../bar/xyz.aux (openout_any = p).
+! I can't write on file `../bar/xyz.aux'.
+</pre>
+
+
+<pre>
+LaTeX: Not writing to ../bar/xyz.aux
+                          (openout_any = p).
+! I can't write on file `../bar/xyz.aux'.
+</pre>
+
+
+</blockquote>
+The error comes from TeX&rsquo;s protection against writing to
+directories that aren&rsquo;t descendents of the one where your document
+resides.  (The restriction protects against problems arising from
+LaTeXing someone else&rsquo;s malicious, or merely broken, document.  If
+such a document overwrites something you wanted kept, there is obvious
+potential for havoc.)
+
+<p>
+Document directory structures that can lead to this problem will look
+like the fictional <i class="filename">mybook</i>:
+<blockquote>
+<pre>
+./base/mybook.tex
+./preface/Preface.tex
+./preface/***
+./chapter1/Intro.tex
+...
+</pre>
+</blockquote>
+With such a structure, any document directory (other than the one
+where <i class="filename">mybook.tex</i> lives), seems &ldquo;up&rdquo; the tree from the
+base directory.  (References to such files will look like
+<code>&#x5c;include</code><code>&#x7b;../preface/Preface&#x7d;</code>: the &ldquo;<tt>..</tt>&rdquo; is the
+hint.)
+
+<p>
+But why did it want to write at all?&nbsp;&mdash; 
+&ldquo;<a href="FAQ-include.html">what&rsquo;s going in in my <code>&#x5c;include</code></a>&rdquo; explains
+how <code>&#x5c;include</code> works, among other things by writing an
+<code class="extension">aux</code> file for every <code>&#x5c;includ</code>ed file.
+
+<p>
+Solutions to the problem tend to be drastic:
+<ol>
+<li> Restructure the directories that hold your document so that the
+  master file is at the root of the tree:
+  <blockquote>
+<pre>
+./mybook.tex
+./mybook/preface/Preface.tex
+./mybook/preface/***
+./mybook/chapter1/Intro.tex
+...
+</pre>
+  </blockquote>
+  and so on.
+<li> Did you actually <em>need</em> <code>&#x5c;include</code>?&nbsp;&mdash; if not, you can
+  replace <code>&#x5c;include</code> by <code>&#x5c;input</code> throughout.  (This only works
+  if you don&rsquo;t need <code>&#x5c;includeonly</code>.)
+<li> You <em>could</em> patch your system&rsquo;s <i class="filename">texmf.cnf</i>&nbsp;&mdash; if you
+  know what you&rsquo;re doing, the error message should be enough of a
+  hint; this action is definitely not recommended, and is left to
+  those who can &ldquo;help themselves&rdquo; in this respect.
+</ol>
+[[[LastEdit]]]*[[[LBRACE]]]2012-02-13[[[RBRACE]]]
+
+<p>

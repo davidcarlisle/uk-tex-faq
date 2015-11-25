@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-slashbox</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>Diagonal separation in corner cells of tables</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]tabular[[[RBRACE]]]
+
+<p>
+You want to label both the top or bottom row and the left- or
+rightmost column, somewhere at the corner of the table where the row
+and column meet.  A simple way to achieve the result is to construct
+the table with an arrangement of rules (and possibly <code>&#x5c;multicolumn</code>
+entries), to look like:
+<blockquote>
+<pre>
+-----------------
+x  y
+   --------------
+   1  2  3  4  5
+-----------------
+1
+2
+3
+4
+5
+-----------------
+</pre>
+</blockquote>
+However, this doesn&rsquo;t satisfy everyone: many want the labelling in a
+single cell at the top left of the table.  It sounds a simple enough
+requirement, yet it calls for some slightly tricky LaTeX coding.
+The <i class="package">diagbox</i> package does this job for you: it defines a
+command <code>&#x5c;diagbox</code> whose two arguments provide the texts to be
+used; an optional argument may be used for fine tuning of the result.
+It draws a picture with the two labels on either side of a slanting
+line; the command (and hence the picture) may be placed in the corner
+cell, where the labelled row and column meet.
+
+<p>
+The <i class="package">diagbox</i> package supersedes <i class="package">slashbox</i>; the older
+package&rsquo;s commands <code>&#x5c;slashbox</code> and <code>&#x5c;backslashbox</code> are provided
+in a compatible way in the newer package, to ease transition.
+<dl>
+<dt class="ctanref">diagbox.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/diagbox">diagbox</a>
+<dt class="ctanref">slashbox.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/slashbox">slashbox</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2010-11-22</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-slashbox">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-slashbox</a>
+
+<p>

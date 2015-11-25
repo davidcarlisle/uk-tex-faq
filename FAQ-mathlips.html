@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-mathlips</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Ellipses</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]<code>&#x5c;dots</code> <code>&#x5c;cdots</code> <code>&#x5c;vdots</code> <code>&#x5c;ddots</code>[[[RBRACE]]]
+
+<p>
+Ellipses are commonly required, and LaTeX natively supplies a fair
+range (<code>&#x5c;dots</code>, <code>&#x5c;cdots</code>, <code>&#x5c;vdots</code> and <code>&#x5c;ddots</code>).  By using
+the <i class="package">graphics</i> package, one can change the slope of the
+<code>&#x5c;ddots</code> command, as in
+<blockquote>
+<pre>
+$ ... \reflectbox{$\ddots$} ... $
+</pre>
+</blockquote>
+While this works, it is not a recommended way of achieving the desired
+result (see below).  Moreover, LaTeX&rsquo;s range is not adequate to
+everyone&rsquo;s requirements, and at least three packages provide
+extensions to the set.
+
+<p>
+The AMSLaTeX bundle provides a range of &ldquo;semantically-named&rdquo;
+ellipses, for use in different situations: <code>&#x5c;dotsb</code> for use between
+pairs of binary operators, <code>&#x5c;dotsc</code> for use between pairs of commas,
+and so on.
+
+<p>
+The <i class="package">yhmath</i> package defines an <code>&#x5c;adots</code> command, which is
+the analogue of <code>&#x5c;ddots</code>, sloping forwards rather than backwards.
+The <i class="package">yhmath</i> package comes with a rather interesting font that
+extends the standard <i class="package">cmex</i>; details are in the documentation.
+
+<p>
+The <i class="package">mathdots</i> package (besides fixing up the behaviour of
+(La)TeX <code>&#x5c;ddots</code> and <code>&#x5c;vdots</code> when the font size changes)
+provides an &ldquo;inverse diagonal&rdquo; ellipsis <code>&#x5c;iddots</code> (doing the same
+job as <i class="package">yhmath</i>&rsquo;s <code>&#x5c;adots</code>, but better).
+
+<p>
+Documentation of <i class="package">yhmath</i> appears, processed, in the
+distribution (thus saving you the bother of installing the package
+before being able to read the documentation).  Documentation of
+<i class="package">mathdots</i> appears at the end the package file itself.
+<dl>
+<dt class="ctanref">amslatex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>
+<dt class="ctanref">graphics.sty</dt><dd>Part of the <a class="ctan" href="https://www.ctan.org/pkg/graphics">graphics</a> bundle
+<dt class="ctanref">mathdots.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mathdots">mathdots</a>
+<dt class="ctanref">yhmath</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/yhmath">yhmath</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-08-21</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-mathlips">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-mathlips</a>
+
+<p>

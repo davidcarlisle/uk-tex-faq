@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-secnumdep</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Tablesofcontentsandindexes">Tables of contents and indexes</a> &gt; </div>
+<h1>Unnumbered sections in the Table of Contents</h1>
+
+
+<p>
+
+<p>
+The way the relevant parts of sectioning commands work is exemplified
+by the way the <code>&#x5c;chapter</code> command uses the counter <tt>secnumdepth</tt>
+(described in Appendix&nbsp;C of the LaTeX manual):
+<ol>
+<li> put something in the <code class="extension">aux</code> file, which will appear in
+  the <code class="extension">toc</code>;
+
+
+
+
+<li> if the <tt>secnumdepth</tt> counter is greater than or equal to
+  zero,
+
+  increase the counter for the chapter and write it out.
+<li> write the chapter title.
+</ol>
+Other sectioning commands are similar, but with other values used in
+the test.
+
+<p>
+So a simple way to get headings of funny &lsquo;sections&rsquo; such as prefaces
+in the table of contents is to use the counter:
+<blockquote>
+<pre>
+\setcounter{secnumdepth}{-1}
+\chapter{Preface}
+</pre>
+</blockquote>
+Unfortunately, you have to set <tt>secnumdepth</tt> back to its usual
+value (which is&nbsp;2 in the standard styles) before you do any &lsquo;section&rsquo;
+which you want to be numbered.
+
+<p>
+Similar settings are made, automatically, in the LaTeX book class by
+the <code>&#x5c;frontmatter</code> and <code>&#x5c;backmatter</code> commands.
+
+<p>
+The value of the counter <tt>tocdepth</tt> controls which headings
+will be finally printed in the table of contents; it is normally set
+in the preamble and is a constant for the document.  The package
+<i class="package">tocvsec2</i> package takes the tedium out of changing the
+<tt>secnumdepth</tt> and/or the <tt>tocdepth</tt> counter values at
+any point in the body of the document; the commands (respectively)
+<code>&#x5c;setsecnumdepth</code> and <code>&#x5c;settocdepth</code> make the changes based on
+the <em>name</em> of the sectional unit (<tt>chapter</tt>,
+<tt>section</tt>, etc.\@).
+
+<p>
+The package <i class="package">abstract</i> (see 
+<a class="FAquestion.html" href="FAQ-onecolabs.html">one-column abstracts</a>) includes an option
+to add the <tt>abstract</tt> to the table of contents, while the
+package <i class="package">tocbibind</i> has options to include the table of
+contents itself, the <tt>bibliography</tt>, <tt>index</tt>, etc., to
+the table of contents.
+
+<p>
+The <i class="class">KOMA-Script</i> classes have commands <code>&#x5c;addchap</code> and
+<code>&#x5c;addled</code>, which work like <code>&#x5c;chapter</code> and <code>&#x5c;section</code> but
+aren&rsquo;t numbered.  The <i class="class">memoir</i> class incorporates the facilities
+of all three of the <i class="package">abstract</i>, <i class="package">tocbibind</i> and
+<i class="package">tocvsec2</i> packages.
+<dl>
+<dt class="ctanref">abstract.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/abstract">abstract</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">tocbibind.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tocbibind">tocbibind</a>
+<dt class="ctanref">tocvsec2.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tocvsec2">tocvsec2</a>
+</dl>
+
+<p>

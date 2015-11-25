@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-subsubsub</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>How to create a <code>&#x5c;subsubsubsection</code></h1>
+
+
+<p>
+
+<p>
+LaTeX&rsquo;s set of &ldquo;sections&rdquo; stops at the level of
+<code>&#x5c;subsubsection</code>.  This reflects a design decision by Lamport&nbsp;&mdash;
+for, after all, who can reasonably want a section with such huge
+strings of numbers in front of it?
+
+<p>
+In fact, LaTeX standard classes <em>do</em> define &ldquo;sectioning&rdquo;
+levels lower than <code>&#x5c;subsubsection</code>, but they don&rsquo;t format them like
+sections (they&rsquo;re not numbered, and the text is run-in after the
+heading).  These deeply inferior section commands are <code>&#x5c;paragraph</code>
+and <code>&#x5c;subparagraph</code>; you can (if you <em>must</em>) arrange that these
+two commands produce numbered headings, so that you can use them as
+<code>&#x5c;subsubsubsection</code>s and lower.
+
+<p>
+The <i class="package">titlesec</i> package provides a sensible set of macros for
+you to adjust the definitions of the sectioning macros, and it may be
+used to transform a <code>&#x5c;paragraph</code>&rsquo;s typesetting so that it looks
+like that of a <code>&#x5c;section</code>.
+
+<p>
+If you want to program the change yourself, you&rsquo;ll find that the
+commands (<code>&#x5c;section</code> all the way down to <code>&#x5c;subparagraph</code>) are
+defined in terms of the internal <code>&#x5c;@startsection</code> command, which
+takes 6&nbsp;arguments.  Before attempting this sort of work, you are well
+advised to read the LaTeX sources (<i class="filename">ltsect.dtx</i> in the
+LaTeX distribution) and the source of the standard packages
+(<i class="filename">classes.dtx</i>), or to make use of the 
+<a href="FAQ-latex-books.html">LaTeX Companion</a>, which
+discusses the use of <code>&#x5c;@startsection</code> for this sort of thing.
+
+<p>
+You will note that Lamport didn&rsquo;t go on adding &ldquo;<tt>sub</tt>&rdquo; to the
+names of sectioning commands, when creating commands for the lowest
+levels of a document.  This would seem sensible to any but the most
+rigorous stickler for symmetry&nbsp;&mdash; it would surely challenge pretty
+much anyone&rsquo;s reading of the source of a document, if there was a need
+to distinguish <code>&#x5c;subsubsubsection</code> and <code>&#x5c;subsubsubsubsection</code>
+<dl>
+<dt class="ctanref">LaTeX source</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latex">latex</a>
+<dt class="ctanref">titlesec.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/titlesec">titlesec</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-02-14</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-subsubsub">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-subsubsub</a>
+
+<p>

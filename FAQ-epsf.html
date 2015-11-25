@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-epsf</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1><tt>epsf</tt> gives up after a bit</h1>
+
+
+<p>
+
+<p>
+Some copies of the documentation of <i class="filename">epsf.tex</i> seemed once to
+suggest that the command
+<pre>
+  \input epsf
+</pre>
+is needed for every figure included.  If you follow this suggestion
+too literally, you get an error
+<pre>
+  ! No room for a new \read .
+</pre>
+after a while; this is because each time <i class="filename">epsf.tex</i> is loaded, it
+allocates itself a <em>new</em> file-reading handle to check the figure
+for its bounding box, and there just aren&rsquo;t enough of these things
+(see <a class="FAquestion.html" href="FAQ-noroom.html">no room for a new thing</a>).
+
+<p>
+The solution is simple&nbsp;&mdash; this is in fact an example of misuse of
+macros; one only need read <i class="filename">epsf.tex</i> once, so change
+<pre>
+  ...
+  \input epsf
+  \epsffile{...}
+  ...
+  \input epsf
+  \epsffile{...}
+</pre>
+(and so on) with a single
+<pre>
+  \input epsf
+</pre>
+somewhere near the start of your document, and then decorate your
+<code>&#x5c;epsffile</code> statements with no more than adjustments of
+<code>&#x5c;epsfxsize</code> and so on.
+
+<p>

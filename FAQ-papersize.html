@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-papersize</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Pagelayout">Page layout</a> &gt; </div>
+<h1>The size of printed output</h1>
+
+
+<p>
+
+<p>
+The final product of a (La)TeX run is something for a person to
+read.  Often, nowadays, that product will be read &ldquo;on-screen&rdquo;, but
+the printed page remains a principal output form.
+
+<p>
+When we come to print our output, it is important that the output fits
+on the paper; in some cases, for the output to &ldquo;fit&rdquo; is good enough.
+However, there are circumstances where the actual size of the printed
+output, on the page, is crucial to the acceptance of the output.
+(This might happen when the output is a book to be published, or when
+it&rsquo;s a dissertation which must match the fancies of some bureaucrat
+even to be considered.)
+
+<p>
+Sadly, we often find that the printed output doesn&rsquo;t conform to our
+expectations&hellip;
+
+<p>
+The check-list for such problems has two entries:
+<ul>
+<li> Your output is generated via Adobe <i class="progname">Reader</i> (or
+  possibly &ldquo;<i class="progname">Acrobat Reader</i>&rdquo;&nbsp;&mdash; older versions of the
+  program had the qualified name).  In this case, it may be that
+  <i class="progname">Reader</i> is willfully changing the size of your output:
+  read <a href="FAQ-acroantics.html"><i class="progname">Reader</i> antics</a>.
+<li> Something in your TeX system is producing the wrong size (or
+  shape) of output: read <a href="FAQ-papergeom.html">paper geometry</a>.
+</ul>
+
+<p>
+An alternative approach is to use the (excellent) <i class="package">testflow</i>
+suite, that provides a detailed outline of the potential problems
+together with a sample document and prototype outputs.
+<dl>
+<dt class="ctanref">testflow bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/testflow">testflow</a>
+</dl>
+
+<p>

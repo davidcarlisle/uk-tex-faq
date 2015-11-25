@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-alreadydef</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>Package reports &ldquo;command already defined&rdquo;</h1>
+
+
+<p>
+
+<p>
+You load a pair of packages, and the second reports that one of the
+commands it defines is already present.  For example, both the
+<i class="package">txfonts</i> and <i class="package">amsmath</i> define a command <code>&#x5c;iint</code>
+(and <code>&#x5c;iiint</code> and so on); so
+<blockquote>
+<pre>
+...
+\usepackage{txfonts}
+\usepackage{amsmath}
+</pre>
+</blockquote>
+produces a string of error messages of the form:
+<blockquote>
+
+<pre>
+! LaTeX Error: Command \iint already defined.
+               Or name \end... illegal, see p.192 of the manual.
+</pre>
+
+
+<pre>
+! LaTeX Error: Command \iint already
+   defined.  Or name \end... illegal,
+   see p.192 of the manual.
+</pre>
+
+</blockquote>
+As a general rule, things that <i class="package">amsmath</i> defines, it defines
+well; however, there is a good case for using the <i class="package">txfonts</i>
+version of <code>&#x5c;iint</code>&nbsp;&mdash; the associated <i class="fontname">tx</i> fonts have a
+double integral symbol that doesn&rsquo;t need to be &ldquo;faked&rdquo; in the way
+<i class="package">amsmath</i> does.  In the case that you are loading several
+symbol packages, every one of which defines the same symbol, you are
+likely to experience the problem in a big way (<code>&#x5c;euro</code> is a common
+victim).
+
+<p>
+There are similar cases where one package redefines another&rsquo;s command,
+but no error occurs because the redefining package doesn&rsquo;t use
+<code>&#x5c;newcommand</code>.  Often, in such a case, you only notice the change
+because you assume the definition given by the first package.  The
+<i class="package">amsmath</i>&ndash;<i class="package">txfonts</i> packages are just such a pair;
+<i class="package">txfonts</i> doesn&rsquo;t provoke errors.
+
+<p>
+You may deal with the problem by saving and restoring the command.
+Macro programmers may care to do this for themselves; for the rest of
+us, there&rsquo;s the package <i class="package">savesym</i>.  The sequence:
+<blockquote>
+<pre>
+\usepackage{savesym}
+\usepackage{amsmath}
+\savesymbol{iint}
+\usepackage{txfonts}
+\restoresymbol{TXF}{iint}
+</pre>
+</blockquote>
+does the job; restoring the <i class="package">amsmath</i> version of the command,
+and making the <i class="package">txfonts</i> version of the command available as
+<code>&#x5c;TXFiint</code>.
+
+<p>
+Documentation of <i class="package">savesym</i> doesn&rsquo;t amount to much: the only
+commands are <code>&#x5c;savesymbol</code> and <code>&#x5c;restoresymbol</code>, as noted above.
+<dl>
+<dt class="ctanref">amsmath.sty</dt><dd>Part of <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>
+<dt class="ctanref">savesym.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/savesym">savesym</a>
+<dt class="ctanref">txfonts.sty</dt><dd>Part of <a class="ctan" href="https://www.ctan.org/pkg/txfonts">txfonts</a>
+</dl>
+
+<p>

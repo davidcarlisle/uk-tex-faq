@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-2letterfontcmd</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What&rsquo;s wrong with <code>&#x5c;bf</code>, <code>&#x5c;it</code>, etc.?</h1>
+
+
+<p>
+
+<p>
+The font-selection commands of LaTeX 2.09 were <code>&#x5c;rm</code>, <code>&#x5c;sf</code>,
+<code>&#x5c;tt</code>, <code>&#x5c;it</code>, <code>&#x5c;sl</code>, <code>&#x5c;em</code> and <code>&#x5c;bf</code>; they were modal
+commands, so you used them as:
+<blockquote>
+<pre>
+{\bf Fred} was {\it here\/}.
+</pre>
+</blockquote>
+with the font change enclosed in a group, so as to limit its effect;
+note the italic correction command <code>&#x5c;/</code> that was necessary at the
+end of a section in italics.
+
+<p>
+At the release of LaTeX 2e in summer 1994, these simple commands were
+deprecated, but recognising that their use is deeply embedded in the
+brains of LaTeX users, the commands themselves remain in LaTeX,
+<em>with their LaTeX 2.09 semantics</em>.  Those semantics were part of
+the reason they were deprecated: each [[[csx]]][[[LBRACE]]]<em>xx</em>[[[RBRACE]]] overrides
+any other font settings, keeping only the size.  So, for example,
+<blockquote>
+<pre>
+{\bf\it Here we are again\/}
+</pre>
+</blockquote>
+ignores <code>&#x5c;bf</code> and produces text in italic, medium weight (and the
+italic correction has a real effect), whereas
+<blockquote>
+<pre>
+{\it\bf happy as can be\/}
+</pre>
+</blockquote>
+ignores <code>&#x5c;it</code> and produces upright text at bold weight (and the
+italic correction has nothing to do).  The same holds if you mix
+LaTeX 2e font selections with the old style commands:
+<blockquote>
+<pre>
+\textbf{\tt all good friends}
+</pre>
+</blockquote>
+ignores the <code>&#x5c;textbf</code> that encloses the text, and produces
+typewriter text at medium weight.
+
+<p>
+So why are these commands deprecated?&nbsp;&mdash; it is because of confusions
+such as that in the last example.  The alternative (LaTeX 2e)
+commands are discussed in the rest of this answer.
+
+<p>
+LaTeX 2e&rsquo;s font commands come in two forms: modal commands and
+text-block commands.  The default set of modal commands offers weights
+<code>&#x5c;mdseries</code> and <code>&#x5c;bfseries</code>, shapes <code>&#x5c;upshape</code>,
+<code>&#x5c;itshape</code>, <code>&#x5c;scshape</code> and <code>&#x5c;slshape</code>, and families
+<code>&#x5c;rmfamily</code>, <code>&#x5c;sffamily</code> and <code>&#x5c;ttfamily</code>.  A font selection
+requires a family, a shape and a series (as well as a size, of
+course).  A few examples
+<blockquote>
+
+<pre>
+{\bfseries\ttfamily
+    and jolly good company!}
+</pre>
+
+
+<pre>
+{\bfseries\ttfamily and jolly good company!}
+</pre>
+
+</blockquote>
+produces bold typewriter text (but note the lack of a 
+
+
+
+
+  <a href="FAQ-bold-extras.html">bold typewriter font</a>
+
+in the default Computer Modern fonts), or
+<blockquote>
+
+<pre>
+{\slshape\sffamily
+    Never mind the weather\/}
+</pre>
+
+
+<pre>
+{\slshape\sffamily Never mind the weather\/}
+</pre>
+
+</blockquote>
+(note the italic correction needed on slanted fonts, too).
+
+<p>
+LaTeX 2e&rsquo;s text block commands take the first two letters of the
+modal commands, and form a <code>&#x5c;text</code><em><tt>xx</tt></em> command from
+them.  Thus <code>&#x5c;bfseries</code> becomes <code>&#x5c;textbf</code><code>&#x7b;text&#x7d;</code>,
+<code>&#x5c;itshape</code> becomes <code>&#x5c;textit</code><code>&#x7b;text&#x7d;</code>, and <code>&#x5c;ttfamily</code>
+becomes <code>&#x5c;texttt</code><code>&#x7b;text&#x7d;</code>.  Block commands may be nested, as:
+<blockquote>
+<pre>
+\textit{\textbf{Never mind the rain}}
+</pre>
+</blockquote>
+to produce bold italic text (note that the block commands supply
+italic corrections where necessary), and they be nested with the
+LaTeX 2e modal commands, too:
+<blockquote>
+
+<pre>
+\texttt{\bfseries
+    So long as we're together}
+</pre>
+
+
+<pre>
+\texttt{\bfseries So long as we're together}
+</pre>
+
+</blockquote>
+for bold typewriter, or
+<blockquote>
+
+<pre>
+{\slshape\textbf{%
+    Whoops!  she goes again}\/}
+</pre>
+
+
+<pre>
+{\slshape \textbf{Whoops!  she goes again}\/}
+</pre>
+
+</blockquote>
+for a bold slanted instance of the current family (note the italic
+correction applied at the end of the modal command group, again).
+
+<p>
+The new commands (as noted above) override commands of the same type.
+In almost all cases, this merely excludes ludicrous ideas such as
+&ldquo;upright slanted&rdquo; fonts, or &ldquo;teletype roman&rdquo; fonts.  There are a
+couple of immediate oddities, though.  The first is the conflict
+between <code>&#x5c;itshape</code> (or <code>&#x5c;slshape</code>) and <code>&#x5c;scshape</code>: while many
+claim that an italic small-caps font is typographically unsound, such
+fonts do exist.  Daniel Taupin&rsquo;s <i class="package">smallcap</i> package enables
+use of the instances in the <a href="FAQ-ECfonts.html">EC fonts</a>, and
+similar techniques could be brought to bear on many other font sets.
+The second is the conflict between <code>&#x5c;upshape</code> and <code>&#x5c;itshape</code>:
+Knuth actually offers an upright-italic font which LaTeX uses for
+the &ldquo;[[[pounds]]][[[LBRACE]]][[[RBRACE]]]&rdquo; symbol in the default font set.  The combination is
+sufficiently weird that, while there&rsquo;s a defined font shape, no
+default LaTeX commands exist; to use the shape, the (eccentric) user
+needs LaTeX&rsquo;s simplest font selection commands:
+<blockquote>
+
+<pre>
+{\fontshape{ui}\selectfont
+    Tra la la, di dee}
+</pre>
+
+
+<pre>
+{\fontshape{ui}\selectfont Tra la la, di dee}
+</pre>
+
+</blockquote>
+<dl>
+<dt class="ctanref">smallcap.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/smallcap">smallcap</a>
+</dl>
+
+<p>

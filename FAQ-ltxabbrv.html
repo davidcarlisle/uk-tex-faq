@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-ltxabbrv</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacrotoolsandtechniques">LaTeX macro tools and techniques</a> &gt; </div>
+<h1>LaTeX internal &ldquo;abbreviations&rdquo;, etc.</h1>
+
+
+<p>
+
+<p>
+In the deeps of time, when TeX first happened, computers had
+extremely limited memory, and were (by today&rsquo;s standards) painfully
+slow.  When LaTeX came along, things weren&rsquo;t much better, and even
+when LaTeX 2e appeared, there was a strong imperative to save memory
+space (and to a lesser extent) CPU time.
+
+<p>
+From the very earliest days, Knuth used shortcut macros to speed
+things up.  LaTeX, over the years, has extended Knuth&rsquo;s list by a
+substantial amount.  An interesting feature  of the &ldquo;abbreviations&rdquo; is
+that on paper, they may look longer than the thing they stand for;
+however, to (La)TeX they <em>feel</em> smaller&hellip;
+
+<p>
+The table at the end of this answer lists the commonest of these
+&ldquo;abbreviations&rdquo;.  It is not complete; as always, if the table
+doesn&rsquo;t help, try the LaTeX source.  The table lists each
+abbreviation&rsquo;s <em>name</em> and its <em>value</em>, which provide most of
+what a user needs to know.  The table also lists the abbreviation&rsquo;s
+<em>type</em>, which is a trickier concept: if you need to know, the
+only real confusion is that the abbreviations labelled &lsquo;defn&rsquo; are
+defined using an [[[csx]]][[[LBRACE]]]<em>xxxx</em>def[[[RBRACE]]] command.
+
+<p>
+[[[begin]]][[[LBRACE]]]tabular[[[RBRACE]]][[[LBRACE]]]lll[[[RBRACE]]]
+Name [[[tbamp]]] Type [[[tbamp]]] Value [[[tbeol]]]
+[[[tbhline]]]
+<code>&#x5c;m@ne</code> [[[tbamp]]] count [[[tbamp]]] -1 [[[tbeol]]]
+<code>&#x5c;p@</code>  [[[tbamp]]] dimen [[[tbamp]]] 1pt [[[tbeol]]]
+<code>&#x5c;z@</code>  [[[tbamp]]] dimen [[[tbamp]]] 0pt [[[tbeol]]]
+<code>&#x5c;z@skip</code> [[[tbamp]]] skip [[[tbamp]]] 0pt plus 0pt minus 0pt [[[tbeol]]]
+[[[tbhline]]]
+<code>&#x5c;@ne</code> [[[tbamp]]] defn [[[tbamp]]] 1 [[[tbeol]]]
+<code>&#x5c;tw@</code> [[[tbamp]]] defn [[[tbamp]]] 2[[[tbeol]]]
+<code>&#x5c;thr@@</code> [[[tbamp]]] defn [[[tbamp]]] 3 [[[tbeol]]]
+<code>&#x5c;sixt@@n</code> [[[tbamp]]] defn [[[tbamp]]] 16 [[[tbeol]]]
+<code>&#x5c;@cclv</code> [[[tbamp]]] defn [[[tbamp]]] 255 [[[tbeol]]]
+<code>&#x5c;@cclvi</code> [[[tbamp]]] defn [[[tbamp]]] 256 [[[tbeol]]]
+<code>&#x5c;@m</code> [[[tbamp]]] defn [[[tbamp]]] 1000 [[[tbeol]]]
+<code>&#x5c;@M</code> [[[tbamp]]] defn [[[tbamp]]] 10000 [[[tbeol]]]
+<code>&#x5c;@MM</code> [[[tbamp]]] defn [[[tbamp]]] 20000 [[[tbeol]]]
+[[[tbhline]]]
+<code>&#x5c;@vpt</code> [[[tbamp]]] macro [[[tbamp]]] 5 [[[tbeol]]]
+<code>&#x5c;@vipt</code> [[[tbamp]]] macro [[[tbamp]]] 6 [[[tbeol]]]
+<code>&#x5c;@viipt</code> [[[tbamp]]] macro [[[tbamp]]] 7 [[[tbeol]]]
+<code>&#x5c;@viiipt</code> [[[tbamp]]] macro [[[tbamp]]] 8 [[[tbeol]]]
+<code>&#x5c;@ixpt</code> [[[tbamp]]] macro [[[tbamp]]] 9 [[[tbeol]]]
+<code>&#x5c;@xpt</code> [[[tbamp]]] macro [[[tbamp]]] 10 [[[tbeol]]]
+<code>&#x5c;@xipt</code> [[[tbamp]]] macro [[[tbamp]]] 10.95 [[[tbeol]]]
+<code>&#x5c;@xiipt</code> [[[tbamp]]] macro [[[tbamp]]] 12 [[[tbeol]]]
+<code>&#x5c;@xivpt</code> [[[tbamp]]] macro [[[tbamp]]] 14.4 [[[tbeol]]]
+<code>&#x5c;@xviipt</code> [[[tbamp]]] macro [[[tbamp]]] 17.28 [[[tbeol]]]
+<code>&#x5c;@xxpt</code> [[[tbamp]]] macro [[[tbamp]]] 20.74 [[[tbeol]]]
+<code>&#x5c;@xxvpt</code> [[[tbamp]]] macro [[[tbamp]]] 24.88 [[[tbeol]]]
+[[[tbhline]]]
+<code>&#x5c;@plus</code> [[[tbamp]]] macro [[[tbamp]]] &ldquo;<tt>plus</tt>&rdquo; [[[tbeol]]]
+<code>&#x5c;@minus</code> [[[tbamp]]] macro [[[tbamp]]] &ldquo;<tt>minus</tt>&rdquo; [[[tbeol]]]
+
+[[[end]]][[[LBRACE]]]tabular[[[RBRACE]]]
+
+<p>

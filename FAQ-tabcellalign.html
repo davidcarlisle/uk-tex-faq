@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tabcellalign</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>How to alter the alignment of tabular cells</h1>
+
+
+<p>
+
+<p>
+One often needs to alter the alignment of a tabular <tt>p</tt> (&lsquo;paragraph&rsquo;)
+cell, but problems at the end of a table row are common.  With a
+<tt>p</tt> cell that looks like:
+<blockquote>
+<pre>
+... &amp; \centering blah ... \\
+</pre>
+</blockquote>
+one is liable to encounter errors that complain about a &ldquo;misplaced
+<code>&#x5c;noalign</code>&rdquo; or &ldquo;<a href="FAQ-altabcr.html">extra alignment tab</a>&rdquo;, or the like.
+The problem is that the command <tt>&#x5c; </tt> means different things in
+different circumstances: the <code class="environment">tabular</code> environment
+switches the meaning to a value for use in the table, and
+<code>&#x5c;centering</code>, <code>&#x5c;raggedright</code> and <code>&#x5c;raggedleft</code> all change the
+meaning to something incompatible.  Note that the problem only
+arises in the last cell of a row: since each cell is set into a box,
+its settings are lost at the <tt>\&amp;</tt> (or <tt>&#x5c; </tt>) that
+terminates it. 
+
+<p>
+In the old days, the actual value of <tt>&#x5c; </tt> that the
+<code class="environment">tabular</code> environment uses was only available as an
+internal command.  Nowadays, the value is a public command, and you
+can in principle use it explicitly:
+<blockquote>
+<pre>
+... &amp; \centering blah ... \tabularnewline
+</pre>
+</blockquote>
+(but that&rsquo;s a rather verbose way of doing things).
+
+<p>
+The <i class="package">array</i> package provides a command <code>&#x5c;arraybackslash</code>
+which restores <tt>&#x5c; </tt> to its correct (within table) meaning;
+the command may be used in <i class="package">array</i>&rsquo;s &ldquo;field format&rdquo; preamble
+specifications:
+<blockquote>
+
+<pre>
+\begin{tabular}{...%
+        >{\centering\arraybackslash}%
+                             p{50mm}}
+...
+</pre>
+
+
+<pre>
+\begin{tabular}{... >{\centering\arraybackslash}p{50mm}}
+...
+</pre>
+
+</blockquote>
+
+<p>
+The <code>&#x5c;tabularnewline</code> and <code>&#x5c;arraybackslash</code> commands are
+(somewhat) modern additions to LaTeX and the <i class="package">array</i>
+package, respectively.  In the unlikely event that neither is
+available, the user may try the (old) solution which preserves the
+meaning of <tt>&#x5c; </tt>:
+<blockquote>
+<pre>
+\newcommand\PBS[1]{\let\temp=\\%
+  #1%
+  \let\\=\temp
+}
+</pre>
+</blockquote>
+which one uses within a table as:
+<blockquote>
+<pre>
+... &amp; \PBS\centering blah ... \\
+</pre>
+</blockquote>
+or in the preamble as:
+<blockquote>
+<pre>
+\begin{tabular}{...>{\PBS\centering}p{5cm}}
+</pre>
+</blockquote>
+<dl>
+<dt class="ctanref">array.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[array]
+</dl>
+
+
+<p>

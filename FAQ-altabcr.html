@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-altabcr</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Alignment tab changed to <code>&#x5c;cr</code></h1>
+
+
+<p>
+
+<p>
+This is an error you may encounter in LaTeX when a tabular
+environment is being processed.  &ldquo;Alignment tabs&rdquo; are the
+<tt>\&amp;</tt> signs that separate the columns of a <code class="environment">tabular</code>
+(or <code class="environment">array</code> or matrix) environment; so the error message
+<blockquote>
+
+<pre>
+! Extra alignment tab has been 
+                            changed to \cr
+</pre>
+
+
+<pre>
+! Extra alignment tab has been changed to \cr
+</pre>
+
+</blockquote>
+could arise from a simple typo, such as:
+<blockquote>
+<pre>
+\begin{tabular}{ll}
+  hello   &amp; there &amp; jim \\
+  goodbye &amp; now
+\end{tabular}
+</pre>
+</blockquote>
+where the second <tt>\&amp;</tt> in the first line of the table is more than the
+two-column <tt>ll</tt> column specification can cope with. In this
+case, an extra &ldquo;<tt>l</tt>&rdquo; in that solves the problem.  (If you
+continue from the error in this case, &ldquo;<tt>jim</tt>&rdquo; will be moved
+to a row of his own.)  Another simple typo that can provoke the error
+is:
+<blockquote>
+<pre>
+\begin{tabular}{ll}
+  hello   &amp; there
+  goodbye &amp; now
+\end{tabular}
+</pre>
+</blockquote>
+where the &lsquo;<tt>&#x5c; </tt>&rsquo; has been missed from the first line of the table.
+In this case, if you continue from the error, you will find that
+LaTeX has made a table equivalent to:
+<blockquote>
+<pre>
+\begin{tabular}{ll}
+  hello   &amp; there goodbye\\
+  now
+\end{tabular}
+</pre>
+</blockquote>
+(with the second line of the table having only one cell).
+
+<p>
+Rather more difficult to spot is the occurrence of the error when
+you&rsquo;re using alignment instructions in a &ldquo;<tt>p</tt>&rdquo; column:
+<blockquote>
+<pre>
+\usepackage{array}
+...
+\begin{tabular}{l>{\raggedright}p{2in}}
+here &amp; we are again \\
+happy &amp; as can be
+\end{tabular}
+</pre>
+</blockquote>
+the problem here (as explained in 
+<a class="FAquestion.html" href="FAQ-tabcellalign.html">tabular cell alignment</a>) is that the
+<code>&#x5c;raggedright</code> command in the column specification has overwritten
+<code class="environment">tabular</code>&rsquo;s definition of <tt>&#x5c; </tt>, so that
+&ldquo;<tt>happy</tt>&rdquo; appears in a new line of the second column, and the
+following <tt>\&amp;</tt> appears to LaTeX just like the second
+<tt>\&amp;</tt> in the first example above.
+
+<p>
+Get rid of the error in the way described in 
+<a class="FAquestion.html" href="FAQ-tabcellalign.html">tabular cell alignment</a>&nbsp;&mdash; either use
+<code>&#x5c;tabularnewline</code> explicitly, or use the <code>&#x5c;RBS</code> trick described
+there.
+
+<p>
+The <i class="package">amsmath</i> package adds a further twist; when typesetting
+a matrix (the package provides many matrix environments), it has a
+fixed maximum number of columns in a matrix&nbsp;&mdash; exceed that maximum,
+and the error will appear.  By default, the maximum is set to 10, but
+the value is stored in counter <tt>MaxMatrixCols</tt> and may be
+changed (in the same way as any counter):
+<blockquote>
+<pre>
+\setcounter{MaxMatrixCols}{20}
+</pre>
+</blockquote>
+<dl>
+<dt class="ctanref">array.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[array]
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-07-06</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-altabcr">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-altabcr</a>
+
+<p>

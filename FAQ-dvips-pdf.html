@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-dvips-pdf</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HypertextandPDF">Hypertext and PDF</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Quality of PDF from PostScript</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]blurry fuzzy crippled[[[RBRACE]]]
+
+<p>
+Any reasonable PostScript, including any output of <i class="progname">dvips</i>, may be
+converted to PDF, using (for example) a sufficiently recent
+version of <a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a>,
+Frank Siegert&rsquo;s (shareware)
+<a href="http://www.pstill.com/.html"><i class="progname">PStill</i></a>, or Adobe&rsquo;s (commercial)
+<i class="progname">Distiller</i>.
+
+<p>
+But, although the job may (almost always) be done, the results are
+often not acceptable: the most frequent problem is bad presentation of
+the character glyphs that make up the document.  The following answers
+offer solutions to this (and other) problems of bad presentation.
+Issues covered are:
+<ul>
+<li> <a href="FAQ-fuzzy-type3.html">Wrong type of fonts used</a>, which is
+  the commonest cause of fuzzy text.
+<li> <a href="FAQ-fuzzy-gs.html"><i class="progname">Ghostscript</i> too old</a>,
+  which can also result in fuzzy text.
+
+<li> <a href="FAQ-fuzzy-T1.html">Switching to font encoding T1 encoding</a>,
+  which is yet another possible cause of fuzzy text.
+<li> Another problem&nbsp;&mdash; missing characters&nbsp;&mdash; arises from an
+  
+  <a href="FAQ-distill-prob.html">aged version of <i class="progname">Adobe</i>&nbsp;<i class="progname">Distiller</i></a>.
+<li> Finally, there&rsquo;s the common confusion that arises from using the
+  <i class="progname">dvips</i> configuration file <tt>-Ppdf</tt>, the 
+  <a href="FAQ-charshift.html">weird characters</a>.
+</ul>
+It should be noted that <i class="progname">Adobe</i> 
+                                         
+<i class="progname">Reader</i>&nbsp;6 (released in mid-2003, and later versions) does
+not exhibit the &ldquo;fuzziness&rdquo; that so many of the answers below
+address.  This is of course good news: however, it will inevitably be
+a long time before every user in the world has this (or later)
+versions, so the remedies below are going to remain for some time to
+come.
+
+<p>
+The problems are also discussed, with practical examples, in Mike
+Shell&rsquo;s <i class="package">testflow</i> package, which these FAQs recommend as a
+&ldquo;<a href="FAQ-tutbitslatex.html">specialised tutorial</a>.
+<dl>
+<dt class="ctanref">testflow</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/testflow">testflow</a>
+</dl>
+
+<p>
+
+<p>

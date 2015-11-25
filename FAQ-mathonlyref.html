@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-mathonlyref</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Numbers for referenced equations only</h1>
+
+
+<p>
+
+<p>
+There are those who consider that papers look untidy with numbers on
+every equation; there is also a school of thought that claims that
+there should be numbers everywhere, in case some reader wants to make
+reference an equation to which the author made no cross-reference.
+
+<p>
+If you hold to the &ldquo;only cross-referenced&rdquo; school of thought, you
+can (using the <code>&#x5c;nonumber</code> command on the relevant equations, or by
+using the AMSLaTeX unnumbered environments such as
+<code class="environment">equation*</code>) mark those of your equations to which you
+make no reference.  In a long or complex paper, this procedure could
+well become deeply tedious.
+
+<p>
+Fortunately, help is at hand: the <i class="package">mh</i> bundle&rsquo;s
+<i class="package">mathtools</i> package offers a &lsquo;<code class="pkgoption">showonlyrefs</code>&rsquo;
+switch through its <code>&#x5c;mathtoolsset</code> command; when that&rsquo;s in
+operation, only those equations to which you make reference will be
+numbered in the final output.  See the package&rsquo;s documentation for
+details of how to make references when the switch is in effect.
+<dl>
+<dt class="ctanref">mathtools.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/mh">mh</a>[mathtools]
+</dl>
+
+<p>

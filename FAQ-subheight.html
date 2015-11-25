@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-subheight</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Even subscript height</h1>
+
+
+<p>
+
+<p>
+Other things being equal, TeX will aim to position subscripts and
+superscripts in places that &ldquo;look good&rdquo;.  Unfortunately, it only
+does this for the sub- and superscripts of each atom at a time, so if
+you have
+<blockquote>
+<pre>
+$ X^{1}_{2} X_{2} $
+</pre>
+</blockquote>
+the second subscript will appear higher, since the first has moved
+down to avoid the superscript;
+the effect can be noticeably distracting:
+<blockquote>
+
+
+
+
+  [[[includegraphics]]][[[LBRACE]]]faq-images1.png[[[RBRACE]]]
+
+</blockquote>
+
+<p>
+You can avoid the problem, for a single instance, by
+<blockquote>
+<pre>
+$ X^{1}_{2} X^{}_{2} $
+</pre>
+</blockquote>
+here, the dummy superscript has the requisite &ldquo;pushing down&rdquo; effect:
+<blockquote>
+
+
+
+
+  [[[includegraphics]]][[[LBRACE]]]faq-images2.png[[[RBRACE]]]
+
+</blockquote>
+
+<p>
+While this technique does what is necessary, it is tedious and
+potentially error-prone.  So, for more than one or two equations
+in a document, the LaTeX user is advised to use the
+<i class="package">subdepth</i> package, which forces the lower position for all
+subscripts.
+<dl>
+<dt class="ctanref">subdepth.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/subdepth">subdepth</a>
+</dl>
+
+<p>
+
+<p>
+
+<p>

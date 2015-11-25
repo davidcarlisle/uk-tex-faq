@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-inst-wlcf</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Installing files &ldquo;where (La)TeX can find them&rdquo;</h1>
+
+
+<p>
+[[[AliasQuestion]]][[[LBRACE]]]Q-wherefiles[[[RBRACE]]]
+
+<p>
+In the past, package documentation used always to tell you to put your
+files &ldquo;where LaTeX can find them&rdquo;; this was always unhelpful&nbsp;&mdash;
+if you knew where that <em>was</em>, you didn&rsquo;t need telling, but if you
+<em>didn&rsquo;t</em> know, you were completely stuck.
+
+<p>
+It was from this issue that the whole idea of the TDS sprang;
+&ldquo;where to put&rdquo; questions now come down to &ldquo;where&rsquo;s the TDS
+tree?&rdquo;.
+
+<p>
+We therefore answer the question by considering:
+<ul>
+<li> <a href="FAQ-what-TDS.html">what tree to use</a>, and
+<li> <a href="FAQ-install-where.html">where in the tree to put the files</a>.
+</ul>
+
+<p>
+Once we know the answer to both questions, and we&rsquo;ve created any
+directories that are needed, we simply copy files to their rightful
+location.
+
+<p>
+This has done what the old requirement specified: LaTeX (or
+whatever) <em>can</em> (in principle) find the files.  However, in order
+that the software <em>will</em> find the files, we need to update an
+index file.
+
+<p>
+On a MiKTeX system, open the window
+  <tt>Start</tt>&rarr;
+  <tt>All Programs</tt>&rarr;
+  <tt>MiKTeX &lsaquo;<i>version</i>&rsaquo;</tt>&rarr;
+  <tt>Settings</tt>,
+and click on <tt>Refresh FNDB</tt>.
+The job may also be done in a command window, using the command:
+<blockquote>
+<pre>
+initexmf --update-fndb
+</pre>
+</blockquote>
+The 
+<a href="http://docs.miktex.org/manual/initexmf.html.html">MiKTeX documentation</a>
+gives further details about <tt>initexmf</tt>.
+
+<p>
+On a texlive-based system (or its predecessor teTeX, use the command
+<tt>texhash</tt> (or if that&rsquo;s not available, <tt>mktexlsr</tt>&nbsp;&mdash;
+they ought to be different names for the same program).
+
+<p>
+Having done all this, the new package will be available for use.
+
+<p>

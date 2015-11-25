@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-impgraph</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Graphics">Graphics</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Importing graphics into (La)TeX documents</h1>
+
+
+<p>
+
+<p>
+Knuth, when designing the current version of TeX back in the early
+1980s, could discern no &ldquo;standard&rdquo; way of expressing graphics in
+documents.  He reasoned that this state could not persist for ever,
+but that it would be foolish for him to define TeX primitives that
+allowed the import of graphical image definitions.  He therefore
+deferred the specification of the use of graphics to the writers of
+DVI drivers; TeX documents would control the drivers by
+means of 
+<a href="FAQ-specials.html"><code>&#x5c;special</code> commands</a>.
+
+<p>
+There is therefore a straightforward way for anyone to import graphics
+into their document: read the specification of the <code>&#x5c;special</code>
+commands your driver uses, and &lsquo;just&rsquo; code them.  This is the
+hair-shirt approach: it definitely works, but it&rsquo;s not for everyone.
+
+<p>
+Over the years, therefore, &ldquo;graphics inclusion&rdquo; packages have sprung
+up; most were designed for inclusion of
+
+<a href="FAQ-eps.html">Encapsulated PostScript graphics</a>&nbsp;&mdash;
+which has become the <em>lingua franca</em> of graphics inclusion over
+the last decade or so.
+
+<p>
+Notable examples are the <i class="package">epsf</i> package (distributed with
+<i class="progname">dvips</i>) and the <i class="package">psfig</i> package.  (Both of these
+packages were designed to work well with both Plain TeX and
+LaTeX 2.09; they are both still available.)  All such packages were
+tied to a particular DVI driver (<i class="progname">dvips</i>, in
+the above two cases), but their code could be configured for others.
+
+<p>
+The obvious next step was to make the code configurable dynamically.
+The LaTeX standard <i class="package">graphics</i> package and its derivatives
+made this step: it is strongly preferred for all current work.
+
+<p>
+Users of Plain TeX have two options allowing them to use
+<i class="package">graphicx</i>: the <i class="package">miniltx</i> &ldquo;LaTeX emulator&rdquo; and
+the <i class="package">graphicx.tex</i> front-end allow you to load
+<i class="package">graphicx</i>, and <a href="FAQ-eplain.html">Eplain</a> allows you to load
+it (using the full LaTeX syntax) direct.
+
+<p>
+The <i class="package">graphics</i> package takes a variety of &ldquo;driver
+options&rdquo;&nbsp;&mdash; package options that select code to generate the
+commands appropriate to the DVI driver in use.  In most cases,
+your (La)TeX distribution will provide a <i class="filename">graphics.cfg</i> file
+that will select the correct driver for what you&rsquo;re doing (for
+example, a distribution that provides both LaTeX and PDFLaTeX
+will usually provide a configuration file that determines whether
+PDFLaTeX is running, and selects the definitions for it if so).
+
+<p>
+The <i class="package">graphics</i> package provides a toolkit of commands (insert
+graphics, scale a box, rotate a box), which may be composed to provide
+most facilities you need; the basic command, <code>&#x5c;includegraphics</code>,
+takes one optional argument, which specifies  the bounding box of the
+graphics to be included.
+
+<p>
+The <i class="package">graphicx</i> package uses the facilities of of
+<i class="package">graphics</i> behind a rather more sophisticated command syntax
+to provide a very powerful version of the <code>&#x5c;includegraphics</code>
+command.  <i class="package">graphicx</i>&rsquo;s version can combine scaling and
+rotation, viewporting and clipping, and many other things.  While this
+is all a convenience (at some cost of syntax), it is also capable of
+producing noticeably more efficient PostScript, and some of its
+combinations are simply not possible with the <i class="package">graphics</i>
+package version.
+
+<p>
+The <i class="package">epsfig</i> package provides the same facilities as
+<i class="package">graphicx</i>, but via a <code>&#x5c;psfig</code> command (also known as
+<code>&#x5c;epsfig</code>), capable of emulating
+the behaviour (if not the bugs) the old <i class="package">psfig</i> package.
+<i class="package">Epsfig</i> also supplies homely support for former users of the
+<i class="package">epsf</i> package.  However, there&rsquo;s a support issue: if you
+declare you&rsquo;re using <i class="package">epsfig</i>, any potential mailing list or
+usenet helper has to clear out of the equation the possibility that
+you&rsquo;re using &ldquo;old&rdquo; <i class="package">epsfig</i>, so that support is slower
+coming than it would otherwise be.
+
+<p>
+There is no rational reason to stick with the old packages, which have
+never been entirely satisfactory in the LaTeX context. (One
+irrational reason to leave them behind is that their replacement&rsquo;s
+name tends not to imply that it&rsquo;s exclusively related to PostScript
+graphics.  The reasoning also excludes <i class="package">epsfig</i>, of course.)
+
+<p>
+A wide variety of detailed techniques and tricks have been developed
+over the years, and Keith Reckdahl&rsquo;s <i class="package">epslatex</i> outlines them
+in compendious detail: this highly recommendable document is available
+from CTAN.  An invaluable review of the practicalities of
+exchanging graphics between sites,
+
+ 
+&ldquo;<a href="http://silas.psfc.mit.edu/elec_fig/elec_figures.pdf.html">Graphics for Inclusion in Electronic Documents</a>&rdquo;
+
+
+
+
+
+has been written by Ian Hutchinson; the document isn&rsquo;t on CTAN,
+but may also be
+
+<a href="http://silas.psfc.mit.edu/elec_fig/.html">browsed on the Web</a>.
+<dl>
+<dt class="ctanref">epsf.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/epsf">epsf</a>
+<dt class="ctanref">epsfig.sty</dt><dd>Part of the <a class="ctan" href="https://www.ctan.org/pkg/graphics">graphics</a> bundle
+<dt class="ctanref">epslatex.pdf</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/epslatex">epslatex</a>
+<dt class="ctanref">graphics.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/graphics">graphics</a>
+<dt class="ctanref">graphicx.sty</dt><dd>Part of the <a class="ctan" href="https://www.ctan.org/pkg/graphics">graphics</a> bundle
+<dt class="ctanref">miniltx.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/graphics-plain">graphics-plain</a>
+<dt class="ctanref">psfig.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/psfig">psfig</a>
+</dl>
+
+<p>

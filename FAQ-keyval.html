@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-keyval</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Key-value input for macros and package options</h1>
+
+
+<p>
+
+<p>
+When we discussed 
+<a href="FAQ-moren9.html">extending the number of arguments to a macro</a>, we
+suggested that large numbers of arguments, distinguished only by their
+position, aren&rsquo;t very kind to the user, and that a package such as
+<i class="package">keyval</i> offers a more attractive user interface.  We now
+consider the packages that the macro programmer might use, to create
+such a user interface.
+
+<p>
+The simplest key-value processor (for LaTeX, at least) remains
+<i class="package">keyval</i>; it has a command <code>&#x5c;define@key</code> to declare a key
+and a <em>handler</em> to process it, and a macro <code>&#x5c;setkeys</code> to offer
+values to the handler of one or more keys.  Thus:
+<blockquote>
+<pre>
+\define@key{my}{foo}{Foo is #1\par}
+\define@key{my}{bar}[99]{Bar is #1\par}
+...
+\setkeys{my}{foo=3,bar}
+</pre>
+</blockquote>
+will produce output saying:
+<blockquote>
+  Foo is 3[[[par]]][[[LBRACE]]][[[RBRACE]]]
+  Bar is 99
+</blockquote>
+This has defined two keys &lsquo;<tt>foo</tt>&rsquo; and &lsquo;<tt>bar</tt>&rsquo; in family
+&lsquo;<tt>my</tt>&rsquo;, and then executed them, the first with argument
+&lsquo;<tt>3</tt>&rsquo; and the second with no argument, so that the default
+value of &lsquo;<tt>99</tt>&rsquo; is picked up.  In effect, the two calls to
+<code>&#x5c;define@key</code> are simply defining commands, as (for example):
+<blockquote>
+<pre>
+\newcommand{\KV@my@foo}[1]{Foo is #1}
+</pre>
+</blockquote>
+(the definition of <code>&#x5c;KV@my@bar</code> is similar, but trickier).  The
+command <code>&#x5c;setkeys</code> knows how to find those commands when it needs to
+process each key&nbsp;&mdash; it is easy to regurgitate the structure of the
+command name, with family name (&lsquo;<tt>my</tt>&rsquo;, here) after the first
+&lsquo;<tt>@</tt>&rsquo;, and the key name after the second &lsquo;<tt>@</tt>&rsquo;.  (The
+&lsquo;<tt>KV</tt>&rsquo; part is fixed, in <i class="package">keyval</i>.)
+
+<p>
+These simple commands are enough, in fact, to process the botanical
+example offered as replacement for multi-argument commands in 
+<a class="FAquestion.html" href="FAQ-moren9.html">the question mentioned above</a>, or the
+optional arguments of the <code>&#x5c;includegraphics</code> command of the
+<i class="package">graphicx</i> package.  (The last is, in fact, what
+<i class="package">keyval</i> was designed to do.)
+
+<p>
+However, we need more if we&rsquo;re to to have package options in
+&lsquo;key-value&rsquo; form.  Packages like <i class="package">hyperref</i> have enormously
+complicated package options which need key-value processing at
+<code>&#x5c;ProcessOptions</code> time: <i class="package">keyval</i> can&rsquo;t do that on its own.
+
+<p>
+Heiko Oberdiek&rsquo;s <i class="package">kvoptions</i> package comes to our help: it
+enables the programmer to declare class or package options that
+operate as key and value pairs.  The package defines commands
+<code>&#x5c;DeclareBoolOption</code> for options whose value should be either
+<em>true</em> or <em>false</em>, and <code>&#x5c;DeclareStringOption</code> for all
+other options that have a value.  Keys are declared using
+<i class="package">keyval</i> and may remain available for use within the document,
+or may be &lsquo;cancelled&rsquo; to avoid confusion.  If you have loaded
+<i class="package">kvoptions</i>, the LaTeX kernel&rsquo;s <code>&#x5c;DeclareOption</code> becomes
+<code>&#x5c;DeclareVoidOption</code> (it&rsquo;s an option with no value), and
+<code>&#x5c;DeclareOption*</code> becomes <code>&#x5c;DeclareDefaultOption</code>.
+
+<p>
+Heiko also provides <i class="package">kvsetkeys</i> which is a more robust version
+of <i class="package">setkeys</i>, with some of the rough edges made smoother.
+
+<p>
+Hendri Adriaens&rsquo; <i class="package">xkeyval</i> offers more flexibility than
+the original <i class="package">keyval</i> and is more robust than the original,
+too.  Like <i class="package">kvoptions</i>, the package also has mechanisms to
+allow class and package options in key-value form (macros
+<code>&#x5c;DeclareOptionX</code>, <code>&#x5c;ExecuteOptionsX</code> and <code>&#x5c;ProcessOptionsX</code>.
+<i class="package">Pstricks</i> bundle packages use a <i class="package">xkeyval</i> derivative
+called <i class="package">pst-xkey</i> for their own key-value manipulation.
+
+
+<p>
+The (widely-respected) <i class="package">pgf</i> graphics package has its own
+key-value package called <i class="package">pgfkeys</i>.  The documentation of the
+package (part of the huge <i class="package">pgf</i> manual, in part 5,
+&ldquo;utilities&rdquo;) contains a useful comparison with other key-value
+systems; some notable differences are:
+<ul>
+<li> key organisation: <i class="package">pgfkeys</i> uses a tree structure, while
+  <i class="package">keyval</i> and <i class="package">xkeyval</i> both associate keys with a family;
+<li> <i class="package">pgfkeys</i> supports multi-argument key code; and
+<li> <i class="package">pgfkeys</i> can support call-backs when an unknown key
+  appears (these things are called <em>handlers</em>.
+</ul>
+Keys are organized in a tree that is reminiscent of the Unix fille
+tree.  A typical key might be, <i class="filename">/tikz/coordinate system/x</i> or
+just <i class="filename">/x</i>.  When you specify keys you can provide the complete
+path of the key, but you usually just provide the name of the key
+(corresponding to the file name without any path) and the path is
+added automatically.  So a <code>&#x5c;pgfkeys</code> command might be:
+
+<blockquote>
+<pre>
+\pgfkeys{/my key=hello,/your keys/main key=something\strange,
+  key name without path=something else}
+</pre>
+</blockquote>
+
+
+
+<pre>
+\pgfkeys{/my key=hello,
+  /your keys/main key=something\strange,
+  key name without path=something else}
+</pre>
+
+
+and for each key mentioned, the associated code will be executed.
+&hellip; and that code is also set up using <code>&#x5c;pgfkeys</code>:
+<blockquote>
+<pre>
+\pgfkeys{/my key/.code=The value is '#1'.}
+</pre>
+</blockquote>
+after which
+<blockquote>
+<pre>
+\pgfkeys{/my key=hi!}
+</pre>
+</blockquote>
+will produce just
+<blockquote>
+  The value is &rsquo;hi!&rsquo;.
+</blockquote>
+The manual goes on, showing how to define a key with two arguments,
+how to provide default value for a key, and how to define aliases for
+particular key sequences (which are called &ldquo;styles&rdquo;).  All in all,
+it seems a well thought-out system, offering a lot of flexibility that
+isn&rsquo;t available with the other keys packages.  However, there seems to
+be no mechanism for using <i class="package">pgfkeys</i> keys as part of the
+options of another package, in the way that <i class="package">kvoptions</i> does.
+
+<p>
+The <i class="package">l3kernel</i> programming layer for <a href="FAQ-LaTeX3.html">LaTeX3</a>
+includes the <i class="package">l3keys</i> module.  Inspired by <i class="package">pgfkeys</i>,
+it provides a keyval-based method for the programmer to create keys.
+As with keyval and derivatives, <i class="package">l3keys</i> uses separate macros
+for defining and setting keys.  The package <i class="package">l3keys2e</i> makes
+it possible for LaTeX 2e class and package
+options to be processed using <i class="package">l3keys</i>. <i class="package">L3kernel</i>
+code can be used within existing LaTeX2e documents, so
+<i class="package">l3keys</i> is also available to the LaTeX 2e programmer &lsquo;direct&rsquo;.
+
+<p>
+Another key-value system that&rsquo;s part of larger set of macros is
+<i class="package">scrbase</i>, which uses the facilities of <i class="package">keyval</i> to
+build a larger set of facilities, originally for use within the
+<i class="class">KOMA-script</i> bundle.  For English-speaking authors, there are
+difficulties from the German-only documentation; however, from a
+partial translation available to the author of this answer, a summary
+is possible.  The package may build on the facilities either of
+<i class="package">kyeval</i> or of <i class="package">xkeyval</i>, and builds its functionality
+on the structure of the &lsquo;key family&rsquo;.  The user may define family
+&lsquo;members&rsquo; and keys are defined relative to the members.  (For example,
+the package <i class="package">scrbase</i> is part of the <i class="class">KOMA-script</i>
+bundle; so its keys are all members of the <i class="package">scrbase.sty</i>
+family within the <i class="package">KOMA</i> family.  The function
+<code>&#x5c;FamilyProcessOptions</code> allows the programmer to decode the options
+of the package in terms of the package&rsquo;s key family.  Note that there
+is no special provision made for &ldquo;traditional&rdquo; package options, as
+in the <i class="package">kvoptions</i> package.
+
+<p>
+This brief summary was guided by input from two sources: a draft article
+for <i class="slanted">TUGboat</i> by Joseph Wright, and the partial translation of the
+documentation of package <i class="package">scrbase</i> prepared by Philipp
+Stephani.
+
+<p>
+All the above are (at least) aimed at LaTeX programming; there is
+one package, <i class="package">getoptk</i>, aimed at the Plain TeX programmer.
+<i class="package">Getoptk</i> uses syntax inspired by that offered by TeX
+primitives such as <code>&#x5c;hrule</code> and <code>&#x5c;hbox</code>, so we are offered
+syntax such as:
+
+<blockquote>
+<pre>
+\begindisplay file {chapter1} literal offset 20pt
+</pre>
+</blockquote>
+(taken from the package manual).
+
+
+
+<pre>
+\begindisplay file {chapter1} %
+                literal offset 20pt
+</pre>
+
+
+
+
+
+<p>
+There are (we know) people who would swear that such syntax is
+wonderful (the present author wouldn&rsquo;t), but the package earns its
+place as the only stand-alone key-value macros that will work in Plain TeX.
+<dl>
+<dt class="ctanref">getoptk.tex</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/getoptk">getoptk</a>
+<dt class="ctanref">keyval.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/graphics">graphics</a>[keyval]
+<dt class="ctanref">kvoptions.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[kvoptions]
+<dt class="ctanref">kvsetkeys.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[kvsetkeys]
+<dt class="ctanref">l3keys.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/l3kernel">l3kernel</a>
+<dt class="ctanref">l3keys2e.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/l3packages">l3packages</a>
+<dt class="ctanref">pgfkeys.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/pgf">pgf</a>
+<dt class="ctanref">scrbase.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">xkeyval.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xkeyval">xkeyval</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-09-06</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-keyval">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-keyval</a>
+
+<p>

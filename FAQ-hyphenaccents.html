@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-hyphenaccents</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Hyphenation">Hyphenation</a> &gt; </div>
+<h1>Accented words aren&rsquo;t hyphenated</h1>
+
+
+<p>
+
+<p>
+TeX&rsquo;s algorithm for hyphenation gives up when it encounters an
+<code>&#x5c;accent</code> command; there are good reasons for this, but it means
+that quality typesetting in non-English languages can be difficult.
+
+<p>
+For TeX macro packages, you can avoiding the effect by using an
+appropriately encoded font (for example, a Cork-encoded font&nbsp;&mdash; see
+<a class="FAquestion.html" href="FAQ-ECfonts.html">the EC fonts</a>) which contains accented
+letters as single glyphs.  LaTeX users can achieve this end simply
+by adding the command
+<pre>
+  \usepackage[T1]{fontenc}
+</pre>
+to the preamble of their document.  Other encodings (notably
+LY1, once promoted by Y&amp;Y inc) may be used
+in place of T1.  Indeed, most current 8-bit TeX font
+encodings will &lsquo;work&rsquo; with the relevant sets of hyphenation patterns. 
+
+<p>
+With the advance of XeTeX and LuaTeX to the mainstream, a new
+regime for generating hyphenation tables is in place.  For each
+language, a table is written in Unicode, and &ldquo;8-bit&rdquo; versions are
+generated for use with various LaTeX font encodings.  Original sets
+of patterns remain on CTAN, for use when an older environment
+is needed.
+
+<p>

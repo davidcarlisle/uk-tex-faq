@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-uselmfonts</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#Particularfontfamilies">Particular font families</a> &gt; </div>
+<h1>Using the Latin Modern fonts</h1>
+
+
+<p>
+
+<p>
+The <i class="package">lm</i> fonts are an exciting addition to
+the armoury of the (La)TeX user: high quality outlines of fonts that
+were until recently difficult to obtain, all in a free and
+relatively compact package.  However, the spartan information file
+that comes with the fonts remarks &ldquo;It is presumed that a potential
+user knows what to do with all these files&rdquo;.  This answer aims to
+fill in the requirements: the job is really not terribly difficult.
+
+<p>
+Note that teTeX distributions, from version&nbsp;3.0, already have the
+<i class="package">lm</i> fonts: all you need do is use them.  The fonts may also
+be installed via the package manager, in a current MiKTeX system.
+The remainder of this answer, then, is for people who don&rsquo;t use such
+systems.
+
+<p>
+The font (and related) files appear on CTAN as a set of
+single-entry <a href="FAQ-tds.html">TDS trees</a>&nbsp;&mdash;
+<i class="filename">fonts</i>, <i class="filename">dvips</i>, <i class="filename">tex</i> and <i class="filename">doc</i>.  The <i class="filename">doc</i>
+subtree really need not be copied (it&rsquo;s really a pair of sample
+files), but copy the other three into your existing Local
+<tt>&#x24;TEXMF</tt> tree, and
+
+<a href="FAQ-inst-wlcf.html">update the filename database</a>.
+
+<p>
+Now, incorporate the fonts in the set searched by PDFLaTeX,
+<i class="progname">dvips</i>, <i class="progname">dvipdfm</i>/<i class="progname">dvipdfmx</i>, your
+previewers and Type&nbsp;1-to-PK conversion programs, by
+<ul>
+<li> On a teTeX system earlier than version&nbsp;2.0, edit the file
+  <i class="filename">$TEXMF/dvips/config/updmap</i> 
+  and insert an absolute path for the <i class="filename">lm.map</i> just after the
+  line that starts <tt>extra\_modules="</tt> (and before the closing
+  quotes).
+<li> On a teTeX version&nbsp;2.0 (or later), execute the command
+<blockquote>
+<pre>
+updmap --enable Map lm.map
+</pre>
+</blockquote>
+<li> On a MiKTeX system earlier than version&nbsp;2.2, the &ldquo;Refresh
+  filename database&rdquo; operation, which you performed after installing
+  files, also updates the system&rsquo;s &ldquo;PostScript resources database&rdquo;.
+<li> On a MiKTeX system, version&nbsp;2.2 or later, update
+  <i class="filename">updmap.cfg</i> as described in the MiKTeX 
+  <a href="http://docs.miktex.org/manual/psfonts.html#chgupdmapcfg.html">online documentation</a>.
+  Then execute the command <tt>initexmf --mkmaps</tt>, and the
+  job is done.
+</ul>
+
+<p>
+To use the fonts in a LaTeX document, you should
+<blockquote>
+  <code>&#x5c;usepackage</code><code>&#x7b;lmodern&#x7d;</code>
+</blockquote>
+this will make the fonts the default
+for all three LaTeX font families (&ldquo;roman&rdquo;, &ldquo;sans-serif&rdquo; and
+&ldquo;typewriter&rdquo;).  You also need 
+<blockquote>
+  <code>&#x5c;usepackage</code><code>[T1]</code></code><code>&#x7b;fontenc&#x7d;</code>
+</blockquote>
+for text, and 
+<blockquote>
+  <code>&#x5c;usepackage</code><code>&#x7b;textcomp&#x7d;</code>
+</blockquote>
+if you want to use any of the TS1-encoding symbols.  There is
+no support for using fonts according to the OT1 encoding.
+<dl>
+<dt class="ctanref">Latin Modern fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lm">lm</a>
+</dl>
+
+<p>

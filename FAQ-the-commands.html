@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-the-commands</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>Redefining counters&rsquo; <code>&#x5c;the-</code>commands</h1>
+
+
+<p>
+
+<p>
+Whenever you request a new LaTeX counter, LaTeX creates a bunch
+of behind-the-scenes commands, as well as defining the counter
+itself.
+
+<p>
+Among other things, <code>&#x5c;newcounter</code><code>&#x7b;fred&#x7d;</code> creates a command
+<code>&#x5c;the</code><tt><em>fred</em></tt>, which expands to &ldquo;the value of
+<tt><em>fred</em></tt>&rdquo; when you&rsquo;re typesetting.
+
+<p>
+The definition of <code>&#x5c;the</code><tt><em>fred</em></tt> should express the
+value of the counter: it is almost always always a mistake to use the
+command to produce anything else.  The value may reasonably be
+expressed as an arabic, a roman or a greek number, as an alphabetic
+expression, or even as a sequence (or pattern of) symbols.  If you
+need a decision process on whether to re-define
+<code>&#x5c;the</code><tt><em>fred</em></tt>, consider what might happen when you do
+so.
+
+<p>
+So, for example, if you want your section numbers to be terminated by
+a period, you could make <code>&#x5c;thesection</code> expand with a terminating
+period.  However, such a change to <code>&#x5c;thesection</code> makes the
+definition of <code>&#x5c;thesubsection</code> look distinctly odd: you are going to
+find yourself redefining things left, right and centre.  Rather, use
+the standard techniques for 
+<a href="FAQ-seccntfmt.html">adjusting the presentation of section numbers</a>. 
+
+<p>
+Or, suppose you want the page number to appear at the bottom of each
+page surrounded by dashes (as in
+&ldquo;<tt>-</tt>[[[LBRACE]]][[[RBRACE]]]<tt>-[[[textasciitilde]]]</tt><tt>nnn[[[textasciitilde]]]-</tt>[[[LBRACE]]][[[RBRACE]]]<tt>-</tt>&rdquo;).
+If you try to achieve this by redefining <code>&#x5c;thepage</code>, problems will
+arise from the use of the page number in the table of contents (each
+number will have the dashes attached), and <code>&#x5c;pageref</code> references
+will be oddly modified.  In this case, the change of appearance is
+best done by redefining the page style itself, perhaps using
+<a href="FAQ-fancyhdr.html">package <i class="package">fancyhdr</i></a>.
+
+<p>
+
+<p>
+
+<p>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-RCS</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Documentmanagement">Document management</a> &gt; </div>
+<h1>Version control using RCS, CVS or the like</h1>
+
+
+<p>
+
+<p>
+If you use RCS, CVS, <i class="progname">Subversion</i>,
+<i class="progname">Bazaar</i> or <i class="progname">Git</i> to maintain
+your (La)TeX documents under version control, you may need some
+mechanism for including the version details in your document, in such
+a way that they can be typeset (that is, rather than just hiding them
+inside a comment).
+
+<p>
+The most complete solution for RCS and CVS is to use the
+(LaTeX) package <i class="package">rcs</i>, which allows you to parse and
+display the contents of RCS keyword fields in an extremely
+flexible way.  The package <i class="package">rcsinfo</i> is simpler, but does most
+of what you want, and some people prefer it; it is explicitly
+compatible with <i class="progname">LaTeX2HTML</i>.
+
+<p>
+If, however, you need a solution which works without using external
+packages, or which will work in Plain TeX, then you can use the
+following minimal solution:
+<blockquote>
+
+<pre>
+\def\RCS$#1: #2 ${\expandafter\def\csname RCS#1\endcsname{#2}}
+\RCS$Revision: 1.47 $ % or any RCS keyword
+\RCS$Date: 2014/01/28 18:17:23 $
+...
+\date{Revision \RCSRevision, \RCSDate}
+</pre>
+
+
+<pre>
+\def\RCS$#1: #2 ${\expandafter
+  \def\csname RCS#1\endcsname{#2}%
+}
+\RCS$Revision: 1.47 $ % or any RCS keyword
+\RCS$Date: 2014/01/28 18:17:23 $
+...
+\date{Revision \RCSRevision, \RCSDate}
+</pre>
+
+</blockquote>
+
+<p>
+If you are a user of <i class="progname">Subversion</i>, the package <i class="package">svn</i>
+may be for you.  It has explicit cleverness about dealing with dates:
+<blockquote>
+<code>&#x5c;documentclass</code><tt>&#x7b;&lsaquo;<i>foo</i>&rsaquo;&#x7d;</tt><br>
+<tt>...</tt><br>
+<code>&#x5c;usepackage</code><code>&#x7b;svn&#x7d;</code><br>
+<code>&#x5c;SVNdate</code><tt> &#x24;Date&#x24;</tt><br>
+<code>&#x5c;author</code><code>&#x7b;...&#x7d;</code><br>
+<code>&#x5c;title</code><code>&#x7b;...&#x7d;</code><br>
+<tt>...</tt><br>
+<code>&#x5c;begin</code><code>&#x7b;document&#x7d;</code><br>
+<code>&#x5c;maketitle</code><br>
+<tt>...</tt><br>
+<code>&#x5c;end</code><code>&#x7b;document&#x7d;</code>
+</blockquote>
+will (once <i class="progname">subversion</i> has committed a copy of the document)
+cause <code>&#x5c;maketitle</code> use the date that has been written into the
+<tt>&#x24;Date&#x24;</tt> keyword.
+
+<p>
+Another alternative for <i class="progname">Subversion</i> users is the
+<i class="package">svninfo</i> package, which has much the same mechanisms as does
+<i class="package">svn</i> but with a rather different focus.  <i class="package">Svninfo</i>
+does the date trick that <i class="package">svn</i> performs (controlled by a
+package option), and can set up page foot-lines using 
+<a href="FAQ-fancyhdr.html">package <i class="package">fancyhdr</i></a>.  There isn&rsquo;t much to
+choose between the two packages: you should read the packages&rsquo;
+documentation to see which suits you best.
+
+<p>
+An alternative script-based approach to version control has been taken
+by the <i class="package">vc</i> bundle, that in certain situations might work more
+reliably than any of the packages mentioned above.  The <i class="package">vc</i>
+bundle supports <i class="progname">Bazaar</i>, <i class="progname">Git</i> and
+<i class="progname">Subversion</i> usage and works with both LaTeX and
+Plain TeX.  Note that <i class="package">vc</i> is the only option that
+currently claims to support <i class="progname">Bazaar</i>-controlled repositories.
+
+<p>
+Finally, for now, the <i class="package">gitinfo</i> package supports
+<i class="progname">Git</i>-controlled documents.
+<dl>
+<dt class="ctanref">gitinfo.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/gitinfo">gitinfo</a>
+<dt class="ctanref">rcs.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/rcs">rcs</a>
+<dt class="ctanref">rcsinfo.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/rcsinfo">rcsinfo</a>
+<dt class="ctanref">svn.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/svn">svn</a>
+<dt class="ctanref">svninfo.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/svninfo">svninfo</a>
+<dt class="ctanref">vc</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/vc">vc</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-08-31</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-RCS">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-RCS</a>
+
+<p>

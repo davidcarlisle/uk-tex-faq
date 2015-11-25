@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-ltx-csv</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>Process a CSV file in LaTeX</h1>
+
+
+<p>
+
+<p>
+Comma-separated-variable (CSV) files are a common means of
+interchanging simple data between applications; for example, most
+spreadsheet applications can provide files containing tables of
+numbers with commas between them.  One can envisage these tables as
+&ldquo;LaTeX tables&rdquo;, and the packages to process them all provide
+table generation, one way or another.
+
+<p>
+For rather a long time, the canonical tools for dealing with such
+files have been those provided in the <i class="package">datatool</i> bundle;
+packages in the bundle allow the user to write procedures to process
+numbers, currency amounts, names, etc., and to display them in tables
+(including pie charts).
+
+<p>
+The <i class="package">csvsimple</i> does similar tasks.  Its processing is
+controlled by keys established via the <i class="package">pgfkeys</i> package,
+which define how each row of the CSV file is to be processed.
+
+<p>
+For usage &ldquo;nearer to the bone&rdquo;, one might consider the commands
+<code>&#x5c;docsvlist</code> and <code>&#x5c;forcsvlist</code> (from the <i class="package">etoolbox</i>
+package).  The first uses the time-honoured LaTeX technique of
+changing the definition of a <code>&#x5c;do</code> command; it runs through the
+list, and processes every item of the list as the argument of the
+<code>&#x5c;do</code> command; so:
+<blockquote>
+<pre>
+\begin{itemize}
+\renewcommand*{\do}[1]{\item #1}
+\docsvlist{item1, item2, {item3a, item3b}, item4}
+\end{itemize}
+</pre>
+</blockquote>
+will convert the elements of a CSV list into an itemised list.
+
+<p>
+The macro <code>&#x5c;forcsvlist</code> applies a function to each element of a
+CSV list; this can of course be used to implement
+<code>&#x5c;docsvlist</code>, at the cost of a little clarity.
+<dl>
+<dt class="ctanref">csvsimple.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/csvsimple">csvsimple</a>
+<dt class="ctanref">datatool bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/datatool">datatool</a>
+<dt class="ctanref">etoolbox.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/etoolbox">etoolbox</a>
+<dt class="ctanref">pgfkeys.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/pgf">pgf</a>
+</dl>
+[[[LastEdit]]]*[[[LBRACE]]]2013-09-10[[[RBRACE]]]
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>

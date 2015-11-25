@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-proof</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Proof environment</h1>
+
+
+<p>
+
+<p>
+It was long thought impossible to make a <code class="environment">proof</code>
+environment which automatically includes an &lsquo;end-of-proof&rsquo; symbol.
+Some proofs end in displayed maths; others do not.  If the input file
+contains 
+<tt>...<code>&#x5c;]</code> </tt><code>&#x5c;end</code><code>&#x7b;proof&#x7d;</code> then LaTeX finishes off
+the displayed maths and gets ready for a new line before it reads any
+instructions connected with ending the proof, so the code is very
+tricky.  You <em>can</em> insert the symbol by hand, but the
+(apparently) original &lsquo;automatic&rsquo; solution came with Paul Taylor&rsquo;s
+<i class="package">QED</i>.
+
+<p>
+Nowadays, the <i class="package">ntheorem</i> package now solves the problem for
+LaTeX users: it provides an automatic way of signalling
+the end of a proof.
+
+<p>
+The AMSLaTeX package <i class="package">amsthm</i> also provides a
+<code class="environment">proof</code> environment that does the job; though you need to
+insert a <code>&#x5c;qedhere</code> command if the proof ends with a displayed
+equation:
+<blockquote>
+<pre>
+\begin{proof}
+  text...
+  \begin{equation*}
+    maths... \tag*{\qedhere}
+  \end{equation*}
+\end{proof}
+</pre>
+</blockquote>
+The <code>&#x5c;tag*</code><code>&#x7b;<code>&#x5c;qedhere</code>&#x7d;</code> construction may be used in any of
+AMSLaTeX&rsquo;s numbering environments.
+<dl>
+<dt class="ctanref">amsthm.sty</dt><dd>Distributed as part of the AMSLaTeX bundle
+  <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>[amsthm]
+<dt class="ctanref">ntheorem.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ntheorem">ntheorem</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-03-09</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-proof">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-proof</a>
+
+<p>

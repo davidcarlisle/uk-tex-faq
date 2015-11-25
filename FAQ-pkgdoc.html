@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-pkgdoc</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#DocumentationandHelp">Documentation and Help</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Documentation of packages</h1>
+
+
+<p>
+
+<p>
+These FAQs regularly suggest packages that will &ldquo;solve&rdquo;
+particular problems.  In some cases, the answer provides a recipe for
+the job.  In other cases, or when the solution needs elaborating, how
+is the poor user to find out what to do?
+
+<p>
+If you&rsquo;re lucky, the package you need is already in your installation.
+If you&rsquo;re particularly lucky, you&rsquo;re using a distribution that gives
+access to package documentation and the documentation is available in
+a form that can easily be shown.
+
+<p>
+On texlive-based distributions, help should be available from the
+<i class="progname">texdoc</i> command, as in:
+<blockquote>
+<pre>
+texdoc footmisc
+</pre>
+</blockquote>
+which opens a window showing documentation of the <i class="package">footmisc</i>
+package.  (The window is tailored to the file type, in the way normal
+for the system.)
+
+<p>
+If <i class="progname">texdoc</i> can&rsquo;t find any documentation, it may launch a Web
+browser to look at the package&rsquo;s entry in the CTAN catalogue.
+The catalogue has an entry for package documentation, and most authors
+respond to the CTAN team&rsquo;s request for documentation of
+packages, you will more often than not find documentation that way.
+
+<p>
+On MiKTeX systems, the same function is provided by the
+<i class="progname">mthelp</i>.
+
+<p>
+Note that the site <a href="texdoc.net.html">texdoc.net</a> provides access to the
+documentation you <em>would</em> have if you had a <em>full</em>
+installation of texlive; on the site you can simply ask for a
+package (as you would ask <i class="progname">texdoc</i>, or you can use the site&rsquo;s
+index of documentation to find what you want.  (This is helpful for
+some of us: many people don&rsquo;t have a full [[[alltex]]][[[LBRACE]]][[[RBRACE]]] installation on
+their mobile phone&nbsp;&hellip; yet.)
+
+<p>
+If your luck (as defined above) doesn&rsquo;t hold out, you&rsquo;ve got to find
+documentation by other means.  That is, you have to find the
+documentation for yourself.  The rest of this answer offers a range of
+possible techniques.
+
+<p>
+The commonest form of documentation of LaTeX add-ons is within the
+<code class="extension">dtx</code> file in which the code is distributed (see
+<a class="FAanswer.html" href="FAQ-dtx.html">documented LaTeX sources</a>).  Such files
+are supposedly processable by LaTeX itself, but there are
+occasional hiccups on the way to readable documentation.  Common
+problems are that the package itself is needed to process its own
+documentation (so must be unpacked before processing), and that the
+<code class="extension">dtx</code> file will <em>not</em> in fact process with LaTeX.  In the
+latter case, the <code class="extension">ins</code> file will usually produce a
+<code class="extension">drv</code> (or similarly-named) file, which you process with
+LaTeX instead.  (Sometimes the package author even thinks to
+mention this wrinkle in a package <tt>README</tt> file.)
+
+<p>
+Another common form is the separate documentation file; particularly
+if a package is &ldquo;conceptually large&rdquo; (and therefore needs a lot of
+documentation), the documentation would prove a cumbersome extension
+to the <code class="extension">dtx</code> file.  Examples of such cases are the <i class="class">memoir</i>
+class, the <i class="class">KOMA-script</i> bundle
+(whose developers take the trouble to produce detailed documentation
+in both German and English), the <i class="package">pgf</i> documentation (which
+would make a substantial book in its own right)
+and the <i class="package">fancyhdr</i> package (whose
+documentation derives from a definitive tutorial in a mathematical
+journal).  Even if the documentation is not separately identified in a
+<tt>README</tt> file, it should not be too difficult to recognise its
+existence.
+
+<p>
+Documentation within the package itself is the third common form.
+Such documentation ordinarily appears in comments at the head of the
+file, though at least one eminent author regularly places it after the
+<code>&#x5c;endinput</code> command in the package.  (This is desirable, since
+<code>&#x5c;endinput</code> is a &lsquo;logical&rsquo; end-of-file, and (La)TeX doesn&rsquo;t read
+beyond it: thus such documentation does not &lsquo;cost&rsquo; any package loading time.)
+
+<p>
+The above suggestions cover most possible ways of finding
+documentation.  If, despite your best efforts, you can&rsquo;t find
+it in any of the above places, there&rsquo;s the awful possibility that the
+author didn&rsquo;t bother to document his package (on the &ldquo;if it was hard
+to write, it should be hard to use&rdquo; philosophy).  Most ordinary
+mortals will seek support from some more experienced user at this
+stage, though it <em>is</em> possible to proceed in the way that the original
+author apparently expected&hellip;by reading his code.
+
+<p class="lastedit">This answer last edited: 2012-11-09</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-pkgdoc">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-pkgdoc</a>
+
+<p>

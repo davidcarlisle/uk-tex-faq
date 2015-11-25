@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-cvtlatex</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Transcribing LaTeX command definitions</h1>
+
+
+<p>
+
+<p>
+At several places in this FAQ, questions are answered in terms
+of how to program a LaTeX macro.  Sometimes, these macros might
+also help users of Plain TeX or other packages; this answer
+attempts to provide a rough-and-ready guide to transcribing such macro
+definitions for use in other packages.
+
+<p>
+The reason LaTeX has commands that replace <code>&#x5c;def</code>, is that
+there&rsquo;s a general philosophy within LaTeX that the user should be
+protected from himself: the user has different commands according to
+whether the command to be defined exists (<code>&#x5c;renewcommand</code>) or not
+(<code>&#x5c;newcommand</code>), and if its status proves not as the user expected,
+an error is reported.  A third definition command,
+<code>&#x5c;providecommand</code>, only defines if the target is not already
+defined; LaTeX has no direct equivalent of <code>&#x5c;def</code>, which ignores
+the present state of the command.  The final command of this sort is
+<code>&#x5c;DeclareRobustCommand</code>, which creates a command which is &ldquo;robust&rdquo;
+(i.e., will not expand if subjected to LaTeX &ldquo;protected
+expansion&rdquo;); from the Plain TeX user&rsquo;s point of view,
+<code>&#x5c;DeclareRobustCommand</code> should be treated as a non-checking version
+of <code>&#x5c;newcommand</code>.
+
+<p>
+LaTeX commands are, by default, defined <code>&#x5c;long</code>; an optional <tt>*</tt>
+between the <code>&#x5c;newcommand</code> and its (other) arguments specifies that
+the command is <em>not</em> to be defined <code>&#x5c;long</code>.  The <tt>*</tt> is
+detected by a command <code>&#x5c;@ifstar</code> which uses <code>&#x5c;futurelet</code> to switch
+between two branches, and gobbles the <tt>*</tt>: LaTeX users are
+encouraged to think of the <tt>*</tt> as part of the command name.
+
+<p>
+LaTeX&rsquo;s checks for unknown command are done by <code>&#x5c;ifx</code> comparison
+of a <code>&#x5c;csname</code> construction with <code>&#x5c;relax</code>; since the command name
+argument is the desired control sequence name, this proves a little
+long-winded.  Since <tt>\#1</tt> is the requisite argument, we have:
+<blockquote>
+
+<pre>
+\expandafter\ifx
+  \csname
+    \expandafter\@gobble\string#1%
+  \endcsname
+  \relax
+    ...
+</pre>
+
+
+<pre>
+\expandafter\ifx
+  \csname\expandafter\@gobble\string#1\endcsname
+  \relax
+    ...
+</pre>
+
+</blockquote>
+(<code>&#x5c;@gobble</code> simply throws away its argument).
+
+<p>
+The arguments of a LaTeX command are specified by two optional
+arguments to the defining command: a count of arguments (0&ndash;9: if the
+count is 0, the optional count argument may be omitted), and a default
+value for the first argument, if the defined command&rsquo;s first argument
+is to be optional.  So:
+<blockquote>
+<pre>
+\newcommand\foo{...}
+\newcommand\foo[0]{...}
+\newcommand\foo[1]{...#1...}
+\newcommand\foo[2][boo]{...#1...#2...}
+</pre>
+</blockquote>
+In the last case, <code>&#x5c;foo</code> may be called as <code>&#x5c;foo</code><code>&#x7b;goodbye&#x7d;</code>,
+which is equivalent to <code>&#x5c;foo</code><code>[boo]</code></code><code>&#x7b;goodbye&#x7d;</code> (employing the
+default value given for the first argument), or as
+<code>&#x5c;foo</code><code>[hello]</code></code><code>&#x7b;goodbye&#x7d;</code> (with an explicit first argument).
+
+<p>
+Coding of commands with optional arguments is exemplified by the
+coding of the last <code>&#x5c;foo</code> above:
+<blockquote>
+<pre>
+\def\foo{\futurelet\next\@r@foo}
+\def\@r@foo{\ifx\next[%
+    \let\next\@x@foo
+  \else
+    \def\next{\@x@foo[boo]}%
+  \fi
+  \next
+}
+\def\@x@foo[#1]#2{...#1...#2...}
+</pre>
+</blockquote>
+
+<p>

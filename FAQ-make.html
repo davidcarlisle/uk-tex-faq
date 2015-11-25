@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-make</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Documentmanagement">Document management</a> &gt; </div>
+<h1>Makefiles for LaTeX documents</h1>
+
+
+<p>
+
+<p>
+LaTeX documents are tricky beasts for building using
+(<i class="progname">Uni*x</i>) <i class="progname">make</i> on: the need to
+instruct LaTeX to run several times for essentially different
+reasons (for example, &ldquo;get the table of contents stable&rdquo;, &ldquo;get the
+labels stable&rdquo;, &ldquo;add the bibliography&rdquo;, &ldquo;add the index&rdquo;) is
+actually rather difficult to express in the &lsquo;ordinary&rsquo; sort of
+dependency graph that one constructs for <i class="progname">make</i>.
+
+<p>
+The <i class="progname">latex-make</i> package offers help with this task (far more
+sophisticated techniques than in the script that builds these FAQs); it
+looks good, but reports of its use (other than by its author) are scarce.
+
+<p>
+For a long time, the only <i class="progname">make</i>-like package on CTAN
+was <i class="progname">latexmk</i>, which is a <i class="progname">Perl</i>
+script that analyses your LaTeX source for its dependencies, runs
+BibTeX or <i class="progname">makeindex</i> as and when it notices that those
+programs&rsquo; input (parts of the <code class="extension">aux</code> file, or the
+<code class="extension">idx</code> file, respectively) has changed, and so on.
+<i class="progname">Latexmk</i> is a fine 
+solution (and was used in generating printable versions of these
+FAQs for some time); it has recently been upgraded and has
+many bells and whistles that allow it to operate as if it were a poor
+man&rsquo;s WYSIWYG system.
+
+<p>
+A recent strong contender is <i class="progname">arara</i>, written in
+<i class="progname">Java</i>.  It is (the documentation says) based on &ldquo;rules&rdquo;
+and &ldquo;directives&rdquo;; its aim is to determine what to do from explicit
+instructions in the document&rsquo;s source code, rather than secondary
+sources such as log file analysis.  <i class="progname">Arara</i> is relatively new
+on CTAN, and comes with recommendations from many of the great and
+good of the LaTeX world.
+
+<p>
+Newer still is the Python script <i class="progname">try</i>, which has a similar
+structure to <i class="progname">arara</i>&nbsp;&mdash; it, too, reads instructions in the
+document source.
+
+<p>
+Apparently along the same lines, is AutoLaTeX.  The <i class="filename">README</i>
+of the distribution is actual a Unix-type man-page output, and shows
+great attention to the details of the document production process.
+
+<p>
+The (Ruby) script <i class="progname">mk</i> (also, apparently, known as
+<i class="progname">latex_maker</i>) works well with another of the author&rsquo;s
+scripts script called <i class="progname">vpp</i> (View and Print
+PostScript/PDF).
+
+<p>
+Windows users of the MiKTeX system may use that system&rsquo;s
+<i class="progname">texify</i> application.  <i class="progname">Texify</i> deals with basic
+LaTeX features, including generating a bibliography and an index;
+it makes no claim to deal with other things (such as multiple
+bibliographies or indexes, or lists of terminology, etc.), which
+AutoLaTeX can be configured to process.
+
+<p>
+The <a href="FAQ-texinfo.html"><i class="package">texinfo</i> system</a> comes with a similar
+utility called <i class="progname">texi2dvi</i>, which is capable of &ldquo;converting&rdquo;
+either LaTeX or <i class="package">texinfo</i> files into DVI (or into
+PDF, using PDFTeX).
+
+<p>
+A later contribution is the bundle <i class="package">latexmake</i>, which
+offers a set of <i class="progname">make</i> rules that invoke <i class="progname">texi2dvi</i>
+as necessary.
+
+<p>
+The curious may examine the rules employed to run the present
+FAQ through LaTeX: we don&rsquo;t present them as a complete
+solution, but some of the tricks employed are surely re-usable.
+<dl>
+<dt class="ctanref">arara</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/arara">arara</a>
+<dt class="ctanref">AutoLaTeX</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/autolatex">autolatex</a>
+<dt class="ctanref">FAQ distribution</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/faq">faq</a>
+<dt class="ctanref">latexmake</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latexmake">latexmake</a>
+<dt class="ctanref">latex-make</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latex-make">latex-make</a>
+<dt class="ctanref">latex\_make</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latex_maker">latex_maker</a>
+<dt class="ctanref">latexmk</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/latexmk">latexmk</a>
+<dt class="ctanref">texi2dvi</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/texinfo">texinfo</a>
+<dt class="ctanref">try</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/try">try</a>
+<dt class="ctanref">vpp</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/vpp">vpp</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-05-13</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-make">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-make</a>
+
+<p>

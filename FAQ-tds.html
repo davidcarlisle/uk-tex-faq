@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tds</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What is the TDS?</h1>
+
+
+<p>
+
+<p>
+TDS is an acronym for &ldquo;TeX Directory Structure&rdquo;; it
+specifies a standard way of organising all the TeX-related files on
+a computer system.
+
+<p>
+Most modern distributions arrange their TeX files in conformance
+with the TDS, using both a &lsquo;distribution&rsquo; directory tree and a
+(set of) &lsquo;local&rsquo; directory trees, each containing TeX-related
+files.  The TDS recommends the name <tt>texmf</tt> for the name
+of the root directory (folder) of an hierarchy; in practice there are
+typically several such trees, each of which has a name that compounds
+that (e.g., <tt>texmf-dist</tt>, <tt>texmf-var</tt>).
+
+<p>
+Files supplied as part of the distribution are put into the
+distribution&rsquo;s tree, but the location of the distribution&rsquo;s hierarchy is
+system dependent.  (On a Unix system it might be at
+<tt class="path">/usr/share/texmf</tt> or <tt class="path">/opt/texmf</tt>, or a similar location.)
+
+<p>
+There may be more than one &lsquo;local&rsquo; hierarchy in which additional files
+can be stored.  An installation will also typically offer a local
+hierarchy, while each user may have an individual local hierarchy.
+
+<p>
+The TDS itself is published as the output of a TUG 
+<a href="FAQ-TUG*.html">Technical Working Group</a>.  You may browse an
+<a href="http://tug.org/tds/.html">on-line version</a> of the standard, and
+copies in several other formats (including source) are available on
+CTAN.
+<dl>
+<dt class="ctanref">TDS specification</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tds">tds</a>
+</dl>
+
+<p>

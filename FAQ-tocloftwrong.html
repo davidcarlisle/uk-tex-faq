@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tocloftwrong</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>Numbers too large in table of contents, etc.</h1>
+
+
+<p>
+
+<p>
+[[[keywords]]][[[LBRACE]]]memoir table-of-contents spacing[[[RBRACE]]]
+LaTeX constructs the table of contents, list of figures, tables,
+and similar tables, on the basis of a layout specified in the class.
+As a result, they do <em>not</em> react to the sizes of things in them,
+as they would if a <code class="environment">tabular</code> environment (or something
+similar) was used.
+
+<p>
+This arrangement can provoke problems, most commonly with deep section
+nesting or very large page numbers: the numbers in question just don&rsquo;t
+fit in the space allowed for them in the class.
+
+<p>
+A separate answer discusses 
+ 
+<a href="FAQ-tocloft.html">re-designing the tables</a>
+and techniques from that answer may be employed to make the numbers
+fit:
+<blockquote>
+<pre>
+\setlength\cftsectionnumwidth{4em}
+</pre>
+</blockquote>
+
+<p>
+The same command may be employed in documents typeset with the
+<i class="class">memoir</i> package (by the same author as <i class="package">tocloft</i>).
+
+<p>
+<i class="class">Memoir</i> has another mechanism for the job:
+<code>&#x5c;cftsetindents</code><code>&#x7b;&lsaquo;<i>kind</i>&rsaquo;&#x7d;</code></code><code>&#x7b;indent&#x7d;</code>[[[LBRACE]]]numwidth[[[RBRACE]]].  Here
+<em>kind</em> is <tt>chapter</tt>, <tt>section</tt>, or whatever; the
+<em>indent</em> specifies the &lsquo;margin&rsquo; before the entry starts; and the
+<em>width</em> is of the box into which the number is typeset (so needs
+to be wide enough for the largest number, with the necessary spacing
+to separate it from what comes after it in the line.
+<dl>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">tocloft.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tocloft">tocloft</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-08-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-tocloftwrong">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-tocloftwrong</a>
+
+<p>

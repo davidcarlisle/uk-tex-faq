@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-dec_comma</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>The comma as a decimal separator</h1>
+
+
+<p>
+
+<p>
+TeX embodies the British/American cultural convention of using a
+period as the separator between the whole number and the decimal
+fraction part of a decimal number.  Other cultures use a comma as
+separator, but if you use a comma in maths mode you get a small space
+after it; this space makes a comma that is used as a decimal separator
+look untidy.
+
+<p>
+A simple solution to this problem, in maths mode, is to type
+<tt>3</tt>[[[marg]]][[[LBRACE]]],[[[RBRACE]]]<tt>14</tt> in place of <tt>3,14</tt>.  While such a
+technique may produce the right results, it is plainly not a
+comfortable way to undertake any but the most trivial amounts of
+typing numbers.
+
+<p>
+Therefore, if you need to use commas as decimal separator, you will
+probably welcome macro support.  There are two packages that
+can help relieve the tedium: <i class="package">icomma</i> and <i class="package">ziffer</i>.
+
+<p>
+<i class="package">Icomma</i> ensures that there will be no extra space after a
+comma, unless you type a space after it (as in <tt>f(x, y)</tt>&nbsp;&mdash; in
+the absence of the package, you don&rsquo;t need that space), in which case
+the usual small space after the comma appears.  <i class="package">Ziffer</i> is
+specifically targeted at the needs of those typesetting German, but
+covers the present need, as well as providing the double-minus sign
+used in German (and other languages) for the empty &lsquo;cents&rsquo; part of an
+amount of currency.
+
+<p>
+The <i class="package">numprint</i> package provides a command
+<code>&#x5c;numprint</code><code>&#x7b;number&#x7d;</code> that prints its argument according to
+settings you give it, or according to settings chosen to match the
+language you have selected in <i class="package">babel</i>.  The formatting works
+equally well in text or maths.  The command is very flexible (it can also
+group the digits of very &lsquo;long&rsquo; numbers), but is inevitably less
+convenient than <i class="package">icomma</i> or <i class="package">ziffer</i> if you are typing a
+lot of numbers.
+<dl>
+<dt class="ctanref">icomma.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/was">was</a>[icomma]
+<dt class="ctanref">numprint.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/numprint">numprint</a>
+<dt class="ctanref">ziffer.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ziffer">ziffer</a>
+</dl>
+
+<p>

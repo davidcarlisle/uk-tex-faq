@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-empty</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Detecting that something is empty</h1>
+
+
+<p>
+
+<p>
+Suppose you need to know that the argument of your command is empty:
+that is, to distinguish between <code>&#x5c;cmd</code><code>&#x7b;&#x7d;</code> 
+and <code>&#x5c;cmd</code><code>&#x7b;blah&#x7d;</code>.  This is pretty simple:
+<blockquote>
+<pre>
+\def\cmd#1{%
+  \def\tempa{}%
+  \def\tempb{#1}%
+  \ifx\tempa\tempb
+    <empty case>
+  \else
+    <non-empty case>
+  \fi
+}
+</pre>
+</blockquote>
+The case where you want to ignore an argument that consists of nothing
+but spaces, rather than something completely empty, is more tricky.
+It&rsquo;s solved in the code fragment <i class="package">ifmtarg</i>, which defines
+commands <code>&#x5c;@ifmtarg</code> and <code>&#x5c;@ifnotmtarg</code>, which examine their
+first argument, and select (in opposite directions) their second or
+third argument.  The package&rsquo;s code also appears in the LaTeX
+<i class="class">memoir</i> class.
+
+<p>
+<i class="package">Ifmtarg</i> makes challenging reading; there&rsquo;s also a discussion of the
+issue in number two of the &ldquo;around the bend&rdquo; articles by the late
+lamented Mike Downes.
+<dl>
+<dt class="ctanref">Around the bend series</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/aro-bend">aro-bend</a>
+<dt class="ctanref">ifmtarg.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ifmtarg">ifmtarg</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+</dl>
+
+<p>

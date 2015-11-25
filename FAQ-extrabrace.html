@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-extrabrace</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>An extra &lsquo;<tt>&#x7d;</tt>&rsquo;??</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]caption heading[[[RBRACE]]]
+
+<p>
+You&rsquo;ve looked at your LaTeX source and there&rsquo;s no sign of a misplaced
+<tt>&#x7d;</tt> on the line in question.
+
+<p>
+Well, no: this is TeX&rsquo;s cryptic way of hinting that you&rsquo;ve put a
+ 
+<a href="FAQ-protect.html">fragile command</a> in a moving argument.
+
+
+
+
+
+<p>
+For example, <code>&#x5c;footnote</code> is fragile, and if we put that in the
+moving argument of a <code>&#x5c;section</code> command, as
+<blockquote>
+
+<pre>
+\section{Mumble\footnote{%
+    I couldn't think of anything better}}
+</pre>
+
+
+<pre>
+\section{Mumble\footnote{I couldn't think of anything better}}
+</pre>
+
+</blockquote>
+we get told
+<blockquote>
+<pre>
+! Argument of \@sect has an extra }.
+</pre>
+</blockquote>
+The same happens with captions (the following is a simplification of a
+<i class="newsgroup">comp.text.tex</i> post):
+<blockquote>
+<pre>
+\caption{Energy: \[e=mc^2\]}
+</pre>
+</blockquote>
+giving us the error message
+<blockquote>
+<pre>
+! Argument of \@caption has an extra }.
+</pre>
+</blockquote>
+The similar (but more sensible):
+<blockquote>
+<pre>
+\caption{Energy: \(e=mc^2\)}
+</pre>
+</blockquote>
+is more tiresome, still: there&rsquo;s no error when you first run the
+job&nbsp;&hellip; but there is on the second pass, when the list of figures
+(or tables) is generated, giving:
+<blockquote>
+<pre>
+! LaTeX Error: Bad math environment delimiter.
+</pre>
+</blockquote>
+in the <code>&#x5c;listoffigures</code> processing.
+
+<p>
+The solution is usually to use a robust command in place of the one
+you are using, or to force your command to be robust by prefixing it
+with <code>&#x5c;protect</code>, which in the <code>&#x5c;section</code> case would show as
+<blockquote>
+
+<pre>
+\section{Mumble\protect\footnote{%
+    I couldn't think of anything better}}
+</pre>
+
+
+<pre>
+\section{Mumble\protect\footnote{I couldn't think of anything better}}
+</pre>
+
+</blockquote>
+However, in both the <code>&#x5c;section</code> case and the <code>&#x5c;caption</code> case,
+you can separate the moving argument, as in
+<code>&#x5c;section</code><code>[moving]</code></code><code>&#x7b;static&#x7d;</code>; this gives us another standard
+route&nbsp;&mdash; simply to omit (or otherwise sanitise) the fragile command
+in the moving argument.  So, one might rewrite the <code>&#x5c;caption</code>
+example as:
+<blockquote>
+
+<pre>
+\caption[Energy: (Einstein's equation)]%
+        {Energy: \(E=mc^2\)}
+</pre>
+
+
+<pre>
+\caption[Energy: (Einstein's equation)]{Energy: \(E=mc^2\)}
+</pre>
+
+</blockquote>
+In practice, inserting mathematics in a moving argument has already
+been addressed in LaTeX 2e by the robust command <code>&#x5c;ensuremath</code>:
+<blockquote>
+<pre>
+\caption{Energy: \ensuremath{E=mc^2}}
+</pre>
+</blockquote>
+So: always look for alternatives to the <code>&#x5c;protect</code> route.
+
+<p>
+Footnotes can be even more complex; 
+&ldquo;<a class="FAquestion.html" href="FAQ-ftnsect.html">footnotes in LaTeX section headings</a>&rdquo;
+deals specifically with that issue.
+
+<p class="lastedit">This answer last edited: 2012-02-09</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-extrabrace">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-extrabrace</a>
+
+<p>

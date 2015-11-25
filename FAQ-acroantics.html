@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-acroantics</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Pagelayout">Page layout</a> &gt; </div>
+<h1>Adobe <i class="progname">Reader</i> messing with print size</h1>
+
+
+<p>
+[[[AliasQuestion]]][[[LBRACE]]]Q-outszwrng[[[RBRACE]]]
+
+<p>
+Printing from Adobe <i class="progname">Reader</i> shrinks the page &ldquo;to fit&rdquo;
+(<em>by default</em>).  Unfortunately, its calculation doesn&rsquo;t consider
+the existing margins of the document, so that it shrinks what it
+believes is your whole page onto what it believes is its output page.
+The effect typically looks as if your margins have expanded.
+
+<p>
+Solve this problem by adjusting the <i class="progname">Reader</i>&rsquo;s default in the
+print dialogue; unfortunately, this dialogue varies from one version
+to the next:
+<ul>
+<li> <i class="progname">Reader</i> version 7:<br>
+   Page Scaling (default: &ldquo;Fit to printer margins&rdquo;)&nbsp;&mdash; change to
+   &ldquo;None&rdquo;, and<br>
+   Scale (default 95[[[textpercent]]][[[LBRACE]]][[[RBRACE]]] of Normal size)&nbsp;&mdash; change to
+   &ldquo;100[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]&rdquo;.
+<li>  Adobe Reader 6:<br>
+  in the print dialogue, on the &ldquo;copies \&amp; pages&rdquo; pane, you&rsquo;ll find a
+  popup menu/drop-down list titled &ldquo;Page Scaling&rdquo;&nbsp;&mdash; change to &ldquo;None&rdquo;.
+<li> Windows, Linux Acrobat (Reader) 5.0:<br>
+  In the print dialog, make sure the &ldquo;Shrink oversized pages to fit&rdquo;
+  checkbox is unchecked.  It may also be useful to uncheck the
+  &ldquo;Expand small pages to fit paper size&rdquo; checkbox as well.
+</ul>
+
+<p>

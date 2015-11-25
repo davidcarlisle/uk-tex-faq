@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-nameref</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Labelsandreferences">Labels and references</a> &gt; </div>
+<h1>Referring to things by their name</h1>
+
+
+<p>
+
+<p>
+LaTeX&rsquo;s labelling mechanism is designed for the impersonal world of
+the academic publication, in which everything has a number: an
+extension is necessary if we are to record the <em>name</em> of things
+we&rsquo;ve labelled.  The two packages available extend the LaTeX
+sectioning commands to provide reference by the name of the section.
+
+<p>
+The <i class="package">titleref</i> package is a simple extension which provides
+the command <code>&#x5c;titleref</code>; it is a stand-alone package&nbsp;&mdash; don&rsquo;t use it
+in a document in which you also need to use <i class="package">hyperref</i>.
+
+<p>
+The <i class="package">byname</i> package is part of the <i class="package">smartref</i> bundle
+and works well with <i class="package">smartref</i>, and works (to an extent) with
+<i class="package">hyperref</i>, but the links it defines are not hyperlinks.
+
+<p>
+The <i class="class">memoir</i> class incorporates the functionality of
+<i class="package">titleref</i>, but doesn&rsquo;t work with <i class="package">byname</i> (though a
+search of <i class="newsgroup">comp.text.tex</i> on <a href="groups.google.com.html">groups.google.com</a> will
+find a patch to <i class="package">byname</i> to remedy the problem).
+
+<p>
+The <i class="package">hyperref</i> bundle includes a package <i class="package">nameref</i>,
+which will work standing alone (i.e., without <i class="package">hyperref</i>: of
+course, in this mode its references are not hyperlinked).  If you load
+<i class="package">hyperref</i> itself, <i class="package">nameref</i> is automatically loaded.
+<i class="class">Memoir</i> requires the <i class="package">memhfixc</i> when running with
+<i class="package">hyperref</i>; following the sequence:
+<blockquote>
+<pre>
+\documentclass[...]{memoir}
+...
+\usepackage[...]{hyperref}
+\usepackage{memhfixc}
+</pre>
+</blockquote>
+<i class="package">nameref</i> commands may be used in a <i class="class">memoir</i> document.
+
+<p>
+<i class="package">Zref</i> defines a proposed replacement for all of the LaTeX
+reference mechanisms, and among other things provides
+name-referencing mechanisms:
+<blockquote>
+<pre>
+\usepackage[user,titleref]{zref}
+...
+\section{hello}\zlabel{sec:one}
+The section name is: \ztitleref{sec:one}.
+</pre>
+</blockquote>
+(One might hope that something of this sort would be the &ldquo;way of the
+future&rdquo;, but things move slowly in the LaTeX world: don&rsquo;t hold
+your breath.) 
+
+<p>
+Each of <i class="package">titleref</i>, <i class="package">byname</i> and <i class="package">nameref</i>
+defines a reference command with the same name as the package:
+<code>&#x5c;titleref</code>, <code>&#x5c;byname</code> and <code>&#x5c;nameref</code>. The <i class="package">nameref</i>
+package also defines a command <code>&#x5c;byshortnameref</code>, which uses the
+optional &lsquo;short&rsquo; title argument to the chapter and section commands.
+(Although it comes from the same author, <i class="package">zref</i> <em>doesn&rsquo;t</em>
+define a short-name variant.)
+<dl>
+<dt class="ctanref">byname.sty</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/smartref">smartref</a>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">nameref.sty</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+<dt class="ctanref">smartref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/smartref">smartref</a>
+<dt class="ctanref">titleref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/titleref">titleref</a>
+<dt class="ctanref">zref.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[zref]
+</dl>
+
+<p>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-longtab</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>Tables longer than a single page</h1>
+
+
+<p>
+
+<p>
+Tables are, by default, set entirely in boxes of their own: as a
+result, they won&rsquo;t split over a page boundary.  Sadly, the world keeps
+turning up tables longer than a single page that we need to typeset.
+
+<p>
+For simple tables (whose shape is highly regular), the simplest
+solution may well be to use the <code class="environment">tabbing</code> environment,
+which is slightly tedious to set up, but which doesn&rsquo;t force the whole alignment
+onto a single page.
+
+<p>
+The <i class="package">longtable</i> package builds the whole table (in chunks), in
+a first pass, and then uses information it has written to the <code class="extension">aux</code>
+file during later passes to get the setting &ldquo;right&rdquo; (the package
+ordinarily manages to set tables in just two passes).  Since the
+package has overview of the whole table at the time it&rsquo;s doing
+&ldquo;final&rdquo; setting, the table is set &ldquo;uniformly&rdquo; over its entire
+length, with columns matching on consecutive pages.
+<i class="package">longtable</i> has a reputation for failing to interwork with
+other packages, but it does work with <i class="package">colortbl</i>, and its
+author has provided the <i class="package">ltxtable</i> package to provide (most
+of) the facilities of <i class="package">tabularx</i> (see
+
+<a class="FAquestion.html" href="FAQ-fixwidtab.html">fixed-width tables</a>) for long tables:
+beware of its rather curious usage constraints&nbsp;&mdash; each long table
+should be in a file of its own, and included by
+<code>&#x5c;LTXtable</code><code>&#x7b;width&#x7d;</code></code><code>&#x7b;file&#x7d;</code>.  Since <i class="package">longtable</i>&rsquo;s
+multiple-page tables can&rsquo;t possibly live inside floats, the package
+provides for captions within the <code class="environment">longtable</code> environment
+itself.
+
+<p>
+A seeming alternative to <i class="package">ltxtable</i> is <i class="package">ltablex</i>; but
+it is outdated and not fully functional.  Its worst problem is its
+strictly limited memory capacity (<i class="package">longtable</i> is not so
+limited, at the cost of much complication in its code);
+<i class="package">ltablex</i> can only deal with relatively small tables, it doesn&rsquo;t seem
+likely that support is available; but its user interface is much
+simpler than <i class="package">ltxtable</i>, so if its restrictions aren&rsquo;t a
+problem for you, it may be worth a try.
+
+<p>
+The <i class="package">supertabular</i> package starts and stops a
+<code class="environment">tabular</code> environment for each page of the table.  As a
+result, each &lsquo;page worth&rsquo; of the table is compiled independently, and
+the widths of corresponding columns may differ on successive pages.
+However, if the correspondence doesn&rsquo;t matter, or if your columns are
+fixed-width, <i class="package">supertabular</i> has the great advantage of doing
+its job in a single run.
+
+<p>
+Both <i class="package">longtable</i> and <i class="package">supertabular</i> allow definition
+of head- and footlines for the table; <i class="package">longtable</i> allows
+distinction of the first and last head and foot.
+
+<p>
+The <i class="package">xtab</i> package fixes some infelicities of
+<i class="package">supertabular</i>, and also provides a &ldquo;last head&rdquo; facility
+(though this, of course, destroys <i class="package">supertabular</i>&rsquo;s advantage
+of operating in a single run).
+
+<p>
+The <i class="package">stabular</i> package provides a simple-to-use &ldquo;extension to
+<code class="environment">tabular</code>&rdquo; that allows it to typeset tables that run over
+the end of a page; it also has usability extensions, but doesn&rsquo;t have
+the head- and footline capabilities of the major packages.
+
+<p>
+Documentation of <i class="package">ltablex</i> is to be found in the package file.
+<dl>
+<dt class="ctanref">longtable.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[longtable]
+<dt class="ctanref">ltablex.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ltablex">ltablex</a>
+<dt class="ctanref">ltxtable.sty</dt><dd>Generate by running <a class="ctan" href="https://www.ctan.org/pkg/ltxtable">ltxtable</a>
+<dt class="ctanref">stabular.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/sttools">sttools</a>[stabular]
+<dt class="ctanref">supertabular.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/supertabular">supertabular</a>
+<dt class="ctanref">xtab.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xtab">xtab</a>
+</dl>
+
+<p>

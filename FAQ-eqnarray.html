@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-eqnarray</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Why not use <code class="environment">eqnarray</code>?</h1>
+
+
+<p>
+
+<p>
+The environment <code class="environment">eqnarray</code> is attractive for the
+occasional user of mathematics in LaTeX documents: it seems to
+allow aligned systems of equations.  Indeed it <em>does</em> supply such
+things, but it makes a serious mess of spacing.  In the system:
+<blockquote>
+<pre>
+\begin{eqnarray}
+  a &amp; = &amp; b + c \\
+  x &amp; = &amp; y - z
+\end{eqnarray}
+</pre>
+</blockquote>
+the spacing around the &ldquo;=&rdquo; signs is <em>not</em> that defined in the
+metrics for the font from which the glyph comes&nbsp;&mdash; it&rsquo;s
+<code>&#x5c;arraycolsep</code>, which may be set to some very odd value for reasons
+associated with real arrays elsewhere in the document.
+
+<p>
+The user is far better served by the AMSLaTeX bundle, which
+provides an <code class="environment">align</code> environment, which is designed with
+the needs of mathematicians in mind (as opposed to the convenience of
+LaTeX programmers).  For this simple case (<code class="environment">align</code> and
+other AMSLaTeX alignment environments are capable of far greater
+things), code as:
+<blockquote>
+<pre>
+\begin{align}
+  a &amp; = b + c \\
+  x &amp; = y - z
+\end{align}
+</pre>
+</blockquote>
+The matter is discussed in more detail in a 
+<a href="http://tug.org/pracjourn/2006-4/madsen/madsen.pdf.html">PracTeX journal paper</a>
+by Lars Madsen; Stefan Kottwitz offers a 
+<a href="http://texblog.net/latex-archive/maths/eqnarray-align-environment/.html">TeX blog entry</a>
+which includes screen shots of the output, convincingly demonstrating
+the problem.
+<dl>
+<dt class="ctanref">AMSLaTeX</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>
+</dl>
+
+<p>

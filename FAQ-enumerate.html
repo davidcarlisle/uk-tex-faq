@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-enumerate</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Lists">Lists</a> &gt; </div>
+<h1>Fancy enumeration lists</h1>
+
+
+<p>
+
+<p>
+The <i class="package">enumerate</i> package allows you to control the display of
+the enumeration counter.  The package adds an optional parameter to
+the <code class="environment">enumerate</code> environment, which is used to specify the
+layout of the labels.  The layout parameter contains an enumeration
+type (&lsquo;<tt>1</tt>&rsquo; for arabic numerals, &lsquo;<tt>a</tt>&rsquo; or &lsquo;<tt>A</tt>&rsquo;
+for alphabetic enumeration, and &lsquo;<tt>i</tt>&rsquo; or &lsquo;<tt>I</tt>&rsquo; for Roman
+numerals), and things to act as decoration of the enumeration.  So,
+for example
+<blockquote>
+<pre>
+\usepackage{enumerate}
+...
+\begin{enumerate}[(a)]
+\item ...  ...
+\end{enumerate}
+</pre>
+</blockquote>
+starts a list whose labels run (a), (b), (c), &hellip;; while
+<blockquote>
+<pre>
+\usepackage{enumerate}
+...
+\begin{enumerate}[I/]
+\item ...  ...
+\end{enumerate}
+</pre>
+</blockquote>
+starts a list whose labels run I/, II/, III/, &hellip;
+
+<p>
+The <i class="package">paralist</i> package, whose primary purpose is 
+<a href="FAQ-complist.html">compaction of lists</a>, provides the same facilities
+for its <code class="environment">enumerate</code>-like environments.
+
+<p>
+If you need non-stereotyped designs, the <i class="package">enumitem</i> package
+gives you most of the flexibility you might want to design your own.
+The silly roman example above could be achieved by:
+<blockquote>
+<pre>
+\usepackage{enumitem}
+...
+\begin{enumerate}[label=\Roman{*}/]
+\item ...  ...
+\end{enumerate}
+</pre>
+</blockquote>
+Note that the &lsquo;<tt>*</tt>&rsquo; in the key value stands for the list
+counter at this level.  You can also manipulate the format of
+references to list item labels:
+<blockquote>
+
+<pre>
+\usepackage{enumitem}
+...
+\begin{enumerate}[label=\Roman{*}/,
+  ref=(\roman{*})]
+\item ...  ...
+\end{enumerate}
+</pre>
+
+
+<pre>
+\usepackage{enumitem}
+...
+\begin{enumerate}[label=\Roman{*}/, ref=(\roman{*})]
+\item ...  ...
+\end{enumerate}
+</pre>
+
+</blockquote>
+to make references to the list items format appear as (i), (ii),
+(iii), etc.
+
+<p>
+The <i class="class">memoir</i> class includes functions that match those in the
+<i class="package">enumerate</i> package, and has similar functionality for
+<code class="environment">itemize</code> lists.
+
+
+
+%% <pre>
+%%    \renewcommand{\theenumi}{\Roman{enumi}}
+%%    \renewcommand{\labelenumi}{\theenumi/}
+%% </pre>
+
+
+
+
+
+
+
+
+
+<dl>
+<dt class="ctanref">enumerate.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[enumerate]
+<dt class="ctanref">enumitem.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/enumitem">enumitem</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">paralist.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/paralist">paralist</a>
+</dl>
+
+<p>

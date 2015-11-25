@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-fontsize</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>Fonts at arbitrary sizes</h1>
+
+
+<p>
+
+<p>
+Almost all fonts, nowadays, are provided with LaTeX control
+(<code class="extension">fd</code>) files, so the temptation to risk the
+<a href="FAQ-newfont*.html">problems of <code>&#x5c;newfont</code></a> is usually easy to
+resist.
+
+<p>
+However, one temptation remains, arising from the way that LaTeX
+restricts the sizes of fonts.  In fact, the restriction only
+significantly applies to the default (Computer Modern) and the
+Cork-encoded (T1) EC fonts, but it is widely considered to be
+anomalous, nowadays.  In recognition of this problem, there is a
+package <i class="package">fix-cm</i> which will allow you to use the fonts, within
+LaTeX, at any size you choose.  If you&rsquo;re not using scaleable
+versions of the fonts, most modern distributions will just generate an
+appropriate bitmap for you.
+
+<p>
+So, suppose you want to produce a heading in Computer Modern Roman at
+30 points, you might be tempted to write:
+<blockquote>
+<pre>
+\newfont{\bigfont}{cmr10 at 30pt}
+\begin{center}
+  \bigfont Huge text
+\end{center}
+</pre>
+</blockquote>
+which will indeed work, but will actually produce a worse result than
+<blockquote>
+<pre>
+\usepackage{fix-cm}
+...
+\begin{center}
+  \fontsize{30}{36}\selectfont
+  Huge text
+\end{center}
+</pre>
+</blockquote>
+Note that the <i class="package">fix-cm</i> package was not distributed until the
+December 2003 edition of LaTeX; if you have an older distribution,
+the packages <i class="package">type1cm</i> (for CM fonts) and
+<i class="package">type1ec</i> (for EC fonts) are available.
+
+<p>
+<i class="package">Fix-cm</i> doesn&rsquo;t has one or two omissions&nbsp;&mdash; fonts the LaTeX
+team did not consider useful, or something; the CM dunhill fonts (as
+CM, but with stretched ascenders) and the CM fibonacci font (which is only
+available in 8-point design size) are certainly missing.  If
+<i class="package">fix-cm</i> doesn&rsquo;t do the job, try the <i class="package">type1xx</i>
+packages, or the <i class="package">anyfontsize</i> package.
+
+<p>
+A further alternative might be to switch to the
+<a href="FAQ-uselmfonts.html"><i class="fontname">Latin</i> <i class="fontname">Modern</i> fonts</a> (which
+provide a close simulacrum of the <i class="fontname">Computer</i>
+<i class="fontname">Modern</i> set); these fonts were scaleable from their first
+distribution, and don&rsquo;t therefore need any such trick as the above.
+<dl>
+<dt class="ctanref">anyfontsize.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/anyfontsize">anyfontsize</a>
+<dt class="ctanref">fix-cm.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/latex">latex</a>[fix-cm] (an unpacked
+  version is available at <a class="ctan" href="https://www.ctan.org/pkg/fix-cm">fix-cm</a>)
+<dt class="ctanref"><i class="fontname">Latin</i> <i class="fontname">Modern</i> fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lm">lm</a>
+<dt class="ctanref">type1cm.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/type1cm">type1cm</a>
+<dt class="ctanref">type1ec.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/type1ec">type1ec</a> (the package is actually part of
+  the <a class="ctan" href="https://www.ctan.org/pkg/cm-super">cm-super</a> distribution, but it works happily in
+  the absence of the scaled fonts)
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-06-04</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-fontsize">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-fontsize</a>
+
+<p>

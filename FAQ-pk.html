@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-pk</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What are PK files?</h1>
+
+
+<p>
+
+<p>
+PK files (packed raster) are the canonical form of TeX font
+bitmaps.  The output from <a href="FAQ-useMF.html">MetaFont</a> includes a generic
+font (GF) file and the utility <i class="progname">gftopk</i> produces a
+PK file from that.
+
+<p>
+There are potentially a lot of PK files, as one
+is needed for each font: that is for each magnification of each
+design (point) size for each weight for each font in each family.
+
+<p>
+Further, since the PK files for one printer do not necessarily
+work well for another, the whole set needs to be duplicated for each
+printer type at a site.
+
+<p>
+While this menagerie of bitmaps can (in principle) provide fonts that
+are closely matched to the capabilities of each printer, the size of
+the collection (and the resulting difficulty of maintaining it) has
+been a potent driver to the move towards outline fonts such as
+<a href="FAQ-adobetypen.html">Adobe Type 1 fonts</a>.
+
+<p class="lastedit">This answer last edited: 2012-10-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-pk">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-pk</a>
+
+<p>

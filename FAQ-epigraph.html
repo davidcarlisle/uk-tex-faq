@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-epigraph</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Pagelayout">Page layout</a> &gt; </div>
+<h1>Typesetting epigraphs</h1>
+
+
+<p>
+
+<p>
+Epigraphs are those neat quotations that authors put at the start of
+chapters (or even at the end of chapters: Knuth puts things at the
+ends of chapters of the TeXbook).
+
+<p>
+Typesetting them is a bit of a fiddle, but not impossible to do for
+yourself.  Fortunately, there are two packages that do the job, to
+some extent; there are also facilities in the two &ldquo;big&rdquo; classes
+(<i class="class">memoir</i> and <i class="class">koma-script</i>.
+
+<p>
+The <i class="package">epigraph</i> package defines an <code>&#x5c;epigraph</code> command, for
+creating a single 
+epigraph (as at the top of a chapter):
+<blockquote>
+<pre>
+\chapter{The Social Life of Rabbits}
+\epigraph{Oh!  My ears and whiskers!}%
+         {Lewis Carroll}
+</pre>
+</blockquote>
+and an epigraphs environment, for entering more than one epigraph
+consecutively, in a sort of list introduced by <code>&#x5c;qitem</code> commands:
+<blockquote>
+<pre>
+\begin{epigraphs}
+\qitem{What I tell you three times is true}%
+      {Lewis Carroll}
+\qitem{Oh listen do, I'm telling you!}%
+      {A.A. Milne}
+\end{epigraphs}
+</pre>
+</blockquote>
+The <code>&#x5c;epigraphhead</code> command enables you to place your epigraph
+<em>above</em> a chapter header:
+<blockquote>
+<pre>
+\setlength{\unitlength}{1pt}
+...
+\chapter{The Social Life of Rabbits}
+\epigraphhead[<distance>]{%
+  \epigraph{Oh!  My ears and whiskers!}%
+           {Lewis Carroll}%
+}
+</pre>
+</blockquote>
+The &lsaquo;<i>distance</i>&rsaquo; says how far above the chapter heading the
+epigraph is to go; it&rsquo;s expressed in terms of the <code>&#x5c;unitlength</code>
+that&rsquo;s used in the <code class="environment">picture</code> environment; the package&rsquo;s
+author recommends <tt>70pt</tt>.
+
+<p>
+The package also offers various tricks for adjusting the layout of
+chapter header (necessary if you&rsquo;ve found a hugely long quotation for
+an <code>&#x5c;epigraphhead</code>), for patching the bibliography, for patching
+<code>&#x5c;part</code> pages, and so on.  (Some of these suggested patches lead you
+through writing your own package&hellip;)
+
+<p>
+The <i class="package">quotchap</i> package redefines chapter headings (in a
+moderately striking way), and provides an environment
+<code class="environment">savequotes</code> in which you can provide one (or more)
+quotations to use as epigraphs.  The facilities seem not as flexible
+as those of <i class="package">epigraph</i>, but it&rsquo;s probably easier to use.
+
+<p>
+The <i class="class">memoir</i> class offers all the facilities of the
+<i class="package">epigraph</i> package.  The <i class="class">Koma-script</i> classes have
+commands <code>&#x5c;setchapterpreamble</code> and <code>&#x5c;dictum</code> to provide these
+facilities.
+<dl>
+<dt class="ctanref">epigraph.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/epigraph">epigraph</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">quotchap.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/quotchap">quotchap</a>
+</dl>
+
+<p>

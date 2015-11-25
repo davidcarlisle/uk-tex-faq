@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-vertposfp</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Floatingtablesfiguresetc">Floating tables, figures, etc.</a> &gt; </div>
+<h1>Vertical layout of float pages</h1>
+
+
+<p>
+
+<p>
+By default, LaTeX vertically centres the floats on a float page;
+the present author is not alone in not liking this arrangement.
+Unfortunately, the control of the positioning is &ldquo;buried&rdquo; in
+LaTeX-internal commands, so some care is needed to change the
+layout.
+
+<p>
+Float pages use three LaTeX lengths (i.e., TeX skips) to define
+their layout:
+<dl>
+<dt class="description"><code>&#x5c;@fptop</code></dt><dd> defines the distance from the
+  top of the page to the top of the first float,
+<dt class="description"><code>&#x5c;@fpsep</code></dt><dd> defines the separation between
+  floats, and
+<dt class="description"><code>&#x5c;@fpbot</code></dt><dd> defines the distance from the
+  bottom of the last float on the page to the bottom of the page.
+</dl>
+(In fact, the output routine places a skip of <code>&#x5c;@fpsep</code> above each float, so
+the <code>&#x5c;@fptop</code> skip is always followed by a correction for that.)
+
+<p>
+
+<p>
+The LaTeX defaults are:
+<blockquote>
+  <code>&#x5c;@fptop</code> = <tt>0pt + 1fil</tt><br>
+  <code>&#x5c;@fpsep</code> = <tt>8pt + 2fil</tt><br>
+  <code>&#x5c;@fpbot</code> = <tt>0pt + 1fil</tt><br>
+</blockquote>
+so that the gaps expand to fill the space not occupied by floats, but
+if there is more than one float on the page, the gap between them will
+expand to twice the space at top and bottom.
+
+<p>
+Those who understand this stuff will be able to play elaborate games,
+but the commonest requirement, that the floats start at the top of the
+page, is a simple thing to do:
+<blockquote>
+<pre>
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+</pre>
+</blockquote>
+Surprisingly, you may find this setting leaves your floats too high on
+the page.  One can justify a value of <tt>5pt</tt> (in place of
+<tt>0pt</tt>)&nbsp;&mdash; it&rsquo;s roughly the difference between <code>&#x5c;topskip</code>
+and the height of normal (<tt>10pt</tt>) text.
+
+<p>
+Note that this is a &ldquo;global&rdquo; setting (best established in a class
+file, or at worst in the document preamble); making the change for a
+single float page is likely (at the least) to be rather tricky.
+
+<p>

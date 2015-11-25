@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-initex</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThingsareGoingWronghellip">Things are Going Wrong&hellip;</a> &gt; <a href="index.html#Thingshaveldquogoneawayrdquo">Things have &ldquo;gone away&rdquo;</a> &gt; </div>
+<h1>What&rsquo;s happened to <i class="progname">initex</i>?</h1>
+
+
+<p>
+
+<p>
+In the beginning, (La)TeX was stretching the capacity of every
+system it was ported to, so there was a premium on reducing the size
+of executables.  One way of doing this was to have a separate
+executable, <i class="progname">initex</i>, that had things in it that aren&rsquo;t
+needed in ordinary document runs&nbsp;&mdash; notably <code>&#x5c;patterns</code> (which
+builds hyphenation tables), and <code>&#x5c;dump</code> (which writes out a format).
+
+<p>
+On modern systems, the size of this code is insignificant in
+comparison to the memory available, and maintaining separate programs
+has been found sufficiently error-prone that free Unix-style system
+distributions have abolished <i class="progname">initex</i> and its friends and
+relations such as <i class="progname">inipdftex</i> in favour of a single
+executable (that is, just <i class="progname">tex</i> or <i class="progname">pdftex</i>) that
+will &ldquo;do what <i class="progname">initex</i> (or whatever) used to do&rdquo; if it
+detects the command option &ldquo;<tt>-ini</tt>&rdquo;.
+
+<p>
+The change happened with the advent of teTeX version
+3.0, which appeared at the beginning of 2005.  At that time,
+texlive was following teTeX, so that year&rsquo;s texlive
+distribution would also have dropped <i class="progname">initex</i>.
+
+<p>
+It would appear that the equation is somewhat different for the
+MiKTeX developers, since that system continues to offer an
+<i class="progname">initex</i> executable.
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>

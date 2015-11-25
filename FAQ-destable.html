@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-destable</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; </div>
+<h1>The design of tables</h1>
+
+
+<p>
+
+<p>
+In recent years, several authors have argued that the examples, set
+out by Lamport in his <a href="FAQ-latex-books.html">LaTeX manual</a>, have cramped
+authors&rsquo; style and have led to extremely poor table design.  It is in
+fact difficult even to work out what many of the examples in Lamport&rsquo;s
+book &ldquo;mean&rdquo;.
+
+<p>
+The criticism focuses on the excessive use of rules (both horizontal
+and vertical) and on the poor vertical spacing that Lamport&rsquo;s macros
+offer.
+
+<p>
+The problem of vertical spacing is plain for all to see, and is
+addressed in several packages&nbsp;&mdash; see 
+&ldquo;<a class="FAquestion.html" href="FAQ-struttab.html">spacing of lines in tables</a>&rdquo;.
+
+<p>
+The argument about rules is presented in the excellent essay that
+prefaces the documentation of Simon Fear&rsquo;s <i class="package">booktabs</i> package,
+which (of course) implements Fear&rsquo;s scheme for &lsquo;comfortable&rsquo; rules.
+(The same rule commands are implemented in the <i class="class">memoir</i> class.)
+
+<p>
+Lamport&rsquo;s LaTeX was also inflexibly wrong in &ldquo;insisting&rdquo; that
+captions should come at the bottom of a table.  Since a table may
+extend over several pages, traditional typography places the caption
+at the top of a table float.  The <code>&#x5c;caption</code> command will get its
+position wrong (by <tt>10pt</tt>) if you simply write:
+<blockquote>
+<pre>
+\begin{table}
+  \caption{Example table}
+  \begin{tabular}{...}
+    ...
+  \end{tabular}
+\end{table}
+</pre>
+</blockquote>
+The <i class="package">topcapt</i> package solves this problem:
+<blockquote>
+<pre>
+\usepackage{topcapt}
+...
+\begin{table}
+  \topcaption{Example table}
+  \begin{tabular}{...}
+    ...
+  \end{tabular}
+\end{table}
+</pre>
+</blockquote>
+The <i class="class">KOMA-script</i> classes provide a similar command
+<code>&#x5c;captionabove</code>; they also have a class option
+<code class="pkgoption">tablecaptionabove</code> which arranges that <code>&#x5c;caption</code>
+<em>means</em> <code>&#x5c;captionabove</code>, in table environments.  The
+<i class="package">caption</i> package may be loaded
+with an option that has the same effect:
+<blockquote>
+<pre>
+\usepackage[tableposition=top]{caption}
+</pre>
+</blockquote>
+or the effect may be established after the package has been  loaded:
+<blockquote>
+<pre>
+\usepackage{caption}
+\captionsetup[table]{position=above}
+</pre>
+</blockquote>
+(Note that the two &ldquo;position&rdquo; options are different: actually,
+&ldquo;above&rdquo; and &ldquo;top&rdquo; in these contexts mean the same thing.)
+
+<p>
+Doing the job yourself is pretty easy: <i class="package">topcapt</i> switches the
+values of the LaTeX 2e parameters <code>&#x5c;abovecaptionskip</code> (default
+value <tt>10pt</tt>) and <code>&#x5c;belowcaptionskip</code> (default value
+<tt>0pt</tt>), so:
+<blockquote>
+<pre>
+\begin{table}
+  \setlength{\abovecaptionskip}{0pt}
+  \setlength{\belowcaptionskip}{10pt}
+  \caption{Example table}
+  \begin{tabular}{...}
+    ...
+  \end{tabular}
+\end{table}
+</pre>
+</blockquote>
+does the job (if the length values are right; the package and classes
+are more careful!).
+<dl>
+<dt class="ctanref">booktabs.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/booktabs">booktabs</a>
+<dt class="ctanref">caption.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/caption">caption</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">topcapt.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/topcapt">topcapt</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-08-19</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-destable">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-destable</a>
+
+<p>

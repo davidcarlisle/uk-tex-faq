@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-fancyhdr</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>Alternative head- and footlines in LaTeX</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]headings header footer headline footline[[[RBRACE]]]
+
+<p>
+The standard LaTeX document classes define a small set of &lsquo;page
+styles&rsquo; which specify head- and footlines for your document (though
+they can be used for other purposes, too).  The standard set is very
+limited, but LaTeX is capable of much more.  The internal
+LaTeX coding needed to change page styles is not particularly
+challenging, but there&rsquo;s no need&nbsp;&mdash; there are packages that provide
+useful abstractions that match the way we typically think about these
+things.
+
+<p>
+The <i class="package">fancyhdr</i> package provides
+simple mechanisms for defining pretty much every head- or footline
+variation you could want; the directory also contains some
+documentation and one or two smaller packages.  <i class="package">Fancyhdr</i> 
+also deals with the tedious behaviour of the standard styles with
+<a href="FAQ-nopageno.html">initial pages</a>, by enabling you to define
+different page styles for initial and for body pages.
+
+<p>
+While <i class="package">fancyhdr</i> will work with <i class="class">KOMA-script</i> classes,
+an alternative package, <i class="package">scrpage2</i>, eases integration with the
+classes.  <i class="package">Scrpage2</i> may also be used as a <i class="package">fancyhdr</i>
+replacement, providing similar facilities.  The <i class="class">KOMA-script</i>
+classes themselves permit some modest redefinition of head- and
+footlines, without the use of the extra package.
+
+<p>
+<i class="class">Memoir</i> also contains the functionality of <i class="package">fancyhdr</i>,
+and has several predefined styles.
+
+<p>
+Documentation of <i class="package">fancyhdr</i> is distributed with the package,
+in a separate file; documentation of <i class="package">scrpage2</i> is integrated
+with the <i class="filename">scrgui*</i> documentation files that are distributed with
+the <i class="class">KOMA-script</i> classes.
+<dl>
+<dt class="ctanref">fancyhdr.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fancyhdr">fancyhdr</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+</dl>
+
+<p>

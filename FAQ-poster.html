@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-poster</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Alternativedocumentclasses">Alternative document classes</a> &gt; </div>
+<h1>Creating posters with LaTeX</h1>
+
+
+<p>
+
+<p>
+There is no complete &ldquo;canned solution&rdquo; to creating a poster (as, for
+example, classes like <i class="class">seminar</i>, <i class="class">powerdot</i> and
+<i class="class">beamer</i> serve for creating presentations in a variety of
+styles).
+
+<p>
+The nearest approach to the complete solution is the <i class="class">sciposter</i>
+class, which provides the means to produce really rather good posters
+according to the author&rsquo;s required style.  A complete worked example
+is provided with the distribution
+
+<p>
+Otherwise, there is a range of tools, most of which are based on the
+<i class="class">a0poster</i> class, which sets up an appropriately-sized piece of
+paper, sets font sizes appropriately, and leaves you to your own
+devices.
+
+<p>
+Having used <i class="class">a0poster</i>, you can of course slog it out, and write
+all your poster as an unadorned LaTeX document (presumably in
+multiple columns, using the <i class="package">multicol</i> package), but it&rsquo;s not really
+necessary: the (straightforward) <i class="package">textpos</i> package provides a
+simple way of positioning chunks of text, or tables or figures, on the
+poster page.
+
+<p>
+More sophisticated is the <i class="package">flowfram</i> package, whose basic aim
+in life is flowing text from one box on the page to the next.  One of
+the package&rsquo;s design aims seems to have been the production of
+posters, and a worked example is provided.  The author of
+<i class="package">flowfram</i> has an experimental tool called
+<a href="http://www.dickimaw-books.com/software.html#jpgfdraw.html">JpgfDraw</a>, which
+allows you to construct the outline of frames for use with
+<i class="package">flowfram</i>.
+
+<p>
+The <i class="package">beamerposter</i> package is added to a 
+<a href="FAQ-slidecls.html"><i class="class">beamer</i> document</a> to enable the user to work
+as if in a <i class="class">a0poster</i> class.  Thus <i class="class">beamer</i>&rsquo;s neat
+provisions for layout may be used when creating the poster.
+Documentation of <i class="package">beamerposter</i> is sparse, but an example file
+allows the user to get a grip on what&rsquo;s available.
+
+<p>
+Despite the relative shortage of tools, there are a fair few web pages
+that explain the process (mostly in terms of the <i class="class">a0poster</i>
+route):
+<ul>
+<li> from Norman Gray, 
+  <a href="http://nxg.me.uk/docs/posters/.html">Producing posters using LaTeX</a>;
+<li> from Nicola Talbot, 
+  <a href="http://www.dickimaw-books.com/latex/posters/.html">Creating technical posters with LaTeX</a>
+<li> From Rob Clark 
+  <a href="http://homepages.inf.ed.ac.uk/robert/posters/advanced.html.html">Advanced LaTeX Posters</a> 
+  (which has links to code samples);
+<li> from Brian Wolven, 
+  <a href="http://fuse.pha.jhu.edu/&nbsp;wolven/posters.html.html">LaTeX Poster Macros, Examples, and Accessories</a> 
+  (this page also provides macros and other support suggestions); and
+<li> from &ldquo;<em>pjh</em>&rdquo; 
+  <a href="http://www.phys.ufl.edu/&nbsp;pjh/posters/poster_howto_UF.html.html">Making and printing a poster with LaTeX</a>, 
+  which covers the specific issue of dealing with University of
+  Florida styled poster (offering supporting material as necessary),
+  but has hints which are generally useful.
+</ul>
+<dl>
+<dt class="ctanref">a0poster.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/a0poster">a0poster</a>
+<dt class="ctanref">beamer.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/beamer">beamer</a>
+<dt class="ctanref">beamerposter.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/beamerposter">beamerposter</a>
+<dt class="ctanref">flowfram.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/flowfram">flowfram</a>
+<dt class="ctanref">multicol.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[multicol]
+<dt class="ctanref">sciposter.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/sciposter">sciposter</a>
+<dt class="ctanref">textpos.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/textpos">textpos</a>
+</dl>
+
+<p>

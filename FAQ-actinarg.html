@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-actinarg</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Active characters in command arguments</h1>
+
+
+<p>
+
+<p>
+Occasionally, it&rsquo;s nice to make one or two characters active in the
+argument of a command, to make it easier for authors to code the
+arguments.
+
+<p>
+Active characters <em>can</em> be used safely in such situations; but
+care is needed.
+
+<p>
+An example arose while this answer was being considered: an aspirant
+macro writer posted to <i class="newsgroup">comp.text.tex</i> asking for help to
+make <code class="verb">#</code> and <code class="verb">b</code> produce musical sharp and flat signs, respectively,
+in a macro for specifying chords.
+
+<p>
+The first problem is that both <code class="verb">#</code> and <code class="verb">b</code> have rather important uses
+elsewhere in TeX (to say the least!), so that the characters can
+only be made active while the command is executing.
+
+<p>
+Using the techniques discussed in 
+&ldquo;<a class="FAquestion.html" href="FAQ-activechars.html">characters as commands</a>&rdquo;,
+we can define:
+<blockquote>
+<pre>
+\begingroup
+  \catcode`\#=\active
+  \gdef#{$\sharp$}
+\endgroup
+</pre>
+</blockquote>
+and:
+<blockquote>
+<pre>
+\begingroup
+  \lccode`\~=`\b
+  \lowercase{\endgroup
+    \def~{$\flat$}%
+  }
+</pre>
+</blockquote>
+The second problem is one of timing: the command has to make each
+character active <em>before</em> its arguments are read: this means that
+the command can&rsquo;t actually &ldquo;have&rdquo; arguments itself, but must be
+split in two.  So we write:
+<blockquote>
+<pre>
+\def\chord{%
+  \begingroup
+    \catcode`\#=\active
+    \catcode`\b=\active
+    \Xchord
+}
+\def\Xchord#1{%
+    \chordfont#1%
+  \endgroup
+}
+</pre>
+</blockquote>
+and we can use the command as <code>&#x5c;chord</code><code>&#x7b;F\#&#x7d;</code> or
+<code>&#x5c;chord</code><code>&#x7b;Bb minor&#x7d;</code>.
+
+<p>
+Two features of the coding are important:
+<ul>
+<li> <code>&#x5c;begingroup</code> in <code>&#x5c;chord</code> opens a group that is closed by
+  <code>&#x5c;endgroup</code> in <code>&#x5c;Xchord</code>; this group limits the change of
+  category codes, which is the <em>raison d&rsquo;\^etre</em> of the whole
+  exercise.
+<li> Although <code class="verb">#</code> is active while <code>&#x5c;Xchord</code> is executed, it&rsquo;s
+  <em>not</em> active when it&rsquo;s being defined, so that the use of <code class="verb">#1</code>
+  doesn&rsquo;t require any special attention.
+</ul>
+
+<p>
+Note that the technique used in such macros as <code>&#x5c;chord</code>, here, is
+analogous to that used in such commands as <code>&#x5c;verb</code>; and, in just the
+same way as <code>&#x5c;verb</code> (see
+
+&ldquo;<a class="FAquestion.html" href="FAQ-verbwithin.html"><code>&#x5c;verb</code> doesn&rsquo;t work in arguments</a>&rdquo;),
+<code>&#x5c;chord</code> won&rsquo;t work inside the argument of another command (the
+error messages, if they appear at all, will probably be rather odd).
+
+<p>
+
+<p>

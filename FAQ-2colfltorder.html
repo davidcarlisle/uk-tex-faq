@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-2colfltorder</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>Two-column float numbers out of order</h1>
+
+
+<p>
+
+<p>
+When LaTeX can&rsquo;t place a float immediately, it places it on one of
+several &ldquo;defer&rdquo; lists.  If another float of the same type comes
+along, and the &ldquo;defer&rdquo; list for that type still has something in it,
+the later float has to wait for everything earlier in the list.
+
+<p>
+Now, standard LaTeX has different lists for single-column floats,
+and double-column floats; this means that single-column figures can
+overtake double-column figures (or vice-versa), and you observe later
+figures appear in the document before early ones.  The same is true,
+of course, for tables, or for any user-defined float.
+
+<p>
+The LaTeX team recognise the problem, and provides a package
+(<i class="package">fixltx2e</i>) to deal with it.  <i class="package">Fixltx2e</i> amalgamates
+the two defer lists, so that floats don&rsquo;t get out of order.
+
+<p>
+For those who are still running an older LaTeX distribution, the
+package <i class="package">fix2col</i> should serve.  This package (also by a
+member of the LaTeX team) was the basis of the relevant part of
+<i class="package">fixltx2e</i>.  The functionality has also been included in
+<i class="package">dblfloatfix</i>, which also has code to place full-width floats
+at <a href="FAQ-2colfloat.html"><tt>[b]</tt> placement</a>.
+
+<p>
+Once you have loaded the package, no more remains to be done: the
+whole requirement is to patch the output routine; no extra commands
+are needed.
+<dl>
+<dt class="ctanref">dblfloatfix.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dblfloatfix">dblfloatfix</a>
+<dt class="ctanref">fix2col.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fix2col">fix2col</a>
+<dt class="ctanref">fixltx2e.sty</dt><dd>Part of the LaTeX distribution
+</dl>
+
+<p>

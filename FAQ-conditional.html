@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-conditional</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Documentmanagement">Document management</a> &gt; </div>
+<h1>Conditional compilation and &ldquo;comments&rdquo;</h1>
+
+
+<p>
+
+<p>
+While LaTeX (or any other TeX-derived package) isn&rsquo;t really like a
+compiler, people regularly want to do compiler-like things using it.
+Common requirements are conditional &lsquo;compilation&rsquo; and &lsquo;block
+comments&rsquo;, and several LaTeX-specific means to this end are available.
+
+<p>
+The simple <code>&#x5c;newcommand</code><code>&#x7b;<code>&#x5c;gobble</code>&#x7d;</code>[1]<tt>&#x7b;&#x7d;</tt> 
+and <code>&#x5c;iffalse</code><tt> ... </tt><code>&#x5c;fi</code> aren&rsquo;t really satisfactory (as
+a general solution) for comments, since the matter being skipped is
+nevertheless scanned by TeX, not always as you would expect.  The
+scanning imposes restrictions on what you&rsquo;re allowed to skip; this may
+not be a problem in <em>today&rsquo;s</em> job, but could return to bite you
+tomorrow.  For an example of surprises that may come to bite you,
+consider the following example (derived from real user experience):
+<blockquote>
+<pre>
+\iffalse % ignoring this bit
+consider what happens if we
+use \verb+\iftrue+ -- a surprise
+\fi
+</pre>
+</blockquote>
+The <code>&#x5c;iftrue</code> is spotted by TeX as it scans, ignoring the
+<code>&#x5c;verb</code> command; so the <code>&#x5c;iffalse</code> isn&rsquo;t terminated by the
+following <code>&#x5c;fi</code>.  Also, <code>&#x5c;gobble</code> is pretty inefficient at
+consuming anything non-trivial, since all the matter to be skipped is
+copied to the argument stack before being ignored.
+
+<p>
+If your requirement is for a document from which whole chapters (or
+the like) are missing, consider the LaTeX
+<code>&#x5c;include</code>/<code>&#x5c;includeonly</code> system.  If you &lsquo;<code>&#x5c;include</code>&rsquo; your
+files (rather than <code>&#x5c;input</code> them&nbsp;&mdash; see 
+<a class="FAquestion.html" href="FAQ-include.html">What&rsquo;s going on in my <code>&#x5c;include</code> commands?</a>),
+LaTeX writes macro traces of what&rsquo;s going on at the end of each
+chapter to the <code class="extension">aux</code> file; by using <code>&#x5c;includeonly</code>, you can give
+LaTeX an exhaustive list of the files that are needed.  Files that
+don&rsquo;t get <code>&#x5c;include</code>d are skipped entirely, but the document
+processing continues as if they <em>were</em> there, and page, footnote,
+and other numbers are not disturbed.  Note that you can choose which
+sections you want included interactively, using the
+<i class="package">askinclude</i> package.
+
+<p>
+A variant on the <code>&#x5c;includeonly</code> mechanism is offered by the
+<i class="package">stampinclude</i> package, which takes advantage of the PDFTeX
+<code>&#x5c;pdffilemoddate</code> command.  When an <code>&#x5c;include</code>d file is
+processed in a LaTeX document, an <code class="extension">aux</code> file is created
+holding data such as page-number ranges and chapter/section numbers.
+When <code>&#x5c;stampinclude</code> is included in a document, it compares the
+file system modification times for each file and its corresponding
+<code class="extension">aux</code> file; the file is only compiled in &ldquo;this run&rdquo; of the
+document if the file is newer than its corresponding <code class="extension">aux</code>
+file.  The package requires a current PDFTeX, and will also run on
+LuaTeX if the <i class="package">pdftexcmds</i> package is available
+(<i class="package">pdftexcmds</i> emulates the requisite PDFTeX commands using
+<tt>lua</tt>.  Apart from this requirement, <i class="package">stampinclude</i> is
+a low-maintenace object; include it in your document and it silently
+does its job.  When you want a final version of your document, delete
+all the <code class="extension">aux</code> files, and and <i class="package">stampinclude</i> won&rsquo;t
+interfere.)
+
+<p>
+The inverse can be done using the <i class="package">excludeonly</i> package: this
+allows you to exclude a (list of) <code>&#x5c;include</code>d files from your
+document, by means of an <code>&#x5c;excludeonly</code> command.
+
+<p>
+If you want to select particular pages of your document, use Heiko
+Oberdiek&rsquo;s <i class="package">pagesel</i> or the <i class="package">selectp</i> packages.  You
+can do something similar with an existing PDF document (which
+you may have compiled using <i class="progname">pdflatex</i> in the first place),
+using the <i class="package">pdfpages</i> package.  The job is then done with a
+document looking like:
+<blockquote>
+<pre>
+\documentclass{article}
+\usepackage[final]{pdfpages}
+\begin{document}
+\includepdf[pages=30-40]{yoursource.pdf}
+\end{document}
+</pre>
+</blockquote>
+(To include all of the document, you write
+<blockquote>
+<pre>
+\includepdf[pages=-]{yoursource.pdf}
+</pre>
+</blockquote>
+omitting the start and end pages in the optional argument.)
+
+<p>
+If you want flexible facilities for including or excluding small
+portions of a file, consider the <i class="package">comment</i>, <i class="package">version</i> or
+<i class="package">optional</i> packages.
+
+<p>
+The <i class="package">comment</i> package allows you to declare areas of a document to be
+included or excluded; you make these declarations in the preamble of
+your file.  The command <code>&#x5c;includecomment</code><code>&#x7b;version-name&#x7d;</code>
+declares an environment <code class="environment">version-name</code> whose content will
+be included in your document, while
+<code>&#x5c;excludecomment</code><code>&#x7b;version-name&#x7d;</code> defines an environment whose
+content will be excluded from the document.  The package uses a method
+for exclusion that is pretty robust, and can cope with ill-formed
+bunches of text (e.g., with unbalanced braces or <code>&#x5c;if</code> commands).
+
+<p>
+(These FAQs employ the <i class="package">comment</i> package to alter layout
+between the printed (two-column) version and the PDF version
+for browsing; there are <code class="environment">narrowversion</code> and
+<code class="environment">wideversion</code> for the two versions of the file.)
+
+<p>
+<i class="package">version</i> offers similar facilities to <i class="filename">comment.sty</i>
+(i.e., <code>&#x5c;includeversion</code> and <code>&#x5c;excludeversion</code> commands);
+it&rsquo;s far &ldquo;lighter weight&rdquo;, but is less robust (and in particular,
+cannot deal with very large areas of text being included/excluded).
+
+<p>
+A significant development of <i class="package">version</i>, confusingly called
+<i class="package">versions</i> (i.e., merely a plural of the old package name).
+<i class="package">Versions</i> adds a command
+<code>&#x5c;markversion</code><code>&#x7b;version-name&#x7d;</code> which defines an environment
+that prints the included text, with a clear printed mark around it.
+
+<p>
+<i class="package">optional</i> defines a command <code>&#x5c;opt</code>; its first argument is
+an &lsquo;inclusion flag&rsquo;, and its second is text to be included or
+excluded.  Text to be included or excluded must be well-formed
+(nothing mismatched), and should not be too big&nbsp;&mdash; if a large body of
+text is needed, <code>&#x5c;input</code> should be used in the argument.
+The documentation (in the package file itself) tells you
+how to declare which sections are to be included: this can be done in
+the document preamble, but the documentation also suggests ways in
+which it can be done on the command line that invokes LaTeX, or
+interactively.
+
+<p>
+And, not least of this style of conditional compilation,
+<i class="package">verbatim</i> (which should be available in any distribution)
+defines a <code class="environment">comment</code> environment, which enables the
+dedicated user of the source text editor to suppress bits of a
+LaTeX source file.  The <i class="class">memoir</i> class offers the same
+environment.
+
+<p>
+An interesting variation is the <i class="package">xcomment</i> package.  This
+defines an environment whose body is all excluded, apart from
+environments named in its argument.  So, for example:
+<blockquote>
+<pre>
+\begin{xcomment}{figure,table}
+  This text is not included
+  \begin{figure}
+    This figure is included
+  \end{figure}
+  This is not included, either
+  \begin{table}
+    This table also included
+  \end{table}
+  ...
+\end{xcomment}
+</pre>
+</blockquote>
+
+<p>
+The <i class="package">tagging</i> package offers another neat set of syntax, which
+allow the user to apply &ldquo;tags&rdquo; to chunks of text, and to include and
+exclude tagged text, according to the tags.  For example, the user may
+&lsquo;use&rsquo; text marked with some tags, and to &lsquo;drop&rsquo; marked with others:
+<blockquote>
+<pre>
+\usetag{<tag list>}
+\droptag{<tag list>}
+</pre>
+</blockquote>
+(the tag lists consist of comma-separated single words).
+
+<p>
+There are then commands
+<blockquote>
+<pre>
+\tagged{<tag list>}{<text>}
+</pre>
+</blockquote>
+which reproduces the text only if the &lsaquo;<i>tag list</i>&rsaquo; contains at
+least one tag listed in the <code>&#x5c;usetag</code> comand, and
+<blockquote>
+<pre>
+\untagged{<tag list>}{<text>}
+</pre>
+</blockquote>
+which only reproduces the text unless the &lsaquo;<i>tag list</i>&rsaquo; contains
+none of the tags mention in the <code>&#x5c;droptag</code> command.
+
+<p>
+Further commands offer an if-then-else setup, and specify
+<code class="environment">taggedblock</code> and <code class="environment">untaggedblock</code> environments
+that.
+
+<p>
+Another valuable aspect of the problem is covered by the
+<i class="package">extract</i> package.  The package allows you to produce a
+&ldquo;partial copy&rdquo; of an existing document: 
+the package was developed to permit production of a &ldquo;book of
+examples&rdquo; from a set of lecture notes.  The package documentation
+shows the following usage:
+<blockquote>
+<pre>
+\usepackage[
+  active,
+  generate=foobar,
+  extract-env={figure,table},
+  extract-cmd={chapter,section}
+]{extract}
+</pre>
+</blockquote>
+which will cause the package to produce a file <i class="filename">foobar.tex</i>
+containing all the <code class="environment">figure</code> and <code class="environment">table</code>
+environments, and the <code>&#x5c;chapter</code> and <code>&#x5c;section</code> commands, from
+the document being processed.  The new file <i class="filename">foobar.tex</i> is
+generated in the course of an otherwise ordinary run on the &lsquo;master&rsquo;
+document.  The package provides a good number of other facilities,
+including (numeric or labelled) ranges of environments to extract, and
+an <code class="environment">extract</code> environment which you can use to create complete
+ready-to-run LaTeX documents with stuff you&rsquo;ve extracted.
+<dl>
+<dt class="ctanref">askinclude.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[askinclude]
+<dt class="ctanref">comment.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/comment">comment</a>
+<dt class="ctanref">excludeonly.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/excludeonly">excludeonly</a>
+<dt class="ctanref">extract.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/extract">extract</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">optional.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/optional">optional</a>
+<dt class="ctanref">pagesel.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[pagesel]
+<dt class="ctanref">pdfpages.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdfpages">pdfpages</a>
+<dt class="ctanref">selectp.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/selectp">selectp</a>
+<dt class="ctanref">stampinclude.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[stampinclude]
+<dt class="ctanref">tagging.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tagging">tagging</a>
+<dt class="ctanref">verbatim.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[verbatim]
+<dt class="ctanref">version.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/version">version</a>
+<dt class="ctanref">versions.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/versions">versions</a>
+<dt class="ctanref">xcomment.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/xcomment">xcomment</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2014-06-09</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-conditional">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-conditional</a>
+
+<p>

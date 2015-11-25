@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-interruptlist</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Lists">Lists</a> &gt; </div>
+<h1>Interrupting enumerated lists</h1>
+
+
+<p>
+
+<p>
+It&rsquo;s often convenient to have commentary text, &lsquo;outside&rsquo; the list,
+between successive entries of a list.  In the case of
+<code class="environment">itemize</code> lists this is no problem, since there&rsquo;s never
+anything to distinguish successive items, while in the case of
+<code class="environment">description</code> lists, the item labels are under the user&rsquo;s
+control so there&rsquo;s no automatic issue of continuity.
+
+<p>
+For <code class="environment">enumerate</code> lists, the labels are generated
+automatically, and are context-sensitive, so the context (in this
+case, the state of the enumeration counter) needs to be preserved.
+
+<p>
+The belt-and-braces approach is to remember the state of the
+enumeration in your own counter variable, and then restore it when
+restarting enumerate:
+<blockquote>
+<pre>
+\newcounter{saveenum}
+ ...
+\begin{enumerate}
+  ...
+  \setcounter{saveenum}{\value{enumi}}
+\end{enumerate}
+<Commentary text>
+\begin{enumerate}
+  \setcounter{enumi}{\value{saveenum}}
+  ...
+\end{enumerate}
+</pre>
+</blockquote>
+
+<p>
+This is reasonable, in small doses&hellip; Problems (apart from sheer
+verbosity) are getting the level right (&ldquo;should I use counter
+<tt>enumi</tt>, <tt>enumii</tt>, &hellip;&rdquo;) and remembering not to
+nest the interruptions (i.e., not to have a separate list, that is
+itself interrupted) in the &ldquo;commentary text&rdquo;).
+
+<p>
+The <i class="package">mdwlist</i> package defines commands <code>&#x5c;suspend</code> and
+<code>&#x5c;resume</code> that simplify the process:
+<blockquote>
+<pre>
+\begin{enumerate}
+  ...
+\suspend{enumerate}
+<Commentary text>
+\resume{enumerate}
+  ...
+\end{enumerate}
+</pre>
+</blockquote>
+The package allows an optional name (as in
+<code>&#x5c;suspend</code><code>[id]</code></code><code>&#x7b;enumerate&#x7d;</code>) to allow you to identify a
+particular suspension, and hence provide a handle for manipulating
+nested suspensions.
+
+<p>
+If you&rsquo;re suspending a <a href="FAQ-enumerate.html">fancy-enumeration list</a>,
+you need to 
+re-supply the optional &ldquo;item label layout&rdquo; parameters required by
+the <i class="package">enumerate</i> package when resuming the list, whether by the
+belt-and-braces approach, or by the <i class="package">mdwlist</i>
+<code>&#x5c;resume</code><code>&#x7b;enumerate&#x7d;</code> technique.  The task is a little tedious
+in the <i class="package">mdwlist</i> case, since the optional argument has to be
+encapsulated, whole, inside an optional argument to <code>&#x5c;resume</code>,
+which requires use of extra braces:
+<blockquote>
+<pre>
+\begin{enumerate}[\textbf{Item} i]
+  ...
+\suspend{enumerate}
+<comment>
+\resume{enumerate}[{[\textbf{Item} i]}]
+...
+\end{enumerate}
+</pre>
+</blockquote>
+The <i class="package">enumitem</i> package, in its most recent
+release, will also allow you to resume lists:
+<blockquote>
+<pre>
+\begin{enumerate}
+...
+\end{enumerate}
+<comment>
+\begin{enumerate}[resume]
+...
+\end{enumerate}
+</pre>
+</blockquote>
+which feels just as &ldquo;natural&rdquo; as the <i class="package">mdwtools</i> facility,
+and has the advantage of playing well with the other excellent
+facilities of <i class="package">enumitem</i>.
+
+<p>
+<i class="package">Expdlist</i> has a neat way of providing for comments, with its
+<code>&#x5c;listpart</code> command.  The command&rsquo;s argument becomes a comment
+between items of the list:
+<blockquote>
+<pre>
+\begin{enumerate}
+\item item 1
+\item item 2
+  \listpart{interpolated comment}
+\item item 3
+\end{enumerate}
+</pre>
+</blockquote>
+This, you will realise, means it doesn&rsquo;t even have to think about
+suspending or resuming the list, and of course it works equally well
+in any of the list environments (thought it&rsquo;s not actually
+<em>necessary</em> for any but <code class="environment">enumerate</code>).
+
+<p>
+<i class="package">Enumitem</i> also allows multi-level suspension and resumption
+of lists:
+<blockquote>
+<pre>
+\begin{enumerate}
+\item outer item 1
+\end{enumerate}
+<comment>
+\begin{enumerate}[resume]
+\item outer item 2
+% nested enumerate
+\begin{enumerate}
+\item inner item 1
+\end{enumerate}
+<nested comment>
+% resume nested enumerate
+\begin{enumerate}[resume]
+\item inner item 2
+\end{enumerate}
+\item outer item 3
+% end outer enumerate
+\end{enumerate}
+</pre>
+</blockquote>
+However, the &lsquo;nested comment&rsquo; interpolated in the nested enumeration
+appears as if it were a second paragraph to &ldquo;outer item 2&rdquo;, which is
+hardly satisfactory.
+<dl>
+<dt class="ctanref">enumerate.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[enumerate]
+<dt class="ctanref">enumitem.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/enumitem">enumitem</a>
+<dt class="ctanref">expdlist.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/expdlist">expdlist</a>
+<dt class="ctanref">mdwlist.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/mdwtools">mdwtools</a>[mdwlist]
+</dl>
+
+<p>
+
+<p>
+
+<p>

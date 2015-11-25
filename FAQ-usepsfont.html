@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-usepsfont</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#AdobeTypenbspldquoPostScriptrdquofonts">Adobe Type&nbsp;1 (&ldquo;PostScript&rdquo;) fonts</a> &gt; </div>
+<h1>Using Adobe Type 1 fonts with [[[protectTeX]]]</h1>
+
+
+<p>
+
+<p>
+In order to use any font, TeX needs a
+<em>metric</em> file (TFM file).  Several sets of metrics for
+common Adobe Type 1 fonts are
+available from the archives; for mechanisms for generating new ones,
+see <a class="FAquestion.html" href="FAQ-metrics.html">metrics for PostScript fonts</a>.  You
+also need the fonts themselves; PostScript printers come with a set of
+fonts built in, but to extend your repertoire you usually
+need to buy from one of the many commercial font vendors (see, for
+example, <a class="FAquestion.html" href="FAQ-psfchoice.html">&ldquo;choice of fonts&rdquo;</a>).
+
+<p>
+If you use LaTeX 2e, access to your printer&rsquo;s fonts is offered by the
+PSNFSS package; the LaTeX3 project team declare that
+PSNFSS is a &ldquo;required&rdquo; part of a LaTeX distribution, and
+bug reports may be submitted via the 
+<a href="FAQ-latexbug.html">LaTeX bugs system</a>. 
+PSNFSS gives you a set of packages for changing the default
+roman, sans-serif and typewriter fonts; <em>e.g</em>., the
+<i class="package">mathptmx</i> package will set up <i class="fontname">Times</i>
+<i class="fontname">Roman</i> as the main text font (and introduces mechanisms to
+typeset mathematics using <i class="fontname">Times</i> and various more-or-less
+matching fonts),  while package <i class="package">avant</i> changes the sans-serif
+family to <i class="fontname">AvantGarde</i>, and <i class="package">courier</i> changes the
+typewriter font to <i class="fontname">Courier</i>.  To go with these
+packages, you need the font metric files
+and font description (<i class="filename">.fd</i>) files for each font family you
+want to use.  For convenience,
+metrics for the &lsquo;common 35&rsquo; PostScript fonts found in most PostScript printers
+are provided with PSNFSS, packaged as the &ldquo;Laserwriter set&rdquo;.
+
+<p>
+For older versions of LaTeX there are various schemes, of which the
+simplest to use is probably the PSLaTeX macros distributed with
+<i class="progname">dvips</i>.
+
+<p>
+For Plain TeX, you load whatever fonts you like; if the encoding of
+the fonts is not the same as Computer Modern it will be up to you to
+redefine various macros and accents, or you can use the font
+re-encoding mechanisms available in many drivers and in
+<i class="progname">ps2pk</i> and <i class="progname">afm2tfm</i>.
+
+<p>
+Some common problems encountered are discussed elsewhere
+(see <a class="FAquestion.html" href="FAQ-psfontprob.html">problems with PS fonts</a>).
+<dl>
+<dt class="ctanref">Metrics for the &lsquo;Laserwriter&rsquo; set of 35 fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lw35nfss-zip">lw35nfss-zip</a>
+<dt class="ctanref">psnfss</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/psnfss">psnfss</a>
+</dl>
+
+<p>

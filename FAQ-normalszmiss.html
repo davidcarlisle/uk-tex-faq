@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-normalszmiss</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1><code>&#x5c;normalsize</code> not defined</h1>
+
+
+<p>
+
+<p>
+The LaTeX error:
+<blockquote>
+
+<pre>
+The font size command \normalsize is not
+   defined: there is probably something
+   wrong with the class file.
+</pre>
+
+
+<pre>
+The font size command \normalsize is not defined:
+there is probably something wrong with the class file.
+</pre>
+
+</blockquote>
+reports something pretty fundamental (document base font size has not
+been set, something the document class does for you).  It <em>can</em>,
+in principle, be a problem with the document class, but is more often
+caused by the user forgetting to start their document with a
+<code>&#x5c;documentclass</code> command.
+
+<p class="lastedit">This answer last edited: 2013-11-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-normalszmiss">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-normalszmiss</a>
+
+<p>

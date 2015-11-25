@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-spawnprog</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Spawning programs from (La)TeX: <code>&#x5c;write18</code></h1>
+
+
+<p>
+
+<p>
+The TeX <a href="FAQ-write.html"><code>&#x5c;write</code> primitive instruction</a> is used
+to write to different file &lsquo;streams&rsquo;; TeX refers to each open file by
+a number, not by a file name (although most of the time we hide this).
+Originally, TeX would write to a file connected to a stream
+numbered 0&ndash;15.  More recently, a special &ldquo;stream 18&rdquo; has been
+implemented: it is not writing to a file, but rather tells TeX to ask
+the operating system to do something.  To run a command, we put it as
+the argument to <code>&#x5c;write18</code>.  So to run the [[[progname]]][[[LBRACE]]]epstopdf[[[RBRACE]]]
+utility on a file with name stored as <code>&#x5c;epsfilename</code>, we would
+write:
+<blockquote>
+<pre>
+\write18{epstopdf \epsfilename}
+</pre>
+</blockquote>
+When using something like the <i class="package">epstopdf</i> package, the &lsquo;stream&rsquo;
+write operation is hidden away and you don&rsquo;t need to worry about the
+exact way it&rsquo;s done.
+
+<p>
+However, there is a security issue. If you download some [[[alltex]]][[[LBRACE]]][[[RBRACE]]] code from
+the Internet, can you be sure that there is not some command in it
+(perhaps in a hidden way) to do stuff that might be harmful to your
+computer (let&rsquo;s say: delete everything on the hard disk!)?  In the
+face of this problem, both MiKTeX and TeX&nbsp;Live have, for some
+time, disabled <code>&#x5c;write18</code> by default.  To turn the facility on,
+both distributions support an additional argument when starting TeX
+from the command shell:
+<blockquote>
+<pre>
+(pdf)(la)tex --shell-escape <file>
+</pre>
+</blockquote>
+The problem with this is that many people use [[[alltex]]][[[LBRACE]]][[[RBRACE]]] via a graphical
+editor, so to use <code>&#x5c;write18</code> for a file the editor&rsquo;s settings must
+be changed.  Of course, the settings need restoring after the file is
+processed: you defeat the point of the original protection, that way.
+
+<p>
+The latest MiKTeX (version 2.9), and recent TeX&nbsp;Live (from the
+2010 release) get
+around this by having a special &ldquo;limited&rdquo; version of <code>&#x5c;write18</code>
+enabled &lsquo;out of the box&rsquo;.  The idea is to allow only a pre-set list of
+commands (for example, BibTeX, [[[progname]]][[[LBRACE]]]epstopdf[[[RBRACE]]], TeX itself,
+and so on).  Those on the list are regarded as safe enough to allow,
+whereas anything else (for example deleting files) still needs to be
+authorised by the user. This seems to be a good balance: most people
+most of the time will not need to worry about <code>&#x5c;write18</code> at all,
+but it will be available for things like <i class="package">epstopdf</i>.
+
+<p>
+Note that the TeX system may tell you that the mechanism is in use:
+
+<blockquote>
+<pre>
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010)
+ restricted \write18 enabled.
+</pre>
+</blockquote>
+
+
+
+<pre>
+This is pdfTeX, Version 3.1415926-1.40.11
+                              (TeX Live 2010)
+ restricted \write18 enabled.
+</pre>
+
+
+when it starts.
+<dl>
+<dt class="ctanref">epstopdf.sty</dt><dd>Distributed with Heiko Oberdiek&rsquo;s packages
+  <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[epstopdf-pkg]
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-12-03</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-spawnprog">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-spawnprog</a>
+
+<p>

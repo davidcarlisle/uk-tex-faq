@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-optclash</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Option clash for package</h1>
+
+
+<p>
+
+<p>
+The error message
+<blockquote>
+<pre>
+! LaTeX Error: Option clash for package footmisc
+</pre>
+</blockquote>
+means what it says&nbsp;&mdash; your document contains a (potentially) clashing
+pair of options; sadly, it is not always obvious how the error has
+arisen.
+
+<p>
+If you simply write:
+<blockquote>
+<pre>
+\usepackage[a]{foo}
+...
+\usepackage{foo}
+</pre>
+</blockquote>
+LaTeX is happy, as it is with:
+<blockquote>
+<pre>
+\usepackage[a]{foo}
+...
+\usepackage[a]{foo}
+</pre>
+</blockquote>
+since LaTeX can see there&rsquo;s no conflict (in fact, the second load
+does nothing).
+
+<p>
+Similarly,
+<blockquote>
+<pre>
+\usepackage[a,b]{foo}
+...
+\usepackage[a]{foo}
+</pre>
+</blockquote>
+produces no error and does nothing for the second load.
+
+<p>
+However
+<blockquote>
+<pre>
+\usepackage[a]{foo}
+...
+\usepackage[b]{foo}
+</pre>
+</blockquote>
+produces the error; even if option &lsquo;<code class="pkgoption">b</code>&rsquo; is an alias for
+option &lsquo;<code class="pkgoption">a</code>&rsquo;&nbsp;&mdash; LaTeX doesn&rsquo;t &ldquo;look inside&rdquo; the package
+to check anything like that.
+
+<p>
+The general rule is: the first load of a package defines a set of
+options; if a further <code>&#x5c;usepackage</code> or <code>&#x5c;RequirePackage</code> also
+calls for the package, the options on that call may not extend the set
+on the first load.
+
+<p>
+Fortunately, the error (in that sort of case) is easily curable
+once you&rsquo;ve examined the preamble of your document.
+
+<p>
+Now, suppose package <i class="package">foo</i> loads <i class="package">bar</i> with option
+<code class="pkgoption">b</code>, and your document says:
+<blockquote>
+<pre>
+\usepackage{foo}
+...
+\usepackage[a]{bar}
+</pre>
+</blockquote>
+or
+<blockquote>
+<pre>
+\usepackage[a]{bar}
+...
+\usepackage{foo}
+</pre>
+</blockquote>
+the error will be detected, even though you have only explicitly
+loaded <i class="package">bar</i> once.  Debugging such errors is tricky: it may
+involve reading the logs (to spot which packages were called), or the
+documentation of package <i class="package">foo</i>.
+
+<p>

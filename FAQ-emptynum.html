@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-emptynum</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>I asked for &ldquo;empty&rdquo;, but the page is numbered</h1>
+
+
+<p>
+
+<p>
+If you use <code>&#x5c;pagestyle</code><code>&#x7b;empty&#x7d;</code> and you find some pages are
+numbered anyway, you are probably encountering one of the style
+decisions built into the standard LaTeX classes: that certain
+special pages should always appear with <code>&#x5c;pagestyle</code><code>&#x7b;plain&#x7d;</code>,
+with a page number at the centre of the page foot.  The special pages
+in question are those (in <i class="class">article</i> class) containing a
+<code>&#x5c;maketitle</code>, or (in <i class="class">book</i> and <i class="class">report</i> classes)
+<code>&#x5c;chapter</code> or <code>&#x5c;part</code> commands.
+
+<p>
+The simple solution is to reissue the page style <em>after</em> the
+command, with effect for a single page, as, for example (in
+<i class="class">article</i>):
+<blockquote>
+<pre>
+\maketitle
+\thispagestyle{empty}
+</pre>
+</blockquote>
+or (in <i class="class">book</i> or <i class="class">report</i>)
+<blockquote>
+<pre>
+\chapter{foo bar}
+\thispagestyle{empty}
+</pre>
+</blockquote>
+A similar technique doesn&rsquo;t work for a <i class="class">book</i> or <i class="class">report</i>
+<code>&#x5c;part</code> command pages.  For that, and for other detail, take look
+at &ldquo;<a href="FAQ-nopageno.html">getting rid of page numbers</a>&rdquo;.
+
+<p>
+
+<p>
+
+<p>

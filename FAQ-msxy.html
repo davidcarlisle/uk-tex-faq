@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-msxy</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThingsareGoingWronghellip">Things are Going Wrong&hellip;</a> &gt; <a href="index.html#Thingshaveldquogoneawayrdquo">Things have &ldquo;gone away&rdquo;</a> &gt; </div>
+<h1>Where are the <tt>msx</tt> and <tt>msy</tt> fonts?</h1>
+
+
+<p>
+
+<p>
+The <i class="fontname">msx</i> and <i class="fontname">msy</i> fonts were designed by the
+American Mathematical Society in the very early days of TeX, for
+use in typesetting papers for mathematical journals.  They were
+designed using the &lsquo;old&rsquo; MetaFont, which wasn&rsquo;t portable and is no longer
+available; for a long time they were only available in 300dpi versions
+which only imperfectly matched modern printers.  The AMS has
+now redesigned the fonts, using the current version of MetaFont, and the
+new versions are called the <i class="fontname">msa</i> and <i class="fontname">msb</i>
+families.
+
+<p>
+Nevertheless, <i class="fontname">msx</i> and <i class="fontname">msy</i> continue to turn up.
+There may, of course, still be sites that haven&rsquo;t got around to
+upgrading; but, even if everyone upgraded, there would still be the
+problem of old documents that specify them.
+
+<p>
+If you have a <code class="extension">tex</code> source that requests <i class="fontname">msx</i> and
+<i class="fontname">msy</i>, the best technique is to edit it so that it requests
+<i class="fontname">msa</i> and <i class="fontname">msb</i> (you only need to change the single
+letter in the font names).
+
+<p>
+A partial re-implementation of the blackboard-bold part of the
+<i class="fontname">msy</i> font (covering C, N, R, S and Z, only) is available in
+Type&nbsp;1 format; if your mathematical needs only extend that far, the
+font could be a good choice.
+
+<p>
+If you have a DVI file that requests the fonts, there is a package
+of <a href="FAQ-virtualfonts.html">virtual fonts</a> to map the old to the new series.
+<dl>
+<dt class="ctanref">msam \&amp; msbm fonts</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/amsfonts">amsfonts</a>
+<dt class="ctanref">msym fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/msym">msym</a>
+<dt class="ctanref">virtual font set</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/msx2msa">msx2msa</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-03-09</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-msxy">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-msxy</a>
+
+<p>
+
+
+<p>

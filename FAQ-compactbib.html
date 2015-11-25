@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-compactbib</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingcitations">Creating citations</a> &gt; </div>
+<h1>Reducing spacing in the bibliography</h1>
+
+
+<p>
+
+<p>
+Bibliographies are, in fact, implemented as lists, so all the
+confusion about <a href="FAQ-complist.html">reducing list item spacing</a> also
+applies to bibliographies.
+
+<p>
+If the <i class="package">natbib</i> package &lsquo;works&rsquo; for you (it may not if you are using
+some special-purpose bibliography style), the solution is relatively
+simple&nbsp;&mdash; add
+<blockquote>
+<pre>
+\usepackage{natbib}
+\setlength{\bibsep}{0.0pt}
+</pre>
+</blockquote>
+to the preamble of your document.
+
+<p>
+The <i class="package">compactbib</i> package has a similar effect.  Its primary
+purpose is to produce two bibliographies, and it seems to preclude use
+of BibTeX (though the package documentation, in the package file
+itself, isn&rsquo;t particularly clear).
+
+<p>
+Otherwise, one is into unseemly hacking of something or other.  The
+<i class="package">mdwlist</i> package actually does the job, but it doesn&rsquo;t work
+here, because it makes a different-named list, while the name
+&ldquo;<code class="environment">thebibliography</code>&rdquo; is built into LaTeX and
+BibTeX.  Therefore, we need to 
+<a href="FAQ-patch.html">patch the underlying macro</a>:
+<blockquote>
+<pre>
+\let\oldbibliography\thebibliography
+\renewcommand{\thebibliography}[1]{%
+  \oldbibliography{#1}%
+  \setlength{\itemsep}{0pt}%
+}
+</pre>
+</blockquote>
+The <i class="package">savetrees</i> package performs such a patch, among a
+plethora of space-saving measures: you can, in principle, suppress all
+its other actions, and have it provide you a compressed bibliography
+<em>only</em>.
+<dl>
+<dt class="ctanref">compactbib.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/compactbib">compactbib</a>
+<dt class="ctanref">mdwlist.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/mdwtools">mdwtools</a>[mdwlist]
+<dt class="ctanref">natbib.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/natbib">natbib</a>
+<dt class="ctanref">savetrees.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/savetrees">savetrees</a>
+</dl>
+
+<p>

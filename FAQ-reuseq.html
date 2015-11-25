@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-reuseq</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Mathematics">Mathematics</a> &gt; </div>
+<h1>Re-using an equation</h1>
+
+
+<p>
+
+<p>
+To repeat an existing equation, one wants not only to have the same
+mathematics in it, one also wants to re-use the original label it had.
+The <i class="package">amsmath</i> package comes to our help, here:
+<blockquote>
+<pre>
+\usepackage{amsmath}
+...
+\begin{equation}
+  a=b
+  \label{eq1}
+\end{equation}
+...
+Remember that
+\begin{equation}
+  a=b
+  \tag{\ref{eq1}}
+\end{equation}
+</pre>
+</blockquote>
+Here, the second instance of a=b will be
+typeset with a copy, made by the <code>&#x5c;tag</code> command, of the label of the
+first instance.
+<dl>
+<dt class="ctanref">amsmath.sty</dt><dd>Distributed as part of AMSLaTeX
+  <a class="ctan" href="https://www.ctan.org/pkg/amslatex">amslatex</a>[amsmath]
+</dl>
+
+<p>

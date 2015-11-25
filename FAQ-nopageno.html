@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-nopageno</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Pagelayout">Page layout</a> &gt; </div>
+<h1>How to get rid of page numbers</h1>
+
+
+<p>
+[[[AliasQuestion]]][[[LBRACE]]]ps@empty[[[RBRACE]]]
+
+<p>
+Very occasionally, one wants a document with no page numbers.  For
+such occasions, the package <i class="package">nopageno</i> will make
+<code>&#x5c;pagestyle</code><code>&#x7b;plain&#x7d;</code> have the same effect as
+<code>&#x5c;pagestyle</code><code>&#x7b;empty&#x7d;</code>; in simple documents, this will suppress
+all page numbering (it will not work, of course, if the document uses
+some other pagestyle than <code class="environment">plain</code>).
+
+<p>
+To suppress page numbers from a sequence of pages, you may use
+<code>&#x5c;pagestyle</code><code>&#x7b;empty&#x7d;</code> at the start of the sequence, and restore
+the original page style at the end.  Unfortunately, you still have to
+deal with the page numbers on pages containing a <code>&#x5c;maketitle</code>,
+<code>&#x5c;part</code> or <code>&#x5c;chapter</code> command, since the standard classes; deal
+with those separately, as described below.
+
+<p>
+To suppress page numbers on a single page, use
+<code>&#x5c;thispagestyle</code><code>&#x7b;empty&#x7d;</code> somewhere within the text of the
+page.  Note that, in the standard classes, <code>&#x5c;maketitle</code> and
+<code>&#x5c;chapter</code> use <code>&#x5c;thispagestyle</code> internally, so your call
+must be <em>after</em> those commands.
+
+<p>
+Unfortunately, <code>&#x5c;thispagestyle</code> doesn&rsquo;t work for <i class="class">book</i> or
+<i class="class">report</i> <code>&#x5c;part</code> commands: they set the page style (as do
+<code>&#x5c;chapter</code> commands), but then they advance to the next page so
+that you have no opportunity to change the style using
+<code>&#x5c;thispagestyle</code>.  The present author has proposed solving the
+problem with the following &ldquo;grubby little patch&rdquo;, on
+<i class="newsgroup">comp.text.tex</i>:
+<blockquote>
+<pre>
+\makeatletter
+\let\sv@endpart\@endpart
+\def\@endpart{\thispagestyle{empty}\sv@endpart}
+\makeatother
+</pre>
+</blockquote>
+Fortunately, that patch has now been incorporated in a small package
+<i class="package">nonumonpart</i> (a difficult name[[[dots]]])
+
+<p>
+Both the <i class="class">KOMA-script</i> classes and <i class="class">memoir</i> have separate
+page styles for the styles of various &ldquo;special&rdquo; pages, so, in a
+<i class="class">KOMA</i> class document one might say:
+<blockquote>
+<pre>
+\renewcommand*{\titlepagestyle}{empty}
+</pre>
+</blockquote>
+while <i class="class">memoir</i> will do the job with
+<blockquote>
+  <code>&#x5c;aliaspagestyle</code><code>&#x7b;title&#x7d;</code></code><code>&#x7b;empty&#x7d;</code>
+</blockquote>
+
+<p>
+An alternative (in all classes) is to use the rather delightful
+<code>&#x5c;pagenumbering</code><code>&#x7b;gobble&#x7d;</code>; this has the simple effect that any
+attempt to print a page number produces nothing, so there&rsquo;s no issue
+about preventing any part of LaTeX from printing the number.
+However, the <code>&#x5c;pagenumbering</code> command does have the side effect that
+it resets the page number (to 1), so it is unlikely to be helpful
+other than at the beginning of a document.
+
+<p>
+The <i class="package">scrpage2</i> package separates out the representation of the
+page number (it typesets the number using the <code>&#x5c;pagemark</code> command) from
+the construction of the page header and footer; so one can say
+<blockquote>
+<pre>
+\renewcommand*{\pagemark}{}
+</pre>
+</blockquote>
+which will also suppress the printing of the page number.
+
+<p>
+Neither of these &ldquo;suppress the page number&rdquo; techniques touches the
+page style in use; in practice this means they don&rsquo;t make sense unless
+you are using <code>&#x5c;pagestyle</code><code>&#x7b;plain&#x7d;</code>
+<dl>
+<dt class="ctanref">fancyhdr.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fancyhdr">fancyhdr</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">nonumonpart.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/nonumonpart">nonumonpart</a>
+<dt class="ctanref">nopageno.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/nopageno">nopageno</a>
+<dt class="ctanref">scrpage2.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-04-16</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-nopageno">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-nopageno</a>
+
+<p>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-pdf-fig-chars</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>Characters disappear from figures in PDFTeX</h1>
+
+
+<p>
+
+<p>
+You have a PDF figure, which you want to use in your
+PDFLaTeX document.  When you compile the document, PDFTeX
+complains about &ldquo;missing glyphs&rdquo;, and some (or all) of the labelling
+text or symbols in the original figure is no longer visible.
+
+<p>
+What has happened is:
+<ol>
+<li> Your figure file (say <i class="filename">fig.pdf</i>) has a font <i class="filename">font.pfb</i>
+  embedded in it.
+<li> PDFTeX notes that it has <i class="filename">font.pfb</i> on disc, and loads
+  that in place of the copy in <i class="filename">fig.pdf</i>.
+<li> It turns out that the copy in <i class="filename">fig.pdf</i> has glyphs that
+  aren&rsquo;t in <i class="filename">font.pfb</i> on disc, so that you get errors while
+  compiling and you see that characters are missing when you view the
+  output.  (PDFTeX can&rsquo;t know that the fonts are different, since
+  they have the same name.)
+</ol>
+Which is all very undesirable.
+
+<p>
+PDFTeX does this to keep file sizes down: suppose you have a
+document that loads figures <i class="filename">fig1.pdf</i> and <i class="filename">fig2.pdf</i>; both
+of those use font <i class="filename">font.pfb</i>.  If PDFTeX takes no action,
+there will be <em>two</em> copies of <i class="filename">font.pfb</i> in the output.
+(If your document also uses the font, there could be three copies.)
+
+<p>
+A real case is the URW font <i class="filename">NimbusRomNo9L-Regu</i> (a clone
+of Times Roman), which is available in a version with Cyrillic
+letters, while the version in TeX distributions doesn&rsquo;t have those
+letters.  Both versions, as distributed, have the same name.
+
+<p>
+The simple (&ldquo;quick and dirty&rdquo;) solution is to add the command
+<blockquote>
+  <code>&#x5c;pdfinclusioncopyfonts</code><tt>=1</tt>
+</blockquote>
+to the preamble of your document.
+
+<p>
+The &ldquo;real&rdquo; solution is that one or other font should be renamed.  In
+either case, this would require that you reconfigure some program&rsquo;s
+(TeX&rsquo;s or your drawing package&rsquo;s) font tables&nbsp;&mdash; inevitably a
+tiresome job.
+
+<p>

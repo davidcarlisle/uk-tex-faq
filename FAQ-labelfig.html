@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-labelfig</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Graphics">Graphics</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Labelling graphics</h1>
+
+
+<p>
+
+<p>
+&ldquo;Technical&rdquo; graphics (such as graphs and diagrams) are often
+labelled with quite complex mathematical expressions: there are few
+drawing or graphing tools that can do such things (the honourable
+exception being MetaPost, which allows you to program the labels, in
+(La)TeX, in the middle of specifying your graphic).
+
+<p>
+Placing &lsquo;labels&rsquo; on graphics produced by all those <em>other</em> tools is
+what we discuss here.  (Note that the term &ldquo;label&rdquo; should be
+liberally interpreted; many of the techniques <em>were</em> designed for
+use when applying labels to figures, but they may be used equally well
+to draw funny faces on a figure &hellip; or anything.
+
+<p>
+The time-honoured <i class="package">psfrag</i> package can help, if your image is
+included as an (encapsulated) PostScript file.  Place an unique
+text in your graphic, using the normal text features of your tool, and
+you can ask <i class="package">psfrag</i> to replace the text with arbitrary
+(La)TeX material.  <i class="package">Psfrag</i>&rsquo;s &ldquo;operative&rdquo; command is
+<code>&#x5c;psfrag</code><code>&#x7b;<em>Orig text</em>&#x7d;</code></code><code>&#x7b;<em>Repl text</em>&#x7d;</code>, which
+instructs the system to replace the original (&ldquo;unique&rdquo;) text with
+the TeX-typeset replacement text.  Optional arguments permit
+adjustment of position, scale and rotation; full details may be found
+in <i class="filename">pfgguide</i> in the distribution.
+
+<p>
+Since <i class="package">psfrag</i> works in terms of (encapsulated) PostScript files,
+it needs extra work for use with PDFLaTeX.  Two techniques are
+available, using <a href="FAQ-pdftexgraphics.html"><i class="package">pst-pdf</i> package</a>
+in a mode designed to do this work; and using <i class="package">pdfrack</i>.
+
+<p>
+The <a href="FAQ-pdftexgraphics.html"><i class="package">Pst-pdf</i> package</a> can support
+this &ldquo;extra work&rdquo; usage.  In fact, the <i class="package">pst-pdf</i> support
+package <i class="package">auto-pst-pdf</i> offers a configuration setting
+precisely for use with <i class="package">psfrag</i>.
+
+<p>
+If you have the &lsquo;right&rsquo; environment (see below), you could try the
+<i class="package">pdfrack</i> script bundle.  The script aims to cut each figure
+out of your source, using it to produce a small LaTeX file with
+nothing but the figure inclusion commands.  Each of these figure files
+is then processed to PostScript, compiled using the <code>&#x5c;psfrag</code> commands,
+and the resulting output converted to PDF again.
+
+<p>
+<i class="package">Pdfrack</i> is written to use the Unix Bourne shell (or
+equivalent); thus your environment needs to be a Unix-based system, or
+some equivalent such as <i class="progname">cygwin</i> under windows.  (What is
+more, <i class="package">pdfrack</i>&rsquo;s author is rather disparaging about his
+package; the present author has never tried it.)
+
+<p>
+The <i class="package">psfragx</i> package goes one step further than
+<i class="package">psfrag</i>: it provides a means whereby you can put the
+<i class="package">psfrag</i> commands into the preamble of your EPS file
+itself.  <i class="package">Psfrag</i> has such a command itself, but deprecates
+it; <i class="package">psfragx</i> has cleaned up the facility, and provides a
+script <i class="progname">laprint</i> for use with <i class="progname">Matlab</i> to produce
+appropriately tagged output.  (In principle, other graphics
+applications could provide a similar facility, but apparently none does.)
+
+<p>
+<i class="progname">Emacs</i> users may find the embedded editor <i class="progname">iTe</i> a
+useful tool for placing labels: it&rsquo;s a (La)TeX-oriented graphical
+editor written in <i class="progname">Emacs Lisp</i>.  You create
+<code class="environment">iteblock</code> environments containing graphics and text, and
+may then invoke <i class="progname">iTe</i> to arrange the elements relative to one
+another.
+
+<p>
+Another useful approach is <i class="package">overpic</i>, which overlays a
+<code class="environment">picture</code> environment on a graphic included by use of
+<code>&#x5c;includegraphics</code>.  This treatment lends itself to ready placement
+of texts and the like on top of a graphic.  The package can draw a
+grid for planning your &ldquo;attack&rdquo;; the distribution comes with simple
+examples.
+
+<p>
+The <i class="package">lpic</i> package is somewhat similar to <i class="package">overpic</i>;
+it defines an environment <code class="environment">lpic</code> (which places your
+graphic for you): within the environment you may use the command
+<code>&#x5c;lbl</code> to position LaTeX material at appropriate places over the
+graphic.
+
+<p>
+<i class="package">Pinlabel</i> is another package whose author thought in the same
+sort of way as that of <i class="package">overpic</i>; the documentation explains
+in detail how to plan your &lsquo;labelling attack&rsquo;&nbsp;&mdash; in this case by
+loading your figure into a viewer and taking measurements from it.
+(The package discusses direct use of
+<a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a> as well as
+customised viewers such as
+<a href="http://www.ghostgum.com.au/.html"><i class="progname">gsview</i></a> or
+<i class="progname">gv</i>.)
+
+<p>
+<i class="package">Pstricks</i> can of course do everything
+that <i class="package">overpic</i>, <i class="package">lpic</i> or <i class="package">pinlabel</i>
+can, with all the flexibility of PostScript programming that it offers.
+This capability is exemplified by the <i class="package">pst-layout</i> package,
+which seems to be a superset of both <i class="package">overpic</i> and
+<i class="package">lpic</i>.
+
+<p>
+Similarly, <i class="package">pgf/TikZ</i> has all the power needed, but no
+explicit package has been released.
+
+<p>
+The <i class="package">pstricks</i> web site has a page with several 
+<a href="http://pstricks.tug.org/main.cgi?file=Examples/overlay.html">examples of labelling</a>
+which will get you started; if <i class="package">pstricks</i> is 
+<a href="FAQ-drawing.html">an option for you</a>, this route is worth a try.
+
+<p>
+The confident user may, of course, do the whole job in a picture
+environment which itself includes the graphic.  I would recommend
+<i class="package">overpic</i> or the <i class="package">pstricks</i> approach, but such things
+are plainly little more than a convenience over what is achievable
+with the do-it-yourself approach.
+<dl>
+<dt class="ctanref">auto-pst-pdf.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/auto-pst-pdf">auto-pst-pdf</a>
+<dt class="ctanref">gv</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/gv">gv</a>
+<dt class="ctanref">iTe</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ite">ite</a>
+<dt class="ctanref">laprint</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/psfragx">psfragx</a>
+<dt class="ctanref">lpic.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/lpic">lpic</a>
+<dt class="ctanref">overpic.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/overpic">overpic</a>
+<dt class="ctanref">pdfrack</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdfrack">pdfrack</a>
+<dt class="ctanref">pinlabel.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pinlabel">pinlabel</a>
+<dt class="ctanref">pgf.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pgf">pgf</a>
+<dt class="ctanref">psfrag.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/psfrag">psfrag</a>
+<dt class="ctanref">psfragx.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/psfragx">psfragx</a>
+<dt class="ctanref">pstricks.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pstricks">pstricks</a>
+<dt class="ctanref">pst-layout.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pst-layout">pst-layout</a>
+<dt class="ctanref">pst-pdf.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pst-pdf">pst-pdf</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-06-03</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-labelfig">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-labelfig</a>
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>

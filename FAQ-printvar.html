@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-printvar</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacrotoolsandtechniques">LaTeX macro tools and techniques</a> &gt; </div>
+<h1>How to print contents of variables?</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]typeout, print variables, showthe[[[RBRACE]]]
+
+<p>
+It is often useful to print out the values of variables in the log
+file or on the terminal.  Three possible ways to print out the
+contents of <code>&#x5c;textheight</code> variable are:
+<ol>
+<li> <code>&#x5c;showthe</code><code>&#x5c;textheight</code>
+<li> <code>&#x5c;message</code><code>&#x7b;The text height is <code>&#x5c;the</code><code>&#x5c;textheight</code>&#x7d;</code>
+<li> <code>&#x5c;typeout</code><code>&#x7b;The text height is <code>&#x5c;the</code><code>&#x5c;textheight</code>&#x7d;</code>
+</ol>
+These techniques use the TeX primitives <code>&#x5c;the</code> (which provides
+the value of a variable), <code>&#x5c;showthe</code> (print a variable to the
+terminal and the log, on a line of its own), and <code>&#x5c;message</code>, which
+interpolates something into the log.  The command <code>&#x5c;typeout</code> is
+LaTeX&rsquo;s general message output mechanism.
+
+<p>
+In each case, the variable&rsquo;s value is printed as a number of points.
+
+<p>
+To typeset the value of <code>&#x5c;textheight</code>, just
+<code>&#x5c;the</code><code>&#x5c;textheight</code> is enough, but a more flexible alternative is
+to use the <i class="package">printlen</i> package.  <i class="package">Printlen</i> allows you
+to choose the units in which you print a variable; this is useful,
+given that the most ordinary people don&rsquo;t think in points
+(particularly Knuth&rsquo;s points, of which there are 72.27 to the inch).
+
+<p>
+So, using <i class="package">printlen</i>, we could say:
+<blockquote>
+<pre>
+\newlength{\foo}
+\setlength{\foo}{12pt}
+\verb|\foo| is \printlength{\foo}
+</pre>
+</blockquote>
+and get:
+<blockquote>
+<code>&#x5c;foo</code> is 12pt
+</blockquote>
+while, if we say:
+<blockquote>
+<pre>
+\newlength{\foo}
+\setlength{\foo}{12pt}
+\uselengthunit{mm}
+\verb|foo| is \printlength{\foo}
+</pre>
+</blockquote>
+we get:
+<blockquote>
+<code>&#x5c;foo</code> is 4.21747mm
+</blockquote>
+<dl>
+<dt class="ctanref">printlen.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/printlen">printlen</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-03-16</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-printvar">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-printvar</a>
+
+<p>

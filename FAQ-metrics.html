@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-metrics</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#AdobeTypenbspldquoPostScriptrdquofonts">Adobe Type&nbsp;1 (&ldquo;PostScript&rdquo;) fonts</a> &gt; </div>
+<h1>TeX font metric files for Type 1 fonts</h1>
+
+
+<p>
+
+<p>
+Reputable font vendors such as Adobe supply metric files for each
+font, in AFM (Adobe Font Metric) form; these can be converted
+to TFM (TeX Font Metric) form. Most modern distributions have
+prebuilt metrics which will be more than enough for many people; but you may
+need to do the conversion yourself if you have special needs or
+acquire a new font. One important question is the <em>encoding</em> of
+(Latin character) fonts; while we all more or less agree about the
+position of about 96 characters in fonts (the basic ASCII set), the
+rest of the (typically) 256 vary. The most obvious problems are with
+floating accents and special characters such as the &lsquo;pounds sterling&rsquo;
+sign. There are three ways of dealing with this: either you change the
+TeX macros which reference the characters (not much fun, and
+error-prone); or you change the encoding of the font (easier than you
+might think); or you use <a href="FAQ-virtualfonts.html">virtual fonts</a> to
+<em>pretend</em> to TeX that the encoding is the same as it is used to.
+LaTeX 2e has facilities for dealing with fonts in different
+encodings; read the <a href="FAQ-latex-books.html"><em>LaTeX Companion</em></a> for
+more details.  In practice, if you do much non-English (but Latin
+script) typesetting, you are strongly recommended to use the
+<i class="package">fontenc</i> package with option &lsquo;<code class="pkgoption">T1</code>&rsquo; to select
+<a href="FAQ-ECfonts.html">&lsquo;Cork&rsquo;</a> encoding.
+
+<p>
+An alternative favoured by some is Y&amp;Y&rsquo;s &ldquo;private&rdquo; LY1 encoding,
+which is designed to sit well with &ldquo;Adobe standard&rdquo; encoded fonts.
+Basic macro support of LY1 is available: note that the
+&ldquo;relation with Adobe&rsquo;s encoding&rdquo; means that the LY1 user
+needs no virtual fonts.
+
+<p>
+Alan Jeffrey&rsquo;s <i class="progname">fontinst</i> package is an AFM to
+TFM converter written in TeX; it is used to generate the
+files used by LaTeX 2e&rsquo;s PSNFSS package to support use of
+PostScript fonts. It is a sophisticated package, not for the faint-hearted,
+but is powerful enough to cope with most needs.  Much of its power
+relies on the use of <a href="FAQ-virtualfonts.html">virtual fonts</a>.
+
+<p>
+For slightly simpler problems, Rokicki&rsquo;s <i class="progname">afm2tfm</i>,
+distributed with <i class="progname">dvips</i>, is fast and
+efficient; note that the metrics and styles that come with
+<i class="progname">dvips</i> are <em>not</em> currently LaTeX 2e compatible.
+
+<p>
+For the Macintosh (classic), there is a program called
+<i class="progname">EdMetrics</i> which does the job (and more).
+<i class="progname">EdMetrics</i> comes with the (commercial)
+<a href="FAQ-commercial.html">Textures</a> distribution, but is itself free
+software, and is available on CTAN.
+
+
+
+
+<dl>
+<dt class="ctanref">dvips</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dvips">dvips</a>
+<dt class="ctanref">EdMetrics</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/edmetrics">edmetrics</a>
+<dt class="ctanref">fontinst</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fontinst">fontinst</a>
+<dt class="ctanref">LY1 support</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ly1">ly1</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-06-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-metrics">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-metrics</a>
+
+<p>

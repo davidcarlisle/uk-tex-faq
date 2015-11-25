@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-extsizes</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Alternativedocumentclasses">Alternative document classes</a> &gt; </div>
+<h1>Other &ldquo;document font&rdquo; sizes?</h1>
+
+
+<p>
+
+<p>
+The LaTeX standard classes have a concept of a (base) &ldquo;document
+font&rdquo; size; this size is the basis on which other font sizes (those
+from <code>&#x5c;tiny</code> to <code>&#x5c;Huge</code>) are determined.  The classes are designed
+on the assumption that they won&rsquo;t be used with sizes other than the
+set that LaTeX offers by default (10&ndash;12pt), but people regularly
+find they need other sizes.  The proper response to such a requirement
+is to produce a new design for the document, but many people don&rsquo;t
+fancy doing that.
+
+<p>
+A simple solution is to use the <i class="package">extsizes</i> bundle.  This
+bundle offers &ldquo;extended&rdquo; versions of the article, report, book and
+letter classes, at sizes of 8, 9, 14, 17 and 20pt as well as the
+standard 10&ndash;12pt.  Since little has been done to these classes other
+than to adjust font sizes and things directly related to them, they
+may not be optimal&nbsp;&mdash; but they are at least practical.
+
+<p>
+More satisfactory are the <em>KOMA-script</em> classes, which are
+designed to work properly with the class option files that come with
+<i class="package">extsizes</i>, and the <i class="class">memoir</i> class that has its own
+options for document font sizes 9pt&ndash;12pt, 14pt, 17pt, 20pt, 25pt,
+30pt, 36pt, 48pt and 60pt.  The classes also offer size setup for any
+old font size, and the <i class="package">scrextend</i> package can extend this
+facility for use with any class:
+<blockquote>
+<pre>
+\usepackage[fontsize=12.3]{scrextend}
+</pre>
+</blockquote>
+will indeed set up the main document font to have size <tt>12.3pt</tt>
+with an appropriate default baselineskip.  The package &ldquo;knows&rdquo; about
+<em>KOMA-script</em>&rsquo;s default sizes, and for eccentric sizes
+such as the example, it will produce a warning:
+<blockquote>
+<pre>
+Using fallback calculation to setup font sizes
+</pre>
+</blockquote>
+(users should avoid becoming excited about that&hellip;).  The package
+suffers from the same problem as does <i class="package">extsizes</i>: the
+resulting font sizes are the <em>only</em> feature of the document that
+is changed, and the appearance of the resulting document will probably
+not be as good as if the document class had been designed for use at
+the size chosen.
+
+<p>
+Many classes, designed to produce typeset results other than on
+&ldquo;ordinary&rdquo; paper, will have their own font size mechanisms and
+ranges of sizes.  This is true, for example, of 
+<a href="FAQ-poster.html">poster classes</a> (such as <i class="class">a0poster</i>), and of
+<a href="FAQ-slidecls.html">presentation and lecturing classes</a> (such as
+<i class="class">beamer</i>.
+<dl>
+<dt class="ctanref">a0poster.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/a0poster">a0poster</a>
+<dt class="ctanref">beamer.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/beamer">beamer</a>
+<dt class="ctanref">extsizes bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/extsizes">extsizes</a>
+<dt class="ctanref">KOMA script bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">scrextend.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/koma-script">koma-script</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-11-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-extsizes">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-extsizes</a>
+
+<p>
+
+<p>
+
+<p>

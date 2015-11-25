@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-include</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonmisunderstandings">Common misunderstandings</a> &gt; </div>
+<h1>What&rsquo;s going on in my <code>&#x5c;include</code> commands?</h1>
+
+
+<p>
+
+<p>
+The original LaTeX provided the <code>&#x5c;include</code> command to address the
+problem of long documents: with the relatively slow computers of the
+time, the companion <code>&#x5c;includeonly</code> facility was a boon.  With the
+vast increase in computer speed, <code>&#x5c;includeonly</code> is less valuable
+(though it still has its place in some very large projects).
+Nevertheless, the facility is retained in current LaTeX, and causes
+some confusion to those who misunderstand it.
+
+<p>
+In order for <code>&#x5c;includeonly</code> to work, <code>&#x5c;include</code> makes a separate
+<code class="extension">aux</code> file for each included file, and makes a &lsquo;checkpoint&rsquo; of
+important parameters (such as page, figure, table and footnote
+numbers).  As a direct result, it <em>must</em> clear the current page
+both before and after the <code>&#x5c;include</code> command.  (The requirement
+derives from the difficulties of 
+
+  <a href="FAQ-wrongpn.html">observing page numbers</a>.)
+
+
+
+
+What&rsquo;s more, this mechanism doesn&rsquo;t work if a <code>&#x5c;include</code> command
+appears in a file that was <code>&#x5c;include</code>d itself: LaTeX diagnoses
+this as an error.
+
+<p>
+So, we can now answer the two commonest questions about <code>&#x5c;include</code>:
+<ul>
+<li> Why does LaTeX throw a page before and after <code>&#x5c;include</code>
+  commands?
+
+<p>
+  Answer: because it has to.  If you don&rsquo;t like it, replace the
+  <code>&#x5c;include</code> command with <code>&#x5c;input</code>&nbsp;&mdash; you won&rsquo;t be able to use
+  <code>&#x5c;includeonly</code> any more, but you probably don&rsquo;t need it anyway, so
+  don&rsquo;t worry.
+
+
+<p>
+
+<li> Why can&rsquo;t I nest <code>&#x5c;include</code>d files?&nbsp;&mdash; I always used to be
+  able to under LaTeX 2.09.
+
+<p>
+  Answer: in fact, you couldn&rsquo;t, even under LaTeX 2.09, but the failure
+  wasn&rsquo;t diagnosed.  However, since you were happy with the behaviour
+  under LaTeX 2.09, replace the <code>&#x5c;include</code> commands with <code>&#x5c;input</code>
+  commands (with <code>&#x5c;clearpage</code> as appropriate).
+</ul>
+
+<p>
+
+<p>

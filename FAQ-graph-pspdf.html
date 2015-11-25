@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-graph-pspdf</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Graphics">Graphics</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Portable imported graphics</h1>
+
+
+<p>
+
+<p>
+A regular need is a document to be distributed in more than
+one format: commonly both PostScript and PDF.  The
+following advice is based on a post by one with much experience of
+dealing with the problem of dealing with EPS graphics in this
+case.
+<ul>
+<li> Don&rsquo;t specify a driver when loading loading whichever version of
+  the <i class="package">graphics</i> package you use.  The scheme relies on the
+  distribution&rsquo;s ability to decide which driver is going to be used:
+  the choice is between <i class="progname">dvips</i> and PDFTeX, in this case.
+  Be sure to exclude options <code class="pkgoption">dvips</code>, <code class="pkgoption">pdftex</code> and
+  <code class="pkgoption">dvipdfm</code> (<i class="progname">dvipdfm</i> is not used in this scheme,
+  but the aspirant PDF-maker may be using it for his output,
+  before switching to the scheme).
+<li> Use <code>&#x5c;includegraphics</code><code>[...]</code></code><code>&#x7b;filename&#x7d;</code> without
+  specifying the extension (i.e., neither <code class="extension">eps</code> nor
+  <code class="extension">pdf</code>).
+<li> For every <code class="extension">eps</code> file you will be including, produce a
+  <code class="extension">pdf</code> version, as described in 
+  <a class="FAquestion.html" href="FAQ-pdftexgraphics.html">Graphics in PDFLaTeX</a>.  Having
+  done this, you will have two copies of each graphic (a <code class="extension">eps</code>
+  and a <code class="extension">pdf</code> file) in your directory.
+<li> Use PDFLaTeX (rather than
+  LaTeX&ndash;<i class="progname">dvips</i>&ndash;distillation or
+  LaTeX&ndash;<i class="progname">dvipdfm</i>) to produce your PDF output.
+</ul>
+<i class="progname">Dvipdfm</i>&rsquo;s charms are less than attractive here: the
+document itself needs to be altered from its default
+(<i class="progname">dvips</i>) state, before <i class="progname">dvipdfm</i> will process it.
+
+<p>

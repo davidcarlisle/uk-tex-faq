@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-plninltxstar</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacrotoolsandtechniques">LaTeX macro tools and techniques</a> &gt; </div>
+<h1>Using Plain or primitive commands in LaTeX</h1>
+
+
+<p>
+
+<p>
+It&rsquo;s well-known that LaTeX commands tend to be more complex, and to
+run more slowly than, any Plain TeX (or primitive) command that they
+replace.  There is therefore great temptation not to use LaTeX
+commands when macro programming.  Nevertheless, the general rule is
+that you should use LaTeX commands, if there are seeming
+equivalents.  The exception is when you are sure you know the
+differences between the two commands and you know that you need the
+Plain TeX version.  So, for example, use <code>&#x5c;mbox</code> in place of <code>&#x5c;hbox</code>
+unless you know that the extras that LaTeX provides in <code>&#x5c;mbox</code>
+would cause trouble in your application.  Similarly, use
+<code>&#x5c;newcommand</code> (or one of its relatives) unless you need one of the
+constructs that cannot be achieved without the use of <code>&#x5c;def</code> (or friends).
+
+<p>
+As a general rule, any LaTeX text command will start a new
+paragraph if necessary; this isn&rsquo;t the case with Plain TeX
+commands, a fact which has a potential to confuse.
+
+<p>
+The commands <code>&#x5c;smallskip</code>, <code>&#x5c;medskip</code> and <code>&#x5c;bigskip</code> exist both
+in Plain TeX and LaTeX, but behave slightly differently: in
+Plain TeX they terminate the current paragraph, but in LaTeX they 
+don&rsquo;t.  The command <code>&#x5c;line</code> is part of picture mode in LaTeX,
+whereas it&rsquo;s defined as &ldquo;<code>&#x5c;hbox</code><tt> to </tt><code>&#x5c;hsize</code>&rdquo; in
+Plain TeX. (There&rsquo;s no equivalent for users of the Plain TeX command in
+LaTeX: an equivalent appears as the internal command <code>&#x5c;@@line</code>).
+
+<p>
+Maths setting shows a case where the LaTeX version <em>is</em>
+essentially equivalent to the TeX primitive commands: the LaTeX
+<code>&#x5c;(</code><tt>\ ...\ </tt><code>&#x5c;)</code> does essentially no different to the
+primitive <tt>&#x24;\ ...\ &#x24;</tt>; except for checking that you&rsquo;re not
+attempting to open a maths environment when you&rsquo;re already in one, or 
+attempting to close one when you&rsquo;re not.
+However, <code>&#x5c;[</code><tt>\ ...\ </tt><code>&#x5c;]</code> has a more significant
+difference from <tt>&#x24;&#x24;\ ...\ &#x24;&#x24;</tt>: the primitive version, used
+in LaTeX, can miss the effect of the class option <code class="pkgoption">fleqn</code>.
+
+<p>
+Font handling is, of course, wildly different in Plain TeX and
+LaTeX.  Plain TeX&rsquo;s font loading command
+(<code>&#x5c;font</code><code>&#x5c;foo=</code>&lsaquo;<i>fontname</i>&rsaquo;) and its LaTeX equivalent
+(<code>&#x5c;newfont</code>) should be avoided wherever possible.  They are only
+safe in the most trivial contexts, and are potential sources of great
+confusion in many circumstances.   Further discussion of this issue
+may be found in &ldquo;<a href="FAQ-newfont*.html">What&rsquo;s wrong with <code>&#x5c;newfont</code>?</a>&rdquo;.
+
+<p class="lastedit">This answer last edited: 2013-09-27</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-plninltxstar">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-plninltxstar</a>
+
+<p>

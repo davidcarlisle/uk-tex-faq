@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-formbiblabel</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingcitations">Creating citations</a> &gt; </div>
+<h1>Format of numbers in the bibliography</h1>
+
+
+<p>
+
+<p>
+By default, LaTeX makes entries in the bibliography look like:
+<blockquote>
+  [1] Doe, Joe et al.  Some journal.  2004.<br> [[[LBRACE]]][[[RBRACE]]]
+  [2] Doe, Jane et al. Some journal. 2003.
+</blockquote>
+while many documents need something like:
+<blockquote>
+  1. Doe, Joe et al.  Some journal.  2004.<br>
+  2. Doe, Jane et al. Some journal. 2003.
+</blockquote>
+
+<p>
+This sort of change may be achieved by many of the &ldquo;general&rdquo;
+citation packages; for example, in <i class="package">natbib</i>, it&rsquo;s as simple as:
+<blockquote>
+<pre>
+\renewcommand{\bibnumfmt}[1]{#1.}
+</pre>
+</blockquote>
+but if you&rsquo;re not using such a package, the following internal
+LaTeX commands, in the preamble of your document, will do the job:
+<blockquote>
+<pre>
+\makeatletter
+\renewcommand*{\@biblabel}[1]{\hfill#1.}
+\makeatother
+</pre>
+</blockquote>
+<dl>
+<dt class="ctanref">natbib.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/natbib">natbib</a>
+</dl>
+
+<p>
+
+<p>
+
+<p>

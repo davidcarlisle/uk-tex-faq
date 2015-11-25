@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-install-doc</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Generating package documentation</h1>
+
+
+<p>
+
+<p>
+We are faced with a range of &ldquo;normal&rdquo; provision, as well as several
+oddities.  One should note that documentation of many packages is
+available on CTAN, without the need of any further effort by
+the user&nbsp;&mdash; such documentation can usually be browsed <em>in situ</em>.
+
+<p>
+However, if you find a package that does not offer documentation on
+the archive, or if you need the documentation in some other format
+than the archive offers, you can usually generate the documentation
+yourself from what you download from the archive.
+
+<p>
+The standard mechanism, for LaTeX packages, is simply to run
+LaTeX on the <i class="filename">package.dtx</i> file, as you would any ordinary
+LaTeX file (i.e., repeatedly until the warnings go away).
+
+<p>
+A variant is that the unpacking process provides a file
+<i class="filename">package.drv</i>; if such a thing appears, process it in preference
+to the <i class="filename">package.dtx</i> (it seems that when the documented LaTeX
+source mechanism was first discussed, the <i class="filename">.drv</i> mechanism was
+suggested, but it&rsquo;s not widely used nowadays).
+
+<p>
+Sometimes, the LaTeX run will complain that it can&rsquo;t find
+<i class="filename">package.ind</i> (the code line index) and/or <i class="filename">package.gls</i>
+(the list of change records, not as you might imagine, a glossary).
+Both types of file are processed with special <i class="progname">makeindex</i>
+style files; appropriate commands are:
+<blockquote>
+<pre>
+makeindex -s gind package
+makeindex -s gglo -o package.gls package.glo
+</pre>
+</blockquote>
+This author finds that the second (the change record) is generally of
+limited utility when reading package documentation; it is, however,
+valuable if you&rsquo;re part of the package development team.  If you don&rsquo;t
+feel you need it, just leave out that step
+
+<p>
+Another common (and reasonable) trick performed by package authors is
+to provide a separate file <i class="filename">package-doc.tex</i> or even simply
+<i class="filename">manual.tex</i>; if the file <i class="filename">package.dtx</i> doesn&rsquo;t help, simply
+look around for such alternatives.  The files are treated in the same
+way as any &ldquo;ordinary&rdquo; LaTeX file.
+
+<p>

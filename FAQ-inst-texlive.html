@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-inst-texlive</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Installation using texlive manager</h1>
+
+
+<p>
+
+<p>
+texlive manager (<i class="progname">tlmgr</i>) is, by default, a shell (or
+Windows terminal window) command.  There is voluminous documentation
+about it from the command
+<blockquote>
+  <tt>tldoc tlmgr</tt>
+</blockquote>
+but basic operation is pretty straightforward.  The manager needs to
+know where to download stuff from; the canonical setup is
+<blockquote>
+
+<pre>
+tlmgr option repository \
+  http://mirror.ctan.org/systems/texlive/tlnet
+</pre>
+
+
+
+<pre>
+tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
+</pre>
+
+</blockquote>
+which passes the decision to the mirror selector.  You can (of course)
+specify a particular archive or mirror that you &ldquo;trust&rdquo;, or even a
+local disc copy that you keep up-to-date (disc space and bandwidth are
+so cheap nowadays, that a &ldquo;home mirror&rdquo; of CTAN is a feasible
+proposition).
+
+<p>
+To update a single package, use:
+<blockquote>
+<pre>
+tlmgr update <package>
+</pre>
+</blockquote>
+
+<p>
+To update everything you already have in your installation, use:
+<blockquote>
+<pre>
+tlmgr update --all
+</pre>
+</blockquote>
+
+<p>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-setURL</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>Typesetting URLs</h1>
+
+
+<p>
+
+<p>
+URLs tend to be very long, and contain characters that would
+naturally prevent them being hyphenated even if they weren&rsquo;t typically
+set in <code>&#x5c;ttfamily</code>, verbatim.  Therefore, without special treatment,
+they often produce wildly overfull <code>&#x5c;hbox</code>es, and their typeset
+representation is awful.
+
+<p>
+There are three packages that help solve this problem:
+<ul>
+<li> The <i class="package">path</i> package, which defines a <code>&#x5c;path</code> command.
+  The command defines each potential break character as a
+  <code>&#x5c;discretionary</code>, and offers the user the opportunity of
+  specifying a personal list of potential break characters.  Its chief
+  disadvantage is fragility in LaTeX moving arguments.  The
+
+  <a href="FAQ-eplain.html">Eplain macros</a>&nbsp;&mdash; define a similar <code>&#x5c;path</code> command.
+
+<p>
+  <i class="package">Path</i>, though it works in simple situations, makes no
+  attempt to work with LaTeX (it is irremediably fragile).  Despite
+  its long and honourable history, it is no longer recommended for
+  LaTeX use.
+<li> The <i class="package">url</i> package, which defines an <code>&#x5c;url</code> command
+  (among others, including its own <code>&#x5c;path</code> command).  The command
+  gives each potential break character a maths-mode &lsquo;personality&rsquo;, and
+  then sets the URL itself (in the user&rsquo;s choice of font) in
+  maths mode.  It can produce (LaTeX-style) &lsquo;robust&rsquo; commands
+  
+  (see <a href="FAQ-protect.html">use of <code>&#x5c;protect</code></a>) for use
+  within moving arguments.
+
+<p>
+  The package ordinarily ignores spaces in the URL, but
+  unfortunately URLs that contain spaces do exist; to typeset
+  them, call the package with the <code class="pkgoption">obeyspaces</code> option.  Two
+  other useful options allow line breaks in the URL in places
+  where they are ordinarily suppressed to avoid confusion:
+  <code class="pkgoption">spaces</code> to allow breaks at spaces (note, this requires
+  <code class="pkgoption">obeyspaces</code> as well, and <code class="pkgoption">hyphens</code> to allow
+  breaks after hyphens.  (Note that the package <em>never</em> does
+  &ldquo;ordinary&rdquo; hyphenation of names inside an URL.)
+
+<p>
+  It is possible to use the <i class="package">url</i> package in Plain TeX,
+  with the assistance of the <i class="package">miniltx</i> package (which was
+  originally developed for using the LaTeX graphics package in
+  Plain TeX).  A small patch is also necessary: the required
+  sequence is therefore:
+<blockquote>
+
+<pre>
+\input miniltx
+\expandafter\def\expandafter\+%
+                \expandafter{\+}
+\input url.sty
+</pre>
+
+
+<pre>
+\input miniltx
+\expandafter\def\expandafter\+\expandafter{\+}
+\input url.sty
+</pre>
+
+</blockquote>
+<li> The <i class="package">hyperref</i> package, which uses the typesetting code
+  of <i class="package">url</i>, in a context where the typeset text forms the
+  anchor of a link.
+</ul>
+
+<p>
+The author of this answer prefers the (rather newer) <i class="package">url</i>
+package (directly or indirectly); both <i class="package">path</i> and
+<i class="package">url</i> work well with Plain TeX (though of course, the fancy
+LaTeX facilities of <i class="package">url</i> don&rsquo;t have much place there).
+(<i class="package">hyperref</i> isn&rsquo;t available in a version for use with Plain TeX.)
+
+<p>
+Note that neither <code>&#x5c;path</code> (from package <i class="package">path</i>) nor <code>&#x5c;url</code> (from
+package <i class="package">url</i>) is robust (in the LaTeX sense).  If you need
+a URL to go in a moving argument, you need the command
+<code>&#x5c;urldef</code> from the <i class="package">url</i> package.  So one might write:
+<blockquote>
+<pre>
+\urldef\faqhome\url{http://www.tex.ac.uk/faq}
+</pre>
+</blockquote>
+after which, <code>&#x5c;faqhome</code> is robust.
+
+<p>
+Documentation of both package <i class="package">path</i> and package <i class="package">url</i>
+is in the package files.
+<dl>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+<dt class="ctanref">miniltx.tex</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/graphics-plain">graphics-plain</a>[miniltx]
+<dt class="ctanref">path.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/path">path</a>
+<dt class="ctanref">url.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/url">url</a>
+</dl>
+
+<p>

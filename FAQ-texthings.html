@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-texthings</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#TheBackground">The Background</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Things with &ldquo;TeX&rdquo; in the name</h1>
+
+
+<p>
+
+<p>
+New TeX users are often baffled by the myriad terms with &ldquo;TeX&rdquo;
+in the name.  The goal of this answer is to clarify some of the more
+common such terms.
+
+<p>
+[[[paragraph]]][[[LBRACE]]]TeX itself[[[RBRACE]]]
+TeX proper is a typesetting system based on a set of low-level
+control sequences that instruct TeX how to lay out text on the
+page.  For example, <code>&#x5c;hskip</code> inserts a given amount of horizontal
+space into the document, and <code>&#x5c;font</code> makes a given font available
+in a document.  TeX is fully programmable using an integrated macro
+scripting language that supports variables, scoping, conditional
+execution, control flow, and function (really, macro) definitions.
+See 
+<a class="FAquestion.html" href="FAQ-whatTeX.html">what is TeX?</a> for some background
+information on TeX and 
+<a class="FAquestion.html" href="FAQ-ref-doc.html">some reference documents</a> for pointers to
+descriptions of TeX control sequences, data types, and other key
+parts of TeX.
+
+<p>
+[[[paragraph]]][[[LBRACE]]]TeX macro packages (a.k.a.&nbsp;TeX formats)[[[RBRACE]]]
+Some of TeX&rsquo;s control sequences are tedious to use directly; they are
+intended primarily as building blocks for higher-level&nbsp;&mdash; and therefore
+more user-friendly&nbsp;&mdash;  abstractions.  For example, there is no way in
+base TeX to specify that a piece of text should be typeset in a
+larger font.  Instead, one must keep track of the current size and
+typeface, load a new font with the same typeface but a (specified)
+larger size, and tell TeX to use that new font until instructed
+otherwise.  Fortunately, because TeX is programmable, it is
+possible to write a macro that hides this complexity behind a simple,
+new control sequence.  (For example, it is possible to define
+<code>&#x5c;larger</code><code>&#x7b;my text&#x7d;</code> to typeset &ldquo;my text&rdquo; in
+at a font size next larger than the current one.)
+
+<p>
+While some users write their own, perfectly customized set of
+macros&nbsp;&mdash; which they then typically reuse across many documents&nbsp;&mdash; it is
+far more common to rely upon a <em>macro package</em>, a collection of
+TeX macros written by experts.  For the user&rsquo;s convenience, these
+macro packages are often combined with the base TeX engine into a
+standalone executable.  The following are some of that macro packages
+that you are likely to encounter:
+<dl>
+  <dt class="description">Plain TeX (executable: <i class="progname">tex</i>)</dt><dd>
+  See
+  <a class="FAquestions.html" href="FAQ-tex-books.html">Books on TeX and Plain TeX</a>,
+  <a class="FA.html" href="FAQ-man-tex.html">Online introductions: TeX</a>,
+  <a class="FA.html" href="FAQ-plainvltx.html">Should I use Plain TeX or LaTeX?</a> and
+  <a class="FA.html" href="FAQ-ol-books.html">Freely available (La)TeX books</a>.
+  Note that the Plain TeX executable is called <i class="progname">tex</i>; the
+  base TeX engine is generally provided by a separate executable
+  such as <i class="progname">initex</i> or as a <tt>-ini</tt> flag to
+  <i class="progname">tex</i>.
+
+<p>
+  <dt class="description">LaTeX (executable: <i class="progname">latex</i>)</dt><dd>
+  See
+  <a class="FAquestions.html" href="FAQ-latex-books.html">Books on TeX and its relations</a>,
+  <a class="FA.html" href="FAQ-tutorials*.html">(La)TeX Tutorials, etc.</a>,
+  <a class="FA.html" href="FAQ-man-latex.html">Online introductions: LaTeX</a> and
+  <a class="FA.html" href="FAQ-tutbitslatex.html">Specialized (La)TeX tutorials</a>.
+  Note that there have been two major versions of LaTeX: LaTeX 2e
+  refers to the current version of LaTeX while LaTeX 2.09 is the
+  long-since-obsolete (since 1994) version (cf.&nbsp;
+  <a class="FAquestion.html" href="FAQ-latex2e.html">What is LaTeX 2e?</a> for more information).
+
+<p>
+  <dt class="description">CONTeXT (executable: <i class="progname">texmfstart</i>)</dt><dd>
+  See
+  <a class="FAquestion.html" href="FAQ-context.html">What is CONTeXT?</a>.
+
+<p>
+  <dt class="description">Texinfo (executables: <i class="progname">tex</i>, <i class="progname">makeinfo</i>)</dt><dd>
+  See
+  <a class="FAquestion.html" href="FAQ-texinfo.html">What is Texinfo?</a>.  <i class="progname">makeinfo</i>
+  converts Texinfo documents to HTML, DocBook, Emacs info,
+  XML, and plain text.  <i class="progname">Tex</i> (or wrappers such as
+  <i class="progname">texi2dvi</i> and <i class="progname">texi2pdf</i>) produce one of TeX&rsquo;s
+  usual output formats such as DVI or PDF.  Because
+  <i class="progname">tex</i> loads the Plain TeX macros, not the Texinfo ones,
+  a Texinfo document must begin with
+  <blockquote>
+    <code>&#x5c;input</code><tt> texinfo</tt>
+  </blockquote>
+  explicitly load the Texinfo macro package.
+
+<p>
+  <dt class="description">Eplain&nbsp;&mdash; Extended Plain TeX (executable: <i class="progname">eplain</i>)</dt><dd>
+  See
+  <a class="FAquestion.html" href="FAQ-eplain.html">What is Eplain?</a>.
+</dl>
+
+<p>
+[[[paragraph]]][[[LBRACE]]]Modified <i class="progname">tex</i> executables[[[RBRACE]]]
+The original <i class="progname">tex</i> executable was produced in the late 1970s
+(cf.&nbsp;<a class="FAquestion.html" href="FAQ-whatTeX.html">What is TeX?</a>) and consequently
+lacked some features that users have come to expect from today&rsquo;s
+software.  The following programs address these issues by augmenting
+the TeX engine with some additional useful features:
+
+<p>
+<dl>
+  <dt class="description">PDFTeX (executable: <i class="progname">pdftex</i>)</dt><dd>
+  TeX, which predates the PDF file format by a decade,
+  outputs files in a TeX-specific format called DVI
+  (cf.&nbsp;<a class="FAquestion.html" href="FAQ-dvi.html">What is a DVI file?</a>).  In
+  contrast, PDFTeX can output both DVI <em>and</em> PDF
+  files.  In PDF mode, it lets documents exploit various
+  PDF features such as hyperlinks, bookmarks, and annotations,
+  PDFTeX additionally supports two sophisticated micro-typographic
+  features: character protrusion and font expansion.  See
+  <a class="FAquestion.html" href="FAQ-whatpdftex.html">What is PDFTeX?</a>.
+
+<p>
+  <dt class="description">XeTeX (executable: <i class="progname">xetex</i>)</dt><dd>
+  XeTeX reads UTF-8 encoded Unicode input, and extends
+  TeX&rsquo;s font support to include &lsquo;modern&rsquo; formats such as TrueType
+  and OpenType; these extensions to its capabilities make it
+  well-suited to multi-lingual texts covering different writing
+  systems.  See <a class="FAquestion.html" href="FAQ-xetex.html">What is XeTeX?</a>.
+
+<p>
+  <dt class="description">LuaTeX (executable: <i class="progname">luatex</i>)</dt><dd>
+  TeX is programmed in its own arcane, integrated, macro-based
+  programming language.  LuaTeX adds a second programming engine
+  using a modern scripting language, Lua, which is &lsquo;embedded&rsquo; in a
+  TeX-alike engine; it too reads UTF-8 and uses TrueType
+  OpenType fonts.  See 
+  <a class="FAquestion.html" href="FAQ-luatex.html">What is LuaTeX?</a>.
+
+<p>
+  <dt class="description">e-TeX (executable: <i class="progname">etex</i>)</dt><dd>
+  e-TeX is an extension of TeX&rsquo;s programming interface; as such
+  it&rsquo;s only indirectly useful to end users, but it can be valuable to
+  package developers; there is an increasing number of macro packages
+  that require the use of e-TeX.  As well as existing in
+  <i class="progname">etex</i>, e-TeX features are usually available in the
+  <i class="progname">pdftex</i> executables provided in the standard
+  distributions; XeTeX and LuaTeX also provide e-TeX&rsquo;s
+  programming facilities.    See 
+  <a class="FAquestion.html" href="FAQ-etex.html">What is e-TeX?</a>.
+
+<p>
+  (Note: e-TeX, which enhances the TeX engine, is not to be
+  confused with Eplain, which enhances the Plain TeX macro
+  package.)
+</dl>
+
+<p>
+Because each of the above derive from a base TeX engine, it is in
+principle possible to combine any of them with one of the TeX macro
+packages listed earlier to produce &lsquo;extended&rsquo; executables.  For
+example, the <i class="progname">pdflatex</i>, <i class="progname">xelatex</i> and
+<i class="progname">lualatex</i> executables each combine LaTeX with an enhanced
+TeX engine.  Indeed, most (if not all) of the development of
+[[[context]]][[[LBRACE]]][[[RBRACE]]] is now using LuaTeX.
+
+<p>
+Some executables combine the features of multiple enhanced TeX
+engines: for example, <i class="progname">pdftex</i> now (in current distributions)
+offers both PDFTeX and e-TeX extensions into a single executable
+This executable may be offered with a LaTeX format (as
+<i class="progname">latex</i> or <i class="progname">pdflatex</i>) or with a Plain TeX format
+(as <i class="progname">pdftex</i>).  (<i class="progname">Tex</i> remains with an unadorned
+TeX executable using Plain TeX, for people such as Knuth himself,
+who want the certainty of the &ldquo;original&rdquo;.)
+
+<p>
+[[[paragraph]]][[[LBRACE]]]TeX distributions[[[RBRACE]]]
+A <em>TeX distribution</em> provides a structured collection of
+TeX-related software.  Generally, a TeX distribution includes a
+set of &ldquo;core&rdquo; TeX executables such as <i class="progname">tex</i> and
+<i class="progname">latex</i>; various fonts optimized for use with TeX; helper
+programs such as the BibTeX bibliographic-database formatter,
+editors, integrated development environments, file-format-conversion
+programs; numerous LaTeX packages; configuration tools; and any
+other goodies the distributor chooses to include.
+
+<p>
+Commonly encountered TeX distributions include texlive,
+MiKTeX and MacTeX; older ones include ozTeX,
+CMacTeX and teTeX.  MiKTeX is also available as the
+basis of the ProTeXt bundle, distributed on the texlive
+DVD mailing, as well as being available online.
+
+<p>
+Some TeX distributions target a specific operating system and/or
+processor architecture; others run on multiple platforms.  Many TeX
+distributions are free; a few require payment.  See 
+<a class="FAquestion.html" href="FAQ-TeXsystems.html">(La)TeX for different machines</a> for a
+list of free and shareware TeX distributions and 
+<a class="FAquestion.html" href="FAQ-commercial.html">Commercial TeX implementations</a> for a
+list of commercial TeX distributions.
+
+<p>
+[[[paragraph]]][[[LBRACE]]]Summary[[[RBRACE]]]
+What does it all mean?&nbsp;&mdash; the simple lists of objects, alone, offer
+no help for the beginner.  The FAQ team expects this answer
+only to be of use for people who are seeking guidance elsewhere
+(possibly within these FAQs) and coming across an unexpected
+name like &ldquo;blahTeX&rdquo;.
+
+<p>
+The subject matter covered by this answer is also addressed in a page
+on the TUG site, 
+&ldquo;<a href="http://tug.org/levels.html.html">the Levels of TeX</a>&rdquo;.
+
+<p class="lastedit">This answer last edited: 2011-09-26</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-texthings">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-texthings</a>
+
+<p>

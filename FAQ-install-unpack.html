@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-install-unpack</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#InstallingLaTeXfiles">Installing (La)TeX files</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Unpacking LaTeX packages</h1>
+
+
+<p>
+
+<p>
+As discussed <a href="FAQ-dtx.html">elsewhere</a>, the &lsquo;ordinary&rsquo; way to
+distribute a LaTeX package is as a pair of files <i class="filename">package.dtx</i>
+and <i class="filename">package.ins</i>.  If you&rsquo;ve acquired such a pair, you simply
+process <i class="filename">package.ins</i> with LaTeX, and the files will appear,
+ready for installation.
+
+<p>
+Other sorts of provision should ordinarily be accompanied by a
+<i class="filename">README</i> file, telling you what to do; we list a few example
+configurations.
+
+<p>
+Sometimes, a directory comes with a bunch of <code class="extension">dtx</code> files, but
+fewer (often only one) <code class="extension">ins</code> files (LaTeX itself comes
+looking like this).  If there is more than one <code class="extension">ins</code> file,
+and in the absence of any instruction in the <i class="filename">README</i> file, simply
+process the <code class="extension">ins</code> file(s) one by one.
+
+<p>
+If you&rsquo;re missing the <i class="filename">package.ins</i> altogether, you need to play
+around until something works.  Some <code class="extension">dtx</code> files are
+&ldquo;self-extracting&rdquo;&nbsp;&mdash; they do without an <code class="extension">ins</code> file, and once
+you&rsquo;ve processed the <i class="filename">package.dtx</i>, <i class="filename">package.sty</i> has
+automagically appeared.  Various other oddities may appear, but the
+archivists aim to have <i class="filename">README</i> file in every package, which
+should document anything out of the ordinary with the distribution.
+
+<p>

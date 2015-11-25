@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-entercompmode</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Entering compatibility mode</h1>
+
+
+<p>
+
+<p>
+You run your LaTeX job, and it starts by saying
+<blockquote>
+<pre>
+Entering LaTeX 2.09 COMPATIBILITY MODE
+</pre>
+</blockquote>
+followed by lines of asterisks and <tt>!!WARNING!!</tt>.
+
+<p>
+This means that the document is not written in &ldquo;current&rdquo; LaTeX
+syntax, and that there is no guarantee that all parts of the document
+will be formatted correctly.
+
+<p>
+If the document is someone else&rsquo;s, and you want no more than a copy to
+read, ignore the error.  The document may fail elsewhere, but as often
+as not it will provide a <code class="extension">dvi</code> or <code class="extension">pdf</code> that&rsquo;s
+adequate for most purposes.
+
+<p>
+If it&rsquo;s a new document you have just started working on, you have been
+misled by someone.  You have written something like:
+<blockquote>
+  <code>&#x5c;documentstyle</code><code>&#x7b;article&#x7d;</code>
+</blockquote>
+or, more generally:
+<blockquote>
+  <code>&#x5c;documentstyle</code><code>[options]</code></code><code>&#x7b;class&#x7d;</code>
+</blockquote>
+These forms are (as the warning says) LaTeX 2.09 syntax, and to get rid
+of the warning, you must change the command.
+
+<p>
+The simple form is easy to deal with:
+<blockquote>
+  <code>&#x5c;documentstyle</code><code>&#x7b;article&#x7d;</code>
+</blockquote>
+should become:
+<blockquote>
+  <code>&#x5c;documentclass</code><code>&#x7b;article&#x7d;</code>
+</blockquote>
+The complex form is more difficult, since LaTeX 2.09 &ldquo;options&rdquo;
+conflate two sorts of things&nbsp;&mdash; options for the class (such as
+<code class="pkgoption">11pt</code>, <code class="pkgoption">fleqn</code>), and packages to be loaded.
+So:
+<blockquote>
+  <code>&#x5c;documentstyle</code><code>[11pt,verbatim]</code></code><code>&#x7b;article&#x7d;</code>
+</blockquote>
+should become:
+<blockquote>
+  <code>&#x5c;documentclass</code><code>[11pt]</code></code><code>&#x7b;article&#x7d;</code><br>
+  <code>&#x5c;usepackage</code><code>&#x7b;verbatim&#x7d;</code>
+</blockquote>
+because <code class="pkgoption">11pt</code> happens to be a class option, while
+<i class="package">verbatim</i> is a package.
+
+<p>
+There&rsquo;s no simple way to work out what are class options under
+LaTeX 2.09; for <i class="class">article</i>, the list includes <code class="pkgoption">10pt</code>,
+<code class="pkgoption">11pt</code>, <code class="pkgoption">12pt</code>, <code class="pkgoption">draft</code>,
+<code class="pkgoption">fleqn</code>, <code class="pkgoption">leqno</code>, <code class="pkgoption">twocolumn</code> and
+<code class="pkgoption">twoside</code>&nbsp;&mdash; anything else must be a package.
+
+<p>
+Your document may well &ldquo;just work&rdquo; after changes like those above;
+if not, you should think through what you&rsquo;re trying to do, and consult
+documentation on how to do it&nbsp;&mdash; there are lots of 
+<a href="FAQ-tutorials*.html">free tutorials</a> to help you on your way, if you
+don&rsquo;t have access to a LaTeX manual of any sort.
+
+<p>

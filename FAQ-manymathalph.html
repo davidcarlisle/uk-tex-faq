@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-manymathalph</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Too many math alphabets</h1>
+
+
+<p>
+
+<p>
+TeX mathematics is one of its most impressive features, yet the
+internal structure of the mechanism that produces it is painfully
+complicated and (in some senses) pathetically limited.  One area of
+limitation is that one is only allowed 16&nbsp;&rdquo;maths alphabets&rdquo;
+
+<p>
+LaTeX offers the user quite a lot of flexibility with allocating
+maths alphabets, but few people use the flexibility directly.
+Nevertheless, there are many packages that provide symbols, or that
+manipulate them, which allocate themselves one or more maths alphabet.
+
+<p>
+If you can&rsquo;t afford to drop any of these packages, you might be able
+to consider switching to use of <a href="FAQ-xetex.html">XeTeX</a> or
+<a href="FAQ-luatex.html">LuaTeX</a>, which both have 65536 alphabet slots
+available.  (Such a change is best not done when under pressure to
+complete a document; other issues, such as font availability) could
+make a change impractical.)
+
+<p>
+Even if switching is not possible, there&rsquo;s still hope if you&rsquo;re using
+the <i class="package">bm</i> package to support <a href="FAQ-boldgreek.html">bold maths</a>:
+<i class="package">bm</i> is capable of gobbling alphabets as if there is no
+tomorrow.  The package defines two limiter commands: <code>&#x5c;bmmax</code> (for
+<em>bold</em> symbols; default&nbsp;4) and <code>&#x5c;hmmax</code> (for <em>heavy</em>
+symbols, if you have them; default&nbsp;3), which control the number of
+alphabets to be used.
+
+<p>
+Any reduction of the [[[csx]]][[[LBRACE]]]<em>xx</em>max[[[RBRACE]]] variables will slow
+<i class="package">bm</i> down&nbsp;&mdash; but that&rsquo;s surely better than the document not
+running at all.  So unless you&rsquo;re using maths fonts (such as
+<i class="fontname">Mathtime Plus</i>) that feature a heavy symbol weight, suppress all
+use of heavy families by
+<blockquote>
+<pre>
+  \newcommand{\hmmax}{0}
+</pre>
+</blockquote>
+(before loading <i class="package">bm</i>), and then steadily reduce the bold
+families, starting with 
+<blockquote>
+<pre>
+  \newcommand{\bmmax}{3}
+</pre>
+</blockquote>
+(again before loading <i class="package">bm</i>), until (with a bit of luck) the
+error goes away.
+<dl>
+<dt class="ctanref">bm.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[bm]
+</dl>
+
+<p>

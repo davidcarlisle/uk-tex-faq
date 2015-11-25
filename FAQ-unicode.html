@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-unicode</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Unicode and TeX</h1>
+
+
+<p>
+
+<p>
+Unicode is a character code scheme that has the capacity to express
+the text of the languages of the world, as well as important symbols
+(including mathematics).  Any coding scheme that is directly
+applicable to TeX may be expressed in single bytes (expressing up
+to 256 characters); Unicode characters may require several bytes, and
+the scheme may express a very large number of characters.
+
+<p>
+For &ldquo;old-style&rdquo; applications (TeX or PDFTeX) to deal with
+Unicode input, the sequence of bytes to make up Unicode character are
+processed by a set of macros that deliver a glyph number in an
+appropriate font.  The macros that read these bytes is complicated,
+and manifests as <code class="pkgoption">utf8</code> option for the LaTeX distribution
+<i class="package">inputenc</i> package; the coverage of that option is limited to
+Unicode characters that can be represented using &ldquo;LaTeX standard
+encodings&rdquo;.  The separate package <i class="package">ucs</i> provides wider, but
+less robust, coverage via an <i class="package">inputenc</i> option
+<code class="pkgoption">utf8x</code>.  As a general rule, you should never use
+<code class="pkgoption">utf8x</code> until you have convinced yourself that
+<code class="pkgoption">utf8</code> can not do the job for you.
+
+<p>
+&lsquo;Modern&rsquo; TeX-alike applications, <a href="FAQ-xetex.html">XeTeX</a> and
+<a href="FAQ-luatex.html">LuaTeX</a> read their input using UTF-8
+representations of Unicode as standard.  They also use TrueType or
+OpenType fonts for output; each such font has tables that tell the
+application which part(s) of the Unicode space it covers; the tables
+enable the engines to decide which font to use for which character
+(assuming there is any choice at all).
+<dl>
+<dt class="ctanref">inputenc.sty</dt><dd>Part of the <a class="ctan" href="https://www.ctan.org/pkg/latex">latex</a> distribution
+<dt class="ctanref">ucs.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ucs">ucs</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2012-04-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-unicode">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-unicode</a>
+
+<p>

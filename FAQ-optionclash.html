@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-optionclash</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Option clash for package</h1>
+
+
+<p>
+
+<p>
+So you&rsquo;ve innocently added:
+<blockquote>
+<code>&#x5c;usepackage</code><code>[draft]</code></code><code>&#x7b;foo&#x7d;</code>
+</blockquote>
+to your document, and LaTeX responds with
+<blockquote>
+
+<pre>
+! LaTeX Error: Option clash for package foo.
+</pre>
+
+
+<pre>
+! LaTeX Error: Option clash for package foo.
+</pre>
+
+</blockquote>
+
+<p>
+The error is a complaint about loading a package 
+<em>with options</em>, more than once.  LaTeX complains because it
+has no means of examining the options, rather than because it
+<em>knows</em> there is a problem.  (You may load a package any number
+of times in a document&rsquo;s preamble, with no options, and LaTeX will
+ignore every loading request after the first; but you may only supply
+options when you first load the package.)
+
+<p>
+So perhaps you weren&rsquo;t entirely innocent&nbsp;&mdash; the error would have
+occurred on the second line of:
+<blockquote>
+<code>&#x5c;usepackage</code><code>[dvips]</code></code><code>&#x7b;graphics&#x7d;</code><br>
+<code>&#x5c;usepackage</code><code>[draft]</code></code><code>&#x7b;graphics&#x7d;</code>
+</blockquote>
+which could quite reasonably (and indeed correctly) have been typed:
+<blockquote>
+<code>&#x5c;usepackage</code><code>[dvips,draft]</code></code><code>&#x7b;graphics&#x7d;</code>
+</blockquote>
+
+<p>
+But if you&rsquo;ve not made that mistake (even with several lines
+separating the <code>&#x5c;usepackage</code> commands, it&rsquo;s pretty easy to spot),
+the problem could arise from something else loading the package for
+you.  How do you find the culprit?  The "<tt>h</tt>" response to the
+error message tells you which options were loaded each time.
+Otherwise, it&rsquo;s down to the log analysis games discussed in 
+&ldquo;<a href="FAQ-erroradvice.html">How to approach errors</a>&rdquo;; the trick to remember
+is that that the process of loading each file is parenthesised in the
+log; so if package <i class="package">foo</i> loads <i class="package">graphics</i>, the log
+will contain something like:
+<blockquote>
+<pre>
+(<path>/foo.sty ...
+...
+(<path>/graphics.sty ...
+...)
+...
+)
+</pre>
+</blockquote>
+(the parentheses for <i class="package">graphics</i> are completely enclosed in
+those for <i class="package">foo</i>; the same is of course true if your class
+<i class="class">bar</i> is the culprit, except that the line will start with the
+path to <tt>bar.cls</tt>).
+
+<p>
+If we&rsquo;re dealing with a package that loads the package you are
+interested in, you need to ask LaTeX to slip in options when
+<i class="package">foo</i> loads it.  Instead of:
+<blockquote>
+<code>&#x5c;usepackage</code><code>&#x7b;foo&#x7d;</code><br>
+<code>&#x5c;usepackage</code><code>[draft]</code></code><code>&#x7b;graphics&#x7d;</code>
+</blockquote>
+you would write:
+<blockquote>
+<code>&#x5c;PassOptionsToPackage</code><code>&#x7b;draft&#x7d;</code></code><code>&#x7b;graphics&#x7d;</code><br>
+<code>&#x5c;usepackage</code><code>&#x7b;foo&#x7d;</code>
+</blockquote>
+The command <code>&#x5c;PassOptionsToPackage</code> tells LaTeX to behave as if
+its options were passed, when it finally loads a package.  As you would
+expect from its name, <code>&#x5c;PassOptionsToPackage</code> can deal with a list
+of options, just as you would have in the the options brackets of
+<code>&#x5c;usepackage</code>.
+
+<p>
+The problem is more tricky if your document class loads a package you
+want options for.  In this case, instead of:
+<blockquote>
+<code>&#x5c;documentclass</code><code>[...]</code></code><code>&#x7b;bar&#x7d;</code><br>
+<code>&#x5c;usepackage</code><code>[draft]</code></code><code>&#x7b;graphics&#x7d;</code>
+</blockquote>
+you would write:
+<blockquote>
+<code>&#x5c;PassOptionsToPackage</code><code>&#x7b;draft&#x7d;</code></code><code>&#x7b;graphics&#x7d;</code><br>
+<code>&#x5c;documentclass</code><code>[...]</code></code><code>&#x7b;bar&#x7d;</code>
+</blockquote>
+with <code>&#x5c;PassOptionsToPackage</code> <em>before</em> the <code>&#x5c;documentclass</code>
+command.
+
+<p>
+However, if the <i class="package">foo</i> package or the <i class="class">bar</i> class loads
+<i class="package">graphics</i> with an option of its own that clashes with
+what you need in some way, you&rsquo;re stymied.  For example:
+<blockquote>
+<code>&#x5c;PassOptionsToPackage</code><code>&#x7b;draft&#x7d;</code></code><code>&#x7b;graphics&#x7d;</code>
+</blockquote>
+where the package or class does:
+<blockquote>
+<code>&#x5c;usepackage</code><code>[final]</code></code><code>&#x7b;graphics&#x7d;</code>
+</blockquote>
+sets <code class="pkgoption">final</code> <em>after</em> it&rsquo;s dealt with option you passed to
+it, so your <code class="pkgoption">draft</code> will get forgotten.  In extreme cases,
+the package might generate an error here (<i class="package">graphics</i> doesn&rsquo;t
+go in for that kind of thing, and there&rsquo;s no indication that
+<code class="pkgoption">draft</code> has been forgotten).
+
+<p>
+In such a case, you have to modify the package or class itself
+(subject to the terms of its licence).  It may prove useful to contact
+the author: she may have a useful alternative to suggest.
+
+<p>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-fuzzy-gs</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HypertextandPDF">Hypertext and PDF</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Fuzzy fonts because <i class="progname">Ghostscript</i> too old</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]crippled blurry[[[RBRACE]]]
+
+<p>
+So you&rsquo;ve done everything the FAQ has told you that you need,
+correct fonts properly installed and appearing in the <i class="progname">dvips</i>
+output, but <em>still</em> you get fuzzy character output after
+distilling with <a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a>.
+
+<p>
+The problem could arise from too old a version of
+<a href="http://www.ghostscript.com/.html"><i class="progname">ghostscript</i></a>, which you
+may be using directly, or via a
+script such as <i class="progname">ps2pdf</i> (distributed with
+<i class="progname">ghostscript</i> itself), <i class="progname">dvipdf</i>, or similar.
+Though <i class="progname">ghostscript</i> was capable of distillation from
+version&nbsp;5.50, that version could only produce bitmap Type&nbsp;3 output of
+any font other than the fundamental 35&nbsp;fonts (<i class="fontname">Times</i>,
+<i class="fontname">Helvetica</i>, etc.).  Later versions added &lsquo;complete&rsquo;
+distillation, but it wasn&rsquo;t until version&nbsp;6.50 that one could rely on
+it for everyday work.
+
+<p>
+So, if your PDF  output still looks fuzzy in <i class="progname">Acrobat</i>
+<i class="progname">Reader</i>, upgrade <i class="progname">ghostscript</i>.  The new version
+should be at least version&nbsp;6.50, of course, but it&rsquo;s usually good
+policy to go to the most recent version (version&nbsp;8.12 at the time of
+writing&nbsp;&mdash; 2003).
+
+<p>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-repeat-set</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; </div>
+<h1>Repeating something for each &lsquo;thing&rsquo; in a set</h1>
+
+
+<p>
+
+<p>
+As another question 
+(<a href="FAQ-repeat-num.html">repeating something a given number of times</a>)
+explains, TeX is not explicitly designed for &lsquo;regular&rsquo; programming
+operations. As a result, we must resort to arcane tricks to do the
+seemingly simple task of repeating an operation.  This answer deals
+with repeating an operation for each of a given set of objects.
+
+<p>
+The <i class="package">etoolbox</i> package provides iteration over a
+comma-separated list of items, in its <code>&#x5c;docsvlist</code> and
+<code>&#x5c;forcsvlist</code> commands; they are well-described in the package
+documentation.  The <i class="package">datatool</i> package manages &ldquo;databases&rdquo;
+(of its own definition) and you may iterate over entries in such a
+database using the command <code>&#x5c;DTLforeach</code>.
+
+<p>
+The <i class="package">forarray</i> package defines its own &ldquo;list&rdquo; and &ldquo;array&rdquo;
+structures, together with commands <code>&#x5c;ForEach</code> and <code>&#x5c;ForArray</code>
+which enable a command to be executed for each element in a list or
+array, respectively.
+
+<p>
+The <i class="package">dowith</i> defines a pair of macros <code>&#x5c;DoWith</code> and
+<code>&#x5c;StopDoing</code> that process each &ldquo;thing&rdquo; between them; a trivial
+example of use is:
+<blockquote>
+<pre>
+\usepackage{dowith}
+...
+\begin{document}
+\newcommand{\foo}[1]{\message{#1+}
+\DoWith\foo a{BBB}c\StopDoing
+</pre>
+</blockquote>
+which produces terminal output:
+<blockquote>
+<pre>
+a+ BBB+ c+
+</pre>
+</blockquote>
+so, the macros have found 3 &ldquo;things&rdquo;, including one with braces
+around it.  (The interpolated spaces come from the primitive
+<code>&#x5c;message</code> command.)
+
+<p>
+The only constraint is that all commands in the enclosed stuff are
+&ldquo;expandable&rdquo; (which means, for example, that you may not use
+commands with optional arguments).
+
+<p>
+From the same stable (as <i class="package">dowith</i>) comes the package
+<i class="package">commado</i>, that provides commands <code>&#x5c;DoWithCSL</code> (apply a
+command to each element of a comma-separated-variable list) and
+<code>&#x5c;DoWithBasesExts</code> (apply a command to each of a set of files,
+defined by base name and &ldquo;extension&rdquo;).  Use of these <code>&#x5c;DoWith*</code>
+macros is also expandable (if the command applied to the list elements
+is itself expandable).
+<dl>
+<dt class="ctanref">commado.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/commado">commado</a>
+<dt class="ctanref">datatool.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/datatool">datatool</a>
+<dt class="ctanref">dowith.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/dowith">dowith</a>
+<dt class="ctanref">etoolbox.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/etoolbox">etoolbox</a>
+<dt class="ctanref">filesdo.sty</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/commado">commado</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-02-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-repeat-set">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-repeat-set</a>
+
+<p>
+
+
+
+<p>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-verbfile</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Typesettingspecialities">Typesetting specialities</a> &gt; </div>
+<h1>Including a file verbatim in LaTeX</h1>
+
+
+<p>
+
+<p>
+A good way is to use Rainer Sch\"opf&rsquo;s <i class="package">verbatim</i> package,
+which provides a command <code>&#x5c;verbatiminput</code> that takes a file name as
+argument:
+<blockquote>
+<pre>
+\usepackage{verbatim}
+...
+\verbatiminput{verb.txt}
+</pre>
+</blockquote>
+Another way is to use the <code class="environment">alltt</code> environment, which
+requires the <i class="package">alltt</i> package.  The environment interprets its
+contents &lsquo;mostly&rsquo; verbatim, but executes any (La)TeX commands it
+finds:
+<blockquote>
+<pre>
+\usepackage{alltt}
+...
+\begin{alltt}
+\input{verb.txt}
+\end{alltt}
+</pre>
+</blockquote>
+of course, this is little use for inputting (La)TeX source
+code&hellip;
+
+<p>
+The <i class="package">moreverb</i> package extends the <i class="package">verbatim</i> package,
+providing a <code class="environment">listing</code> environment and a <code>&#x5c;listinginput</code>
+command, which line-number the text of the file.  The package also has
+a <code>&#x5c;verbatimtabinput</code> command, that honours TAB characters in
+the input (the package&rsquo;s <code class="environment">listing</code> environment and the
+<code>&#x5c;listinginput</code> command also both honour TAB).
+
+<p>
+The <i class="package">sverb</i> package provides verbatim input (without recourse
+to the facilities of the <i class="package">verbatim</i> package):
+<blockquote>
+<pre>
+\usepackage{sverb}
+...
+\verbinput{verb.txt}
+</pre>
+</blockquote>
+
+<p>
+The <i class="package">fancyvrb</i> package offers configurable implementations of
+everything <i class="package">verbatim</i>, <i class="package">sverb</i> and <i class="package">moreverb</i>
+have, and more besides.  It is nowadays the package of choice for the
+discerning typesetter of verbatim text, but its wealth of facilities
+makes it a complex beast and study of the documentation is strongly
+advised.
+
+<p>
+The <i class="class">memoir</i> class includes the relevant functionality of the
+<i class="package">verbatim</i> and <i class="package">moreverb</i> packages.
+<dl>
+<dt class="ctanref">alltt.sty</dt><dd>Part of the LaTeX distribution.
+<dt class="ctanref">fancyvrb.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fancyvrb">fancyvrb</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">moreverb.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/moreverb">moreverb</a>
+<dt class="ctanref">sverb.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/mdwtools">mdwtools</a>[sverb]
+<dt class="ctanref">verbatim.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[verbatim]
+</dl>
+
+<p>

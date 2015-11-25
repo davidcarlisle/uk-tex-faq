@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-custbib</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingbibliographies">Creating bibliographies</a> &gt; </div>
+<h1>Creating a bibliography style</h1>
+
+
+<p>
+
+<p>
+It <em>is</em> possible to write your own: the standard bibliography
+styles are distributed in a form with many comments, and there is a description
+of the language in the BibTeX distribution (see 
+<a class="FAquestion.html" href="FAQ-BibTeXing.html">BibTeX documentation</a>).
+However, it must be admitted that the language in which BibTeX
+styles are written is pretty obscure, and one would not recommend
+anyone who&rsquo;s not a confident programmer to write their own, though
+minor changes to an existing style may be within the grasp of many.
+
+<p>
+If your style isn&rsquo;t too &lsquo;far out&rsquo;, you can probably avoid programming
+it by using the facilities of the <i class="package">custom-bib</i> bundle.  The bundle
+contains a file <i class="filename">makebst.tex</i>, which runs you through a text menu
+to produce a file of instructions, which you can then use to generate your
+own <code class="extension">bst</code> file.  This technique doesn&rsquo;t offer entirely new styles
+of document, but the <i class="package">custom-bib</i>&rsquo;s &ldquo;master BibTeX
+styles&rdquo; already offer significantly more than the BibTeX standard set.
+
+<p>
+An alternative, which is increasingly often recommended, to use
+<a href="FAQ-biblatex.html"><i class="package">biblatex</i></a>.  <i class="package">Biblatex</i> offers
+many hooks for adjusting the format of the output of your &lsquo;basic&rsquo;
+BibTeX style, and a collection of &lsquo;contributed&rsquo; styles have also
+started to appear.  Note.bowever There are not as many of
+<i class="package">biblatex</i>&rsquo;s contributed styles as there are for BibTeX,
+and there is no <i class="package">custom-biblatex</i>, both of which suggest that
+beginners&rsquo; r\"ole models are hard to come by.  As a result, beginners
+should probably resist the temptation to write their own contributed
+[[[package]]][[[LBRACE]]]biblatex[[[RBRACE]]] style.
+<dl>
+<dt class="ctanref">biblatex.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/biblatex">biblatex</a>
+<dt class="ctanref">biblatex contributed styles</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/biblatex-contrib">biblatex-contrib</a>
+<dt class="ctanref">BibTeX documentation</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/bibtex">bibtex</a>
+<dt class="ctanref">makebst.tex</dt><dd>Distributed with <a class="ctan" href="https://www.ctan.org/pkg/custom-bib">custom-bib</a>
+</dl>
+
+<p>

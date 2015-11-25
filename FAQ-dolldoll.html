@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-dolldoll</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Why use <code>&#x5c;[</code>\,&hellip;<code>&#x5c;]</code> in place of <tt>&#x24;&#x24;</tt>\,&hellip;\,<tt>&#x24;&#x24;</tt>?</h1>
+
+
+<p>
+
+<p>
+LaTeX defines inline- and display-maths commands, apparently
+duplicating the TeX primitive maths sequences which surround maths
+commands with single (or pairs of) dollar signs.
+
+<p>
+In fact, LaTeX&rsquo;s inline maths grouping, 
+<code>&#x5c;(</code><tt> ... </tt><code>&#x5c;)</code>, has (almost) exactly the same effect as the
+TeX primitive version <tt>&#x24; ... &#x24;</tt>.  (The exception:
+the LaTeX version checks to ensure you don&rsquo;t put <code>&#x5c;(</code> and
+<code>&#x5c;)</code> the wrong way round; this does occasionally detect errors&hellip;.)
+
+<p>
+Since this is the case, one often finds LaTeX users, who have some
+experience of using Plain TeX, merely assuming that LaTeX&rsquo;s
+display maths grouping <code>&#x5c;[</code><tt> ... </tt><code>&#x5c;]</code> may be replaced by
+the TeX primitive display maths <tt>&#x24;&#x24; ... &#x24;&#x24;</tt>.
+
+<p>
+Unfortunately, the assumption is wrong: some LaTeX code needs to
+patch display maths, it can only do so by patching <code>&#x5c;[</code> and <code>&#x5c;]</code>
+(or their equivalents).  Most obviously, the class option <code class="pkgoption">fleqn</code>
+simply does not work for equations coded using 
+<tt>&#x24;&#x24; ... &#x24;&#x24;</tt>, whether you&rsquo;re using the standard classes
+alone, or using package <i class="package">amsmath</i>.  Also, the <code>&#x5c;[</code> and
+<code>&#x5c;]</code> construct has code for rationalising vertical spacing in some
+extreme cases; that code is not provided <tt>&#x24;&#x24; ... &#x24;&#x24;</tt>, so if
+you use the Plain TeX version, you may occasionally observe
+inconsistent vertical spacing.  Similar behaviour can bite if you are
+writing a <em>proof</em>; placing the &ldquo;QED symbol&rdquo; doesn&rsquo;t work
+if it is in <tt>&#x24;&#x24;</tt>-displayed maths.
+
+<p>
+There are more subtle effects (especially with package
+<i class="package">amsmath</i>), and the simple rule is &ldquo;use 
+<code>&#x5c;[</code><tt> ... </tt><code>&#x5c;]</code> (at least) whenever displayed maths is
+needed in LaTeX&rdquo;.
+
+<p>
+(Note that the sequence <code>&#x5c;[</code><tt> ... </tt><code>&#x5c;]</code> is duplicated by
+the <code class="environment">displaymath</code> environment, which can be said to &ldquo;look
+nicer&rdquo;, and actually <em>describes</em> what&rsquo;s being done.)
+
+<p class="lastedit">This answer last edited: 2013-06-05</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dolldoll">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-dolldoll</a>
+
+<p>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-cmdstar</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacrotoolsandtechniques">LaTeX macro tools and techniques</a> &gt; </div>
+<h1>Commands defined with * options</h1>
+
+
+<p>
+
+<p>
+LaTeX commands commonly have &ldquo;versions&rdquo; defined with an asterisk
+tagged onto their name: for example <code>&#x5c;newcommand</code> and
+<code>&#x5c;newcommand*</code> (the former defines a <code>&#x5c;long</code> version of the
+command).
+
+<p>
+The simple-minded way for a user to write such a command involves use
+of the <i class="package">ifthen</i> package:
+
+<blockquote>
+<pre>
+\newcommand{\mycommand}[1]{\ifthenelse{\equal{#1}{*}}%
+  {\mycommandStar}%
+  {\mycommandNoStar{#1}}%
+}
+\newcommand{\mycommandStar}{starred version}
+\newcommand{\mycommandNoStar}[1]{normal version}
+</pre>
+</blockquote>
+
+
+
+<pre>
+\newcommand{\mycommand}[1]{%
+  \ifthenelse{\equal{#1}{*}}%
+    {\mycommandStar}%
+    {\mycommandNoStar{#1}}%
+}
+\newcommand{\mycommandStar}%
+                {starred version}
+\newcommand{\mycommandNoStar}[1]%
+                 {normal version}
+</pre>
+
+
+This does the trick, for sufficiently simple commands, but it has
+various tiresome failure modes, and it requires <code>&#x5c;mycommandnostar</code>
+to take an argument.
+
+<p>
+The LaTeX kernel does a lot of this, and has its own command,
+<code>&#x5c;@ifstar</code> (which needs &lsquo;internal command protection&rsquo;, cf.
+<blockquote>
+
+<pre>
+\makeatletter
+\newcommand{\mycommand}{%
+             \@ifstar
+                  \mycommandStar%
+                  \mycommandNoStar%
+\makeatother
+}
+\newcommand{\mycommandStar}{starred version}
+\newcommand{\mycommandNoStar}{normal version}
+</pre>
+
+
+<pre>
+\makeatletter
+\newcommand{\mycommand}{\@ifstar
+                     \mycommandStar%
+                     \mycommandNoStar%
+}
+\makeatother
+\newcommand{\mycommandStar}{starred version}
+\newcommand{\mycommandNoStar}{normal version}
+</pre>
+
+</blockquote>
+(Note that arguments to <code>&#x5c;mycommandStar</code> and <code>&#x5c;mycommandNoStar</code>
+are independent&nbsp;&mdash; either can have their own arguments, unconstrained
+by the technique we&rsquo;re using, unlike the trick described above.)
+The <code>&#x5c;@ifstar</code> trick is all very well, is fast and efficient, but
+it requires that the definition be 
+<a href="FAQ-atsigns.html"><code>&#x5c;makeatletter</code> protected</a>.
+
+<p>
+A pleasing alternative is the <i class="package">suffix</i> package.  This elegant
+piece of code allows you to define variants of your commands:
+
+
+<pre>
+\newcommand\mycommand{normal version}
+\WithSuffix\newcommand\mycommand*%
+                     {starred version}
+</pre>
+
+
+
+<blockquote>
+<pre>
+\newcommand\mycommand{normal version}
+\WithSuffix\newcommand\mycommand*{starred version}
+</pre>
+</blockquote>
+
+The package needs <a href="FAQ-etex.html">[[[elatex]]][[[LBRACE]]][[[RBRACE]]]</a>, but any new enough
+distribution defines LaTeX as [[[elatex]]][[[LBRACE]]][[[RBRACE]]] by default.  Command
+arguments may be specified in the normal way, in both command
+definitions (after the &ldquo;<tt>*</tt>&rdquo; in the <code>&#x5c;WithSuffix</code>
+version).  You can also use the TeX primitive commands, creating a
+definition like:
+<blockquote>
+<pre>
+\WithSuffix\gdef\mycommand*{starred version}
+</pre>
+</blockquote>
+
+<p>
+For those of an adventurous disposition, a further option is to use
+the <i class="package">xparse</i> package from the <i class="package">l3packages</i>
+distribution.  The package defines a bunch of commands (such as
+<code>&#x5c;NewDocumentCommand</code>) which are somewhat analagous to
+<code>&#x5c;newcommand</code> and the like, in LaTeX 2e.  The big difference is
+the specification of command arguments; for each argument, you have a
+set of choices in the command specification.  So, to create a
+*-command (in LaTeX 2e style), one might write:
+<blockquote>
+<pre>
+\NewDocumentCommand \foo { s m } {%
+  % #1 is the star indicator
+  % #2 is a mandatory argument
+  ...
+}
+</pre>
+</blockquote>
+The &ldquo;star indicator&rdquo; (<tt>s</tt>) argument appears as <tt>\#1</tt>
+and will take values <code>&#x5c;BooleanTrue</code> (if there was a star) or
+<code>&#x5c;BooleanFalse</code> (otherwise); the other (<tt>m</tt>) argument  is a
+normal TeX-style mandatory argument, and appears as <tt>\#2</tt>.
+
+<p>
+While <i class="package">xparse</i> provides pleasing command argument
+specifications, it <em>is</em> part of the 
+<a href="FAQ-LaTeX3.html">LaTeX&nbsp;3 experimental harness</a>.
+Simply loading the package to provide <code>&#x5c;DeclareDocumentCommand</code>
+&ldquo;pulls in&rdquo; all of the LaTeX3 kernel (a large bunch of packages)
+via the <i class="package">expl3</i> package.
+<dl>
+<dt class="ctanref">ifthen.sty</dt><dd>Part of the LaTeX distribution
+<dt class="ctanref">suffix.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/bigfoot">bigfoot</a>[suffix]
+<dt class="ctanref">xparse.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/l3packages">l3packages</a>[xparse]
+<dt class="ctanref">expl3.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/l3kernel">l3kernel</a>[expl3]
+</dl>
+
+<p class="lastedit">This answer last edited: 2014-04-04</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-cmdstar">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-cmdstar</a>
+
+<p>
+

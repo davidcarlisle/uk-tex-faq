@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-labundef</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; </div>
+<h1>Finding if a label is undefined</h1>
+
+
+<p>
+
+<p>
+People seem to want to know (at run time) if a label is undefined (I
+don&rsquo;t actually understand <em>why</em>, particularly: it&rsquo;s a transient
+state, and LaTeX deals with it quite well).
+
+<p>
+A resolved label is simply a command:
+<code>&#x5c;r@</code><tt>&lsaquo;<i>label-name</i>&rsaquo;</tt>; determining if the label is set is
+then simply a matter of detecting if the command exists.  The usual
+LaTeX internal way of doing this is to use the command
+<code>&#x5c;@ifundefined</code>:
+<blockquote>
+  <code>&#x5c;@ifundefined</code><code>&#x7b;[[[textup]]][[[LBRACE]]]r@[[[RBRACE]]]label-name&#x7d;</code></code><code>&#x7b;undef-cmds&#x7d;</code>[[[LBRACE]]]def-cmds[[[RBRACE]]]
+</blockquote>
+In which, &lsaquo;<i>label-name</i>&rsaquo; is exactly what you would use in
+a <code>&#x5c;label</code> command, and the remaining two arguments are command
+sequences to be used if the label is undefined
+(&lsaquo;<i>undef-cmds</i>&rsaquo;) or if it is defined
+(&lsaquo;<i>def-cmds</i>&rsaquo;).
+
+<p>
+Note that any command that incorporates <code>&#x5c;@ifundefined</code> is naturally
+fragile, so remember to create it with <code>&#x5c;DeclareRobustCommand</code> or to
+use it with <code>&#x5c;protect</code> in a moving argument.
+
+<p>
+If you&rsquo;re into this game, you may well not care about LaTeX&rsquo;s
+warning about undefined labels at the end of the document; however,
+if you are, include the command <code>&#x5c;G@refundefinedtrue</code> in
+[[[meta]]][[[LBRACE]]]<tt>undef-cmds</tt>[[[RBRACE]]].
+
+<p>
+And of course, remember you&rsquo;re dealing in internal commands, and pay
+attention to the <a href="FAQ-atsigns.html">at-signs</a>.
+
+<p>
+All the above can be avoided by using the <i class="package">labelcas</i> package:
+it provides commands that enable you to switch according to the state
+of a single label, or the states of a list of labels.  The package&rsquo;s
+definition is a bit complicated, but the package itself is pretty
+powerful.
+<dl>
+<dt class="ctanref">labelcas.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/labelcas">labelcas</a>
+</dl>
+
+<p>

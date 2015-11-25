@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-luatex</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#CurrentTeXrelatedprojects">Current TeX-related projects</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>PDFTeX and LuaTeX</h1>
+
+
+<p>
+
+<p>
+Elsewhere in these FAQs, we learn that development of
+<a href="FAQ-whatpdftex.html">PDFTeX</a> is &ldquo;in essence&rdquo; complete&nbsp;&mdash; no new
+facilities are being developed at the time of writing.  The PDFTeX
+team has announced that they have frozen PDFTeX&rsquo;s specification in
+its current state (version 1.40.11), and that nothing but bug
+corrections will be provided up to the time of the final release,
+PDFTeX 1.50.0.  (The interpretation of the statement seems to allow
+sensible changes that are beyond any reasonable definition of
+<em>bug</em>&hellip;)
+
+<p>
+As PDFTeX development ran down,
+development of a new system, LuaTeX was started.
+<a href="http://www.lua.org/.html"><i class="progname">Lua</i></a> is a interpreter designed
+to be incorporated into other applications.  LuaTeX consists of a
+TeX-like engine with a <i class="progname">lua</i> interpreter &lsquo;embedded&rsquo; in it;
+the <i class="progname">lua</i> interpreter has access to many of the data
+structures used for typesetting, so that the programmer may also
+interpolate chunks of <i class="progname">lua</i> code into their (La)TeX macros,
+or as &lsquo;call-backs&rsquo; for use when the TeX-like engine does certain
+operations.
+
+<p>
+This arrangement offers the prospect of a &ldquo;semi-soft&rdquo; typesetting
+engine: it will have its basic behaviour, but the user gets to
+redefine functionality if an idea occurs&nbsp;&mdash; there will be no need to
+persuade the world first, and then find a willing developer to work on
+the sources of of the distribution.
+
+<p>
+The <a href="http://www.luatex.org/.html">LuaTeX project</a> is (with monetary
+support from various sources) pursuing avenues that many of the other
+current projects have in their sights, notably Unicode character
+representations and support for OpenType fonts.  The intention is
+to integrate the extensions pioneered by <a href="FAQ-omegaleph.html">Aleph</a>.
+Users may also care to view the 
+<a href="http://www.luatex.org/documentation.html.html">LuaTeX documentation page</a>
+or the <a href="http://wiki.luatex.org.html">LuaTeX WIKI</a>
+
+<p>
+texlive (2013) holds version 0.76.0 of LuaTeX.  This version
+demonstrates the &ldquo;final functionality&rdquo;, though the project
+remains a [[[beta]]]-release.  Functional stability was first
+declared for version 0.50.0, released near the end of December 2009.
+
+<p>
+CONTeXT &lsquo;Mark 4&rsquo; can already make use of LuaTeX; much of its
+code already appears in two forms&nbsp;&mdash; a TeX-based version
+(<code class="extension">mkii</code>) and a &lsquo;<code class="extension">mkiv</code>&rsquo; version (new functionality
+typically <em>only</em> appears in &lsquo;<code class="extension">mkiv</code>&rsquo; form), which uses
+LuaTeX extensions (including <i class="progname">lua</i> scripting).  LaTeX
+packages that support its use are appearing (some of them providing
+re-implementations of existing [[[context]]][[[LBRACE]]][[[RBRACE]]] code).
+
+<p>
+LaTeX running over LuaTeX (commonly known as LuaLaTeX) is not
+an &ldquo;official&rdquo; entity (yet), but useful packages are
+appearing (i.e., the CTAN path <tt class="path">macros/luatex/latex</tt> holds
+several items).
+<dl>
+<dt class="ctanref">LuaTeX snapshot</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/luatex">luatex</a>
+<dt class="ctanref">PDFTeX distribution</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/pdftex">pdftex</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-05-21</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-luatex">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-luatex</a>
+
+<p>

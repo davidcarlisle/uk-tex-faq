@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-floats</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThingsareGoingWronghellip">Things are Going Wrong&hellip;</a> &gt; <a href="index.html#Makingthingsstaywhereyouwantthem">Making things stay where you want them</a> &gt; </div>
+<h1>Moving tables and figures in LaTeX</h1>
+
+
+<p>
+
+<p>
+Tables and figures have a tendency to surprise, by <em>floating</em>
+away from where they were specified to appear.  This is in fact
+perfectly ordinary document design; any professional typesetting
+package will float figures and tables to where they&rsquo;ll fit without
+violating the certain typographic rules.  Even if you use the
+placement specifier&nbsp;&rdquo;<tt>h</tt>&rdquo; (for &lsquo;here&rsquo;), the figure or table
+will not be 
+printed &lsquo;here&rsquo; if doing so would break the rules; the rules themselves
+are pretty simple, and are given on page&nbsp;198, section&nbsp;C.9 of the
+LaTeX manual.  In the worst case, LaTeX&rsquo;s rules can cause the
+floating items to pile up to the extent that you get an error message
+saying &ldquo;<a href="FAQ-tmupfl.html">Too many unprocessed floats</a>&rdquo;.
+What follows is a simple checklist of things to do to solve these
+problems (the checklist talks throughout about figures, but applies
+equally well to tables, or to &ldquo;non-standard&rdquo; floats defined by the
+<i class="package">float</i> or other packages).
+<ul>
+<li> Do your figures need to float at all?  If not, look at the
+  recommendations for &ldquo;<a href="FAQ-figurehere.html">non-floating floats</a>&rdquo;
+<li> Are the placement parameters on your figures right?  The
+  default (&ldquo;<tt>tbp</tt>&rdquo;) is usually satisfactory, but you can
+  reasonably change it (for example, to add an &ldquo;<tt>h</tt>&rdquo;).
+  Whatever you do, <em>don&rsquo;t</em> 
+  omit the &ldquo;<tt>p</tt>&rdquo;: doing so could cause LaTeX to believe that if you
+  can&rsquo;t have your figure <em>here</em>, you don&rsquo;t want it
+  <em>anywhere</em>.  (LaTeX does try to avoid being confused in
+  this way&hellip;)
+<li> LaTeX&rsquo;s own float placement parameters could be preventing
+  placements that seem entirely &ldquo;reasonable&rdquo; to you&nbsp;&mdash; they&rsquo;re
+  notoriously rather conservative.  To encourage LaTeX not to move
+  your figure, you may need to loosen its demands.  (The most important
+  ones are the ratio of text to float on a given page, but it&rsquo;s
+  sensible to have a fixed set that changes the whole lot, to meet
+  every eventuality.)
+<pre>
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\renewcommand{\dbltopfraction}{.66}
+\renewcommand{\dblfloatpagefraction}{.66}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
+\setcounter{dbltopnumber}{9}
+</pre>
+  The meanings of these
+  parameters are described on pages&nbsp;199&ndash;200, section&nbsp;C.9 of the
+  LaTeX manual.
+<li> Are there places in your document where you could &lsquo;naturally&rsquo;
+  put a <code>&#x5c;clearpage</code> command?  If so, do: the backlog of floats is
+  cleared after a <code>&#x5c;clearpage</code>.  (Note that the <code>&#x5c;chapter</code>
+  command in the standard <i class="class">book</i> and <i class="class">report</i> classes
+  implicitly executes <code>&#x5c;clearpage</code>, so your floats can&rsquo;t wander past
+  the end of a chapter.)
+<li> Try the <i class="package">placeins</i> package: it defines a
+  <code>&#x5c;FloatBarrier</code> command beyond which floats may not pass.  A
+  package option allows you to declare that floats may not pass a
+  <code>&#x5c;section</code> command, but you can place <code>&#x5c;FloatBarrier</code>s wherever
+  you choose.
+<li> If you are bothered by floats appearing at the top of the page
+  (before they are specified in your text), try the <i class="package">flafter</i>
+  package, which avoids this problem by insisting that floats should
+  always appear after their definition.
+<li> Have a look at the LaTeX 2e <i class="package">afterpage</i> package.
+  Its documentation gives as an example the idea
+  of putting <code>&#x5c;clearpage</code> <em>after</em> the current page (where it
+  will clear the backlog, but not cause an ugly gap in your text), but
+  also admits that the package is somewhat fragile.  Use it as a last
+  resort if the other possibilities below don&rsquo;t help.
+<li> If you would actually <em>like</em> great blocks of floats at the
+  end of each of your chapters, try the <i class="package">morefloats</i> package;
+  this allows you to increase the number of floating inserts that LaTeX
+  can handle at one time (from its original value of&nbsp;18, in
+  LaTeX 2e).  Note that, even with e-TeX&rsquo;s greater supply of
+  registers, there is still a modest limit on the total number of
+  floating inserts (e-TeX increases the total number of registers
+  available, but inserts don&rsquo;t work if they are constructed from
+  registers in the extended range).
+
+<p>
+  Caveat: if you are using <i class="package">etex</i> to increase the number of
+  registers available, you need to &ldquo;reserve&rdquo; some inserts for
+  <i class="package">morefloats</i>: something like:
+  <blockquote>
+<pre>
+\usepackage{etex}
+\reserveinserts{18}
+\usepackage{morefloats}
+</pre>
+  </blockquote>
+<li> If you actually <em>wanted</em> all your figures to float to the
+  end (<em>e.g</em>., for submitting a draft copy of a paper), don&rsquo;t
+  rely on LaTeX&rsquo;s mechanism: get the <i class="package">endfloat</i> package to do
+  the job for you.
+</ul>
+<dl>
+<dt class="ctanref">afterpage.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/2etools">2etools</a>[afterpage]
+<dt class="ctanref">endfloat.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/endfloat">endfloat</a>
+<dt class="ctanref">etex.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/etex-pkg">etex-pkg</a>
+<dt class="ctanref">flafter.sty</dt><dd>Part of the LaTeX distribution
+<dt class="ctanref">float.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/float">float</a>
+<dt class="ctanref">morefloats.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/morefloats">morefloats</a>
+<dt class="ctanref">placeins.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/placeins">placeins</a>
+</dl>
+
+<p>

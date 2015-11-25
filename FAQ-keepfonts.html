@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-keepfonts</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Fonts">Fonts</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Which font files should be kept</h1>
+
+
+<p>
+
+<p>
+MetaFont produces from its run three files, a metrics (TFM) file, a
+generic font (GF) file, and a log file; all of these files have the
+same base name as does the input (<em>e.g.</em>, if the input file was
+<i class="filename">cmr10.mf</i>, the outputs will be <i class="filename">cmr10.tfm</i>,
+<i class="filename">cmr10.nnngf</i> (the file name may be mangled if you are using an
+operating system which doesn&rsquo;t permit long file names)
+and <i class="filename">cmr10.log</i>).
+
+<p>
+For TeX to use the font, you need a TFM file, so you need
+to keep that.  However, you are likely to generate the same font
+at more than one magnification, and each time you do so you&rsquo;ll
+(incidentally) generate another TFM file; these files are
+all the same, so you only need to keep one of them.
+
+<p>
+To preview or to produce printed output, the DVI processor will need a
+font raster file; this is what the GF file provides.  However, while
+there used (once upon a time) to be DVI processors that could use 
+GF files, modern processors  use
+packed raster (PK) files (incidentally, PDFTeX also uses
+PK files if nothing &ldquo;better&rdquo; is available, but
+see <a class="FA.html" href="FAQ-fuzzy-type3.html">fuzzy fonts in PDF</a>).
+Therefore, you need to generate a PK file from the GF file; the
+program <i class="progname">gftopk</i> does this for you, and once you&rsquo;ve done that you
+may throw the GF file away.
+
+<p>
+The log file should never be needed again, unless there was some sort
+of problem in the MetaFont run, and need not therefore be kept.
+
+<p class="lastedit">This answer last edited: 2011-09-04</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-keepfonts">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-keepfonts</a>
+
+<p>

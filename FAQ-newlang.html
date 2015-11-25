@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-newlang</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Hyphenation">Hyphenation</a> &gt; </div>
+<h1>Using a new language with Babel</h1>
+
+
+<p>
+
+<p>
+<i class="package">Babel</i> is capable of working with a large range of
+languages, and a new user often wants to use a language that her
+TeX installation is not set up to employ.  Simply asking Babel to
+use the language, with the command
+<pre>
+  \usepackage[catalan]{babel}
+</pre>
+provokes the warning message
+
+<pre>
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `Catalan'
+(babel)                I will use the patterns loaded for \language=0 instead.
+</pre>
+
+
+<pre>
+Package babel Warning: No hyphenation patterns
+                                 were loaded for
+(babel)                the language `Catalan'
+(babel)                I will use the patterns
+                 loaded for \language=0 instead.
+</pre>
+
+
+
+
+<p>
+The problem is that your TeX system doesn&rsquo;t know how to hyphenate
+Catalan text: you need to tell it how before Babel can do its work
+properly.  To do this, for LaTeX installations, one needs to change
+<i class="filename">language.dat</i> (which is part of the Babel installation); it will
+contain a line
+<pre>
+%catalan         cahyphen.tex
+</pre>
+which, if you remove the comment marker, is supposed to instruct
+LaTeX to load Catalan hyphenation patterns when you tell it to build
+a new format.
+
+<p>
+Unfortunately, in many Babel distributions, the line just isn&rsquo;t
+right&nbsp;&mdash; you need to check the name of the file containing the
+patterns you&rsquo;re going to use.  As you can see, in the author&rsquo;s system,
+the name is supposed to be <i class="filename">cahyphen.tex</i>; however the file
+actually present on the system is <i class="filename">cahyph.tex</i>&nbsp;&mdash; fortunately,
+the error should prove little more than an inconvenience (most of the
+files are in better distributions anyway, but an elusive one
+may be found on CTAN; if you have to retrieve
+a new file, ensure that it&rsquo;s correctly installed, for which see
+<a class="FAquestion.html" href="FAQ-inst-wlcf.html">installing a new package</a>).
+
+<p>
+Finally, you need to regenerate the formats used (in fact, most users
+of Babel are using it in their LaTeX documents, so regenerating the
+LaTeX-related formats will ordinarily be enough; however, the
+author always generates the lot, regardless).
+<dl>
+<dt class="description">teTeX</dt><dd>It&rsquo;s possible to do the whole operation in one go, by
+  using the <i class="progname">texconfig</i> command:
+<pre>
+texconfig hyphen latex
+</pre>
+  which first enters an editor for you to edit <i class="filename">language.dat</i>,
+  and then regenerates the format you specify (<i class="progname">latex</i> in
+  this case).
+
+<p>
+  Otherwise, to regenerate all formats, do: <br>
+  <tt>fmtutil --all</tt>
+
+<p>
+  If you&rsquo;re willing to think through what you&rsquo;re doing (this is
+  <em>not</em> for the faint-hearted), you can select a sequence of
+  formats and for each one, run: <br>
+  <tt>fmtutil --byfmt &lsaquo;<i>formatname</i>&rsaquo;</tt><br>
+  where <em><tt>formatname</tt></em> is something like &lsquo;<tt>latex</tt>&rsquo;,
+  or: <br>
+  <tt>fmtutil --byhyphen &lsaquo;<i>hyphenfile</i>&rsaquo;</tt><br>
+  where <em><tt>hyphenfile</tt></em> is the file specifying hyphenation
+  to the format&nbsp;&mdash; usually <tt>language.dat</tt>
+<dt class="description">MiKTeX</dt><dd> On a <i class="package">MiKTeX</i> distribution earlier than v2.0, do: <br>
+  <tt>Start</tt>&rarr;
+  <tt>Programs</tt>&rarr;
+  <tt>MiKTeX</tt>&rarr;
+  <tt>Maintenance</tt>&rarr;
+  <tt>Create all format files</tt>
+
+
+<p>
+  or get a DOS window and run:<br>
+  <tt>initexmf --dump</tt>
+
+<p>
+  On a <i class="package">MiKTeX</i> distribution v2.0 or later, the whole
+  procedure can be done via the GUI.  To select the new
+  language, do:<br>
+  <tt>Start</tt>&rarr;
+  <tt>Programs</tt>&rarr;
+  <tt>MiKTeX 2</tt>&rarr;
+  <tt>MiKTeX Options</tt>, and select the <tt>Languages</tt> tab.
+  Select your language from the list, press the <tt>Apply</tt> button,
+  and then the <tt>OK</tt> button.  Then select the <tt>General</tt>
+  tab and press the <tt>Update Now</tt> button.
+
+<p>
+  Otherwise, edit the <i class="filename">language.dat</i> file (as outlined above),
+  and then run:<br>
+  <tt>initexmf --dump</tt><br>
+  just as for a pre-v2.0 system.
+</dl>
+
+<p>
+<b><em>Caveat</em>:</b> It is (just) possible that
+your TeX system may run out of &ldquo;pattern memory&rdquo; while generating
+the new format.  Most TeX implementations have fixed-size arrays
+for storing the details of hyphenation patterns, but although their
+size is adjustable in most modern distributions, actually changing the
+size is a fiddle.  If you <em>do</em> find you&rsquo;ve run out of memory,
+it may be worth scanning the list of languages in your
+<i class="filename">language.dat</i> to see whether any could reasonably be removed.
+<dl>
+<dt class="ctanref">babel</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/babel">babel</a>
+<dt class="ctanref">hyphenation patterns</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyphenation">hyphenation</a>
+</dl>
+
+<p>

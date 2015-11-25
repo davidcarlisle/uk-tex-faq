@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-tabacc</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>Accents misbehave in <code class="environment">tabbing</code></h1>
+
+
+<p>
+
+<p>
+So you are constructing a <code class="environment">tabbing</code> environment, and you
+have the need of some diacriticised text&nbsp;&mdash; perhaps something as simple
+as <code>&#x5c;&rsquo;</code><code>&#x7b;e&#x7d;</code>&nbsp;&mdash; and the accent disappears because it has been
+interpreted as a <code class="environment">tabbing</code> command, and everything goes
+wrong.
+
+<p>
+This is really a rather ghastly feature of the <code class="environment">tabbing</code>
+environment; in order to type accented characters you need to use the
+<code>&#x5c;a</code> kludge: so <code>&#x5c;a&rsquo;</code><code>&#x7b;e&#x7d;</code> inside <code class="environment">tabbing</code> for
+<code>&#x5c;&rsquo;</code><code>&#x7b;e&#x7d;</code> outside, and similarly <code>&#x5c;a&lsquo;</code> for <code>&#x5c;&lsquo;</code> and <code>&#x5c;a=</code>
+for <code>&#x5c;=</code>.  This whole procedure is of course hideous and
+error-prone.
+
+<p>
+The simplest alternative is to type in an encoding that has the
+diacriticised characters in it, and to use an appropriate encoding
+definition file in the <i class="package">inputenc</i> package.  So for example,
+type:
+<blockquote>
+  <code>&#x5c;usepackage</code><code>[latin1]</code></code><code>&#x7b;inputenc&#x7d;</code><br>
+  <tt>...</tt><br>
+  <code>&#x5c;begin</code><code>&#x7b;tabbing&#x7d;</code><br>
+  <tt>...</tt><br>
+  <tt>...</tt> <code>&#x5c;></code> <tt>voil&agrave;</tt> <code>&#x5c;></code> <tt>...</tt>
+</blockquote>
+for:
+<blockquote>
+  &hellip;[[[quad]]] voil&agrave;[[[quad]]] &hellip;
+</blockquote>
+and the internal mechanisms of the <i class="package">inputenc</i> package will put
+the right version of the accent command in there.
+
+<p>
+A witty reversal of the r\^oles is introduced by the package
+<i class="package">Tabbing</i> (note the capital &ldquo;T&rdquo;): it provides a
+<code class="environment">Tabbing</code> environment which duplicates
+<code class="environment">tabbing</code>, but all the single-character commands become
+complicated objects.  So <code class="environment">tabbing</code>&rsquo;s <code>&#x5c;></code> becomes
+<code>&#x5c;TAB></code>, <code>&#x5c;=</code> becomes <code>&#x5c;TAB=</code>, and so on.  The above trivial
+example would therefore become:
+<blockquote>
+<pre>
+\usepackage{Tabbing}
+...
+\begin{Tabbing}
+  ...  ... \TAB> voil\`a \TAB> ...
+</pre>
+</blockquote>
+<dl>
+<dt class="ctanref">Tabbing.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/Tabbing">Tabbing</a>
+</dl>
+
+<p>

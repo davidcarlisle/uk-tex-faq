@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-drawFeyn</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Graphics">Graphics</a> &gt; <a href="index.html#MetaFontfonts">MetaFont fonts</a> &gt; </div>
+<h1>Drawing Feynman diagrams in LaTeX</h1>
+
+
+<p>
+
+<p>
+Michael Levine&rsquo;s <i class="package">feynman</i> bundle for drawing the diagrams in
+LaTeX 2.09 is still available.
+
+<p>
+Thorsten Ohl&rsquo;s <i class="package">feynmf</i> is designed for use with current
+LaTeX, and works in
+combination with MetaFont (or, in its <i class="package">feynmp</i> incarnation, with
+MetaPost).  The <i class="progname">feynmf</i> or
+<i class="progname">feynmp</i> package reads a description of the diagram written
+in TeX, and writes out code.  MetaFont (or MetaPost) can then produce a
+font (or PostScript file) for use in a subsequent LaTeX run.  For
+new users, who have access to MetaPost, the PostScript version is
+probably the better route, for document portability and other reasons.
+
+
+<p>
+Jos Vermaseren&rsquo;s <i class="package">axodraw</i> is mentioned as an alternative in
+the documentation of <i class="package">feynmf</i>, but it is written entirely in
+terms of <i class="progname">dvips</i> <code>&#x5c;special</code> commands, and is thus rather
+imperfectly portable.
+
+<p>
+An alternative approach is implemented by Norman Gray&rsquo;s <i class="package">feyn</i>
+package.  Rather than creating complete diagrams as postscript images,
+<i class="package">feyn</i> provides a font (in a variety of sizes) containing
+fragments, which you can compose to produce complete diagrams.  It
+offers fairly simple diagrams which look good in equations, rather
+than complicated ones more suitable for display in figures.
+<dl>
+<dt class="ctanref">axodraw</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/axodraw">axodraw</a>
+<dt class="ctanref">feyn font bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/feyn">feyn</a>
+<dt class="ctanref">feynman bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/feynman">feynman</a>
+<dt class="ctanref">feynmf/feynmp bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/feynmf">feynmf</a>
+</dl>
+
+<p>

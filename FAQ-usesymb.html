@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-usesymb</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Symbolsetc">Symbols, etc.</a> &gt; <a href="index.html#Oddsandends">Odds and ends</a> &gt; </div>
+<h1>Using symbols</h1>
+
+
+<p>
+
+<p>
+Most symbol font sets come with a package that defines commands for
+every symbol in the font.  While this is convenient, it can lead to
+difficulties, particularly with name clashes when you load packages
+that cover fonts which duplicate symbols&nbsp;&mdash; an issue which is
+discussed in
+
+
+
+
+  &ldquo;<a href="FAQ-alreadydef.html">symbol already defined</a>&rdquo;.
+
+Some font sets (for example the related set: <i class="fontname">FdSymbol</i>,
+<i class="fontname">MdSymbol</i> and <i class="fontname">MnSymbol</i>) are huge, and the
+accompanying macros cover so many symbols that name clashes are surely
+a serious problem.
+
+<p>
+The <i class="package">pifont</i> package (originally designed to use the Adobe
+<i class="fontname">Zapf Dingbats</i> font) avoids this sort of problem: it requires
+you to know the font position of any symbol you want to use (the
+documentation provides font tables).  The basic command is
+<code>&#x5c;ding</code><code>&#x7b;number&#x7d;</code> for a single symbol; there are commands for
+other fancier uses.  <i class="package">Pifont</i> also allows you to select other
+fonts, for similar use.
+
+<p>
+The <i class="package">yagusylo</i> describes itself as &ldquo;an extended version of
+<i class="package">pifont</i>, gone technicolor&rdquo;.  It provides all the facilities
+of <i class="package">pifont</i>, but allows you to create your own mnemonic names
+for symbols.  Thus, while you can say 
+<code>&#x5c;yagding</code><code>[family]</code></code><code>&#x7b;symbol number&#x7d;</code>[colour], you can also
+define symbol names with <code>&#x5c;defdingname</code>, and then use them
+with <code>&#x5c;yagding*</code><code>&#x7b;symbol name&#x7d;</code> (the defined name carries the
+font family and colour specified in the arguments of
+<code>&#x5c;defdingname</code>).
+
+<p>
+<i class="package">Yagusylo</i> is somewhat complicated, but its documentation is
+clear; it is probably the best tool to use for picking and choosing
+symbols from a variety of font families.
+<dl>
+<dt class="ctanref">FdSymbol fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fdsymbol">fdsymbol</a>
+<dt class="ctanref">MdSymbol fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mdsymbol">mdsymbol</a>
+<dt class="ctanref">MnSymbol fonts</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/mnsymbol">mnsymbol</a>
+<dt class="ctanref">pifont.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/psnfss">psnfss</a>
+<dt class="ctanref">yagusylo.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/yagusylo">yagusylo</a>
+</dl>
+
+<p>

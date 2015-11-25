@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-spell</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#SupportPackagesforTeX">Support Packages for TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Spelling checkers for work with TeX</h1>
+
+
+<p>
+
+<p>
+&lsquo;Traditional&rsquo; approaches to the problem (of checking your spelling) were
+designed to work with a plain text file; in our case, we have an [[[alltex]]][[[LBRACE]]][[[RBRACE]]]
+source.  For the user, this is a simple-to-understand way to do the
+job; but for the spell-checker programmer, it requires heuristic (and
+hence fallible) analysis of [[[alltex]]][[[LBRACE]]][[[RBRACE]]] macros and so on.  The
+alternative, of viewing the text <em>after</em> [[[alltex]]][[[LBRACE]]][[[RBRACE]]] has processed
+the results, is covered below.
+
+<p>
+The user of an <a href="FAQ-editors.html">shell/editor</a> will usually find it
+embeds a spelling checker.  For command-line use, there are several
+choices, depending on the system you&rsquo;re using.
+
+<p>
+For Unix, <i class="progname">ispell</i> was long the program of choice; it is well
+integrated with <i class="progname">emacs</i>, and deals with some TeX syntax.
+However, it has more-or-less been replaced everywhere, by
+<i class="progname">aspell</i>, which was designed as a successor, and certainly
+performs better on most metrics; there remains some question as to its
+performance with (La)TeX sources.  The most recent offering (which
+is widely used in other open-source software projects) is
+
+  <a href="http://hunspell.sourceforge.net/.html"><i class="progname">Hunspell</i></a>.
+
+
+
+
+<i class="progname">Hunspell</i> is available for other architectures, too; a web
+search shows versions available for Windows, at least.
+
+<p>
+For the Macintosh, <i class="progname">Excalibur</i> has long been used; its
+distribution comes with dictionaries for several languages.
+<i class="progname">Hunspell</i> (see above) is actually part of OS X from version 10.6.
+
+<p>
+The VMS Pascal program <i class="progname">spell</i> makes special cases of
+some important features of LaTeX syntax.
+
+<p>
+For [[[MSDOS]]][[[LBRACE]]][[[RBRACE]]], there are several programs.  <i class="progname">Amspell</i> can be
+called from within an editor, and <i class="progname">jspell</i> is an extended
+version of <i class="progname">ispell</i>.
+
+<p>
+An alternative approach takes [[[alltex]]][[[LBRACE]]][[[RBRACE]]] output, and checks that.  A
+straightforward approach is to produce PDF output, and process
+it with <i class="progname">pdftotext</i>, using any plain text checker on the
+result (the checkers listed above all work in this r\^ole).  For this
+to work reasonably well, the user should disable hyphenation before
+making the PDF output.
+
+<p>
+The (experimental) LuaTeX/LaTeX package <i class="package">spelling</i> goes
+one step further: it uses <i class="progname">lua</i> code to extract words
+<em>while typesetting is going on</em>, but before hyphenation is
+applied.  Each word is looked up in a list of known bad spellings, and
+the word highlighted if it appears there.  In parallel, a text file is
+created, which can be processed by a &lsquo;normal&rsquo; spelling checker to
+produce a revised &ldquo;bad spelling&rdquo; list.  (The package documentation
+shows the end result; it includes words such as &lsquo;spellling&rsquo;, which are
+duly highlighted.)
+<dl>
+<dt class="ctanref">4spell</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/4spell">4spell</a>
+<dt class="ctanref">amspell</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/amspell">amspell</a>
+<dt class="ctanref">aspell</dt><dd>Browse <a class="ctan" href="https://www.ctan.org/pkg/aspell">aspell</a>&nbsp;&mdash; choose just those language
+  dictionaries (under subdirectory <i class="filename">dict/</i>) that you need.
+<dt class="ctanref">excalibur</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/Excalibur">Excalibur</a>
+<dt class="ctanref">ispell</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ispell">ispell</a>
+<dt class="ctanref">jspell</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/jspell">jspell</a>
+<dt class="ctanref">spelling.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/spelling">spelling</a>
+<dt class="ctanref">VMS spell</dt><dd>
+  <a class="ctan" href="https://www.ctan.org/pkg/vmspell">vmspell</a>
+<dt class="ctanref">winedt</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/winedt">winedt</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-10-02</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-spell">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-spell</a>
+
+<p>

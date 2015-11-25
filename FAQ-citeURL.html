@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-citeURL</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingbibliographies">Creating bibliographies</a> &gt; </div>
+<h1>URLs in BibTeX bibliographies</h1>
+
+
+<p>
+
+<p>
+There is no citation type for URLs, <em>per se</em>, in the
+standard BibTeX styles, though Oren Patashnik (the author of
+BibTeX) is believed to be considering developing one such for use
+with the long-awaited BibTeX version&nbsp;1.0.
+
+<p>
+The actual information that need be available in a citation of an
+URL is discussed at some length in the publicly available
+on-line 
+
+
+
+
+
+
+<a href="http://www.nlc-bnc.ca/iso/tc46sc9/standard/690-2e.htm.html">extracts of ISO&nbsp;690&ndash;2</a>;
+
+the techniques below do <em>not</em> satisfy all the requirements of
+ISO&nbsp;690&ndash;2, but they offer a solution that is at least
+available to users of today&rsquo;s tools.
+
+<p>
+Until the new version of BibTeX arrives, the simplest technique is
+to use the <tt>howpublished</tt> field of the standard styles&rsquo; <tt>@misc</tt>
+function.  Of course, the strictures
+about <a href="FAQ-setURL.html">typesetting URLs</a> still apply, so the
+entry will look like:
+<blockquote>
+<pre>
+@misc{...,
+  ...,
+  howpublished = "\url{http://...}"
+}
+</pre>
+</blockquote>
+A possible alternative approach is to use BibTeX styles other than
+the standard ones, that already have URL entry types.
+Candidates are:
+<ul>
+<li> The <i class="package">natbib</i> styles (<i class="package">plainnat</i>,
+  <i class="package">unsrtnat</i> and <i class="package">abbrevnat</i>), which are extensions of
+  the standard styles, principally for use with <i class="package">natbib</i>
+  itself.  However, they&rsquo;ve acquired URLs and other &ldquo;modern&rdquo;
+  entries along the way.  The same author&rsquo;s <i class="package">custom-bib</i> is
+  also capable of generating styles that honour URL entries.
+<li> The <i class="package">babelbib</i> bundle, which offers 
+  <a href="FAQ-i18nbib.html">multilingual bibliographies</a>, similarly provides a
+  set of standard-style equivalents that have URL entries.
+<li> More modern styles such as the <i class="package">harvard</i> package (if the
+  citation styles are otherwise satisfactory for you).
+  <i class="package">Harvard</i> bibliography styles all include a &ldquo;<tt>url</tt>&rdquo;
+  field in their specification; however, the typesetting offered is
+  somewhat feeble (though it does recognise and use
+  <i class="progname">LaTeX2HTML</i> macros if they are available, to create
+  hyperlinks).
+</ul>
+You can also acquire new BibTeX styles by use of Norman Gray&rsquo;s
+<i class="package">urlbst</i> system, which is based on a <i class="progname">Perl</i> script
+that edits an existing BibTeX style file to produce a new
+style. The new style thus generated has a <tt>webpage</tt> entry type, and
+also offers support for <tt>url</tt> and <tt>lastchecked</tt> fields
+in the other entry types.  The <i class="progname">Perl</i> script comes with a set
+of converted versions of the standard bibliography styles.
+
+<p>
+Another possibility is that some conventionally-published paper,
+technical report (or even book) is also available on the Web.  In such
+cases, a useful technique is something like:
+<blockquote>
+
+<pre>
+@techreport{...,
+  ...,
+  note = "Also available as \url{http://...}"
+}
+</pre>
+
+
+<pre>
+@techreport{...,
+  ...,
+  note = "Also available as 
+                       \url{http://...}"
+}
+</pre>
+
+</blockquote>
+There is good reason to use the <i class="package">url</i> or <i class="package">hyperref</i>
+packages in this context: BibTeX has a habit of splitting
+lines it considers excessively long, and if there are no space
+characters for it to use as &lsquo;natural&rsquo; breakpoints, BibTeX will
+insert a comment (&lsquo;<tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt>&rsquo;) character&nbsp;&hellip;\@ which
+is an acceptable character in an URL.  Any current version of
+either of the <i class="package">url</i> or <i class="package">hyperref</i> packages detects this
+&ldquo;<tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt>&ndash;end-of-line&rdquo; structure in its argument, and
+removes it.
+<dl>
+<dt class="ctanref">babelbib bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/babelbib">babelbib</a>
+<dt class="ctanref">custom-bib bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/custom-bib">custom-bib</a>
+<dt class="ctanref">harvard.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/harvard">harvard</a>
+<dt class="ctanref">hyperref.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyperref">hyperref</a>
+<dt class="ctanref">natbib styles</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/natbib">natbib</a>
+<dt class="ctanref">url.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/url">url</a>
+<dt class="ctanref">urlbst</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/urlbst">urlbst</a>
+</dl>
+
+<p>

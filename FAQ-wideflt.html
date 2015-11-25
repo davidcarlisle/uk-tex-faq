@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-wideflt</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Floatingtablesfiguresetc">Floating tables, figures, etc.</a> &gt; </div>
+<h1>Centring a very wide figure or table</h1>
+
+
+<p>
+
+<p>
+The normal means of centring a figure or table object is to include
+<code>&#x5c;centering</code> at the top of the float.  This doesn&rsquo;t help if the
+object is wider than <code>&#x5c;textwidth</code>&nbsp;&mdash; the object starts at the left
+margin and juts out into the right margin (which is actually doubly
+unsatisfactory, since as well as looking bad, the float won&rsquo;t be
+placed until the next <code>&#x5c;clearpage</code> or the like.)
+
+<p>
+You can avoid the problem by rescaling the figure or table to fit, but
+this is often not satisfactory, for several reasons.
+
+<p>
+Otherwise, if the object is wider than the printable area of the page,
+you&rsquo;ve no choice other than to <a href="FAQ-landscape.html">rotate it</a>.  If,
+however, the object is <em>just</em> wider than the text block, you can
+make it pretend to be the right size by:
+<blockquote>
+
+<pre>
+\begin{figure}
+  \noindent
+  \makebox[\textwidth]{\includegraphics{my-wide-figure}}%
+  \caption{This figure juts out into both margins}
+\end{figure}
+</pre>
+
+
+<pre>
+\begin{figure}
+  \noindent
+  \makebox[\textwidth]{%
+    \includegraphics{my-wide-figure}%
+  }%
+  \caption{This figure juts out into both margins}
+\end{figure}
+</pre>
+
+</blockquote>
+Note the <code>&#x5c;noindent</code>: the <code>&#x5c;makebox</code> starts a paragraph, and you
+really don&rsquo;t want that indented by <code>&#x5c;parindent</code>.
+
+<p>

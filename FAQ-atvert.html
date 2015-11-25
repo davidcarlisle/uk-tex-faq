@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-atvert</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1><code>&#x5c;spacefactor</code> complaints</h1>
+
+
+<p>
+
+<p>
+The errors
+<blockquote>
+
+<pre>
+! You can't use `\spacefactor' in
+...                           vertical mode.
+\@->\spacefactor 
+                 \@m 
+</pre>
+
+
+<pre>
+! You can't use `\spacefactor' in vertical mode.
+\@->\spacefactor 
+                 \@m 
+</pre>
+
+</blockquote>
+or
+<blockquote>
+<pre>
+! You can't use `\spacefactor' in math mode.
+\@->\spacefactor 
+                 \@m 
+</pre>
+</blockquote>
+or simply
+<blockquote>
+<pre>
+! Improper \spacefactor.
+...
+</pre>
+</blockquote>
+bite the LaTeX programmer who uses an internal command without
+taking &ldquo;precautions&rdquo;.  An internal-style command such as <code>&#x5c;@foo</code>
+has been defined or used in a private macro, and it is interpreted as
+<code>&#x5c;@</code>, followed by the &lsquo;text&rsquo; <tt>foo</tt>.  (<code>&#x5c;@</code> is used, for
+real, to set up end-of-sentence space in some circumstances; it uses
+<code>&#x5c;spacefactor</code> to do that.)
+
+<p>
+The problem is discussed in detail in
+
+&ldquo;<a class="FAquestion.html" href="FAQ-atsigns.html"><tt>@</tt> in macro names</a>&rdquo;,
+together with solutions.
+
+<p>

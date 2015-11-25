@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-verbwithin</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>Why doesn&rsquo;t verbatim work within\,&hellip;?</h1>
+
+
+<p>
+
+<p>
+The LaTeX verbatim commands work by changing category codes.  Knuth
+says of this sort of thing &ldquo;Some care is needed to get the timing
+right&hellip;&rdquo;, since once the category code has been assigned to a
+character, it doesn&rsquo;t change.  So <code>&#x5c;verb</code> and
+<code>&#x5c;begin</code><code>&#x7b;verbatim&#x7d;</code> have to assume that they are getting the
+first look at the parameter text; if they aren&rsquo;t, TeX has already
+assigned category codes so that the verbatim command doesn&rsquo;t have a
+chance.  For example:
+<blockquote>
+<pre>
+\verb+\error+
+</pre>
+</blockquote>
+will work (typesetting &lsquo;<code>&#x5c;error</code>&rsquo;), but if we define no more than a
+no-op macro,
+<blockquote>
+<pre>
+\newcommand{\unbrace}[1]{#1}
+</pre>
+</blockquote>
+which simply regurgitates its argument, and use it as:
+<blockquote>
+<pre>
+\unbrace{\verb+\error+}
+</pre>
+</blockquote>
+the combinartion will not (it will attempt to execute <code>&#x5c;error</code>).
+Other errors one
+may encounter are &lsquo;<code>&#x5c;verb</code> ended by end of line&rsquo;, or even the
+rather more helpful &lsquo;<code>&#x5c;verb</code> illegal in command argument&rsquo;.  The
+same sorts of thing happen with <code>&#x5c;begin</code><code>&#x7b;verbatim&#x7d;</code> &hellip;
+<code>&#x5c;end</code><code>&#x7b;verbatim&#x7d;</code>:
+<blockquote>
+<pre>
+\ifthenelse{\boolean{foo}}{%
+\begin{verbatim}
+foobar
+\end{verbatim}
+}{%
+\begin{verbatim}
+barfoo
+\end{verbatim}
+}
+</pre>
+</blockquote>
+provokes errors like &lsquo;File ended while scanning use of
+<code>&#x5c;@xverbatim</code>&rsquo;, as <code>&#x5c;begin</code><code>&#x7b;verbatim&#x7d;</code> fails to see its
+matching <code>&#x5c;end</code><code>&#x7b;verbatim&#x7d;</code>.
+
+<p>
+This is why the LaTeX book insists that verbatim
+commands must not appear in the argument of any other command; they
+aren&rsquo;t just fragile, they&rsquo;re quite unusable in any &ldquo;normal&rdquo; command
+parameter, 
+regardless of <a href="FAQ-protect.html"><code>&#x5c;protect</code>ion</a>.  (The <code>&#x5c;verb</code>
+command tries hard to detect if you&rsquo;re misusing it; unfortunately, it
+can&rsquo;t always do so, and the error message is therefore not reliable as an
+indication of problems.)
+
+<p>
+The first question to ask yourself is: &ldquo;is <code>&#x5c;verb</code> actually
+necessary?&rdquo;.
+<ul>
+<li> If <code>&#x5c;texttt</code><code>&#x7b;<em>your text</em>&#x7d;</code> produces the same result
+  as <code>&#x5c;verb</code><tt>+<em>your text</em>+</tt>, then there&rsquo;s no need of
+  <code>&#x5c;verb</code> in the first place.
+<li> If you&rsquo;re using <code>&#x5c;verb</code> to typeset a URL or email
+  address or the like, then the <code>&#x5c;url</code> command from the
+  <i class="package">url</i> will help: it doesn&rsquo;t suffer from all the problems of
+  <code>&#x5c;verb</code>, though it&rsquo;s still not robust; 
+  &ldquo;<a href="FAQ-setURL.html">typesetting URLs</a>&rdquo; offers advice here.
+<li> If you&rsquo;re putting <code>&#x5c;verb</code> into the argument of a boxing
+  command (such as <code>&#x5c;fbox</code>), consider using the <code class="environment">lrbox</code>
+  environment:
+<blockquote>
+<pre>
+\newsavebox{\mybox}
+...
+\begin{lrbox}{\mybox}
+  \verb!VerbatimStuff!
+\end{lrbox}
+\fbox{\usebox{\mybox}}
+</pre>
+</blockquote>
+</ul>
+
+<p>
+If you can&rsquo;t avoid verbatim, the <code>&#x5c;cprotect</code> command (from the
+package <i class="package">cprotect</i>) might help.  The package manages to make a
+macro read a verbatim argument in a &ldquo;sanitised&rdquo; way by the simple
+medium of prefixing the macro with <code>&#x5c;cprotect</code>:
+<blockquote>
+<pre>
+\cprotect\section{Using \verb|verbatim|}
+</pre>
+</blockquote>
+The package <em>does</em> work in this simple case, and deserves
+consideration in many others cases; the package documentation gives
+more details.
+
+<p>
+Another way out is to use one of &ldquo;argument types&rdquo; of the
+<code>&#x5c;NewDocumentCommand</code> command in the experimental LaTeX3 package
+<i class="package">xparse</i>:
+<blockquote>
+<pre>
+\NewDocumentCommand\cmd{ m v m }{#1 `#2' #3}
+\cmd{Command }|\furble|{ isn't defined}
+</pre>
+</blockquote>
+Which gives us:
+<blockquote>
+  Command <code>&#x5c;furble</code> isn&rsquo;t defined
+</blockquote>
+The &ldquo;<tt>m</tt>&rdquo; tag argument specifies a normal mandatory argument,
+and the &ldquo;<tt>v</tt>&rdquo; specifies one of these verbatim arguments.
+As you see, it&rsquo;s implanting a <code>&#x5c;verb</code>-style command argument in the
+argument sequence of an otherwise &ldquo;normal&rdquo; sort of command; that
+
+
+
+
+  &lsquo;<tt>|</tt>&rsquo; 
+
+may be any old character that doesn&rsquo;t
+conflict with the content of the argument.
+
+<p>
+This is pretty neat (even if the verbatim is in an argument of its
+own) but the downside is that <i class="package">xparse</i> pulls in
+the experimental LaTeX3 programming environment
+(<i class="package">l3kernel</i>) which is pretty big.
+
+<p>
+Other than the <i class="package">cprotect</i> package, there are four partial
+solutions to the problem:
+<ul>
+<li> Some packages have macros which are designed to be responsive
+  to verbatim text in their arguments.  For example,
+  the <i class="package">fancyvrb</i> package defines a command
+  <code>&#x5c;VerbatimFootnotes</code>, which redefines the <code>&#x5c;footnotetext</code>
+  command, and hence also the behaviour of the <code>&#x5c;footnote</code>)
+  command, in such a way that you can include <code>&#x5c;verb</code> commands in
+  its argument.  This approach could in principle be extended to the
+  arguments of other commands, but it can clash with other packages:
+  for example, <code>&#x5c;VerbatimFootnotes</code> interacts poorly with the
+  <code class="pkgoption">para</code> option of the <i class="package">footmisc</i> package.
+
+<p>
+  The <i class="class">memoir</i> class defines its <code>&#x5c;footnote</code> command so that
+  it will accept verbatim in its arguments, without any supporting package.
+<li> The <i class="package">fancyvrb</i> package defines a command <code>&#x5c;SaveVerb</code>,
+  with a corresponding <code>&#x5c;UseVerb</code> command, that allow you to save
+  and then to reuse the content of its argument; for details of this
+  extremely powerful facility, see the package documentation.
+
+<p>
+  Rather simpler is the <i class="package">verbdef</i> package, whose <code>&#x5c;verbdef</code>
+  command defines a (robust) command which expands to the verbatim
+  argument given; the <i class="package">newverbs</i> package provides a similar
+  function as well as several related ones.
+<li> In a similar vein, the <i class="package">verbatimbox</i> package makes it
+  possible to put verbatim material in a box:
+  <blockquote>
+<pre>
+\begin{verbbox}
+some exotic _&amp;$ stuff
+\end{verbbox}
+\theverbbox
+</pre>
+  </blockquote>
+  the operation typesets exotic stuff into an anonymous box, and its
+  contents may be retrieved using the command <code>&#x5c;theverbbox</code>.  It is
+  clear that it&rsquo;s in the same mould as the <code>&#x5c;verbdef</code> command
+  mentioned above; the package defines other similar commands.
+<li> The <i class="package">tcolorbox</i> package provides a similar facility
+<li> If you have a single character that is giving trouble (in
+  its absence you could simply use <code>&#x5c;texttt</code>), consider using
+  <code>&#x5c;string</code>.  <code>&#x5c;texttt</code><code>&#x7b;my<code>&#x5c;string</code>\_name&#x7d;</code>
+  typesets the same as 
+  <code>&#x5c;verb+my\_name+</code>, and will work in the argument of a command.  It
+  won&rsquo;t, however, work in a moving argument, and no amount of
+  <a href="FAQ-protect.html"><code>&#x5c;protect</code>ion</a> will make it work in
+  such a case.
+
+<p>
+  A robust alternative is:
+<blockquote>
+<pre>
+\chardef\us=`\_
+...
+\section{... \texttt{my\us name}}
+</pre>
+</blockquote>
+  Such a definition is &lsquo;naturally&rsquo; robust; the construction
+  &ldquo;&lsaquo;<i>back-tick</i>&rsaquo;<code>&#x5c;&lsaquo;<i>char</i>&rsaquo;</code>&rdquo; may be used for any
+  troublesome character (though it&rsquo;s plainly not necessary for things
+  like percent signs for which (La)TeX already provides
+  robust macros).
+
+<p>
+<li> One may also consider putting verbatim material in an external
+  file; this is somewhat more tedious, but the file may be reused
+  several times within a single document.  The <i class="package">tcolorbox</i>
+  package allows this:
+<blockquote>
+<pre>
+\begin{tcbverbatimwrite}{<file name>}
+...
+\end{tcbverbatimwrite}
+</pre>
+</blockquote>
+  which (as one might guess) writes to the named file; load the saved
+  contents using <code>&#x5c;input</code><code>&#x7b;<file name>&#x7d;</code>
+
+<p>
+  A second environment puts your verbatim material in an (apparently)
+  anonymous temporary file:
+<blockquote>
+<pre>
+\begin{tcbwritetemp}{<file name>}
+...
+\end{tcbverbatimwrite}
+</pre>
+</blockquote>
+  In this case, you use the anonymous file with the <code>&#x5c;tcbusetemp</code>
+  macro.  (You can change the name used for the &lsquo;anonymous&rsquo; file, if
+  its default proves troublesome.)
+
+<p>
+  The <i class="package">moreverb</i> package provides a <code>&#x5c;verbatimwrite</code>
+  command, which doesn&rsquo;t provide an anonynous file.
+
+<p>
+  Macros, to achieve the same effect, are outlined in the
+  documentation of the <i class="package">verbatim</i> package; the macros use the
+  facilities of the package, but the user has to write a mini-package
+  actually to use them.
+</ul>
+<dl>
+<dt class="ctanref">cprotect.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/cprotect">cprotect</a>
+<dt class="ctanref">fancyvrb.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/fancyvrb">fancyvrb</a>
+<dt class="ctanref">l3kernel bundle</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/l3kernel">l3kernel</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+<dt class="ctanref">newverbs.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/newverbs">newverbs</a>
+<dt class="ctanref">tcolorbox.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/tcolorbox">tcolorbox</a>
+<dt class="ctanref">url.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/url">url</a>
+<dt class="ctanref">verbatim.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/verbatim">verbatim</a>
+<dt class="ctanref">verbatimbox.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/verbatimbox">verbatimbox</a>
+<dt class="ctanref">verbdef.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/verbdef">verbdef</a>
+<dt class="ctanref">xparse.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/l3packages">l3packages</a>[xparse]
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-10-21</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-verbwithin">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-verbwithin</a>
+
+<p>

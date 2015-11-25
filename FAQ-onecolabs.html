@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-onecolabs</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Adjustingthetypesetting">Adjusting the typesetting</a> &gt; <a href="index.html#Documentstructure">Document structure</a> &gt; </div>
+<h1>1-column abstract in 2-column document</h1>
+
+
+<p>
+
+<p>
+One often requires that the abstract of a paper should appear across
+the entire page, even in a two-column paper.  The required trick is:
+<blockquote>
+<pre>
+\documentclass[twocolumn]{article}
+...
+\begin{document}
+... % \author, etc
+\twocolumn[
+  \begin{@twocolumnfalse}
+    \maketitle
+    \begin{abstract}
+      ...
+    \end{abstract}
+  \end{@twocolumnfalse}
+  ]
+</pre>
+</blockquote>
+Unfortunately, with the above <code>&#x5c;thanks</code> won&rsquo;t work in the
+<code>&#x5c;author</code> list.  If you need such specially-numbered footnotes, you
+can make them like this:
+<blockquote>
+<pre>
+\title{Demonstration}
+\author{Me, You\thanks{}}
+\twocolumn[
+  ... as above ...
+]
+{
+  \renewcommand{\thefootnote}%
+    {\fnsymbol{footnote}}
+  \footnotetext[1]{Thanks for nothing}
+}
+</pre>
+</blockquote>
+and so on.
+
+<p>
+As an alternative, among other facilities the <i class="package">abstract</i> package 
+provides a
+<code>&#x5c;saythanks</code> command and a <code class="environment">onecolabstract</code> environment
+which remove the need to fiddle with the <code>&#x5c;thanks</code> and
+footnoting. They can be used like this:
+<blockquote>
+<pre>
+\twocolumn[
+  \maketitle             % full width title
+  \begin{onecolabstract} % ditto abstract
+    ... text
+  \end{onecolabstract}
+]
+\saythanks            % typeset any \thanks
+</pre>
+</blockquote>
+The <i class="class">memoir</i> class offers all the facilities of <i class="package">abstract</i>.
+<dl>
+<dt class="ctanref">abstract.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/abstract">abstract</a>
+<dt class="ctanref">memoir.cls</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/memoir">memoir</a>
+</dl>
+
+<p>

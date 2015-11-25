@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-nohyph</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Hyphenation">Hyphenation</a> &gt; </div>
+<h1>My words aren&rsquo;t being hyphenated</h1>
+
+
+<p>
+
+<p>
+Let&rsquo;s assume you&rsquo;ve selected the right TeX &lsquo;language&rsquo;&nbsp;&mdash; as
+explained in <a class="FAquestion.html" href="FAQ-hyphen.html">&ldquo;how hyphenation works&rdquo;</a>,
+you&rsquo;re not likely to get the correct results typesetting one language
+using the hyphenation rules of another.  (Select the proper language,
+using <i class="package">babel</i> if you&rsquo;re a LaTeX user.  This may reveal that
+you need another set of hyphenation patterns; see
+
+<a class="FAquestion.html" href="FAQ-newlang.html">&ldquo;using a new language&rdquo;</a> for advice on how
+to install it.)
+
+<p>
+So what else can go wrong?
+<ul>
+<li> Since TeX version&nbsp;3.0, the limits on how near to either end
+  of a word hyphenation may take place have been programmable (see
+  <a class="FAquestion.html" href="FAQ-weirdhyphen.html">&ldquo;weird hyphenation&rdquo;</a>), and for some
+  reason the values in question may have been corrupted in some macros
+  you are using.  TeX won&rsquo;t hyphenate less than <code>&#x5c;lefthyphenmin</code>
+  characters after the start of a word, nor less than
+  <code>&#x5c;righthyphenmin</code> before the end of a word; thus it won&rsquo;t
+  hyphenate a word shorter than the sum of the two minima, at all.
+  For example, since the minima are 2 and 3 for English, TeX won&rsquo;t
+  hyphenate a word shorter than 5 letters long, if it believes the
+  word to be English.
+<li> TeX won&rsquo;t hyphenate a word that&rsquo;s already been hyphenated.
+  For example, the (caricature) English surname Smyth-Postlethwaite
+  wouldn&rsquo;t hyphenate, which could be troublesome.  This is correct
+  English typesetting style (it may not be correct for other
+  languages), but if needs must, you can replace the hyphen in the
+  name with a <code>&#x5c;hyph</code> command, defined
+<blockquote>
+<pre>
+\def\hyph{-\penalty0\hskip0pt\relax}
+</pre>
+</blockquote>
+  This is <em>not</em> the sort of thing this FAQ would
+  ordinarily recommend&hellip; The <i class="package">hyphenat</i> package defines a
+  bundle of such commands (for introducing hyphenation points at
+  various punctuation characters).
+<li> There may be accent commands in the word.  The causes of and
+  remedies for this effect are discussed in 
+  <a class="FAquestion.html" href="FAQ-hyphenaccents.html">accents and hyphens</a>.
+<li> The hyphenation may simply not have been spotted; while TeX&rsquo;s
+  algorithm is good, it&rsquo;s not infallible, and it does miss perfectly
+  good hyphenations in some languages.  When this happens, you need to
+  give TeX <em>explicit</em> instructions on how to hyphenate.
+</ul>
+The <code>&#x5c;hyphenation</code> command allows you to give explicit instructions.
+Provided that the word will hyphenate at all (that is, it is not
+prevented from hyphenating by any of the other restrictions above),
+the command will override anything the hyphenation patterns might
+dictate.  The command takes one or more hyphenated words as
+argument&nbsp;&mdash; <code>&#x5c;hyphenation</code><code>&#x7b;ana-lysis pot-able&#x7d;</code>; note that
+(as here, for analysis) you can use the command to overrule TeX&rsquo;s
+choice of hyphenation (ana-lysis is the British etymological
+hyphenation; some feel the American hyphenation feels
+&lsquo;unfortunate&rsquo;&hellip;).
+<dl>
+<dt class="ctanref">hyphenat.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/hyphenat">hyphenat</a>
+</dl>
+
+<p class="lastedit">This answer last edited: 2013-09-20</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-nohyph">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-nohyph</a>
+
+<p>

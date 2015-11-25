@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-newlineargs</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Whydoesitemdoemthat">Why does it <em>do</em> that?</a> &gt; <a href="index.html#Commonerrors">Common errors</a> &gt; </div>
+<h1>Start of line goes awry</h1>
+
+
+<p>
+[[[keywords]]][[[LBRACE]]]asterisk square bracket start line[[[RBRACE]]]
+
+<p>
+This answer concerns two sorts of problems: errors of the form
+<blockquote>
+<pre>
+! Missing number, treated as zero.
+<to be read again> 
+                   p
+<*> [perhaps]
+</pre>
+</blockquote>
+and errors where a single asterisk at the start of a line mysteriously
+fails to appear in the typeset output.
+
+<p>
+Both problems arise because <tt>&#x5c; </tt> takes optional arguments.  The
+command <tt>&#x5c; *</tt> means &ldquo;break the line here, and inhibit page break
+following the line break&rdquo;; the command <tt>&#x5c; [</tt>&lsaquo;<i>dimen</i>&rsaquo;<tt>]</tt>
+means &ldquo;break the line here and add &lsaquo;<i>dimen</i>&rsaquo; extra vertical space
+afterwards&rdquo;.
+
+<p>
+The problem arises because <tt>&#x5c; </tt> looks for the next
+non-blank thing; the test it uses ignores the end of the line in
+your input text, so that <tt>&#x5c; </tt> comes to imagine that you
+were giving it a &lsquo;modifier&rsquo;.
+
+<p>
+An obvious solution is to enclose the stuff at the start of the new
+line in braces, typing:
+<blockquote>
+<pre>
+{\ttfamily
+  /* C-language comment\\
+  {[perhaps]} this could be done better\\
+  {*}/
+}
+</pre>
+</blockquote>
+This particular example could be coded (without any problems) in
+verbatim, but the behaviour does confuse people.
+
+<p>
+The problem also appears in maths mode, in arrays and so on.  In this
+case, large-scale bracketing of things is <em>not</em> a good idea; the
+TeX primitive <code>&#x5c;relax</code> (which does nothing except to block
+searches of this nature) may be used.  From another
+<i class="newsgroup">comp.text.tex</i> example:
+<blockquote>
+<pre>
+\begin{eqnarray}
+  [a] &amp;=&amp; b \\
+  \relax[a] &amp;=&amp; b
+\end{eqnarray}
+</pre>
+</blockquote>
+which is a usage this FAQ would not recommend, anyway: refer
+to the <a href="FAQ-eqnarray.html">reason not to use <code class="environment">eqnarray</code></a>.
+
+<p>
+Note that the <i class="package">amsmath</i> package modifies the behaviour of
+<tt>&#x5c; </tt> in maths.  With <i class="package">amsmath</i>, the
+<code class="environment">eqnarray</code> example doesn&rsquo;t need any special action
+(<code>&#x5c;relax</code> or braces).
+
+<p class="lastedit">This answer last edited: 2012-09-02</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-newlineargs">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-newlineargs</a>
+
+<p>

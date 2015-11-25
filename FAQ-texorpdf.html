@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-texorpdf</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Token not allowed in PDFDocEncoded string</h1>
+
+
+<p>
+
+<p>
+The package <i class="package">hyperref</i> produces this error when it doesn&rsquo;t
+know how to make something into a &ldquo;character&rdquo; that will go into one
+of its PDF entries.  For example, the (unlikely) sequence
+<blockquote>
+<pre>
+\newcommand{\filled}[2]{%
+  #1%
+  \hfil
+  #2%
+}
+\section{\filled{foo}{bar}}
+</pre>
+</blockquote>
+provokes the error.  <i class="package">Hyperref</i> goes on to tell you:
+<blockquote>
+<pre>
+removing `\hfil' on input line ...
+</pre>
+</blockquote>
+It&rsquo;s not surprising: how would <em>you</em> put the
+typesetting instruction <code>&#x5c;hfil</code> into a PDF bookmark?
+
+<p>
+<i class="package">Hyperref</i> allows you to define an alternative for such
+things: the command <code>&#x5c;texorpdfstring</code>, which takes two
+arguments&nbsp;&mdash; the first is what is typeset, the second is what is put
+into the bookmark.  For example, what you would probably like in this
+case is just a single space in the bookmark; if so, the erroneous
+example above would become:
+<blockquote>
+<pre>
+\newcommand{\filled}[2]{%
+  #1%
+  \texorpdfstring{\hfil}{\space}%
+  #2%
+}
+\section{\filled{foo}{bar}}
+</pre>
+</blockquote>
+and with that definition, the example will compile succesfully
+(<i class="package">hyperref</i> knows about the macro <code>&#x5c;space</code>).
+[[[LastEdit]]]*[[[LBRACE]]]2009-05-29[[[RBRACE]]]
+
+<p>

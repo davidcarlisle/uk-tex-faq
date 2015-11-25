@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-texinfo</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#TheBackground">The Background</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What is Texinfo?</h1>
+
+
+<p>
+
+<p>
+Texinfo is a documentation system that uses one source file to produce
+both on-line information and printed output.  So instead of writing
+two different documents, one for the on-line help and the other for a
+typeset manual, you need write only one document source file.  When
+the work is revised, you need only revise one document.  By
+convention, Texinfo source file names end with a <code class="extension">texi</code> or
+<code class="extension">texinfo</code> extension.
+
+<p>
+Texinfo is a macro language, somewhat similar to LaTeX, but with
+slightly less expressive power.  Its appearance is of course rather
+similar to any TeX-based macro language, except that its macros
+start with <tt>@</tt> rather than the <code class="verb">\</code> that&rsquo;s more commonly used in
+TeX systems.
+
+<p>
+You can write and format Texinfo files into Info files within GNU
+<i class="progname">emacs</i>, and read them using the <i class="progname">emacs</i> Info
+reader.  You can also format Texinfo files into Info files using
+<i class="progname">makeinfo</i> and read them using <i class="progname">info</i>, so you&rsquo;re not
+dependent on <i class="progname">emacs</i>.  The distribution includes a
+<i class="progname">Perl</i> script, <i class="progname">texi2html</i>, that will convert
+Texinfo sources into HTML: the language is a far better fit to
+HTML than is LaTeX, so that the breast-beating agonies of
+<a href="FAQ-LaTeX2HTML.html">converting LaTeX to HTML</a> are largely
+avoided.
+
+<p>
+Finally, of course, you can also print the files, or convert them to
+PDF using PDFTeX.
+<dl>
+<dt class="ctanref">Texinfo distribution</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/texinfo">texinfo</a>
+</dl>
+
+<p>

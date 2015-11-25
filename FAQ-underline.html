@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-underline</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#ThingsareGoingWronghellip">Things are Going Wrong&hellip;</a> &gt; <a href="index.html#Makingthingsstaywhereyouwantthem">Making things stay where you want them</a> &gt; </div>
+<h1>Underlined text won&rsquo;t break</h1>
+
+
+<p>
+
+<p>
+Knuth made no provision for underlining text: he took the view that
+underlining is not a typesetting operation, but rather one that
+provides emphasis on typewriters, which typically offer but one
+typeface.  The corresponding technique in typeset text is to switch
+from upright to italic text (or vice-versa): the LaTeX command
+<code>&#x5c;emph</code> does just that to its argument.
+
+<p>
+Nevertheless, typographically illiterate people (such as those that
+specify double-spaced
+<a href="FAQ-linespace.html">thesis styles</a>)
+continue to require underlining of us, so LaTeX as distributed
+defines an <code>&#x5c;underline</code> command that applies the mathematical
+&lsquo;underbar&rsquo; operation to text.  This technique is not entirely
+satisfactory, however: the text gets stuck into a box, and won&rsquo;t break
+at line end.
+
+<p>
+Two packages are available that solve this problem.  The
+<i class="package">ulem</i> package redefines the
+<code>&#x5c;emph</code> command to underline its argument; the underlined text thus
+produced behaves as ordinary emphasised text, and will break over the
+end of a line.  (The package is capable of other peculiar effects,
+too: read its documentation.)
+The <i class="package">soul</i> package defines an <code>&#x5c;ul</code> command (after which the
+package is, in part, named) that underlines running text.
+
+<p>
+Beware of <i class="package">ulem</i>&rsquo;s default behaviour, which is to convert the
+<code>&#x5c;emph</code> command into an underlining command; this can be avoided by
+loading the package with:
+<blockquote>
+<pre>
+\usepackage[normalem]{ulem}
+</pre>
+</blockquote>
+<dl>
+<dt class="ctanref">ulem.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/ulem">ulem</a>
+<dt class="ctanref">soul.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/soul">soul</a>
+</dl>
+
+<p>

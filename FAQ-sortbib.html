@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-sortbib</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Bibliographiesandcitations">Bibliographies and citations</a> &gt; <a href="index.html#Creatingcitations">Creating citations</a> &gt; </div>
+<h1>Sorting lists of citations</h1>
+
+
+<p>
+
+<p>
+BibTeX has a sorting function, and most BibTeX styles sort the
+citation list they produce; most people find this desirable.
+
+<p>
+However, it is perfectly possible to write a
+<code class="environment">thebibliography</code> environment that <em>looks</em> as if it
+came from BibTeX, and many people do so (in order to save time in
+the short term).
+
+<p>
+The problem arises when <code class="environment">thebibliography</code>-writers decide
+their citations need to be sorted.  A common misapprehension is to
+insert <code>&#x5c;bibliographystyle</code><code>&#x7b;alpha&#x7d;</code> (or similar) and expect
+the typeset output to be sorted in some magical way.  BibTeX
+doesn&rsquo;t work that way!&nbsp;&mdash; if you write <code class="environment">thebibliography</code>,
+you get to sort its contents.  BibTeX will only sort the contents
+of a <code class="environment">thebibliography</code> environment when it creates it, to
+be inserted from a <code class="extension">bbl</code> file by a <code>&#x5c;bibliography</code> command.
+
+<p>

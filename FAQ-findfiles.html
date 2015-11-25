@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-findfiles</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#AcquiringtheSoftware">Acquiring the Software</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>Finding (La)TeX files</h1>
+
+
+<p>
+
+<p>
+Modern TeX distributions contain a huge array of various sorts of
+files, but sooner or later most people need to find something that&rsquo;s
+not in their present system (if nothing else, because they&rsquo;ve heard
+that something has been updated).
+
+<p>
+But how to find the files?
+
+<p>
+Modern distributions (texlive and MiKTeX, at least) provide the
+means to update your system &ldquo;over the net&rdquo;.  This is the minimum
+effort route to getting a new file: &lsquo;simply&rsquo; find which of the
+distribution&rsquo;s &lsquo;packages&rsquo; holds the file in question, and ask the
+distribution to update itself.  The mechanisms are different (the two
+distributions exhibit the signs of evolutionary divergence in their
+different niches), but neither is difficult&nbsp;&mdash; see 
+&ldquo;<a href="FAQ-inst-miktex*.html">using MiKTeX for installing</a>&rdquo; and 
+&ldquo;<a href="FAQ-inst-texlive.html">using texlive for installing</a>&rdquo;.
+
+<p>
+There are packages, though, that aren&rsquo;t in the distribution you use
+(or for which the distribution hasn&rsquo;t yet been updated to offer the
+version you need).
+
+<p>
+Some sources, such as these FAQ answers, provide links to
+files: so if you&rsquo;ve learnt about a package here, you should be able to
+retrieve it without too much fuss.
+
+<p>
+Otherwise, CTAN provides a full-text search, at its
+<a href="http://www.ctan.org/.html">&lsquo;central database&rsquo;</a> site, as well as
+topic- and author-based indexes and a link to browse the archive
+itself.
+
+<p>
+
+
+
+
+
+<p>
+
+
+
+
+<p>
+An alternative way to scan the catalogue is to use the catalogue&rsquo;s
+
+<a href="http://mirrors.ctan.org/help/Catalogue/bytopic.html.html">&ldquo;by topic&rdquo; index</a>;
+this is an older mechanism than the topic-based search (above), but is
+well presented (even though its data has not been updated for some time).  
+
+<p>
+In fact, <i class="progname">Google</i>, and other search engines, can be useful
+tools.  Enter your search keywords, and you may pick up a package that
+the author hasn&rsquo;t bothered to submit to CTAN.
+
+<p>
+A user of <i class="progname">Google</i> can restrict the search to
+CTAN by entering
+<blockquote>
+  <tt>site:ctan.org tex-archive &lsaquo;<i>search term(s)</i>&rsaquo;</tt>
+</blockquote>
+in <i class="progname">Google</i>&rsquo;s &ldquo;search box&rdquo;.  You can also enforce the
+restriction using <i class="progname">Google</i>&rsquo;s &ldquo;advanced search&rdquo; mechanism;
+other search engines (presumably) have similar facilities.
+
+<p>
+Many people avoid the need to go over the network at all, for their
+searches, by downloading the file list that the archives&rsquo; web
+file searches use.  This file, <i class="filename">FILES.byname</i>,
+presents a unified listing of the archive (omitting directory names and
+cross-links).  Its companion <i class="filename">FILES.last07days</i> is also useful, to
+keep an eye on the changes on the archive.  Since these files are
+updated only once a day, a nightly automatic download (using
+<i class="progname">rsync</i>) makes good sense.
+<dl>
+<dt class="ctanref">FILES.byname</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/f-byname">f-byname</a>
+<dt class="ctanref">FILES.last07days</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/f-last7">f-last7</a>
+
+<p class="lastedit">This answer last edited: 2014-03-19</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-findfiles">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-findfiles</a>
+</dl>
+
+<p>

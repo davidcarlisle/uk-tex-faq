@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-specials</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#BitsandpiecesofLaTeX">Bits and pieces of (La)TeX</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1><code>&#x5c;special</code> commands</h1>
+
+
+<p>
+
+<p>
+TeX provides the means to express things that device drivers can
+do, but about which TeX itself knows nothing.  For example, TeX
+itself knows nothing about how to include PostScript figures into
+documents, or how to set the colour of printed text; but some device
+drivers do.
+
+<p>
+Instructions for such things are introduced to your document by means
+of <code>&#x5c;special</code> commands; all that TeX does with these commands is
+to expand their 
+arguments and then pass the command to the DVI file.  In most
+cases, there are macro packages provided (often with the driver) that
+provide a human-friendly interface to the <code>&#x5c;special</code>; for example,
+there&rsquo;s little point including a figure if you leave no gap for it in
+your text, and changing colour proves to be a particularly fraught
+operation that requires real wizardry.  LaTeX 2e
+has standard graphics and colour packages that make figure inclusion,
+rotation and scaling, and colour typesetting relatively
+straightforward, despite the rather daunting <code>&#x5c;special</code> commands
+involved.  (CONTeXT provides similar support, though not by way of
+packages.)
+
+<p>
+The allowable arguments of <code>&#x5c;special</code> depend on the device driver
+you&rsquo;re using.  Apart from the examples above, there are <code>&#x5c;special</code>
+commands in the emTeX drivers (e.g., <i class="progname">dvihplj</i>, <i class="progname">dviscr</i>,
+<em>etc</em>.)&nbsp;that will draw lines at arbitrary orientations, and
+commands in <i class="progname">dvitoln03</i> that permit the page to be set in
+landscape orientation.
+
+<p>
+Note that <code>&#x5c;special</code> behaves rather differently in PDFTeX, since
+there is no device driver around.  There <em>is</em> a concept of
+PDF specials, but in most cases <code>&#x5c;special</code> will provoke a
+warning when used in PDFTeX.
+
+<p class="lastedit">This answer last edited: 2011-10-15</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-specials">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-specials</a>
+
+<p>

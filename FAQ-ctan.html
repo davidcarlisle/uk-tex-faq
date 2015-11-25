@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-ctan</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#TheBackground">The Background</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>What is CTAN?</h1>
+
+
+<p>
+
+<p>
+The acronym stands for &ldquo;Comprehensive TeX Archive Network&rdquo;, which
+more-or-less specifies what it&rsquo;s <em>for</em>:
+<ul>
+<li> The archives offer a comprehensive collection of TeX resources.
+<li> The content is made publicly accessible, via the internet.
+<li> CTAN is a <em>network</em> of archives, which strive to
+  stay in step with one another.
+</ul>
+The basic framework was developed by a TUG working group set up
+to resolve the (then existing) requirement for users to <em>know</em> on
+which archive site a particular package might be found.
+
+<p>
+Actual implementation offers three distinct types of host:
+<dl>
+<dt class="description"><em>Core</em> archives</dt><dd>Which form a small, tightly-coupled set of
+  machines, which perform management functions as well as serving
+  files;
+<dt class="description"><em>Mirror</em> archives</dt><dd>Which do no more than take regular copies
+  of core archives, and serve them; and
+<dt class="description">Archive selector</dt><dd>Which is a meta-service, which routes requests
+  to an apparently &ldquo;local&rdquo; mirror (&ldquo;local&rdquo; is determined by an
+  algorithm that uses your net address to determine where you are, and
+  then selects a mirror that&rsquo;s close).
+</dl>
+Note that there is nothing to prevent any archive from supporting
+other functions, so a CTAN mirror may also operate as a
+CPAN (Perl) mirror and as a SourceForge (general free software)
+mirror, and &hellip;
+
+<p>
+Functions that distinguish core archives are:
+<ul>
+<li> Uploads: users may submit new (or updated) material via the
+  <a href="FAQ-uploads.html">upload redirector</a>. Significant changes to the
+  archive are reported via the mailing list [[[Email]]][[[LBRACE]]]ctan-ann@dante.de[[[RBRACE]]]
+<li> Weak consistency: changes to the content of the archives are
+  rapidly distributed to all core archives.  (Consistency is &lsquo;weak&rsquo;
+  since changes can take several minutes to propagate.)
+<li> Providing distribution (texlive and MiKTeX) support.
+<li> Catalogue maintenance.
+<li> Mirror monitoring.
+</ul>
+
+<p>
+Users may make direct contact with the
+
+
+
+
+  <a href="mailto:ctan@dante.de.html">CTAN management team</a>.
+
+
+<p>
+Users should ordinarily download material from CTAN via the
+[[[href]]]*[[[LBRACE]]]http://mirror.ctan.org/[[[RBRACE]]][[[LBRACE]]]archive selector[[[RBRACE]]]: this uses the
+mirror monitor&rsquo;s database, and uses the caller&rsquo;s geographical location to
+offer an efficient choice of &ldquo;sufficiently up-to-date&rdquo; mirror site for
+you to connect to.  This procedure has the advantage of distributing
+the load on CTAN mirrors.
+
+<p>
+Note that all the download links, given in the web representation of
+these FAQs, are set up to use the mirror selector.
+
+<p class="lastedit">This answer last edited: 2013-05-21</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-ctan">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-ctan</a>
+
+<p>

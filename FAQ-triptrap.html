@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-triptrap</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#TheBackground">The Background</a> &gt; <a href="index.html#WhyshouldnrsquotI">Why shouldn&rsquo;t I?</a> &gt; </div>
+<h1>How can I be sure it&rsquo;s really TeX?</h1>
+
+
+<p>
+
+<p>
+TeX (and MetaFont and MetaPost) are written in a
+
+
+
+
+  <a href="FAQ-lit.html">&lsquo;literate&rsquo; programming</a> language called <i class="progname">Web</i>
+
+which is designed to be portable across a wide range of computer
+systems.  How, then, is a new version of TeX checked?
+
+<p>
+Of course, any sensible software implementor will have his own suite
+of tests to check that his software runs: those who port TeX and
+its friends to other platforms do indeed perform such tests.
+
+<p>
+Knuth, however, provides a &lsquo;conformance test&rsquo; for both TeX
+(<i class="package">trip</i>) and MetaFont (<i class="package">trap</i>).
+
+He characterises these as &lsquo;torture tests&rsquo;: they are designed not to
+check the obvious things that ordinary typeset documents, or font
+designs, will exercise, but rather to explore small alleyways off the
+main path through the code of TeX.  They are, to the casual reader,
+pretty incomprehensible!
+
+<p>
+Once an implementation of TeX has passed its <i class="package">trip</i> test, or
+an implementation of MetaFont has passed its <i class="package">trap</i> test, then it
+may in principle be distributed as a working version.  (In practice,
+any distributor would test new versions against &ldquo;real&rdquo; documents or
+fonts, too; while <i class="package">trip</i> and <i class="package">trap</i> test bits of
+pathways within the program, they don&rsquo;t actually test for any real
+world problem.)
+
+<p class="lastedit">This answer last edited: 2011-05-28</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-triptrap">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-triptrap</a>
+
+<p>

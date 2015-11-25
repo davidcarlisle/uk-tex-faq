@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Q-protect</title>
+<link rel="stylesheet" href="faq.css">
+</head>
+<body>
+<div class="breadcrumbs">
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacrotoolsandtechniques">LaTeX macro tools and techniques</a> &gt; </div>
+<h1>What&rsquo;s the reason for &lsquo;protection&rsquo;?</h1>
+
+
+<p>
+
+<p>
+Sometimes LaTeX saves data it will reread later. These data are
+often the argument of some command; they are the so-called moving
+arguments.  (&lsquo;Moving&rsquo; because data are moved around.)  Candidates
+are all arguments that may go into table of contents, list of figures,
+<em>etc</em>.; namely, data that are written to an auxiliary file and
+read in later.  Other places are those data that might appear in head-
+or footlines.  Section headings and figure captions are the most
+prominent examples; there&rsquo;s a complete list in Lamport&rsquo;s book
+(see <a class="FAquestion.html" href="FAQ-latex-books.html">TeX-related books</a>).
+
+<p>
+What&rsquo;s going on really, behind the scenes? The commands in moving
+arguments are normally expanded to their internal structure during the
+process of saving. Sometimes this expansion results in invalid TeX
+code, which shows either during expansion or when the code is
+processed again. Protecting a command, using
+&ldquo;<code>&#x5c;protect</code><code>&#x5c;cmd</code>&rdquo; tells LaTeX to save <code>&#x5c;cmd</code> as
+<code>&#x5c;cmd</code>, without expanding it at all.
+
+<p>
+So, what is a &lsquo;fragile command&rsquo;?&nbsp;&mdash; it&rsquo;s a command that expands into
+illegal TeX code during the save process.
+
+<p>
+What is a &lsquo;robust command&rsquo;?&nbsp;&mdash; it&rsquo;s a command that expands into legal
+TeX code during the save process.
+
+<p>
+Lamport&rsquo;s book says in its description of every LaTeX command whether
+it is &lsquo;robust&rsquo; or &lsquo;fragile&rsquo;; it also says that every command with an
+optional argument is fragile.  The list isn&rsquo;t reliable, and neither
+is the assertion about optional arguments; the statements may have
+been true in early versions of LaTeX 2e but are not any longer
+necessarily so:
+<ul>
+<li> Some fragile commands, such as <code>&#x5c;cite</code>, have been made robust
+  in later revisions of LaTeX.
+<li> Some commands, such as <code>&#x5c;end</code> and <code>&#x5c;nocite</code>, are fragile
+  even though they have no optional arguments.
+<li> The &ldquo;user&rsquo;s way&rdquo; of creating a command with an optional
+  argument (using <code>&#x5c;newcommand</code> or <code>&#x5c;newcommand*</code>) now always
+  creates a robust command (though macros without optional arguments
+  may still be fragile if they do things that are themselves fragile).
+<li> There is no reason that a package author should not also make
+  robust commands with optional arguments as part of the package.
+<li> Some robust commands are redefined by certain packages to be
+  fragile (the <code>&#x5c;cite</code> command commonly suffers this treatment).
+</ul>
+Further, simply &ldquo;hiding&rdquo; a fragile command in another command, has
+no effect on fragility.  So, if <code>&#x5c;fred</code> is fragile, and you write:
+<blockquote>
+<pre>
+\newcommand{\jim}{\fred}
+</pre>
+</blockquote>
+then <code>&#x5c;jim</code> is fragile too.  There is, however, the
+<code>&#x5c;newcommand</code>-replacement <code>&#x5c;DeclareRobustCommand</code>, which
+<em>always</em> creates a robust command (whether or not it has optional
+arguments).  The syntax of <code>&#x5c;DeclareRobustCommand</code> is substantially
+identical to that of <code>&#x5c;newcommand</code>, and if you do the wrapping
+trick above as:
+<blockquote>
+<pre>
+\DeclareRobustCommand{\jim}{\fred}
+</pre>
+</blockquote>
+then <code>&#x5c;jim</code> is robust.
+
+<p>
+Finally, we have the <i class="package">makerobust</i> package, which  defines
+<code>&#x5c;MakeRobustCommand</code> to convert a command to be robust.  With the
+package, the &ldquo;wrapping&rdquo; above can simply be replaced by:
+<blockquote>
+<pre>
+\MakeRobustCommand\fred
+</pre>
+</blockquote>
+Whereafter, <code>&#x5c;fred</code> is robust.  Using the package may be reasonable
+if you have lots of fragile commands that you need to use in moving
+arguments.
+
+<p>
+In short, the situation is confusing.  No-one believes this is
+satisfactory; the LaTeX team have removed the need for
+protection of some things, but the techniques available in 
+current LaTeX mean that this is an expensive exercise.  It remains
+a long-term aim of the team to remove all need for <code>&#x5c;protect</code>ion.
+<dl>
+<dt class="ctanref">makerobust.sty</dt><dd>Distributed as part of Heiko Oberdiek&rsquo;s bundle
+  <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[makerobust]
+</dl>
+
+<p class="lastedit">This answer last edited: 2011-06-01</p>
+<p>This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-protect">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=Q-protect</a>
+
+<p>
