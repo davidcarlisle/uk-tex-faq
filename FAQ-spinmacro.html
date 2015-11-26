@@ -66,19 +66,19 @@ appeared on <i class="newsgroup">comp.text.tex</i>:
 
 The macro definition contains five spaces:
 <ul>
-<li> after the opening <code class="verb">[[[LBRACE]]]</code> of the macro body; this space will be
+<li> after the opening <code class="verb">&#x7b;</code> of the macro body; this space will be
   ignored, not because &ldquo;because the macro appears at the start of a
   line&rdquo;, but rather because the macro was designed to operate between
   paragraphs
 <li> after <code>&#x5c;bigskip</code>; this space will be ignored (while the macro
   is being defined) because it follows a command name
-<li> after the <code class="verb">[[[LBRACE]]]</code> of the mandatory argument of <code>&#x5c;makebox</code>; even
+<li> after the <code class="verb">&#x7b;</code> of the mandatory argument of <code>&#x5c;makebox</code>; even
   though this space will inevitably appear at the start of an output
   line, it will <em>not</em> be ignored
-<li> after the <code class="verb">[[[RBRACE]]]</code> closing the argument of <code>&#x5c;textbf</code>; this space
+<li> after the <code class="verb">&#x7d;</code> closing the argument of <code>&#x5c;textbf</code>; this space
   will not be ignored, but may be overlooked if the argument is well
   within the <code class="verb">2cm</code> allowed for it
-<li> after the <code class="verb">[[[RBRACE]]]</code> closing the mandatory argument of <code>&#x5c;makebox</code>;
+<li> after the <code class="verb">&#x7d;</code> closing the mandatory argument of <code>&#x5c;makebox</code>;
   this space will not be ignored
 </ul>
 The original author of the macro had been concerned that the starts of
