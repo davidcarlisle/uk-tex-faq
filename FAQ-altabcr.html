@@ -16,7 +16,7 @@
 <p>
 This is an error you may encounter in LaTeX when a tabular
 environment is being processed.  &ldquo;Alignment tabs&rdquo; are the
-<tt>\&amp;</tt> signs that separate the columns of a <code class="environment">tabular</code>
+<tt>&amp;</tt> signs that separate the columns of a <code class="environment">tabular</code>
 (or <code class="environment">array</code> or matrix) environment; so the error message
 <blockquote>
 
@@ -40,7 +40,7 @@ could arise from a simple typo, such as:
 \end{tabular}
 </pre>
 </blockquote>
-where the second <tt>\&amp;</tt> in the first line of the table is more than the
+where the second <tt>&amp;</tt> in the first line of the table is more than the
 two-column <tt>ll</tt> column specification can cope with. In this
 case, an extra &ldquo;<tt>l</tt>&rdquo; in that solves the problem.  (If you
 continue from the error in this case, &ldquo;<tt>jim</tt>&rdquo; will be moved
@@ -85,8 +85,8 @@ the problem here (as explained in
 <code>&#x5c;raggedright</code> command in the column specification has overwritten
 <code class="environment">tabular</code>&rsquo;s definition of <tt>&#x5c; </tt>, so that
 &ldquo;<tt>happy</tt>&rdquo; appears in a new line of the second column, and the
-following <tt>\&amp;</tt> appears to LaTeX just like the second
-<tt>\&amp;</tt> in the first example above.
+following <tt>&amp;</tt> appears to LaTeX just like the second
+<tt>&amp;</tt> in the first example above.
 
 <p>
 Get rid of the error in the way described in 
