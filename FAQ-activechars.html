@@ -49,8 +49,9 @@ like:
 </blockquote>
 and each subsequent &ldquo;<tt>z</tt>&rdquo; in the text would become a
 yawn. This would be an astoundingly bad idea for most documents, but
-might have special applications.  (Note that, in &ldquo;<code>&#x5c;def</code>[[[texttt]]][[[LBRACE]]]
-  z[[[RBRACE]]]&rdquo;, &ldquo;<tt>z</tt>&rdquo; is no longer interpreted as a letter; the space
+might have special applications.  (Note that, in 
+&ldquo;<code>&#x5c;def</code><tt>  z</tt>&rdquo;, 
+&ldquo;<tt>z</tt>&rdquo; is no longer interpreted as a letter; the space
 is therefore not necessary&nbsp;&mdash; &ldquo;<code>&#x5c;defz</code>&rdquo; would do; we choose to
 retain the space, for what little clarity we can manage.)
 Some LaTeX packages facilitate such definitions. For example, the
@@ -70,8 +71,8 @@ argument to another command (as, for example, in
 &ldquo;<a class="FAquestion.html" href="FAQ-verbwithin.html"><code>&#x5c;verb</code> in command arguments</a>&rdquo;).
 An exemplary case is the <i class="package">doc</i> package, which processes .dtx
 files using the <i class="package">shortvrb</i> package to define
-<tt>[[[textbar]]]&hellip;[[[textbar]]]</tt> as a shorthand for
-<code>&#x5c;verb</code><tt>[[[textbar]]]&hellip;[[[textbar]]]</tt>. But <tt>[[[textbar]]]</tt> is
+<tt>&#x7c;&hellip;&#x7c;</tt> as a shorthand for
+<code>&#x5c;verb</code><tt>&#x7c;&hellip;&#x7c;</tt>. But <tt>&#x7c;</tt> is
 also used in the preambles of tabular environments, so that tables in
 <code class="extension">dtx</code> files can only have vertical line separation between
 columns by employing special measures of some sort.

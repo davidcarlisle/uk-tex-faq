@@ -117,6 +117,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\textasciitilde([^%a])","&#x7e;%1")
     line=string.gsub(line,"\\textpercent[ ]*{}","&#x25;")
     line=string.gsub(line,"\\textbackslash([^%a])","&#x5c;%1")
+    line=string.gsub(line,"\\textbar([^%a])","&#x7c;%1")
     line=string.gsub(line,"\\arrowhyph[ ]*{}","&rarr;")
 
 
@@ -150,8 +151,11 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\TeX{}","TeX")-- why both?
     line=string.gsub(line,"\\tex{}","TeX")
     line=string.gsub(line,"\\ExTeX{}","ExTeX")
-    line=string.gsub(line,"\\Omega{}","Omega")
+    line=string.gsub(line,"\\Omega{}","&Omega;")
+    line=string.gsub(line,"\\Omega([^%a])","&Omega;%1")
+    line=string.gsub(line,"\\beta([^%a])","&beta;%1")
     line=string.gsub(line,"\\latex{}","LaTeX")
+    line=string.gsub(line,"\\latex([^%a])","LaTeX%1")
     line=string.gsub(line,"\\twee{}","2<sub>&epsilon;</sub>")
     line=string.gsub(line,"\\PiCTeX{}","PicTeX")
     line=string.gsub(line,"\\pictex{}","PicTeX")
@@ -170,8 +174,8 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\pdflatex{}","PDFLaTeX")
     line=string.gsub(line,"\\BibTeX{}","BibTeX") -- why both?
     line=string.gsub(line,"\\bibtex{}","BibTeX")
-    line=string.gsub(line,"\\MP{}","MetaPost")
-    line=string.gsub(line,"\\MF{}","MetaFont")
+    line=string.gsub(line,"\\[Mm][Pp]{}","MetaPost")
+    line=string.gsub(line,"\\[Mm][Ff]{}","MetaFont")
     line=string.gsub(line,"\\ttype{}","TrueType")
     line=string.gsub(line,"\\otype{}","OpenType")
     line=string.gsub(line,"\\AllTeX{}","(La)TeX")
@@ -181,14 +185,17 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\latexo{}","LaTeX 2.09")
     line=string.gsub(line,"\\LaTeXe{}","LaTeX 2e") -- why both?
     line=string.gsub(line,"\\latexe{}","LaTeX 2e")
+
     
     line=string.gsub(line,"\\TUGboat{}","TUGboat") -- make link?
+    line=string.gsub(line,"\\TUGboat([^%a])","TUGboat%1") -- hmm
     line=string.gsub(line,"\\BV{}","Baskerville") -- make link?
     line=string.gsub(line,"\\The[ ]*{}","Th&#x1ebf;")
 
 
     line=string.gsub(line,"\\dots$","&hellip;") --hmm
     line=string.gsub(line,"\\dots{}","&hellip;")
+    line=string.gsub(line,"\\dots([^%a])","&hellip;%1") -- hmm
 
     line=string.gsub(line,"\\MSDOS{}","MSDOS")
     line=string.gsub(line,"\\macosx{}","Mac OS/X")
@@ -213,6 +220,8 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b[])","<code>&#x5c;QQQ%2ZZZ</code><code>%3</code>")
     line=string.gsub(line,"\\csx[ ]*(%b{})","<code>&#x5c;QQQ%1ZZZ</code>")
     line=string.gsub(line,"\\marg[ ]*(%b{})","&#x7b;QQQ%1ZZZ&#x7d;")
+    line=string.gsub(line,"|%(\\end([^|]*)<|","<code class=\"verb\">&#x5c;end%1&gt;</code>")-- short verb allowed?
+    line=string.gsub(line,"|%{\\it stuff([^|]*}|","<code class=\"verb\">&#x7b;&#x5c;it stuff&#x7d;</code>")-- short verb allowed?
     line=string.gsub(line,"|p{%.%.%.}|","<code class=\"verb\">p&#x7b;...&#x7d;</code>")-- short verb allowed?
     line=string.gsub(line,"|([^ |]*)|",
     function (s)
@@ -233,10 +242,12 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\ISBN%*(%b{})(%b{})","<span class=\"isbn\">ISBN-10 QQQ%1ZZZ</span>, <span class=\"isbn\">ISBN-13 QQQ%1ZZZ</span>")
     line=string.gsub(line,"\\ISBN(%b{})","<span class=\"isbn\">ISBN-10 QQQ%1ZZZ</span>")
 
+    line=string.gsub(line,"\\\\%b[]","<br>")
     line=string.gsub(line,"\\\\","<br>")
     line=string.gsub(line,"\\,","&thinsp;")
-    line=string.gsub(line,"\\quad ,","&nbsp;")
+    line=string.gsub(line,"\\quad ","&nbsp;")
     line=string.gsub(line,"\\ "," ")
+    line=string.gsub(line,"\\[be]group([^%a])","%1")
     
     line=string.gsub(line,"\\wideonly[ ]*(%b{})","QQQ%1ZZZ")
     line=string.gsub(line,"\\htmlonly[ ]*(%b{})","QQQ%1ZZZ")
@@ -254,9 +265,11 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\CTANhref{visualFAQ}%b{}","<a href=\"http://www.ctan.org/tex-archive/info/visualFAQ/visualFAQ.pdf\">Visual FAQ</a>")
 
 
-    line=string.gsub(line,"\\URL[ ]*(%b{})","<a href=\"QQQ%1ZZZ.html\">QQQ%1ZZZ</a>")-- hmm
-    line=string.gsub(line,"\\url[ ]*(%b{})","<a href=\"QQQ%1ZZZ.html\">QQQ%1ZZZ</a>")
-    line=string.gsub(line,"\\href[%* ]*(%b{})(%b{})","<a href=\"QQQ%1ZZZ.html\">QQQ%2ZZZ</a>")
+    line=string.gsub(line,"\\mailto[ ]*(%b{})","<a href=\"mailto:QQQ%1ZZZ\">QQQ%1ZZZ</a>")-- hmm
+    line=string.gsub(line,"\\URL[ ]*(%b{})","<a href=\"QQQ%1ZZZ\">QQQ%1ZZZ</a>")-- hmm
+    line=string.gsub(line,"\\url[ ]*(%b{})","<a href=\"QQQ%1ZZZ\">QQQ%1ZZZ</a>")
+    line=string.gsub(line,"\\href[%* ]*(%b{})(%b{})","<a href=\"QQQ%1ZZZ\">QQQ%2ZZZ</a>")
+    line=string.gsub(line,"\\Qref[*]?(%[\\htmlonly%])(%b{})(%b{})","<a href=\"FAQQQ%3ZZZ.html\">QQQ%2ZZZ</a>")
     line=string.gsub(line,"\\Qref[*]?(%b[])(%b{})(%b{})","<a class=\"FAQQQ%1ZZZ.html\" href=\"FAQQQ%3ZZZ.html\">QQQ%2ZZZ</a>")
     line=string.gsub(line,"\\Qref[*]?(%b{})(%b{})","<a href=\"FAQQQ%2ZZZ.html\">QQQ%1ZZZ</a>")
     line=string.gsub(line,"\\CTANref(%b{})(%b[])","<a class=\"ctan\" href=\"https://www.ctan.org/pkg/QQQ%2ZZZ\">QQQ%1ZZZ</a>")-- latex packages in a larger ctan package

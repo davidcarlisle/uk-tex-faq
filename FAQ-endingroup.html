@@ -17,7 +17,7 @@ The actual error we observe is:
 
 <p>
 
-|([[[end]]] occurred inside a group at level <<code class="verb">&#x5c;texttt&#x7b;&#x5c;emph&#x7b;n&#x7d;&#x7d;</code>>)|
+<code class="verb">&#x5c;end occurred inside a group at level &gt;</code><tt><em>n</em></tt><code class="verb">>)</code>
 
 <p>
 
@@ -25,7 +25,7 @@ and it tells us that something we started in the document never got
 finished before we ended the document itself.  The things involved
 (&lsquo;groups&rsquo;) are what TeX uses for restricting the scope of things:
 you see them, for example, in the &ldquo;traditional&rdquo; font selection
-commands: |[[[LBRACE]]][[[it]]] stuff\/[[[RBRACE]]]|&nbsp;&mdash; if the closing brace is left off such a
+commands: <code class="verb">&#x7b;&#x5c;it stuff&#x7d;</code>&nbsp;&mdash; if the closing brace is left off such a
 construct, the effect of <code>&#x5c;it</code> will last to the end of the document,
 and you&rsquo;ll get the diagnostic.
 
