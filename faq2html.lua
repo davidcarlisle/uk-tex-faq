@@ -93,7 +93,7 @@ end
 
 function faq_convert_line (line)
     line=string.gsub(line,"^[ ]*$","\n<p>")
-    line=string.gsub(line,"^\\par{}","\n<p>") --why?
+    line=string.gsub(line,"^[ ]*\\par{}","\n<p>") --why?
 
     line=string.gsub(line,"%-%-%-","&mdash;")
     line=string.gsub(line,"%-%-","&ndash;")
@@ -166,6 +166,8 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\bibtex{}","BibTeX")
     line=string.gsub(line,"\\MP{}","MetaPost")
     line=string.gsub(line,"\\MF{}","MetaFont")
+    line=string.gsub(line,"\\ttype{}","TrueType")
+    line=string.gsub(line,"\\otype{}","OpenType")
     line=string.gsub(line,"\\AllTeX{}","(La)TeX")
     line=string.gsub(line,"\\alltex{}","(La)TeX")
     line=string.gsub(line,"\\LaTeX{}","LaTeX")
@@ -202,9 +204,11 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b[])(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>%3</code></code><code>&#x7b;QQQ%4ZZZ&#x7d;</code>")
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>&#x7b;QQQ%3ZZZ&#x7d;</code>")
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b[])","<code>&#x5c;QQQ%2ZZZ</code><code>%3</code>")
-    line=string.gsub(line,"\\csx[ ]*{([^{}]*)}","<code>&#x5c;%1</code>")
+    line=string.gsub(line,"\\csx[ ]*(%b{})","<code>&#x5c;QQQ%1ZZZ</code>")
     line=string.gsub(line,"\\marg[ ]*(%b{})","&#x7b;QQQ%1ZZZ&#x7d;")
     line=string.gsub(line,"|p{%.%.%.}|","<code class=\"verb\">p&#x7b;...&#x7d;</code>")-- short verb allowed?
+    line=string.gsub(line,"|{|","<code class=\"verb\">&#x7b;</code>")-- short verb allowed?
+    line=string.gsub(line,"|}|","<code class=\"verb\">&#x7d;</code>")-- short verb allowed?
     line=string.gsub(line,"|([^ |]*)|","<code class=\"verb\">%1</code>")-- short verb allowed?
     line=string.gsub(line,"\\textsf[ ]*(%b{})","<span class=\"sans\">QQQ%1ZZZ</span>")
     line=string.gsub(line,"\\textsl[ ]*(%b{})","<i class=\"slanted\">QQQ%1ZZZ</i>")
