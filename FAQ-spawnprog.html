@@ -34,7 +34,7 @@ write operation is hidden away and you don&rsquo;t need to worry about the
 exact way it&rsquo;s done.
 
 <p>
-However, there is a security issue. If you download some [[[alltex]]][[[LBRACE]]][[[RBRACE]]] code from
+However, there is a security issue. If you download some (La)TeX code from
 the Internet, can you be sure that there is not some command in it
 (perhaps in a hidden way) to do stuff that might be harmful to your
 computer (let&rsquo;s say: delete everything on the hard disk!)?  In the
@@ -47,7 +47,7 @@ from the command shell:
 (pdf)(la)tex --shell-escape <file>
 </pre>
 </blockquote>
-The problem with this is that many people use [[[alltex]]][[[LBRACE]]][[[RBRACE]]] via a graphical
+The problem with this is that many people use (La)TeX via a graphical
 editor, so to use <code>&#x5c;write18</code> for a file the editor&rsquo;s settings must
 be changed.  Of course, the settings need restoring after the file is
 processed: you defeat the point of the original protection, that way.

@@ -15,11 +15,11 @@
 
 <p>
 &lsquo;Traditional&rsquo; approaches to the problem (of checking your spelling) were
-designed to work with a plain text file; in our case, we have an [[[alltex]]][[[LBRACE]]][[[RBRACE]]]
+designed to work with a plain text file; in our case, we have an (La)TeX
 source.  For the user, this is a simple-to-understand way to do the
 job; but for the spell-checker programmer, it requires heuristic (and
-hence fallible) analysis of [[[alltex]]][[[LBRACE]]][[[RBRACE]]] macros and so on.  The
-alternative, of viewing the text <em>after</em> [[[alltex]]][[[LBRACE]]][[[RBRACE]]] has processed
+hence fallible) analysis of (La)TeX macros and so on.  The
+alternative, of viewing the text <em>after</em> (La)TeX has processed
 the results, is covered below.
 
 <p>
@@ -54,12 +54,12 @@ The VMS Pascal program <i class="progname">spell</i> makes special cases of
 some important features of LaTeX syntax.
 
 <p>
-For [[[MSDOS]]][[[LBRACE]]][[[RBRACE]]], there are several programs.  <i class="progname">Amspell</i> can be
+For MSDOS, there are several programs.  <i class="progname">Amspell</i> can be
 called from within an editor, and <i class="progname">jspell</i> is an extended
 version of <i class="progname">ispell</i>.
 
 <p>
-An alternative approach takes [[[alltex]]][[[LBRACE]]][[[RBRACE]]] output, and checks that.  A
+An alternative approach takes (La)TeX output, and checks that.  A
 straightforward approach is to produce PDF output, and process
 it with <i class="progname">pdftotext</i>, using any plain text checker on the
 result (the checkers listed above all work in this r\^ole).  For this

@@ -104,7 +104,8 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\}","&#x7d;")
     line=string.gsub(line,"\\cbracesymbol{}","&#x7d;")
     line=string.gsub(line,"\\%$","&#x24;")
-    line=string.gsub(line,"\\ss[ ]*{}","&szlig;")
+    line=string.gsub(line,"\\ss{}","&szlig;")
+    line=string.gsub(line,"\\ss ","&szlig;")
     line=string.gsub(line,"\\bsbs([^%a])","&#x5c;%1")
     line=string.gsub(line,"\\relax([^%a])","%1")
     line=string.gsub(line,"\\protect([^%a])","%1")
@@ -161,8 +162,10 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\MP{}","MetaPost")
     line=string.gsub(line,"\\MF{}","MetaFont")
     line=string.gsub(line,"\\AllTeX{}","(La)TeX")
+    line=string.gsub(line,"\\alltex{}","(La)TeX")
     line=string.gsub(line,"\\LaTeX{}","LaTeX")
     line=string.gsub(line,"\\LaTeXo{}","LaTeX 2.09")
+    line=string.gsub(line,"\\latexo{}","LaTeX 2.09")
     line=string.gsub(line,"\\LaTeXe{}","LaTeX 2e") -- why both?
     line=string.gsub(line,"\\latexe{}","LaTeX 2e")
     
@@ -172,6 +175,9 @@ function faq_convert_line (line)
 
 
     line=string.gsub(line,"\\dots{}","&hellip;")
+
+    line=string.gsub(line,"\\MSDOS{}","MSDOS")
+    line=string.gsub(line,"\\macosx{}","Mac OS/X")
 
     line=string.gsub(line,"\\Package[ ]*{([^{}]*)}","<i class=\"package\">%1</i>")
     line=string.gsub(line,"\\Class[ ]*{([^{}]*)}","<i class=\"class\">%1</i>")
@@ -198,6 +204,10 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\path[ ]*(%b{})","<tt class=\"path\">QQQ%1ZZZ</tt>")
     line=string.gsub(line,"\\emph[ ]*(%b{})","<em>QQQ%1ZZZ</em>")
     line=string.gsub(line,"\\textbf[ ]*(%b{})","<b>QQQ%1ZZZ</b>")
+    line=string.gsub(line,"\\paragraph[ ]*(%b{})","<b>QQQ%1ZZZ</b> ")
+
+    line=string.gsub(line,"\\ISBN%*(%b{})(%b{})","<span class=\"isbn\">ISBN-10 QQQ%1ZZZ</span>, <span class=\"isbn\">ISBN-13 QQQ%1ZZZ</span>")
+    line=string.gsub(line,"\\ISBN(%b{})","<span class=\"isbn\">ISBN-10 QQQ%1ZZZ</span>")
 
     line=string.gsub(line,"\\\\","<br>")
     line=string.gsub(line,"\\,","&thinsp;")
@@ -205,6 +215,8 @@ function faq_convert_line (line)
     
     line=string.gsub(line,"\\htmlonly[ ]*{([^{}]*)}","%1")
     line=string.gsub(line,"\\nothtml%b{}","")
+    line=string.gsub(line,"\\AliasQuestion%b{}","")
+    line=string.gsub(line,"%-{}%-{}%-","")
     line=string.gsub(line,"\\latexhtml%b{}(%b{})","QQQ%1ZZZ") -- need to unquote &
 
 
@@ -303,7 +315,7 @@ function faq_convert_line (line)
 
 
 
-    line=string.gsub(line,"\\LastEdit[ ]*{([^{}]*)}",
+    line=string.gsub(line,"\\LastEdit[%* ]*{([^{}]*)}",
     "\n<p class=\"lastedit\">This answer last edited: %1</p>\n" ..
 "<p>This question on the Web: <a href=\"http://www.tex.ac.uk/cgi-bin/texfaq2html?label=" ..
 (qid or "")..
