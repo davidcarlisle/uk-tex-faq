@@ -197,6 +197,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b[])(%b{})(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>%3</code></code><code>&#x7b;QQQ%4ZZZ&#x7d;</code><code>&#x7b;QQQ%5ZZZ&#x7d;</code>")
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b[])(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>%3</code></code><code>&#x7b;QQQ%4ZZZ&#x7d;</code>")
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>&#x7b;QQQ%3ZZZ&#x7d;</code>")
+    line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b[])","<code>&#x5c;QQQ%2ZZZ</code><code>%3</code>")
     line=string.gsub(line,"\\csx[ ]*{([^{}]*)}","<code>&#x5c;%1</code>")
     line=string.gsub(line,"\\marg[ ]*(%b{})","&#x7b;QQQ%1ZZZ&#x7d;")
     line=string.gsub(line,"|p{%.%.%.}|","<code class=\"verb\">p&#x7b;...&#x7d;</code>")-- short verb allowed?
@@ -231,10 +232,13 @@ function faq_convert_line (line)
 
     line=string.gsub(line,"\\URL[ ]*(%b{})","<a href=\"QQQ%1ZZZ.html\">QQQ%1ZZZ</a>")-- hmm
     line=string.gsub(line,"\\url[ ]*(%b{})","<a href=\"QQQ%1ZZZ.html\">QQQ%1ZZZ</a>")
-    line=string.gsub(line,"\\href[ ]*(%b{})(%b{})","<a href=\"QQQ%1ZZZ.html\">QQQ%2ZZZ</a>")
+    line=string.gsub(line,"\\href[%* ]*(%b{})(%b{})","<a href=\"QQQ%1ZZZ.html\">QQQ%2ZZZ</a>")
     line=string.gsub(line,"\\Qref[*]?(%b[])(%b{})(%b{})","<a class=\"FAQQQ%1ZZZ.html\" href=\"FAQQQ%3ZZZ.html\">QQQ%2ZZZ</a>")
     line=string.gsub(line,"\\Qref[*]?(%b{})(%b{})","<a href=\"FAQQQ%2ZZZ.html\">QQQ%1ZZZ</a>")
     line=string.gsub(line,"\\CTANref(%b{})","<a class=\"ctan\" href=\"https://www.ctan.org/pkg/QQQ%1ZZZ\">QQQ%1ZZZ</a>")
+
+    line=string.gsub(line,"\\includegraphics[ ]*{([^{}]*%.png)}","<img alt=\"%1\" src=\"%1\">")
+
 
     line=string.gsub(line,"\\begin{quote}","<blockquote>")
     line=string.gsub(line,"\\end{quote}","</blockquote>")
@@ -331,6 +335,7 @@ function faq_convert_line (line)
 
     line=string.gsub(line,"QQQ.","")
     line=string.gsub(line,".ZZZ","")
+    line=string.gsub(line,"(<a[^<>]*href=[^<>]*)&nbsp;","%1~")
     line=string.gsub(line,"\\(%a+)","[[[%1]]]")
     line=string.gsub(line,"{","[[[LBRACE]]]")
     line=string.gsub(line,"}","[[[RBRACE]]]")
