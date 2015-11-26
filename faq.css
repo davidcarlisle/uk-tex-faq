@@ -25,3 +25,15 @@ li.tocsubsec >span{
     font-weight:bold;
     font-size:110%
 }
+
+span.footnote {
+    max-width: 10em;
+    padding:2px;
+    float:right;
+    border:solid black:thin;
+    background-color:#DD8;
+}
+
+sup.fmk {
+    vertical-align:top;
+}

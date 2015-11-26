@@ -106,7 +106,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\}","&#x7d;")
     line=string.gsub(line,"\\cbracesymbol{}","&#x7d;")
     line=string.gsub(line,"\\%$","&#x24;")
-    line=string.gsub(line,"\\ss{}","&szlig;")
+    line=string.gsub(line,"\\ss[ ]*{}","&szlig;")
     line=string.gsub(line,"\\ss ","&szlig;")
     line=string.gsub(line,"\\bsbs([^%a])","&#x5c;%1")
     line=string.gsub(line,"\\relax([^%a])","%1")
@@ -194,6 +194,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\acro[ ]*{([^{}]*)}","%1")
     line=string.gsub(line,"\\ensuremath[ ]*{([^{}]*)}","%1")
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b{})(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>&#x7b;QQQ%3ZZZ&#x7d;</code></code><code>&#x7b;QQQ%4ZZZ&#x7d;</code>")
+    line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b[])(%b{})(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>%3</code></code><code>&#x7b;QQQ%4ZZZ&#x7d;</code><code>&#x7b;QQQ%5ZZZ&#x7d;</code>")
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b[])(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>%3</code></code><code>&#x7b;QQQ%4ZZZ&#x7d;</code>")
     line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b{})","<code>&#x5c;QQQ%2ZZZ</code><code>&#x7b;QQQ%3ZZZ&#x7d;</code>")
     line=string.gsub(line,"\\csx[ ]*{([^{}]*)}","<code>&#x5c;%1</code>")
@@ -273,6 +274,8 @@ function faq_convert_line (line)
 
     line=string.gsub(line,"\\item","<li>")
 
+    line=string.gsub(line,"[ ]*\\begin{footnoteenv}","<sup class=\"fmk\">&dagger;</sup><span class=\"footnote\">&dagger; ")
+    line=string.gsub(line,"\\end{footnoteenv}","</span>")
 
     if (string.match(line,"\\begin{narrowversion}")) then
       line=""
