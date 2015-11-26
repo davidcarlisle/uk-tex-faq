@@ -29,7 +29,7 @@ or (using TeX primitive definitions):
 In either of the above, the definition uses an argument, but the
 programmer did not tell (La)TeX, in advance, that she was going to.
 The fix is simple&nbsp;&mdash; <code>&#x5c;newcommand</code><code>&#x7b;<code>&#x5c;abc</code>&#x7d;</code>[1], in the
-LaTeX case, <code class="verb">[[[def]]][[[abc]]]#1</code> in the basic TeX case.
+LaTeX case, <code class="verb">&#x5c;def&#x5c;abc#1</code> in the basic TeX case.
 
 <p>
 The more complicated case is exemplified by the attempted definition:

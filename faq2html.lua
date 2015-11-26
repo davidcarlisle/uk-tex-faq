@@ -123,6 +123,8 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\`([aoe])","&%1grave;")
     line=string.gsub(line,"\\'([aoe])","&%1acute;")
     line=string.gsub(line,"\\&amp;","&amp;")
+    line=string.gsub(line,"\\pi([^%a])","&pi;%1")
+    line=string.gsub(line,"\\@([^%a])","%1")
 
     line=string.gsub(line,"``","&ldquo;")
     line=string.gsub(line,"''","&rdquo;")
@@ -131,6 +133,9 @@ function faq_convert_line (line)
     line=string.gsub(line,"'","&rsquo;")
 
     line=string.gsub(line,"%%.*","")
+
+    line=string.gsub(line,"\\keywords[ ]*{(.*)}","<!-- %1 -->")
+
 
     line=string.gsub(line,"\\ctan{}","CTAN")
 
@@ -148,6 +153,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\Omega{}","Omega")
     line=string.gsub(line,"\\latex{}","LaTeX")
     line=string.gsub(line,"\\twee{}","2<sub>&epsilon;</sub>")
+    line=string.gsub(line,"\\PiCTeX{}","PicTeX")
     line=string.gsub(line,"\\pictex{}","PicTeX")
     line=string.gsub(line,"\\LuaTeX{}","LuaTeX") -- why both?
     line=string.gsub(line,"\\luatex{}","LuaTeX")
@@ -181,6 +187,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\The[ ]*{}","Th&#x1ebf;")
 
 
+    line=string.gsub(line,"\\dots$","&hellip;") --hmm
     line=string.gsub(line,"\\dots{}","&hellip;")
 
     line=string.gsub(line,"\\MSDOS{}","MSDOS")
@@ -207,9 +214,13 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\csx[ ]*(%b{})","<code>&#x5c;QQQ%1ZZZ</code>")
     line=string.gsub(line,"\\marg[ ]*(%b{})","&#x7b;QQQ%1ZZZ&#x7d;")
     line=string.gsub(line,"|p{%.%.%.}|","<code class=\"verb\">p&#x7b;...&#x7d;</code>")-- short verb allowed?
-    line=string.gsub(line,"|{|","<code class=\"verb\">&#x7b;</code>")-- short verb allowed?
-    line=string.gsub(line,"|}|","<code class=\"verb\">&#x7d;</code>")-- short verb allowed?
-    line=string.gsub(line,"|([^ |]*)|","<code class=\"verb\">%1</code>")-- short verb allowed?
+    line=string.gsub(line,"|([^ |]*)|",
+    function (s)
+    return
+     "<code class=\"verb\">" ..
+     string.gsub(string.gsub(string.gsub(s,"\\","&#x5c;"),"{","&#x7b;"),"}","&#x7d;") ..
+     "</code>"
+    end)-- short verb allowed?
     line=string.gsub(line,"\\textsf[ ]*(%b{})","<span class=\"sans\">QQQ%1ZZZ</span>")
     line=string.gsub(line,"\\textsl[ ]*(%b{})","<i class=\"slanted\">QQQ%1ZZZ</i>")
     line=string.gsub(line,"{}\\texttt[ ]*(%b{})","<tt>QQQ%1ZZZ</tt>")-- breaking -- ligs
@@ -224,9 +235,12 @@ function faq_convert_line (line)
 
     line=string.gsub(line,"\\\\","<br>")
     line=string.gsub(line,"\\,","&thinsp;")
+    line=string.gsub(line,"\\quad ,","&nbsp;")
     line=string.gsub(line,"\\ "," ")
     
     line=string.gsub(line,"\\htmlonly[ ]*{([^{}]*)}","%1")
+    line=string.gsub(line,"\\checked%b{}%b{}","")
+    line=string.gsub(line,"\\LeadFrom%b{}%b{}%b{}","")
     line=string.gsub(line,"\\nothtml%b{}","")
     line=string.gsub(line,"\\AliasQuestion%b{}","")
     line=string.gsub(line,"%-{}%-{}%-","")
@@ -244,6 +258,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\href[%* ]*(%b{})(%b{})","<a href=\"QQQ%1ZZZ.html\">QQQ%2ZZZ</a>")
     line=string.gsub(line,"\\Qref[*]?(%b[])(%b{})(%b{})","<a class=\"FAQQQ%1ZZZ.html\" href=\"FAQQQ%3ZZZ.html\">QQQ%2ZZZ</a>")
     line=string.gsub(line,"\\Qref[*]?(%b{})(%b{})","<a href=\"FAQQQ%2ZZZ.html\">QQQ%1ZZZ</a>")
+    line=string.gsub(line,"\\CTANref(%b{})(%b[])","<a class=\"ctan\" href=\"https://www.ctan.org/pkg/QQQ%2ZZZ\">QQQ%1ZZZ</a>")-- latex packages in a larger ctan package
     line=string.gsub(line,"\\CTANref(%b{})","<a class=\"ctan\" href=\"https://www.ctan.org/pkg/QQQ%1ZZZ\">QQQ%1ZZZ</a>")
 
     line=string.gsub(line,"\\includegraphics[ ]*{([^{}]*%.png)}","<img alt=\"%1\" src=\"%1\">")

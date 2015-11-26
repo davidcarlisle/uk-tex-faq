@@ -27,7 +27,7 @@ The (seemingly) obvious approach:
 </pre>
 </blockquote>
 doesn&rsquo;t work (the TeX engine interprets it
-as a rather strange redefinition of <code class="verb">\#</code>).  The trick is to use
+as a rather strange redefinition of <code class="verb">&#x5c;#</code>).  The trick is to use
 <code>&#x5c;csname</code>, which is a TeX primitive for generating command names
 from random text, together with <code>&#x5c;expandafter</code>.  The definition
 above should read:

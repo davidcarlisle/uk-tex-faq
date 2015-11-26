@@ -96,8 +96,8 @@ LaTeX command <code>&#x5c;CheckCommand</code>; this compares an existing command
 with the definition you give it, and issues a warning if two don&rsquo;t
 match.  Use is therefore:
 <blockquote>
-  <code class="verb">[[[CheckCommand]]][[[LBRACE]]][[[complex]]][[[RBRACE]]][[[LBRACE]]]</code>&lsaquo;<i>original definition</i>&rsaquo;<code class="verb">&#x7d;</code><br>
-  <code class="verb">[[[renewcommand]]][[[LBRACE]]][[[complex]]][[[RBRACE]]][[[LBRACE]]]</code>&lsaquo;<i>new definition</i>&rsaquo;<code class="verb">&#x7d;</code>
+  <code class="verb">&#x5c;CheckCommand&#x7b;&#x5c;complex&#x7d;&#x7b;</code>&lsaquo;<i>original definition</i>&rsaquo;<code class="verb">&#x7d;</code><br>
+  <code class="verb">&#x5c;renewcommand&#x7b;&#x5c;complex&#x7d;&#x7b;</code>&lsaquo;<i>new definition</i>&rsaquo;<code class="verb">&#x7d;</code>
 </blockquote>
 This technique is obviously somewhat laborious, but if the original
 command comes from a source that&rsquo;s liable to change under the control
@@ -180,7 +180,7 @@ Finally, we&rsquo;ll briefly consider a package that is (just about)
 usable, but not really recommendable.  <i class="package">Patch</i> gives you an
 ingenious (and difficult to understand) mechanism, and comes as an
 old-style LaTeX documented macro file, which can no longer be
-processed to <a href="FAQ-install-doc.html">produce formatted documentation, etc.\@</a>.
+processed to <a href="FAQ-install-doc.html">produce formatted documentation, etc.</a>.
 Fortunately, the file (<i class="filename">patch.doc</i>) may be input directly, and
 &ldquo;documentation&rdquo; may found by reading the source of the package.
 Roughly speaking, one gives the command a set of instructions
@@ -189,8 +189,8 @@ command thus amended.  Unless you can&rsquo;t do your job any other way,
 <i class="package">patch</i> is best avoided.
 <dl>
 <dt class="ctanref">etoolbox.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/etoolbox">etoolbox</a>
-<dt class="ctanref">l3regex.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/l3experimental">l3experimental</a>[l3regex]
-<dt class="ctanref">letltxmacro.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/oberdiek">oberdiek</a>[letltxmacro]
+<dt class="ctanref">l3regex.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/l3regex">l3experimental</a>
+<dt class="ctanref">letltxmacro.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/letltxmacro">oberdiek</a>
 <dt class="ctanref">patch.doc</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/patch">patch</a>
 <dt class="ctanref">patchcommand.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/patchcmd">patchcmd</a>
 <dt class="ctanref">regexpatch.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/regexpatch">regexpatch</a>
