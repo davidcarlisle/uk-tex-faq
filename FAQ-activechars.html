@@ -15,7 +15,7 @@
 <p>
 Single characters can act as macros (defined commands), and both
 Plain TeX and LaTeX define the character
-&ldquo;<tt>[[[textasciitilde]]]</tt>&rdquo; as a &ldquo;non-breakable space&rdquo;.  A
+&ldquo;<tt>&#x7e;</tt>&rdquo; as a &ldquo;non-breakable space&rdquo;.  A
 character is made definable, or &ldquo;active&rdquo;, by setting its
 <em>category code</em> (catcode) to be <code>&#x5c;active</code> (13):
 <blockquote>
@@ -107,7 +107,7 @@ use:
 The alternative (&ldquo;tricksy&rdquo;) way of creating such an isolated
 definition depends on the curious properties of <code>&#x5c;lowercase</code>, which
 changes characters without altering their catcodes.  Since there is
-always <em>one</em> active character (&ldquo;<tt>[[[textasciitilde]]]</tt>&rdquo;), we
+always <em>one</em> active character (&ldquo;<tt>&#x7e;</tt>&rdquo;), we
 can fool <code>&#x5c;lowercase</code> into patching up a definition without ever
 explicitly changing a catcode:
 <blockquote>

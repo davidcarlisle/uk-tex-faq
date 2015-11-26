@@ -93,6 +93,7 @@ end
 
 function faq_convert_line (line)
     line=string.gsub(line,"^[ ]*$","\n<p>")
+    line=string.gsub(line,"^\\par{}","\n<p>") --why?
 
     line=string.gsub(line,"%-%-%-","&mdash;")
     line=string.gsub(line,"%-%-","&ndash;")
@@ -113,6 +114,8 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\protect([^%a])","%1")
     line=string.gsub(line,"\\textemdash([^%a])","&mdash;%1")
     line=string.gsub(line,"\\textasciicircum([^%a])","^%1")
+    line=string.gsub(line,"\\textasciitilde([^%a])","&#x7e;%1")
+    line=string.gsub(line,"\\textpercent[ ]*{}","&#x25;")
     line=string.gsub(line,"\\textbackslash([^%a])","&#x5c;%1")
     line=string.gsub(line,"\\arrowhyph[ ]*{}","&rarr;")
 
@@ -184,6 +187,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\Package[ ]*{([^{}]*)}","<i class=\"package\">%1</i>")
     line=string.gsub(line,"\\Class[ ]*{([^{}]*)}","<i class=\"class\">%1</i>")
     line=string.gsub(line,"\\ProgName[ ]*{([^{}]*)}","<i class=\"progname\">%1</i>")
+    line=string.gsub(line,"\\progname[ ]*{([^{}]*)}","<i class=\"progname\">%1</i>")
     line=string.gsub(line,"\\FontName[ ]*{([^{}]*)}","<i class=\"fontname\">%1</i>")
     line=string.gsub(line,"\\File[ ]*{([^{}]*)}","<i class=\"filename\">%1</i>")
     line=string.gsub(line,"\\Newsgroup[ ]*{([^{}]*)}","<i class=\"newsgroup\">%1</i>")
@@ -204,6 +208,7 @@ function faq_convert_line (line)
     line=string.gsub(line,"|([^ |]*)|","<code class=\"verb\">%1</code>")-- short verb allowed?
     line=string.gsub(line,"\\textsf[ ]*(%b{})","<span class=\"sans\">QQQ%1ZZZ</span>")
     line=string.gsub(line,"\\textsl[ ]*(%b{})","<i class=\"slanted\">QQQ%1ZZZ</i>")
+    line=string.gsub(line,"{}\\texttt[ ]*(%b{})","<tt>QQQ%1ZZZ</tt>")-- breaking -- ligs
     line=string.gsub(line,"\\texttt[ ]*(%b{})","<tt>QQQ%1ZZZ</tt>")
     line=string.gsub(line,"\\path[ ]*(%b{})","<tt class=\"path\">QQQ%1ZZZ</tt>")
     line=string.gsub(line,"\\emph[ ]*(%b{})","<em>QQQ%1ZZZ</em>")

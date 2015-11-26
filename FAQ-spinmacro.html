@@ -92,8 +92,8 @@ lost in the problems the macro caused.
 
 <p>
 The principal technique for suppressing spaces is the use of
-<tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt> characters: everything after a
-<tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt> is ignored, even the end of line itself (so
+<tt>&#x25;</tt> characters: everything after a
+<tt>&#x25;</tt> is ignored, even the end of line itself (so
 that not even the end of line can contribute an unwanted space).  The
 secondary technique is to ensure that the end of line is preceded by a
 command name (since the end of line behaves like a space, it will be
@@ -120,18 +120,18 @@ easier to blindly suppress spaces than to analyse at every point
 whether you actually need to.  Three techniques were used to suppress
 spaces:
 <ul>
-<li> placing a <tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt> character at the end of a line
+<li> placing a <tt>&#x25;</tt> character at the end of a line
   (as in the 1st, 3rd and 5th lines),
 <li> ending a line &lsquo;naturally&rsquo; with a control sequence, as in line 2,
   and
 <li> ending a line with an &lsquo;artificial&rsquo; control sequence, as in line
   4; the control sequence in this case (<code>&#x5c;relax</code>) is a no-op in many
   circumstances (as here), but this usage is deprecated&nbsp;&mdash; a
-  <tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt> character would have been better.
+  <tt>&#x25;</tt> character would have been better.
 </ul>
 Beware of the (common) temptation to place a space <em>before</em> a
-<tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt> character: if you do this you might as well omit
-the <tt>[[[textpercent]]][[[LBRACE]]][[[RBRACE]]]</tt> altogether.
+<tt>&#x25;</tt> character: if you do this you might as well omit
+the <tt>&#x25;</tt> altogether.
 
 <p>
 In &ldquo;real life&rdquo;, of course, the spaces that appear in macros are far
