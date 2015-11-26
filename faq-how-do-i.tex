@@ -757,7 +757,7 @@ The \Class{memoir} class includes functions that match those in the
 \Qref*{Lamport's book}{Q-latex-books} lists various
 parameters for the layout of list (things like \csx{topsep},
 \csx{itemsep} and \csx{parsep}), but fails to mention that they're set
-automatically within the standard (\latex{}-defined) lists.  This
+automatically within the standard (\LaTeX{}-defined) lists.  This
 happens because each list
 executes a command \csx{@list}\texttt{\meta{depth}} (the depth
 appearing as a lower-case roman numeral); what's more, the top-level
@@ -1647,10 +1647,10 @@ in the neighbourhood of list environments (unless you change your
   a summary in English.
 \end{description}
 All of the above deal insertions at one or other margin; they are able
-to take advantage of the \tex{} \csx{parshape} primitive that allows
+to take advantage of the \TeX{} \csx{parshape} primitive that allows
 you to adjust the margins of the text of a paragraph, by line (Knuth
 provides an example of such use, with text typeset in a circle,
-half-overlapping the margin, in chapter~14 of the \tex{}book).  To
+half-overlapping the margin, in chapter~14 of the \TeX{}book).  To
 place insertions in the middle of a paragraph requires effort of an
 entirely different sort; the \Package{cutwin} package does this for
 you.  It requires a set of ``part line widths'' (two per line), and
@@ -2581,7 +2581,7 @@ Note that you can also load \Package{zref-perpage}
 \Package{Perpage} is a compact and efficient package;
 \Package{zref-perpage}, being a \Package{zref} ``module'', comes with
 \Package{zref}'s general mechanism for extending the the
-\csx{label}---\csx{[page]ref} of \latex{}, which can offer many other
+\csx{label}---\csx{[page]ref} of \LaTeX{}, which can offer many other
 useful facilities.
 
 The \Package{footmisc} package provides a variety of means of
@@ -2651,7 +2651,7 @@ In the case of \LaTeX{}, the input commands have pretty regular
 syntax, and the simplest \Qref*{patching techniques}{Q-patch} can be
 used on them.  (Note that \latex{}'s \csx{input} command is itself a
 patch on top of the \plaintex{} command.  Our patches apply to the
-\latex{} version of the command, which is used as \cmdinvoke*{input}{file})
+\LaTeX{} version of the command, which is used as \cmdinvoke*{input}{file})
 
 %% If you only have one level of input (you never input things from a
 %% file that was itself input), the job is almost trivial:
@@ -2806,8 +2806,8 @@ document; it comes with configuration files for use with
 you're sending the first copy of a document.
 
 The \ProgName{mkjobtexmf} finds which files are used in a `job',
-either via the \texttt{-recorder} option of \tex{}, or by using the
-(Unix) command \ProgName{strace} to keep an eye on what \tex{} is
+either via the \texttt{-recorder} option of \TeX{}, or by using the
+(Unix) command \ProgName{strace} to keep an eye on what \TeX{} is
 doing.  The files thus found are copied (or linked) to a directory
 which may then be saved for transmission or archiving.
 \begin{ctanrefs}
@@ -2957,14 +2957,14 @@ sections you want included interactively, using the
 A variant on the \csx{includeonly} mechanism is offered by the
 \Package{stampinclude} package, which takes advantage of the \pdftex{}
 \csx{pdffilemoddate} command.  When an \csx{include}d file is
-processed in a \latex{} document, an \extension{aux} file is created
+processed in a \LaTeX{} document, an \extension{aux} file is created
 holding data such as page-number ranges and chapter/section numbers.
 When \csx{stampinclude} is included in a document, it compares the
 file system modification times for each file and its corresponding
 \extension{aux} file; the file is only compiled in ``this run'' of the
 document if the file is newer than its corresponding \extension{aux}
 file.  The package requires a current \pdftex{}, and will also run on
-\luatex{} if the \Package{pdftexcmds} package is available
+\LuaTeX{} if the \Package{pdftexcmds} package is available
 (\Package{pdftexcmds} emulates the requisite \pdftex{} commands using
 \texttt{lua}.  Apart from this requirement, \Package{stampinclude} is
 a low-maintenace object; include it in your document and it silently
@@ -3332,7 +3332,7 @@ and ``directives''; its aim is to determine what to do from explicit
 instructions in the document's source code, rather than secondary
 sources such as log file analysis.  \ProgName{Arara} is relatively new
 on CTAN, and comes with recommendations from many of the great and
-good of the \latex{} world.
+good of the \LaTeX{} world.
 
 Newer still is the Python script \ProgName{try}, which has a similar
 structure to \ProgName{arara}~--- it, too, reads instructions in the
@@ -3581,10 +3581,10 @@ to the preamble of their document.  Other encodings (notably
 in place of \acro{T}1.  Indeed, most current 8-bit \TeX{} font
 encodings will `work' with the relevant sets of hyphenation patterns. 
 
-With the advance of \xetex{} and \luatex{} to the mainstream, a new
+With the advance of \xetex{} and \LuaTeX{} to the mainstream, a new
 regime for generating hyphenation tables is in place.  For each
 language, a table is written in Unicode, and ``8-bit'' versions are
-generated for use with various \latex{} font encodings.  Original sets
+generated for use with various \LaTeX{} font encodings.  Original sets
 of patterns remain on \acro{CTAN}, for use when an older environment
 is needed.
 
@@ -3921,7 +3921,7 @@ have to select both the language and the font encoding to have your
 document typeset correctly, it should not be a great imposition to do
 the selections before setting up hyphenation exceptions.
 
-Modern TeX variants (principally \xetex{} and \luatex{}) use unicode,
+Modern TeX variants (principally \xetex{} and \LuaTeX{}) use unicode,
 internally, and distributions that offer them also offer
 \acro{UTF}-8-encoded patterns; since the hyphenation team do all the
 work ``behind the scenes'', the use of Unicode hyphenation is

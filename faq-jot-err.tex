@@ -248,7 +248,7 @@ example as:
 \end{wideversion}
 \end{quote}
 In practice, inserting mathematics in a moving argument has already
-been addressed in \latexe{} by the robust command \csx{ensuremath}:
+been addressed in \LaTeXe{} by the robust command \csx{ensuremath}:
 \begin{quote}
 \begin{verbatim}
 \caption{Energy: \ensuremath{E=mc^2}}
@@ -364,7 +364,7 @@ itself.
 \end{htmlversion}
 \htmlignore
 % beware line wrap here
-  Of course \Qref[question]{\etex{}}{Q-etex},
+  Of course \Qref[question]{\eTeX{}}{Q-etex},
   \Qref[question]{\ensuremath{\Omega}}{Q-omegaleph} and
   \Qref[question]{\LuaTeX{}}{Q-luatex}
 \endhtmlignore
@@ -488,7 +488,7 @@ As mentioned in
 a result, any such word is deemed improper in a \csx{hyphenation}
 command.
 
-Hyphenation happens as paragraphs are laid out; by this time, \tex{}
+Hyphenation happens as paragraphs are laid out; by this time, \TeX{}
 knows what font is used for each glyph; thus it knows the encoding
 being used.  So the solution to the problem is to use a font that
 contains the accented character; doing this this ``hides'' the accent
@@ -638,7 +638,7 @@ If you simply write:
 \usepackage{foo}
 \end{verbatim}
 \end{quote}
-\latex{} is happy, as it is with:
+\LaTeX{} is happy, as it is with:
 \begin{quote}
 \begin{verbatim}
 \usepackage[a]{foo}
@@ -646,7 +646,7 @@ If you simply write:
 \usepackage[a]{foo}
 \end{verbatim}
 \end{quote}
-since \latex{} can see there's no conflict (in fact, the second load
+since \LaTeX{} can see there's no conflict (in fact, the second load
 does nothing).
 
 Similarly,
@@ -668,7 +668,7 @@ However
 \end{verbatim}
 \end{quote}
 produces the error; even if option `\pkgoption{b}' is an alias for
-option `\pkgoption{a}'~--- \latex{} doesn't ``look inside'' the package
+option `\pkgoption{a}'~--- \LaTeX{} doesn't ``look inside'' the package
 to check anything like that.
 
 The general rule is: the first load of a package defines a set of
@@ -725,7 +725,7 @@ See the LaTeX manual or LaTeX Companion
 your figures (or tables) are not being placed properly.  \LaTeX{}
 has a limited amount of storage for `floats' (figures, tables, or
 floats you've defined yourself with the \Package{float} package); if
-something you have done has prevented \latex{} from typesetting
+something you have done has prevented \LaTeX{} from typesetting
 floats, it will run out of storage space.
 
 This failure usually occurs in extreme cases of % ! line break
@@ -746,12 +746,12 @@ Techniques for solving the problem are discussed in the % ! line break
 \Qref*{floats question}{Q-floats} already referenced.
 
 An alternative \emph{may} be to use the \Package{morefloats} package.
-The package will allocate more ``float skeletons'' than \latex{}
+The package will allocate more ``float skeletons'' than \LaTeX{}
 does by default; each such skeleton may then be used to store a
 float.  Beware that even with \Package{morefloats}, the number you can
 allocate is limited; even with the \Package{etex} package (which makes
-available many more registers, etc., than \latex{} does by default;
-\etex{} can create lots more registers, but none of those ``beyond
+available many more registers, etc., than \LaTeX{} does by default;
+\eTeX{} can create lots more registers, but none of those ``beyond
 the original \TeX{} default'' may be used in float skeletons).  Thus,
 \Package{etex} may offer some relief, but it can \emph{not} be
 regarded as a panacea
@@ -1761,7 +1761,7 @@ If you're using the simpler \Package{graphics} package, use the
 
 The \emph{preamble} of your document is the stuff before
 \cmdinvoke{begin}{document}; you put \csx{usepackage} commands and
-your own macro definitions in there.  \latex{} doesn't like
+your own macro definitions in there.  \LaTeX{} doesn't like
 \emph{typesetting} anything in the preamble, so if you have:
 \begin{itemize}
 \item typed the odd grumble,
@@ -1792,7 +1792,7 @@ preventing you from seeing them.  This can happen when your document
 is being `written' in \Qref*{Unicode}{Q-unicode}.  The Unicode
 standard defines ``Byte Order Marks'' (\acro{BOM}), that reassure a
 program (that reads the document) of the way the Unicode codes are
-laid out.  Sadly ordinary \latex{} or \pdflatex{} choke on
+laid out.  Sadly ordinary \LaTeX{} or \pdflatex{} choke on
 \acro{BOM}s, and consider them typesetting requests.  The error
 message you see will look like:
 \begin{quote}
@@ -1829,8 +1829,8 @@ change the encoding from \texttt{utf-8-with-signature} to `plain'
 (So far, all instances of this problem that the author has seen have
 afflicted \acro{GNU E}macs users.)
 
-Fortunately \xetex{} and \luatex{} know about \acro{BOM}s and what to
-do with them, so \latex{} using them is ``safe''.
+Fortunately \xetex{} and \LuaTeX{} know about \acro{BOM}s and what to
+do with them, so \LaTeX{} using them is ``safe''.
 
 \Question[Q-normalszmiss]{\csx{normalsize} not defined}
 
@@ -1871,7 +1871,7 @@ manipulate them, which allocate themselves one or more maths alphabet.
 
 If you can't afford to drop any of these packages, you might be able
 to consider switching to use of \Qref*{\xetex{}}{Q-xetex} or
-\Qref{\luatex{}}{Q-luatex}, which both have 65536 alphabet slots
+\Qref{\LuaTeX{}}{Q-luatex}, which both have 65536 alphabet slots
 available.  (Such a change is best not done when under pressure to
 complete a document; other issues, such as font availability) could
 make a change impractical.)
@@ -2193,7 +2193,7 @@ For example:
 The error comes when you try to build something movable inside a box.
 Movable things, in this context, are floating environments
 (\environment{figure} and \environment{table}, for example), and
-\csx{marginpar}s.  \latex{} simply doesn't have the mechanisms for
+\csx{marginpar}s.  \LaTeX{} simply doesn't have the mechanisms for
 floating out of boxes.  In fact, floats and \csx{marginpar}s
 themselves are built out of boxes, so that they can't be nested.
 
@@ -2363,9 +2363,9 @@ documentation on how to do it~--- there are lots of % ! line break
 \Qref*{free tutorials}{Q-tutorials*} to help you on your way, if you
 don't have access to a \LaTeX{} manual of any sort.
 
-\Question[Q-includeother]{\latex{} won't include from other directories}
+\Question[Q-includeother]{\LaTeX{} won't include from other directories}
 
-You wanted to \cmdinvoke{include}{../bar/xyz.tex}, but \latex{} says:
+You wanted to \cmdinvoke{include}{../bar/xyz.tex}, but \LaTeX{} says:
 \begin{quote}
 \begin{wideversion}
 \begin{verbatim}
@@ -2382,10 +2382,10 @@ LaTeX: Not writing to ../bar/xyz.aux
 (The first line of that message is wrapped, here.)
 \end{narrowversion}
 \end{quote}
-The error comes from \tex{}'s protection against writing to
+The error comes from \TeX{}'s protection against writing to
 directories that aren't descendents of the one where your document
 resides.  (The restriction protects against problems arising from
-\latex{}ing someone else's malicious, or merely broken, document.  If
+\LaTeX{}ing someone else's malicious, or merely broken, document.  If
 such a document overwrites something you wanted kept, there is obvious
 potential for havoc.)
 
@@ -2438,9 +2438,9 @@ Solutions to the problem tend to be drastic:
 \Question[Q-expl3-old]{Support package \Package{expl3} too old}
 
 Some (rather modern) packages are written using the % ! line break
-\Qref*{\latex{}3 programming environment}{Q-LaTeX3}.  Since \latex{}3
+\Qref*{\LaTeX{}3 programming environment}{Q-LaTeX3}.  Since \LaTeX{}3
 is still under development, the author cannot reliably guess what
-version of \latex{}3 the user has installed, and whether that version
+version of \LaTeX{}3 the user has installed, and whether that version
 is adequate for the current package.  Thus the package's code often
 checks the user's installation, and complains if it's older than the
 author's installation at time of testing.  The error message is:
@@ -2449,14 +2449,14 @@ author's installation at time of testing.  The error message is:
 ! Support package expl3 too old.
 \end{verbatim}
 \end{quote}
-The ``additional help'' tells you the solution: update your \latex{}3
+The ``additional help'' tells you the solution: update your \LaTeX{}3
 installation.  The relevant things are \Package{l3kernel} (the
 programming environment, which contains the \Package{expl3} mentioned
-in the error message) and \Package{l3packages} (\latex{}3 constructs
+in the error message) and \Package{l3packages} (\LaTeX{}3 constructs
 such as command definitions).
 
 While this sounds a drastic remedy, it is no longer the major
-undertaking it once was~--- if you are using a modern \tex{}
+undertaking it once was~--- if you are using a modern \TeX{}
 distribution that you installed yourself, ask it to update over the
 internet; if that choice is not available, install from the
 \extension{tds.zip} files available for both packages on \ctan{}.

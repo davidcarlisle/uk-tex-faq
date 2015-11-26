@@ -187,22 +187,22 @@ which rather spoils the intent of the joke implicit in the example
 
 \Question[Q-repeat-num]{Repeating a command \emph{n} times}
 
-\tex{} was \emph{not} designed as a programming language, but there
+\TeX{} was \emph{not} designed as a programming language, but there
 are occasions when you want to repeat some part of your document, just
 as parts of programs need to run several times.  An obvious
-example is \tex{}-based drawing: \latex{}'s \environment{picture}
+example is \TeX{}-based drawing: \LaTeX{}'s \environment{picture}
 environment and \Package{pgf} (at least) provide repeat facilities~---
 they are useful for drawing repeating patterns.  As a result,
 ``common'' programming techniques often have to be emulated using
-obscure macro \tex{}niques.
+obscure macro \TeX{}niques.
 
 This answer deals with repeating an operation a given number of times;
 repeating operations once for each of a set of objects is dealt with
 in the answer \Qref*{repeating ``over a set''}{Q-repeat-set}.
 
-Plain \tex{} itself provides a \csx{loop} \dots{} \csx{repeat}
+Plain \TeX{} itself provides a \csx{loop} \dots{} \csx{repeat}
 contruct, which enables you to repeat a command (or set of commands).
-The syntax is simple enough, but it use of \tex{} conditionals is
+The syntax is simple enough, but it use of \TeX{} conditionals is
 different enough that many people find it confusing.
 \begin{quote}
 \begin{verbatim}
@@ -218,7 +218,7 @@ different enough that many people find it confusing.
 In this slightly tricky code, \csx{loop} starts the construct ended by
 \csx{repeat}, but \csx{repeat} also ``serves as'' the \csx{fi} to the
 \csx{ifnum}.  The loop above prints the numbers from 10 down to 1 via
-\tex{} \csx{message} (i.e., on the console output).
+\TeX{} \csx{message} (i.e., on the console output).
 
 The \Package{multido} package is also `generic' (usable both in
 \plaintex{} and latex{}); it defines a command \csx{multido} with
@@ -237,15 +237,15 @@ and so on.  (The variable \csx{iz} is an integer; variables with other
 initial letters represent different data types.)
 
 % [do these things matter?]
-% The \latexe{} kernel has commands \csx{@for} and \csx{@tfor}.
+% The \LaTeXe{} kernel has commands \csx{@for} and \csx{@tfor}.
 %
-% The \latex{}3 kernel includes the command |\prg_replicate:nn|; this
-% information isn't much use unless you're a \latex{}3 user.
-Both current \latex{} and (experimental) \latex{}3 have iteration
+% The \LaTeX{}3 kernel includes the command |\prg_replicate:nn|; this
+% information isn't much use unless you're a \LaTeX{}3 user.
+Both current \LaTeX{} and (experimental) \LaTeX{}3 have iteration
 commands for internal use and for package writers; their use is
 probably not recommendable.
 
-The \latex{} distribution package \Package{ifthen} offers the macro
+The \LaTeX{} distribution package \Package{ifthen} offers the macro
 \csx{whiledo}:
 \begin{quote}
 \begin{verbatim}
@@ -275,7 +275,7 @@ as you can see, the arguments are counter, starting value and
 termination condition; an optional argument supplies a step value
 (default step is 1).
 
-The \latex{} \environment{picture} environment has a simple command
+The \LaTeX{} \environment{picture} environment has a simple command
 for repeated drawing:
 \begin{quote}
 \begin{verbatim}
@@ -342,7 +342,7 @@ clear.
 %
 % Note the \plaintex{} usage: \Package{repeat} is ``generic'' and
 % defines commands that are comfortable to \plaintex{} users, while
-% remaining usable by \latex{} users.
+% remaining usable by \LaTeX{} users.
 %
 % The complete syntax is given in the meta-expression:
 % \begin{quote}
@@ -359,11 +359,11 @@ clear.
 % but of course any loop has to have \emph{some}).
 
 % In summary, while it is certainly possible to write this sort of code as
-% a private project (for example, using the \etex{} \csx{numexpr}
+% a private project (for example, using the \eTeX{} \csx{numexpr}
 % primitive), one cannot deny that plenty of choice for the task is
 % readily available.
 %
-% (the above ignore Pic\tex{}, which almost certainly has similar
+% (the above ignore Pic\TeX{}, which almost certainly has similar
 % functions, but in the absence of a manual\dots{})
 \begin{ctanrefs}
 %\item[etextools.sty]\CTANref{etextools}
@@ -380,7 +380,7 @@ clear.
 
 As another question % line break!
 (\Qref*{repeating something a given number of times}{Q-repeat-num})
-explains, \tex{} is not explicitly designed for `regular' programming
+explains, \TeX{} is not explicitly designed for `regular' programming
 operations. As a result, we must resort to arcane tricks to do the
 seemingly simple task of repeating an operation.  This answer deals
 with repeating an operation for each of a given set of objects.
@@ -518,7 +518,7 @@ The situation is more difficult still if \csx{smooth} takes an
 optional argument; the structure of the command is so complex that the
 simple \csx{let} command does not retain the necessary detail.  In
 this case, we need the \Package{letltxmacro} package which knows about all
-sorts of \latex{} commands and how to replicate them.  Suppose we have
+sorts of \LaTeX{} commands and how to replicate them.  Suppose we have
 a command defined as:
 \begin{quote}
 \begin{verbatim}
@@ -616,7 +616,7 @@ string.)
 
 The \Package{regexpatch} package deals with cases that are
 inaccessible with \Package{etoolbox}; it uses the regular expression
-(pattern-matching) package \Package{l3regex} from the \latex{}3
+(pattern-matching) package \Package{l3regex} from the \LaTeX{}3
 distribution to find the code you need to patch.  The package also
 ``knows about'' robust commands and about
 \Qref*{\Package{biblatex}}{Q-biblatex}.
@@ -872,7 +872,7 @@ So if you define a macro:
 \newcommand\a[1]{+#1+#1+#1+}
 \end{verbatim}
 \end{quote}
-or (using the \tex{} primitive \csx{def}):
+or (using the \TeX{} primitive \csx{def}):
 \begin{quote}
 \begin{verbatim}
 \def\a#1{+#1+#1+#1+}
@@ -902,7 +902,7 @@ then \cmdinvoke{a}{b} will give us the rather odd
 \end{quote}
 so that the new \csx{x} ignores its argument.
 
-If we use the \tex{} primitive: 
+If we use the \TeX{} primitive: 
 \begin{quote}
 \begin{verbatim}
 \def\a#1{+#1+\def\x #1{xxx#1}}
@@ -926,7 +926,7 @@ Actually, to define \csx{x} to take an argument, we need
 \end{verbatim}
 \end{wideversion}
 \end{quote}
-or, using the \tex{} primitive definition:
+or, using the \TeX{} primitive definition:
 \begin{quote}
 \begin{verbatim}
 \def\a#1{+#1+\def\x ##1{xxx##1}}
@@ -1142,7 +1142,7 @@ position, aren't very kind to the user, and that a package such as
 consider the packages that the macro programmer might use, to create
 such a user interface.
 
-The simplest key-value processor (for \latex{}, at least) remains
+The simplest key-value processor (for \LaTeX{}, at least) remains
 \Package{keyval}; it has a command \csx{define@key} to declare a key
 and a \emph{handler} to process it, and a macro \csx{setkeys} to offer
 values to the handler of one or more keys.  Thus:
@@ -1277,10 +1277,10 @@ includes the \Package{l3keys} module.  Inspired by \Package{pgfkeys},
 it provides a keyval-based method for the programmer to create keys.
 As with keyval and derivatives, \Package{l3keys} uses separate macros
 for defining and setting keys.  The package \Package{l3keys2e} makes
-it possible for \latexe{} class and package
+it possible for \LaTeXe{} class and package
 options to be processed using \Package{l3keys}. \Package{L3kernel}
 code can be used within existing LaTeX2e documents, so
-\Package{l3keys} is also available to the \latexe{} programmer `direct'.
+\Package{l3keys} is also available to the \LaTeXe{} programmer `direct'.
 
 Another key-value system that's part of larger set of macros is
 \Package{scrbase}, which uses the facilities of \Package{keyval} to
@@ -1305,9 +1305,9 @@ for \textsl{TUGboat} by Joseph Wright, and the partial translation of the
 documentation of package \Package{scrbase} prepared by Philipp
 Stephani.
 
-All the above are (at least) aimed at \latex{} programming; there is
+All the above are (at least) aimed at \LaTeX{} programming; there is
 one package, \Package{getoptk}, aimed at the \plaintex{} programmer.
-\Package{Getoptk} uses syntax inspired by that offered by \tex{}
+\Package{Getoptk} uses syntax inspired by that offered by \TeX{}
 primitives such as \csx{hrule} and \csx{hbox}, so we are offered
 syntax such as:
 \begin{wideversion}
@@ -1754,26 +1754,26 @@ lamented Mike Downes.
 \item[memoir.cls]\CTANref{memoir}
 \end{ctanrefs}
 
-\Question[Q-whatengine]{Am I using \pdftex{}, \xetex{} or \luatex{}?}
+\Question[Q-whatengine]{Am I using \pdftex{}, \xetex{} or \LuaTeX{}?}
 \AliasQuestion{Q-ifpdf}
 
 You often need to know what ``engine'' your macros are running on (the
-engine is the \tex{}-derivative or \tex{}-alike processor that
+engine is the \TeX{}-derivative or \TeX{}-alike processor that
 typesets your document).  The reason that you need to know is that the
 set of functions available in each engine is different.  Thus, for
-\tex{} macros to run on any engine, they need to ``know'' what they
+\TeX{} macros to run on any engine, they need to ``know'' what they
 can and cannot do, which depends on the engine in use.  Getting the
 right answer is surprisingly tricky (see below for an elaboration of
 one apparently simple test).
 
 There is now a comprehensive set of packages that answer the question
-for you.  They all create a \tex{} conditional command:
+for you.  They all create a \TeX{} conditional command:
 \begin{itemize}
 \item \Package{ifpdf} creates a command \csx{ifpdf},
 \item \Package{ifxetex} creates a command \csx{ifxetex} and
 \item \Package{ifluatex} creates a command \csx{ifluatex}.
 \end{itemize}
-These \tex{} commands may be used within the \latex{} conditional
+These \TeX{} commands may be used within the \LaTeX{} conditional
 framework, as (for example):
 \begin{quote}
   \csx{ifthenelse}\texttt{\obracesymbol{}}\cmdinvoke{boolean}{pdf}\texttt{\cbracesymbol{}}\texttt{\obracesymbol{}}\meta{if pdf}\texttt{\cbracesymbol{}}\texttt{\obracesymbol{}}\meta{if not pdf}\texttt{\cbracesymbol{}}
@@ -2247,7 +2247,7 @@ to patch something to make it ``work the way you want it''.  None of
 these are \emph{pure} motives, but knowledge and expertise seldom
 arrive through the purest of motives.
 
-Using a \tex{} executable of some sort, the simple answer is to try
+Using a \TeX{} executable of some sort, the simple answer is to try
 \csx{show}, in a run that is taking commands from the terminal:
 \begin{quote}
 \begin{verbatim}
@@ -2303,7 +2303,7 @@ places above.  (Again, the output has been sanitised.)
 
 The command \ProgName{texdef} (or \ProgName{latexdef}~--- the same
 command with a different name) will do all that for you and return the
-results slightly more tidily than \latex{} itself manages.  For
+results slightly more tidily than \LaTeX{} itself manages.  For
 example:
 \begin{quote}
 \begin{verbatim}
@@ -2684,10 +2684,10 @@ For those of an adventurous disposition, a further option is to use
 the \Package{xparse} package from the \Package{l3packages}
 distribution.  The package defines a bunch of commands (such as
 \csx{NewDocumentCommand}) which are somewhat analagous to
-\csx{newcommand} and the like, in \latexe{}.  The big difference is
+\csx{newcommand} and the like, in \LaTeXe{}.  The big difference is
 the specification of command arguments; for each argument, you have a
 set of choices in the command specification.  So, to create a
-*-command (in \latexe{} style), one might write:
+*-command (in \LaTeXe{} style), one might write:
 \begin{quote}
 \begin{verbatim}
 \NewDocumentCommand \foo { s m } {%
@@ -2700,13 +2700,13 @@ set of choices in the command specification.  So, to create a
 The ``star indicator'' (\texttt{s}) argument appears as \texttt{\#1}
 and will take values \csx{BooleanTrue} (if there was a star) or
 \csx{BooleanFalse} (otherwise); the other (\texttt{m}) argument  is a
-normal \tex{}-style mandatory argument, and appears as \texttt{\#2}.
+normal \TeX{}-style mandatory argument, and appears as \texttt{\#2}.
 
 While \Package{xparse} provides pleasing command argument
 specifications, it \emph{is} part of the % ! line break
-\Qref*{\latex{}~3 experimental harness}{Q-LaTeX3}.
+\Qref*{\LaTeX{}~3 experimental harness}{Q-LaTeX3}.
 Simply loading the package to provide \csx{DeclareDocumentCommand}
-``pulls in'' all of the \latex{}3 kernel (a large bunch of packages)
+``pulls in'' all of the \LaTeX{}3 kernel (a large bunch of packages)
 via the \Package{expl3} package.
 \begin{ctanrefs}
 \item[ifthen.sty]Part of the \LaTeX{} distribution
@@ -3185,8 +3185,8 @@ for its own use, and therefore provides a command \csx{checkoddpage};
 this sets a private-use `label', and the page reference part of that
 label is then examined (in a \Package{hyperref}-safe way) to set a
 conditional \csx{ifoddpage} true if the command was issued on an odd
-page.  (The \Class{memoir} class has the same command.)  \latex{}
-users who are unfamiliar with \tex{}'s \csx{if...} commands may use
+page.  (The \Class{memoir} class has the same command.)  \LaTeX{}
+users who are unfamiliar with \TeX{}'s \csx{if...} commands may use
 the \Package{ifthen} package:
 \begin{wideversion}
 \begin{quote}
@@ -3227,7 +3227,7 @@ facility; crucially, it can behave ``sensibly'' even if you are
 typesetting for one-side printing only; like the \Package{changepage}
 it uses a `check' command \csx{checkoddpage}.  The conditional `side'
 flags are set using (Plain) \TeX{} conditionals; they are defined
-locally, so that you can minimise their use of \tex{} workspace~---
+locally, so that you can minimise their use of \TeX{} workspace~---
 see the package documentation for the somewhat tricky sequence
 involved.  In addition the package provides a command
 \csx{ifoddpageoroneside}, which is true on odd pages of a two-side
@@ -3251,7 +3251,7 @@ necessary.
 \begin{ctanrefs}
 \item[changepage.sty]\CTANref{changepage}
 \item[ifoddpage.sty]\CTANref{ifoddpage}
-\item[ifthen.sty]Part of the \latex{} distribution: \CTANref{latex}
+\item[ifthen.sty]Part of the \LaTeX{} distribution: \CTANref{latex}
 \item[\nothtml{\rmfamily}KOMA script bundle]\CTANref{koma-script}
 \item[memoir.cls]\CTANref{memoir}
 \end{ctanrefs}
@@ -3591,7 +3591,7 @@ December 2003 edition of \LaTeX{}; if you have an older distribution,
 the packages \Package{type1cm} (for \acro{CM} fonts) and
 \Package{type1ec} (for \acro{EC} fonts) are available.
 
-\Package{Fix-cm} doesn't has one or two omissions~--- fonts the \latex{}
+\Package{Fix-cm} doesn't has one or two omissions~--- fonts the \LaTeX{}
 team did not consider useful, or something; the CM dunhill fonts (as
 CM, but with stretched ascenders) and the CM fibonacci font (which is only
 available in 8-point design size) are certainly missing.  If
@@ -3678,13 +3678,13 @@ draconian.
 \end{ctanrefs}
 \LastEdit{2012-10-09}
 
-\Question[Q-ltx-csv]{Process a \acro{CSV} file in \latex{}}
+\Question[Q-ltx-csv]{Process a \acro{CSV} file in \LaTeX{}}
 
 Comma-separated-variable (\acro{CSV}) files are a common means of
 interchanging simple data between applications; for example, most
 spreadsheet applications can provide files containing tables of
 numbers with commas between them.  One can envisage these tables as
-``\latex{} tables'', and the packages to process them all provide
+``\LaTeX{} tables'', and the packages to process them all provide
 table generation, one way or another.
 
 For rather a long time, the canonical tools for dealing with such
@@ -3699,7 +3699,7 @@ which define how each row of the \acro{CSV} file is to be processed.
 
 For usage ``nearer to the bone'', one might consider the commands
 \csx{docsvlist} and \csx{forcsvlist} (from the \Package{etoolbox}
-package).  The first uses the time-honoured \latex{} technique of
+package).  The first uses the time-honoured \LaTeX{} technique of
 changing the definition of a \csx{do} command; it runs through the
 list, and processes every item of the list as the argument of the
 \csx{do} command; so:

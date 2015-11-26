@@ -10,8 +10,8 @@ processed for printing or viewing on most kinds of typographic output
 device or display.
 
 A \acro{DVI} file (that is, a file with the type or extension
-\extension{dvi}) is the main output file of ``original'' \tex{} (later
-\tex{}-like systems, such as \Qref*{\pdftex{}}{Q-whatpdftex} may use
+\extension{dvi}) is the main output file of ``original'' \TeX{} (later
+\TeX{}-like systems, such as \Qref*{\pdftex{}}{Q-whatpdftex} may use
 other formats).
 
 A \acro{DVI} file contains all the information that is needed for
@@ -72,7 +72,7 @@ and \Qref[]{Using \PS{} fonts with \TeX{}}{Q-usepsfont}.
 
 \Question[Q-pk]{What are \acro{PK} files?}
 
-\acro{PK} files (packed raster) are the canonical form of \tex{} font
+\acro{PK} files (packed raster) are the canonical form of \TeX{} font
 bitmaps.  The output from \Qref*{\MF{}}{Q-useMF} includes a generic
 font (\acro{GF}) file and the utility \ProgName{gftopk} produces a
 \acro{PK} file from that.
@@ -109,7 +109,7 @@ contrast, \acro{TFM} files are not, in principle, needed by the
 character selects, so as to print or display them.
 
 Note that TrueType and OpenType fonts contain the necessary metrics,
-so that \Qref{\xetex{}}{Q-xetex} and \Qref{\luatex{}}{Q-luatex}, using
+so that \Qref{\xetex{}}{Q-xetex} and \Qref{\LuaTeX{}}{Q-luatex}, using
 such fonts, have no need of \acro{TFM} files.  A corollary of this is
 that setting up fonts for use by these engines is far \emph{easier}.
 \LastEdit{2012-10-20}
@@ -246,7 +246,7 @@ which produces:
 \begin{quote}
   This is 3/4 bar.
 \end{quote}
-(\latex{} users waltz through life, perhaps?)
+(\LaTeX{} users waltz through life, perhaps?)
 
 You will have noticed that the arguments, above, were enclosed in
 braces (\texttt{\obracesymbol{}\dots{}\cbracesymbol{}}); this is the
@@ -298,24 +298,24 @@ there is no device driver around.  There \emph{is} a concept of
 warning when used in \PDFTeX{}.
 \LastEdit{2011-10-15}
 
-\Question[Q-write]{Writing (text) files from \tex{}}
+\Question[Q-write]{Writing (text) files from \TeX{}}
 
 \TeX{} allows you to write to output files from within your document.
 The facility is handy in many circumstances, but it is vital for
-several of the things \latex{} (and indeed almost any higher-level
-\tex{}-based macro package) does for you.
+several of the things \LaTeX{} (and indeed almost any higher-level
+\TeX{}-based macro package) does for you.
 
 The basic uses of writing to an external file are ``obvious''~---
 remembering titles of sections for a table of contents, remembering
 label names and corresponding section or figure numbers, all for a
 later run of your document.  However, the ``non-obvious'' thing is
-easy to forget: that page numbers, in \tex{}, are slippery beasts, and
+easy to forget: that page numbers, in \TeX{}, are slippery beasts, and
 have to be captured with some care.  The trick is that \csx{write}
 operations are only executed as the page is sent to the \acro{DVI}
 or \acro{PDF} file.  Thus, if you arrange that your page-number macro
-(\csx{thepage}, in \latex{}) is not expanded until the page is
+(\csx{thepage}, in \LaTeX{}) is not expanded until the page is
 written, then the number written is correct, since that time is where
-\tex{} guarantees the page number tallies with the page being sent
+\TeX{} guarantees the page number tallies with the page being sent
 out.
 
 Now, there are times when you want to write something straight away:
@@ -335,17 +335,17 @@ means of allocating streams for your use: \plaintex{} provides a macro
 \csx{newwrite} (used as ``\csx{newwrite}\csx{streamname}'', which sets
 \csx{streamname} as the stream number).  In fact, \csx{terminal} (or
 its equivalent) is the first output stream ever set up (in most macro
-packages): it is never attached to a file, and if \tex{} is asked to
+packages): it is never attached to a file, and if \TeX{} is asked to
 write to \emph{any} stream that isn't attached to a file it will send
 the output to the terminal (and the log).
 \LastEdit{2011-10-15}
 
 \Question[Q-spawnprog]{Spawning programs from \AllTeX{}: \csx{write18}}
 
-The \tex{} \Qref*{\csx{write} primitive instruction}{Q-write} is used
+The \TeX{} \Qref*{\csx{write} primitive instruction}{Q-write} is used
 to write to different file `streams'; TeX refers to each open file by
 a number, not by a file name (although most of the time we hide this).
-Originally, \tex{} would write to a file connected to a stream
+Originally, \TeX{} would write to a file connected to a stream
 numbered 0--15.  More recently, a special ``stream 18'' has been
 implemented: it is not writing to a file, but rather tells TeX to ask
 the operating system to do something.  To run a command, we put it as
@@ -365,9 +365,9 @@ However, there is a security issue. If you download some \alltex{} code from
 the Internet, can you be sure that there is not some command in it
 (perhaps in a hidden way) to do stuff that might be harmful to your
 computer (let's say: delete everything on the hard disk!)?  In the
-face of this problem, both \miktex{} and \tex{}~Live have, for some
+face of this problem, both \miktex{} and \TeX{}~Live have, for some
 time, disabled \csx{write18} by default.  To turn the facility on,
-both distributions support an additional argument when starting \tex{}
+both distributions support an additional argument when starting \TeX{}
 from the command shell:
 \begin{quote}
 \begin{verbatim}
@@ -379,18 +379,18 @@ editor, so to use \csx{write18} for a file the editor's settings must
 be changed.  Of course, the settings need restoring after the file is
 processed: you defeat the point of the original protection, that way.
 
-The latest \miktex{} (version 2.9), and recent \tex{}~Live (from the
+The latest \miktex{} (version 2.9), and recent \TeX{}~Live (from the
 2010 release) get
 around this by having a special ``limited'' version of \csx{write18}
 enabled `out of the box'.  The idea is to allow only a pre-set list of
-commands (for example, \BibTeX{}, \progname{epstopdf}, \tex{} itself,
+commands (for example, \BibTeX{}, \progname{epstopdf}, \TeX{} itself,
 and so on).  Those on the list are regarded as safe enough to allow,
 whereas anything else (for example deleting files) still needs to be
 authorised by the user. This seems to be a good balance: most people
 most of the time will not need to worry about \csx{write18} at all,
 but it will be available for things like \Package{epstopdf}.
 
-Note that the \tex{} system may tell you that the mechanism is in use:
+Note that the \TeX{} system may tell you that the mechanism is in use:
 \begin{wideversion}
 \begin{quote}
 \begin{verbatim}
@@ -441,7 +441,7 @@ this applies to \TeX{}'s \csx{accent} primitive (as in `syst\`eme')
 just as much as the exclamation in`syst!eme'.
 
 (Hyphenation takes place on the characters ``sent to the printer''.
-The problem with \csx{accent} is avoided~---in \latex{}~--- by the use
+The problem with \csx{accent} is avoided~---in \LaTeX{}~--- by the use
 of the \Package{fontenc} package, as discussed in % ! line break
 ``\Qref*{Accented words aren t hyphenated}{Q-hyphenaccents}''.)
 
@@ -452,9 +452,9 @@ ordinary mortals).
 
 The patterns for the languages a \TeX{} system is going to deal with
 may only be loaded when the system is installed.  To change the set of
-hyphenation patterns recognised by a \tex{}-based or \xetex{} system,
+hyphenation patterns recognised by a \TeX{}-based or \xetex{} system,
 a \Qref*{partial reinstallation}{Q-newlang} is necessary (note that 
-\Qref*{\luatex{}}{Q-luatex} relaxes this constraint).
+\Qref*{\LuaTeX{}}{Q-luatex} relaxes this constraint).
 
 \TeX{} provides two ``user-level'' commands for control of
 hyphenation: \csx{language} (which selects a hyphenation style), and
@@ -473,17 +473,17 @@ it is very thoroughly managed by the \Package{babel} package; use of
 
 \Question[Q-clsvpkg]{What are \LaTeX{} classes and packages?}
 
-\latex{} aims to be a general-purpose document processor.  Such an aim
+\LaTeX{} aims to be a general-purpose document processor.  Such an aim
 could be achieved by a selection of instructions which would enable
-users to use \tex{} primitives, but such a procedure is considered too
+users to use \TeX{} primitives, but such a procedure is considered too
 inflexible (and probably too daunting for ordinary users).  Thus the
-designers of \latex{} created a model which offered an
+designers of \LaTeX{} created a model which offered an
 \emph{abstraction} of the design of documents.  Obviously, not all
 documents can look the same (even with the defocussed eye of
 abstraction), so the model uses \emph{classes} of document.  Base
-\latex{} offers five classes of document: \Class{book},
+\LaTeX{} offers five classes of document: \Class{book},
 \Class{report}, \Class{article} and \Class{letter}.
-For each class, \latex{} provides a \emph{class file}; the user
+For each class, \LaTeX{} provides a \emph{class file}; the user
 arranges to use it via a \csx{documentclass} command at the top of the
 document.  So a document starting
 \begin{quote}
@@ -492,7 +492,7 @@ document.  So a document starting
 may be called ``an \emph{article} document''.
 
 This is a good scheme, but it has a glaring flaw: the actual
-typographical designs provided by the \latex{} class files aren't
+typographical designs provided by the \LaTeX{} class files aren't
 widely liked.  The way around this is to \emph{refine} the class.  To
 refine a class, a programmer may write a new class file that loads an
 existing class, and then does its own thing with the document design.
@@ -500,14 +500,14 @@ existing class, and then does its own thing with the document design.
 If the user finds such a refined class, all is well, but if not, the
 common way is to load a \emph{package} (or several).
 
-The \latex{} distribution, itself, provides rather few package files,
+The \LaTeX{} distribution, itself, provides rather few package files,
 but there are lots of them, by a wide variety of authors, to be found
 on the archives.  Several packages are designed just to adjust the
 design of a document~--- using such packages achieves what the
 programmer might have achieved by refining the class.
 
 Other packages provide new facilities: for example, the
-\Package{graphics} package (actually provided as part of any \latex{}
+\Package{graphics} package (actually provided as part of any \LaTeX{}
 distribution) allows the user to load externally-provided graphics
 into a document, and the \Package{hyperref} package enables the user
 to construct hyper-references within a document.
@@ -526,9 +526,9 @@ changed: the important requirement is to understand what other people
 are talking about.
 \LastEdit{2013-10-21}
 
-\Question[Q-whatenv]{What are \latex{} ``environments''}
+\Question[Q-whatenv]{What are \LaTeX{} ``environments''}
 
-While \tex{} makes direct provision for commands, \latex{} adds a
+While \TeX{} makes direct provision for commands, \LaTeX{} adds a
 concept of ``environment''; environments perform an action on a block
 (of something or other) rather than than just doing something at one
 place in your document.
@@ -556,12 +556,12 @@ which will look like:
 \end{quote}
 so it is a particularly simple example.  A rather complicated
 environment is introduced by \cmdinvoke{begin}{document}; it looks
-simple, but needs all sorts of special \tex{} code to make it work
+simple, but needs all sorts of special \TeX{} code to make it work
 `transparently'; most environments are more elaborate than
 \environment{monoblock} and \emph{much} simpler than
 \environment{document}.
 
-An environment puts its content inside a \tex{} \emph{group}, so that
+An environment puts its content inside a \TeX{} \emph{group}, so that
 commands used inside the environment don't `leak out'~--- the
 \environment{monoblock} environment, above, restricts its effect to
 its own contents (the stuff between the \cmdinvoke{begin}{monoblock}
@@ -579,7 +579,7 @@ though in fact many useful environments are just as simple (to look
 at).  Some, such as \environment{verbatim}, look simple but are
 actually very tricky inside.
 
-\latex{} also allows arguments to an environment:
+\LaTeX{} also allows arguments to an environment:
 \begin{quote}
 \begin{verbatim}
 \newenvironment{fontblock}[1]%
@@ -646,7 +646,7 @@ have to wrap it in a macro of its own:
 
 \Question[Q-dtx]{Documented \LaTeX{} sources (\extension{dtx} files)}
 
-\LaTeXe{}, and many contributed \latex{} macro packages, are written
+\LaTeXe{}, and many contributed \LaTeX{} macro packages, are written
 in a \Qref*{literate programming style}{Q-lit}, with source and
 documentation in the
 same file.  This format in fact originated before the
@@ -656,7 +656,7 @@ packages.  A documented source file conventionally has the suffix
 \LaTeX{}; an installation (\extension{ins}) file is normally provided,
 to automate this process of removing comments for speed of loading.
 If the \extension{ins} file is available, you may process \emph{it}
-with \latex{} to produce the package (and, often, auxiliary files).
+with \LaTeX{} to produce the package (and, often, auxiliary files).
 
 Output should look something like:
 \begin{quote}
@@ -677,7 +677,7 @@ be repeated if the \extension{dtx} file provides more than one
 
 To read the comments ``as a document'', you can run \LaTeX{} on the
 \extension{dtx} file to produce a nicely formatted version of the
-documented code.  (Most \latex{} packages on \ctan{}, nowadays, already
+documented code.  (Most \LaTeX{} packages on \ctan{}, nowadays, already
 have \acro{PDF} of the result of processing the \extension{dtx} file,
 as ``documentation''.)
 
@@ -842,7 +842,7 @@ European languages that use Latin alphabets, in the sense of including
 all accented letters needed.  (Knuth's \acro{CMR} fonts missed things
 necessary for Icelandic and Polish, for example, which the Cork fonts
 do have, though even Cork encoding's coverage isn't complete.)
-\latex{} refers to the Cork encoding as \acro{T}1, and provides the
+\LaTeX{} refers to the Cork encoding as \acro{T}1, and provides the
 means to use fonts thus encoded to avoid problems with the interaction
 of accents and hyphenation % ! line break
 (see \Qref[question]{hyphenation of accented words}{Q-hyphenaccents}).
@@ -879,7 +879,7 @@ families are discussed in % ! line break
 
 The \acro{EC} fonts are distributed with a set of `Text Companion' (\acro{TC}) fonts
 that provide glyphs for symbols commonly used in text. The \acro{TC} fonts
-are encoded according to the \latex{} \acro{TS}1 encoding, and are not
+are encoded according to the \LaTeX{} \acro{TS}1 encoding, and are not
 necessarily as `stable' are the \acro{EC} fonts are.  Note that modern
 distributions tend not to distribute the \acro{EC} fonts in outline format, but
 rather to provide Latin Modern for \acro{T}1-encoded Computer Modern-style
@@ -893,7 +893,7 @@ with \alltex{}.
 
 Note that \acro{T}1 (and other eight-bit font encodings) are superseded in
 the developing \TeX{}-family members \Qref*{\xetex{}}{Q-xetex} and
-\Qref*{\luatex{}}{Q-luatex}, which use Unicode as their base encoding,
+\Qref*{\LuaTeX{}}{Q-luatex}, which use Unicode as their base encoding,
 and use Unicode-encoded fonts (typically in \FontFormat{ttf} or
 \FontFormat{otf} formats).  The \Package{cm-unicode} fonts carry the
 flag in this arena, along with the Latin Modern set.
@@ -905,30 +905,30 @@ flag in this arena, along with the Latin Modern set.
 \item[Latin Modern fonts]\CTANref{lm}
 \end{ctanrefs}
 
-\Question[Q-unicode]{Unicode and \tex{}}
+\Question[Q-unicode]{Unicode and \TeX{}}
 
 Unicode is a character code scheme that has the capacity to express
 the text of the languages of the world, as well as important symbols
 (including mathematics).  Any coding scheme that is directly
-applicable to \tex{} may be expressed in single bytes (expressing up
+applicable to \TeX{} may be expressed in single bytes (expressing up
 to 256 characters); Unicode characters may require several bytes, and
 the scheme may express a very large number of characters.
 
-For ``old-style'' applications (\tex{} or \pdftex{}) to deal with
+For ``old-style'' applications (\TeX{} or \pdftex{}) to deal with
 Unicode input, the sequence of bytes to make up Unicode character are
 processed by a set of macros that deliver a glyph number in an
 appropriate font.  The macros that read these bytes is complicated,
-and manifests as \pkgoption{utf8} option for the \latex{} distribution
+and manifests as \pkgoption{utf8} option for the \LaTeX{} distribution
 \Package{inputenc} package; the coverage of that option is limited to
-Unicode characters that can be represented using ``\latex{} standard
+Unicode characters that can be represented using ``\LaTeX{} standard
 encodings''.  The separate package \Package{ucs} provides wider, but
 less robust, coverage via an \Package{inputenc} option
 \pkgoption{utf8x}.  As a general rule, you should never use
 \pkgoption{utf8x} until you have convinced yourself that
 \pkgoption{utf8} can not do the job for you.
 
-`Modern' \tex{}-alike applications, \Qref*{\xetex{}}{Q-xetex} and
-\Qref*{\luatex{}}{Q-luatex} read their input using \acro{UTF}-8
+`Modern' \TeX{}-alike applications, \Qref*{\xetex{}}{Q-xetex} and
+\Qref*{\LuaTeX{}}{Q-luatex} read their input using \acro{UTF}-8
 representations of Unicode as standard.  They also use TrueType or
 OpenType fonts for output; each such font has tables that tell the
 application which part(s) of the Unicode space it covers; the tables
@@ -946,7 +946,7 @@ enable the engines to decide which font to use for which character
 specifies a standard way of organising all the \TeX{}-related files on
 a computer system.
 
-Most modern distributions arrange their \tex{} files in conformance
+Most modern distributions arrange their \TeX{} files in conformance
 with the \acro{TDS}, using both a `distribution' directory tree and a
 (set of) `local' directory trees, each containing \TeX{}-related
 files.  The \acro{TDS} recommends the name \texttt{texmf} for the name

@@ -392,7 +392,7 @@ given in the \Package{graphics} bundle documentation) is:
 \end{verbatim}
 \end{quote}
 which will search for graphics files in subdirectories \File{eps} and
-\File{png} of the directory in which \latex{} is running.  (Note that
+\File{png} of the directory in which \LaTeX{} is running.  (Note that
 the trailing ``\texttt{/}'' \emph{is} required.)
 
 (Note that some \AllTeX{} systems will only allow you to use files in
@@ -741,7 +741,7 @@ of drawing, and setup, here are a few systems you may consider:
   than any of the other established packages.  What's more, there
   are problems with its \Qref*{documentation}{Q-docpictex}.
 \item \Package{PSTricks} gives you access to the (considerable) power of
-  \PS{} via a set of \tex{} macros, which talk to \PS{} using 
+  \PS{} via a set of \TeX{} macros, which talk to \PS{} using 
   \Qref*{\csx{special} commands}{Q-specials}.  Since \PS{} is itself a
   pretty powerful programming language, many astounding things can in
   principle be achieved using \Package{PSTricks} (a wide range of
@@ -763,7 +763,7 @@ of drawing, and setup, here are a few systems you may consider:
   just browse the % ! line break
   \href{http://tug.org/pipermail/pstricks/}{list archives}.
 \item \Package{pgf}: while \Package{pstricks} is very powerful and
-  convenient from `traditional' \tex{}, using it with \PDFLaTeX{} is
+  convenient from `traditional' \TeX{}, using it with \PDFLaTeX{} is
   pretty tiresome: if you 
   simply want the graphical capabilities, \Package{pgf}, together with
   its ``user-oriented'' interface \Package{tikz}, may be a good
@@ -784,7 +784,7 @@ of drawing, and setup, here are a few systems you may consider:
 
   Note that you can % ! line break
   \Qref*{``embed'' \MP{} source in your document}{Q-inlgrphapp} (i.e.,
-  keep it in-line with your \latex{} code).
+  keep it in-line with your \LaTeX{} code).
 \item You liked \MF{} (or \MP{}), but find the language difficult?
   \ProgName{Mfpic} makes up \MF{} or \MP{} code for you using
   familiar-looking \AllTeX{} macros.  Not \emph{quite} the full power
@@ -826,13 +826,13 @@ see \Qref{question}{Q-inlgrphapp}.
 \Question[Q-inlgrphapp]{In-line source for graphics applications}
 
 Some of the free-standing graphics applications may also be used
-(effectively) in-line in \latex{} documents; examples are
+(effectively) in-line in \LaTeX{} documents; examples are
 \begin{booklist}
 \item[asymptote]The package \Package{asymptote} (provided in the
   \ProgName{asymptote} distribution) defines an environment
   \environment{asy} which arranges that its contents are available for
   processing, and will therefore be typeset (after ``enough'' runs, in
-  the `usual' \latex{} way).
+  the `usual' \LaTeX{} way).
 
   Basically, you write
   \begin{quote}
@@ -849,7 +849,7 @@ latex document
 \end{verbatim}
 \end{quote}
 \item[egplot]Allows you to incorporate \ProgName{GNUplot}
-  instructions in your document, for processing outside of \latex{}.
+  instructions in your document, for processing outside of \LaTeX{}.
   The package provides commands that enable the user to do calculation
   in \ProgName{GNUplot}, feeding the results into the diagram
   to be drawn.
@@ -860,8 +860,8 @@ latex document
   support the facilities \Package{emp}, which he believes is in need
   of update.)
 \item[mpgraphics]Again, allows you to program parameters of \MP{}
-  diagrams from your \latex{} document, including the preamble details
-  of the \latex{} code in any recursive call from \MP{}.
+  diagrams from your \LaTeX{} document, including the preamble details
+  of the \LaTeX{} code in any recursive call from \MP{}.
 \end{booklist}
 In all cases (other than \Package{asymptote}), these packages require
 that you can % ! line break
@@ -946,7 +946,7 @@ precisely for use with \Package{psfrag}.
 
 If you have the `right' environment (see below), you could try the
 \Package{pdfrack} script bundle.  The script aims to cut each figure
-out of your source, using it to produce a small \latex{} file with
+out of your source, using it to produce a small \LaTeX{} file with
 nothing but the figure inclusion commands.  Each of these figure files
 is then processed to \PS{}, compiled using the \csx{psfrag} commands,
 and the resulting output converted to \acro{PDF} again.
@@ -983,7 +983,7 @@ examples.
 The \Package{lpic} package is somewhat similar to \Package{overpic};
 it defines an environment \environment{lpic} (which places your
 graphic for you): within the environment you may use the command
-\csx{lbl} to position \latex{} material at appropriate places over the
+\csx{lbl} to position \LaTeX{} material at appropriate places over the
 graphic.
 
 \Package{Pinlabel} is another package whose author thought in the same

@@ -6,7 +6,7 @@
 
 There are three general routes to \acro{PDF} output: Adobe's original
 `distillation' route (via \PS{} output), direct conversion of a
-\acro{DVI} file, and the use of a direct \tex{}-like \acro{PDF}
+\acro{DVI} file, and the use of a direct \TeX{}-like \acro{PDF}
 generator such as \Qref*{\PDFTeX{}}{Q-whatpdftex}.
 
 For simple documents (with no hyper-references), you can either
@@ -17,10 +17,10 @@ For simple documents (with no hyper-references), you can either
   tools installed) pass the output through a \acro{PDF}writer in place
   of a printer driver.  This route is only appropriate for simple
   documents: \acro{PDF} writers cannot create hyperlinks;
-\item process the document with ``vanilla'' \latex{} and generate \acro{PDF}
+\item process the document with ``vanilla'' \LaTeX{} and generate \acro{PDF}
   direct from the \acro{DVI} using \ProgName{dvipdfm}/\ProgName{dvipdfmx}; or 
 \item process the document direct to \acro{PDF} with \PDFTeX{},
-  \Qref{\luatex{}}{Q-luatex}, or \Qref{\xetex{}}{Q-xetex}.
+  \Qref{\LuaTeX{}}{Q-luatex}, or \Qref{\xetex{}}{Q-xetex}.
 \end{itemize}
 
 To translate all the \LaTeX{} cross-referencing into Acrobat
@@ -92,7 +92,7 @@ World Wide Web, there are four technologies to consider:
 \item Start from \Qref*{\Package{texinfo}}{Q-texinfo} source,
   and use the \ProgName{info} viewer, or convert the \Package{texinfo}
   source to \acro{HTML} using \ProgName{texi2html};
-\item Start from \alltex{}; use \pdftex{}, \xetex{} or \luatex{} to
+\item Start from \alltex{}; use \pdftex{}, \xetex{} or \LuaTeX{} to
   produce \acro{PDF}, using \Package{hyperref} to construct
   hyperlinks.
 \item Start from (unconventional) \alltex{} which use the % ! line break
@@ -103,9 +103,9 @@ World Wide Web, there are four technologies to consider:
 \end{ctanrefs}
 \LastEdit{2013-05-30}
 
-\Question[Q-hypertex]{The \emph{hyper\tex{}} project}
+\Question[Q-hypertex]{The \emph{hyper\TeX{}} project}
 
-The \emph{hyper\tex{}} project extended the functionality of all the
+The \emph{hyper\TeX{}} project extended the functionality of all the
 \LaTeX{} cross-referencing commands (including the table of contents)
 to produce \csx{special} commands which are parsed by \acro{DVI} processors
 conforming to the Hyper\TeX{} guidelines;
@@ -547,8 +547,8 @@ will happen in this case, regardless of the options.
 
 \Question[Q-cpy-srchpdf]{Copy-paste-able/searchable \acro{PDF} files}
 
-\acro{PDF} files generated from \tex{} (and friends), will by default
-hold their text in the encoding of the original \tex{} font used by
+\acro{PDF} files generated from \TeX{} (and friends), will by default
+hold their text in the encoding of the original \TeX{} font used by
 the document.
 
 When \acro{PDF} readers, etc., offer copy-paste or searching
@@ -556,18 +556,18 @@ functions, the operations take place on the glyph codes used for the
 fonts selected by the document.  This is fine, for the simplest
 documents (in English, at least); the problem comes when you're using
 an inflected language (with accented letters, or composite glyphs
-such as `\ae{}')~--- \tex{} will typically use a non-standard
+such as `\ae{}')~--- \TeX{} will typically use a non-standard
 encoding, and there are likely be problems, since \acro{PDF} readers
 assume the text is presented in Unicode.
 
-For \acro{PDF} generated from \latex{} (the \acro{DVI} being
+For \acro{PDF} generated from \LaTeX{} (the \acro{DVI} being
 converted, by whatever means), or from \pdflatex{}, the character
 codes used in the \acro{PDF} file are in fact those of the document's
 \Qref*{font encoding}{Q-whatenc}; if you're using \acro{OT}1 or
 \acro{T}1, your document will be \acro{OK} for almost all \acro{ASCII}
 characters, but it's likely that anything ``out of the ordinary'' will
 not be represented properly.  (Of course, \acro{PDF} generated from
-\xetex{}- or \luatex{}-based formats is going to be \acro{OK}, since
+\xetex{}- or \LuaTeX{}-based formats is going to be \acro{OK}, since
 those engines work in Unicode througout.)
 
 The solution comes from the character-mapping facilities in the
@@ -604,7 +604,7 @@ are not amenable to this treatment.
 \end{ctanrefs}
 \LastEdit{2013-08-21}
 
-% \Question[Q-hypertex]{The Hyper\tex{} project}
+% \Question[Q-hypertex]{The Hyper\TeX{} project}
 %
 % The Hyper\TeX{} project extended the functionality of all the
 % \LaTeX{} cross-referencing commands (including the table of contents)
