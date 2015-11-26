@@ -8,22 +8,22 @@
 to navigate through that set before even taking his first steps.  The
 aim here is to guide the beginner through a set of answers that may
 help the process.  We assume the beginner `knows' that \alltex{} is
-for them; if not, the discussion ``\Qref{what is \tex{}}{Q-whatTeX}''
+for them; if not, the discussion ``\Qref{what is \TeX{}}{Q-whatTeX}''
 may help.
 
 To start at the very beginning, then, the beginner may wish to know
 what all those % ! line break
-``\Qref*{things with \tex{} in their name are}{Q-texthings}''.
+``\Qref*{things with \TeX{} in their name are}{Q-texthings}''.
 
 Armed with that knowledge, the beginner needs to decide what macro
 format she needs (always assuming someone hasn't already told her she
-needs to use ``foo\tex{}''.  Learn about the alternatives in answers
+needs to use ``foo\TeX{}''.  Learn about the alternatives in answers
 discussing common formats: look at % line break
 \Qref*{writing \plaintex{}}{Q-plaintex},
-\Qref*{\latex{}}{Q-latex} or
+\Qref*{\LaTeX{}}{Q-latex} or
 \Qref*{\context{}}{Q-context}.
 
-If no system has been provided, the beginner needs to acquire a \tex{}
+If no system has been provided, the beginner needs to acquire a \TeX{}
 distribution appropriate to their machine.  Available options are
 available via the answer % ! line break
 ``\Qref*{\alltex{} for various machines}{Q-TeXsystems}''; we assume
@@ -32,7 +32,7 @@ to someone who can.
 
 Finally, the beginner needs to get started in the chosen format.  For
 \plaintex{}, see ``\Qref[]{Online introductions: \TeX{}}{Q-man-tex}'';
-for \latex{}, see % ! line break
+for \LaTeX{}, see % ! line break
 ``\Qref[]{Online introductions: \LaTeX{}}{Q-man-latex}''; and for
 \context{}, the place to start is the % line break
 \href{http://wiki.contextgarden.net/Main_Page}{ConTeXt garden wiki}
@@ -146,7 +146,7 @@ between two fonts that belong to the same (or related) families.
 Knuth (and others) have designed a fair range of fonts using \MF{},
 but font design using \MF{} is much more of a minority skill (even) than is
 \TeX{} macro-writing.
-What is more, it is a dying art: few new \tex{}-related fonts are
+What is more, it is a dying art: few new \TeX{}-related fonts are
 produced using \MF{}, nowadays.  Indeed, several of the major font
 families (that originated in \MF{} designs) are now seldom used in any
 other way than their conversion to an outline font format.
@@ -318,18 +318,18 @@ the \TeX{} engine with some additional useful features:
   \TeX{} is programmed in its own arcane, integrated, macro-based
   programming language.  \LuaTeX{} adds a second programming engine
   using a modern scripting language, Lua, which is `embedded' in a
-  \tex{}-alike engine; it too reads \acro{UTF}-8 and uses TrueType
+  \TeX{}-alike engine; it too reads \acro{UTF}-8 and uses TrueType
   OpenType fonts.  See % ! line break
   \Qref[question]{What is \LuaTeX{}?}{Q-luatex}.
 
   \item[\eTeX{} (executable: \ProgName{etex})]
-  \eTeX{} is an extension of \tex{}'s programming interface; as such
+  \eTeX{} is an extension of \TeX{}'s programming interface; as such
   it's only indirectly useful to end users, but it can be valuable to
   package developers; there is an increasing number of macro packages
   that require the use of \eTeX{}.  As well as existing in
   \ProgName{etex}, \eTeX{} features are usually available in the
   \ProgName{pdftex} executables provided in the standard
-  distributions; \xetex{} and \luatex{} also provide \etex{}'s
+  distributions; \xetex{} and \LuaTeX{} also provide \eTeX{}'s
   programming facilities.    See % ! line break
   \Qref[question]{What is \eTeX{}?}{Q-etex}.
 
@@ -344,7 +344,7 @@ packages listed earlier to produce `extended' executables.  For
 example, the \ProgName{pdflatex}, \ProgName{xelatex} and
 \ProgName{lualatex} executables each combine \LaTeX{} with an enhanced
 \TeX{} engine.  Indeed, most (if not all) of the development of
-\context{} is now using \luatex{}.
+\context{} is now using \LuaTeX{}.
 
 Some executables combine the features of multiple enhanced \TeX{}
 engines: for example, \ProgName{pdftex} now (in current distributions)
@@ -384,19 +384,19 @@ What does it all mean?~--- the simple lists of objects, alone, offer
 no help for the beginner.  The \acro{FAQ} team expects this answer
 only to be of use for people who are seeking guidance elsewhere
 (possibly within these \acro{FAQ}s) and coming across an unexpected
-name like ``blah\tex{}''.
+name like ``blah\TeX{}''.
 
 The subject matter covered by this answer is also addressed in a page
 on the \acro{TUG} site, % ! line break
-``\href{http://tug.org/levels.html}{the Levels of \tex{}}''.
+``\href{http://tug.org/levels.html}{the Levels of \TeX{}}''.
 \LastEdit{2011-09-26}
 
 \Question[Q-ctan]{What is \acro{CTAN}?}
 
-The acronym stands for ``Comprehensive \tex{} Archive Network'', which
+The acronym stands for ``Comprehensive \TeX{} Archive Network'', which
 more-or-less specifies what it's \emph{for}:
 \begin{itemize}
-\item The archives offer a comprehensive collection of \tex{} resources.
+\item The archives offer a comprehensive collection of \TeX{} resources.
 \item The content is made publicly accessible, via the internet.
 \item \acro{CTAN} is a \emph{network} of archives, which strive to
   stay in step with one another.
@@ -609,7 +609,7 @@ programming support.
 
 \Qref*{\CONTeXT{}}{Q-context} has required \eTeX{} for its operation
 for some time, though development is now focused on the use of
-\Qref*{\luatex{}}{Q-luatex}.
+\Qref*{\LuaTeX{}}{Q-luatex}.
 
 Some \LaTeX{} packages already specify the use of \eTeX{}.  Some such
 packages may not work at all on a non-\eTeX{} system; others will
@@ -710,9 +710,9 @@ outlined in a series of `guide' files that are available in every
 \LaTeX{} distribution (the same directory also contains ``news'' about
 each new release of \LaTeXe{}).
 
-Note that, now, \latexe{} is ``feature frozen'' (the only allowed
+Note that, now, \LaTeXe{} is ``feature frozen'' (the only allowed
 changes come from bug reports); this, too, is in pursuit of stability,
-and is a driving force for many of the efforts to contribute \latex{}
+and is a driving force for many of the efforts to contribute \LaTeX{}
 packages.
 \begin{ctanrefs}
 \item[\nothtml{\rmfamily}\LaTeX{} guides and news]\CTANref{latexdoc}
@@ -756,19 +756,19 @@ closely to their markup.
 
 \Question[Q-LaTeXandPlain]{How does \LaTeX{} relate to \plaintex{}?}
 
-\tex{} provides a programming language (of sorts), and any document
+\TeX{} provides a programming language (of sorts), and any document
 more complex than the trivial ``hello world'' will need some
 programming.
 
 \LaTeX{} and \plaintex{} are both libraries written for use with
-\tex{}; the user commands \ProgName{tex} and \ProgName{latex} invoke
-\tex{}-the-program with a library incorporated.  Libraries that may be
+\TeX{}; the user commands \ProgName{tex} and \ProgName{latex} invoke
+\TeX{}-the-program with a library incorporated.  Libraries that may be
 loaded in this way are known as `\emph{formats}'; when a user ``runs''
-\plaintex{} or \latex{}, they are running \tex{} (the program) with an
+\plaintex{} or \LaTeX{}, they are running \TeX{} (the program) with an
 appropriate format.  The documents are then programmed in \plaintex{}
-or \latex{} \emph{language}.
+or \LaTeX{} \emph{language}.
 
-\plaintex{} and \latex{} exist because writing your documents in `raw'
+\plaintex{} and \LaTeX{} exist because writing your documents in `raw'
 \TeX{} could involve much reinventing of wheels for every document.
 Both languages serve as convenient aids to make document writing more
 pleasant: \LaTeX{} provides many more items to support `common'
@@ -776,11 +776,11 @@ requirements of documents.
 
 As such, \LaTeX{} is close to being a superset of \plaintex{}, but
 some \plaintex{} commands don't work as expected when used in a
-\latex{} document.  Using \plaintex{} commands in a \latex{} document
+\LaTeX{} document.  Using \plaintex{} commands in a \LaTeX{} document
 is an occasional source of bugs: the output is \emph{almost} right,
 but some things are misplaced.
 
-So, \plaintex{} and \latex{} are related through a common parent, and
+So, \plaintex{} and \LaTeX{} are related through a common parent, and
 are designed for use in similar jobs; programming for one will often
 not work correctly in the other.
 \LastEdit{2014-03-18}
@@ -812,12 +812,12 @@ engines (\PDFTeX{}, Xe\TeX{}, Aleph and \LuaTeX{}) without
 changing the user interface. \context{} continues to develop, often in
 response to requests from the user community.
 
-The development of \Qref*{\luatex{}}{Q-luatex} was originally driven
+The development of \Qref*{\LuaTeX{}}{Q-luatex} was originally driven
 by \context{}, almost from the start of its project.  Nowadays,
 \context{} it is distributed in two versions~--- mark two (files with
 extension \extension{mkii}) which runs on \pdftex{} but is not under
 active development, and mark four (files with extension
-\extension{mkiv}) (which runs on \luatex{} and is where development
+\extension{mkiv}) (which runs on \LuaTeX{} and is where development
 happens).
 
 \context{} has a large developer community (though possibly not as
@@ -961,9 +961,9 @@ Finally, of course, you can also print the files, or convert them to
 
 \Question[Q-lollipop]{Lollipop}
 
-A long time ago (in the early 1990s), the Lollipop \tex{} format was
+A long time ago (in the early 1990s), the Lollipop \TeX{} format was
 developed (originally to typeset the excellent book % !line break
-\Qref{\tex{} by topic}{Q-tex-books}).  Several people admired the
+\Qref{\TeX{} by topic}{Q-tex-books}).  Several people admired the
 format, but no ``critical mass'' of users appeared, that could have
 prompted maintenance of the format.
 
@@ -1052,12 +1052,12 @@ So you shouldn't be too concerned if you can't make head nor tail of
 the file: it is designed to be read by a (sort of) compiler, and
 compilers don't have much in common with human readers.
 
-A possible next step is to try an on-line \latex{} editor.  There are
+A possible next step is to try an on-line \LaTeX{} editor.  There are
 many of these~--- a compilation of links may be found in % line break
 \href{http://texblog.net/latex-link-archive/online-compiler/}{this blog post}
 
 Of that long list, the present author has only dabbled with 
-\href{https://www.writelatex.com/}{Write\latex{}}; it seems well
+\href{https://www.writelatex.com/}{Write\LaTeX{}}; it seems well
 suited to simple `one-shot' use in this way.
 
 If no online compiler helps, you need to typeset the document
@@ -1094,8 +1094,8 @@ So there's a balance between the simplicity of the original
 editor, and the really rather large investment needed to install a
 system to read a document ``as intended''.
 
-Are you ``put off'' by all this?~--- remember that \tex{} is good at
-producing \acro{PDF}: why not ask the person who sent the \tex{} file
+Are you ``put off'' by all this?~--- remember that \TeX{} is good at
+producing \acro{PDF}: why not ask the person who sent the \TeX{} file
 to send an \acro{PDF} copy?
 \LastEdit{2014-05-21}
 
@@ -1111,8 +1111,8 @@ The simple answer to the question is, of course, that \TeX{} was
 conceived long before the marketing term, at a time when the marketing
 imperative wasn't perceived as significant.  (In fact, it appears that
 the first experimental \WYSIWYG{} systems were running in commercial
-labs, near where Knuth was working on \tex{}.  At the time, of course,
-\tex{} was only available on a mainframe, and getting it to run on the
+labs, near where Knuth was working on \TeX{}.  At the time, of course,
+\TeX{} was only available on a mainframe, and getting it to run on the
 small experimental machines would have distracted Knuth from his
 mission to create a typesetting system that he could use when
 preparing his books for publication.)
@@ -1144,7 +1144,7 @@ Lightning Textures (an extension of Blue Sky's original \TeX{} system
 for the Macintosh), is sadly no longer available.
 
 Thus``\Qref*{Scientific Word}{Q-commercial}'' (which can also interact
-with a computer algebra system), is the only remaining \tex{} system
+with a computer algebra system), is the only remaining \TeX{} system
 that even approximates to \WYSIWYG{} operation.
 
 The issue has of recent years started to attract attention

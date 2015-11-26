@@ -277,12 +277,12 @@ is such that the distributions can accept them.  Commercial fonts
 support for some of them is held by \acro{CTAN}.
 
 Arranging for a new font to be usable by \alltex{} is very different,
-depending on which type of font it is, and which \tex{}-alike engine
+depending on which type of font it is, and which \TeX{}-alike engine
 you are using; roughly speaking:
 \begin{itemize}
 \item MetaFont fonts will work without much fuss (provided their
   sources are in the correct place in the installation's tree);
-  \tex{}-with-\ProgName{dvips}, and \pdftex{} are ``happy'' with them.
+  \TeX{}-with-\ProgName{dvips}, and \pdftex{} are ``happy'' with them.
   While a new font will need `generating' (by running \mf{}, etc.),
   distributions are set up to do that ``on the fly'' and to save the
   results (for next time).
@@ -293,10 +293,10 @@ you are using; roughly speaking:
   (`vanilla')\alltex{} and \ProgName{dvips} combination.
 \item TrueType fonts can be made to work with \pdftex{}~--- see
 % ! line break
-\href{http://www.radamir.com/tex/ttf-tex.htm}{Using TrueType fonts with \tex{}\dots{}}
+\href{http://www.radamir.com/tex/ttf-tex.htm}{Using TrueType fonts with \TeX{}\dots{}}
   (a rather dated document, dicsussing use with \miktex{}~1.11).
 \item TrueType and OpenType fonts are the usual sort used by \xetex{}
-  and \luatex{}; while straightforward use is pretty easy, one is
+  and \LuaTeX{}; while straightforward use is pretty easy, one is
   well-advised to use a package such as \Package{fontspec} to gain
   access to the full range of a font's capabilities.
 \end{itemize}

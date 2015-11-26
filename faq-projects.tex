@@ -38,11 +38,11 @@ Some of the project's experimental code is visible on the net:
   development).
 \end{itemize}
 The packages \Package{l3kernel} and \Package{l3packages} provide an
-``experimental harness'' that may be used as a testbed for \latex{}3
+``experimental harness'' that may be used as a testbed for \LaTeX{}3
 work.
 
 Note that \Package{l3kernel} introduces a coding structure quite
-different from earlier \latex{} code; a few hardy authors, who are not
+different from earlier \LaTeX{} code; a few hardy authors, who are not
 members of the project, are nevertheless using it in their development
 work.
 
@@ -86,7 +86,7 @@ support for new Web standards.
   (\FontName{XITS}) and \FontName{Asana Math} are also
   available.  The \acro{STIX} project has still not released macros
   for using the fonts, but the \Package{unicode-math} package will do
-  what is necessary under \xetex{} and \luatex{}, and the fonts can of
+  what is necessary under \xetex{} and \LuaTeX{}, and the fonts can of
   course be used in browsers.
 %%   In the near future, we can expect rather wide availability of
 %%   Unicode fonts with good coverage of symbols, which should make life
@@ -124,7 +124,7 @@ support for new Web standards.
 %%   and adapts one's usage of \AllTeX{} accordingly.
 
   The \href{http://www.mathjax.org}{\ProgName{MathJax}} engine will process the
-  content of \latex{} \csx{[} \dots{}~\csx{]} and \csx{(} \dots{}~\csx{)}
+  content of \LaTeX{} \csx{[} \dots{}~\csx{]} and \csx{(} \dots{}~\csx{)}
   `environments' in an \acro{HTML} document, to produce mathematical
   output that may (for example) be cut-and-pasted into other programs.
 
@@ -390,16 +390,16 @@ typesetting.  The new system was to be known as Omega-2
 designed in a modular fashion so that support of new facilities (such
 as use of advanced OpenType fonts) could be added in a relatively
 straightforward fashion.  A quick web search leads to a recommendation
-that potential users consider \Qref*{\luatex{}}{Q-luatex} instead;
+that potential users consider \Qref*{\LuaTeX{}}{Q-luatex} instead;
 fortunately, lessons learned in Aleph project have been carried
-forward in the development of \luatex{}.
+forward in the development of \LuaTeX{}.
 
 \Question[Q-xetex]{\xetex{}}
 
 \href{http://scripts.sil.org/xetex}{\xetex{}}, by Jonathan Kew, is a
 successor to the shareware TeX/GX program for Macintoshes.  It was
 developed as a \acro{WEB} `change file' applied to the original source
-of \tex{}; the main changes include:
+of \TeX{}; the main changes include:
 \begin{description}
 \item[The input stage] \xetex{} by default reads Unicode (UTF-8, for
   instance), although it's also capable of interpreting differently
@@ -414,7 +414,7 @@ of \tex{}; the main changes include:
 \item[The maths font set up] \xetex{} introduces new primitives for
   extending the \csx{mathcode} and \csx{mathchardef} commands in TeX,
   allowing the user to specify characters in the whole Unicode set and
-  in 256 `math families' (\tex{} only has 16, which limits some maths
+  in 256 `math families' (\TeX{} only has 16, which limits some maths
   coding techniques).
 \item[``Post-processing'' features (A)] \xetex{} links to the
   \ProgName{teckit} library so it can apply a \extension{map} file
@@ -422,7 +422,7 @@ of \tex{}; the main changes include:
   lists, before they are processed in the ``stomach'' for typesetting.
   In this way, a declaration ``\texttt{Ligatures=TeX}'' is provided,
   which attaches a map directive to the font that transforms the
-  character combinations (familiar to \tex{} users) into a single
+  character combinations (familiar to \TeX{} users) into a single
   character; for instance \texttt{-{}-{}-} is transformed into
   ``\textemdash''.
 \item[``Post-processing'' features (B)] Characters can be assigned to
@@ -432,7 +432,7 @@ of \tex{}; the main changes include:
   \Package{ucharclasses} exploit this feature.
 \end{description}
 Otherwise, the process of typesetting is essentially the same as
-\tex{}'s.  (However some changes have also been made in the
+\TeX{}'s.  (However some changes have also been made in the
 hyphenation stage that may give slightly different results if the same
 document is compiled with \pdftex{} or \xetex{}.)
 \begin{ctanrefs}
@@ -478,10 +478,10 @@ current projects have in their sights, notably Unicode character
 representations and support for OpenType fonts.  The intention is
 to integrate the extensions pioneered by \Qref*{Aleph}{Q-omegaleph}.
 Users may also care to view the % ! line break
-\href{http://www.luatex.org/documentation.html}{\luatex{} documentation page}
-or the \href{http://wiki.luatex.org}{\luatex{} \acro{WIKI}}
+\href{http://www.luatex.org/documentation.html}{\LuaTeX{} documentation page}
+or the \href{http://wiki.luatex.org}{\LuaTeX{} \acro{WIKI}}
 
-\texlive{} (2013) holds version 0.76.0 of \luatex{}.  This version
+\texlive{} (2013) holds version 0.76.0 of \LuaTeX{}.  This version
 demonstrates the ``final functionality'', though the project
 remains a \ensuremath{\beta}-release.  Functional stability was first
 declared for version 0.50.0, released near the end of December 2009.
@@ -490,16 +490,16 @@ declared for version 0.50.0, released near the end of December 2009.
 code already appears in two forms~--- a \TeX{}-based version
 (\extension{mkii}) and a `\extension{mkiv}' version (new functionality
 typically \emph{only} appears in `\extension{mkiv}' form), which uses
-\luatex{} extensions (including \ProgName{lua} scripting).  \LaTeX{}
+\LuaTeX{} extensions (including \ProgName{lua} scripting).  \LaTeX{}
 packages that support its use are appearing (some of them providing
 re-implementations of existing \context{} code).
 
-\latex{} running over \luatex{} (commonly known as Lua\latex{}) is not
+\LaTeX{} running over \LuaTeX{} (commonly known as Lua\LaTeX{}) is not
 an ``official'' entity (yet), but useful packages are
 appearing (i.e., the \ctan{} path \path{macros/luatex/latex} holds
 several items).
 \begin{ctanrefs}
-\item[\nothtml{\rmfamily}\luatex{} snapshot]\CTANref{luatex}
+\item[\nothtml{\rmfamily}\LuaTeX{} snapshot]\CTANref{luatex}
 \item[\nothtml{\rmfamily}\pdftex{} distribution]\CTANref{pdftex}
 \end{ctanrefs}
 \LastEdit{2013-05-21}
@@ -580,9 +580,9 @@ system of the future?~--- simple: a superset of what \BibTeX{} does
 language, and with coherent multilingual capabilities.
 
 There are two parts to a bibliography system; processing the database
-of citations, and typesetting the results.  The existing \bibtex{}
+of citations, and typesetting the results.  The existing \BibTeX{}
 system provides a means of processing the database, and there are
-macros built into \latex{}, as well as many \latex{} packages, that
+macros built into \LaTeX{}, as well as many \LaTeX{} packages, that
 process the results.
 
 Of the direct \BibTeX{} replacements, only two have been submitted to
@@ -591,23 +591,23 @@ Of the direct \BibTeX{} replacements, only two have been submitted to
 Cross\TeX{}'s language feels familiar to the existing user of
 \BibTeX{}, but it's redesigned in an object-oriented style, and looks
 (to a non-user) as if it may well be adequately flexible.  It is said
-to operate as a \bibtex{} replacement.
+to operate as a \BibTeX{} replacement.
 
 Cross\TeX{}'s team respond to queries, and seem well aware of the
 need for multilingual support, though it isn't currently offered.
 
-\ProgName{Biber} is intimately associated with the \latex{} package
-\Package{biblatex}; it is logically a \bibtex{} replacement, but is also
+\ProgName{Biber} is intimately associated with the \LaTeX{} package
+\Package{biblatex}; it is logically a \BibTeX{} replacement, but is also
 capable of using bibliography databases in its own
 \ProgName{biblatexml} (\acro{XML}-based) format.  \Package{Biblatex}
-can also use \bibtex{}, but \ProgName{biber} opens up a far wider
+can also use \BibTeX{}, but \ProgName{biber} opens up a far wider
 range of possibilities, including full Unicode support.
 
 \Package{Biblatex} is a processor for the output of an application
-such as \ProgName{biber} or \bibtex{}; the style of citations and of
+such as \ProgName{biber} or \BibTeX{}; the style of citations and of
 the bibliography itself (in your document) is determined by the way
 your \Package{biblatex} style has been set up, not on some
-\bibtex{}-\latex{} package combination.  \Package{Biblatex}'s
+\BibTeX{}-\LaTeX{} package combination.  \Package{Biblatex}'s
 structure thus eliminates the collections of \BibTeX{} styles, at a
 stroke; it comes with a basic set of styles, and details are
 determined by options, set at package loading time.  The author,
