@@ -7,7 +7,9 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; <a href="index.html#Q-repeat-num">Repeating a command <em>n</em> times</a><h1>Repeating a command <em>n</em> times</h1>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; <a href="index.html#Q-repeat-num">Repeating a command <em>n</em> times</a>
+</div>
+<h1>Repeating a command <em>n</em> times</h1>
 
 
 <p>
@@ -50,11 +52,11 @@ TeX <code>&#x5c;message</code> (i.e., on the console output).
 
 <p>
 The <i class="package">multido</i> package is also &lsquo;generic&rsquo; (usable both in
-Plain TeX and latex[[[LBRACE]]][[[RBRACE]]]); it defines a command <code>&#x5c;multido</code> with
+Plain TeX and LaTeX); it defines a command <code>&#x5c;multido</code> with
 three arguments:
 <blockquote>
   
-  <code>&#x5c;multido</code><code>&#x7b;&lsaquo;<i>variables</i>&rsaquo;&#x7d;</code></code><code>&#x7b;&lsaquo;<i>repetitions</i>&rsaquo;&#x7d;</code>[[[LBRACE]]]&lsaquo;<i>stuff to repeat</i>&rsaquo;[[[RBRACE]]]
+  <code>&#x5c;multido</code><code>&#x7b;&lsaquo;<i>variables</i>&rsaquo;&#x7d;</code><code>&#x7b;&lsaquo;<i>repetitions</i>&rsaquo;&#x7d;</code><code>&#x7b;&lsaquo;<i>stuff to repeat</i>&rsaquo;&#x7d;</code>
 </blockquote>
 When the macro is executing, the &lsaquo;<i>stuff to repeat</i>&rsaquo; gets executed
 &lsaquo;<i>repetitions</i>&rsaquo; times; the &lsaquo;<i>variables</i>&rsaquo; gives a list of

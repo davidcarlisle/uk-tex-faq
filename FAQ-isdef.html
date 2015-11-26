@@ -7,7 +7,9 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; <a href="index.html#Q-isdef">Is this command defined?</a><h1>Is this command defined?</h1>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; <a href="index.html#Q-isdef">Is this command defined?</a>
+</div>
+<h1>Is this command defined?</h1>
 
 
 <p>
@@ -21,7 +23,7 @@ observed to test whether commands exist by using
 (which of course actually tests that the command <em>doesn&rsquo;t</em>
 exist).  LaTeX programmers can make use of the internal command
 <blockquote>
-  <code>&#x5c;@ifundefined</code><code>&#x7b;cmd name&#x7d;</code></code><code>&#x7b;action1&#x7d;</code>[[[LBRACE]]]action2[[[RBRACE]]]
+  <code>&#x5c;@ifundefined</code><code>&#x7b;cmd name&#x7d;</code><code>&#x7b;action1&#x7d;</code><code>&#x7b;action2&#x7d;</code>
 </blockquote>
 which executes <tt>action1</tt> if the command is undefined, and
 <tt>action2</tt> if it is defined

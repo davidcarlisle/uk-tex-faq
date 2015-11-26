@@ -7,7 +7,9 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; <a href="index.html#Q-labundef">Finding if a label is undefined</a><h1>Finding if a label is undefined</h1>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; <a href="index.html#Q-labundef">Finding if a label is undefined</a>
+</div>
+<h1>Finding if a label is undefined</h1>
 
 
 <p>
@@ -24,7 +26,7 @@ then simply a matter of detecting if the command exists.  The usual
 LaTeX internal way of doing this is to use the command
 <code>&#x5c;@ifundefined</code>:
 <blockquote>
-  <code>&#x5c;@ifundefined</code><code>&#x7b;[[[textup]]][[[LBRACE]]]r@[[[RBRACE]]]label-name&#x7d;</code></code><code>&#x7b;undef-cmds&#x7d;</code>[[[LBRACE]]]def-cmds[[[RBRACE]]]
+  <code>&#x5c;@ifundefined</code><code>&#x7b;<span class="up">r@</span>label-name&#x7d;</code><code>&#x7b;undef-cmds&#x7d;</code><code>&#x7b;def-cmds&#x7d;</code>
 </blockquote>
 In which, &lsaquo;<i>label-name</i>&rsaquo; is exactly what you would use in
 a <code>&#x5c;label</code> command, and the remaining two arguments are command
@@ -41,7 +43,7 @@ use it with <code>&#x5c;protect</code> in a moving argument.
 If you&rsquo;re into this game, you may well not care about LaTeX&rsquo;s
 warning about undefined labels at the end of the document; however,
 if you are, include the command <code>&#x5c;G@refundefinedtrue</code> in
-[[[meta]]][[[LBRACE]]]<tt>undef-cmds</tt>[[[RBRACE]]].
+&lsaquo;<i><tt>undef-cmds</tt></i>&rsaquo;.
 
 <p>
 And of course, remember you&rsquo;re dealing in internal commands, and pay

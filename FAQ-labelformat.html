@@ -7,7 +7,9 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; <a href="index.html#Q-labelformat">How to change the format of labels</a><h1>How to change the format of labels</h1>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#LaTeXmacroprogramming">LaTeX macro programming</a> &gt; <a href="index.html#Q-labelformat">How to change the format of labels</a>
+</div>
+<h1>How to change the format of labels</h1>
 
 
 <p>
@@ -39,7 +41,7 @@ of a list at one fell swoop).
 LaTeX in fact has a label-formatting command built into every label
 definition; by default it&rsquo;s null, but it&rsquo;s available for the user to
 program.  For any label &lsaquo;<i>counter</i>&rsaquo; there&rsquo;s a LaTeX internal
-command <code>&#x5c;p@</code>[[[meta]]][[[LBRACE]]]<tt>counter</tt>[[[RBRACE]]]; for example, a label definition
+command <code>&#x5c;p@</code>&lsaquo;<i><tt>counter</tt></i>&rsaquo;; for example, a label definition
 on an inner list item is supposedly done using the command
 <code>&#x5c;p@enumii</code><code>&#x7b;<code>&#x5c;theenumii</code>&#x7d;</code>.  Unfortunately, the internal
 workings of this aren&rsquo;t quite right, and you need to patch the

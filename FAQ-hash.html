@@ -7,7 +7,9 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; <a href="index.html#Q-hash">Defining macros within macros</a><h1>Defining macros within macros</h1>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#Macroprogramming">Macro programming</a> &gt; <a href="index.html#ldquoGenericrdquomacrosandtechniques">&ldquo;Generic&rdquo; macros and techniques</a> &gt; <a href="index.html#Q-hash">Defining macros within macros</a>
+</div>
+<h1>Defining macros within macros</h1>
 
 
 <p>
@@ -50,7 +52,7 @@ However, if we now replace part of the macro:
 </blockquote>
 then <code>&#x5c;a</code><code>&#x7b;b&#x7d;</code> will give us the rather odd
 <blockquote>
-  +b+<code>&#x5c;newcommand</code><code>&#x7b;x&#x7d;</code>[1][[[LBRACE]]]xxxb[[[RBRACE]]]
+  +b+<code>&#x5c;newcommand</code><code>&#x7b;x&#x7d;</code><code>[1]</code></code><code>&#x7b;xxxb&#x7d;</code>
 </blockquote>
 so that the new <code>&#x5c;x</code> ignores its argument.
 
@@ -61,7 +63,7 @@ If we use the TeX primitive:
 \def\a#1{+#1+\def\x #1{xxx#1}}
 </pre>
 </blockquote>
-<code>&#x5c;a</code><code>&#x7b;b&#x7d;</code> will expand to &lsquo;+b+|[[[def]]][[[x]]] b[[[LBRACE]]]xxxb[[[RBRACE]]]|&rsquo;.  This
+<code>&#x5c;a</code><code>&#x7b;b&#x7d;</code> will expand to &lsquo;+b+<code class="verb">&#x5c;def&#x5c;x b&#7b;xxxb&#x7d;</code>&rsquo;.  This
 defines <code>&#x5c;x</code> to be a macro <em>delimited</em> by <code class="verb">b</code>, and taking no
 arguments, which is surely not what was intended!
 
@@ -88,7 +90,7 @@ or, using the TeX primitive definition:
 </blockquote>
 and <code>&#x5c;a</code><code>&#x7b;b&#x7d;</code> will expand to 
 <blockquote>
-  +b+|[[[def]]][[[x]]] #1[[[LBRACE]]]xxx#1[[[RBRACE]]]|
+  +b+<code class="verb">&#x5c;def&#x5c;x #1&#x7b;xxx#1&#x7d;</code>
 </blockquote>
 because <code class="verb">#1</code> gets replaced by &lsquo;b&rsquo;
 and <code class="verb">##</code> gets replaced by <code class="verb">#</code>.

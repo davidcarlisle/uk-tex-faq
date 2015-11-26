@@ -7,7 +7,9 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; <a href="index.html#Q-struttab">Spacing lines in tables</a><h1>Spacing lines in tables</h1>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#HowdoIdohellip">How do I do&hellip;?</a> &gt; <a href="index.html#Tablesfiguresanddiagrams">Tables, figures and diagrams</a> &gt; <a href="index.html#Q-struttab">Spacing lines in tables</a>
+</div>
+<h1>Spacing lines in tables</h1>
 
 
 <p>
@@ -91,11 +93,11 @@ The <i class="package">cellspace</i> package does a (possibly inferior) job by
 defining a new table/array column type &ldquo;S&rdquo;, which you apply to each
 column specification.  So, for example,
 <blockquote>
-<code>&#x5c;begin</code><code>&#x7b;tabular&#x7d;</code></code><code>&#x7b;l l l p[[[LBRACE]]]3cm[[[RBRACE]]]&#x7d;</code>
+<code>&#x5c;begin</code><code>&#x7b;tabular&#x7d;</code></code><code>&#x7b;l l l p&#x7b;3cm&#x7d;&#x7d;</code>
 </blockquote>
 would become
 <blockquote>
-<code>&#x5c;begin</code><code>&#x7b;tabular&#x7d;</code></code><code>&#x7b;Sl Sl Sl Sp[[[LBRACE]]]3cm[[[RBRACE]]]&#x7d;</code>
+<code>&#x5c;begin</code><code>&#x7b;tabular&#x7d;</code></code><code>&#x7b;Sl Sl Sl Sp&#x7b;3cm&#x7d;&#x7d;</code>
 </blockquote>
 and so on.  This technique shows
 promise of not interfering so much with other packages, but this
