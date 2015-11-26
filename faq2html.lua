@@ -52,6 +52,19 @@ function file_to_html (filename)
         io.write("<title>UKTUG FAQ</title>\n")
         io.write("<link rel=\"stylesheet\" href=\"faq.css\">\n")
         io.write("</head>\n<body>\n")
+	io.write("<script>  (function() {")
+	io.write("var cx = '012439869432470945129:rdb1e0hqrou';")
+	io.write("var gcse = document.createElement('script');")
+	io.write("gcse.type = 'text/javascript';")
+	io.write("gcse.async = true;")
+	io.write("gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +")
+	io.write("'//cse.google.com/cse.js?cx=' + cx;")
+	io.write("var s = document.getElementsByTagName('script')[0];")
+	io.write("s.parentNode.insertBefore(gcse, s);")
+	io.write("})();")
+	io.write("</script>")
+	io.write("<gcse:search></gcse:search>")
+
       end
 
 
