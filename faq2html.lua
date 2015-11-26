@@ -32,6 +32,7 @@ function file_to_html (filename)
       if(string.match(line,"\\section{")) then
         section=faq_convert_line((string.gsub(line,".*\\section{(.*)} *$","%1")))
 	secid=string.gsub(section,"[^%a]","")
+	subsecid=nil
         line=(introduction and "<h2>" .. section .. "</h2>") or ""
       end
 
@@ -78,8 +79,9 @@ function file_to_html (filename)
         io.write("<div class=\"breadcrumbs\">\n")
 	io.write("<a href=\"index.html\">FAQ</a> &gt; ")
 	io.write("<a href=\"index.html#" .. secid .."\">" .. section .. "</a> &gt; ")
-	io.write("<a href=\"index.html#" .. subsecid .."\">" .. subsection .. "</a> &gt; ")
-        io.write("</div>\n")
+	if(subsecid) then
+	  io.write("<a href=\"index.html#" .. subsecid .."\">" .. subsection .. "</a> &gt; ")      end
+	io.write("<a href=\"index.html#" .. qid .."\">" .. qtitle .. "</a>")
         io.write("<h1>" .. qtitle .. "</h1>\n\n")
       end
 
@@ -338,14 +340,14 @@ function file_to_toc(file)
   local line
   for line in io.lines(file) do
 
-    if(string.match(line,"^[ ]*\\section{") and
-       not(string.match(line,"{hello}")) and
-       not(string.match(line,"{my\\us")) and
-       not(string.match(line,"\\mytable")) and
-       not(string.match(line,"Mumble")) and
-       not(string.match(line,"{title\\footnote")) and
-       not(string.match(line,"{\\filled{foo"))
-       ) then
+    if(string.match(line,"^[ ]*\\begin{verbatim}")) then
+      tocverb=true
+    end
+    if(string.match(line,"^[ ]*\\end{verbatim}")) then
+      tocverb=false
+    end
+
+    if(not(tocverb) and string.match(line,"^[ ]*\\section{")) then
       section=faq_convert_line((string.gsub(line,".*\\section{(.*)} *$","%1")))
       secid=string.gsub(section,"[^%a]","")
       if(lastlevel==0) then
@@ -366,7 +368,7 @@ function file_to_toc(file)
       lastlevel=1
     end
 
-    if(string.match(line,"^[ ]*\\subsection{")) then
+    if(not(tocverb) and string.match(line,"^[ ]*\\subsection{")) then
       subsection=faq_convert_line((string.gsub(line,".*\\subsection{(.*)} *$","%1")))
       subsecid=string.gsub(subsection,"[^%a]","")
 --[[ not right
@@ -396,7 +398,7 @@ function file_to_toc(file)
         io.write("  </li>\n")
       end
 --]]
-      io.write("      <li class=\"tocqn\" id\"" .. qid .. "\"><a href=\"FA" .. qid .. ".html\">" .. qtitle .. "</a></li>\n")
+      io.write("      <li class=\"tocqn\" id=\"" .. qid .. "\"><a href=\"FA" .. qid .. ".html\">" .. qtitle .. "</a></li>\n")
       lastlevel=3
     end
   end
