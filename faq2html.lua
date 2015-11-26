@@ -238,12 +238,13 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\quad ,","&nbsp;")
     line=string.gsub(line,"\\ "," ")
     
-    line=string.gsub(line,"\\htmlonly[ ]*{([^{}]*)}","%1")
+    line=string.gsub(line,"\\wideonly[ ]*(%b{})","QQQ%1ZZZ")
+    line=string.gsub(line,"\\htmlonly[ ]*(%b{})","QQQ%1ZZZ")
     line=string.gsub(line,"\\checked%b{}%b{}","")
     line=string.gsub(line,"\\LeadFrom%b{}%b{}%b{}","")
     line=string.gsub(line,"\\nothtml%b{}","")
     line=string.gsub(line,"\\AliasQuestion%b{}","")
-    line=string.gsub(line,"%-{}%-{}%-","")
+    line=string.gsub(line,"%-{}%-{}%-","---")
     line=string.gsub(line,"\\latexhtml%b{}(%b{})","QQQ%1ZZZ") -- need to unquote &
 
 
@@ -262,6 +263,12 @@ function faq_convert_line (line)
     line=string.gsub(line,"\\CTANref(%b{})","<a class=\"ctan\" href=\"https://www.ctan.org/pkg/QQQ%1ZZZ\">QQQ%1ZZZ</a>")
 
     line=string.gsub(line,"\\includegraphics[ ]*{([^{}]*%.png)}","<img alt=\"%1\" src=\"%1\">")
+
+    line=string.gsub(line,"\\begin{tabular}%b{}","<table><tbody>")
+    line=string.gsub(line,"\\end{tabular}","</tbody></table>")
+    line=string.gsub(line,"\\tbhline","")
+    line=string.gsub(line,"\\tbamp","</td><td>")
+    line=string.gsub(line,"^(.*)\\tbeol","<tr><td>%1</td></tr>")
 
 
     line=string.gsub(line,"\\begin{quote}","<blockquote>")
