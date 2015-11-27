@@ -53,6 +53,8 @@ function file_to_html (filename)
         io.write("<title>UKTUG FAQ</title>\n")
         io.write("<link rel=\"stylesheet\" href=\"faq.css\">\n")
         io.write("</head>\n<body>\n")
+	io.write("<h1>Welcome to the UK List of<br>\n")
+  	io.write("TeX Frequently Asked Questions</h1>\n")
 	io.write("<script>  (function() {")
 	io.write("var cx = '012439869432470945129:rdb1e0hqrou';")
 	io.write("var gcse = document.createElement('script');")
@@ -453,10 +455,14 @@ function file_to_toc(file)
   local line
   for line in io.lines(file) do
 
-    if(string.match(line,"^[ ]*\\begin{verbatim}")) then
+    if(string.match(line,"^[ ]*\\begin{verbatim}") or
+        string.match(line,"^[ ]*\\begin{introduction}")
+	) then
       tocverb=true
     end
-    if(string.match(line,"^[ ]*\\end{verbatim}")) then
+    if(string.match(line,"^[ ]*\\end{verbatim}")or
+        string.match(line,"^[ ]*\\end{introduction}")
+	) then
       tocverb=false
     end
 

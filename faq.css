@@ -10,8 +10,17 @@ body {
     padding:1em;
 }
 
+h1 {
+    text-align:center;
+    background-color:#F0F0F0;
+		 
+}
+
+
+
 li.tocsec {
-        margin-top:1em
+    margin-top:1em;
+    list-style-type:none;
 }
 li.tocsec >span {
     font-weight:bold;
@@ -20,10 +29,19 @@ li.tocsec >span {
 
 li.tocsubsec {
     margin-top:.5em;
+    list-style-type:none;
 }
 li.tocsubsec >span{
     font-weight:bold;
     font-size:110%
+}
+
+li.tocqn {
+    list-style-type:none;
+}
+
+.toc a {
+    text-decoration:none;
 }
 
 span.footnote {
