@@ -64,9 +64,9 @@ function file_to_html (filename)
 	io.write("'//cse.google.com/cse.js?cx=' + cx;")
 	io.write("var s = document.getElementsByTagName('script')[0];")
 	io.write("s.parentNode.insertBefore(gcse, s);")
-	io.write("})();")
-	io.write("</script>")
-	io.write("<gcse:search></gcse:search>")
+	io.write("})();\n")
+	io.write("</script>\n")
+	io.write("<div class=\"gcse-search\"></div>")
 
       end
 
