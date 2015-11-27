@@ -15,7 +15,6 @@
 <p>
 
 <p>
-
 <pre>
 ! TeX capacity exceeded, sorry [semantic nest
                                       size=100].
@@ -23,15 +22,12 @@
 If you really absolutely need more capacity,
 you can ask a wizard to enlarge me.
 </pre>
-
-
 <pre>
 ! TeX capacity exceeded, sorry [semantic nest size=100].
 ...
 If you really absolutely need more capacity,
 you can ask a wizard to enlarge me.
 </pre>
-
 Even though TeX suggests (as always) that enlargement by a wizard
 may help, this message usually results from a broken macro or bad
 parameters to an otherwise working macro.
@@ -41,22 +37,17 @@ The &ldquo;semantic nest&rdquo; TeX talks about is the nesting
 of boxes within boxes.  A stupid macro can provoke the error pretty
 easily:
 <blockquote>
-
 <pre>
 \def\silly{\hbox{here's \silly
                          being executed}}
 \silly
 </pre>
-
-
 <pre>
 \def\silly{\hbox{here's \silly being executed}}
 \silly
 </pre>
-
 </blockquote>
 The extended traceback
-
 (see <a href="FAQ-erroradvice.html"><em>general advice</em> on errors</a>)
 <em>does</em> help, though it does rather run on.  In the case above,
 the traceback consists of

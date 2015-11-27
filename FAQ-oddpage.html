@@ -51,7 +51,6 @@ conditional <code>&#x5c;ifoddpage</code> true if the command was issued on an od
 page.  (The <i class="class">memoir</i> class has the same command.)  LaTeX
 users who are unfamiliar with TeX&rsquo;s <code>&#x5c;if...</code> commands may use
 the <i class="package">ifthen</i> package:
-
 <blockquote>
 <pre>
 \usepackage{ifthen,changepage}
@@ -60,9 +59,6 @@ the <i class="package">ifthen</i> package:
 \ifthenelse{\boolean{oddpage}}{<odd page stuff>}{<even page stuff>}
 </pre>
 </blockquote>
-
-
-
 <pre>
 \usepackage{ifthen,changepage}
 ...
@@ -71,8 +67,6 @@ the <i class="package">ifthen</i> package:
     {<odd page stuff>}%
     {<even page stuff>}
 </pre>
-
-
 
 <p>
 Of course, the &lsquo;label&rsquo; contributes to LaTeX&rsquo;s &ldquo;Rerun to get

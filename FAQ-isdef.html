@@ -32,17 +32,13 @@ which executes <tt>action1</tt> if the command is undefined, and
 <p>
 The <code>&#x5c;@ifundefined</code> command is based on the sequence
 <blockquote>
-
 <pre>
 \expandafter
     \ifx\csname cmd name\endcsname\relax
 </pre>
-
-
 <pre>
 \expandafter \ifx \csname cmd name\endcsname \relax
 </pre>
-
 </blockquote>
 which relies on the way <code>&#x5c;csname</code> works: if the command doesn&rsquo;t
 exist, it simply creates it as an alias for <code>&#x5c;relax</code>.
@@ -70,17 +66,13 @@ altogether.
 <p>
 David Kastrup offers the (rather tricky)
 <blockquote>
-
 <pre>
 {\expandafter}\expandafter\ifx \csname cmd name\endcsname\relax ...
 </pre>
-
-
 <pre>
 {\expandafter}\expandafter
     \ifx \csname cmd name\endcsname \relax ...
 </pre>
-
 </blockquote>
 which &ldquo;creates&rdquo; the <code>&#x5c;relax</code>-command inside the group of the first
 <code>&#x5c;expandafter</code>, therefore forgets it again once the test is done.

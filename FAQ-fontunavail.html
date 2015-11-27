@@ -27,55 +27,34 @@ commands, LaTeX looks for the font (that is, a font that matches
 the encoding, family, shape, series and size that you want) in its
 tables.  If the font isn&rsquo;t there at the size you want, you will see a
 message like:
-
-
 <pre>
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in
 ...                 size <11.5> not available
 (Font)              size <12> substituted on
 ...                 input line ...
 </pre>
-
-
-
-
-
-
-
 <pre>
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <11.5> not available
 (Font)              size <12> substituted on input line ...
 </pre>
-
-
-
 <pre>
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <11.5> not available
 (Font)              size <12> substituted on input line ...
 </pre>
-
 There will also be a warning like:
-
-
 <pre>
 LaTeX Font Warning: Size substitutions with
 ...                 differences
 (Font)              up to 0.5pt have occurred.
 </pre>
-
-
 <pre>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
 </pre>
-
-
-
 <pre>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
 </pre>
-
 after LaTeX has encountered <code>&#x5c;end</code><code>&#x7b;document&#x7d;</code>.
 
 <p>
@@ -95,28 +74,20 @@ use the <i class="package">type1cm</i> or <i class="package">type1ec</i> package
 If the combination of font shape and series isn&rsquo;t available, LaTeX
 will usually have been told of a fall-back combination that may be
 used, and will select that:
-
-
 <pre>
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc'
 ...                 undefined
 (Font)              using `OT1/cmr/bx/n'
 ...                 instead on input line 0.
 </pre>
-
-
 <pre>
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
 (Font)              using `OT1/cmr/bx/n' instead on input line 0.
 </pre>
-
-
-
 <pre>
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
 (Font)              using `OT1/cmr/bx/n' instead on input line 0.
 </pre>
-
 
 <p>
 Substitutions may also be &ldquo;silent&rdquo;; in this case, there is no more
@@ -126,8 +97,6 @@ family, the &lsquo;default family for the encoding&rsquo; is selected.  This
 happens, for example, if you use command <code>&#x5c;textbullet</code>, which is
 normally taken from the maths symbols font, which is in <code class="verb">OMS</code>
 encoding.  My test log contained:
-
-
 <pre>
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in
 ...                 size <10> not available
@@ -135,20 +104,14 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in
 ...                 tried instead on input
 ...                 line ...
 </pre>
-
-
 <pre>
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line ...
 </pre>
-
-
-
 <pre>
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line ...
 </pre>
-
 
 <p>
 In summary, these messages are not so much error messages, as

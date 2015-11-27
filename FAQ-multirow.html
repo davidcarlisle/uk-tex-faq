@@ -91,7 +91,6 @@ To make a <code>&#x5c;multicolumn</code> multi-row &ldquo;cell&rdquo; in a table
 enclose a <code>&#x5c;multirow</code> inside a <code>&#x5c;multicolumn</code>&nbsp;&mdash; the other way
 around does not work, so:
 <blockquote>
-
 <pre>
 \begin{tabular}{|c|c|c|}\hline
 \multicolumn{2}{|c|}{\multirow{2}{*}{combined cells}}
@@ -103,8 +102,6 @@ bottom left
      &amp;bottom right\\ \hline
 \end{tabular}
 </pre>
-
-
 <pre>
 \begin{tabular}{|c|c|c|}\hline
 \multicolumn{2}{|c|}{\multirow{2}{*}%
@@ -117,7 +114,6 @@ bottom left
      &amp;bottom right\\ \hline
 \end{tabular}
 </pre>
-
 </blockquote>
 <i class="package">Multirow</i> is set up to interact with the <i class="package">bigstrut</i>
 package (which is also discussed in the answer to 

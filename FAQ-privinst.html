@@ -125,25 +125,17 @@ TEXMF = {!!$LOCALTEXMF,!!$TEXMFMAIN}
 </blockquote>
 it should be converted to:
 <blockquote>
-
 <pre>
 HOMETEXMF = $HOME/texmf
 TEXMF = {$HOMETEXMF,!!$LOCALTEXMF,
                      !!$TEXMFMAIN}
 % TEXMF = {!!$LOCALTEXMF,!!$TEXMFMAIN}
 </pre>
-
-
-
-
-
-
 <pre>
 HOMETEXMF = $HOME/texmf
 TEXMF = {$HOMETEXMF,!!$LOCALTEXMF,!!$TEXMFMAIN}
 % TEXMF = {!!$LOCALTEXMF,!!$TEXMFMAIN}
 </pre>
-
 </blockquote>
 (retaining the original, as a comment, is merely an aide-memoir in
 case you need to make another change, later).  The <tt>!!</tt> signs
@@ -152,21 +144,13 @@ tell the file-searching library that it should insist on a
 remembering to run <i class="progname">texhash</i> on your new tree every time you
 change it, then it&rsquo;s worth adding the marks to your tree:
 <blockquote>
-
 <pre>
 TEXMF = {!!$HOMETEXMF,!!$LOCALTEXMF,
                        !!$TEXMFMAIN}
 </pre>
-
-
-
-
-
-
 <pre>
 TEXMF = {!!$HOMETEXMF,!!$LOCALTEXMF,!!$TEXMFMAIN}
 </pre>
-
 </blockquote>
 as this will make (La)TeX find its files marginally faster.
 

@@ -17,20 +17,15 @@
 <p>
 You wanted to <code>&#x5c;include</code><code>&#x7b;../bar/xyz.tex&#x7d;</code>, but LaTeX says:
 <blockquote>
-
 <pre>
 latex: Not writing to ../bar/xyz.aux (openout_any = p).
 ! I can't write on file `../bar/xyz.aux'.
 </pre>
-
-
 <pre>
 LaTeX: Not writing to ../bar/xyz.aux
                           (openout_any = p).
 ! I can't write on file `../bar/xyz.aux'.
 </pre>
-
-
 </blockquote>
 The error comes from TeX&rsquo;s protection against writing to
 directories that aren&rsquo;t descendents of the one where your document

@@ -55,7 +55,6 @@ The <i class="package">multido</i> package is also &lsquo;generic&rsquo; (usable
 Plain TeX and LaTeX); it defines a command <code>&#x5c;multido</code> with
 three arguments:
 <blockquote>
-  
   <code>&#x5c;multido</code><code>&#x7b;&lsaquo;<i>variables</i>&rsaquo;&#x7d;</code><code>&#x7b;&lsaquo;<i>repetitions</i>&rsaquo;&#x7d;</code><code>&#x7b;&lsaquo;<i>stuff to repeat</i>&rsaquo;&#x7d;</code>
 </blockquote>
 When the macro is executing, the &lsaquo;<i>stuff to repeat</i>&rsaquo; gets executed
@@ -68,11 +67,6 @@ and so on.  (The variable <code>&#x5c;iz</code> is an integer; variables with ot
 initial letters represent different data types.)
 
 <p>
-
-
-
-
-
 Both current LaTeX and (experimental) LaTeX3 have iteration
 commands for internal use and for package writers; their use is
 probably not recommendable.
@@ -155,34 +149,12 @@ loop are lost (unless their result is made <code>&#x5c;global</code>); however, 
 does not &lsquo;build in&rsquo; its graphical origins (as <code>&#x5c;multiput</code> does) so
 its potential outside its own graphics environment &ldquo;home&rdquo; is more
 clear.
-
-
-
-
-
-
-
-
-
-
-
-
 % <pre>
 % \input repeat
 % \newcount\foo
 % \repeat
 %   \for{foo} \from{1} \to{10} \do{x*}
 % </pre>
-
-
-
-
-
-
-
-
-
-
 % <pre>
 % \repeat
 %   \for{var}
@@ -191,26 +163,13 @@ clear.
 % \do{<operate on something>}
 % </pre>
 
-
-
-
-
 <p>
-
-
-
-
-
-
-
 <dl>
-
 <dt class="ctanref">forarray.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/forarray">forarray</a>
 <dt class="ctanref">forloop.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/forloop">forloop</a>
 <dt class="ctanref">ifthen.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/latex">latex</a>
 <dt class="ctanref">multido.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/multido">multido</a>
 <dt class="ctanref">pgffor.sty</dt><dd>Distributed as part of <a class="ctan" href="https://www.ctan.org/pkg/pgf">pgf</a>
-
 </dl>
 
 <p class="lastedit">This answer last edited: 2013-03-01</p>

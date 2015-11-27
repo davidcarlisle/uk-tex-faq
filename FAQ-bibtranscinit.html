@@ -20,7 +20,6 @@ If your bibliographic style uses initials&nbsp;+ surname, you may encounter
 a problem with some transcribed names (for example, Russian ones).
 Consider the following example from the real world:
 <blockquote>
-
 <pre>
 @article{epifanov1997,
    author = {Epifanov, S. Yu. and
@@ -28,15 +27,12 @@ Consider the following example from the real world:
    title  = ...
 }
 </pre>
-
-
 <pre>
 @article{epifanov1997,
    author = {Epifanov, S. Yu. and Vigasin, A. A.},
    title  = ...
 }
 </pre>
-
 </blockquote>
 Note that the &ldquo;Yu&rdquo; is the initial, not a complete name. However,
 BibTeX&rsquo;s algorithms will leave you with a citation&nbsp;&mdash; 
@@ -50,7 +46,6 @@ prints the correct combination.  To keep your bibliography portable,
 you need to add that command to your bibliography with the
 <tt>@preamble</tt> directive:
 <blockquote>
-
 <pre>
 @preamble{ {\providecommand{\BIBYu}{Yu} } }
 
@@ -60,8 +55,6 @@ you need to add that command to your bibliography with the
    title    = ...
 }
 </pre>
-
-
 <pre>
 @preamble{ {\providecommand{\BIBYu}{Yu} } }
 
@@ -70,7 +63,6 @@ you need to add that command to your bibliography with the
    title    = ...
 }
 </pre>
-
 </blockquote>
 If you have many such commands, you may want to put them in a separate
 file and <code>&#x5c;input</code> that LaTeX file in a <tt>@preamble</tt>
@@ -80,7 +72,6 @@ directive.
 An alternative is to make the transcription look like an accent, from
 BibTeX&rsquo;s point of view.  For this we need a control sequence that
 does nothing:
-
 <blockquote>
 <pre>
 @article{epifanov1997,
@@ -89,9 +80,6 @@ does nothing:
 }
 </pre>
 </blockquote>
-
-
-
 <pre>
 @article{epifanov1997,
    author   = {Epifanov, S. {\relax Yu}. and
@@ -99,8 +87,6 @@ does nothing:
    title    = ...
 }
 </pre>
-
-
 Like the solution by generating extra commands, this involves tedious
 extra typing; which of the two techniques is preferable for a given
 bibliography will be determined by the names in it.  It should be
@@ -111,7 +97,6 @@ undesirable if the bibliography is a shared one.
 &ldquo;Compound&rdquo; initials (for single names made up of two or more words)
 may be treated in the same way, so one can enter Forster&rsquo;s rather
 complicated name as:
-
 <blockquote>
 <pre>
 @article{forster2006,
@@ -119,17 +104,12 @@ complicated name as:
   title    = ...
 </pre>
 </blockquote>
-
-
-
 <pre>
 @article{forster2006,
   author   = {Forster, P.M. {\relax de F.} and
               Collins, M.},
   title    = ...
 </pre>
-
-
 The same trick can be played if you&rsquo;re entering whole names:
 <blockquote>
 <pre>

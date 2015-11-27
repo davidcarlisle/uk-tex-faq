@@ -35,7 +35,6 @@ If, however, you need a solution which works without using external
 packages, or which will work in Plain TeX, then you can use the
 following minimal solution:
 <blockquote>
-
 <pre>
 \def\RCS$#1: #2 ${\expandafter\def\csname RCS#1\endcsname{#2}}
 \RCS$Revision: 1.47 $ % or any RCS keyword
@@ -43,8 +42,6 @@ following minimal solution:
 ...
 \date{Revision \RCSRevision, \RCSDate}
 </pre>
-
-
 <pre>
 \def\RCS$#1: #2 ${\expandafter
   \def\csname RCS#1\endcsname{#2}%
@@ -54,7 +51,6 @@ following minimal solution:
 ...
 \date{Revision \RCSRevision, \RCSDate}
 </pre>
-
 </blockquote>
 
 <p>

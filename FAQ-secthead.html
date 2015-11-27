@@ -19,27 +19,18 @@ Suppose that the editor of your favourite journal has specified that section
 headings must be centred, in small capitals, and subsection headings ragged 
 right in italic, but that you don&rsquo;t want to get involved in the sort of
 programming described in section 2.2 of <em>The LaTeX Companion</em>
-
-
-
-
- 
   (see <a href="FAQ-latex-books.html">LaTeX books</a>; the
   <a href="FAQ-atsigns.html">programming</a> itself is discussed elsewhere in this
   FAQ).
-
 The following hack will 
 probably satisfy your editor. Define yourself new commands
 <blockquote>
-
 <pre>
 \newcommand{\ssection}[1]{%
   \section[#1]{\centering\normalfont\scshape #1}}
 \newcommand{\ssubsection}[1]{%
   \subsection[#1]{\raggedright\normalfont\itshape #1}}
 </pre>
-
-
 <pre>
 \newcommand{\ssection}[1]{%
   \section[#1]{\centering
@@ -48,7 +39,6 @@ probably satisfy your editor. Define yourself new commands
   \subsection[#1]{\raggedright
                   \normalfont\itshape #1}}
 </pre>
-
 </blockquote>
 and then use <code>&#x5c;ssection</code> and <code>&#x5c;ssubsection</code> in place of
 <code>&#x5c;section</code> and <code>&#x5c;subsection</code>. This isn&rsquo;t perfect: section numbers

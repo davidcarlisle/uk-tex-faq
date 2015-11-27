@@ -38,17 +38,13 @@ as most people would expect.
 <p>
 However, if we now replace part of the macro:
 <blockquote>
-
 <pre>
 \newcommand\a[1]{+#1+%
                  \newcommand\x[1]{xxx#1}}
 </pre>
-
-
 <pre>
 \newcommand\a[1]{+#1+\newcommand\x[1]{xxx#1}}
 </pre>
-
 </blockquote>
 then <code>&#x5c;a</code><code>&#x7b;b&#x7d;</code> will give us the rather odd
 <blockquote>
@@ -70,17 +66,13 @@ arguments, which is surely not what was intended!
 <p>
 Actually, to define <code>&#x5c;x</code> to take an argument, we need
 <blockquote>
-
 <pre>
 \newcommand\a[1]{+#1+%
                  \newcommand\x[1]{xxx##1}}
 </pre>
-
-
 <pre>
 \newcommand\a[1]{+#1+\newcommand\x[1]{xxx##1}}
 </pre>
-
 </blockquote>
 or, using the TeX primitive definition:
 <blockquote>

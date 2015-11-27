@@ -22,7 +22,6 @@ asked to typeset the counter in your text.  This isn&rsquo;t always what you
 need: for example, if you have nested enumerated lists with the outer
 numbered and the inner labelled with letters, one might expect to want
 to refer to items in the inner list as &ldquo;2(c)&rdquo;.   (Remember, you can
-
 <a href="FAQ-enumerate.html">change the structure of list items</a>.)
 The change is of course
 possible by explicit labelling of the parent and using that label to
@@ -47,7 +46,6 @@ on an inner list item is supposedly done using the command
 workings of this aren&rsquo;t quite right, and you need to patch the
 <code>&#x5c;refstepcounter</code> command:
 <blockquote>
-
 <pre>
 \renewcommand*\refstepcounter[1]{%
   \stepcounter{#1}%
@@ -57,8 +55,6 @@ workings of this aren&rsquo;t quite right, and you need to patch the
   }%
 }
 </pre>
-
-
 <pre>
 \renewcommand*\refstepcounter[1]{\stepcounter{#1}%
   \protected@edef\@currentlabel{%
@@ -67,7 +63,6 @@ workings of this aren&rsquo;t quite right, and you need to patch the
   }%
 }
 </pre>
-
 </blockquote>
 With the patch in place you can now, for example, change the labels on
 all inner lists by adding the following code in your preamble:

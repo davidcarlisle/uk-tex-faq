@@ -47,19 +47,15 @@ command works similarly.
 <p>
 If <code>&#x5c;smooth</code> takes arguments, one must pass them on:
 <blockquote>
-
 <pre>
 \let\OldSmooth\smooth
 \renewcommand{\smooth}[2]{\mumble\OldSmooth{#1}{#2}}
 </pre>
-
-
 <pre>
 \let\OldSmooth\smooth
 \renewcommand{\smooth}[2]%
              {\mumble\OldSmooth{#1}{#2}}
 </pre>
-
 </blockquote>
 
 <p>

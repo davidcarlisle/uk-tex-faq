@@ -80,7 +80,6 @@ structure a counter is reset.  Suppose your class numbers figures as
 &lsaquo;<i>chapter</i>&rsaquo;.&lsaquo;<i>section</i>&rsaquo;.&lsaquo;<i>figure</i>&rsaquo;, and you want figures
 numbered per chapter, try:
 <blockquote>
-
 <pre>
 \makeatletter
 \@removefromreset{figure}{section}
@@ -88,8 +87,6 @@ numbered per chapter, try:
 \renewcommand{\thefigure}{\thechapter.\@arabic\c@figure}
 \makeatother
 </pre>
-
-
 <pre>
 \makeatletter
 \@removefromreset{figure}{section}
@@ -98,7 +95,6 @@ numbered per chapter, try:
              {\thechapter.\@arabic\c@figure}
 \makeatother
 </pre>
-
 </blockquote>
 (the command <code>&#x5c;@addtoreset</code> is a part of LaTeX itself).
 <dl>

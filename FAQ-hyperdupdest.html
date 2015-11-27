@@ -17,20 +17,15 @@
 <p>
 The warning:
 <blockquote>
-
 <pre>
 ! pdfTeX warning (ext4): destination with the same identifier
 (name{page.1}) has been already used, duplicate ignored
 </pre>
-
-
 <pre>
 ! pdfTeX warning (ext4): destination with
   the same identifier (name{page.1}) has
   been already used, duplicate ignored
 </pre>
-
-
 </blockquote>
 arises because of duplicate page numbers in your document.  The
 problem is usually soluble: see 
@@ -60,7 +55,6 @@ loading both:
   <tt>...</tt><br>
   &lsaquo;<i>code that uses your package</i>&rsaquo;
 </blockquote>
-
 For example:
 <blockquote>
 <pre>
@@ -71,22 +65,6 @@ For example:
 \newfloat{...}{...}{...}
 </pre>
 </blockquote>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 You should load packages in this order as a matter of course, unless
 the documentation of a package says you <em>must</em> load it after
 <i class="package">hyperref</i>.  (There are few packages that require to be

@@ -76,8 +76,6 @@ Note that the command name that is protected is the &lsquo;base&rsquo; command,
 with a space appended.  This is cryptically visible, in a couple of
 places above.  (Again, the output has been sanitised.)
 
-
-
 <p>
 The command <i class="progname">texdef</i> (or <i class="progname">latexdef</i>&nbsp;&mdash; the same
 command with a different name) will do all that for you and return the
@@ -120,7 +118,6 @@ actual coding, merely the definition&rsquo;s location.
 <p>
 Environments also surrender their details to <i class="progname">latexdef</i>:
 <blockquote>
-
 <pre>
 $ latexdef -E itemize
 
@@ -135,8 +132,6 @@ macro:->\ifnum \@itemdepth >\thr@@ \@toodeep
 \enditemize:
 macro:->\global \advance \@listdepth \m@ne \endtrivlist 
 </pre>
-
-
 <pre>
 $ latexdef -E itemize
 
@@ -154,7 +149,6 @@ macro:->\ifnum \@itemdepth >\thr@@ \@toodeep
 macro:->\global \advance \@listdepth \m@ne
                                 \endtrivlist 
 </pre>
-
 </blockquote>
 (Yet again, this is a sanitised version of the macro definition
 output, which appears as a single very wide line for each definition.)

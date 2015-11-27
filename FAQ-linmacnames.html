@@ -34,19 +34,15 @@ good:
 <li> Use <code>&#x5c;csname</code>&hellip;<code>&#x5c;endcsname</code> to define and invoke the
   macro:
 <blockquote>
-
 <pre>
 \expandafter\newcommand
        \csname cul8r\endcsname{Goodbye!}
 I said, ``\csname cul8r\endcsname''.
 </pre>
-
-
 <pre>
 \expandafter\newcommand\csname cul8r\endcsname{Goodbye!}
 I said, ``\csname cul8r\endcsname''.
 </pre>
-
 </blockquote>
   <dl>
   <dt class="description">Pro:</dt><dd> No unexpected side effects
@@ -55,7 +51,6 @@ I said, ``\csname cul8r\endcsname''.
 <li> Define a &ldquo;special-command generator&rdquo;, and  use the resulting
   commands:
 <blockquote>
-
 <pre>
 \newcommand{\DefineRemark}[2]{%
   \expandafter\newcommand
@@ -69,8 +64,6 @@ I said, ``\csname cul8r\endcsname''.
 ...
 I said, ``\Remark{cul8r}''.
 </pre>
-
-
 <pre>
 \newcommand{\DefineRemark}[2]{%
   \expandafter\newcommand\csname rmk-#1\endcsname{#2}%
@@ -81,7 +74,6 @@ I said, ``\Remark{cul8r}''.
 ...
 \Remark{cul8r}
 </pre>
-
 </blockquote>
   <dl>
   <dt class="description">Pro:</dt><dd> Straightforward to use, not too untidy
@@ -128,21 +120,17 @@ I said, ``\cul8r''.
     than &ldquo;<tt>8r</tt>&rdquo;, with a confusing diagnostic&nbsp;&mdash;
     <code>&#x5c;cul99</code> produces:
 <blockquote>
-
 <pre>
 ! Use of \cul doesn't match its definition.
 <*> \cul9
          9
 </pre>
-
-
 <pre>
 ! Use of \cul doesn't match its 
                            definition.
 <*> \cul9
          9
 </pre>
-
 </blockquote>
     (which would confuse someone who hadn&rsquo;t even realised there
     <em>was</em> a definition of <code>&#x5c;cul</code> in the document).

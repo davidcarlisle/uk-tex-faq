@@ -24,14 +24,7 @@ with the long-awaited BibTeX version&nbsp;1.0.
 The actual information that need be available in a citation of an
 URL is discussed at some length in the publicly available
 on-line 
-
-
-
-
-
-
 <a href="http://www.nlc-bnc.ca/iso/tc46sc9/standard/690-2e.htm">extracts of ISO&nbsp;690&ndash;2</a>;
-
 the techniques below do <em>not</em> satisfy all the requirements of
 ISO&nbsp;690&ndash;2, but they offer a solution that is at least
 available to users of today&rsquo;s tools.
@@ -84,15 +77,12 @@ Another possibility is that some conventionally-published paper,
 technical report (or even book) is also available on the Web.  In such
 cases, a useful technique is something like:
 <blockquote>
-
 <pre>
 @techreport{...,
   ...,
   note = "Also available as \url{http://...}"
 }
 </pre>
-
-
 <pre>
 @techreport{...,
   ...,
@@ -100,7 +90,6 @@ cases, a useful technique is something like:
                        \url{http://...}"
 }
 </pre>
-
 </blockquote>
 There is good reason to use the <i class="package">url</i> or <i class="package">hyperref</i>
 packages in this context: BibTeX has a habit of splitting

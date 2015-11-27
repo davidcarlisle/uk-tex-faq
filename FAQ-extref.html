@@ -45,7 +45,6 @@ loads the references from <i class="filename">volume1</i>, but prefixes every on
 the string <tt>V1-</tt>.  So you would refer to the introduction to volume&nbsp;1
 as:
 <blockquote>
-
 <pre>
 \usepackage{xr}
 \externaldocument[V1-]{volume1}
@@ -53,15 +52,12 @@ as:
 ... the introduction to volume1
                (\ref{V1-introduction})...
 </pre>
-
-
 <pre>
 \usepackage{xr}
 \externaldocument[V1-]{volume1}
 ...
 ... the introduction to volume1 (\ref{V1-introduction})...
 </pre>
-
 </blockquote>
 To have the facilities of <i class="package">xr</i> working with
 <i class="package">hyperref</i>, you need <i class="package">xr-hyper</i>.  For simple
@@ -83,7 +79,6 @@ and the name reference will appear as an active link to the
 To link to a PDF document on the Web, for which you happen to
 have the .aux file, write:
 <blockquote>
-
 <pre>
 \usepackage{xr-hyper}
 \usepackage{hyperref}
@@ -91,8 +86,6 @@ have the .aux file, write:
 ...
 ... the \nameref{V1-introduction})...
 </pre>
-
-
 <pre>
 \usepackage{xr-hyper}
 \usepackage{hyperref}
@@ -101,7 +94,6 @@ have the .aux file, write:
 ...
 ... the \nameref{V1-introduction})...
 </pre>
-
 </blockquote>
 Heiko Oberdiek&rsquo;s experimental <i class="package">zref</i> bundle includes a
 hyper-crossreferencing mechanism using its <i class="package">zref-xr</i> module.
@@ -128,7 +120,6 @@ deal both with &ldquo;traditional&rdquo; LaTeX labels and with
 <p>
 
 <hr><p class="faqlink">This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=extref">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=extref</a></p>
-
 
 <p>
 

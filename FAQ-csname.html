@@ -52,7 +52,6 @@ circumstance they make the macro code slightly more tedious.
 <p>
 The name created need not (of course) be <em>just</em> the argument:
 <blockquote>
-
 <pre>
 \def\newrace#1#2#3{\expandafter\def
     \csname start#1\endcsname{%
@@ -64,8 +63,6 @@ The name created need not (of course) be <em>just</em> the argument:
   }%
 }
 </pre>
-
-
 <pre>
 \def\newrace#1#2#3{%
   \expandafter\def\csname start#1\endcsname{%
@@ -76,7 +73,6 @@ The name created need not (of course) be <em>just</em> the argument:
   }%
 }
 </pre>
-
 </blockquote>
 With commands
 <blockquote>

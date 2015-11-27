@@ -51,7 +51,6 @@ of a <code>&#x5c;csname</code> construction with <code>&#x5c;relax</code>; since
 argument is the desired control sequence name, this proves a little
 long-winded.  Since <tt>\#1</tt> is the requisite argument, we have:
 <blockquote>
-
 <pre>
 \expandafter\ifx
   \csname
@@ -60,15 +59,12 @@ long-winded.  Since <tt>\#1</tt> is the requisite argument, we have:
   \relax
     ...
 </pre>
-
-
 <pre>
 \expandafter\ifx
   \csname\expandafter\@gobble\string#1\endcsname
   \relax
     ...
 </pre>
-
 </blockquote>
 (<code>&#x5c;@gobble</code> simply throws away its argument).
 

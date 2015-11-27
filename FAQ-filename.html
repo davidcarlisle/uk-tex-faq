@@ -43,9 +43,6 @@ patch on top of the Plain TeX command.  Our patches apply to the
 LaTeX version of the command, which is used as <code>&#x5c;input</code><code>&#x7b;file&#x7d;</code>)
 
 <p>
-
-
-
 %% <pre>
 %% \def\ThisFile{\jobname}
 %% \let\OldInput\input
@@ -54,14 +51,6 @@ LaTeX version of the command, which is used as <code>&#x5c;input</code><code>&#x
 %%   \OldInput#1%
 %% }
 %% </pre>
-
-
-
-
-
-
-
-
 %% <pre>
 %% \documentclass{article}
 %% ... (macros above)
@@ -72,16 +61,7 @@ LaTeX version of the command, which is used as <code>&#x5c;input</code><code>&#x
 %% \end{document}
 %% </pre>
 
-
-
-
 <p>
-
-
-
-
-
-
 %% <pre>
 %% \def\ThisFile{\jobname}
 %% \newcounter{FileStack}
@@ -102,18 +82,12 @@ LaTeX version of the command, which is used as <code>&#x5c;input</code><code>&#x
 %%   \addtocounter{FileStack}{-1}%
 %% }
 %% </pre>
-
-
-
 %% <pre>
 %% \let\OrigInclude\include
 %% \renewcommand{\include}[1]{%
 %%   \stackinput{#1}{\OrigInclude}%
 %% }
 %% </pre>
-
-
-
 
 <p>
 It is possible to keep track of the name of the file currently being
@@ -135,17 +109,11 @@ The <i class="package">FiNK</i> (&ldquo;File Name Keeper&rdquo;) package keeps t
 file name and extension, in a macro <code>&#x5c;finkfile</code>.  <i class="package">FiNK</i> is
 now deprecated, in favour of <i class="package">currfile</i>, but remains available
 for use in old documents.
-
-
-
-
 %% <pre>
 %% \def\striptexext#1.tex{#1}
 %% ...
 %% \edef\ThisFile{\expandafter\stripext\finkfile}
 %% </pre>
-
-
 The <i class="package">FiNK</i> bundle includes a <i class="filename">fink.el</i> that provides
 support under <i class="progname">emacs</i> with AUC-TeX.
 <dl>

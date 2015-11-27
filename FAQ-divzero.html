@@ -34,17 +34,13 @@ converted it to a zero-height object.
 <p>
 Suppose you&rsquo;re including your graphic with a command like:
 <blockquote>
-
 <pre>
 \includegraphics[angle=180,height=5cm]{myfig.eps}
 </pre>
-
-
 <pre>
 \includegraphics[angle=180,%
                 height=5cm]{myfig.eps}
 </pre>
-
 </blockquote>
 In the case that <i class="filename">myfig.eps</i> has no depth to start with, the
 scaling calculations will produce the division-by-zero error.
@@ -55,17 +51,13 @@ Fortunately, the <i class="package">graphicx</i> package has a keyword
 image relative to the sum of the object&rsquo;s <code class="pkgoption">height</code> and
 <code class="pkgoption">depth</code>, so
 <blockquote>
-
 <pre>
 \includegraphics[angle=180,totalheight=5cm]{myfig.eps}
 </pre>
-
-
 <pre>
 \includegraphics[angle=180,%
            totalheight=5cm]{myfig.eps}
 </pre>
-
 </blockquote>
 will resolve the error, and will behave as you might hope.
 

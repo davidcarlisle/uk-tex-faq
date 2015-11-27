@@ -21,28 +21,19 @@ You&rsquo;ve looked at your LaTeX source and there&rsquo;s no sign of a misplace
 
 <p>
 Well, no: this is TeX&rsquo;s cryptic way of hinting that you&rsquo;ve put a
- 
 <a href="FAQ-protect.html">fragile command</a> in a moving argument.
-
-
-
-
 
 <p>
 For example, <code>&#x5c;footnote</code> is fragile, and if we put that in the
 moving argument of a <code>&#x5c;section</code> command, as
 <blockquote>
-
 <pre>
 \section{Mumble\footnote{%
     I couldn't think of anything better}}
 </pre>
-
-
 <pre>
 \section{Mumble\footnote{I couldn't think of anything better}}
 </pre>
-
 </blockquote>
 we get told
 <blockquote>
@@ -84,17 +75,13 @@ The solution is usually to use a robust command in place of the one
 you are using, or to force your command to be robust by prefixing it
 with <code>&#x5c;protect</code>, which in the <code>&#x5c;section</code> case would show as
 <blockquote>
-
 <pre>
 \section{Mumble\protect\footnote{%
     I couldn't think of anything better}}
 </pre>
-
-
 <pre>
 \section{Mumble\protect\footnote{I couldn't think of anything better}}
 </pre>
-
 </blockquote>
 However, in both the <code>&#x5c;section</code> case and the <code>&#x5c;caption</code> case,
 you can separate the moving argument, as in
@@ -103,17 +90,13 @@ route&nbsp;&mdash; simply to omit (or otherwise sanitise) the fragile command
 in the moving argument.  So, one might rewrite the <code>&#x5c;caption</code>
 example as:
 <blockquote>
-
 <pre>
 \caption[Energy: (Einstein's equation)]%
         {Energy: \(E=mc^2\)}
 </pre>
-
-
 <pre>
 \caption[Energy: (Einstein's equation)]{Energy: \(E=mc^2\)}
 </pre>
-
 </blockquote>
 In practice, inserting mathematics in a moving argument has already
 been addressed in LaTeX 2e by the robust command <code>&#x5c;ensuremath</code>:

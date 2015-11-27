@@ -106,7 +106,9 @@ function file_to_html (filename)
 
       line=faq_convert_line(line)
     end
-    io.write(line .. "\n")
+    if (verbatim or not string.match(line,"^ *$")) then
+      io.write(line .. "\n")
+    end
   end
   faq_link(qid)
   qid=nil

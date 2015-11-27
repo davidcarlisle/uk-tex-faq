@@ -21,17 +21,13 @@ produces the float number for figure floats) may be redefined, in a
 package of your own, or between
 <a href="FAQ-atsigns.html"><code>&#x5c;makeatletter</code>&ndash;<code>&#x5c;makeatother</code></a>:
 <blockquote>
-
 <pre>
 \renewcommand{\fnum@figure}{\textbf{Fig.~\thefigure}}
 </pre>
-
-
 <pre>
 \renewcommand{\fnum@figure}%
   {\textbf{Fig.~\thefigure}}
 </pre>
-
 </blockquote>
 which will cause the number to be typeset in bold face.  (Note that
 the original definition used 

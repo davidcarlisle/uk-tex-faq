@@ -36,7 +36,6 @@ prevent it from being typeset.  Patashnik recommends a command
 <code>&#x5c;noopsort</code> (no-output-sortkey), which is defined and used as
 follows:
 <blockquote>
-
 <pre>
 @PREAMBLE{ {\providecommand{\noopsort}[1]{}} }
 ...
@@ -45,8 +44,6 @@ AUTHOR = "{\noopsort{Rayleigh}}{Lord Rayleigh}",
 ...
 }
 </pre>
-
-
 <pre>
 @PREAMBLE{
     {\providecommand{\noopsort}[1]{}}
@@ -58,11 +55,9 @@ AUTHOR =
 ...
 }
 </pre>
-
 </blockquote>
 Note that this <code>&#x5c;noopsort</code> applies to the last name in this kind of
 construct, so an author with an Arabic name might be rendered:
-
 <blockquote>
 <pre>
 ...
@@ -70,20 +65,14 @@ AUTHOR = "Ali {\noopsort{Hadiidii}}{al-Hadiidii}",
 ...
 </pre>
 </blockquote>
-
-
-
 <pre>
 ...
 AUTHOR = 
    "Ali {\noopsort{Hadiidii}}{al-Hadiidii}",
 ...
 </pre>
-
-
 A further use might deal with word order games, as in the famous
 Vietnamese name:
-
 <blockquote>
 <pre>
 ...
@@ -91,17 +80,12 @@ AUTHOR = "\noopsort{Thanh Han The}{Han The Thanh}",
 ...
 </pre>
 </blockquote>
-
-
-
 <pre>
 ...
 AUTHOR =
    "\noopsort{Thanh Han The}{Han The Thanh}",
 ...
 </pre>
-
-
 though that author seems well-acquainted with Western confusion about
 the significance of the parts of his name (even to the extent of
 missing out the accentuation, as above&hellip;).

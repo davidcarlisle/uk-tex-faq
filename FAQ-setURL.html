@@ -29,7 +29,6 @@ There are three packages that help solve this problem:
   <code>&#x5c;discretionary</code>, and offers the user the opportunity of
   specifying a personal list of potential break characters.  Its chief
   disadvantage is fragility in LaTeX moving arguments.  The
-
   <a href="FAQ-eplain.html">Eplain macros</a>&nbsp;&mdash; define a similar <code>&#x5c;path</code> command.
 
 <p>
@@ -42,7 +41,6 @@ There are three packages that help solve this problem:
   gives each potential break character a maths-mode &lsquo;personality&rsquo;, and
   then sets the URL itself (in the user&rsquo;s choice of font) in
   maths mode.  It can produce (LaTeX-style) &lsquo;robust&rsquo; commands
-  
   (see <a href="FAQ-protect.html">use of <code>&#x5c;protect</code></a>) for use
   within moving arguments.
 
@@ -64,21 +62,17 @@ There are three packages that help solve this problem:
   Plain TeX).  A small patch is also necessary: the required
   sequence is therefore:
 <blockquote>
-
 <pre>
 \input miniltx
 \expandafter\def\expandafter\+%
                 \expandafter{\+}
 \input url.sty
 </pre>
-
-
 <pre>
 \input miniltx
 \expandafter\def\expandafter\+\expandafter{\+}
 \input url.sty
 </pre>
-
 </blockquote>
 <li> The <i class="package">hyperref</i> package, which uses the typesetting code
   of <i class="package">url</i>, in a context where the typeset text forms the

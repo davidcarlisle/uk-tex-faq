@@ -99,7 +99,6 @@ allow class and package options in key-value form (macros
 <i class="package">Pstricks</i> bundle packages use a <i class="package">xkeyval</i> derivative
 called <i class="package">pst-xkey</i> for their own key-value manipulation.
 
-
 <p>
 The (widely-respected) <i class="package">pgf</i> graphics package has its own
 key-value package called <i class="package">pgfkeys</i>.  The documentation of the
@@ -119,23 +118,17 @@ just <i class="filename">/x</i>.  When you specify keys you can provide the comp
 path of the key, but you usually just provide the name of the key
 (corresponding to the file name without any path) and the path is
 added automatically.  So a <code>&#x5c;pgfkeys</code> command might be:
-
 <blockquote>
 <pre>
 \pgfkeys{/my key=hello,/your keys/main key=something\strange,
   key name without path=something else}
 </pre>
 </blockquote>
-
-
-
 <pre>
 \pgfkeys{/my key=hello,
   /your keys/main key=something\strange,
   key name without path=something else}
 </pre>
-
-
 and for each key mentioned, the associated code will be executed.
 &hellip; and that code is also set up using <code>&#x5c;pgfkeys</code>:
 <blockquote>
@@ -203,24 +196,16 @@ one package, <i class="package">getoptk</i>, aimed at the Plain TeX programmer.
 <i class="package">Getoptk</i> uses syntax inspired by that offered by TeX
 primitives such as <code>&#x5c;hrule</code> and <code>&#x5c;hbox</code>, so we are offered
 syntax such as:
-
 <blockquote>
 <pre>
 \begindisplay file {chapter1} literal offset 20pt
 </pre>
 </blockquote>
 (taken from the package manual).
-
-
-
 <pre>
 \begindisplay file {chapter1} %
                 literal offset 20pt
 </pre>
-
-
-
-
 
 <p>
 There are (we know) people who would swear that such syntax is

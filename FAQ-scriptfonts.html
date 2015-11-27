@@ -49,22 +49,17 @@ modern TeX distributions.
   is no package but you can easily make it available by means of the
   command
 <blockquote>
-
 <pre>
 \DeclareMathAlphabet{\mathscr}{OT1}{pzc}%
                                  {m}{it}
 </pre>
-
-
 <pre>
 \DeclareMathAlphabet{\mathscr}{OT1}{pzc}{m}{it} 
 </pre>
-
 </blockquote>
   in your preamble.  You may find the font rather too big; if so, you
   can use a scaled version of it like this:
 <blockquote>
-
 <pre>
 \DeclareFontFamily{OT1}{pzc}{}
 \DeclareFontShape{OT1}{pzc}{m}{it}%
@@ -72,14 +67,11 @@ modern TeX distributions.
 \DeclareMathAlphabet{\mathscr}{OT1}{pzc}%
                                  {m}{it}
 </pre>
-
-
 <pre>
 \DeclareFontFamily{OT1}{pzc}{}
 \DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [0.900] pzcmi7t}{}
 \DeclareMathAlphabet{\mathscr}{OT1}{pzc}{m}{it}
 </pre>
-
 </blockquote>
   Adobe Zapf Chancery (which the above examples use) is distributed in
   any but the most basic PostScript printers.  A substantially identical

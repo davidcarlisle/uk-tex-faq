@@ -23,7 +23,6 @@ command).
 <p>
 The simple-minded way for a user to write such a command involves use
 of the <i class="package">ifthen</i> package:
-
 <blockquote>
 <pre>
 \newcommand{\mycommand}[1]{\ifthenelse{\equal{#1}{*}}%
@@ -34,9 +33,6 @@ of the <i class="package">ifthen</i> package:
 \newcommand{\mycommandNoStar}[1]{normal version}
 </pre>
 </blockquote>
-
-
-
 <pre>
 \newcommand{\mycommand}[1]{%
   \ifthenelse{\equal{#1}{*}}%
@@ -48,8 +44,6 @@ of the <i class="package">ifthen</i> package:
 \newcommand{\mycommandNoStar}[1]%
                  {normal version}
 </pre>
-
-
 This does the trick, for sufficiently simple commands, but it has
 various tiresome failure modes, and it requires <code>&#x5c;mycommandnostar</code>
 to take an argument.
@@ -58,7 +52,6 @@ to take an argument.
 The LaTeX kernel does a lot of this, and has its own command,
 <code>&#x5c;@ifstar</code> (which needs &lsquo;internal command protection&rsquo;, cf.
 <blockquote>
-
 <pre>
 \makeatletter
 \newcommand{\mycommand}{%
@@ -70,8 +63,6 @@ The LaTeX kernel does a lot of this, and has its own command,
 \newcommand{\mycommandStar}{starred version}
 \newcommand{\mycommandNoStar}{normal version}
 </pre>
-
-
 <pre>
 \makeatletter
 \newcommand{\mycommand}{\@ifstar
@@ -82,7 +73,6 @@ The LaTeX kernel does a lot of this, and has its own command,
 \newcommand{\mycommandStar}{starred version}
 \newcommand{\mycommandNoStar}{normal version}
 </pre>
-
 </blockquote>
 (Note that arguments to <code>&#x5c;mycommandStar</code> and <code>&#x5c;mycommandNoStar</code>
 are independent&nbsp;&mdash; either can have their own arguments, unconstrained
@@ -94,23 +84,17 @@ it requires that the definition be
 <p>
 A pleasing alternative is the <i class="package">suffix</i> package.  This elegant
 piece of code allows you to define variants of your commands:
-
-
 <pre>
 \newcommand\mycommand{normal version}
 \WithSuffix\newcommand\mycommand*%
                      {starred version}
 </pre>
-
-
-
 <blockquote>
 <pre>
 \newcommand\mycommand{normal version}
 \WithSuffix\newcommand\mycommand*{starred version}
 </pre>
 </blockquote>
-
 The package needs <a href="FAQ-etex.html">e-LaTeX</a>, but any new enough
 distribution defines LaTeX as e-LaTeX by default.  Command
 arguments may be specified in the normal way, in both command
@@ -163,6 +147,5 @@ via the <i class="package">expl3</i> package.
 <p class="lastedit">This answer last edited: 2014-04-04</p>
 
 <p>
-
 
 <hr><p class="faqlink">This question on the Web: <a href="http://www.tex.ac.uk/cgi-bin/texfaq2html?label=cmdstar">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=cmdstar</a></p>

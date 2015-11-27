@@ -71,38 +71,25 @@ text-block commands.  The default set of modal commands offers weights
 requires a family, a shape and a series (as well as a size, of
 course).  A few examples
 <blockquote>
-
 <pre>
 {\bfseries\ttfamily
     and jolly good company!}
 </pre>
-
-
 <pre>
 {\bfseries\ttfamily and jolly good company!}
 </pre>
-
 </blockquote>
 produces bold typewriter text (but note the lack of a 
-
-
-
-
   <a href="FAQ-bold-extras.html">bold typewriter font</a>
-
 in the default Computer Modern fonts), or
 <blockquote>
-
 <pre>
 {\slshape\sffamily
     Never mind the weather\/}
 </pre>
-
-
 <pre>
 {\slshape\sffamily Never mind the weather\/}
 </pre>
-
 </blockquote>
 (note the italic correction needed on slanted fonts, too).
 
@@ -121,31 +108,23 @@ to produce bold italic text (note that the block commands supply
 italic corrections where necessary), and they be nested with the
 LaTeX 2e modal commands, too:
 <blockquote>
-
 <pre>
 \texttt{\bfseries
     So long as we're together}
 </pre>
-
-
 <pre>
 \texttt{\bfseries So long as we're together}
 </pre>
-
 </blockquote>
 for bold typewriter, or
 <blockquote>
-
 <pre>
 {\slshape\textbf{%
     Whoops!  she goes again}\/}
 </pre>
-
-
 <pre>
 {\slshape \textbf{Whoops!  she goes again}\/}
 </pre>
-
 </blockquote>
 for a bold slanted instance of the current family (note the italic
 correction applied at the end of the modal command group, again).
@@ -167,17 +146,13 @@ sufficiently weird that, while there&rsquo;s a defined font shape, no
 default LaTeX commands exist; to use the shape, the (eccentric) user
 needs LaTeX&rsquo;s simplest font selection commands:
 <blockquote>
-
 <pre>
 {\fontshape{ui}\selectfont
     Tra la la, di dee}
 </pre>
-
-
 <pre>
 {\fontshape{ui}\selectfont Tra la la, di dee}
 </pre>
-
 </blockquote>
 <dl>
 <dt class="ctanref">smallcap.sty</dt><dd><a class="ctan" href="https://www.ctan.org/pkg/smallcap">smallcap</a>
