@@ -49,13 +49,6 @@ as:
 \usepackage{xr}
 \externaldocument[V1-]{volume1}
 ...
-... the introduction to volume1
-               (\ref{V1-introduction})...
-</pre>
-<pre>
-\usepackage{xr}
-\externaldocument[V1-]{volume1}
-...
 ... the introduction to volume1 (\ref{V1-introduction})...
 </pre>
 </blockquote>
@@ -83,14 +76,6 @@ have the .aux file, write:
 \usepackage{xr-hyper}
 \usepackage{hyperref}
 \externaldocument[V1-]{volume1}[http://mybook.com/volume1.pdf]
-...
-... the \nameref{V1-introduction})...
-</pre>
-<pre>
-\usepackage{xr-hyper}
-\usepackage{hyperref}
-\externaldocument[V1-]{volume1}%
-    [http://mybook.com/volume1.pdf]
 ...
 ... the \nameref{V1-introduction})...
 </pre>

@@ -31,20 +31,6 @@ created by use of the following macros:
 \def\ddashint{\Xint=}
 \def\dashint{\Xint-}
 </pre>
-<pre>
-\def\Xint#1{\mathchoice
-   {\XXint\displaystyle\textstyle{#1}}%
-   {\XXint\textstyle\scriptstyle{#1}}%
-   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
-   {\XXint\scriptscriptstyle
-                      \scriptscriptstyle{#1}}%
-   \!\int}
-\def\XXint#1#2#3{{%
-     \setbox0=\hbox{$#1{#2#3}{\int}$}
-     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
-\def\ddashint{\Xint=}
-\def\dashint{\Xint-}
-</pre>
 </blockquote>
 <code>&#x5c;dashint</code> gives a single-dashed integral sign, <code>&#x5c;ddashint</code> a
 double-dashed one.

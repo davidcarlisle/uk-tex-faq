@@ -6,11 +6,11 @@ function file_to_html (filename)
 
     line=string.gsub(line,"&","&amp;")
 
-    if (not(quoteverbatim) and string.match(line,"\\begin{verbatim}")) then
+    if (not(quoteverbatim) and not(skipline) and string.match(line,"\\begin{verbatim}")) then
       line=string.gsub(line,"\\begin{verbatim}","<pre>")
       verbatim=true
     end
-    if (string.match(line,"\\begin{quoteverbatim}")) then
+    if (not(skipline) and string.match(line,"\\begin{quoteverbatim}")) then
       line=string.gsub(line,"\\begin{quoteverbatim}","<pre>")
       quoteverbatim=true
     end

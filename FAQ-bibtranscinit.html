@@ -22,13 +22,6 @@ Consider the following example from the real world:
 <blockquote>
 <pre>
 @article{epifanov1997,
-   author = {Epifanov, S. Yu. and
-             Vigasin, A. A.},
-   title  = ...
-}
-</pre>
-<pre>
-@article{epifanov1997,
    author = {Epifanov, S. Yu. and Vigasin, A. A.},
    title  = ...
 }
@@ -46,15 +39,6 @@ prints the correct combination.  To keep your bibliography portable,
 you need to add that command to your bibliography with the
 <tt>@preamble</tt> directive:
 <blockquote>
-<pre>
-@preamble{ {\providecommand{\BIBYu}{Yu} } }
-
-@article{epifanov1997,
-   author   = {Epifanov, S. {\BIBYu}. and
-               Vigasin, A. A.},
-   title    = ...
-}
-</pre>
 <pre>
 @preamble{ {\providecommand{\BIBYu}{Yu} } }
 
@@ -80,13 +64,6 @@ does nothing:
 }
 </pre>
 </blockquote>
-<pre>
-@article{epifanov1997,
-   author   = {Epifanov, S. {\relax Yu}. and
-               Vigasin, A. A.},
-   title    = ...
-}
-</pre>
 Like the solution by generating extra commands, this involves tedious
 extra typing; which of the two techniques is preferable for a given
 bibliography will be determined by the names in it.  It should be
@@ -104,12 +81,6 @@ complicated name as:
   title    = ...
 </pre>
 </blockquote>
-<pre>
-@article{forster2006,
-  author   = {Forster, P.M. {\relax de F.} and
-              Collins, M.},
-  title    = ...
-</pre>
 The same trick can be played if you&rsquo;re entering whole names:
 <blockquote>
 <pre>

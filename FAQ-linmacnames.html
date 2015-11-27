@@ -35,11 +35,6 @@ good:
   macro:
 <blockquote>
 <pre>
-\expandafter\newcommand
-       \csname cul8r\endcsname{Goodbye!}
-I said, ``\csname cul8r\endcsname''.
-</pre>
-<pre>
 \expandafter\newcommand\csname cul8r\endcsname{Goodbye!}
 I said, ``\csname cul8r\endcsname''.
 </pre>
@@ -51,19 +46,6 @@ I said, ``\csname cul8r\endcsname''.
 <li> Define a &ldquo;special-command generator&rdquo;, and  use the resulting
   commands:
 <blockquote>
-<pre>
-\newcommand{\DefineRemark}[2]{%
-  \expandafter\newcommand
-     \csname rmk-#1\endcsname{#2}%
-}
-\newcommand{\Remark}[1]{%
-  \csname rmk-#1\endcsname%
-}
-...
-\DefineRemark{cul8r}{Goodbye!}
-...
-I said, ``\Remark{cul8r}''.
-</pre>
 <pre>
 \newcommand{\DefineRemark}[2]{%
   \expandafter\newcommand\csname rmk-#1\endcsname{#2}%
@@ -122,12 +104,6 @@ I said, ``\cul8r''.
 <blockquote>
 <pre>
 ! Use of \cul doesn't match its definition.
-<*> \cul9
-         9
-</pre>
-<pre>
-! Use of \cul doesn't match its 
-                           definition.
 <*> \cul9
          9
 </pre>

@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#Q-divzero">Graphics division by zero</a>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#"></a> &gt; <a href="index.html#Q-divzero">Graphics division by zero</a>
 </div>
 <h1>Graphics division by zero</h1>
 
@@ -37,10 +37,6 @@ Suppose you&rsquo;re including your graphic with a command like:
 <pre>
 \includegraphics[angle=180,height=5cm]{myfig.eps}
 </pre>
-<pre>
-\includegraphics[angle=180,%
-                height=5cm]{myfig.eps}
-</pre>
 </blockquote>
 In the case that <i class="filename">myfig.eps</i> has no depth to start with, the
 scaling calculations will produce the division-by-zero error.
@@ -53,10 +49,6 @@ image relative to the sum of the object&rsquo;s <code class="pkgoption">height</
 <blockquote>
 <pre>
 \includegraphics[angle=180,totalheight=5cm]{myfig.eps}
-</pre>
-<pre>
-\includegraphics[angle=180,%
-           totalheight=5cm]{myfig.eps}
 </pre>
 </blockquote>
 will resolve the error, and will behave as you might hope.

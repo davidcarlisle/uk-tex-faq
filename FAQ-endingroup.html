@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#Q-endingroup"><code>&#x5c;end</code> occurred inside a group</a>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#"></a> &gt; <a href="index.html#Q-endingroup"><code>&#x5c;end</code> occurred inside a group</a>
 </div>
 <h1><code>&#x5c;end</code> occurred inside a group</h1>
 
@@ -45,13 +45,6 @@ in a group, and establishes its own diagnostic mechanism.  If you end
 the document before closing some other environment, you get the
 &lsquo;usual&rsquo; LaTeX diagnostic
 <pre>
-! LaTeX Error: \begin{blah} on input line 6
-                       ended by \end{document}.
-</pre>
-<pre>
-! LaTeX Error: \begin{blah} on input line 6 ended by \end{document}.
-</pre>
-<pre>
 ! LaTeX Error: \begin{blah} on input line 6 ended by \end{document}.
 </pre>
 which (though it doesn&rsquo;t tell you which <em>file</em> the
@@ -78,23 +71,6 @@ fairly quickly.
 e-TeX (and e-LaTeX&nbsp;&mdash; LaTeX run on e-TeX) gives you
 further diagnostics after the traditional infuriating TeX one&nbsp;&mdash; it
 actually keeps the information in a similar way to LaTeX:
-<pre>
-(\end occurred inside a group at level 3)
-
-### semi simple group (level 3) entered
-                         at line 6 (\begingroup)
-### simple group (level 2) entered at line 5 ({)
-### simple group (level 1) entered at line 4 ({)
-### bottom level
-</pre>
-<pre>
-(\end occurred inside a group at level 3)
-
-### semi simple group (level 3) entered at line 6 (\begingroup)
-### simple group (level 2) entered at line 5 ({)
-### simple group (level 1) entered at line 4 ({)
-### bottom level
-</pre>
 <pre>
 (\end occurred inside a group at level 3)
 

@@ -36,18 +36,6 @@ allows an independent package to play the exact same game:
 }
 \let\everypar\mypkg@everypar
 </pre>
-<pre>
-\let\mypkg@@everypar\everypar
-\newtoks\mypkg@everypar
-\mypkg@everypar\expandafter{\the\everypar}
-\mypkg@@everypar{\mypkgs@ownstuff
-                      \the\mypkg@everypar}
-\def\mypkgs@ownstuff{%
-  <stuff to do at the start of
-                      the token register>%
-}
-\let\everypar\mypkg@everypar
-</pre>
 </blockquote>
 As you can see, the package (<i class="package">mypkg</i>)
 <ul>

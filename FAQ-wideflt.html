@@ -39,15 +39,6 @@ make it pretend to be the right size by:
   \caption{This figure juts out into both margins}
 \end{figure}
 </pre>
-<pre>
-\begin{figure}
-  \noindent
-  \makebox[\textwidth]{%
-    \includegraphics{my-wide-figure}%
-  }%
-  \caption{This figure juts out into both margins}
-\end{figure}
-</pre>
 </blockquote>
 Note the <code>&#x5c;noindent</code>: the <code>&#x5c;makebox</code> starts a paragraph, and you
 really don&rsquo;t want that indented by <code>&#x5c;parindent</code>.

@@ -33,10 +33,6 @@ which executes <tt>action1</tt> if the command is undefined, and
 The <code>&#x5c;@ifundefined</code> command is based on the sequence
 <blockquote>
 <pre>
-\expandafter
-    \ifx\csname cmd name\endcsname\relax
-</pre>
-<pre>
 \expandafter \ifx \csname cmd name\endcsname \relax
 </pre>
 </blockquote>
@@ -68,10 +64,6 @@ David Kastrup offers the (rather tricky)
 <blockquote>
 <pre>
 {\expandafter}\expandafter\ifx \csname cmd name\endcsname\relax ...
-</pre>
-<pre>
-{\expandafter}\expandafter
-    \ifx \csname cmd name\endcsname \relax ...
 </pre>
 </blockquote>
 which &ldquo;creates&rdquo; the <code>&#x5c;relax</code>-command inside the group of the first

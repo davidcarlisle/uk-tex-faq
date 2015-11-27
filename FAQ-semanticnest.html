@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#Q-semanticnest">Capacity exceeded [semantic nest&thinsp;&hellip;]</a>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#"></a> &gt; <a href="index.html#Q-semanticnest">Capacity exceeded [semantic nest&thinsp;&hellip;]</a>
 </div>
 <h1>Capacity exceeded [semantic nest&thinsp;&hellip;]</h1>
 
@@ -15,13 +15,6 @@
 <p>
 
 <p>
-<pre>
-! TeX capacity exceeded, sorry [semantic nest
-                                      size=100].
-...
-If you really absolutely need more capacity,
-you can ask a wizard to enlarge me.
-</pre>
 <pre>
 ! TeX capacity exceeded, sorry [semantic nest size=100].
 ...
@@ -37,11 +30,6 @@ The &ldquo;semantic nest&rdquo; TeX talks about is the nesting
 of boxes within boxes.  A stupid macro can provoke the error pretty
 easily:
 <blockquote>
-<pre>
-\def\silly{\hbox{here's \silly
-                         being executed}}
-\silly
-</pre>
 <pre>
 \def\silly{\hbox{here's \silly being executed}}
 \silly

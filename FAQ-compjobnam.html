@@ -35,16 +35,6 @@ The full command looks like:
   \ifx\job\predicate
 }
 </pre>
-<pre>
-\def\StripPrefix#1>{}
-\def\jobis#1{FF\fi
-  \def\predicate{#1}%
-  \edef\predicate{\expandafter\StripPrefix
-                    \meaning\predicate}%
-  \edef\job{\jobname}%
-  \ifx\job\predicate
-}
-</pre>
 </blockquote>
 And it&rsquo;s used as:
 <blockquote>

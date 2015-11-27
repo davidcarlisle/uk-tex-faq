@@ -87,14 +87,6 @@ numbered per chapter, try:
 \renewcommand{\thefigure}{\thechapter.\@arabic\c@figure}
 \makeatother
 </pre>
-<pre>
-\makeatletter
-\@removefromreset{figure}{section}
-\@addtoreset{figure}{chapter}
-\renewcommand{\thefigure}%
-             {\thechapter.\@arabic\c@figure}
-\makeatother
-</pre>
 </blockquote>
 (the command <code>&#x5c;@addtoreset</code> is a part of LaTeX itself).
 <dl>

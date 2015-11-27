@@ -28,10 +28,6 @@ For example, <code>&#x5c;footnote</code> is fragile, and if we put that in the
 moving argument of a <code>&#x5c;section</code> command, as
 <blockquote>
 <pre>
-\section{Mumble\footnote{%
-    I couldn't think of anything better}}
-</pre>
-<pre>
 \section{Mumble\footnote{I couldn't think of anything better}}
 </pre>
 </blockquote>
@@ -76,10 +72,6 @@ you are using, or to force your command to be robust by prefixing it
 with <code>&#x5c;protect</code>, which in the <code>&#x5c;section</code> case would show as
 <blockquote>
 <pre>
-\section{Mumble\protect\footnote{%
-    I couldn't think of anything better}}
-</pre>
-<pre>
 \section{Mumble\protect\footnote{I couldn't think of anything better}}
 </pre>
 </blockquote>
@@ -90,10 +82,6 @@ route&nbsp;&mdash; simply to omit (or otherwise sanitise) the fragile command
 in the moving argument.  So, one might rewrite the <code>&#x5c;caption</code>
 example as:
 <blockquote>
-<pre>
-\caption[Energy: (Einstein's equation)]%
-        {Energy: \(E=mc^2\)}
-</pre>
 <pre>
 \caption[Energy: (Einstein's equation)]{Energy: \(E=mc^2\)}
 </pre>

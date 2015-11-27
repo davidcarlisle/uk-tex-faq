@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="breadcrumbs">
-<a href="index.html">FAQ</a> &gt; <a href="index.html#ThejoyofTeXerrors">The joy of TeX errors</a> &gt; <a href="index.html#Q-fontunavail">Warning: &ldquo;Font shape &hellip; not available&rdquo;</a>
+<a href="index.html">FAQ</a> &gt; <a href="index.html#"></a> &gt; <a href="index.html#Q-fontunavail">Warning: &ldquo;Font shape &hellip; not available&rdquo;</a>
 </div>
 <h1>Warning: &ldquo;Font shape &hellip; not available&rdquo;</h1>
 
@@ -28,29 +28,10 @@ the encoding, family, shape, series and size that you want) in its
 tables.  If the font isn&rsquo;t there at the size you want, you will see a
 message like:
 <pre>
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in
-...                 size <11.5> not available
-(Font)              size <12> substituted on
-...                 input line ...
-</pre>
-<pre>
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <11.5> not available
-(Font)              size <12> substituted on input line ...
-</pre>
-<pre>
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <11.5> not available
 (Font)              size <12> substituted on input line ...
 </pre>
 There will also be a warning like:
-<pre>
-LaTeX Font Warning: Size substitutions with
-...                 differences
-(Font)              up to 0.5pt have occurred.
-</pre>
-<pre>
-LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 0.5pt have occurred.
-</pre>
 <pre>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
@@ -75,16 +56,6 @@ If the combination of font shape and series isn&rsquo;t available, LaTeX
 will usually have been told of a fall-back combination that may be
 used, and will select that:
 <pre>
-LaTeX Font Warning: Font shape `OT1/cmr/bx/sc'
-...                 undefined
-(Font)              using `OT1/cmr/bx/n'
-...                 instead on input line 0.
-</pre>
-<pre>
-LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 0.
-</pre>
-<pre>
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
 (Font)              using `OT1/cmr/bx/n' instead on input line 0.
 </pre>
@@ -97,17 +68,6 @@ family, the &lsquo;default family for the encoding&rsquo; is selected.  This
 happens, for example, if you use command <code>&#x5c;textbullet</code>, which is
 normally taken from the maths symbols font, which is in <code class="verb">OMS</code>
 encoding.  My test log contained:
-<pre>
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in
-...                 size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n'
-...                 tried instead on input
-...                 line ...
-</pre>
-<pre>
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line ...
-</pre>
 <pre>
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line ...

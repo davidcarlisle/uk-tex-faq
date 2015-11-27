@@ -33,17 +33,6 @@ of the <i class="package">ifthen</i> package:
 \newcommand{\mycommandNoStar}[1]{normal version}
 </pre>
 </blockquote>
-<pre>
-\newcommand{\mycommand}[1]{%
-  \ifthenelse{\equal{#1}{*}}%
-    {\mycommandStar}%
-    {\mycommandNoStar{#1}}%
-}
-\newcommand{\mycommandStar}%
-                {starred version}
-\newcommand{\mycommandNoStar}[1]%
-                 {normal version}
-</pre>
 This does the trick, for sufficiently simple commands, but it has
 various tiresome failure modes, and it requires <code>&#x5c;mycommandnostar</code>
 to take an argument.
@@ -63,16 +52,6 @@ The LaTeX kernel does a lot of this, and has its own command,
 \newcommand{\mycommandStar}{starred version}
 \newcommand{\mycommandNoStar}{normal version}
 </pre>
-<pre>
-\makeatletter
-\newcommand{\mycommand}{\@ifstar
-                     \mycommandStar%
-                     \mycommandNoStar%
-}
-\makeatother
-\newcommand{\mycommandStar}{starred version}
-\newcommand{\mycommandNoStar}{normal version}
-</pre>
 </blockquote>
 (Note that arguments to <code>&#x5c;mycommandStar</code> and <code>&#x5c;mycommandNoStar</code>
 are independent&nbsp;&mdash; either can have their own arguments, unconstrained
@@ -84,11 +63,6 @@ it requires that the definition be
 <p>
 A pleasing alternative is the <i class="package">suffix</i> package.  This elegant
 piece of code allows you to define variants of your commands:
-<pre>
-\newcommand\mycommand{normal version}
-\WithSuffix\newcommand\mycommand*%
-                     {starred version}
-</pre>
 <blockquote>
 <pre>
 \newcommand\mycommand{normal version}

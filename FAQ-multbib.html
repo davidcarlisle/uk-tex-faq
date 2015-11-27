@@ -32,22 +32,6 @@ a further extra argument that says what title to use for the resulting
 section or chapter (i.e., it patches
 <a href="FAQ-fixnam.html"><code>&#x5c;refname</code> and <code>&#x5c;bibname</code></a> in a
 <i class="package">babel</i>-safe way).  So one might write:
-<pre>
-\usepackage{multibbl}
-\newbibliography{bk}
-\bibliographystyle{bk}{alpha}
-\newbibliography{art}
-\bibliographystyle{art}{plain}
-...
-\cite[pp.~23--25]{bk}{milne:pooh-corner}
-...
-\cite{art}{einstein:1905}
-...
-\bibliography{bk}{book-bib}%
-             {References to books}
-\bibliography{art}{art-bib}%
-             {References to articles}
-</pre>
 <blockquote>
 <pre>
 \usepackage{multibbl}

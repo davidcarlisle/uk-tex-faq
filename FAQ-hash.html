@@ -39,10 +39,6 @@ as most people would expect.
 However, if we now replace part of the macro:
 <blockquote>
 <pre>
-\newcommand\a[1]{+#1+%
-                 \newcommand\x[1]{xxx#1}}
-</pre>
-<pre>
 \newcommand\a[1]{+#1+\newcommand\x[1]{xxx#1}}
 </pre>
 </blockquote>
@@ -66,10 +62,6 @@ arguments, which is surely not what was intended!
 <p>
 Actually, to define <code>&#x5c;x</code> to take an argument, we need
 <blockquote>
-<pre>
-\newcommand\a[1]{+#1+%
-                 \newcommand\x[1]{xxx##1}}
-</pre>
 <pre>
 \newcommand\a[1]{+#1+\newcommand\x[1]{xxx##1}}
 </pre>

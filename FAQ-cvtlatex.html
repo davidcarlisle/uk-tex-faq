@@ -53,14 +53,6 @@ long-winded.  Since <tt>\#1</tt> is the requisite argument, we have:
 <blockquote>
 <pre>
 \expandafter\ifx
-  \csname
-    \expandafter\@gobble\string#1%
-  \endcsname
-  \relax
-    ...
-</pre>
-<pre>
-\expandafter\ifx
   \csname\expandafter\@gobble\string#1\endcsname
   \relax
     ...

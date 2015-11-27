@@ -124,11 +124,6 @@ added automatically.  So a <code>&#x5c;pgfkeys</code> command might be:
   key name without path=something else}
 </pre>
 </blockquote>
-<pre>
-\pgfkeys{/my key=hello,
-  /your keys/main key=something\strange,
-  key name without path=something else}
-</pre>
 and for each key mentioned, the associated code will be executed.
 &hellip; and that code is also set up using <code>&#x5c;pgfkeys</code>:
 <blockquote>
@@ -202,10 +197,6 @@ syntax such as:
 </pre>
 </blockquote>
 (taken from the package manual).
-<pre>
-\begindisplay file {chapter1} %
-                literal offset 20pt
-</pre>
 
 <p>
 There are (we know) people who would swear that such syntax is

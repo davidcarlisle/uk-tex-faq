@@ -47,15 +47,6 @@ workings of this aren&rsquo;t quite right, and you need to patch the
 <code>&#x5c;refstepcounter</code> command:
 <blockquote>
 <pre>
-\renewcommand*\refstepcounter[1]{%
-  \stepcounter{#1}%
-  \protected@edef\@currentlabel{%
-    \csname p@#1\expandafter\endcsname
-      \csname the#1\endcsname
-  }%
-}
-</pre>
-<pre>
 \renewcommand*\refstepcounter[1]{\stepcounter{#1}%
   \protected@edef\@currentlabel{%
     \csname p@#1\expandafter\endcsname

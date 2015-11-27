@@ -132,23 +132,6 @@ macro:->\ifnum \@itemdepth >\thr@@ \@toodeep
 \enditemize:
 macro:->\global \advance \@listdepth \m@ne \endtrivlist 
 </pre>
-<pre>
-$ latexdef -E itemize
-
-\itemize:
-macro:->\ifnum \@itemdepth >\thr@@ \@toodeep 
-  \else \advance \@itemdepth \@ne
-    \edef \@itemitem {labelitem\romannumeral
-                          \the \@itemdepth}%
-    \expandafter \list
-               \csname \@itemitem \endcsname
-    {\def \makelabel ##1{\hss \llap {##1}}}%
-  \fi 
-
-\enditemize:
-macro:->\global \advance \@listdepth \m@ne
-                                \endtrivlist 
-</pre>
 </blockquote>
 (Yet again, this is a sanitised version of the macro definition
 output, which appears as a single very wide line for each definition.)

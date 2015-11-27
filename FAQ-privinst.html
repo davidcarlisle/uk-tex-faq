@@ -127,12 +127,6 @@ it should be converted to:
 <blockquote>
 <pre>
 HOMETEXMF = $HOME/texmf
-TEXMF = {$HOMETEXMF,!!$LOCALTEXMF,
-                     !!$TEXMFMAIN}
-% TEXMF = {!!$LOCALTEXMF,!!$TEXMFMAIN}
-</pre>
-<pre>
-HOMETEXMF = $HOME/texmf
 TEXMF = {$HOMETEXMF,!!$LOCALTEXMF,!!$TEXMFMAIN}
 % TEXMF = {!!$LOCALTEXMF,!!$TEXMFMAIN}
 </pre>
@@ -144,10 +138,6 @@ tell the file-searching library that it should insist on a
 remembering to run <i class="progname">texhash</i> on your new tree every time you
 change it, then it&rsquo;s worth adding the marks to your tree:
 <blockquote>
-<pre>
-TEXMF = {!!$HOMETEXMF,!!$LOCALTEXMF,
-                       !!$TEXMFMAIN}
-</pre>
 <pre>
 TEXMF = {!!$HOMETEXMF,!!$LOCALTEXMF,!!$TEXMFMAIN}
 </pre>
