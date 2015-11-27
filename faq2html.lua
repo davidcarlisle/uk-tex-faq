@@ -79,7 +79,7 @@ function file_to_html (filename)
       end
 
 
-      if(string.match(line,"^ [ ]*\\Question%[")) then
+      if(string.match(line,"^[ ]*\\Question%[")) then
         faq_link(qid)
         qid=string.gsub(line,".*\\Question%[([^%]]*)]{(.*)} *$","%1")
         qid=string.gsub(qid,"%*","star")
