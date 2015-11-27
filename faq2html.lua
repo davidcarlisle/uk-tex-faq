@@ -1,6 +1,6 @@
 
 function file_to_html (filename)
-
+  qid=nil
   for line in io.lines(filename) do
 
 
@@ -44,6 +44,7 @@ function file_to_html (filename)
 
       if(string.match(line,"\\begin{introduction}")) then
         line=""
+	qid=nil
         introduction=true
   
         io.output("index.html")
@@ -72,10 +73,12 @@ function file_to_html (filename)
         line=""
         introduction=false
 	faq_make_toc()
+	qid=nil
       end
 
 
       if(string.match(line,"\\Question%[")) then
+        faq_link(qid)
         qid=string.gsub(line,".*\\Question%[([^%]]*)]{(.*)} *$","%1")
         qid=string.gsub(qid,"%*","star")
         qtitle=faq_convert_line((string.gsub(line,".*\\Question%[([^%]]*)]{(.*)} *$","%2")))
@@ -102,6 +105,8 @@ function file_to_html (filename)
     end
     io.write(line .. "\n")
   end
+  faq_link(qid)
+  qid=nil
 end
 
 function faq_convert_line (line)
@@ -412,12 +417,7 @@ line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b{})","<code>&#x5c;QQQ%2ZZZ</co
 
 
     line=string.gsub(line,"\\LastEdit[%* ]*{([^{}]*)}",
-    "\n<p class=\"lastedit\">This answer last edited: %1</p>\n" ..
-"<p>This question on the Web: <a href=\"http://www.tex.ac.uk/cgi-bin/texfaq2html?label=" ..
-(qid or "")..
-"\">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=" ..
-(qid or "")..
-"</a>")
+    "\n<p class=\"lastedit\">This answer last edited: %1</p>")
 
 
     line=string.gsub(line,"QQQ.","")
@@ -434,6 +434,19 @@ line=string.gsub(line,"\\label{lastquestion}","")
 return line
 end
 
+
+
+function faq_link (qid)
+  if(qid ~= nil) then
+  local lab = string.gsub(qid or "","^Q%-","")
+  io.write(
+ "\n<hr><p class=\"faqlink\">This question on the Web: <a href=\"http://www.tex.ac.uk/cgi-bin/texfaq2html?label=" ..
+ lab ..
+"\">http://www.tex.ac.uk/cgi-bin/texfaq2html?label=" ..
+string.gsub(qid or "","^Q%-","")..
+"</a></p>\n")
+end
+end
 
 
 function file_to_toc(file)
