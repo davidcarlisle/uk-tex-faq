@@ -756,13 +756,14 @@ allocate is limited; even with the \Package{etex} package.
 command which (assuming an \eTeX{} format is being used) will
 allow many more float boxes to be allocated (the upper limit 
 being several thousand, rather more than can reasonably handled
-in tex macro lists.)
+in tex macro lists.) Also the default number of floats that may be stored
+has been increased from 18 to 52.
 
 The error also occurs in a long sequence of float environments, with
 no intervening text.  Unless the environments will fit ``here'' (and
 you've allowed them to go ``here''), there will never be a page break,
 and so there will never be an opportunity for \LaTeX{} to reconsider
-placement.  (Of course, the floats can't all fit ``here'' if the
+placement.  Of course, the floats can't all fit ``here'' if the
 sequence is sufficiently prolonged: once the page fills, \LaTeX{}
 won't place any more floats, leading to the error.
 
