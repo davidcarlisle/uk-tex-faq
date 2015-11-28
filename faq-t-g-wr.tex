@@ -69,9 +69,9 @@ extending \TeX{} itself.
 \end{narrowversion}
 
 It's actually quite practical (with most modern distributions) to use
-\eTeX{}'s extended register set: use package \Package{etex} (which
-comes with \eTeX{} distributions) and the allocation mechanism is
-altered to cope with the larger register set: \pictex{} will now load.
+\eTeX{}'s extended register set:  Current \LaTeX{} distributions
+will do this automatically, or for older, pre-2015 \LaTeX{}
+releases, use package \Package{etex}.
 
 If you're in some situation where you can't use \eTeX{}, you need to change
 \pictex{}; unfortunately \pictex{}'s author is no longer active in the
@@ -181,17 +181,14 @@ equally well to tables, or to ``non-standard'' floats defined by the
   also admits that the package is somewhat fragile.  Use it as a last
   resort if the other possibilities below don't help.
 \item If you would actually \emph{like} great blocks of floats at the
-  end of each of your chapters, try the \Package{morefloats} package;
+  end of each of your chapters, try the \csx{extrafloats} command,
+  or in older \LaTeX{} releases, the \Package{morefloats} package;
   this allows you to increase the number of floating inserts that \LaTeX{}
-  can handle at one time (from its original value of~18, in
-  \LaTeXe{}).  Note that, even with \eTeX{}'s greater supply of
-  registers, there is still a modest limit on the total number of
-  floating inserts (\eTeX{} increases the total number of registers
-  available, but inserts don't work if they are constructed from
-  registers in the extended range).
+  can handle at one time (from its original value of 18 or, now, 52, in
+  \LaTeXe{}).
 
-  Caveat: if you are using \Package{etex} to increase the number of
-  registers available, you need to ``reserve'' some inserts for
+  Caveat: if you are using \Package{etex} package to increase the number of
+  registers available on old releases, you need to ``reserve'' some inserts for
   \Package{morefloats}: something like:
   \begin{quote}
 \begin{verbatim}
