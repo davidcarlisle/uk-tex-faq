@@ -1871,7 +1871,7 @@ manipulate them, which allocate themselves one or more maths alphabet.
 
 If you can't afford to drop any of these packages, you might be able
 to consider switching to use of \Qref*{\xetex{}}{Q-xetex} or
-\Qref{\LuaTeX{}}{Q-luatex}, which both have 65536 alphabet slots
+\Qref{\LuaTeX{}}{Q-luatex}, which both have 256 math alphabets
 available.  (Such a change is best not done when under pressure to
 complete a document; other issues, such as font availability) could
 make a change impractical.)
@@ -1886,23 +1886,27 @@ alphabets to be used.
 
 Any reduction of the \csx{\emph{xx}max} variables will slow
 \Package{bm} down~--- but that's surely better than the document not
-running at all.  So unless you're using maths fonts (such as
-\FontName{Mathtime Plus}) that feature a heavy symbol weight, suppress all
-use of heavy families by
-\begin{quote}
-\begin{verbatim}
-  \newcommand{\hmmax}{0}
-\end{verbatim}
-\end{quote}
-(before loading \Package{bm}), and then steadily reduce the bold
+running at all.
+Before loading \Package{bm}),  then steadily reduce the bold
 families, starting with 
 \begin{quote}
 \begin{verbatim}
   \newcommand{\bmmax}{3}
 \end{verbatim}
 \end{quote}
-(again before loading \Package{bm}), until (with a bit of luck) the
-error goes away.
+until (with a bit of luck) the error goes away.
+
+If  you're using maths fonts (such as
+\FontName{Mathtime Plus}) that feature a heavy symbol weight,
+you may want to suppress all use of heavy families by \Package{bm} by
+similarly setting
+\begin{quote}
+\begin{verbatim}
+  \newcommand{\hmmax}{0}
+\end{verbatim}
+\end{quote}
+Before loading the package.
+
 \begin{ctanrefs}
 \item[bm.sty]Distributed as part of \CTANref{2etools}[bm]
 \end{ctanrefs}
