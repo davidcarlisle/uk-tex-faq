@@ -429,6 +429,7 @@ line=string.gsub(line,"\\cmdinvoke([%*]*)(%b{})(%b{})","<code>&#x5c;QQQ%2ZZZ</co
     line=string.gsub(line,".ZZZ","")
 -- last minute fixups
 line=string.gsub(line,"(<a[^<>]*href=[^<>]*)&nbsp;","%1~")
+line=string.gsub(line,"(<a[^<>]*href=\"FAQ[^<>]*)%*","%1star")
 line=string.gsub(line,"p{([0-9])cm}","p&#x7b;%1cm&#x7d;")
 line=string.gsub(line,"\\label{lastquestion}","")
 
