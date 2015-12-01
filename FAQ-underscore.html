@@ -15,18 +15,18 @@
 <p>
 
 <p>
-The underscore character &lsquo;<tt>\_</tt>&rsquo; is ordinarily used in TeX to
-indicate a subscript in maths mode; if you type <tt>\_</tt>, on its
+The underscore character &lsquo;<tt>_</tt>&rsquo; is ordinarily used in TeX to
+indicate a subscript in maths mode; if you type <tt>_</tt>, on its
 own, in the course of ordinary text, TeX will complain.  The
 &ldquo;proper&rdquo; LaTeX command for underscore is <code>&#x5c;textunderscore</code>,
-but the LaTeX 2.09 command <code>&#x5c;\_</code> is an established alias.  Even so,
+but the LaTeX 2.09 command <code>&#x5c;&#x5c;_</code> is an established alias.  Even so,
 if you&rsquo;re writing a document which will contain a large number of
-underscore characters, the prospect of typing <code>&#x5c;\_</code> for every one
+underscore characters, the prospect of typing <code>&#x5c;&#x5c;_</code> for every one
 of them will daunt most ordinary people.
 
 <p>
 Moderately skilled macro programmers can readily generate a quick hack
-to permit typing &lsquo;<tt>\_</tt>&rsquo; to mean &lsquo;text underscore&rsquo; (the answer in
+to permit typing &lsquo;<tt>_</tt>&rsquo; to mean &lsquo;text underscore&rsquo; (the answer in
   &ldquo;<a href="FAQ-activechars.html">defining characters as macros</a>&rdquo;
 uses this example to illustrate its techniques).
 However, the code <em>is</em> somewhat tricky, and more importantly

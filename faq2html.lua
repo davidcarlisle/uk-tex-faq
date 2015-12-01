@@ -152,6 +152,8 @@ function faq_convert_line (line)
 
     line=string.gsub(line,"\\`([aoe])","&%1grave;")
     line=string.gsub(line,"\\'([aoe])","&%1acute;")
+    line=string.gsub(line,"\\\"([aoeu])","&%1uml;")
+    line=string.gsub(line,"\\^([aoe])","&%1circ;")
     line=string.gsub(line,"\\&amp;","&amp;")
     line=string.gsub(line,"\\pi([^%a])","&pi;%1")
     line=string.gsub(line,"\\@([^%a])","%1")
@@ -432,9 +434,14 @@ line=string.gsub(line,"(<a[^<>]*href=[^<>]*)&nbsp;","%1~")
 line=string.gsub(line,"(<a[^<>]*href=\"FAQ[^<>]*)%*","%1star")
 line=string.gsub(line,"p{([0-9])cm}","p&#x7b;%1cm&#x7d;")
 line=string.gsub(line,"\\label{lastquestion}","")
+line=string.gsub(line,"(<code>[^<]*)\\","%1&#x5c;")
+line=string.gsub(line,"\\_","_")
+line=string.gsub(line,"\\#","#")
+line=string.gsub(line,"\\@","")
 
 -- check for TeX markup surviving
     line=string.gsub(line,"\\(%a+)","[[[%1]]]")
+    line=string.gsub(line,"\\([^%a])","[[[%1]]]")
     line=string.gsub(line,"{","[[[LBRACE]]]")
     line=string.gsub(line,"}","[[[RBRACE]]]")
 return line
